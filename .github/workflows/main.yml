@@ -1,0 +1,23 @@
+name: Deploy WordPress Theme
+
+on:
+  push:
+    branches:
+      - main # La rama que activará el despliegue.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Deploy a servidor FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: 195.35.33.109
+          username: u947001429.gabrieliTools	
+          password: Pj]|^^y^el8$lt6[
+          server-dir: /wp-content/themes/storefront-child/ # Ruta de tu tema en WordPress
+          local-dir: ./ # Carpeta local en GitHub (la raíz del repo)
