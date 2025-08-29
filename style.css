@@ -11,5 +11,5 @@ Text Domain:    child-theme
 
 /* Aquí puedes añadir tus estilos personalizados */
 body{
-    border: 5px solid red;
+    background-color: red;
 }
