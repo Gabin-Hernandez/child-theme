@@ -1,13 +1,7 @@
 <?php
-/**
- * Footer Template
- */
+// Footer hijo
 ?>
-<footer id="site-footer">
-    <div class="container">
-        <p>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. Todos los derechos reservados.</p>
-    </div>
-    <?php wp_footer(); ?>
-</footer>
+<p style="text-align:center; color:red;">Este es mi footer del child theme</p>
+<?php wp_footer(); ?>
 </body>
 </html>
