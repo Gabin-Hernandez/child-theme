@@ -181,88 +181,119 @@ get_header();
 <!-- Main Content -->
 <main class="main-content">
     <div class="container">
-        <!-- Modern CTA Section -->
-        <section class="modern-cta-section">
-            <div class="cta-container">
-                <div class="cta-content">
-                    <div class="cta-badge">ITOOLS México</div>
-                    <h2>Herramientas para técnicos profesionales</h2>
-                    <p>Equipos y herramientas de alta calidad para profesionales como tú. Más de una década de experiencia respaldando tu trabajo.</p>
-                    
-                    <div class="cta-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Años de experiencia</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">3</span>
-                            <span class="stat-label">Sucursales activas</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">5K+</span>
-                            <span class="stat-label">Envíos realizados</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">97%</span>
-                            <span class="stat-label">Satisfacción del cliente</span>
-                        </div>
+        <!-- Modern CTA Section with Tailwind -->
+        <section class="bg-gradient-to-br from-brand-blue to-brand-purple py-20 text-white">
+            <div class="max-w-6xl mx-auto px-4 text-center">
+                <div class="inline-block bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider mb-6">
+                    ITOOLS México
+                </div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    Herramientas para técnicos profesionales
+                </h2>
+                
+                <p class="text-xl mb-12 opacity-90 max-w-3xl mx-auto">
+                    Equipos y herramientas de alta calidad para profesionales como tú. Más de una década de experiencia respaldando tu trabajo.
+                </p>
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">10+</div>
+                        <div class="text-sm opacity-80 uppercase tracking-wide">Años de experiencia</div>
                     </div>
-                    
-                    <div class="cta-actions">
-                        <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-primary-btn">Explorar Catálogo</a>
-                        <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>" class="cta-secondary-btn">Contactar Experto</a>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">3</div>
+                        <div class="text-sm opacity-80 uppercase tracking-wide">Sucursales activas</div>
                     </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">5K+</div>
+                        <div class="text-sm opacity-80 uppercase tracking-wide">Envíos realizados</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold mb-2">97%</div>
+                        <div class="text-sm opacity-80 uppercase tracking-wide">Satisfacción del cliente</div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" 
+                       class="bg-white text-brand-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transform hover:-translate-y-1 transition-all duration-300">
+                        Explorar Catálogo
+                    </a>
+                    <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>" 
+                       class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-brand-blue transition-all duration-300">
+                        Contactar Experto
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Services Grid Section -->
-        <section class="services-grid-section">
-            <div class="services-container">
-                <div class="section-header">
-                    <h2>Nuestros Servicios Especializados</h2>
-                    <p>Soluciones completas para todas tus necesidades técnicas</p>
+        <!-- Services Grid Section with Tailwind -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6">Nuestros Servicios Especializados</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Soluciones completas para todas tus necesidades técnicas</p>
                 </div>
                 
-                <div class="services-grid">
-                    <div class="service-card primary-card">
-                        <div class="service-icon tablet-icon">
-                            <div class="device-frame"></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Primary Service Card -->
+                    <div class="bg-gradient-to-br from-brand-blue to-brand-purple rounded-2xl p-8 text-white transform hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-20 h-20 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
                         </div>
-                        <div class="service-content">
-                            <h3>Tablet Digitizer/LCD</h3>
-                            <p>Premium & Precision</p>
-                            <div class="service-badge">Especialistas</div>
-                        </div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon screens-icon">
-                            <div class="screen-display"></div>
-                        </div>
-                        <div class="service-content">
-                            <h3>Screens</h3>
-                            <p>Quality is Our Priority</p>
-                            <div class="service-tags">
-                                <span class="tag">Samsung</span>
-                                <span class="tag">Xiaomi</span>
-                                <span class="tag active">iPhone</span>
-                                <span class="tag">Oppo & Vivo</span>
-                                <span class="tag">Transision</span>
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold mb-2">Tablet Digitizer/LCD</h3>
+                            <p class="text-white text-opacity-90 mb-4">Premium & Precision</p>
+                            <div class="inline-block bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-semibold">
+                                Especialistas
                             </div>
                         </div>
                     </div>
                     
-                    <div class="service-card">
-                        <div class="service-icon repair-icon">
-                            <div class="repair-machine"></div>
+                    <!-- Screens Service Card -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
                         </div>
-                        <div class="service-content">
-                            <h3>Repair Machines</h3>
-                            <p>One-stop Service</p>
-                            <div class="service-badge">Profesional</div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Screens</h3>
+                            <p class="text-gray-600 mb-4">Quality is Our Priority</p>
+                            <div class="flex flex-wrap gap-2 justify-center">
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-sm">Samsung</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-sm">Xiaomi</span>
+                                <span class="px-2 py-1 bg-brand-blue text-white rounded-md text-sm">iPhone</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-sm">Oppo & Vivo</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-sm">Transision</span>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Repair Machines Service Card -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
+                            <svg class="w-10 h-10 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Repair Machines</h3>
+                            <p class="text-gray-600 mb-4">One-stop Service</p>
+                            <div class="inline-block bg-brand-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                Profesional
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
                     
                     <div class="service-card dark-card">
                         <div class="service-icon parts-icon">
@@ -289,52 +320,47 @@ get_header();
             </div>
         </section>
 
-        <!-- Brands Carousel Section -->
-        <section class="brands-carousel-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Marcas de Confianza</h2>
-                    <p>Trabajamos con las mejores marcas del mercado</p>
+        <!-- Brands Carousel Section - REAL CAROUSEL -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Marcas de Confianza</h2>
+                    <p class="text-gray-600 text-lg">Trabajamos con las mejores marcas del mercado</p>
                 </div>
                 
-                <div class="brands-carousel">
-                    <div class="brands-track">
+                <!-- Carousel Container -->
+                <div class="relative overflow-hidden">
+                    <div class="brands-slider flex transition-transform duration-500 ease-in-out" id="brandsSlider">
                         <?php
-                        // Obtener marcas de los productos de WooCommerce
-                        $brands = array();
-                        if ( function_exists( 'wc_get_products' ) ) {
-                            $products = wc_get_products( array(
-                                'limit' => 50,
-                                'status' => 'publish'
-                            ));
-                            
-                            foreach ( $products as $product ) {
-                                // Extraer marca del nombre del producto
-                                $product_name = $product->get_name();
-                                $words = explode( ' ', $product_name );
-                                if ( ! empty( $words ) ) {
-                                    $potential_brand = strtoupper( $words[0] );
-                                    if ( strlen( $potential_brand ) >= 3 && ! in_array( $potential_brand, $brands ) ) {
-                                        $brands[] = $potential_brand;
-                                    }
-                                }
-                            }
-                        }
+                        // Marcas reales de tecnología
+                        $tech_brands = array(
+                            'SAMSUNG', 'APPLE', 'XIAOMI', 'HUAWEI', 'OPPO', 'VIVO', 
+                            'REALME', 'NOKIA', 'MOTOROLA', 'LG', 'SONY', 'ONEPLUS',
+                            'HONOR', 'POCO', 'REDMI', 'ASUS', 'LENOVO', 'TCL'
+                        );
                         
-                        // Si no hay marcas suficientes, agregar marcas comunes de herramientas
-                        if ( count( $brands ) < 8 ) {
-                            $common_brands = array( 'SAMSUNG', 'APPLE', 'XIAOMI', 'HUAWEI', 'OPPO', 'VIVO', 'REALME', 'NOKIA', 'MOTOROLA', 'LG', 'SONY', 'ONEPLUS' );
-                            $brands = array_merge( $brands, array_slice( $common_brands, 0, 12 - count( $brands ) ) );
-                        }
+                        // Duplicar para efecto infinito
+                        $all_brands = array_merge($tech_brands, $tech_brands);
                         
-                        // Mostrar marcas
-                        foreach ( array_slice( $brands, 0, 12 ) as $brand ) {
-                            echo '<div class="brand-item">';
-                            echo '<div class="brand-logo">' . esc_html( $brand ) . '</div>';
+                        foreach ($all_brands as $brand) {
+                            echo '<div class="flex-none w-48 mx-4">';
+                            echo '<div class="bg-white rounded-xl border border-gray-200 h-20 flex items-center justify-center shadow-sm hover:shadow-md transition-shadow duration-300">';
+                            echo '<span class="text-gray-700 font-semibold text-lg tracking-wide">' . esc_html($brand) . '</span>';
+                            echo '</div>';
                             echo '</div>';
                         }
                         ?>
                     </div>
+                </div>
+                
+                <!-- Carousel Controls -->
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button onclick="moveBrands(-1)" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        ← Anterior
+                    </button>
+                    <button onclick="moveBrands(1)" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Siguiente →
+                    </button>
                 </div>
             </div>
         </section>
