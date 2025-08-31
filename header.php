@@ -14,24 +14,24 @@
 <?php wp_body_open(); ?>
 
 <!-- Top Bar -->
-<div class="top-bar">
+<div class="itools-top-bar">
     <div class="container">
         <div class="top-bar-content">
             <div class="contact-info">
-                <span><i class="icon-phone"></i> +52 (55) 1234-5678</span>
-                <span><i class="icon-email"></i> info@itoolsmx.com</span>
+                <span>📞 +52 (55) 1234-5678</span>
+                <span>✉️ info@itoolsmx.com</span>
             </div>
             <div class="top-bar-links">
-                <a href="/mi-cuenta">Mi Cuenta</a>
+                <a href="<?php echo wc_get_page_permalink('myaccount'); ?>">Mi Cuenta</a>
                 <a href="/seguimiento">Seguimiento</a>
-                <a href="/ayuda">Ayuda</a>
+                <a href="/contacto">Ayuda</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Main Header -->
-<header id="site-header" class="main-header">
+<header id="itools-header" class="itools-main-header">
     <div class="container">
         <div class="header-content">
             <!-- Logo -->
@@ -46,14 +46,28 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Search Bar -->
+            <!-- Search Bar with Category Filter -->
             <div class="search-section">
                 <form class="product-search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                     <div class="search-wrapper">
-                        <input type="search" name="s" placeholder="Buscar herramientas, marcas, modelos..." value="<?php echo get_search_query(); ?>">
+                        <select name="product_cat" class="category-filter">
+                            <option value="">Elegir categoría</option>
+                            <?php
+                            $categories = get_terms(array(
+                                'taxonomy' => 'product_cat',
+                                'hide_empty' => true,
+                                'parent' => 0
+                            ));
+                            foreach ($categories as $category) {
+                                $selected = (isset($_GET['product_cat']) && $_GET['product_cat'] == $category->slug) ? 'selected' : '';
+                                echo '<option value="' . $category->slug . '" ' . $selected . '>' . $category->name . ' (' . $category->count . ')</option>';
+                            }
+                            ?>
+                        </select>
+                        <input type="search" name="s" placeholder="Busca Productos aquí" value="<?php echo get_search_query(); ?>">
                         <input type="hidden" name="post_type" value="product">
                         <button type="submit" class="search-btn">
-                            <i class="icon-search"></i>
+                            🔍
                         </button>
                     </div>
                 </form>
@@ -64,30 +78,18 @@
                 <!-- User Account -->
                 <div class="account-menu">
                     <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="account-link">
-                        <i class="icon-user"></i>
+                        👤
                         <span><?php echo is_user_logged_in() ? 'Mi Cuenta' : 'Iniciar Sesión'; ?></span>
-                    </a>
-                </div>
-
-                <!-- Wishlist -->
-                <div class="wishlist-menu">
-                    <a href="/lista-deseos" class="wishlist-link">
-                        <i class="icon-heart"></i>
-                        <span class="wishlist-count">0</span>
                     </a>
                 </div>
 
                 <!-- Shopping Cart -->
                 <div class="cart-menu">
                     <a href="<?php echo wc_get_cart_url(); ?>" class="cart-link">
-                        <i class="icon-cart"></i>
+                        🛒
                         <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
                         <span class="cart-total"><?php echo WC()->cart->get_cart_total(); ?></span>
                     </a>
-                    <!-- Mini Cart Dropdown -->
-                    <div class="mini-cart-dropdown">
-                        <?php woocommerce_mini_cart(); ?>
-                    </div>
                 </div>
             </div>
 

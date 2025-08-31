@@ -12,6 +12,23 @@ function child_theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'child_theme_enqueue_styles' );
 
+// Remover acciones del tema padre que pueden interferir
+function itools_remove_parent_actions() {
+    // Remover el header del tema padre
+    remove_action( 'storefront_header', 'storefront_header_container', 0 );
+    remove_action( 'storefront_header', 'storefront_skip_links', 5 );
+    remove_action( 'storefront_header', 'storefront_social_icons', 10 );
+    remove_action( 'storefront_header', 'storefront_site_branding', 20 );
+    remove_action( 'storefront_header', 'storefront_secondary_navigation', 30 );
+    remove_action( 'storefront_header', 'storefront_product_search', 40 );
+    remove_action( 'storefront_header', 'storefront_primary_navigation_wrapper', 42 );
+    remove_action( 'storefront_header', 'storefront_primary_navigation', 50 );
+    remove_action( 'storefront_header', 'storefront_header_cart', 60 );
+    remove_action( 'storefront_header', 'storefront_primary_navigation_wrapper_close', 68 );
+    remove_action( 'storefront_header', 'storefront_header_container_close', 41 );
+}
+add_action( 'init', 'itools_remove_parent_actions' );
+
 // Registrar menús de navegación
 function itools_register_menus() {
     register_nav_menus( array(
@@ -42,6 +59,8 @@ add_action( 'after_setup_theme', 'itools_theme_support' );
 
 // Función AJAX para filtros de productos
 function itools_filter_products() {
+    check_ajax_referer('itools_nonce', 'nonce');
+    
     $categories = isset($_POST['categories']) ? $_POST['categories'] : array();
     $brands = isset($_POST['brands']) ? $_POST['brands'] : array();
     $min_price = isset($_POST['min_price']) ? floatval($_POST['min_price']) : 0;
@@ -79,10 +98,12 @@ function itools_filter_products() {
     $products = new WP_Query($args);
     
     if ($products->have_posts()) {
+        echo '<div class="products-container">';
         while ($products->have_posts()) {
             $products->the_post();
             wc_get_template_part('content', 'product');
         }
+        echo '</div>';
     } else {
         echo '<p>No se encontraron productos.</p>';
     }
@@ -123,21 +144,63 @@ function itools_wrapper_end() {
     echo '</div></div>';
 }
 
-// Agregar atributo de marca para productos
-function itools_register_product_attributes() {
-    if (!taxonomy_exists('pa_marca')) {
-        $args = array(
-            'label' => __('Marca', 'child-theme'),
-            'rewrite' => array('slug' => 'marca'),
-            'hierarchical' => true,
-        );
-        register_taxonomy('pa_marca', 'product', $args);
-    }
+// Función fallback para menú
+function itools_fallback_menu() {
+    echo '<ul class="nav-menu">
+        <li><a href="' . home_url('/') . '">Inicio</a></li>
+        <li><a href="' . home_url('/tienda') . '">Tienda</a></li>
+        <li><a href="' . home_url('/categorias') . '">Categorías</a></li>
+        <li><a href="' . home_url('/ofertas') . '">Ofertas</a></li>
+        <li><a href="' . home_url('/contacto') . '">Contacto</a></li>
+    </ul>';
 }
-add_action('init', 'itools_register_product_attributes');
 
 // Personalizar la cantidad de productos por página
 function itools_products_per_page() {
     return 12;
 }
 add_filter('loop_shop_per_page', 'itools_products_per_page', 20);
+
+// Mejorar la búsqueda para incluir categorías
+function itools_search_filter($query) {
+    if (!is_admin() && $query->is_main_query()) {
+        if (is_search() && isset($_GET['product_cat']) && !empty($_GET['product_cat'])) {
+            $query->set('tax_query', array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($_GET['product_cat'])
+                )
+            ));
+        }
+    }
+}
+add_action('pre_get_posts', 'itools_search_filter');
+
+// Agregar clase body personalizada para el tema hijo
+function itools_body_class($classes) {
+    $classes[] = 'itools-child-theme';
+    return $classes;
+}
+add_filter('body_class', 'itools_body_class');
+
+// Ocultar elementos del tema padre que pueden interferir
+function itools_hide_parent_elements() {
+    ?>
+    <style>
+        .storefront-primary-navigation,
+        .site-header,
+        .storefront-handheld-footer-bar {
+            display: none !important;
+        }
+    </style>
+    <?php
+}
+add_action('wp_head', 'itools_hide_parent_elements');
+
+// Agregar contenido después del body open
+function itools_after_body_open() {
+    get_template_part('header');
+}
+// Commented out as it might conflict with the header.php inclusion
+// add_action('wp_body_open', 'itools_after_body_open');
