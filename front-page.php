@@ -197,19 +197,102 @@ get_header();
         <section class="featured-products-section">
             <div class="section-header">
                 <h2>Productos Destacados</h2>
-                <p>Los productos más populares de nuestra tienda</p>
+                <p>Descubre nuestras herramientas más populares y de mayor calidad</p>
             </div>
             
             <div class="products-showcase">
                 <?php
                 // Mostrar productos destacados de WooCommerce
-                if ( function_exists( 'do_shortcode' ) && shortcode_exists( 'featured_products' ) ) {
-                    echo do_shortcode( '[featured_products limit="4" columns="4"]' );
+                if ( function_exists( 'wc_get_products' ) ) {
+                    $featured_products = wc_get_products( array(
+                        'status' => 'publish',
+                        'featured' => true,
+                        'limit' => 4,
+                    ));
+                    
+                    if ( ! empty( $featured_products ) ) {
+                        echo '<div class="products-grid">';
+                        foreach ( $featured_products as $product ) {
+                            $product_id = $product->get_id();
+                            $product_name = $product->get_name();
+                            $product_price = $product->get_price_html();
+                            $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'medium' );
+                            $product_url = get_permalink( $product_id );
+                            
+                            echo '<div class="product-card">';
+                            echo '<div class="product-image">';
+                            if ( $product_image ) {
+                                echo '<img src="' . esc_url( $product_image[0] ) . '" alt="' . esc_attr( $product_name ) . '">';
+                            } else {
+                                echo '<div class="product-placeholder">🛠️</div>';
+                            }
+                            echo '<div class="product-overlay">';
+                            echo '<a href="' . esc_url( $product_url ) . '" class="btn btn-primary">Ver Producto</a>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="product-info">';
+                            echo '<h3>' . esc_html( $product_name ) . '</h3>';
+                            echo '<div class="product-price">' . $product_price . '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        echo '</div>';
+                    } else {
+                        // Mostrar productos predeterminados como demo
+                        $demo_products = array(
+                            array(
+                                'name' => 'Taladro Profesional XS-2000',
+                                'price' => '$2,450.00',
+                                'image' => '🔨',
+                                'url' => home_url('/producto/taladro-xs-2000')
+                            ),
+                            array(
+                                'name' => 'Kit de Destornilladores Premium',
+                                'price' => '$890.00',
+                                'image' => '🔧',
+                                'url' => home_url('/producto/kit-destornilladores')
+                            ),
+                            array(
+                                'name' => 'Pantalla Industrial HD 24"',
+                                'price' => '$3,200.00',
+                                'image' => '📺',
+                                'url' => home_url('/producto/pantalla-hd-24')
+                            ),
+                            array(
+                                'name' => 'Batería Recargable Pro-Max',
+                                'price' => '$1,150.00',
+                                'image' => '🔋',
+                                'url' => home_url('/producto/bateria-pro-max')
+                            ),
+                        );
+                        
+                        echo '<div class="products-grid">';
+                        foreach ( $demo_products as $product ) {
+                            echo '<div class="product-card demo-product">';
+                            echo '<div class="product-image">';
+                            echo '<div class="product-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">' . $product['image'] . '</div>';
+                            echo '<div class="product-overlay">';
+                            echo '<a href="' . esc_url( $product['url'] ) . '" class="btn btn-primary">Ver Producto</a>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="product-info">';
+                            echo '<h3>' . esc_html( $product['name'] ) . '</h3>';
+                            echo '<div class="product-price">' . esc_html( $product['price'] ) . '</div>';
+                            echo '<div class="product-meta">';
+                            echo '<span class="stock-status">✅ En Stock</span>';
+                            echo '<span class="rating">⭐⭐⭐⭐⭐</span>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        echo '</div>';
+                    }
                 } else {
-                    // Fallback para productos destacados
+                    // Fallback si WooCommerce no está activo
                     echo '<div class="products-fallback">';
-                    echo '<p>Los productos destacados se mostrarán cuando WooCommerce esté completamente configurado.</p>';
-                    echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-primary">Ir a la Tienda</a>';
+                    echo '<h3>🛠️ Próximamente</h3>';
+                    echo '<p>Estamos preparando nuestro catálogo de productos destacados.</p>';
+                    echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-primary">Explorar Catálogo</a>';
                     echo '</div>';
                 }
                 ?>

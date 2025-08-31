@@ -12,11 +12,44 @@ Text Domain:    child-theme
 /* Import parent theme styles */
 @import url("../storefront/style.css");
 
-/* Ocultar header del tema padre */
+/* ================================
+   OVERRIDE PARENT THEME - FORZAR HEADER PERSONALIZADO
+   ================================ */
+/* Ocultar COMPLETAMENTE el header del tema padre */
 .site-header,
 .storefront-primary-navigation,
-.storefront-handheld-footer-bar {
+.storefront-handheld-footer-bar,
+.site-branding,
+.site-search,
+.site-header-cart,
+.storefront-secondary-navigation,
+.woocommerce-active .site-header .site-header-cart {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Forzar que nuestro header se muestre */
+.itools-custom-header,
+.top-bar,
+.main-header,
+.main-navigation {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+}
+
+/* Reset de estilos conflictivos */
+.site-header * {
+    display: none !important;
+}
+
+/* Asegurar que el contenido principal tenga el margen correcto */
+.site-main,
+.content-area {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 /* Estilos básicos del tema hijo */
@@ -35,15 +68,16 @@ body {
 }
 
 /* ================================
-   TOP BAR STYLES
+   TOP BAR STYLES - MODERNO
    ================================ */
 .top-bar {
-    background: #2c3e50;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 8px 0;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     position: relative;
     z-index: 1001;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .top-bar-content {
@@ -2472,6 +2506,139 @@ body.admin-bar .itools-main-header {
     50% {
         transform: translateY(-10px);
     }
+}
+
+/* ================================
+   PRODUCTS GRID - DESTACADOS
+   ================================ */
+.featured-products-section {
+    margin-bottom: 100px;
+    padding: 60px 0;
+    background: #f8f9fa;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-info {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.product-info h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.stock-status {
+    font-size: 0.8rem;
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.rating {
+    font-size: 0.9rem;
+}
+
+.products-fallback {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.products-fallback h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.products-fallback p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
 }
 
 /* Header visibility fix */

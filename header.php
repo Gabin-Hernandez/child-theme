@@ -13,6 +13,9 @@
 <body <?php body_class(); ?>>
 <?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 
+<!-- ITOOLS Custom Header -->
+<div class="itools-custom-header">
+
 <!-- Top Bar -->
 <div class="top-bar">
     <div class="container">
@@ -321,3 +324,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+</div>
+<!-- End ITOOLS Custom Header -->
