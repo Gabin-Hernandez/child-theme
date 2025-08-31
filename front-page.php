@@ -1,39 +1,44 @@
 <?php
 /**
- * Página de inicio personalizada
+ * Página de inicio personalizada para ITOOLS
  */
 get_header();
 ?>
+
 <main id="main-content">
-    <!-- Hero Slider -->
+    <!-- Hero Section -->
     <section class="hero-slider">
         <div class="slider-container">
             <div class="slide active">
                 <div class="slide-content">
                     <h1>Herramientas Profesionales</h1>
                     <p>Encuentra las mejores herramientas para tus proyectos</p>
-                    <a href="<?php echo home_url('/tienda'); ?>" class="btn btn-primary">Ver Productos</a>
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Ver Productos</a>
                 </div>
             </div>
             <div class="slide">
                 <div class="slide-content">
                     <h1>Maquinaria Industrial</h1>
                     <p>Soluciones completas para la industria</p>
-                    <a href="<?php echo home_url('/tienda'); ?>" class="btn btn-primary">Explorar</a>
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Explorar</a>
                 </div>
             </div>
             <div class="slide">
                 <div class="slide-content">
                     <h1>Ofertas Especiales</h1>
                     <p>Aprovecha nuestras promociones limitadas</p>
-                    <a href="<?php echo home_url('/ofertas'); ?>" class="btn btn-secondary">Ver Ofertas</a>
+                    <a href="<?php echo esc_url( home_url( '/ofertas' ) ); ?>" class="btn btn-secondary">Ver Ofertas</a>
                 </div>
             </div>
         </div>
+        
+        <!-- Slider Controls -->
         <div class="slider-controls">
-            <button class="prev-slide">&larr;</button>
-            <button class="next-slide">&rarr;</button>
+            <button class="prev-slide" aria-label="Slide anterior">&larr;</button>
+            <button class="next-slide" aria-label="Slide siguiente">&rarr;</button>
         </div>
+        
+        <!-- Slider Dots -->
         <div class="slider-dots">
             <span class="dot active" data-slide="0"></span>
             <span class="dot" data-slide="1"></span>
@@ -47,6 +52,7 @@ get_header();
             <div class="content-wrapper">
                 <!-- Sidebar Filters -->
                 <aside class="sidebar-filters">
+                    <!-- Categories Filter -->
                     <div class="filter-section">
                         <h3 class="filter-title">
                             Categoría
@@ -54,26 +60,23 @@ get_header();
                         </h3>
                         <div class="filter-content">
                             <?php
-                            if ( function_exists('get_terms') ) {
-                                $product_categories = get_terms(array(
-                                    'taxonomy' => 'product_cat',
-                                    'hide_empty' => true,
-                                    'parent' => 0
-                                ));
-                                if (!is_wp_error($product_categories) && !empty($product_categories)) {
-                                    foreach ($product_categories as $category) {
-                                        echo '<label class="filter-item">';
-                                        echo '<input type="checkbox" name="category[]" value="' . esc_attr($category->slug) . '">';
-                                        echo '<span class="checkmark"></span>';
-                                        echo esc_html($category->name);
-                                        echo '</label>';
-                                    }
-                                }
+                            $categories = itools_get_product_categories();
+                            foreach ( $categories as $category ) {
+                                printf(
+                                    '<label class="filter-item">
+                                        <input type="checkbox" name="category[]" value="%s">
+                                        <span class="checkmark"></span>
+                                        %s
+                                    </label>',
+                                    esc_attr( $category->slug ),
+                                    esc_html( $category->name )
+                                );
                             }
                             ?>
                         </div>
                     </div>
 
+                    <!-- Price Range Filter -->
                     <div class="filter-section">
                         <h3 class="filter-title">
                             Rango de Precio
@@ -92,6 +95,7 @@ get_header();
                         </div>
                     </div>
 
+                    <!-- Filter Actions -->
                     <div class="filter-actions">
                         <button class="btn btn-apply">Aplicar Filtros</button>
                         <button class="btn btn-clear">Limpiar</button>
@@ -105,22 +109,27 @@ get_header();
                         <h2>Categorías Principales</h2>
                         <div class="categories-grid">
                             <?php
-                            if ( function_exists('get_terms') ) {
-                                $featured_categories = get_terms(array(
-                                    'taxonomy' => 'product_cat',
-                                    'hide_empty' => true,
-                                    'number' => 6,
-                                    'parent' => 0
-                                ));
-                                if (!is_wp_error($featured_categories) && !empty($featured_categories)) {
-                                    foreach ($featured_categories as $category) {
-                                        echo '<div class="category-card">';
-                                        echo '<h3>' . esc_html($category->name) . '</h3>';
-                                        echo '<p>' . $category->count . ' productos</p>';
-                                        echo '<a href="' . esc_url(get_term_link($category)) . '" class="btn btn-outline">Ver Productos</a>';
-                                        echo '</div>';
-                                    }
+                            $featured_categories = itools_get_product_categories();
+                            $count = 0;
+                            foreach ( $featured_categories as $category ) {
+                                if ( $count >= 6 ) break; // Limitar a 6 categorías
+                                
+                                $category_link = function_exists( 'get_term_link' ) ? get_term_link( $category ) : '#';
+                                if ( is_wp_error( $category_link ) ) {
+                                    $category_link = '#';
                                 }
+                                
+                                printf(
+                                    '<div class="category-card">
+                                        <h3>%s</h3>
+                                        <p>%d productos</p>
+                                        <a href="%s" class="btn btn-outline">Ver Productos</a>
+                                    </div>',
+                                    esc_html( $category->name ),
+                                    $category->count,
+                                    esc_url( $category_link )
+                                );
+                                $count++;
                             }
                             ?>
                         </div>
@@ -131,8 +140,10 @@ get_header();
                         <h2>Productos Destacados</h2>
                         <div class="products-grid">
                             <?php 
-                            if ( function_exists('do_shortcode') ) {
-                                echo do_shortcode('[featured_products limit="8" columns="4"]'); 
+                            if ( function_exists( 'do_shortcode' ) && shortcode_exists( 'featured_products' ) ) {
+                                echo do_shortcode( '[featured_products limit="8" columns="4"]' ); 
+                            } else {
+                                echo '<p>Los productos destacados se mostrarán cuando WooCommerce esté completamente configurado.</p>';
                             }
                             ?>
                         </div>
@@ -143,8 +154,10 @@ get_header();
                         <h2>Últimos Productos</h2>
                         <div class="products-grid">
                             <?php 
-                            if ( function_exists('do_shortcode') ) {
-                                echo do_shortcode('[recent_products limit="8" columns="4"]'); 
+                            if ( function_exists( 'do_shortcode' ) && shortcode_exists( 'recent_products' ) ) {
+                                echo do_shortcode( '[recent_products limit="8" columns="4"]' ); 
+                            } else {
+                                echo '<p>Los productos recientes se mostrarán cuando WooCommerce esté completamente configurado.</p>';
                             }
                             ?>
                         </div>

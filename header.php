@@ -1,16 +1,22 @@
 <?php
 /**
- * Header Template Moderno
+ * Header Template para ITOOLS Child Theme
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<?php bloginfo( 'description' ); ?>">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<?php if ( function_exists( 'wp_body_open' ) ) wp_body_open(); ?>
+<?php 
+// WordPress 5.2+ body open hook
+if ( function_exists( 'wp_body_open' ) ) {
+    wp_body_open();
+} 
+?>
 
 <!-- Top Bar -->
 <div class="itools-top-bar">
@@ -21,9 +27,13 @@
                 <span>✉️ info@itoolsmx.com</span>
             </div>
             <div class="top-bar-links">
-                <a href="<?php echo esc_url( wc_get_page_permalink('myaccount') ); ?>">Mi Cuenta</a>
-                <a href="/seguimiento">Seguimiento</a>
-                <a href="/contacto">Ayuda</a>
+                <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
+                    <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>">Mi Cuenta</a>
+                <?php else : ?>
+                    <a href="<?php echo esc_url( home_url( '/mi-cuenta' ) ); ?>">Mi Cuenta</a>
+                <?php endif; ?>
+                <a href="<?php echo esc_url( home_url( '/seguimiento' ) ); ?>">Seguimiento</a>
+                <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>">Ayuda</a>
             </div>
         </div>
     </div>
@@ -33,39 +43,55 @@
 <header id="itools-header" class="itools-main-header">
     <div class="container">
         <div class="header-content">
-            <!-- Logo -->
+            <!-- Logo Section -->
             <div class="logo-section">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
-                    <h1><?php bloginfo('name'); ?></h1>
-                    <span class="tagline"><?php bloginfo('description'); ?></span>
-                </a>
+                <?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : ?>
+                    <?php the_custom_logo(); ?>
+                <?php else : ?>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-logo">
+                        <h1><?php bloginfo( 'name' ); ?></h1>
+                        <?php if ( get_bloginfo( 'description' ) ) : ?>
+                            <span class="tagline"><?php bloginfo( 'description' ); ?></span>
+                        <?php endif; ?>
+                    </a>
+                <?php endif; ?>
             </div>
 
-            <!-- Search Bar with Category Filter -->
+            <!-- Search Section -->
             <div class="search-section">
-                <form class="product-search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                <form class="product-search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
                     <div class="search-wrapper">
+                        <!-- Category Filter -->
                         <select name="product_cat" class="category-filter">
                             <option value="">Elegir categoría</option>
                             <?php
-                            if ( function_exists('get_terms') ) {
-                                $categories = get_terms(array(
-                                    'taxonomy' => 'product_cat',
-                                    'hide_empty' => true,
-                                    'parent' => 0
-                                ));
-                                if ( !is_wp_error($categories) && !empty($categories) ) {
-                                    foreach ($categories as $category) {
-                                        $selected = (isset($_GET['product_cat']) && $_GET['product_cat'] == $category->slug) ? 'selected' : '';
-                                        echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . ' (' . $category->count . ')</option>';
-                                    }
-                                }
+                            $categories = itools_get_product_categories();
+                            foreach ( $categories as $category ) {
+                                $selected = ( isset( $_GET['product_cat'] ) && $_GET['product_cat'] === $category->slug ) ? 'selected' : '';
+                                printf(
+                                    '<option value="%s" %s>%s (%d)</option>',
+                                    esc_attr( $category->slug ),
+                                    $selected,
+                                    esc_html( $category->name ),
+                                    $category->count
+                                );
                             }
                             ?>
                         </select>
-                        <input type="search" name="s" placeholder="Busca Productos aquí" value="<?php echo get_search_query(); ?>">
+                        
+                        <!-- Search Input -->
+                        <input 
+                            type="search" 
+                            name="s" 
+                            placeholder="Busca Productos aquí" 
+                            value="<?php echo esc_attr( get_search_query() ); ?>"
+                        >
                         <input type="hidden" name="post_type" value="product">
-                        <button type="submit" class="search-btn">🔍</button>
+                        
+                        <!-- Search Button -->
+                        <button type="submit" class="search-btn" aria-label="Buscar">
+                            🔍
+                        </button>
                     </div>
                 </form>
             </div>
@@ -74,26 +100,31 @@
             <div class="header-actions">
                 <!-- User Account -->
                 <div class="account-menu">
-                    <a href="<?php echo esc_url( wc_get_page_permalink('myaccount') ); ?>" class="account-link">
+                    <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="account-link">
+                    <?php else : ?>
+                        <a href="<?php echo esc_url( home_url( '/mi-cuenta' ) ); ?>" class="account-link">
+                    <?php endif; ?>
                         👤
                         <span><?php echo is_user_logged_in() ? 'Mi Cuenta' : 'Iniciar Sesión'; ?></span>
                     </a>
                 </div>
 
                 <!-- Shopping Cart -->
-                <?php if ( function_exists('WC') && WC()->cart ) : ?>
                 <div class="cart-menu">
-                    <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-link">
+                    <?php 
+                    $cart_info = itools_get_cart_info();
+                    ?>
+                    <a href="<?php echo esc_url( $cart_info['url'] ); ?>" class="cart-link">
                         🛒
-                        <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-                        <span class="cart-total"><?php echo WC()->cart->get_cart_total(); ?></span>
+                        <span class="cart-count"><?php echo esc_html( $cart_info['count'] ); ?></span>
+                        <span class="cart-total"><?php echo wp_kses_post( $cart_info['total'] ); ?></span>
                     </a>
                 </div>
-                <?php endif; ?>
             </div>
 
             <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle">
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -101,19 +132,55 @@
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="main-navigation">
-            <?php 
-            if ( function_exists('wp_nav_menu') ) {
-                wp_nav_menu(array(
+        <nav class="main-navigation" role="navigation">
+            <?php
+            if ( has_nav_menu( 'primary' ) ) {
+                wp_nav_menu( array(
                     'theme_location' => 'primary',
-                    'menu_class' => 'nav-menu',
-                    'container' => false,
-                    'fallback_cb' => 'itools_fallback_menu'
-                )); 
+                    'menu_class'     => 'nav-menu',
+                    'container'      => false,
+                    'depth'          => 2,
+                ));
             } else {
                 itools_fallback_menu();
             }
             ?>
+        </nav>
+    </div>
+</header>
+<header class="itools-main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="<?php echo home_url('/'); ?>" class="site-logo">
+                    <h1><?php bloginfo('name'); ?></h1>
+                </a>
+            </div>
+            
+            <div class="search-section">
+                <form method="get" action="<?php echo home_url('/'); ?>">
+                    <div class="search-wrapper">
+                        <select name="product_cat" class="category-filter">
+                            <option value="">Elegir categoría</option>
+                        </select>
+                        <input type="search" name="s" placeholder="Buscar productos..." value="<?php echo get_search_query(); ?>">
+                        <button type="submit" class="search-btn">🔍</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="header-actions">
+                <a href="/mi-cuenta" class="account-link">👤 Mi Cuenta</a>
+                <a href="/carrito" class="cart-link">� Carrito</a>
+            </div>
+        </div>
+        
+        <nav class="main-navigation">
+            <ul class="nav-menu">
+                <li><a href="<?php echo home_url('/'); ?>">Inicio</a></li>
+                <li><a href="<?php echo home_url('/tienda'); ?>">Tienda</a></li>
+                <li><a href="<?php echo home_url('/contacto'); ?>">Contacto</a></li>
+            </ul>
         </nav>
     </div>
 </header>
