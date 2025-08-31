@@ -39,26 +39,31 @@
                                 <a href="#" class="category-option" data-value="">Todas las categorías</a>
                                 <?php
                                 if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
-                                    $categories = get_terms( array(
+                                    // Get top-level categories with the most products
+                                    $popular_categories = get_terms( array(
                                         'taxonomy'   => 'product_cat',
-                                        'hide_empty' => false,
+                                        'hide_empty' => true,
                                         'parent'     => 0,
+                                        'orderby'    => 'count',
+                                        'order'      => 'DESC',
+                                        'number'     => 7 // Show the top 7 main categories
                                     ));
                                     
-                                    if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
-                                        foreach ( $categories as $category ) {
+                                    if ( ! is_wp_error( $popular_categories ) && ! empty( $popular_categories ) ) {
+                                        foreach ( $popular_categories as $category ) {
                                             printf(
-                                                '<a href="#" class="category-option" data-value="%s">%s <span class="count">(%d)</span></a>',
+                                                '<a href="#" class="category-option" data-value="%s">%s</a>',
                                                 esc_attr( $category->slug ),
-                                                esc_html( $category->name ),
-                                                $category->count
+                                                esc_html( $category->name )
                                             );
                                         }
-                                    } else {
-                                        echo '<a href="#" class="category-option" data-value="herramientas">Herramientas <span class="count">(25)</span></a>';
-                                        echo '<a href="#" class="category-option" data-value="maquinaria">Maquinaria <span class="count">(18)</span></a>';
-                                        echo '<a href="#" class="category-option" data-value="accesorios">Accesorios <span class="count">(32)</span></a>';
                                     }
+                                    
+                                    // Add a link to the main shop page for categories
+                                    $shop_page_url = get_permalink( wc_get_page_id( 'shop' ) );
+                                    echo '<div class="all-cats-link-wrapper">';
+                                    printf( '<a href="%s" class="all-cats-link">Ver todas las categorías &rarr;</a>', esc_url( $shop_page_url ) );
+                                    echo '</div>';
                                 }
                                 ?>
                             </div>

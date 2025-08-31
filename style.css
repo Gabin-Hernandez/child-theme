@@ -309,6 +309,29 @@ body {
   font-weight: 600;
 }
 
+/* Link para ver todas las categorías */
+.all-cats-link-wrapper {
+    border-top: 1px solid #e1e8ed;
+    padding: 8px 0;
+    margin-top: 8px;
+}
+
+.all-cats-link {
+    display: block;
+    padding: 10px 20px;
+    text-align: center;
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+.all-cats-link:hover {
+    background: #f0f2f5;
+    color: #5a67d8;
+}
+
 /* Campo de búsqueda */
 .search-input {
   flex: 1;
