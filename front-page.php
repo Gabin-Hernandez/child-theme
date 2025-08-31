@@ -57,6 +57,45 @@ get_header();
 <!-- Main Content -->
 <main class="main-content">
     <div class="container">
+        <!-- CTA Section with Statistics -->
+        <section class="cta-stats-section">
+            <div class="cta-stats-container">
+                <div class="cta-content-left">
+                    <h2>Herramientas para técnicos profesionales</h2>
+                    <p>Somos especialistas en equipos y herramientas de alta calidad para profesionales como tú</p>
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-cta">Ver herramientas</a>
+                </div>
+                <div class="cta-stats-right">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Años de experiencia</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Sucursales</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5K+</div>
+                            <div class="stat-label">Envíos realizados</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">97%</div>
+                            <div class="stat-label">Satisfacción</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-illustration">
+                    <div class="tech-tools">
+                        <div class="tool-item phone">📱</div>
+                        <div class="tool-item wrench">🔧</div>
+                        <div class="tool-item screwdriver">🪛</div>
+                        <div class="tool-item ruler">📏</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Categories Section -->
         <section class="categories-section">
             <div class="section-header">
@@ -193,6 +232,149 @@ get_header();
             </div>
         </section>
 
+        <!-- Product Carousels by Category -->
+        <section class="category-carousels-section">
+            <div class="section-header">
+                <h2>Explora por Categoría</h2>
+                <p>Descubre los mejores productos en cada especialidad</p>
+            </div>
+
+            <!-- Herramientas Carousel -->
+            <div class="category-carousel">
+                <div class="carousel-header">
+                    <h3>🔧 Herramientas Profesionales</h3>
+                    <a href="<?php echo esc_url( home_url( '/categoria/herramientas' ) ); ?>" class="view-all-btn">
+                        Ver todas <span class="arrow">→</span>
+                    </a>
+                </div>
+                <div class="carousel-container" data-category="herramientas">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track">
+                            <?php
+                            // Productos demo para herramientas
+                            $herramientas_demo = array(
+                                array('name' => 'Taladro Inalámbrico Pro', 'price' => '$2,450', 'image' => '🔨', 'rating' => 5),
+                                array('name' => 'Kit Destornilladores 32 pzs', 'price' => '$890', 'image' => '🔧', 'rating' => 5),
+                                array('name' => 'Llaves Inglesas Set', 'price' => '$1,200', 'image' => '🔩', 'rating' => 4),
+                                array('name' => 'Multímetro Digital', 'price' => '$650', 'image' => '⚡', 'rating' => 5),
+                                array('name' => 'Sierra Caladora Pro', 'price' => '$1,800', 'image' => '🪚', 'rating' => 4),
+                            );
+                            
+                            foreach($herramientas_demo as $producto) {
+                                echo '<div class="carousel-item">';
+                                echo '<div class="product-card-mini">';
+                                echo '<div class="product-image-mini">';
+                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">' . $producto['image'] . '</div>';
+                                echo '</div>';
+                                echo '<div class="product-info-mini">';
+                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
+                                echo '<div class="price-rating">';
+                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
+                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" data-direction="prev">‹</button>
+                    <button class="carousel-btn next" data-direction="next">›</button>
+                </div>
+            </div>
+
+            <!-- Pantallas Carousel -->
+            <div class="category-carousel">
+                <div class="carousel-header">
+                    <h3>📺 Pantallas y Displays</h3>
+                    <a href="<?php echo esc_url( home_url( '/categoria/pantallas' ) ); ?>" class="view-all-btn">
+                        Ver todas <span class="arrow">→</span>
+                    </a>
+                </div>
+                <div class="carousel-container" data-category="pantallas">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track">
+                            <?php
+                            // Productos demo para pantallas
+                            $pantallas_demo = array(
+                                array('name' => 'Monitor 4K 27" Pro', 'price' => '$4,200', 'image' => '🖥️', 'rating' => 5),
+                                array('name' => 'Pantalla Touch 15"', 'price' => '$2,800', 'image' => '📱', 'rating' => 4),
+                                array('name' => 'Display Industrial 24"', 'price' => '$3,500', 'image' => '📺', 'rating' => 5),
+                                array('name' => 'Tablet Rugerizada 10"', 'price' => '$1,900', 'image' => '📊', 'rating' => 4),
+                                array('name' => 'Monitor Curvo 32"', 'price' => '$5,200', 'image' => '⚫', 'rating' => 5),
+                            );
+                            
+                            foreach($pantallas_demo as $producto) {
+                                echo '<div class="carousel-item">';
+                                echo '<div class="product-card-mini">';
+                                echo '<div class="product-image-mini">';
+                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">' . $producto['image'] . '</div>';
+                                echo '</div>';
+                                echo '<div class="product-info-mini">';
+                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
+                                echo '<div class="price-rating">';
+                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
+                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" data-direction="prev">‹</button>
+                    <button class="carousel-btn next" data-direction="next">›</button>
+                </div>
+            </div>
+
+            <!-- Baterías Carousel -->
+            <div class="category-carousel">
+                <div class="carousel-header">
+                    <h3>🔋 Baterías y Energía</h3>
+                    <a href="<?php echo esc_url( home_url( '/categoria/baterias' ) ); ?>" class="view-all-btn">
+                        Ver todas <span class="arrow">→</span>
+                    </a>
+                </div>
+                <div class="carousel-container" data-category="baterias">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track">
+                            <?php
+                            // Productos demo para baterías
+                            $baterias_demo = array(
+                                array('name' => 'Batería Li-ion 18V 5Ah', 'price' => '$1,200', 'image' => '🔋', 'rating' => 5),
+                                array('name' => 'Power Bank 20000mAh', 'price' => '$850', 'image' => '⚡', 'rating' => 4),
+                                array('name' => 'Cargador Rápido USB-C', 'price' => '$450', 'image' => '🔌', 'rating' => 5),
+                                array('name' => 'UPS 1500VA', 'price' => '$2,800', 'image' => '🏠', 'rating' => 4),
+                                array('name' => 'Batería Auto 12V', 'price' => '$1,600', 'image' => '🚗', 'rating' => 5),
+                            );
+                            
+                            foreach($baterias_demo as $producto) {
+                                echo '<div class="carousel-item">';
+                                echo '<div class="product-card-mini">';
+                                echo '<div class="product-image-mini">';
+                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">' . $producto['image'] . '</div>';
+                                echo '</div>';
+                                echo '<div class="product-info-mini">';
+                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
+                                echo '<div class="price-rating">';
+                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
+                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" data-direction="prev">‹</button>
+                    <button class="carousel-btn next" data-direction="next">›</button>
+                </div>
+            </div>
+        </section>
+
         <!-- Featured Products Section -->
         <section class="featured-products-section">
             <div class="section-header">
@@ -314,6 +496,81 @@ get_header();
 </main>
 
 <script>
+// Carousel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.carousel-container');
+    
+    carousels.forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const prevBtn = carousel.querySelector('.carousel-btn.prev');
+        const nextBtn = carousel.querySelector('.carousel-btn.next');
+        
+        let currentIndex = 0;
+        const itemsPerView = 4; // Mostrar 4 productos a la vez
+        const itemWidth = 100 / itemsPerView; // 25% para cada item
+        
+        // Configurar el ancho de los items
+        items.forEach(item => {
+            item.style.flex = `0 0 ${itemWidth}%`;
+        });
+        
+        function updateCarousel() {
+            const translateX = -(currentIndex * itemWidth);
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Actualizar botones
+            prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+            nextBtn.style.opacity = currentIndex >= items.length - itemsPerView ? '0.5' : '1';
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < items.length - itemsPerView) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+        
+        // Auto-scroll en hover
+        let autoScrollInterval;
+        
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(autoScrollInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            autoScrollInterval = setInterval(() => {
+                if (currentIndex < items.length - itemsPerView) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateCarousel();
+            }, 3000);
+        });
+        
+        // Inicializar
+        updateCarousel();
+        
+        // Iniciar auto-scroll
+        autoScrollInterval = setInterval(() => {
+            if (currentIndex < items.length - itemsPerView) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }, 3000);
+    });
+});
+
 // Slider JavaScript
 let currentSlideIndex = 0;
 const slides = document.querySelectorAll('.slide');
