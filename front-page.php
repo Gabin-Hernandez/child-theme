@@ -5,18 +5,7 @@
 get_header();
 ?>
 
-<style>
-/* Force header visibility on front page */
-.site-header,
-.top-bar,
-.main-header {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-</style>
-
-<!-- Hero Slider Section - Dynamic with Real Product Images -->
+<!-- Hero Slider Section -->
 <section class="hero-slider">
     <div class="slider-container">
         <?php
@@ -192,10 +181,11 @@ get_header();
 <!-- Main Content -->
 <main class="main-content">
     <div class="container">
-        <!-- CTA Section with Statistics - MODERN DESIGN -->
-        <section class="hero-cta-section">
-            <div class="container">
+        <!-- Modern CTA Section -->
+        <section class="modern-cta-section">
+            <div class="cta-container">
                 <div class="cta-content">
+                    <div class="cta-badge">ITOOLS México</div>
                     <h2>Herramientas para técnicos profesionales</h2>
                     <p>Equipos y herramientas de alta calidad para profesionales como tú. Más de una década de experiencia respaldando tu trabajo.</p>
                     
@@ -218,7 +208,133 @@ get_header();
                         </div>
                     </div>
                     
-                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-button">Explorar Catálogo</a>
+                    <div class="cta-actions">
+                        <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-primary-btn">Explorar Catálogo</a>
+                        <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>" class="cta-secondary-btn">Contactar Experto</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Grid Section -->
+        <section class="services-grid-section">
+            <div class="services-container">
+                <div class="section-header">
+                    <h2>Nuestros Servicios Especializados</h2>
+                    <p>Soluciones completas para todas tus necesidades técnicas</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card primary-card">
+                        <div class="service-icon tablet-icon">
+                            <div class="device-frame"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3>Tablet Digitizer/LCD</h3>
+                            <p>Premium & Precision</p>
+                            <div class="service-badge">Especialistas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon screens-icon">
+                            <div class="screen-display"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3>Screens</h3>
+                            <p>Quality is Our Priority</p>
+                            <div class="service-tags">
+                                <span class="tag">Samsung</span>
+                                <span class="tag">Xiaomi</span>
+                                <span class="tag active">iPhone</span>
+                                <span class="tag">Oppo & Vivo</span>
+                                <span class="tag">Transision</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon repair-icon">
+                            <div class="repair-machine"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3>Repair Machines</h3>
+                            <p>One-stop Service</p>
+                            <div class="service-badge">Profesional</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card dark-card">
+                        <div class="service-icon parts-icon">
+                            <div class="spare-parts"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3>Spare Parts</h3>
+                            <p>Over 19,000+ SKU</p>
+                            <div class="service-badge">Amplio Stock</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon battery-icon">
+                            <div class="battery-cell"></div>
+                        </div>
+                        <div class="service-content">
+                            <h3>Battery</h3>
+                            <p>Full power, full energy</p>
+                            <div class="service-badge">Alta Capacidad</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Carousel Section -->
+        <section class="brands-carousel-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Marcas de Confianza</h2>
+                    <p>Trabajamos con las mejores marcas del mercado</p>
+                </div>
+                
+                <div class="brands-carousel">
+                    <div class="brands-track">
+                        <?php
+                        // Obtener marcas de los productos de WooCommerce
+                        $brands = array();
+                        if ( function_exists( 'wc_get_products' ) ) {
+                            $products = wc_get_products( array(
+                                'limit' => 50,
+                                'status' => 'publish'
+                            ));
+                            
+                            foreach ( $products as $product ) {
+                                // Extraer marca del nombre del producto
+                                $product_name = $product->get_name();
+                                $words = explode( ' ', $product_name );
+                                if ( ! empty( $words ) ) {
+                                    $potential_brand = strtoupper( $words[0] );
+                                    if ( strlen( $potential_brand ) >= 3 && ! in_array( $potential_brand, $brands ) ) {
+                                        $brands[] = $potential_brand;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Si no hay marcas suficientes, agregar marcas comunes de herramientas
+                        if ( count( $brands ) < 8 ) {
+                            $common_brands = array( 'SAMSUNG', 'APPLE', 'XIAOMI', 'HUAWEI', 'OPPO', 'VIVO', 'REALME', 'NOKIA', 'MOTOROLA', 'LG', 'SONY', 'ONEPLUS' );
+                            $brands = array_merge( $brands, array_slice( $common_brands, 0, 12 - count( $brands ) ) );
+                        }
+                        
+                        // Mostrar marcas
+                        foreach ( array_slice( $brands, 0, 12 ) as $brand ) {
+                            echo '<div class="brand-item">';
+                            echo '<div class="brand-logo">' . esc_html( $brand ) . '</div>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </section>
