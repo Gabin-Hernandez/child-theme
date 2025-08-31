@@ -1,168 +1,29 @@
 <?php
-/**
- * Página de inicio personalizada para ITOOLS
- */
+// Página de inicio básica y segura
 get_header();
 ?>
 
-<main id="main-content">
-    <!-- Hero Section -->
-    <section class="hero-slider">
-        <div class="slider-container">
-            <div class="slide active">
-                <div class="slide-content">
-                    <h1>Herramientas Profesionales</h1>
-                    <p>Encuentra las mejores herramientas para tus proyectos</p>
-                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Ver Productos</a>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-content">
-                    <h1>Maquinaria Industrial</h1>
-                    <p>Soluciones completas para la industria</p>
-                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Explorar</a>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-content">
-                    <h1>Ofertas Especiales</h1>
-                    <p>Aprovecha nuestras promociones limitadas</p>
-                    <a href="<?php echo esc_url( home_url( '/ofertas' ) ); ?>" class="btn btn-secondary">Ver Ofertas</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slider Controls -->
-        <div class="slider-controls">
-            <button class="prev-slide" aria-label="Slide anterior">&larr;</button>
-            <button class="next-slide" aria-label="Slide siguiente">&rarr;</button>
-        </div>
-        
-        <!-- Slider Dots -->
-        <div class="slider-dots">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-        </div>
+<main style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+    <section style="text-align: center; margin-bottom: 60px;">
+        <h1 style="font-size: 3rem; margin-bottom: 20px; color: #333;">Bienvenido a ITOOLS</h1>
+        <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">Las mejores herramientas para profesionales</p>
+        <a href="<?php echo home_url('/tienda'); ?>" style="background: #007cba; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1rem;">Ver Productos</a>
     </section>
 
-    <!-- Main Content with Sidebar -->
-    <section class="main-section">
-        <div class="container">
-            <div class="content-wrapper">
-                <!-- Sidebar Filters -->
-                <aside class="sidebar-filters">
-                    <!-- Categories Filter -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">
-                            Categoría
-                            <span class="toggle-icon">▼</span>
-                        </h3>
-                        <div class="filter-content">
-                            <?php
-                            $categories = itools_get_product_categories();
-                            foreach ( $categories as $category ) {
-                                printf(
-                                    '<label class="filter-item">
-                                        <input type="checkbox" name="category[]" value="%s">
-                                        <span class="checkmark"></span>
-                                        %s
-                                    </label>',
-                                    esc_attr( $category->slug ),
-                                    esc_html( $category->name )
-                                );
-                            }
-                            ?>
-                        </div>
-                    </div>
-
-                    <!-- Price Range Filter -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">
-                            Rango de Precio
-                            <span class="toggle-icon">▼</span>
-                        </h3>
-                        <div class="filter-content">
-                            <div class="price-range">
-                                <input type="range" id="price-min" min="0" max="10000" value="0" class="price-slider">
-                                <input type="range" id="price-max" min="0" max="10000" value="10000" class="price-slider">
-                                <div class="price-inputs">
-                                    <input type="number" id="price-min-input" placeholder="Mín" min="0">
-                                    <span>-</span>
-                                    <input type="number" id="price-max-input" placeholder="Máx" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Filter Actions -->
-                    <div class="filter-actions">
-                        <button class="btn btn-apply">Aplicar Filtros</button>
-                        <button class="btn btn-clear">Limpiar</button>
-                    </div>
-                </aside>
-
-                <!-- Main Content -->
-                <div class="main-content">
-                    <!-- Featured Categories -->
-                    <section class="featured-categories">
-                        <h2>Categorías Principales</h2>
-                        <div class="categories-grid">
-                            <?php
-                            $featured_categories = itools_get_product_categories();
-                            $count = 0;
-                            foreach ( $featured_categories as $category ) {
-                                if ( $count >= 6 ) break; // Limitar a 6 categorías
-                                
-                                $category_link = function_exists( 'get_term_link' ) ? get_term_link( $category ) : '#';
-                                if ( is_wp_error( $category_link ) ) {
-                                    $category_link = '#';
-                                }
-                                
-                                printf(
-                                    '<div class="category-card">
-                                        <h3>%s</h3>
-                                        <p>%d productos</p>
-                                        <a href="%s" class="btn btn-outline">Ver Productos</a>
-                                    </div>',
-                                    esc_html( $category->name ),
-                                    $category->count,
-                                    esc_url( $category_link )
-                                );
-                                $count++;
-                            }
-                            ?>
-                        </div>
-                    </section>
-
-                    <!-- Featured Products -->
-                    <section class="featured-products">
-                        <h2>Productos Destacados</h2>
-                        <div class="products-grid">
-                            <?php 
-                            if ( function_exists( 'do_shortcode' ) && shortcode_exists( 'featured_products' ) ) {
-                                echo do_shortcode( '[featured_products limit="8" columns="4"]' ); 
-                            } else {
-                                echo '<p>Los productos destacados se mostrarán cuando WooCommerce esté completamente configurado.</p>';
-                            }
-                            ?>
-                        </div>
-                    </section>
-
-                    <!-- Latest Products -->
-                    <section class="latest-products">
-                        <h2>Últimos Productos</h2>
-                        <div class="products-grid">
-                            <?php 
-                            if ( function_exists( 'do_shortcode' ) && shortcode_exists( 'recent_products' ) ) {
-                                echo do_shortcode( '[recent_products limit="8" columns="4"]' ); 
-                            } else {
-                                echo '<p>Los productos recientes se mostrarán cuando WooCommerce esté completamente configurado.</p>';
-                            }
-                            ?>
-                        </div>
-                    </section>
-                </div>
+    <section style="margin-bottom: 60px;">
+        <h2 style="text-align: center; margin-bottom: 40px; color: #333;">Nuestros Productos</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div style="background: #f9f9f9; padding: 30px; text-align: center; border-radius: 8px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Herramientas Manuales</h3>
+                <p style="color: #666;">Herramientas de calidad para todo tipo de trabajos</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 30px; text-align: center; border-radius: 8px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Maquinaria</h3>
+                <p style="color: #666;">Equipos industriales de última tecnología</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 30px; text-align: center; border-radius: 8px;">
+                <h3 style="color: #333; margin-bottom: 15px;">Accesorios</h3>
+                <p style="color: #666;">Complementos y repuestos para tus herramientas</p>
             </div>
         </div>
     </section>

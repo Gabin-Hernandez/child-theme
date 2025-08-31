@@ -1,7 +1,7 @@
 /*
 Theme Name:     Child Theme ITOOLS
 Theme URI:      https://tusitio.com
-Description:    Tema hijo de ITOOLS
+Description:    Tema hijo básico y seguro de ITOOLS
 Author:         Gabo Hernandez
 Author URI:     https://tusitio.com
 Template:       storefront
@@ -12,18 +12,31 @@ Text Domain:    child-theme
 /* Import parent theme styles */
 @import url("../storefront/style.css");
 
-/* Reset and Base Styles */
-* {
-    box-sizing: border-box;
+/* Ocultar header del tema padre */
+.site-header,
+.storefront-primary-navigation,
+.storefront-handheld-footer-bar {
+    display: none !important;
 }
 
-/* Override Storefront styles for better compatibility */
-.site-header {
-    display: none !important; /* Hide parent theme header */
+/* Estilos básicos del tema hijo */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
 }
 
-.storefront-primary-navigation {
-    display: none !important; /* Hide parent theme navigation */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
 }
 
 /* Top Bar Styles */
