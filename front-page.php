@@ -16,41 +16,176 @@ get_header();
 }
 </style>
 
-<!-- Hero Slider Section -->
+<!-- Hero Slider Section - Dynamic with Real Product Images -->
 <section class="hero-slider">
     <div class="slider-container">
-        <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-            <div class="slide-content">
-                <h1>Herramientas Profesionales</h1>
-                <p>Encuentra las mejores herramientas para tus proyectos más exigentes</p>
-                <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Explorar Catálogo</a>
+        <?php
+        // Obtener productos destacados para el slider
+        if ( function_exists( 'wc_get_products' ) ) {
+            $featured_products = wc_get_products( array(
+                'status' => 'publish',
+                'featured' => true,
+                'limit' => 3,
+            ));
+            
+            // Si no hay productos destacados, obtener productos aleatorios
+            if ( empty( $featured_products ) ) {
+                $featured_products = wc_get_products( array(
+                    'status' => 'publish',
+                    'limit' => 3,
+                    'orderby' => 'rand',
+                ));
+            }
+            
+            if ( ! empty( $featured_products ) ) {
+                $slide_index = 0;
+                foreach ( $featured_products as $product ) {
+                    $product_id = $product->get_id();
+                    $product_name = $product->get_name();
+                    $product_description = $product->get_short_description();
+                    $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'full' );
+                    $product_url = get_permalink( $product_id );
+                    $product_price = $product->get_price_html();
+                    
+                    // Usar imagen del producto como fondo, con overlay
+                    $background_style = '';
+                    if ( $product_image ) {
+                        $background_style = 'style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' . esc_url( $product_image[0] ) . '); background-size: cover; background-position: center;"';
+                    } else {
+                        // Fallback con gradientes modernos si no hay imagen
+                        $gradients = array(
+                            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                        );
+                        $background_style = 'style="background: ' . $gradients[$slide_index % 3] . ';"';
+                    }
+                    
+                    $active_class = $slide_index === 0 ? ' active' : '';
+                    
+                    echo '<div class="slide modern-slide' . $active_class . '" ' . $background_style . '>';
+                    echo '<div class="slide-overlay"></div>';
+                    echo '<div class="slide-content">';
+                    echo '<div class="slide-badge">Producto Destacado</div>';
+                    echo '<h1>' . esc_html( $product_name ) . '</h1>';
+                    
+                    if ( $product_description ) {
+                        echo '<p>' . wp_strip_all_tags( $product_description ) . '</p>';
+                    } else {
+                        echo '<p>Descubre este increíble producto de nuestra selección profesional</p>';
+                    }
+                    
+                    echo '<div class="slide-price">' . $product_price . '</div>';
+                    echo '<div class="slide-actions">';
+                    echo '<a href="' . esc_url( $product_url ) . '" class="btn btn-primary slide-btn">Ver Producto</a>';
+                    echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-secondary slide-btn">Ver Catálogo</a>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    
+                    $slide_index++;
+                }
+            } else {
+                // Fallback si no hay productos disponibles
+                ?>
+                <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="slide-badge">ITOOLS México</div>
+                        <h1>Herramientas Profesionales</h1>
+                        <p>Encuentra las mejores herramientas para tus proyectos más exigentes</p>
+                        <div class="slide-actions">
+                            <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary slide-btn">Explorar Catálogo</a>
+                            <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>" class="btn btn-secondary slide-btn">Contactanos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="slide-badge">Calidad Garantizada</div>
+                        <h1>Maquinaria Industrial</h1>
+                        <p>Soluciones completas para la industria y construcción</p>
+                        <div class="slide-actions">
+                            <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary slide-btn">Ver Maquinaria</a>
+                            <a href="<?php echo esc_url( home_url( '/servicios' ) ); ?>" class="btn btn-secondary slide-btn">Servicios</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <div class="slide-badge">Ofertas Especiales</div>
+                        <h1>Descuentos Exclusivos</h1>
+                        <p>Aprovecha nuestros precios especiales por tiempo limitado</p>
+                        <div class="slide-actions">
+                            <a href="<?php echo esc_url( home_url( '/ofertas' ) ); ?>" class="btn btn-primary slide-btn">Ver Ofertas</a>
+                            <a href="<?php echo esc_url( home_url( '/newsletter' ) ); ?>" class="btn btn-secondary slide-btn">Suscribirse</a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        } else {
+            // Fallback completo si WooCommerce no está disponible
+            ?>
+            <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <div class="slide-badge">ITOOLS México</div>
+                    <h1>Herramientas Profesionales</h1>
+                    <p>Tu socio de confianza en herramientas y equipos industriales</p>
+                    <div class="slide-actions">
+                        <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary slide-btn">Explorar Catálogo</a>
+                        <a href="<?php echo esc_url( home_url( '/contacto' ) ); ?>" class="btn btn-secondary slide-btn">Contactanos</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="slide" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-            <div class="slide-content">
-                <h1>Maquinaria Industrial</h1>
-                <p>Soluciones completas para la industria y construcción</p>
-                <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-primary">Ver Maquinaria</a>
-            </div>
-        </div>
-        <div class="slide" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-            <div class="slide-content">
-                <h1>Ofertas Especiales</h1>
-                <p>Aprovecha nuestros descuentos exclusivos por tiempo limitado</p>
-                <a href="<?php echo esc_url( home_url( '/ofertas' ) ); ?>" class="btn btn-secondary">Ver Ofertas</a>
-            </div>
-        </div>
+            <?php
+        }
+        ?>
     </div>
     
     <!-- Slider Navigation -->
-    <button class="slider-nav prev" onclick="changeSlide(-1)" aria-label="Slide anterior">‹</button>
-    <button class="slider-nav next" onclick="changeSlide(1)" aria-label="Slide siguiente">›</button>
+    <button class="slider-nav prev" onclick="changeSlide(-1)" aria-label="Slide anterior">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <button class="slider-nav next" onclick="changeSlide(1)" aria-label="Slide siguiente">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
     
     <!-- Slider Dots -->
     <div class="slider-dots">
-        <span class="dot active" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+        <?php
+        // Generar dots dinámicamente basado en el número de slides
+        $total_slides = 3; // Default fallback
+        if ( function_exists( 'wc_get_products' ) ) {
+            $featured_products = wc_get_products( array(
+                'status' => 'publish',
+                'featured' => true,
+                'limit' => 3,
+            ));
+            if ( empty( $featured_products ) ) {
+                $featured_products = wc_get_products( array(
+                    'status' => 'publish',
+                    'limit' => 3,
+                    'orderby' => 'rand',
+                ));
+            }
+            if ( ! empty( $featured_products ) ) {
+                $total_slides = count( $featured_products );
+            }
+        }
+        
+        for ( $i = 1; $i <= $total_slides; $i++ ) {
+            $active_class = $i === 1 ? ' active' : '';
+            echo '<span class="dot' . $active_class . '" onclick="currentSlide(' . $i . ')"></span>';
+        }
+        ?>
     </div>
 </section>
 
@@ -97,128 +232,155 @@ get_header();
             
             <div class="categories-grid">
                 <?php
-                // Categorías específicas para ITOOLS con iconos y colores
-                $itools_categories = array(
-                    array(
-                        'name' => 'Refacciones',
-                        'description' => 'Repuestos y componentes de calidad',
-                        'icon' => '⚙️',
-                        'color' => 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        'url' => home_url('/categoria/refacciones')
-                    ),
-                    array(
-                        'name' => 'Pantallas',
-                        'description' => 'Pantallas y displays profesionales',
-                        'icon' => '📱',
-                        'color' => 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                        'url' => home_url('/categoria/pantallas')
-                    ),
-                    array(
-                        'name' => 'Herramientas',
-                        'description' => 'Herramientas manuales y eléctricas',
-                        'icon' => '🔧',
-                        'color' => 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                        'url' => home_url('/categoria/herramientas')
-                    ),
-                    array(
-                        'name' => 'Accesorios',
-                        'description' => 'Complementos y adaptadores',
-                        'icon' => '🔌',
-                        'color' => 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                        'url' => home_url('/categoria/accesorios')
-                    ),
-                    array(
-                        'name' => 'Baterías',
-                        'description' => 'Baterías y sistemas de energía',
-                        'icon' => '🔋',
-                        'color' => 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                        'url' => home_url('/categoria/baterias')
-                    )
-                );
-
-                // Intentar obtener categorías reales de WooCommerce si están disponibles
+                // Obtener categorías reales de WooCommerce
                 if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
                     $wc_categories = get_terms( array(
                         'taxonomy'   => 'product_cat',
                         'hide_empty' => false,
                         'parent'     => 0,
-                        'number'     => 5,
+                        'number'     => 6, // Mostrar hasta 6 categorías
                     ));
                     
                     if ( ! is_wp_error( $wc_categories ) && ! empty( $wc_categories ) ) {
-                        $category_index = 0;
-                        foreach ( $wc_categories as $category ) {
-                            if ( $category_index >= count( $itools_categories ) ) break;
-                            
+                        foreach ( $wc_categories as $index => $category ) {
                             $category_link = get_term_link( $category );
                             if ( is_wp_error( $category_link ) ) {
-                                $category_link = $itools_categories[$category_index]['url'];
+                                continue;
                             }
                             
-                            // Obtener imagen de la categoría (thumbnail)
+                            // Obtener imagen de la categoría
                             $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
-                            $image_url = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : '';
+                            $category_image_url = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : '';
                             
-                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($category_index * 100) . '">';
-                            
-                            if ( $image_url ) {
-                                echo '<div class="category-image" style="background-image: url(' . esc_url( $image_url ) . ');">';
-                            } else {
-                                echo '<div class="category-image category-gradient" style="background: ' . $itools_categories[$category_index]['color'] . ';">';
-                                echo '<div class="category-icon">' . $itools_categories[$category_index]['icon'] . '</div>';
+                            // Si no hay imagen de categoría, obtener imagen del primer producto
+                            if ( ! $category_image_url ) {
+                                $category_products = wc_get_products( array(
+                                    'category' => array( $category->slug ),
+                                    'limit' => 1,
+                                    'status' => 'publish',
+                                ));
+                                
+                                if ( ! empty( $category_products ) ) {
+                                    $first_product = $category_products[0];
+                                    $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $first_product->get_id() ), 'medium' );
+                                    if ( $product_image ) {
+                                        $category_image_url = $product_image[0];
+                                    }
+                                }
                             }
-                            echo '<div class="category-overlay"></div>';
+                            
+                            // Gradientes de respaldo si no hay imagen
+                            $gradient_colors = array(
+                                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
+                            );
+                            
+                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
+                            
+                            if ( $category_image_url ) {
+                                echo '<div class="category-image" style="background-image: url(' . esc_url( $category_image_url ) . ');">';
+                                echo '<div class="category-overlay"></div>';
+                            } else {
+                                echo '<div class="category-image category-gradient" style="background: ' . $gradient_colors[$index % count($gradient_colors)] . ';">';
+                                echo '<div class="category-overlay"></div>';
+                            }
+                            
+                            // Badge con número de productos
+                            echo '<div class="category-badge">' . $category->count . ' productos</div>';
                             echo '</div>';
                             
                             echo '<div class="category-info">';
                             echo '<h3>' . esc_html( $category->name ) . '</h3>';
-                            echo '<p>' . $category->count . ' productos disponibles</p>';
+                            
+                            // Mostrar descripción si existe
+                            if ( $category->description ) {
+                                echo '<p>' . esc_html( wp_trim_words( $category->description, 8 ) ) . '</p>';
+                            } else {
+                                echo '<p>Explora nuestra selección de ' . esc_html( strtolower( $category->name ) ) . ' profesionales</p>';
+                            }
+                            
                             echo '<div class="category-stats">';
-                            echo '<span class="stock-indicator">✅ En Stock</span>';
+                            if ( $category->count > 0 ) {
+                                echo '<span class="stock-indicator in-stock">✓ Disponible</span>';
+                            } else {
+                                echo '<span class="stock-indicator coming-soon">🔄 Próximamente</span>';
+                            }
                             echo '</div>';
-                            echo '<a href="' . esc_url( $category_link ) . '" class="btn btn-category">Explorar</a>';
+                            
+                            echo '<a href="' . esc_url( $category_link ) . '" class="btn btn-category">Explorar <span class="arrow">→</span></a>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    } else {
+                        // Fallback con categorías predefinidas pero buscando imágenes de productos
+                        $fallback_categories = array(
+                            'herramientas' => 'Herramientas',
+                            'refacciones' => 'Refacciones', 
+                            'pantallas' => 'Pantallas',
+                            'accesorios' => 'Accesorios',
+                            'baterias' => 'Baterías'
+                        );
+                        
+                        $index = 0;
+                        foreach ( $fallback_categories as $slug => $name ) {
+                            // Buscar productos que contengan estas palabras clave
+                            $products = wc_get_products( array(
+                                'limit' => 1,
+                                'status' => 'publish',
+                                's' => $slug
+                            ));
+                            
+                            $image_url = '';
+                            if ( ! empty( $products ) ) {
+                                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $products[0]->get_id() ), 'medium' );
+                                if ( $product_image ) {
+                                    $image_url = $product_image[0];
+                                }
+                            }
+                            
+                            $gradient_colors = array(
+                                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+                            );
+                            
+                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
+                            
+                            if ( $image_url ) {
+                                echo '<div class="category-image" style="background-image: url(' . esc_url( $image_url ) . ');">';
+                            } else {
+                                echo '<div class="category-image category-gradient" style="background: ' . $gradient_colors[$index % count($gradient_colors)] . ';">';
+                            }
+                            echo '<div class="category-overlay"></div>';
+                            echo '<div class="category-badge">Ver productos</div>';
+                            echo '</div>';
+                            
+                            echo '<div class="category-info">';
+                            echo '<h3>' . esc_html( $name ) . '</h3>';
+                            echo '<p>Descubre nuestra selección profesional de ' . esc_html( strtolower( $name ) ) . '</p>';
+                            echo '<div class="category-stats">';
+                            echo '<span class="stock-indicator in-stock">✓ Disponible</span>';
+                            echo '</div>';
+                            echo '<a href="' . esc_url( home_url( '/tienda/?s=' . urlencode( $slug ) ) ) . '" class="btn btn-category">Explorar <span class="arrow">→</span></a>';
                             echo '</div>';
                             echo '</div>';
                             
-                            $category_index++;
-                        }
-                    } else {
-                        // Usar categorías predefinidas como fallback
-                        foreach ( $itools_categories as $index => $category ) {
-                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
-                            echo '<div class="category-image category-gradient" style="background: ' . $category['color'] . ';">';
-                            echo '<div class="category-icon">' . $category['icon'] . '</div>';
-                            echo '<div class="category-overlay"></div>';
-                            echo '</div>';
-                            echo '<div class="category-info">';
-                            echo '<h3>' . esc_html( $category['name'] ) . '</h3>';
-                            echo '<p>' . esc_html( $category['description'] ) . '</p>';
-                            echo '<div class="category-stats">';
-                            echo '<span class="stock-indicator">✅ En Stock</span>';
-                            echo '</div>';
-                            echo '<a href="' . esc_url( $category['url'] ) . '" class="btn btn-category">Explorar</a>';
-                            echo '</div>';
-                            echo '</div>';
+                            $index++;
                         }
                     }
                 } else {
                     // Fallback completo si WooCommerce no está disponible
-                    foreach ( $itools_categories as $index => $category ) {
-                        echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
-                        echo '<div class="category-image category-gradient" style="background: ' . $category['color'] . ';">';
-                        echo '<div class="category-icon">' . $category['icon'] . '</div>';
-                        echo '<div class="category-overlay"></div>';
-                        echo '</div>';
-                        echo '<div class="category-info">';
-                        echo '<h3>' . esc_html( $category['name'] ) . '</h3>';
-                        echo '<p>' . esc_html( $category['description'] ) . '</p>';
-                        echo '<div class="category-stats">';
-                        echo '<span class="stock-indicator">✅ En Stock</span>';
-                        echo '</div>';
-                        echo '<a href="' . esc_url( $category['url'] ) . '" class="btn btn-category">Explorar</a>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+                    echo '<div class="no-woocommerce-message">';
+                    echo '<h3>Catálogo en Preparación</h3>';
+                    echo '<p>Estamos organizando nuestro catálogo para ofrecerte la mejor experiencia de compra.</p>';
+                    echo '<a href="' . esc_url( home_url( '/contacto' ) ) . '" class="btn btn-primary">Contáctanos</a>';
+                    echo '</div>';
                 }
                 ?>
             </div>
