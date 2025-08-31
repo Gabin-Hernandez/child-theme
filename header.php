@@ -8,6 +8,7 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -22,6 +23,25 @@
             }
         }
     </script>
+    
+    <!-- Estilos adicionales -->
+    <style>
+        /* Asegurar que Tailwind funcione correctamente */
+        [class*="bg-"], [class*="text-"], [class*="p-"], [class*="m-"], [class*="w-"], [class*="h-"] {
+            box-sizing: border-box;
+        }
+        
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
