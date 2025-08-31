@@ -36,98 +36,28 @@
                         </button>
                         <div class="category-menu" id="category-menu">
                             <div class="category-list">
-                                <a href="#" class="category-option" data-value="">
-                                    <span class="cat-name">Todas las categorías</span>
-                                </a>
+                                <a href="#" class="category-option" data-value="">Todas las categorías</a>
                                 <?php
                                 if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
                                     $categories = get_terms( array(
                                         'taxonomy'   => 'product_cat',
                                         'hide_empty' => false,
                                         'parent'     => 0,
-                                        'number'     => 6,
                                     ));
                                     
                                     if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
                                         foreach ( $categories as $category ) {
-                                            $category_link = get_term_link( $category );
-                                            $products = get_posts( array(
-                                                'post_type' => 'product',
-                                                'posts_per_page' => 3,
-                                                'tax_query' => array(
-                                                    array(
-                                                        'taxonomy' => 'product_cat',
-                                                        'field'    => 'term_id',
-                                                        'terms'    => $category->term_id,
-                                                    ),
-                                                ),
-                                            ));
-                                            
-                                            echo '<div class="category-option-group" data-value="' . esc_attr( $category->slug ) . '">';
-                                            echo '<a href="#" class="category-option" data-value="' . esc_attr( $category->slug ) . '">';
-                                            echo '<span class="cat-name">' . esc_html( $category->name ) . '</span>';
-                                            echo '<span class="count">(' . $category->count . ')</span>';
-                                            echo '</a>';
-                                            
-                                            if ( ! empty( $products ) ) {
-                                                echo '<div class="category-products">';
-                                                foreach ( $products as $product ) {
-                                                    $product_obj = wc_get_product( $product->ID );
-                                                    $image = get_the_post_thumbnail_url( $product->ID, 'thumbnail' );
-                                                    $price = $product_obj ? $product_obj->get_price_html() : '';
-                                                    
-                                                    echo '<a href="' . get_permalink( $product->ID ) . '" class="product-item">';
-                                                    if ( $image ) {
-                                                        echo '<img src="' . esc_url( $image ) . '" alt="' . esc_attr( $product->post_title ) . '">';
-                                                    } else {
-                                                        echo '<div class="product-placeholder">🔧</div>';
-                                                    }
-                                                    echo '<div class="product-info">';
-                                                    echo '<h4>' . esc_html( $product->post_title ) . '</h4>';
-                                                    if ( $price ) {
-                                                        echo '<span class="price">' . wp_kses_post( $price ) . '</span>';
-                                                    }
-                                                    echo '</div>';
-                                                    echo '</a>';
-                                                }
-                                                echo '<a href="' . esc_url( $category_link ) . '" class="view-category">Ver más en ' . esc_html( $category->name ) . ' →</a>';
-                                                echo '</div>';
-                                            }
-                                            echo '</div>';
+                                            printf(
+                                                '<a href="#" class="category-option" data-value="%s">%s <span class="count">(%d)</span></a>',
+                                                esc_attr( $category->slug ),
+                                                esc_html( $category->name ),
+                                                $category->count
+                                            );
                                         }
                                     } else {
-                                        // Fallback categories con productos de ejemplo
-                                        $fallback_cats = array(
-                                            array( 'name' => 'Herramientas Manuales', 'slug' => 'herramientas', 'count' => 25 ),
-                                            array( 'name' => 'Maquinaria Industrial', 'slug' => 'maquinaria', 'count' => 18 ),
-                                            array( 'name' => 'Accesorios', 'slug' => 'accesorios', 'count' => 32 )
-                                        );
-                                        
-                                        foreach ( $fallback_cats as $cat ) {
-                                            echo '<div class="category-option-group" data-value="' . $cat['slug'] . '">';
-                                            echo '<a href="#" class="category-option" data-value="' . $cat['slug'] . '">';
-                                            echo '<span class="cat-name">' . $cat['name'] . '</span>';
-                                            echo '<span class="count">(' . $cat['count'] . ')</span>';
-                                            echo '</a>';
-                                            echo '<div class="category-products">';
-                                            echo '<a href="#" class="product-item">';
-                                            echo '<div class="product-placeholder">🔨</div>';
-                                            echo '<div class="product-info">';
-                                            echo '<h4>Martillo Profesional</h4>';
-                                            echo '<span class="price">$299.00</span>';
-                                            echo '</div>';
-                                            echo '</a>';
-                                            echo '<a href="#" class="product-item">';
-                                            echo '<div class="product-placeholder">🔧</div>';
-                                            echo '<div class="product-info">';
-                                            echo '<h4>Llave Inglesa</h4>';
-                                            echo '<span class="price">$149.00</span>';
-                                            echo '</div>';
-                                            echo '</a>';
-                                            echo '<a href="' . home_url('/tienda') . '" class="view-category">Ver más en ' . $cat['name'] . ' →</a>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                        }
+                                        echo '<a href="#" class="category-option" data-value="herramientas">Herramientas <span class="count">(25)</span></a>';
+                                        echo '<a href="#" class="category-option" data-value="maquinaria">Maquinaria <span class="count">(18)</span></a>';
+                                        echo '<a href="#" class="category-option" data-value="accesorios">Accesorios <span class="count">(32)</span></a>';
                                     }
                                 }
                                 ?>
@@ -205,14 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         option.addEventListener('click', function(e) {
             e.preventDefault();
             const value = this.getAttribute('data-value');
-            const text = this.querySelector('.cat-name').textContent;
+            const text = this.textContent.split('(')[0].trim(); // Remove count from display
             
             categoryText.textContent = text;
             selectedCategoryInput.value = value;
-            
-            // Remove active class from all options
-            categoryOptions.forEach(opt => opt.classList.remove('selected'));
-            this.classList.add('selected');
             
             categoryMenu.classList.remove('active');
             categoryTrigger.classList.remove('active');
@@ -225,18 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
             categoryMenu.classList.remove('active');
             categoryTrigger.classList.remove('active');
         }
-    });
-    
-    // Prevent product links from closing dropdown immediately
-    const productItems = document.querySelectorAll('.product-item, .view-category');
-    productItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            // Allow normal navigation for product links
-            setTimeout(() => {
-                categoryMenu.classList.remove('active');
-                categoryTrigger.classList.remove('active');
-            }, 100);
-        });
     });
 });
 </script>
