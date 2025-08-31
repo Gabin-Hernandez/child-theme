@@ -23,7 +23,8 @@ Text Domain:    child-theme
 .site-search,
 .site-header-cart,
 .storefront-secondary-navigation,
-.woocommerce-active .site-header .site-header-cart {
+.woocommerce-active .site-header .site-header-cart,
+.storefront-homepage {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
@@ -34,15 +35,28 @@ Text Domain:    child-theme
 .itools-custom-header,
 .top-bar,
 .main-header,
-.main-navigation {
+.main-navigation,
+.clean-header {
   display: block !important;
   visibility: visible !important;
   position: relative !important;
 }
 
 /* Reset de estilos conflictivos del tema padre */
-.site-header * {
+.site-header *,
+.storefront-homepage * {
   display: none !important;
+}
+
+/* Forzar que nuestro contenido principal se muestre correctamente */
+.site {
+  display: block !important;
+}
+
+.site-content {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Asegurar que el contenido principal tenga el margen correcto */
