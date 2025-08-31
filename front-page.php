@@ -5,6 +5,17 @@
 get_header();
 ?>
 
+<style>
+/* Force header visibility on front page */
+.site-header,
+.top-bar,
+.main-header {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+</style>
+
 <!-- Hero Slider Section -->
 <section class="hero-slider">
     <div class="slider-container">
@@ -55,77 +66,125 @@ get_header();
             
             <div class="categories-grid">
                 <?php
-                // Obtener categorías de WooCommerce de forma segura
+                // Categorías específicas para ITOOLS con iconos y colores
+                $itools_categories = array(
+                    array(
+                        'name' => 'Refacciones',
+                        'description' => 'Repuestos y componentes de calidad',
+                        'icon' => '⚙️',
+                        'color' => 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'url' => home_url('/categoria/refacciones')
+                    ),
+                    array(
+                        'name' => 'Pantallas',
+                        'description' => 'Pantallas y displays profesionales',
+                        'icon' => '📱',
+                        'color' => 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'url' => home_url('/categoria/pantallas')
+                    ),
+                    array(
+                        'name' => 'Herramientas',
+                        'description' => 'Herramientas manuales y eléctricas',
+                        'icon' => '🔧',
+                        'color' => 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                        'url' => home_url('/categoria/herramientas')
+                    ),
+                    array(
+                        'name' => 'Accesorios',
+                        'description' => 'Complementos y adaptadores',
+                        'icon' => '🔌',
+                        'color' => 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                        'url' => home_url('/categoria/accesorios')
+                    ),
+                    array(
+                        'name' => 'Baterías',
+                        'description' => 'Baterías y sistemas de energía',
+                        'icon' => '🔋',
+                        'color' => 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                        'url' => home_url('/categoria/baterias')
+                    )
+                );
+
+                // Intentar obtener categorías reales de WooCommerce si están disponibles
                 if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
-                    $categories = get_terms( array(
+                    $wc_categories = get_terms( array(
                         'taxonomy'   => 'product_cat',
                         'hide_empty' => false,
                         'parent'     => 0,
-                        'number'     => 6, // Limitar a 6 categorías principales
+                        'number'     => 5,
                     ));
                     
-                    if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
-                        foreach ( $categories as $category ) {
+                    if ( ! is_wp_error( $wc_categories ) && ! empty( $wc_categories ) ) {
+                        $category_index = 0;
+                        foreach ( $wc_categories as $category ) {
+                            if ( $category_index >= count( $itools_categories ) ) break;
+                            
                             $category_link = get_term_link( $category );
                             if ( is_wp_error( $category_link ) ) {
-                                $category_link = '#';
+                                $category_link = $itools_categories[$category_index]['url'];
                             }
                             
                             // Obtener imagen de la categoría (thumbnail)
                             $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
                             $image_url = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : '';
                             
-                            echo '<div class="category-card">';
+                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($category_index * 100) . '">';
+                            
                             if ( $image_url ) {
-                                echo '<div class="category-image" style="background-image: url(' . esc_url( $image_url ) . ');"></div>';
+                                echo '<div class="category-image" style="background-image: url(' . esc_url( $image_url ) . ');">';
                             } else {
-                                echo '<div class="category-image category-placeholder"></div>';
+                                echo '<div class="category-image category-gradient" style="background: ' . $itools_categories[$category_index]['color'] . ';">';
+                                echo '<div class="category-icon">' . $itools_categories[$category_index]['icon'] . '</div>';
                             }
+                            echo '<div class="category-overlay"></div>';
+                            echo '</div>';
+                            
                             echo '<div class="category-info">';
                             echo '<h3>' . esc_html( $category->name ) . '</h3>';
                             echo '<p>' . $category->count . ' productos disponibles</p>';
-                            echo '<a href="' . esc_url( $category_link ) . '" class="btn btn-outline">Ver Productos</a>';
+                            echo '<div class="category-stats">';
+                            echo '<span class="stock-indicator">✅ En Stock</span>';
+                            echo '</div>';
+                            echo '<a href="' . esc_url( $category_link ) . '" class="btn btn-category">Explorar</a>';
+                            echo '</div>';
+                            echo '</div>';
+                            
+                            $category_index++;
+                        }
+                    } else {
+                        // Usar categorías predefinidas como fallback
+                        foreach ( $itools_categories as $index => $category ) {
+                            echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
+                            echo '<div class="category-image category-gradient" style="background: ' . $category['color'] . ';">';
+                            echo '<div class="category-icon">' . $category['icon'] . '</div>';
+                            echo '<div class="category-overlay"></div>';
+                            echo '</div>';
+                            echo '<div class="category-info">';
+                            echo '<h3>' . esc_html( $category['name'] ) . '</h3>';
+                            echo '<p>' . esc_html( $category['description'] ) . '</p>';
+                            echo '<div class="category-stats">';
+                            echo '<span class="stock-indicator">✅ En Stock</span>';
+                            echo '</div>';
+                            echo '<a href="' . esc_url( $category['url'] ) . '" class="btn btn-category">Explorar</a>';
                             echo '</div>';
                             echo '</div>';
                         }
-                    } else {
-                        // Fallback si no hay categorías o WooCommerce no está activo
-                        echo '<div class="category-card">';
-                        echo '<div class="category-image category-placeholder"></div>';
-                        echo '<div class="category-info">';
-                        echo '<h3>Herramientas Manuales</h3>';
-                        echo '<p>Herramientas de calidad profesional</p>';
-                        echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-outline">Ver Productos</a>';
-                        echo '</div>';
-                        echo '</div>';
-                        
-                        echo '<div class="category-card">';
-                        echo '<div class="category-image category-placeholder"></div>';
-                        echo '<div class="category-info">';
-                        echo '<h3>Maquinaria Industrial</h3>';
-                        echo '<p>Equipos para construcción e industria</p>';
-                        echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-outline">Ver Productos</a>';
-                        echo '</div>';
-                        echo '</div>';
-                        
-                        echo '<div class="category-card">';
-                        echo '<div class="category-image category-placeholder"></div>';
-                        echo '<div class="category-info">';
-                        echo '<h3>Accesorios</h3>';
-                        echo '<p>Complementos y repuestos</p>';
-                        echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-outline">Ver Productos</a>';
-                        echo '</div>';
-                        echo '</div>';
                     }
                 } else {
                     // Fallback completo si WooCommerce no está disponible
-                    for ( $i = 1; $i <= 3; $i++ ) {
-                        echo '<div class="category-card">';
-                        echo '<div class="category-image category-placeholder"></div>';
+                    foreach ( $itools_categories as $index => $category ) {
+                        echo '<div class="category-card modern-category" data-aos="fade-up" data-aos-delay="' . ($index * 100) . '">';
+                        echo '<div class="category-image category-gradient" style="background: ' . $category['color'] . ';">';
+                        echo '<div class="category-icon">' . $category['icon'] . '</div>';
+                        echo '<div class="category-overlay"></div>';
+                        echo '</div>';
                         echo '<div class="category-info">';
-                        echo '<h3>Categoría ' . $i . '</h3>';
-                        echo '<p>Productos de calidad profesional</p>';
-                        echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-outline">Ver Productos</a>';
+                        echo '<h3>' . esc_html( $category['name'] ) . '</h3>';
+                        echo '<p>' . esc_html( $category['description'] ) . '</p>';
+                        echo '<div class="category-stats">';
+                        echo '<span class="stock-indicator">✅ En Stock</span>';
+                        echo '</div>';
+                        echo '<a href="' . esc_url( $category['url'] ) . '" class="btn btn-category">Explorar</a>';
                         echo '</div>';
                         echo '</div>';
                     }
