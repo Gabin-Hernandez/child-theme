@@ -56,11 +56,13 @@ add_action( 'wp_enqueue_scripts', 'itools_child_enqueue_scripts' );
 /**
  * Registrar áreas de menú
  */
-function itools_register_nav_menus() {
-    register_nav_menus( array(
-        'primary' => esc_html__( 'Menú Principal', 'itools-child' ),
-        'footer'  => esc_html__( 'Menú Footer', 'itools-child' ),
-    ));
+if ( ! function_exists( 'itools_register_nav_menus' ) ) {
+    function itools_register_nav_menus() {
+        register_nav_menus( array(
+            'primary' => esc_html__( 'Menú Principal', 'itools-child' ),
+            'footer'  => esc_html__( 'Menú Footer', 'itools-child' ),
+        ) );
+    }
 }
 add_action( 'after_setup_theme', 'itools_register_nav_menus' );
 
@@ -85,16 +87,7 @@ function itools_fallback_menu() {
 /**
  * Ocultar header del tema padre
  */
-function itools_hide_parent_header() {
-    echo '<style type="text/css">
-        .site-header,
-        .storefront-primary-navigation,
-        .storefront-handheld-footer-bar {
-            display: none !important;
-        }
-    </style>';
-}
-add_action( 'wp_head', 'itools_hide_parent_header' );
+// Mantener oculto el header del padre via CSS del tema hijo (style.css). Sin inyectar estilos en wp_head.
 
 /**
  * Soporte del tema
