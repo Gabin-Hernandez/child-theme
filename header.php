@@ -1,6 +1,6 @@
 <?php
 /**
- * Header para Child Theme ITOOLS - Versión Simple
+ * Header Clean - ITOOLS Child Theme
  */
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
