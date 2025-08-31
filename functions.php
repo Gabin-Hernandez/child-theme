@@ -1,13 +1,130 @@
 <?php
 /**
- * Functions para Child Theme ITOOLS - BÁSICO
+ * Functions para Child Theme ITOOLS - Versión Corregida
  */
 
-// Encolar estilos del tema padre
+// Prevenir acceso directo
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// Encolar estilos y scripts correctamente para tema hijo
 function itools_child_enqueue_styles() {
-    wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+    // Versión para cache busting
+    $version = wp_get_theme()->get('Version');
+    
+    // Estilos del tema padre (Storefront)
+    wp_enqueue_style( 
+        'parent-style', 
+        get_template_directory_uri() . '/style.css',
+        array(),
+        $version
+    );
+
+    // Estilos del tema hijo
+    wp_enqueue_style( 
+        'child-style', 
+        get_stylesheet_directory_uri() . '/style.css', 
+        array('parent-style'),
+        $version
+    );
 }
 add_action( 'wp_enqueue_scripts', 'itools_child_enqueue_styles' );
+
+// Agregar Tailwind CSS y configuración en el head - TEMPORALMENTE DESACTIVADO
+/*
+function itools_add_tailwind_css() {
+    ?>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#667eea',
+                        'brand-purple': '#764ba2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Asegurar que Tailwind funcione correctamente */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Fix para el tema padre Storefront */
+        .site-main {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .content-area {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'itools_add_tailwind_css', 1 );
+*/
+
+// Soporte para tema hijo
+function itools_child_setup() {
+    // Soporte para menús
+    add_theme_support( 'menus' );
+
+    register_nav_menus( array(
+        'primary' => 'Menú Principal',
+        'footer'  => 'Menú Footer'
+    ) );
+
+    // Soporte para logo personalizado
+    add_theme_support( 'custom-logo', array(
+        'height'      => 50,
+        'width'       => 200,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ) );
+
+    // Soporte para imágenes destacadas
+    add_theme_support( 'post-thumbnails' );
+    
+    // Soporte para HTML5
+    add_theme_support( 'html5', array(
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+    ) );
+}
+add_action( 'after_setup_theme', 'itools_child_setup' );
+
+// WooCommerce Support
+function itools_woocommerce_support() {
+    add_theme_support( 'woocommerce' );
+    add_theme_support( 'wc-product-gallery-zoom' );
+    add_theme_support( 'wc-product-gallery-lightbox' );
+    add_theme_support( 'wc-product-gallery-slider' );
+}
+add_action( 'after_setup_theme', 'itools_woocommerce_support' );
+
+// Forzar que el tema hijo tome precedencia sobre el padre
+function itools_force_child_theme() {
+    // Asegurar que nuestros templates se usen
+    if ( is_front_page() ) {
+        remove_all_actions( 'storefront_homepage' );
+    }
+}
+add_action( 'init', 'itools_force_child_theme' );
     add_theme_support( 'wc-product-gallery-slider' );
 }
 add_action( 'after_setup_theme', 'itools_woocommerce_support' );
