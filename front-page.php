@@ -57,40 +57,32 @@ get_header();
 <!-- Main Content -->
 <main class="main-content">
     <div class="container">
-        <!-- CTA Section with Statistics -->
-        <section class="cta-stats-section">
-            <div class="cta-stats-container">
-                <div class="cta-content-left">
+        <!-- CTA Section with Statistics - MODERN DESIGN -->
+        <section class="hero-cta-section">
+            <div class="hero-cta-container">
+                <div class="hero-content">
                     <h2>Herramientas para técnicos profesionales</h2>
-                    <p>Somos especialistas en equipos y herramientas de alta calidad para profesionales como tú</p>
-                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="btn btn-cta">Ver herramientas</a>
+                    <p>Equipos y herramientas de alta calidad para profesionales como tú. Más de una década de experiencia respaldando tu trabajo.</p>
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-button">Ver herramientas</a>
                 </div>
-                <div class="cta-stats-right">
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number">10</div>
-                            <div class="stat-label">Años de experiencia</div>
+                <div class="hero-stats">
+                    <div class="stats-container">
+                        <div class="stat">
+                            <span class="stat-number">10</span>
+                            <span class="stat-text">Años de experiencia</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">3</div>
-                            <div class="stat-label">Sucursales</div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-text">Sucursales</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">5K+</div>
-                            <div class="stat-label">Envíos realizados</div>
+                        <div class="stat">
+                            <span class="stat-number">5K+</span>
+                            <span class="stat-text">Envíos realizados</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">97%</div>
-                            <div class="stat-label">Satisfacción</div>
+                        <div class="stat">
+                            <span class="stat-number">97%</span>
+                            <span class="stat-text">Satisfacción</span>
                         </div>
-                    </div>
-                </div>
-                <div class="cta-illustration">
-                    <div class="tech-tools">
-                        <div class="tool-item phone">📱</div>
-                        <div class="tool-item wrench">🔧</div>
-                        <div class="tool-item screwdriver">🪛</div>
-                        <div class="tool-item ruler">📏</div>
                     </div>
                 </div>
             </div>
@@ -232,147 +224,107 @@ get_header();
             </div>
         </section>
 
-        <!-- Product Carousels by Category -->
-        <section class="category-carousels-section">
+        <!-- Product Carousels by Category - REAL PRODUCTS -->
+        <section class="product-categories-section">
             <div class="section-header">
-                <h2>Explora por Categoría</h2>
-                <p>Descubre los mejores productos en cada especialidad</p>
+                <h2>Nuestros Productos por Categoría</h2>
+                <p>Explora nuestro catálogo organizado por especialidades</p>
             </div>
 
-            <!-- Herramientas Carousel -->
-            <div class="category-carousel">
-                <div class="carousel-header">
-                    <h3>🔧 Herramientas Profesionales</h3>
-                    <a href="<?php echo esc_url( home_url( '/categoria/herramientas' ) ); ?>" class="view-all-btn">
-                        Ver todas <span class="arrow">→</span>
-                    </a>
-                </div>
-                <div class="carousel-container" data-category="herramientas">
-                    <div class="carousel-wrapper">
-                        <div class="carousel-track">
-                            <?php
-                            // Productos demo para herramientas
-                            $herramientas_demo = array(
-                                array('name' => 'Taladro Inalámbrico Pro', 'price' => '$2,450', 'image' => '🔨', 'rating' => 5),
-                                array('name' => 'Kit Destornilladores 32 pzs', 'price' => '$890', 'image' => '🔧', 'rating' => 5),
-                                array('name' => 'Llaves Inglesas Set', 'price' => '$1,200', 'image' => '🔩', 'rating' => 4),
-                                array('name' => 'Multímetro Digital', 'price' => '$650', 'image' => '⚡', 'rating' => 5),
-                                array('name' => 'Sierra Caladora Pro', 'price' => '$1,800', 'image' => '🪚', 'rating' => 4),
-                            );
+            <?php
+            // Obtener categorías reales de WooCommerce
+            if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
+                $categories = get_terms( array(
+                    'taxonomy'   => 'product_cat',
+                    'hide_empty' => false,
+                    'parent'     => 0,
+                    'number'     => 3, // Limitar a 3 categorías principales
+                ));
+                
+                if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+                    foreach ( $categories as $category ) {
+                        // Obtener productos de esta categoría
+                        if ( function_exists( 'wc_get_products' ) ) {
+                            $products = wc_get_products( array(
+                                'category' => array( $category->slug ),
+                                'limit'    => 5,
+                                'status'   => 'publish',
+                            ));
                             
-                            foreach($herramientas_demo as $producto) {
-                                echo '<div class="carousel-item">';
-                                echo '<div class="product-card-mini">';
-                                echo '<div class="product-image-mini">';
-                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">' . $producto['image'] . '</div>';
+                            if ( ! empty( $products ) ) {
+                                echo '<div class="category-products-carousel">';
+                                echo '<div class="carousel-header">';
+                                echo '<h3>' . esc_html( $category->name ) . '</h3>';
+                                echo '<a href="' . esc_url( get_term_link( $category ) ) . '" class="view-category-btn">Ver toda la categoría →</a>';
                                 echo '</div>';
-                                echo '<div class="product-info-mini">';
-                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
-                                echo '<div class="price-rating">';
-                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
-                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
+                                
+                                echo '<div class="products-carousel-container">';
+                                echo '<div class="products-carousel-wrapper">';
+                                echo '<div class="products-carousel-track">';
+                                
+                                foreach ( $products as $product ) {
+                                    $product_id = $product->get_id();
+                                    $product_name = $product->get_name();
+                                    $product_price = $product->get_price_html();
+                                    $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'medium' );
+                                    $product_url = get_permalink( $product_id );
+                                    
+                                    echo '<div class="carousel-product-item">';
+                                    echo '<div class="product-card-modern">';
+                                    echo '<div class="product-image-container">';
+                                    
+                                    if ( $product_image ) {
+                                        echo '<img src="' . esc_url( $product_image[0] ) . '" alt="' . esc_attr( $product_name ) . '" class="product-image">';
+                                    } else {
+                                        echo '<div class="product-no-image">Sin imagen</div>';
+                                    }
+                                    
+                                    echo '<div class="product-overlay">';
+                                    echo '<a href="' . esc_url( $product_url ) . '" class="view-product-btn">Ver Producto</a>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    
+                                    echo '<div class="product-details">';
+                                    echo '<h4 class="product-title">' . esc_html( $product_name ) . '</h4>';
+                                    echo '<div class="product-price">' . $product_price . '</div>';
+                                    
+                                    // Verificar si está en stock
+                                    if ( $product->is_in_stock() ) {
+                                        echo '<span class="stock-badge in-stock">En Stock</span>';
+                                    } else {
+                                        echo '<span class="stock-badge out-of-stock">Agotado</span>';
+                                    }
+                                    
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                                
                                 echo '</div>';
                                 echo '</div>';
+                                echo '<button class="carousel-nav-btn prev-btn" data-category="' . $category->slug . '">‹</button>';
+                                echo '<button class="carousel-nav-btn next-btn" data-category="' . $category->slug . '">›</button>';
                                 echo '</div>';
                                 echo '</div>';
                             }
-                            ?>
-                        </div>
-                    </div>
-                    <button class="carousel-btn prev" data-direction="prev">‹</button>
-                    <button class="carousel-btn next" data-direction="next">›</button>
-                </div>
-            </div>
-
-            <!-- Pantallas Carousel -->
-            <div class="category-carousel">
-                <div class="carousel-header">
-                    <h3>📺 Pantallas y Displays</h3>
-                    <a href="<?php echo esc_url( home_url( '/categoria/pantallas' ) ); ?>" class="view-all-btn">
-                        Ver todas <span class="arrow">→</span>
-                    </a>
-                </div>
-                <div class="carousel-container" data-category="pantallas">
-                    <div class="carousel-wrapper">
-                        <div class="carousel-track">
-                            <?php
-                            // Productos demo para pantallas
-                            $pantallas_demo = array(
-                                array('name' => 'Monitor 4K 27" Pro', 'price' => '$4,200', 'image' => '🖥️', 'rating' => 5),
-                                array('name' => 'Pantalla Touch 15"', 'price' => '$2,800', 'image' => '📱', 'rating' => 4),
-                                array('name' => 'Display Industrial 24"', 'price' => '$3,500', 'image' => '📺', 'rating' => 5),
-                                array('name' => 'Tablet Rugerizada 10"', 'price' => '$1,900', 'image' => '📊', 'rating' => 4),
-                                array('name' => 'Monitor Curvo 32"', 'price' => '$5,200', 'image' => '⚫', 'rating' => 5),
-                            );
-                            
-                            foreach($pantallas_demo as $producto) {
-                                echo '<div class="carousel-item">';
-                                echo '<div class="product-card-mini">';
-                                echo '<div class="product-image-mini">';
-                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">' . $producto['image'] . '</div>';
-                                echo '</div>';
-                                echo '<div class="product-info-mini">';
-                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
-                                echo '<div class="price-rating">';
-                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
-                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <button class="carousel-btn prev" data-direction="prev">‹</button>
-                    <button class="carousel-btn next" data-direction="next">›</button>
-                </div>
-            </div>
-
-            <!-- Baterías Carousel -->
-            <div class="category-carousel">
-                <div class="carousel-header">
-                    <h3>🔋 Baterías y Energía</h3>
-                    <a href="<?php echo esc_url( home_url( '/categoria/baterias' ) ); ?>" class="view-all-btn">
-                        Ver todas <span class="arrow">→</span>
-                    </a>
-                </div>
-                <div class="carousel-container" data-category="baterias">
-                    <div class="carousel-wrapper">
-                        <div class="carousel-track">
-                            <?php
-                            // Productos demo para baterías
-                            $baterias_demo = array(
-                                array('name' => 'Batería Li-ion 18V 5Ah', 'price' => '$1,200', 'image' => '🔋', 'rating' => 5),
-                                array('name' => 'Power Bank 20000mAh', 'price' => '$850', 'image' => '⚡', 'rating' => 4),
-                                array('name' => 'Cargador Rápido USB-C', 'price' => '$450', 'image' => '🔌', 'rating' => 5),
-                                array('name' => 'UPS 1500VA', 'price' => '$2,800', 'image' => '🏠', 'rating' => 4),
-                                array('name' => 'Batería Auto 12V', 'price' => '$1,600', 'image' => '🚗', 'rating' => 5),
-                            );
-                            
-                            foreach($baterias_demo as $producto) {
-                                echo '<div class="carousel-item">';
-                                echo '<div class="product-card-mini">';
-                                echo '<div class="product-image-mini">';
-                                echo '<div class="product-placeholder-mini" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">' . $producto['image'] . '</div>';
-                                echo '</div>';
-                                echo '<div class="product-info-mini">';
-                                echo '<h4>' . esc_html($producto['name']) . '</h4>';
-                                echo '<div class="price-rating">';
-                                echo '<span class="price">' . esc_html($producto['price']) . '</span>';
-                                echo '<span class="rating">' . str_repeat('⭐', $producto['rating']) . '</span>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <button class="carousel-btn prev" data-direction="prev">‹</button>
-                    <button class="carousel-btn next" data-direction="next">›</button>
-                </div>
-            </div>
+                        }
+                    }
+                } else {
+                    // Fallback si no hay categorías
+                    echo '<div class="no-categories-message">';
+                    echo '<h3>Configurando catálogo</h3>';
+                    echo '<p>Estamos organizando nuestros productos para ofrecerte la mejor experiencia.</p>';
+                    echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-primary">Ver todos los productos</a>';
+                    echo '</div>';
+                }
+            } else {
+                // Fallback si WooCommerce no está disponible
+                echo '<div class="woocommerce-not-active">';
+                echo '<h3>Catálogo en preparación</h3>';
+                echo '<p>Pronto podrás explorar nuestro catálogo completo de herramientas profesionales.</p>';
+                echo '</div>';
+            }
+            ?>
         </section>
 
         <!-- Featured Products Section -->
@@ -496,21 +448,23 @@ get_header();
 </main>
 
 <script>
-// Carousel functionality
+// Modern Product Carousel functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const carousels = document.querySelectorAll('.carousel-container');
+    const carousels = document.querySelectorAll('.products-carousel-container');
     
     carousels.forEach(carousel => {
-        const track = carousel.querySelector('.carousel-track');
-        const items = carousel.querySelectorAll('.carousel-item');
-        const prevBtn = carousel.querySelector('.carousel-btn.prev');
-        const nextBtn = carousel.querySelector('.carousel-btn.next');
+        const track = carousel.querySelector('.products-carousel-track');
+        const items = carousel.querySelectorAll('.carousel-product-item');
+        const prevBtn = carousel.querySelector('.prev-btn');
+        const nextBtn = carousel.querySelector('.next-btn');
+        
+        if (!track || !items.length || !prevBtn || !nextBtn) return;
         
         let currentIndex = 0;
-        const itemsPerView = 4; // Mostrar 4 productos a la vez
-        const itemWidth = 100 / itemsPerView; // 25% para cada item
+        const itemsPerView = Math.min(4, items.length); // Responsive: max 4 items
+        const itemWidth = 100 / itemsPerView;
         
-        // Configurar el ancho de los items
+        // Set up item widths
         items.forEach(item => {
             item.style.flex = `0 0 ${itemWidth}%`;
         });
@@ -519,9 +473,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const translateX = -(currentIndex * itemWidth);
             track.style.transform = `translateX(${translateX}%)`;
             
-            // Actualizar botones
-            prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
-            nextBtn.style.opacity = currentIndex >= items.length - itemsPerView ? '0.5' : '1';
+            // Update button states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= items.length - itemsPerView;
+            
+            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
         }
         
         prevBtn.addEventListener('click', () => {
@@ -538,69 +495,85 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Auto-scroll en hover
-        let autoScrollInterval;
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let isDragging = false;
         
-        carousel.addEventListener('mouseenter', () => {
-            clearInterval(autoScrollInterval);
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
         });
         
-        carousel.addEventListener('mouseleave', () => {
-            autoScrollInterval = setInterval(() => {
-                if (currentIndex < items.length - itemsPerView) {
+        track.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+        
+        track.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                if (diffX > 0 && currentIndex < items.length - itemsPerView) {
                     currentIndex++;
-                } else {
-                    currentIndex = 0;
+                } else if (diffX < 0 && currentIndex > 0) {
+                    currentIndex--;
                 }
                 updateCarousel();
-            }, 3000);
+            }
+            
+            isDragging = false;
         });
         
-        // Inicializar
+        // Initialize
         updateCarousel();
         
-        // Iniciar auto-scroll
-        autoScrollInterval = setInterval(() => {
-            if (currentIndex < items.length - itemsPerView) {
-                currentIndex++;
-            } else {
-                currentIndex = 0;
+        // Responsive handling
+        window.addEventListener('resize', () => {
+            const newItemsPerView = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 4;
+            if (newItemsPerView !== itemsPerView) {
+                location.reload(); // Simple solution for resize
             }
-            updateCarousel();
-        }, 3000);
+        });
     });
 });
 
-// Slider JavaScript
+// Hero Slider functionality
 let currentSlideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
 
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-    });
-    dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-    });
-}
+if (slides.length > 0) {
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        if (dots.length > 0) {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+    }
 
-function changeSlide(direction) {
-    currentSlideIndex += direction;
-    if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
-    if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
-    showSlide(currentSlideIndex);
-}
+    function changeSlide(direction) {
+        currentSlideIndex += direction;
+        if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+        if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+        showSlide(currentSlideIndex);
+    }
 
-function currentSlide(index) {
-    currentSlideIndex = index - 1;
-    showSlide(currentSlideIndex);
-}
+    function currentSlide(index) {
+        currentSlideIndex = index - 1;
+        showSlide(currentSlideIndex);
+    }
 
-// Auto-advance slides
-setInterval(() => {
-    changeSlide(1);
-}, 5000);
+    // Auto-advance slides every 5 seconds
+    setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+}
 </script>
 
 <?php get_footer(); ?>
