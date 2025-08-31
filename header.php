@@ -7,11 +7,10 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php bloginfo('description'); ?>">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
+<?php if ( function_exists( 'wp_body_open' ) ) wp_body_open(); ?>
 
 <!-- Top Bar -->
 <div class="itools-top-bar">
@@ -22,7 +21,7 @@
                 <span>✉️ info@itoolsmx.com</span>
             </div>
             <div class="top-bar-links">
-                <a href="<?php echo wc_get_page_permalink('myaccount'); ?>">Mi Cuenta</a>
+                <a href="<?php echo esc_url( wc_get_page_permalink('myaccount') ); ?>">Mi Cuenta</a>
                 <a href="/seguimiento">Seguimiento</a>
                 <a href="/contacto">Ayuda</a>
             </div>
@@ -36,14 +35,10 @@
         <div class="header-content">
             <!-- Logo -->
             <div class="logo-section">
-                <?php if (has_custom_logo()) : ?>
-                    <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
-                        <h1><?php bloginfo('name'); ?></h1>
-                        <span class="tagline"><?php bloginfo('description'); ?></span>
-                    </a>
-                <?php endif; ?>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
+                    <h1><?php bloginfo('name'); ?></h1>
+                    <span class="tagline"><?php bloginfo('description'); ?></span>
+                </a>
             </div>
 
             <!-- Search Bar with Category Filter -->
@@ -53,22 +48,24 @@
                         <select name="product_cat" class="category-filter">
                             <option value="">Elegir categoría</option>
                             <?php
-                            $categories = get_terms(array(
-                                'taxonomy' => 'product_cat',
-                                'hide_empty' => true,
-                                'parent' => 0
-                            ));
-                            foreach ($categories as $category) {
-                                $selected = (isset($_GET['product_cat']) && $_GET['product_cat'] == $category->slug) ? 'selected' : '';
-                                echo '<option value="' . $category->slug . '" ' . $selected . '>' . $category->name . ' (' . $category->count . ')</option>';
+                            if ( function_exists('get_terms') ) {
+                                $categories = get_terms(array(
+                                    'taxonomy' => 'product_cat',
+                                    'hide_empty' => true,
+                                    'parent' => 0
+                                ));
+                                if ( !is_wp_error($categories) && !empty($categories) ) {
+                                    foreach ($categories as $category) {
+                                        $selected = (isset($_GET['product_cat']) && $_GET['product_cat'] == $category->slug) ? 'selected' : '';
+                                        echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . ' (' . $category->count . ')</option>';
+                                    }
+                                }
                             }
                             ?>
                         </select>
                         <input type="search" name="s" placeholder="Busca Productos aquí" value="<?php echo get_search_query(); ?>">
                         <input type="hidden" name="post_type" value="product">
-                        <button type="submit" class="search-btn">
-                            🔍
-                        </button>
+                        <button type="submit" class="search-btn">🔍</button>
                     </div>
                 </form>
             </div>
@@ -77,20 +74,22 @@
             <div class="header-actions">
                 <!-- User Account -->
                 <div class="account-menu">
-                    <a href="<?php echo wc_get_page_permalink('myaccount'); ?>" class="account-link">
+                    <a href="<?php echo esc_url( wc_get_page_permalink('myaccount') ); ?>" class="account-link">
                         👤
                         <span><?php echo is_user_logged_in() ? 'Mi Cuenta' : 'Iniciar Sesión'; ?></span>
                     </a>
                 </div>
 
                 <!-- Shopping Cart -->
+                <?php if ( function_exists('WC') && WC()->cart ) : ?>
                 <div class="cart-menu">
-                    <a href="<?php echo wc_get_cart_url(); ?>" class="cart-link">
+                    <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-link">
                         🛒
                         <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
                         <span class="cart-total"><?php echo WC()->cart->get_cart_total(); ?></span>
                     </a>
                 </div>
+                <?php endif; ?>
             </div>
 
             <!-- Mobile Menu Toggle -->
@@ -104,12 +103,16 @@
         <!-- Navigation Menu -->
         <nav class="main-navigation">
             <?php 
-            wp_nav_menu(array(
-                'theme_location' => 'primary',
-                'menu_class' => 'nav-menu',
-                'container' => false,
-                'fallback_cb' => 'itools_fallback_menu'
-            )); 
+            if ( function_exists('wp_nav_menu') ) {
+                wp_nav_menu(array(
+                    'theme_location' => 'primary',
+                    'menu_class' => 'nav-menu',
+                    'container' => false,
+                    'fallback_cb' => 'itools_fallback_menu'
+                )); 
+            } else {
+                itools_fallback_menu();
+            }
             ?>
         </nav>
     </div>
