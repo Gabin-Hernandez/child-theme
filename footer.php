@@ -1,4 +1,3 @@
-        </div><!-- .col-full -->
     </div><!-- #content -->
 
     <?php
