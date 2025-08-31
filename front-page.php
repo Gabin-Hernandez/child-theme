@@ -59,31 +59,31 @@ get_header();
     <div class="container">
         <!-- CTA Section with Statistics - MODERN DESIGN -->
         <section class="hero-cta-section">
-            <div class="hero-cta-container">
-                <div class="hero-content">
+            <div class="container">
+                <div class="cta-content">
                     <h2>Herramientas para técnicos profesionales</h2>
                     <p>Equipos y herramientas de alta calidad para profesionales como tú. Más de una década de experiencia respaldando tu trabajo.</p>
-                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-button">Ver herramientas</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stats-container">
-                        <div class="stat">
-                            <span class="stat-number">10</span>
-                            <span class="stat-text">Años de experiencia</span>
+                    
+                    <div class="cta-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Años de experiencia</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat-item">
                             <span class="stat-number">3</span>
-                            <span class="stat-text">Sucursales</span>
+                            <span class="stat-label">Sucursales activas</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat-item">
                             <span class="stat-number">5K+</span>
-                            <span class="stat-text">Envíos realizados</span>
+                            <span class="stat-label">Envíos realizados</span>
                         </div>
-                        <div class="stat">
+                        <div class="stat-item">
                             <span class="stat-number">97%</span>
-                            <span class="stat-text">Satisfacción</span>
+                            <span class="stat-label">Satisfacción del cliente</span>
                         </div>
                     </div>
+                    
+                    <a href="<?php echo esc_url( home_url( '/tienda' ) ); ?>" class="cta-button">Explorar Catálogo</a>
                 </div>
             </div>
         </section>
@@ -224,107 +224,118 @@ get_header();
             </div>
         </section>
 
-        <!-- Product Carousels by Category - REAL PRODUCTS -->
+        <!-- Product Categories Section - GRID FORMAT -->
         <section class="product-categories-section">
-            <div class="section-header">
-                <h2>Nuestros Productos por Categoría</h2>
-                <p>Explora nuestro catálogo organizado por especialidades</p>
-            </div>
+            <div class="container">
+                <h2 class="section-title">Nuestros Productos por Categoría</h2>
+                <p class="section-subtitle">Explora nuestro catálogo organizado por especialidades</p>
 
-            <?php
-            // Obtener categorías reales de WooCommerce
-            if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
-                $categories = get_terms( array(
-                    'taxonomy'   => 'product_cat',
-                    'hide_empty' => false,
-                    'parent'     => 0,
-                    'number'     => 3, // Limitar a 3 categorías principales
-                ));
-                
-                if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
-                    foreach ( $categories as $category ) {
-                        // Obtener productos de esta categoría
-                        if ( function_exists( 'wc_get_products' ) ) {
-                            $products = wc_get_products( array(
-                                'category' => array( $category->slug ),
-                                'limit'    => 5,
-                                'status'   => 'publish',
-                            ));
-                            
-                            if ( ! empty( $products ) ) {
-                                echo '<div class="category-products-carousel">';
-                                echo '<div class="carousel-header">';
-                                echo '<h3>' . esc_html( $category->name ) . '</h3>';
-                                echo '<a href="' . esc_url( get_term_link( $category ) ) . '" class="view-category-btn">Ver toda la categoría →</a>';
-                                echo '</div>';
+                <?php
+                // Obtener categorías reales de WooCommerce
+                if ( function_exists( 'get_terms' ) && taxonomy_exists( 'product_cat' ) ) {
+                    $categories = get_terms( array(
+                        'taxonomy'   => 'product_cat',
+                        'hide_empty' => false,
+                        'parent'     => 0,
+                        'number'     => 3, // Limitar a 3 categorías principales
+                    ));
+                    
+                    if ( ! is_wp_error( $categories ) && ! empty( $categories ) ) {
+                        foreach ( $categories as $category ) {
+                            // Obtener productos de esta categoría
+                            if ( function_exists( 'wc_get_products' ) ) {
+                                $products = wc_get_products( array(
+                                    'category' => array( $category->slug ),
+                                    'limit'    => 8, // 8 productos para mostrar 2 filas de 4
+                                    'status'   => 'publish',
+                                ));
                                 
-                                echo '<div class="products-carousel-container">';
-                                echo '<div class="products-carousel-wrapper">';
-                                echo '<div class="products-carousel-track">';
-                                
-                                foreach ( $products as $product ) {
-                                    $product_id = $product->get_id();
-                                    $product_name = $product->get_name();
-                                    $product_price = $product->get_price_html();
-                                    $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'medium' );
-                                    $product_url = get_permalink( $product_id );
+                                if ( ! empty( $products ) ) {
+                                    echo '<div class="category-products-section">';
+                                    echo '<div class="category-header">';
+                                    echo '<h3 class="category-title">' . esc_html( $category->name ) . '</h3>';
+                                    echo '<a href="' . esc_url( get_term_link( $category ) ) . '" class="view-all-btn">Ver todos <span class="arrow">→</span></a>';
+                                    echo '</div>';
                                     
-                                    echo '<div class="carousel-product-item">';
-                                    echo '<div class="product-card-modern">';
-                                    echo '<div class="product-image-container">';
+                                    echo '<div class="products-grid">';
                                     
-                                    if ( $product_image ) {
-                                        echo '<img src="' . esc_url( $product_image[0] ) . '" alt="' . esc_attr( $product_name ) . '" class="product-image">';
-                                    } else {
-                                        echo '<div class="product-no-image">Sin imagen</div>';
+                                    foreach ( $products as $product ) {
+                                        $product_id = $product->get_id();
+                                        $product_name = $product->get_name();
+                                        $product_price = $product->get_price_html();
+                                        $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'medium' );
+                                        $product_url = get_permalink( $product_id );
+                                        $sale_price = $product->get_sale_price();
+                                        $regular_price = $product->get_regular_price();
+                                        
+                                        echo '<div class="product-card">';
+                                        echo '<div class="product-image">';
+                                        
+                                        if ( $product_image ) {
+                                            echo '<img src="' . esc_url( $product_image[0] ) . '" alt="' . esc_attr( $product_name ) . '">';
+                                        } else {
+                                            echo '<div class="no-image-placeholder">Sin imagen</div>';
+                                        }
+                                        
+                                        // Badge para productos en oferta
+                                        if ( $sale_price ) {
+                                            echo '<span class="product-badge sale">Oferta</span>';
+                                        }
+                                        
+                                        echo '</div>';
+                                        
+                                        echo '<div class="product-info">';
+                                        echo '<h4 class="product-title">' . esc_html( $product_name ) . '</h4>';
+                                        
+                                        echo '<div class="product-price">';
+                                        if ( $sale_price && $regular_price ) {
+                                            echo '<span class="price-current">$' . number_format( floatval( $sale_price ), 2 ) . '</span>';
+                                            echo '<span class="price-original">$' . number_format( floatval( $regular_price ), 2 ) . '</span>';
+                                        } else {
+                                            echo '<span class="price-current">' . $product_price . '</span>';
+                                        }
+                                        echo '</div>';
+                                        
+                                        // Rating placeholder
+                                        echo '<div class="product-rating">';
+                                        echo '<span class="stars">★★★★★</span>';
+                                        echo '<span>(4.5)</span>';
+                                        echo '</div>';
+                                        
+                                        // Stock status
+                                        if ( $product->is_in_stock() ) {
+                                            echo '<span class="stock-status in-stock">✓ En Stock</span>';
+                                        } else {
+                                            echo '<span class="stock-status out-of-stock">✗ Agotado</span>';
+                                        }
+                                        
+                                        echo '<a href="' . esc_url( $product_url ) . '" class="add-to-cart-btn">Ver Producto</a>';
+                                        echo '</div>';
+                                        echo '</div>';
                                     }
                                     
-                                    echo '<div class="product-overlay">';
-                                    echo '<a href="' . esc_url( $product_url ) . '" class="view-product-btn">Ver Producto</a>';
-                                    echo '</div>';
-                                    echo '</div>';
-                                    
-                                    echo '<div class="product-details">';
-                                    echo '<h4 class="product-title">' . esc_html( $product_name ) . '</h4>';
-                                    echo '<div class="product-price">' . $product_price . '</div>';
-                                    
-                                    // Verificar si está en stock
-                                    if ( $product->is_in_stock() ) {
-                                        echo '<span class="stock-badge in-stock">En Stock</span>';
-                                    } else {
-                                        echo '<span class="stock-badge out-of-stock">Agotado</span>';
-                                    }
-                                    
-                                    echo '</div>';
-                                    echo '</div>';
-                                    echo '</div>';
+                                    echo '</div>'; // .products-grid
+                                    echo '</div>'; // .category-products-section
                                 }
-                                
-                                echo '</div>';
-                                echo '</div>';
-                                echo '<button class="carousel-nav-btn prev-btn" data-category="' . $category->slug . '">‹</button>';
-                                echo '<button class="carousel-nav-btn next-btn" data-category="' . $category->slug . '">›</button>';
-                                echo '</div>';
-                                echo '</div>';
                             }
                         }
+                    } else {
+                        // Fallback si no hay categorías
+                        echo '<div class="no-categories-message">';
+                        echo '<h3>Configurando catálogo</h3>';
+                        echo '<p>Estamos organizando nuestros productos para ofrecerte la mejor experiencia.</p>';
+                        echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="cta-button">Ver todos los productos</a>';
+                        echo '</div>';
                     }
                 } else {
-                    // Fallback si no hay categorías
-                    echo '<div class="no-categories-message">';
-                    echo '<h3>Configurando catálogo</h3>';
-                    echo '<p>Estamos organizando nuestros productos para ofrecerte la mejor experiencia.</p>';
-                    echo '<a href="' . esc_url( home_url( '/tienda' ) ) . '" class="btn btn-primary">Ver todos los productos</a>';
+                    // Fallback si WooCommerce no está disponible
+                    echo '<div class="woocommerce-not-active">';
+                    echo '<h3>Catálogo en preparación</h3>';
+                    echo '<p>Pronto podrás explorar nuestro catálogo completo de herramientas profesionales.</p>';
                     echo '</div>';
                 }
-            } else {
-                // Fallback si WooCommerce no está disponible
-                echo '<div class="woocommerce-not-active">';
-                echo '<h3>Catálogo en preparación</h3>';
-                echo '<p>Pronto podrás explorar nuestro catálogo completo de herramientas profesionales.</p>';
-                echo '</div>';
-            }
-            ?>
+                ?>
+            </div>
         </section>
 
         <!-- Featured Products Section -->
@@ -448,131 +459,84 @@ get_header();
 </main>
 
 <script>
-// Modern Product Carousel functionality
+// Hero Slider functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const carousels = document.querySelectorAll('.products-carousel-container');
-    
-    carousels.forEach(carousel => {
-        const track = carousel.querySelector('.products-carousel-track');
-        const items = carousel.querySelectorAll('.carousel-product-item');
-        const prevBtn = carousel.querySelector('.prev-btn');
-        const nextBtn = carousel.querySelector('.next-btn');
-        
-        if (!track || !items.length || !prevBtn || !nextBtn) return;
-        
-        let currentIndex = 0;
-        const itemsPerView = Math.min(4, items.length); // Responsive: max 4 items
-        const itemWidth = 100 / itemsPerView;
-        
-        // Set up item widths
-        items.forEach(item => {
-            item.style.flex = `0 0 ${itemWidth}%`;
-        });
-        
-        function updateCarousel() {
-            const translateX = -(currentIndex * itemWidth);
-            track.style.transform = `translateX(${translateX}%)`;
-            
-            // Update button states
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= items.length - itemsPerView;
-            
-            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
-            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slides.length > 0) {
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            if (dots.length > 0) {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
         }
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < items.length - itemsPerView) {
-                currentIndex++;
-                updateCarousel();
-            }
-        });
-        
-        // Touch/swipe support for mobile
-        let startX = 0;
-        let isDragging = false;
-        
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        });
-        
-        track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-        });
-        
-        track.addEventListener('touchend', (e) => {
-            if (!isDragging) return;
-            
-            const endX = e.changedTouches[0].clientX;
-            const diffX = startX - endX;
-            
-            if (Math.abs(diffX) > 50) { // Minimum swipe distance
-                if (diffX > 0 && currentIndex < items.length - itemsPerView) {
-                    currentIndex++;
-                } else if (diffX < 0 && currentIndex > 0) {
-                    currentIndex--;
-                }
-                updateCarousel();
-            }
-            
-            isDragging = false;
-        });
-        
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-advance slides every 5 seconds
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
         // Initialize
-        updateCarousel();
-        
-        // Responsive handling
-        window.addEventListener('resize', () => {
-            const newItemsPerView = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 4;
-            if (newItemsPerView !== itemsPerView) {
-                location.reload(); // Simple solution for resize
+        showSlide(0);
+    }
+
+    // Smooth scrolling for CTA button
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function(e) {
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
+        });
+    }
+
+    // Product cards hover effects
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
         });
     });
 });
 
-// Hero Slider functionality
-let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
+// Global functions for slider navigation
+function changeSlide(direction) {
+    const event = new CustomEvent('changeSlide', { detail: direction });
+    document.dispatchEvent(event);
+}
 
-if (slides.length > 0) {
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
-        if (dots.length > 0) {
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-    }
-
-    function changeSlide(direction) {
-        currentSlideIndex += direction;
-        if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
-        if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
-        showSlide(currentSlideIndex);
-    }
-
-    function currentSlide(index) {
-        currentSlideIndex = index - 1;
-        showSlide(currentSlideIndex);
-    }
-
-    // Auto-advance slides every 5 seconds
-    setInterval(() => {
-        changeSlide(1);
-    }, 5000);
+function currentSlide(index) {
+    const event = new CustomEvent('currentSlide', { detail: index });
+    document.dispatchEvent(event);
 }
 </script>
 
