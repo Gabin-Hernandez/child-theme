@@ -148,9 +148,9 @@ body {
 /* Grid mejorado con spacing perfecto */
 .header-row {
   display: grid;
-  grid-template-columns: 200px 1fr 150px;
+  grid-template-columns: 160px 1fr 200px; /* izquierda acciones, centro buscador, derecha logo */
   align-items: center;
-  gap: 40px;
+  gap: 32px;
 }
 
 /* ================================
@@ -160,6 +160,7 @@ body {
   text-decoration: none;
   display: block;
 }
+.logo { justify-self: end; }
 
 .logo-text {
   font-size: 32px;
@@ -332,6 +333,95 @@ body {
     color: #5a67d8;
 }
 
+/* ================================
+   NAV DE CATEGORÍAS INFERIOR + MEGAMENU
+   ================================ */
+.category-navbar {
+  background: #ffffff;
+  border-top: 1px solid #eef2f7;
+  border-bottom: 1px solid #eef2f7;
+  position: relative;
+  z-index: 999;
+}
+
+.category-navbar .container { padding: 0 20px; }
+
+.category-megamenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.category-megamenu > li { position: relative; }
+
+.category-megamenu > li > a {
+  display: inline-block;
+  padding: 12px 6px;
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color .2s ease;
+}
+
+.category-megamenu > li > a:hover { color: #5a67d8; }
+
+.megamenu-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  background: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  padding: 16px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all .2s ease;
+}
+
+.megamenu-item:hover .megamenu-dropdown {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.megamenu-products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.megamenu-product-item a {
+  display: block;
+  text-decoration: none;
+  background: #f9fafb;
+  border: 1px solid #edf2f7;
+  border-radius: 10px;
+  padding: 10px;
+  transition: box-shadow .2s ease, transform .2s ease;
+  color: #2d3748;
+}
+
+.megamenu-product-item a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.megamenu-product-item img { width: 100%; height: auto; border-radius: 8px; }
+.megamenu-product-item h5 { font-size: 14px; margin: 8px 0 4px; font-weight: 700; }
+.megamenu-product-item .price { font-size: 13px; color: #5a67d8; font-weight: 700; }
+
+.megamenu-footer { margin-top: 12px; text-align: right; }
+.view-all-btn { color: #667eea; text-decoration: none; font-weight: 700; }
+.view-all-btn:hover { color: #5a67d8; }
+
 /* Campo de búsqueda */
 .search-input {
   flex: 1;
@@ -377,7 +467,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  justify-self: end;
+  justify-self: start; /* a la izquierda */
 }
 
 .action-btn {
@@ -446,10 +536,7 @@ body {
    RESPONSIVE DESIGN
    ================================ */
 @media (max-width: 1024px) {
-  .header-row {
-    grid-template-columns: 180px 1fr 130px;
-    gap: 25px;
-  }
+  .header-row { grid-template-columns: 150px 1fr 160px; gap: 20px; }
   
   .search-form {
     border-radius: 10px;
@@ -460,9 +547,8 @@ body {
     padding: 14px 16px;
   }
   
-  .category-menu {
-    min-width: 500px;
-  }
+  .category-menu { min-width: 340px; }
+  .megamenu-products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   
   .category-products {
     grid-template-columns: 1fr;
@@ -523,13 +609,11 @@ body {
     height: 44px;
   }
   
-  .category-menu {
-    min-width: 100%;
-    left: -15px;
-    right: -15px;
-    border-radius: 0;
-    max-height: 400px;
-  }
+  .category-menu { min-width: 100%; left: -15px; right: -15px; border-radius: 0; max-height: 400px; }
+  .category-megamenu { flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .megamenu-dropdown { position: static; transform: none; box-shadow: none; border-radius: 10px; display: none; }
+  .megamenu-item:hover .megamenu-dropdown { display: block; opacity: 1; visibility: visible; }
+  .megamenu-products { grid-template-columns: 1fr 1fr; }
   
   .category-products {
     grid-template-columns: 1fr;

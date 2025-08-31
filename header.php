@@ -215,21 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Sticky Header
+    // Sticky Header: mantener visible sin auto-ocultar
     const header = document.querySelector('.simple-header');
     if (header) {
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
-                // Scroll Down
-                header.style.top = `-${header.offsetHeight}px`;
-            } else {
-                // Scroll Up
-                header.style.top = '0';
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        });
+        header.style.top = '0';
     }
 });
 </script>
