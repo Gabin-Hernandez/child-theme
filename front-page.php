@@ -14,7 +14,6 @@ get_header(); ?>
             <div class="slide active h-[600px] md:h-[700px] relative">
                 <!-- Imagen de fondo con gradiente -->
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900">
-                    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\"><defs><radialGradient id=\"a\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" stop-color=\"%23ffffff\" stop-opacity=\"0.1\"/><stop offset=\"100%\" stop-color=\"%23ffffff\" stop-opacity=\"0\"/></radialGradient></defs><circle cx=\"500\" cy=\"500\" r=\"500\" fill=\"url(%23a)\"/></svg>'); background-size: cover; background-position: center;"></div>
                     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
                 </div>
                 
@@ -57,7 +56,6 @@ get_header(); ?>
             <!-- Slide 2 - Refacciones -->
             <div class="slide h-[600px] md:h-[700px] relative hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-blue-900">
-                    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grid\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\"><path d=\"M 10 0 L 0 0 0 10\" fill=\"none\" stroke=\"%23ffffff\" stroke-width=\"0.5\" opacity=\"0.1\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23grid)\"/></svg>'); background-size: 50px 50px;"></div>
                     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
                 
@@ -88,7 +86,6 @@ get_header(); ?>
             <!-- Slide 3 - Pantallas -->
             <div class="slide h-[600px] md:h-[700px] relative hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900">
-                    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><defs><linearGradient id=\"circuit\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"%23ffffff\" stop-opacity=\"0.1\"/><stop offset=\"100%\" stop-color=\"%23ffffff\" stop-opacity=\"0\"/></linearGradient></defs><rect width=\"200\" height=\"200\" fill=\"url(%23circuit)\"/></svg>'); background-size: 100px 100px;"></div>
                     <div class="absolute inset-0 bg-black bg-opacity-30"></div>
                 </div>
                 
@@ -119,7 +116,6 @@ get_header(); ?>
             <!-- Slide 4 - Baterías -->
             <div class="slide h-[600px] md:h-[700px] relative hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-yellow-800 via-green-800 to-emerald-900">
-                    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 60 60\"><defs><radialGradient id=\"energy\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" stop-color=\"%23ffff00\" stop-opacity=\"0.1\"/><stop offset=\"100%\" stop-color=\"%23ffff00\" stop-opacity=\"0\"/></radialGradient></defs><circle cx=\"30\" cy=\"30\" r=\"30\" fill=\"url(%23energy)\"/></svg>'); background-size: 120px 120px;"></div>
                     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                 </div>
                 
@@ -375,7 +371,7 @@ get_header(); ?>
             
             <!-- Carrusel de marcas mejorado -->
             <div class="overflow-hidden relative">
-                <div class="flex animate-scroll-seamless space-x-12 items-center">
+                <div class="flex animate-scroll space-x-12 items-center">
                     <!-- Apple -->
                     <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
                         <svg class="w-16 h-16 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
