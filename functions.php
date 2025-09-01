@@ -88,3 +88,72 @@ function itools_search_scripts() {
     <?php
 }
 add_action( 'wp_footer', 'itools_search_scripts' );
+
+// Agregar estilos personalizados para animaciones
+function itools_custom_styles() {
+    ?>
+    <style>
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    .animate-scroll {
+        animation: scroll 20s linear infinite;
+    }
+    
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+    
+    /* Efectos adicionales para las categorías */
+    .category-card {
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .category-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Animaciones de estadísticas */
+    @keyframes countUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .stat-number {
+        animation: countUp 0.8s ease-out forwards;
+    }
+    
+    /* Gradientes animados */
+    @keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    
+    .gradient-animate {
+        background-size: 200% 200%;
+        animation: gradientShift 4s ease infinite;
+    }
+    </style>
+    <?php
+}
+add_action( 'wp_head', 'itools_custom_styles' );

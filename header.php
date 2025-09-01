@@ -39,7 +39,7 @@
                 </div>
 
                 <!-- Búsqueda con filtro de categorías -->
-                <div style="flex: 1; max-width: 500px; margin: 0 32px;">
+                <div style="flex: 1; max-width: 500px; margin: 32px 32px 0px 0px;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         
                         <!-- Selector de categorías -->
