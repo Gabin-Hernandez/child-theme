@@ -152,51 +152,6 @@ get_header(); ?>
                     </div>
                 </div>
             </div>
-                                <span class="block text-2xl md:text-3xl text-purple-200 font-normal mt-2">
-                                    Quality is Our Priority
-                                </span>
-                            </h2>
-                            <p class="text-xl text-purple-100 mb-8">
-                                Pantallas LCD, OLED y más tecnologías de última generación para todos los dispositivos móviles
-                            </p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>" 
-                               class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
-                                📱 Ver Pantallas
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 4 - Baterías -->
-            <div class="slide h-[600px] md:h-[700px] relative hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-yellow-800 via-green-800 to-emerald-900">
-                    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-                </div>
-                
-                <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
-                        <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-yellow-500/20 backdrop-blur-sm text-yellow-200 px-4 py-2 rounded-full font-semibold mb-6">
-                                🔋 ENERGÍA CONFIABLE
-                            </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                                Battery
-                                <span class="block text-2xl md:text-3xl text-yellow-200 font-normal mt-2">
-                                    Full power, full energy
-                                </span>
-                            </h2>
-                            <p class="text-xl text-yellow-100 mb-8">
-                                Baterías de alta calidad y máxima duración para todos tus dispositivos electrónicos
-                            </p>
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=baterias" 
-                               class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
-                                ⚡ Ver Baterías
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         
         <!-- Navegación del slider mejorada -->
@@ -204,7 +159,6 @@ get_header(); ?>
             <button onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
             <button onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
             <button onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
-            <button onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
         </div>
         
         <!-- Flechas de navegación mejoradas -->
