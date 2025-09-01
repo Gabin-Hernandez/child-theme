@@ -58,7 +58,7 @@
         
         /* Responsivo */
         @media (max-width: 768px) {
-            nav {
+            .nav-row {
                 display: none !important;
             }
             
@@ -68,6 +68,24 @@
             
             .dropdown-container {
                 display: none;
+            }
+            
+            /* Ajustar el buscador en móvil */
+            .header-search {
+                max-width: none !important;
+                margin: 0 10px !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            /* Ocultar texto "Mi Cuenta" en pantallas muy pequeñas */
+            .account-link {
+                font-size: 0 !important;
+            }
+            
+            .account-link::after {
+                content: "👤";
+                font-size: 16px;
             }
         }
     </style>
@@ -170,16 +188,88 @@
     <!-- Header Simple -->
     <header style="background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #e5e7eb;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
             <div style="display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 4px;">
                 <!-- Logo -->
-                <div>
+                <div style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-size: 1.5rem; font-weight: bold; color: #1f2937; text-decoration: none;">
                         ITOOLS MX
                     </a>
                 </div>
 
-                <!-- Menú de navegación principal -->
-                <nav style="display: flex; align-items: center; gap: 32px; margin-left: 40px;">
+                <!-- Búsqueda con filtro de categorías (centrado) -->
+                <div class="header-search" style="flex: 1; max-width: 500px; margin: 0 40px;"> 
+                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
+                        
+                        <!-- Selector de categorías -->
+                        <select name="product_cat" style="border: none; background: #f9fafb; padding: 8px 12px; font-size: 14px; color: #374151; min-width: 120px; outline: none;">
+                            <option value="">Todas</option>
+                            <?php
+                            $product_categories = get_terms( array(
+                                'taxonomy' => 'product_cat',
+                                'hide_empty' => true,
+                                'parent' => 0
+                            ) );
+                            
+                            $selected_cat = isset($_GET['product_cat']) ? $_GET['product_cat'] : '';
+                            
+                            if ( !empty($product_categories) && !is_wp_error($product_categories) ) {
+                                foreach ( $product_categories as $category ) {
+                                    $selected = ($selected_cat === $category->slug) ? 'selected' : '';
+                                    echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . '</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                        
+                        <!-- Separador visual -->
+                        <div style="width: 1px; background: #d1d5db;"></div>
+                        
+                        <!-- Campo de búsqueda -->
+                        <input 
+                            type="search" 
+                            name="s" 
+                            style="flex: 1; padding: 8px 16px; border: none; font-size: 14px; outline: none;"
+                            placeholder="Buscar herramientas, marcas, modelos..." 
+                            value="<?php echo esc_attr( get_search_query() ); ?>"
+                        >
+                        
+                        <!-- Input hidden para especificar que es búsqueda de productos -->
+                        <input type="hidden" name="post_type" value="product">
+                        
+                        <!-- Botón de búsqueda -->
+                        <button type="submit" style="background: #2563eb; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Enlaces de cuenta -->
+                <div style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
+                    <!-- Botón menú móvil -->
+                    <button id="mobile-menu-btn" style="display: none; background: none; border: none; color: #374151; cursor: pointer; padding: 8px;">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button>
+                    
+                    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: #6b7280; text-decoration: none; white-space: nowrap;">
+                            Mi Cuenta
+                        </a>
+                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; white-space: nowrap;">
+                            Carrito (<?php echo WC()->cart->get_cart_contents_count(); ?>)
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Segunda fila: Menú de navegación dropdown -->
+            <div class="nav-row" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
+                <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
                     <!-- Dropdown Refacciones -->
                     <div class="dropdown-container" style="position: relative;">
                         <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
@@ -241,75 +331,6 @@
                         🏷️ Ofertas
                     </a>
                 </nav>
-
-                <!-- Búsqueda con filtro de categorías -->
-                <div style="flex: 1; max-width: 400px; margin: 0 20px;"> 
-                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
-                        
-                        <!-- Selector de categorías -->
-                        <select name="product_cat" style="border: none; background: #f9fafb; padding: 8px 12px; font-size: 14px; color: #374151; min-width: 120px; outline: none;">
-                            <option value="">Todas</option>
-                            <?php
-                            $product_categories = get_terms( array(
-                                'taxonomy' => 'product_cat',
-                                'hide_empty' => true,
-                                'parent' => 0
-                            ) );
-                            
-                            $selected_cat = isset($_GET['product_cat']) ? $_GET['product_cat'] : '';
-                            
-                            if ( !empty($product_categories) && !is_wp_error($product_categories) ) {
-                                foreach ( $product_categories as $category ) {
-                                    $selected = ($selected_cat === $category->slug) ? 'selected' : '';
-                                    echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
-                        
-                        <!-- Separador visual -->
-                        <div style="width: 1px; background: #d1d5db;"></div>
-                        
-                        <!-- Campo de búsqueda -->
-                        <input 
-                            type="search" 
-                            name="s" 
-                            style="flex: 1; padding: 8px 16px; border: none; font-size: 14px; outline: none;"
-                            placeholder="Buscar herramientas, marcas, modelos..." 
-                            value="<?php echo esc_attr( get_search_query() ); ?>"
-                        >
-                        
-                        <!-- Input hidden para especificar que es búsqueda de productos -->
-                        <input type="hidden" name="post_type" value="product">
-                        
-                        <!-- Botón de búsqueda -->
-                        <button type="submit" style="background: #2563eb; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                            Buscar
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Enlaces de cuenta -->
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <!-- Botón menú móvil -->
-                    <button id="mobile-menu-btn" style="display: none; background: none; border: none; color: #374151; cursor: pointer; padding: 8px;">
-                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </button>
-                    
-                    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" style="color: #6b7280; text-decoration: none;">
-                            Mi Cuenta
-                        </a>
-                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none;">
-                            Carrito (<?php echo WC()->cart->get_cart_contents_count(); ?>)
-                        </a>
-                    <?php endif; ?>
-                </div>
             </div>
         </div>
     </header>
