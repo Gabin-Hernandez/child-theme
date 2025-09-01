@@ -205,19 +205,28 @@
                         <select name="product_cat" style="border: none; background: #f9fafb; padding: 8px 12px; font-size: 14px; color: #374151; min-width: 120px; outline: none;">
                             <option value="">Todas</option>
                             <?php
-                            $product_categories = get_terms( array(
-                                'taxonomy' => 'product_cat',
-                                'hide_empty' => true,
-                                'parent' => 0
-                            ) );
-                            
-                            $selected_cat = isset($_GET['product_cat']) ? $_GET['product_cat'] : '';
-                            
-                            if ( !empty($product_categories) && !is_wp_error($product_categories) ) {
-                                foreach ( $product_categories as $category ) {
-                                    $selected = ($selected_cat === $category->slug) ? 'selected' : '';
-                                    echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . '</option>';
+                            if ( function_exists('get_terms') && taxonomy_exists('product_cat') ) {
+                                $product_categories = get_terms( array(
+                                    'taxonomy' => 'product_cat',
+                                    'hide_empty' => true,
+                                    'parent' => 0
+                                ) );
+                                
+                                $selected_cat = isset($_GET['product_cat']) ? $_GET['product_cat'] : '';
+                                
+                                if ( !empty($product_categories) && !is_wp_error($product_categories) ) {
+                                    foreach ( $product_categories as $category ) {
+                                        $selected = ($selected_cat === $category->slug) ? 'selected' : '';
+                                        echo '<option value="' . esc_attr($category->slug) . '" ' . $selected . '>' . esc_html($category->name) . '</option>';
+                                    }
                                 }
+                            } else {
+                                // Fallback manual para categorías principales
+                                echo '<option value="refacciones">Refacciones</option>';
+                                echo '<option value="herramientas">Herramientas</option>';
+                                echo '<option value="baterias">Baterías</option>';
+                                echo '<option value="pantallas">Pantallas</option>';
+                                echo '<option value="accesorios">Accesorios</option>';
                             }
                             ?>
                         </select>
@@ -235,7 +244,9 @@
                         >
                         
                         <!-- Input hidden para especificar que es búsqueda de productos -->
-                        <input type="hidden" name="post_type" value="product">
+                        <?php if ( post_type_exists('product') ) : ?>
+                            <input type="hidden" name="post_type" value="product">
+                        <?php endif; ?>
                         
                         <!-- Botón de búsqueda -->
                         <button type="submit" style="background: #2563eb; color: white; border: none; padding: 8px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
@@ -256,12 +267,19 @@
                         </svg>
                     </button>
                     
-                    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+                    <?php if ( function_exists('wc_get_account_endpoint_url') && class_exists( 'WooCommerce' ) ) : ?>
                         <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: #6b7280; text-decoration: none; white-space: nowrap;">
                             Mi Cuenta
                         </a>
                         <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; white-space: nowrap;">
-                            Carrito (<?php echo WC()->cart->get_cart_contents_count(); ?>)
+                            Carrito<?php if ( function_exists('WC') && WC()->cart ) { echo ' (' . WC()->cart->get_cart_contents_count() . ')'; } ?>
+                        </a>
+                    <?php else : ?>
+                        <a href="/mi-cuenta/" class="account-link" style="color: #6b7280; text-decoration: none; white-space: nowrap;">
+                            Mi Cuenta
+                        </a>
+                        <a href="/carrito/" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; white-space: nowrap;">
+                            Carrito
                         </a>
                     <?php endif; ?>
                 </div>
@@ -348,7 +366,7 @@
                         placeholder="Buscar productos..." 
                         value="<?php echo esc_attr( get_search_query() ); ?>"
                     >
-                    <input type="hidden" name="post_type" value="product">
+                    <input type="hidden" name="post_type" value="<?php echo post_type_exists('product') ? 'product' : 'post'; ?>">
                     <button type="submit" style="background: #2563eb; color: white; border: none; padding: 12px 16px; cursor: pointer;">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>

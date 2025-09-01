@@ -17,8 +17,13 @@ function itools_child_theme_setup() {
     // Soporte para imágenes destacadas
     add_theme_support( 'post-thumbnails' );
     
-    // Soporte para WooCommerce
-    add_theme_support( 'woocommerce' );
+    // Soporte para WooCommerce solo si está disponible
+    if ( class_exists( 'WooCommerce' ) ) {
+        add_theme_support( 'woocommerce' );
+        add_theme_support( 'wc-product-gallery-zoom' );
+        add_theme_support( 'wc-product-gallery-lightbox' );
+        add_theme_support( 'wc-product-gallery-slider' );
+    }
     
     // Soporte para menús de navegación
     add_theme_support( 'menus' );
@@ -32,8 +37,8 @@ function itools_modify_search_query( $query ) {
         if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
             $query->set( 'post_type', 'product' );
             
-            // Si se seleccionó una categoría específica
-            if ( !empty($_GET['product_cat']) ) {
+            // Si se seleccionó una categoría específica y existe la taxonomía
+            if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
                 $query->set( 'tax_query', array(
                     array(
                         'taxonomy' => 'product_cat',
@@ -43,15 +48,17 @@ function itools_modify_search_query( $query ) {
                 ));
             }
             
-            // Mejorar la búsqueda para incluir SKU y meta fields
-            $query->set( 'meta_query', array(
-                'relation' => 'OR',
-                array(
-                    'key'     => '_sku',
-                    'value'   => $query->get('s'),
-                    'compare' => 'LIKE'
-                )
-            ));
+            // Mejorar la búsqueda para incluir SKU y meta fields solo si WooCommerce está activo
+            if ( class_exists( 'WooCommerce' ) ) {
+                $query->set( 'meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key'     => '_sku',
+                        'value'   => $query->get('s'),
+                        'compare' => 'LIKE'
+                    )
+                ));
+            }
         }
     }
 }

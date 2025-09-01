@@ -7,7 +7,10 @@ get_header(); ?>
 
 <main id="main" class="site-main">
     
-    <!-- Hero Slider Moderno -->
+    <!-- He                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
+                               class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
+                                🔋 Ver Baterías
+                            </a>lider Moderno -->
     <section class="relative overflow-hidden">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
@@ -34,7 +37,7 @@ get_header(); ?>
                                 Más de 19,000 productos especializados para profesionales y técnicos en electrónica
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
                                    class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl text-center">
                                     🛒 Explorar Catálogo
                                 </a>
@@ -74,7 +77,7 @@ get_header(); ?>
                             <p class="text-xl text-gray-200 mb-8">
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=refacciones" 
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=refacciones' : '/categoria/refacciones/'; ?>" 
                                class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
                                 🔧 Ver Refacciones
                             </a>
@@ -104,7 +107,7 @@ get_header(); ?>
                             <p class="text-xl text-purple-100 mb-8">
                                 Pantallas LCD, OLED y más tecnologías de última generación para todos los dispositivos móviles
                             </p>
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=pantallas" 
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>" 
                                class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
                                 📱 Ver Pantallas
                             </a>
@@ -439,11 +442,104 @@ get_header(); ?>
             </div>
             
             <div class="woocommerce">
-                <?php echo do_shortcode( '[sale_products limit="8" columns="4"]' ); ?>
+                <?php if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('sale_products') ) : ?>
+                    <?php echo do_shortcode( '[sale_products limit="8" columns="4"]' ); ?>
+                <?php else : ?>
+                    <!-- Productos en oferta estáticos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Producto 1 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-blue-400 to-blue-600 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">📱</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    -25%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Pantalla iPhone 14</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-red-500 font-bold text-xl">$750.00</span>
+                                    <span class="text-gray-400 line-through">$1,000.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto 2 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-green-400 to-green-600 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">🔋</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    -30%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Batería Samsung</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-red-500 font-bold text-xl">$175.00</span>
+                                    <span class="text-gray-400 line-through">$250.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto 3 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-purple-400 to-purple-600 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">🔧</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    -20%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Kit Herramientas</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-red-500 font-bold text-xl">$320.00</span>
+                                    <span class="text-gray-400 line-through">$400.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto 4 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-orange-400 to-orange-600 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">📡</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    -15%
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Accesorios Pro</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-red-500 font-bold text-xl">$85.00</span>
+                                    <span class="text-gray-400 line-through">$100.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
             
             <div class="text-center mt-12">
-                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?on_sale=1" 
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
                    class="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
                     🏷️ Ver Todas las Ofertas
                 </a>
@@ -468,11 +564,100 @@ get_header(); ?>
             </div>
             
             <div class="woocommerce">
-                <?php echo do_shortcode( '[featured_products limit="8" columns="4"]' ); ?>
+                <?php if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('featured_products') ) : ?>
+                    <?php echo do_shortcode( '[featured_products limit="8" columns="4"]' ); ?>
+                <?php else : ?>
+                    <!-- Productos destacados estáticos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Producto Destacado 1 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-blue-500 to-blue-700 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">🔬</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    ⭐ TOP
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Microscopio Pro</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-blue-600 font-bold text-xl">$6,900.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto Destacado 2 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-green-500 to-green-700 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">🖥️</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    ⭐ TOP
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">LCD iPhone 15</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-blue-600 font-bold text-xl">$700.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto Destacado 3 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-purple-500 to-purple-700 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">⚡</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    ⭐ TOP
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Estación Soldadura</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-blue-600 font-bold text-xl">$7,450.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Producto Destacado 4 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-orange-500 to-orange-700 h-48 flex items-center justify-center">
+                                    <span class="text-white text-4xl">🧰</span>
+                                </div>
+                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                    ⭐ TOP
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg mb-2">Kit Completo</h3>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-blue-600 font-bold text-xl">$1,350.00</span>
+                                </div>
+                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                    Ver Producto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
             
             <div class="text-center mt-12">
-                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
                    class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
                     🚀 Explorar Catálogo Completo
                 </a>
