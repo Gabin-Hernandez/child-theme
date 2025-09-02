@@ -293,8 +293,8 @@ get_header(); ?>
                 <!-- Sidebar con filtros modernos -->
                 <aside 
                     id="filters-sidebar" 
-                    class="xl:w-1/4 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
-                    <div class="bg-white h-full xl:h-auto p-6 xl:p-0 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100">
+                    class="xl:w-80 2xl:w-96 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
+                    <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
                         
                         <!-- Header del sidebar -->
                         <div class="flex justify-between items-center mb-8">
@@ -530,7 +530,7 @@ get_header(); ?>
                 </aside>
 
                 <!-- Contenido principal -->
-                <main class="xl:w-3/4">
+                <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
                     
                     <!-- Barra superior moderna con ordenamiento y resultados -->
                     <div class="bg-white p-6 rounded-3xl shadow-lg mb-8 border border-gray-100">
@@ -581,7 +581,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -597,18 +597,18 @@ get_header(); ?>
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 hover:border-blue-200">
+                            <div class="group bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 h-full flex flex-col">
                                 <!-- Imagen del producto -->
-                                <div class="relative overflow-hidden bg-gray-50">
-                                    <a href="<?php the_permalink(); ?>" class="block">
+                                <div class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 aspect-square">
+                                    <a href="<?php the_permalink(); ?>" class="block h-full">
                                         <?php
                                         if ( has_post_thumbnail() ) {
                                             the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                'class' => 'w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500'
+                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                             ) );
                                         } else {
-                                            echo '<div class="w-full h-64 bg-gray-200 flex items-center justify-center">';
-                                            echo '<svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                                            echo '<div class="w-full h-full flex items-center justify-center">';
+                                            echo '<svg class="w-12 h-12 lg:w-16 lg:h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
                                             echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
                                             echo '</svg>';
                                             echo '</div>';
@@ -617,30 +617,30 @@ get_header(); ?>
                                     </a>
                                     
                                     <!-- Badges -->
-                                    <div class="absolute top-4 left-4 flex flex-col gap-2">
+                                    <div class="absolute top-3 left-3 flex flex-col gap-1">
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
                                             <?php if ( $product->is_on_sale() ) : ?>
-                                                <span class="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                                                <span class="bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-lg">
                                                     Oferta
                                                 </span>
                                             <?php endif; ?>
                                             <?php if ( $product->is_featured() ) : ?>
-                                                <span class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                                                    Destacado
+                                                <span class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-lg">
+                                                    ⭐ Destacado
                                                 </span>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <!-- Botones de acción rápida -->
-                                    <div class="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <button class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-50 transition-colors wishlist-btn">
-                                            <svg class="w-5 h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <button class="w-8 h-8 lg:w-10 lg:h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 wishlist-btn">
+                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                             </svg>
                                         </button>
-                                        <button class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-50 transition-colors quick-view-btn">
-                                            <svg class="w-5 h-5 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button class="w-8 h-8 lg:w-10 lg:h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 quick-view-btn">
+                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
@@ -649,9 +649,9 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Información del producto -->
-                                <div class="p-6">
-                                    <div class="mb-3">
-                                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                                <div class="p-4 lg:p-6 flex-1 flex flex-col">
+                                    <div class="mb-3 flex-1">
+                                        <h3 class="text-base lg:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
                                         
@@ -665,14 +665,14 @@ get_header(); ?>
                                                 ?>
                                                     <div class="flex items-center">
                                                         <?php for ( $i = 1; $i <= 5; $i++ ) : ?>
-                                                            <svg class="w-4 h-4 <?php echo $i <= $rating ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                                            <svg class="w-3 h-3 lg:w-4 lg:h-4 <?php echo $i <= $rating ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
                                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                                             </svg>
                                                         <?php endfor; ?>
                                                     </div>
-                                                    <span class="text-sm text-gray-600">(<?php echo $review_count; ?>)</span>
+                                                    <span class="text-xs lg:text-sm text-gray-600">(<?php echo $review_count; ?>)</span>
                                                 <?php else : ?>
-                                                    <span class="text-sm text-gray-500">Sin reseñas</span>
+                                                    <span class="text-xs lg:text-sm text-gray-500">Sin reseñas</span>
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
@@ -681,28 +681,28 @@ get_header(); ?>
                                     <!-- Precio -->
                                     <div class="mb-4">
                                         <?php if ( $product ) : ?>
-                                            <div class="text-2xl font-bold text-gray-900">
+                                            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <!-- Botón de agregar al carrito -->
-                                    <div class="flex gap-3">
+                                    <div class="flex gap-2 lg:gap-3 mt-auto">
                                         <?php if ( $product ) : ?>
                                             <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                                <button class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-2xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                                    Agregar al Carrito
+                                                <button class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2.5 lg:py-3 px-3 lg:px-4 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                                    Agregar
                                                 </button>
                                             <?php else : ?>
-                                                <button class="flex-1 bg-gray-300 text-gray-600 py-3 px-4 rounded-2xl font-semibold cursor-not-allowed">
+                                                <button class="flex-1 bg-gray-300 text-gray-600 py-2.5 lg:py-3 px-3 lg:px-4 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold cursor-not-allowed">
                                                     No Disponible
                                                 </button>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         
-                                        <button class="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-colors">
-                                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button class="w-10 h-10 lg:w-12 lg:h-12 bg-gray-100 rounded-xl lg:rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-colors">
+                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
                                             </svg>
                                         </button>
@@ -845,13 +845,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function setProductView(view) {
         if (view === 'grid') {
-            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8';
+            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8';
             gridViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 bg-white shadow-sm text-blue-600';
             listViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 text-gray-500';
         } else {
-            productsGrid.className = 'grid grid-cols-1 gap-6';
+            productsGrid.className = 'grid grid-cols-1 gap-4 lg:gap-6';
             listViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 bg-white shadow-sm text-blue-600';
             gridViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 text-gray-500';
+            
+            // Para vista de lista, cambiar el layout de las tarjetas
+            const productCards = productsGrid.querySelectorAll('.group');
+            productCards.forEach(card => {
+                if (view === 'list') {
+                    card.className = 'group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-blue-200 flex flex-row h-auto';
+                    
+                    // Reorganizar el contenido para vista lista
+                    const img = card.querySelector('.aspect-square');
+                    const content = card.querySelector('.p-4');
+                    if (img && content) {
+                        img.className = 'relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 w-48 h-48 flex-shrink-0';
+                        content.className = 'p-4 lg:p-6 flex-1 flex flex-col justify-between';
+                    }
+                } else {
+                    card.className = 'group bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 h-full flex flex-col';
+                    
+                    // Restaurar layout de grid
+                    const img = card.querySelector('div:first-child');
+                    const content = card.querySelector('div:last-child');
+                    if (img && content) {
+                        img.className = 'relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 aspect-square';
+                        content.className = 'p-4 lg:p-6 flex-1 flex flex-col';
+                    }
+                }
+            });
         }
         localStorage.setItem('productView', view);
     }
@@ -1112,7 +1138,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar filtros al cargar la página
     loadFiltersFromUrl();
     
-    // Responsive: cerrar filtros al cambiar a desktop
+    // Responsive: cerrar filtros al cambiar a desktop y optimizar grid
     window.addEventListener('resize', function() {
         if (window.innerWidth >= 1280) { // xl breakpoint
             if (filtersSidebar) {
@@ -1126,6 +1152,20 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             if (filtersSidebar && !filtersSidebar.classList.contains('hidden')) {
                 closeMobileFilters();
+            }
+        }
+        
+        // Ajustar grid según el tamaño de pantalla
+        const currentView = localStorage.getItem('productView') || 'grid';
+        if (currentView === 'grid') {
+            if (window.innerWidth >= 1536) { // 2xl
+                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8';
+            } else if (window.innerWidth >= 1024) { // lg
+                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8';
+            } else if (window.innerWidth >= 640) { // sm
+                productsGrid.className = 'grid grid-cols-2 gap-4';
+            } else {
+                productsGrid.className = 'grid grid-cols-1 gap-4';
             }
         }
     });
