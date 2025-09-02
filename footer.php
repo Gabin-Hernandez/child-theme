@@ -15,30 +15,6 @@
         <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h40V20H20z"/%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         
         <div class="relative z-10">
-            <!-- Newsletter Section -->
-            <div class="border-b border-gray-700/50 backdrop-blur-sm">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-4xl mx-auto text-center">
-                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
-                            Mantente Conectado con ITOOLS MX
-                        </h3>
-                        <p class="text-gray-300 mb-8 text-lg">
-                            Recibe las últimas ofertas, nuevos productos y noticias directamente en tu bandeja de entrada.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                            <input 
-                                type="email" 
-                                placeholder="Tu dirección de email"
-                                class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            >
-                            <button class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
-                                Suscribirse
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Main Footer Content -->
             <div class="container mx-auto px-4 py-16">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
