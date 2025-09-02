@@ -3,23 +3,13 @@
  * Tema hijo ITOOLS - Versión limpia y funcional
  */
 
-// Encolar estilos del tema padre y personalizados
+// Encolar estilos del tema padre
 function itools_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
-    
-    // Estilos personalizados de WooCommerce
-    if ( class_exists( 'WooCommerce' ) ) {
-        wp_enqueue_style( 
-            'itools-woocommerce-custom', 
-            get_stylesheet_directory_uri() . '/woocommerce-custom.css', 
-            array( 'woocommerce-general' ), 
-            '1.0.0' 
-        );
-    }
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
 
-// Soporte básico del tema hijo para el Customizer
+// Soporte básico del tema hijo
 function itools_child_theme_setup() {
     // Soporte para logos personalizados
     add_theme_support( 'custom-logo' );
@@ -40,203 +30,41 @@ function itools_child_theme_setup() {
 }
 add_action( 'after_setup_theme', 'itools_child_theme_setup' );
 
-// Mejorar la búsqueda de productos con filtros avanzados
+// Mejorar la búsqueda de productos básica
 function itools_modify_search_query( $query ) {
-    if ( !is_admin() && $query->is_main_query() ) {
-        
-        // Para páginas de archivo de productos (tienda)
-        if ( is_shop() || is_product_category() || is_product_tag() || $query->is_search() ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
+        // Solo para búsquedas de productos
+        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+            $query->set( 'post_type', 'product' );
             
-            // Filtro por precio
-            $meta_query = array();
-            if ( !empty($_GET['min_price']) || !empty($_GET['max_price']) ) {
-                $min_price = !empty($_GET['min_price']) ? floatval($_GET['min_price']) : 0;
-                $max_price = !empty($_GET['max_price']) ? floatval($_GET['max_price']) : PHP_INT_MAX;
-                
-                $meta_query[] = array(
-                    'key'     => '_price',
-                    'value'   => array($min_price, $max_price),
-                    'compare' => 'BETWEEN',
-                    'type'    => 'NUMERIC'
-                );
-            }
-            
-            // Aplicar meta query si existe
-            if ( !empty($meta_query) ) {
-                $query->set( 'meta_query', $meta_query );
-            }
-            
-            // Filtro por categorías múltiples
-            if ( !empty($_GET['product_cat']) ) {
-                $categories = explode(',', sanitize_text_field($_GET['product_cat']));
-                $tax_query = array();
-                
-                if ( count($categories) > 1 ) {
-                    $tax_query[] = array(
+            // Si se seleccionó una categoría específica
+            if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
+                $query->set( 'tax_query', array(
+                    array(
                         'taxonomy' => 'product_cat',
-                        'field'    => 'term_id',
-                        'terms'    => $categories,
-                        'operator' => 'IN'
-                    );
-                } else {
-                    $tax_query[] = array(
-                        'taxonomy' => 'product_cat',
-                        'field'    => 'term_id',
-                        'terms'    => $categories[0]
-                    );
-                }
-                
-                $query->set( 'tax_query', $tax_query );
+                        'field'    => 'slug',
+                        'terms'    => sanitize_text_field($_GET['product_cat'])
+                    )
+                ));
             }
             
-            // Mejorar búsqueda para incluir SKU y meta fields
-            if ( $query->is_search() && class_exists( 'WooCommerce' ) ) {
-                $search_term = $query->get('s');
-                if ( $search_term ) {
-                    $meta_query_search = array(
-                        'relation' => 'OR',
-                        array(
-                            'key'     => '_sku',
-                            'value'   => $search_term,
-                            'compare' => 'LIKE'
-                        ),
-                        array(
-                            'key'     => '_product_attributes',
-                            'value'   => $search_term,
-                            'compare' => 'LIKE'
-                        )
-                    );
-                    
-                    $existing_meta_query = $query->get('meta_query');
-                    if ( !empty($existing_meta_query) ) {
-                        $meta_query_search = array_merge($existing_meta_query, array($meta_query_search));
-                    }
-                    
-                    $query->set( 'meta_query', $meta_query_search );
-                }
+            // Mejorar la búsqueda para incluir SKU
+            if ( class_exists( 'WooCommerce' ) ) {
+                $query->set( 'meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key'     => '_sku',
+                        'value'   => $query->get('s'),
+                        'compare' => 'LIKE'
+                    )
+                ));
             }
         }
     }
 }
 add_action( 'pre_get_posts', 'itools_modify_search_query' );
 
-// Agregar soporte para AJAX en el carrito
-function itools_woocommerce_ajax_support() {
-    if ( class_exists( 'WooCommerce' ) ) {
-        // Asegurar que los scripts de WooCommerce se carguen
-        wp_enqueue_script( 'wc-add-to-cart' );
-        
-        // Agregar variables JavaScript necesarias
-        wp_localize_script( 'wc-add-to-cart', 'wc_add_to_cart_params', array(
-            'ajax_url' => admin_url( 'admin-ajax.php' ),
-            'wc_ajax_url' => WC_AJAX::get_endpoint( '%%endpoint%%' ),
-            'i18n_view_cart' => esc_attr__( 'View cart', 'woocommerce' ),
-            'cart_url' => apply_filters( 'woocommerce_add_to_cart_redirect', wc_get_cart_url(), null ),
-            'is_cart' => is_cart(),
-            'cart_redirect_after_add' => get_option( 'woocommerce_cart_redirect_after_add' )
-        ) );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'itools_woocommerce_ajax_support' );
-
-// Personalizar el ordenamiento de productos
-function itools_custom_woocommerce_catalog_orderby( $orderby ) {
-    $orderby['popularity'] = 'Más vendidos';
-    $orderby['rating'] = 'Mejor valorados';
-    $orderby['date'] = 'Más recientes';
-    $orderby['price'] = 'Precio: menor a mayor';
-    $orderby['price-desc'] = 'Precio: mayor a menor';
-    
-    return $orderby;
-}
-add_filter( 'woocommerce_default_catalog_orderby_options', 'itools_custom_woocommerce_catalog_orderby' );
-add_filter( 'woocommerce_catalog_orderby', 'itools_custom_woocommerce_catalog_orderby' );
-
-// Soporte para filtrado por atributos personalizados
-function itools_handle_product_filters() {
-    if ( !empty($_GET['product_brand']) ) {
-        $brands = explode(',', sanitize_text_field($_GET['product_brand']));
-        
-        // Intentar diferentes taxonomías de marca
-        $brand_taxonomies = array( 'product_brand', 'pa_marca', 'pa_brand' );
-        
-        foreach ( $brand_taxonomies as $taxonomy ) {
-            if ( taxonomy_exists( $taxonomy ) ) {
-                add_filter( 'woocommerce_product_query_tax_query', function( $tax_query ) use ( $brands, $taxonomy ) {
-                    $tax_query[] = array(
-                        'taxonomy' => $taxonomy,
-                        'field'    => 'slug',
-                        'terms'    => $brands,
-                        'operator' => 'IN'
-                    );
-                    return $tax_query;
-                });
-                break;
-            }
-        }
-    }
-}
-add_action( 'woocommerce_product_query', 'itools_handle_product_filters' );
-
-// Mejorar los resultados de búsqueda
-function itools_search_products_where( $where ) {
-    global $wpdb;
-    
-    if ( is_search() && !empty($_GET['s']) && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
-        $search_term = sanitize_text_field($_GET['s']);
-        
-        // Buscar también en meta fields importantes
-        $where .= " OR {$wpdb->posts}.ID IN (
-            SELECT post_id FROM {$wpdb->postmeta} 
-            WHERE meta_key IN ('_sku', '_product_attributes') 
-            AND meta_value LIKE '%{$search_term}%'
-        )";
-    }
-    
-    return $where;
-}
-add_filter( 'posts_where', 'itools_search_products_where' );
-
-// Registrar sidebar para la tienda
-function itools_register_shop_sidebar() {
-    register_sidebar( array(
-        'name'          => 'Sidebar Tienda',
-        'id'            => 'sidebar-shop',
-        'description'   => 'Widgets para la barra lateral de la tienda',
-        'before_widget' => '<div id="%1$s" class="widget %2$s mb-8 p-6 bg-white rounded-2xl shadow-sm border border-gray-100">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="widget-title text-lg font-bold text-gray-900 mb-4">',
-        'after_title'   => '</h3>',
-    ) );
-}
-add_action( 'widgets_init', 'itools_register_shop_sidebar' );
-
-// Personalizar breadcrumbs de WooCommerce
-function itools_woocommerce_breadcrumb_defaults( $defaults ) {
-    $defaults['delimiter'] = '<svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>';
-    $defaults['wrap_before'] = '<nav class="flex items-center text-sm text-gray-600" aria-label="Breadcrumb">';
-    $defaults['wrap_after'] = '</nav>';
-    $defaults['before'] = '<span class="flex items-center">';
-    $defaults['after'] = '</span>';
-    $defaults['home'] = 'Inicio';
-    
-    return $defaults;
-}
-add_filter( 'woocommerce_breadcrumb_defaults', 'itools_woocommerce_breadcrumb_defaults' );
-
-// Personalizar el número de productos por página
-function itools_products_per_page() {
-    return 12; // Múltiplo de 3 para el grid
-}
-add_filter( 'loop_shop_per_page', 'itools_products_per_page', 20 );
-
-// Deshabilitar el zoom de WooCommerce en favor del nuestro
-function itools_disable_woocommerce_zoom() {
-    remove_theme_support( 'wc-product-gallery-zoom' );
-}
-add_action( 'after_setup_theme', 'itools_disable_woocommerce_zoom', 100 );
-
-// Agregar JavaScript para mejorar la experiencia de búsqueda
+// Agregar JavaScript básico para mejorar la experiencia de búsqueda
 function itools_search_scripts() {
     ?>
     <script>
@@ -254,12 +82,6 @@ function itools_search_scripts() {
                 } else {
                     searchInput.placeholder = 'Buscar herramientas, marcas, modelos...';
                 }
-            });
-            
-            // Auto-completar básico (opcional)
-            searchInput.addEventListener('input', function() {
-                // Aquí podrías agregar funcionalidad de auto-completar
-                // usando AJAX si lo deseas más adelante
             });
         }
     });
