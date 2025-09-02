@@ -649,51 +649,221 @@ get_header(); ?>
     </section>
     <?php endif; ?>
 
-    <!-- Beneficios y Características -->
-    <section class="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">¿Por qué elegir ITOOLS MX?</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center group">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition duration-300">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Envío Gratis</h3>
-                    <p class="text-gray-600">En compras mayores a $1,000 pesos en toda la República Mexicana</p>
+    <!-- Productos Destacados Premium -->
+    <section class="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+        <!-- Efectos de fondo -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse animation-delay-2000"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm text-orange-200 px-6 py-3 rounded-full font-semibold mb-6">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    </svg>
+                    PRODUCTOS DESTACADOS
                 </div>
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    Lo Mejor de 
+                    <span class="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+                        ITOOLS MX
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Descubre nuestros productos más vendidos y mejor valorados por técnicos profesionales
+                </p>
+            </div>
+
+            <!-- Grid de productos destacados -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 
-                <div class="text-center group">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition duration-300">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                <!-- Producto 1 - Microscopio -->
+                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-orange-500/50">
+                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
+                             alt="Microscopio Profesional" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                MÁS VENDIDO
+                            </span>
+                        </div>
+                        
+                        <!-- Rating -->
+                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                            <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span class="text-white text-sm font-medium">4.9</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Garantía Completa</h3>
-                    <p class="text-gray-600">Todos nuestros productos cuentan con garantía del fabricante</p>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                            Microscopio Profesional HD
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Microscopio de alta definición para reparaciones de precisión
+                        </p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-orange-400">$6,900</span>
+                                <span class="text-gray-500 line-through ml-2">$8,500</span>
+                            </div>
+                            <button class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                                Ver Producto
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="text-center group">
-                    <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition duration-300">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
+
+                <!-- Producto 2 - Pantalla iPhone -->
+                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-blue-500/50">
+                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
+                             alt="Pantalla iPhone OLED" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                MEJOR CALIDAD
+                            </span>
+                        </div>
+                        
+                        <!-- Rating -->
+                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                            <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span class="text-white text-sm font-medium">4.8</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Entrega Rápida</h3>
-                    <p class="text-gray-600">Recibe tus herramientas en 2-5 días hábiles</p>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                            Pantalla iPhone 15 Pro OLED
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Display OLED original con tecnología ProMotion 120Hz
+                        </p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-blue-400">$2,850</span>
+                                <span class="text-gray-500 line-through ml-2">$3,200</span>
+                            </div>
+                            <button class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                                Ver Producto
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="text-center group">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition duration-300">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
-                        </svg>
+
+                <!-- Producto 3 - Estación de Soldadura -->
+                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-green-500/50">
+                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
+                             alt="Estación de Soldadura Profesional" 
+                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        
+                        <!-- Badge -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                PROFESIONAL
+                            </span>
+                        </div>
+                        
+                        <!-- Rating -->
+                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                            <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span class="text-white text-sm font-medium">5.0</span>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Soporte Técnico</h3>
-                    <p class="text-gray-600">Asesoría especializada para todos tus proyectos</p>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                            Estación de Soldadura Pro
+                        </h3>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Control digital de temperatura y múltiples funciones avanzadas
+                        </p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-green-400">$4,750</span>
+                                <span class="text-gray-500 line-through ml-2">$5,400</span>
+                            </div>
+                            <button class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                                Ver Producto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estadísticas y CTA -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Estadísticas -->
+                <div class="space-y-8">
+                    <h3 class="text-3xl font-bold text-white mb-8">Números que nos respaldan</h3>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-orange-400 mb-2">19,000+</div>
+                            <div class="text-gray-300 text-sm">Productos en Stock</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-blue-400 mb-2">50,000+</div>
+                            <div class="text-gray-300 text-sm">Clientes Satisfechos</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-green-400 mb-2">98.5%</div>
+                            <div class="text-gray-300 text-sm">Satisfacción</div>
+                        </div>
+                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                            <div class="text-3xl font-bold text-purple-400 mb-2">24h</div>
+                            <div class="text-gray-300 text-sm">Envío Express</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="text-center lg:text-left">
+                    <h3 class="text-3xl font-bold text-white mb-6">
+                        ¿Listo para llevar tu trabajo al siguiente nivel?
+                    </h3>
+                    <p class="text-gray-300 mb-8 text-lg">
+                        Únete a miles de técnicos que ya confían en ITOOLS MX para sus proyectos más importantes.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                           class="inline-flex items-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-4 text-lg font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                            Explorar Catálogo Completo
+                        </a>
+                        
+                        <div class="flex items-center justify-center lg:justify-start text-gray-400 text-sm">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            Compra 100% segura con garantía de satisfacción
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
