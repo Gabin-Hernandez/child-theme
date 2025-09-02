@@ -308,50 +308,52 @@ get_header(); ?>
                 <!-- Contenido principal -->
                 <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
                     
-                    <!-- Barra superior moderna con ordenamiento y resultados -->
-                    <div class="bg-white p-6 rounded-3xl shadow-lg mb-8 border border-gray-100">
-                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                    <!-- Barra superior limpia con información básica -->
+                    <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-sm mb-6 border border-gray-100">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                             
                             <!-- Información de resultados -->
-                            <div class="flex items-center gap-4">
-                                <div class="w-3 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
                                 <div>
                                     <?php
                                     $total_products = wc_get_loop_prop( 'total' );
-                                    $current_page = max( 1, get_query_var( 'paged' ) );
-                                    $per_page = wc_get_loop_prop( 'per_page' );
-                                    $first = ( $current_page - 1 ) * $per_page + 1;
-                                    $last = min( $total_products, $current_page * $per_page );
+                                    if ( $total_products ) :
+                                        $current_page = max( 1, get_query_var( 'paged' ) );
+                                        $per_page = wc_get_loop_prop( 'per_page' );
+                                        $first = ( $current_page - 1 ) * $per_page + 1;
+                                        $last = min( $total_products, $current_page * $per_page );
                                     ?>
-                                    <h3 class="text-xl font-bold text-gray-900">
-                                        <?php echo $total_products; ?> Productos Encontrados
-                                    </h3>
-                                    <p class="text-gray-600">
-                                        Mostrando <?php echo $first; ?>-<?php echo $last; ?> de <?php echo $total_products; ?> resultados
-                                    </p>
+                                        <h3 class="text-lg lg:text-xl font-bold text-gray-900">
+                                            <?php echo $total_products; ?> Productos
+                                        </h3>
+                                        <p class="text-sm text-gray-600">
+                                            <?php echo $first; ?>-<?php echo $last; ?> de <?php echo $total_products; ?>
+                                        </p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             
-                            <!-- Controles de ordenamiento -->
-                            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                            <!-- Controles simples -->
+                            <div class="flex items-center gap-3">
                                 <!-- Selector de vista -->
-                                <div class="flex bg-gray-100 rounded-2xl p-1">
-                                    <button id="grid-view" class="px-4 py-2 rounded-xl transition-all duration-300 bg-white shadow-sm">
-                                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex bg-gray-100 rounded-xl p-1">
+                                    <button id="grid-view" class="px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm">
+                                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                         </svg>
                                     </button>
-                                    <button id="list-view" class="px-4 py-2 rounded-xl transition-all duration-300 text-gray-500">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <button id="list-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                                         </svg>
                                     </button>
                                 </div>
                                 
-                                <!-- Ordenamiento -->
-                                <?php
-                                do_action( 'woocommerce_before_shop_loop' );
-                                ?>
+                                <!-- Ordenamiento básico -->
+                                <div class="woocommerce-ordering">
+                                    <?php woocommerce_catalog_ordering(); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -567,6 +569,49 @@ get_header(); ?>
 </div>
 
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
+<style>
+/* Estilo personalizado para el selector de ordenamiento */
+.woocommerce-ordering select {
+    padding: 8px 12px !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 0.75rem !important;
+    background-color: white !important;
+    font-size: 14px !important;
+    color: #374151 !important;
+    min-width: 160px !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 8px center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+.woocommerce-ordering select:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
+}
+
+.woocommerce-ordering select:hover {
+    border-color: #d1d5db !important;
+}
+
+/* Ocultar elementos innecesarios del resultado count */
+.woocommerce-result-count {
+    display: none !important;
+}
+
+/* Estilos para el grid responsivo */
+@media (max-width: 640px) {
+    .woocommerce-ordering select {
+        min-width: 140px !important;
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+    }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del DOM
@@ -622,12 +667,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function setProductView(view) {
         if (view === 'grid') {
             productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8';
-            gridViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 bg-white shadow-sm text-blue-600';
-            listViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 text-gray-500';
+            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
+            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         } else {
             productsGrid.className = 'grid grid-cols-1 gap-4 lg:gap-6';
-            listViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 bg-white shadow-sm text-blue-600';
-            gridViewBtn.className = 'px-4 py-2 rounded-xl transition-all duration-300 text-gray-500';
+            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
+            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
             
             // Para vista de lista, cambiar el layout de las tarjetas
             const productCards = productsGrid.querySelectorAll('.group');
