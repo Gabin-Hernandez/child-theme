@@ -136,7 +136,7 @@ get_header(); ?>
                 
                 <!-- Sidebar con filtros simples -->
                 <aside class="lg:w-1/4">
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 sticky top-4">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 sticky top-4 space-y-6">
                         
                         <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,23 +145,41 @@ get_header(); ?>
                             Filtros
                         </h3>
 
-                        <!-- Filtro por precio -->
-                        <?php if ( is_active_sidebar( 'sidebar-shop' ) ) : ?>
-                            <?php dynamic_sidebar( 'sidebar-shop' ); ?>
-                        <?php else : ?>
-                            <!-- Widget de precio WooCommerce -->
+                        <!-- Widget de precio -->
+                        <div class="widget-area">
+                            <h4 class="font-semibold text-gray-900 mb-3">Filtrar por precio</h4>
                             <?php the_widget( 'WC_Widget_Price_Filter' ); ?>
-                            
-                            <!-- Widget de categorías -->
-                            <?php the_widget( 'WC_Widget_Product_Categories' ); ?>
-                            
-                            <!-- Widget de atributos -->
-                            <?php 
-                            if ( class_exists( 'WC_Widget_Layered_Nav' ) ) {
-                                the_widget( 'WC_Widget_Layered_Nav', array( 'title' => 'Filtrar por Marca', 'attribute' => 'pa_marca' ) );
-                            }
-                            ?>
+                        </div>
+                        
+                        <!-- Widget de categorías -->
+                        <div class="widget-area">
+                            <h4 class="font-semibold text-gray-900 mb-3">Categorías</h4>
+                            <?php the_widget( 'WC_Widget_Product_Categories', array(
+                                'title' => '',
+                                'count' => 1,
+                                'hierarchical' => 1,
+                                'show_children_only' => 0
+                            ) ); ?>
+                        </div>
+                        
+                        <!-- Widget de atributos de marca -->
+                        <?php if ( class_exists( 'WC_Widget_Layered_Nav' ) ) : ?>
+                        <div class="widget-area">
+                            <h4 class="font-semibold text-gray-900 mb-3">Marcas</h4>
+                            <?php the_widget( 'WC_Widget_Layered_Nav', array( 
+                                'title' => '', 
+                                'attribute' => 'pa_marca'
+                            ) ); ?>
+                        </div>
                         <?php endif; ?>
+                        
+                        <!-- Widget de productos en oferta -->
+                        <div class="widget-area">
+                            <h4 class="font-semibold text-gray-900 mb-3">Estado</h4>
+                            <?php the_widget( 'WC_Widget_Product_Tag_Cloud', array(
+                                'title' => ''
+                            ) ); ?>
+                        </div>
                         
                     </div>
                 </aside>
@@ -172,12 +190,12 @@ get_header(); ?>
                     <!-- Header con resultados y ordenamiento -->
                     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                            <div>
+                            <div class="flex-1">
                                 <?php
                                 /**
-                                 * Hook: woocommerce_before_shop_loop.
+                                 * Hook: woocommerce_before_shop_loop - Mostrar resultados
                                  */
-                                do_action( 'woocommerce_before_shop_loop' );
+                                woocommerce_result_count();
                                 ?>
                             </div>
                             
@@ -185,7 +203,7 @@ get_header(); ?>
                             <div class="flex items-center gap-4">
                                 <?php
                                 /**
-                                 * Hook: woocommerce_before_shop_loop.
+                                 * Selector de ordenamiento
                                  */
                                 woocommerce_catalog_ordering();
                                 ?>
@@ -194,32 +212,23 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        <?php
-                        if ( wc_get_loop_prop( 'is_shortcode' ) ) {
-                            $columns = absint( wc_get_loop_prop( 'columns' ) );
-                        } else {
-                            $columns = 3;
-                        }
+                    <?php woocommerce_product_loop_start(); ?>
+                    
+                    <?php if ( wc_get_loop_prop( 'total' ) ) : ?>
+                        <?php while ( have_posts() ) : ?>
+                            <?php the_post(); ?>
+                            <?php
+                            /**
+                             * Hook: woocommerce_shop_loop.
+                             */
+                            do_action( 'woocommerce_shop_loop' );
 
-                        woocommerce_product_loop_start();
+                            wc_get_template_part( 'content', 'product' );
+                            ?>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
 
-                        if ( wc_get_loop_prop( 'total' ) ) {
-                            while ( have_posts() ) {
-                                the_post();
-
-                                /**
-                                 * Hook: woocommerce_shop_loop.
-                                 */
-                                do_action( 'woocommerce_shop_loop' );
-
-                                wc_get_template_part( 'content', 'product' );
-                            }
-                        }
-
-                        woocommerce_product_loop_end();
-                        ?>
-                    </div>
+                    <?php woocommerce_product_loop_end(); ?>
 
                     <!-- Paginación -->
                     <div class="mt-12">

@@ -165,3 +165,117 @@ Text Domain:    child-theme
         margin-bottom: 1rem !important;
     }
 }
+
+/* Grid de productos personalizado */
+.woocommerce ul.products {
+    display: grid !important;
+    grid-template-columns: repeat(1, 1fr) !important;
+    gap: 1.5rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media (min-width: 768px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    .woocommerce ul.products {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+.woocommerce ul.products li.product {
+    width: 100% !important;
+    margin: 0 !important;
+    float: none !important;
+}
+
+/* Mejoras para widgets de filtros */
+.widget-area {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.widget-area:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.woocommerce .widget_product_categories ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.woocommerce .widget_product_categories ul li {
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem 0 !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.woocommerce .widget_product_categories ul li:last-child {
+    border-bottom: none !important;
+}
+
+.woocommerce .widget_product_categories ul li a {
+    color: #4b5563 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    transition: color 0.3s ease !important;
+}
+
+.woocommerce .widget_product_categories ul li a:hover {
+    color: #2563eb !important;
+}
+
+.woocommerce .widget_product_categories ul li .count {
+    background: #e5e7eb !important;
+    color: #6b7280 !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+/* Widget de filtros por atributos */
+.woocommerce .widget_layered_nav ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.woocommerce .widget_layered_nav ul li {
+    margin-bottom: 0.5rem !important;
+}
+
+.woocommerce .widget_layered_nav ul li a {
+    color: #4b5563 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.5rem 0 !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    transition: color 0.3s ease !important;
+}
+
+.woocommerce .widget_layered_nav ul li a:hover {
+    color: #2563eb !important;
+}
+
+.woocommerce .widget_layered_nav ul li .count {
+    background: #e5e7eb !important;
+    color: #6b7280 !important;
+    padding: 2px 8px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}

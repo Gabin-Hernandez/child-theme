@@ -64,6 +64,18 @@ function itools_modify_search_query( $query ) {
 }
 add_action( 'pre_get_posts', 'itools_modify_search_query' );
 
+// Personalizar el número de productos por página y columnas
+function itools_products_per_page() {
+    return 12; // Múltiplo de 3 para el grid
+}
+add_filter( 'loop_shop_per_page', 'itools_products_per_page', 20 );
+
+// Personalizar número de columnas en la tienda
+function itools_loop_shop_columns() {
+    return 3; // 3 columnas por defecto
+}
+add_filter( 'loop_shop_columns', 'itools_loop_shop_columns' );
+
 // Agregar JavaScript básico para mejorar la experiencia de búsqueda
 function itools_search_scripts() {
     ?>
