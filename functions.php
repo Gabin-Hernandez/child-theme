@@ -3,9 +3,19 @@
  * Tema hijo ITOOLS - Versión limpia y funcional
  */
 
-// Encolar estilos del tema padre
+// Encolar estilos del tema padre y personalizados
 function itools_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+    
+    // Estilos personalizados de WooCommerce
+    if ( class_exists( 'WooCommerce' ) ) {
+        wp_enqueue_style( 
+            'itools-woocommerce-custom', 
+            get_stylesheet_directory_uri() . '/woocommerce-custom.css', 
+            array( 'woocommerce-general' ), 
+            '1.0.0' 
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
 
@@ -30,39 +40,201 @@ function itools_child_theme_setup() {
 }
 add_action( 'after_setup_theme', 'itools_child_theme_setup' );
 
-// Mejorar la búsqueda de productos con categorías
+// Mejorar la búsqueda de productos con filtros avanzados
 function itools_modify_search_query( $query ) {
-    if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
-        // Solo para búsquedas de productos
-        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
-            $query->set( 'post_type', 'product' );
+    if ( !is_admin() && $query->is_main_query() ) {
+        
+        // Para páginas de archivo de productos (tienda)
+        if ( is_shop() || is_product_category() || is_product_tag() || $query->is_search() ) {
             
-            // Si se seleccionó una categoría específica y existe la taxonomía
-            if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
-                $query->set( 'tax_query', array(
-                    array(
-                        'taxonomy' => 'product_cat',
-                        'field'    => 'slug',
-                        'terms'    => sanitize_text_field($_GET['product_cat'])
-                    )
-                ));
+            // Filtro por precio
+            $meta_query = array();
+            if ( !empty($_GET['min_price']) || !empty($_GET['max_price']) ) {
+                $min_price = !empty($_GET['min_price']) ? floatval($_GET['min_price']) : 0;
+                $max_price = !empty($_GET['max_price']) ? floatval($_GET['max_price']) : PHP_INT_MAX;
+                
+                $meta_query[] = array(
+                    'key'     => '_price',
+                    'value'   => array($min_price, $max_price),
+                    'compare' => 'BETWEEN',
+                    'type'    => 'NUMERIC'
+                );
             }
             
-            // Mejorar la búsqueda para incluir SKU y meta fields solo si WooCommerce está activo
-            if ( class_exists( 'WooCommerce' ) ) {
-                $query->set( 'meta_query', array(
-                    'relation' => 'OR',
-                    array(
-                        'key'     => '_sku',
-                        'value'   => $query->get('s'),
-                        'compare' => 'LIKE'
-                    )
-                ));
+            // Aplicar meta query si existe
+            if ( !empty($meta_query) ) {
+                $query->set( 'meta_query', $meta_query );
+            }
+            
+            // Filtro por categorías múltiples
+            if ( !empty($_GET['product_cat']) ) {
+                $categories = explode(',', sanitize_text_field($_GET['product_cat']));
+                $tax_query = array();
+                
+                if ( count($categories) > 1 ) {
+                    $tax_query[] = array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'term_id',
+                        'terms'    => $categories,
+                        'operator' => 'IN'
+                    );
+                } else {
+                    $tax_query[] = array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'term_id',
+                        'terms'    => $categories[0]
+                    );
+                }
+                
+                $query->set( 'tax_query', $tax_query );
+            }
+            
+            // Mejorar búsqueda para incluir SKU y meta fields
+            if ( $query->is_search() && class_exists( 'WooCommerce' ) ) {
+                $search_term = $query->get('s');
+                if ( $search_term ) {
+                    $meta_query_search = array(
+                        'relation' => 'OR',
+                        array(
+                            'key'     => '_sku',
+                            'value'   => $search_term,
+                            'compare' => 'LIKE'
+                        ),
+                        array(
+                            'key'     => '_product_attributes',
+                            'value'   => $search_term,
+                            'compare' => 'LIKE'
+                        )
+                    );
+                    
+                    $existing_meta_query = $query->get('meta_query');
+                    if ( !empty($existing_meta_query) ) {
+                        $meta_query_search = array_merge($existing_meta_query, array($meta_query_search));
+                    }
+                    
+                    $query->set( 'meta_query', $meta_query_search );
+                }
             }
         }
     }
 }
 add_action( 'pre_get_posts', 'itools_modify_search_query' );
+
+// Agregar soporte para AJAX en el carrito
+function itools_woocommerce_ajax_support() {
+    if ( class_exists( 'WooCommerce' ) ) {
+        // Asegurar que los scripts de WooCommerce se carguen
+        wp_enqueue_script( 'wc-add-to-cart' );
+        
+        // Agregar variables JavaScript necesarias
+        wp_localize_script( 'wc-add-to-cart', 'wc_add_to_cart_params', array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'wc_ajax_url' => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+            'i18n_view_cart' => esc_attr__( 'View cart', 'woocommerce' ),
+            'cart_url' => apply_filters( 'woocommerce_add_to_cart_redirect', wc_get_cart_url(), null ),
+            'is_cart' => is_cart(),
+            'cart_redirect_after_add' => get_option( 'woocommerce_cart_redirect_after_add' )
+        ) );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'itools_woocommerce_ajax_support' );
+
+// Personalizar el ordenamiento de productos
+function itools_custom_woocommerce_catalog_orderby( $orderby ) {
+    $orderby['popularity'] = 'Más vendidos';
+    $orderby['rating'] = 'Mejor valorados';
+    $orderby['date'] = 'Más recientes';
+    $orderby['price'] = 'Precio: menor a mayor';
+    $orderby['price-desc'] = 'Precio: mayor a menor';
+    
+    return $orderby;
+}
+add_filter( 'woocommerce_default_catalog_orderby_options', 'itools_custom_woocommerce_catalog_orderby' );
+add_filter( 'woocommerce_catalog_orderby', 'itools_custom_woocommerce_catalog_orderby' );
+
+// Soporte para filtrado por atributos personalizados
+function itools_handle_product_filters() {
+    if ( !empty($_GET['product_brand']) ) {
+        $brands = explode(',', sanitize_text_field($_GET['product_brand']));
+        
+        // Intentar diferentes taxonomías de marca
+        $brand_taxonomies = array( 'product_brand', 'pa_marca', 'pa_brand' );
+        
+        foreach ( $brand_taxonomies as $taxonomy ) {
+            if ( taxonomy_exists( $taxonomy ) ) {
+                add_filter( 'woocommerce_product_query_tax_query', function( $tax_query ) use ( $brands, $taxonomy ) {
+                    $tax_query[] = array(
+                        'taxonomy' => $taxonomy,
+                        'field'    => 'slug',
+                        'terms'    => $brands,
+                        'operator' => 'IN'
+                    );
+                    return $tax_query;
+                });
+                break;
+            }
+        }
+    }
+}
+add_action( 'woocommerce_product_query', 'itools_handle_product_filters' );
+
+// Mejorar los resultados de búsqueda
+function itools_search_products_where( $where ) {
+    global $wpdb;
+    
+    if ( is_search() && !empty($_GET['s']) && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+        $search_term = sanitize_text_field($_GET['s']);
+        
+        // Buscar también en meta fields importantes
+        $where .= " OR {$wpdb->posts}.ID IN (
+            SELECT post_id FROM {$wpdb->postmeta} 
+            WHERE meta_key IN ('_sku', '_product_attributes') 
+            AND meta_value LIKE '%{$search_term}%'
+        )";
+    }
+    
+    return $where;
+}
+add_filter( 'posts_where', 'itools_search_products_where' );
+
+// Registrar sidebar para la tienda
+function itools_register_shop_sidebar() {
+    register_sidebar( array(
+        'name'          => 'Sidebar Tienda',
+        'id'            => 'sidebar-shop',
+        'description'   => 'Widgets para la barra lateral de la tienda',
+        'before_widget' => '<div id="%1$s" class="widget %2$s mb-8 p-6 bg-white rounded-2xl shadow-sm border border-gray-100">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title text-lg font-bold text-gray-900 mb-4">',
+        'after_title'   => '</h3>',
+    ) );
+}
+add_action( 'widgets_init', 'itools_register_shop_sidebar' );
+
+// Personalizar breadcrumbs de WooCommerce
+function itools_woocommerce_breadcrumb_defaults( $defaults ) {
+    $defaults['delimiter'] = '<svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>';
+    $defaults['wrap_before'] = '<nav class="flex items-center text-sm text-gray-600" aria-label="Breadcrumb">';
+    $defaults['wrap_after'] = '</nav>';
+    $defaults['before'] = '<span class="flex items-center">';
+    $defaults['after'] = '</span>';
+    $defaults['home'] = 'Inicio';
+    
+    return $defaults;
+}
+add_filter( 'woocommerce_breadcrumb_defaults', 'itools_woocommerce_breadcrumb_defaults' );
+
+// Personalizar el número de productos por página
+function itools_products_per_page() {
+    return 12; // Múltiplo de 3 para el grid
+}
+add_filter( 'loop_shop_per_page', 'itools_products_per_page', 20 );
+
+// Deshabilitar el zoom de WooCommerce en favor del nuestro
+function itools_disable_woocommerce_zoom() {
+    remove_theme_support( 'wc-product-gallery-zoom' );
+}
+add_action( 'after_setup_theme', 'itools_disable_woocommerce_zoom', 100 );
 
 // Agregar JavaScript para mejorar la experiencia de búsqueda
 function itools_search_scripts() {
@@ -100,68 +272,62 @@ add_action( 'wp_footer', 'itools_search_scripts' );
 function itools_custom_styles() {
     ?>
     <style>
-    @keyframes scroll {
+    /* Animaciones blob para el hero */
+    @keyframes blob {
         0% {
-            transform: translateX(0);
+            transform: translate(0px, 0px) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
         }
         100% {
-            transform: translateX(-50%);
+            transform: translate(0px, 0px) scale(1);
         }
     }
     
-    .animate-scroll {
-        animation: scroll 20s linear infinite;
+    .animate-blob {
+        animation: blob 7s infinite;
     }
     
     .animation-delay-2000 {
         animation-delay: 2s;
     }
     
-    /* Efectos adicionales para las categorías */
-    .category-card {
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+
+    /* Scrollbar personalizado */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
     }
     
-    .category-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 3px;
     }
     
-    /* Animaciones de estadísticas */
-    @keyframes countUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+        border-radius: 3px;
     }
     
-    .stat-number {
-        animation: countUp 0.8s ease-out forwards;
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, #2563eb, #7c3aed);
     }
-    
-    /* Gradientes animados */
-    @keyframes gradientShift {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
+
+    /* Limitador de líneas */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
-    
-    .gradient-animate {
-        background-size: 200% 200%;
-        animation: gradientShift 4s ease infinite;
-    }
-    
-    /* Nuevas animaciones para el slider moderno */
+
+    /* Animaciones de entrada */
     @keyframes fade-in-up {
         from {
             opacity: 0;
@@ -173,130 +339,392 @@ function itools_custom_styles() {
         }
     }
     
-    @keyframes pulse-glow {
-        0%, 100% {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-        50% {
-            box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-        }
-    }
-    
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
-    }
-    
-    @keyframes slide-in-left {
-        from {
-            opacity: 0;
-            transform: translateX(-100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    @keyframes slide-in-right {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    @keyframes scale-in {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    
-    /* Clases de animación */
     .animate-fade-in-up {
         animation: fade-in-up 0.8s ease-out forwards;
     }
     
-    .animate-pulse-glow {
-        animation: pulse-glow 2s ease-in-out infinite;
+    .delay-200 {
+        animation-delay: 0.2s;
     }
     
-    .animate-float {
-        animation: float 6s ease-in-out infinite;
+    .delay-400 {
+        animation-delay: 0.4s;
     }
     
-    .animate-slide-in-left {
-        animation: slide-in-left 0.6s ease-out forwards;
+    .delay-600 {
+        animation-delay: 0.6s;
     }
-    
-    .animate-slide-in-right {
-        animation: slide-in-right 0.6s ease-out forwards;
-    }
-    
-    .animate-scale-in {
-        animation: scale-in 0.5s ease-out forwards;
-    }
-    
-    /* Efectos especiales para el slider */
-    .slide {
-        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .slide.fade-out {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    
-    /* Mejoras de hover para botones */
-    .btn-hover-glow:hover {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 30px rgba(59, 130, 246, 0.4);
-        transform: translateY(-2px);
-    }
-    
-    /* Contador animado */
-    .count-up {
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
-    
-    /* Mejoras para elementos interactivos */
-    .interactive-hover {
+
+    /* Efectos de hover mejorados */
+    .hover-lift {
         transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    .interactive-hover:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    .hover-lift:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
-    
-    /* Responsive animations */
-    @media (prefers-reduced-motion: reduce) {
-        * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
+
+    /* Gradientes animados */
+    @keyframes gradient-x {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
         }
     }
     
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 3s ease infinite;
+    }
+
+    /* Efectos de botones */
+    .btn-glow {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-glow::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+    
+    .btn-glow:hover::before {
+        left: 100%;
+    }
+
+    /* Mejoras para productos */
+    .product-card {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transform-origin: center;
+        backface-visibility: hidden;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Efectos de ondas en botones */
+    @keyframes ripple {
+        to {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+    
+    .ripple-effect {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .ripple-effect::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .ripple-effect:active::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Mejoras de animaciones para elementos específicos */
+    .hero-search {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .filter-section {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
     /* Optimizaciones de rendimiento */
     .gpu-accelerated {
         transform: translateZ(0);
         backface-visibility: hidden;
         perspective: 1000px;
+        will-change: transform;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+        .product-card:hover {
+            transform: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    /* Estados de carga */
+    .loading-shimmer {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    /* Mejoras de accesibilidad */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    /* Focus states mejorados */
+    .focus-ring:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Tooltips personalizados */
+    .tooltip {
+        position: relative;
+    }
+    
+    .tooltip::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 1000;
+    }
+    
+    .tooltip:hover::before {
+        opacity: 1;
+        visibility: visible;
+        bottom: calc(100% + 8px);
     }
     </style>
     <?php
 }
 add_action( 'wp_head', 'itools_custom_styles' );
+
+// Agregar JavaScript personalizado para mejoras de UX
+function itools_custom_scripts() {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lazy loading mejorado para imágenes
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('loading-shimmer');
+                            img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                img.classList.add('loading-shimmer');
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Smooth scroll para anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Efecto parallax sutil en el hero
+        const heroSection = document.querySelector('.hero-parallax');
+        if (heroSection) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = scrolled * 0.5;
+                heroSection.style.transform = `translateY(${parallax}px)`;
+            });
+        }
+        
+        // Contador animado para estadísticas
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 50;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 30);
+            });
+        };
+        
+        // Observer para activar contadores cuando estén visibles
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+        
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+        
+        // Efecto de typing en textos principales
+        const typeWriter = (element, text, speed = 100) => {
+            let i = 0;
+            element.innerHTML = '';
+            
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        };
+        
+        // Aplicar efecto typing al título principal si existe
+        const mainTitle = document.querySelector('.typing-effect');
+        if (mainTitle) {
+            const originalText = mainTitle.textContent;
+            typeWriter(mainTitle, originalText, 80);
+        }
+        
+        // Gesture support para mobile
+        let startX, startY, distX, distY;
+        
+        document.addEventListener('touchstart', e => {
+            const touchobj = e.changedTouches[0];
+            startX = touchobj.pageX;
+            startY = touchobj.pageY;
+        });
+        
+        document.addEventListener('touchend', e => {
+            const touchobj = e.changedTouches[0];
+            distX = touchobj.pageX - startX;
+            distY = touchobj.pageY - startY;
+            
+            // Swipe right to go back (navegación móvil)
+            if (Math.abs(distX) > Math.abs(distY) && distX > 100) {
+                if (window.history.length > 1) {
+                    window.history.back();
+                }
+            }
+        });
+        
+        // Preloader personalizado
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            window.addEventListener('load', () => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            });
+        }
+        
+        // Dark mode toggle (opcional)
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            });
+            
+            // Restaurar preferencia de dark mode
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+        
+        // Feedback haptico en dispositivos compatibles
+        const addHapticFeedback = (element, intensity = 'light') => {
+            element.addEventListener('click', () => {
+                if (navigator.vibrate) {
+                    const patterns = {
+                        light: [10],
+                        medium: [20],
+                        heavy: [30]
+                    };
+                    navigator.vibrate(patterns[intensity] || patterns.light);
+                }
+            });
+        };
+        
+        // Aplicar feedback háptico a botones importantes
+        document.querySelectorAll('.btn-primary, .add-to-cart, .wishlist-btn').forEach(btn => {
+            addHapticFeedback(btn, 'light');
+        });
+        
+        // Performance monitoring
+        if ('PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.entryType === 'navigation') {
+                        console.log('Page load time:', entry.loadEventEnd - entry.loadEventStart, 'ms');
+                    }
+                }
+            });
+            observer.observe({entryTypes: ['navigation']});
+        }
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'itools_custom_scripts' );
