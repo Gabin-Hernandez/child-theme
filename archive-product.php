@@ -65,12 +65,12 @@ get_header(); ?>
             </div>
         <?php endif; ?>
 
-        <!-- Categor├¡as con im├ígenes -->
+        <!-- Categorías con imágenes -->
         <div class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Categor├¡as Populares</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Categorías Populares</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <?php
-                // Categor├¡as predefinidas con im├ígenes
+                // Categorías predefinidas con imágenes
                 $featured_categories = array(
                     array(
                         'name' => 'Herramientas',
@@ -85,7 +85,7 @@ get_header(); ?>
                         'count' => 89
                     ),
                     array(
-                        'name' => 'Bater├¡as',
+                        'name' => 'Baterías',
                         'slug' => 'baterias',
                         'image' => get_stylesheet_directory_uri() . '/images/categoria-baterias.svg',
                         'count' => 45
@@ -252,7 +252,7 @@ get_header(); ?>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0118 12a8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8c2.027 0 3.9.756 5.336 2"></path>
                     </svg>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">No se encontraron productos</h2>
-                    <p class="text-gray-600 mb-6">Intenta ajustar tus filtros o b├║squeda</p>
+                    <p class="text-gray-600 mb-6">Intenta ajustar tus filtros o búsqueda</p>
                     <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
                        class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block">
                         Ver todos los productos
@@ -272,7 +272,14 @@ get_header(); ?>
     </div>
 </div>
 
-<?php get_footer(); ?>
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="container mx-auto px-4">
+
+        <!-- Botón para mostrar filtros en móvil -->
+        <div class="xl:hidden mb-6">
+            <button id="toggle-filters" class="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
                 </svg>
                 Filtros y Ordenar
                 <div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
@@ -327,14 +334,14 @@ get_header(); ?>
                                             <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
                                             <input type="number" 
                                                    id="min_price" 
-                                                   placeholder="M├¡nimo" 
+                                                   placeholder="Mínimo" 
                                                    class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                         </div>
                                         <div class="relative">
                                             <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
                                             <input type="number" 
                                                    id="max_price" 
-                                                   placeholder="M├íximo" 
+                                                   placeholder="Máximo" 
                                                    class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                         </div>
                                     </div>
@@ -346,7 +353,7 @@ get_header(); ?>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Filtro por Categor├¡as -->
+                        <!-- Filtro por Categorías -->
                         <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
                             <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
                                 <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-3">
@@ -354,7 +361,7 @@ get_header(); ?>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                                     </svg>
                                 </div>
-                                Categor├¡as
+                                Categorías
                             </h4>
                             
                             <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
@@ -467,7 +474,7 @@ get_header(); ?>
                             </div>
                         </div>
 
-                        <!-- Botones de acci├│n -->
+                        <!-- Botones de acción -->
                         <div class="space-y-4">
                             <button id="apply-filters" 
                                     class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
@@ -485,7 +492,7 @@ get_header(); ?>
                             </button>
                         </div>
 
-                        <!-- Filtros r├ípidos -->
+                        <!-- Filtros rápidos -->
                         <div class="mt-8 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
                             <h5 class="font-bold text-gray-900 mb-4 flex items-center">
                                 <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-3">
@@ -493,20 +500,20 @@ get_header(); ?>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                     </svg>
                                 </div>
-                                Filtros R├ípidos
+                                Filtros Rápidos
                             </h5>
                             <div class="space-y-2">
                                 <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
-                                    ­ƒöÑ M├ís Vendidos
+                                    🔥 Más Vendidos
                                 </button>
                                 <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
-                                    Ô¡É Mejor Valorados
+                                    ⭐ Mejor Valorados
                                 </button>
                                 <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
-                                    ­ƒÆ░ Ofertas
+                                    💰 Ofertas
                                 </button>
                                 <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
-                                    ­ƒåò Nuevos
+                                    🆕 Nuevos
                                 </button>
                             </div>
                         </div>
@@ -529,7 +536,7 @@ get_header(); ?>
                     <div class="bg-white p-6 rounded-3xl shadow-lg mb-8 border border-gray-100">
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                             
-                            <!-- Informaci├│n de resultados -->
+                            <!-- Información de resultados -->
                             <div class="flex items-center gap-4">
                                 <div class="w-3 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
                                 <div>
@@ -625,7 +632,7 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <!-- Botones de acci├│n r├ípida -->
+                                    <!-- Botones de acción rápida -->
                                     <div class="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                         <button class="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-50 transition-colors wishlist-btn">
                                             <svg class="w-5 h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -641,14 +648,14 @@ get_header(); ?>
                                     </div>
                                 </div>
                                 
-                                <!-- Informaci├│n del producto -->
+                                <!-- Información del producto -->
                                 <div class="p-6">
                                     <div class="mb-3">
                                         <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
                                         
-                                        <!-- Valoraci├│n -->
+                                        <!-- Valoración -->
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
                                             <div class="flex items-center gap-2 mt-2">
                                                 <?php 
@@ -665,7 +672,7 @@ get_header(); ?>
                                                     </div>
                                                     <span class="text-sm text-gray-600">(<?php echo $review_count; ?>)</span>
                                                 <?php else : ?>
-                                                    <span class="text-sm text-gray-500">Sin rese├▒as</span>
+                                                    <span class="text-sm text-gray-500">Sin reseñas</span>
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
@@ -680,7 +687,7 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <!-- Bot├│n de agregar al carrito -->
+                                    <!-- Botón de agregar al carrito -->
                                     <div class="flex gap-3">
                                         <?php if ( $product ) : ?>
                                             <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
@@ -709,7 +716,7 @@ get_header(); ?>
                         ?>
                     </div>
 
-                    <!-- Paginaci├│n moderna -->
+                    <!-- Paginación moderna -->
                     <div class="mt-12">
                         <?php
                         do_action( 'woocommerce_after_shop_loop' );
@@ -721,10 +728,10 @@ get_header(); ?>
 
         <?php else : ?>
 
-            <!-- Estado vac├¡o mejorado -->
+            <!-- Estado vacío mejorado -->
             <div class="text-center py-20">
                 <div class="max-w-md mx-auto">
-                    <!-- Ilustraci├│n SVG -->
+                    <!-- Ilustración SVG -->
                     <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
                         <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -733,11 +740,11 @@ get_header(); ?>
                     
                     <h2 class="text-3xl font-bold text-gray-900 mb-4">No encontramos productos</h2>
                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                        Lo sentimos, no hay productos que coincidan con tus criterios de b├║squeda. 
-                        <br>Prueba ajustando los filtros o explorando nuestras categor├¡as.
+                        Lo sentimos, no hay productos que coincidan con tus criterios de búsqueda. 
+                        <br>Prueba ajustando los filtros o explorando nuestras categorías.
                     </p>
                     
-                    <!-- Botones de acci├│n -->
+                    <!-- Botones de acción -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <button id="clear-all-filters" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             Limpiar Filtros
@@ -749,7 +756,7 @@ get_header(); ?>
                     
                     <!-- Sugerencias -->
                     <div class="mt-12 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
-                        <h3 class="font-bold text-gray-900 mb-4">Sugerencias de b├║squeda:</h3>
+                        <h3 class="font-bold text-gray-900 mb-4">Sugerencias de búsqueda:</h3>
                         <div class="flex flex-wrap gap-2 justify-center">
                             <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Taladros</span>
                             <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Martillos</span>
@@ -807,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // B├║squeda con el bot├│n
+        // Búsqueda con el botón
         const searchBtn = heroSearch.nextElementSibling;
         if (searchBtn) {
             searchBtn.addEventListener('click', function() {
@@ -855,13 +862,13 @@ document.addEventListener('DOMContentLoaded', function() {
         setProductView(savedView);
     }
     
-    // Mostrar/ocultar filtros en m├│vil con animaciones
+    // Mostrar/ocultar filtros en móvil con animaciones
     if (toggleFiltersBtn) {
         toggleFiltersBtn.addEventListener('click', function() {
             filtersSidebar.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             
-            // Animaci├│n de entrada
+            // Animación de entrada
             setTimeout(() => {
                 filtersSidebar.style.opacity = '1';
                 filtersSidebar.querySelector('div').style.transform = 'translateX(0)';
@@ -894,7 +901,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Filtros r├ípidos
+    // Filtros rápidos
     document.querySelectorAll('.quick-filter').forEach(btn => {
         btn.addEventListener('click', function() {
             const filterType = this.textContent.trim();
@@ -906,23 +913,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentUrl = new URL(window.location);
         const searchParams = new URLSearchParams();
         
-        // Mantener b├║squeda actual
+        // Mantener búsqueda actual
         if (currentUrl.searchParams.get('s')) {
             searchParams.set('s', currentUrl.searchParams.get('s'));
         }
         
         switch(type) {
-            case '­ƒöÑ M├ís Vendidos':
+            case '🔥 Más Vendidos':
                 searchParams.set('orderby', 'popularity');
                 break;
-            case 'Ô¡É Mejor Valorados':
+            case '⭐ Mejor Valorados':
                 searchParams.set('orderby', 'rating');
                 break;
-            case '­ƒÆ░ Ofertas':
+            case '💰 Ofertas':
                 searchParams.set('meta_key', '_sale_price');
                 searchParams.set('meta_compare', 'EXISTS');
                 break;
-            case '­ƒåò Nuevos':
+            case '🆕 Nuevos':
                 searchParams.set('orderby', 'date');
                 break;
         }
@@ -931,7 +938,7 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = currentUrl.toString();
     }
     
-    // Aplicar filtros con animaci├│n de carga
+    // Aplicar filtros con animación de carga
     if (applyFiltersBtn) {
         applyFiltersBtn.addEventListener('click', function() {
             this.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Aplicando...';
@@ -966,12 +973,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Funci├│n para aplicar filtros
+    // Función para aplicar filtros
     function applyFilters() {
         const currentUrl = new URL(window.location);
         const searchParams = new URLSearchParams();
         
-        // Mantener par├ímetros b├ísicos
+        // Mantener parámetros básicos
         if (currentUrl.searchParams.get('s')) {
             searchParams.set('s', currentUrl.searchParams.get('s'));
         }
@@ -986,7 +993,7 @@ document.addEventListener('DOMContentLoaded', function() {
             searchParams.set('max_price', maxPrice.value);
         }
         
-        // Filtros de categor├¡as
+        // Filtros de categorías
         const categoryFilters = document.querySelectorAll('.category-filter:checked');
         if (categoryFilters.length > 0) {
             const categories = Array.from(categoryFilters).map(cb => cb.value);
@@ -1000,14 +1007,14 @@ document.addEventListener('DOMContentLoaded', function() {
             searchParams.set('product_brand', brands.join(','));
         }
         
-        // Redirigir con los nuevos par├ímetros
+        // Redirigir con los nuevos parámetros
         currentUrl.search = searchParams.toString();
         window.location.href = currentUrl.toString();
     }
     
-    // Funci├│n para limpiar filtros con animaci├│n
+    // Función para limpiar filtros con animación
     function clearAllFilters() {
-        // Animaci├│n de limpiar
+        // Animación de limpiar
         document.querySelectorAll('.category-filter, .brand-filter').forEach(cb => {
             if (cb.checked) {
                 cb.checked = false;
@@ -1018,7 +1025,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Limpiar campos de precio con animaci├│n
+        // Limpiar campos de precio con animación
         const minPrice = document.getElementById('min_price');
         const maxPrice = document.getElementById('max_price');
         [minPrice, maxPrice].forEach(input => {
@@ -1031,20 +1038,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Redirigir despu├®s de la animaci├│n
+        // Redirigir después de la animación
         setTimeout(() => {
             const baseUrl = window.location.pathname;
             window.location.href = baseUrl;
         }, 400);
     }
     
-    // Funciones de interacci├│n mejoradas para productos
+    // Funciones de interacción mejoradas para productos
     document.querySelectorAll('.wishlist-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            // Animaci├│n de wishlist
+            // Animación de wishlist
             const heart = this.querySelector('svg');
             heart.style.fill = heart.style.fill === 'currentColor' ? 'none' : 'currentColor';
             heart.style.color = heart.style.fill === 'currentColor' ? '#ef4444' : '#6b7280';
@@ -1062,8 +1069,8 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
             
-            // Aqu├¡ podr├¡as implementar una modal de vista r├ípida
-            console.log('Vista r├ípida del producto');
+            // Aquí podrías implementar una modal de vista rápida
+            console.log('Vista rápida del producto');
         });
     });
     
@@ -1081,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('max_price').value = maxPrice;
         }
         
-        // Cargar categor├¡as
+        // Cargar categorías
         const categories = urlParams.get('product_cat');
         if (categories) {
             const categoryIds = categories.split(',');
@@ -1102,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Cargar filtros al cargar la p├ígina
+    // Cargar filtros al cargar la página
     loadFiltersFromUrl();
     
     // Responsive: cerrar filtros al cambiar a desktop
@@ -1123,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Lazy loading para im├ígenes (si es necesario)
+    // Lazy loading para imágenes (si es necesario)
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
