@@ -1,70 +1,55 @@
 <?php
 /**
- * Archivo de productos (tienda) - ITOOLS Rediseñado
+ * Archivo de productos (tienda) - ITOOLS
  */
 
-get_header( 'shop' ); ?>
+get_header(); ?>
 
-<!-- Hero Section Minimalista -->
-<div class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 overflow-hidden">
-    <div class="absolute inset-0 bg-black/20"></div>
-    <div class="absolute inset-0">
-        <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    </div>
-    
-    <div class="relative container mx-auto px-4 py-20">
-        <div class="text-center max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
-                Herramientas
-                <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    Profesionales
-                </span>
+<!-- Hero Section Moderno -->
+<div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                Tienda de Herramientas
             </h1>
-            <p class="text-xl text-gray-300 mb-8 animate-fade-in-up delay-200">
-                Descubre la mejor selección de herramientas para profesionales y entusiastas del bricolaje
+            <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                Encuentra las mejores herramientas profesionales para tus proyectos
             </p>
             
-            <!-- Barra de búsqueda mejorada -->
-            <div class="max-w-2xl mx-auto animate-fade-in-up delay-400">
-                <div class="relative">
-                    <input type="text" 
-                           id="hero-search" 
-                           placeholder="¿Qué herramienta necesitas hoy?"
-                           class="w-full px-6 py-4 pl-14 text-lg rounded-2xl border-0 focus:ring-4 focus:ring-blue-500/50 shadow-2xl backdrop-blur-sm bg-white/90">
-                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+            <!-- Formulario de búsqueda funcional -->
+            <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="max-w-2xl mx-auto">
+                <div class="flex gap-3">
+                    <input type="hidden" name="post_type" value="product">
+                    <div class="flex-1 relative">
+                        <input type="text" 
+                               name="s" 
+                               value="<?php echo get_search_query(); ?>"
+                               placeholder="Buscar herramientas..."
+                               class="w-full px-6 py-4 text-lg rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg">
                     </div>
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition-all duration-300 hover:scale-105">
+                    <select name="product_cat" class="px-4 py-4 rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg bg-white">
+                        <option value="">Todas las categorías</option>
+                        <?php
+                        $categories = get_terms( array(
+                            'taxonomy' => 'product_cat',
+                            'hide_empty' => true,
+                        ) );
+                        foreach ( $categories as $category ) {
+                            echo '<option value="' . esc_attr( $category->slug ) . '" ' . selected( get_query_var( 'product_cat' ), $category->slug, false ) . '>' . esc_html( $category->name ) . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
                         Buscar
                     </button>
                 </div>
-            </div>
-            
-            <!-- Estadísticas rápidas -->
-            <div class="grid grid-cols-3 gap-8 mt-16 animate-fade-in-up delay-600">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">500+</div>
-                    <div class="text-blue-300">Productos</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">50+</div>
-                    <div class="text-blue-300">Marcas</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-white mb-2">24/7</div>
-                    <div class="text-blue-300">Soporte</div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
-<div class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-12">
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="container mx-auto px-4">
 
         <?php
         /**
@@ -73,66 +58,212 @@ get_header( 'shop' ); ?>
         do_action( 'woocommerce_before_main_content' );
         ?>
 
-        <!-- Navegación de breadcrumb moderna -->
-        <nav class="mb-8" aria-label="Breadcrumb">
-            <div class="bg-white rounded-2xl p-4 shadow-sm">
-                <?php if ( function_exists( 'woocommerce_breadcrumb' ) ) : ?>
-                    <?php woocommerce_breadcrumb( array(
-                        'delimiter'   => '<svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>',
-                        'wrap_before' => '<ol class="flex items-center text-sm text-gray-600">',
-                        'wrap_after'  => '</ol>',
-                        'before'      => '<li class="flex items-center">',
-                        'after'       => '</li>',
-                        'home'        => 'Inicio',
-                    ) ); ?>
-                <?php endif; ?>
+        <!-- Breadcrumb -->
+        <?php if ( function_exists( 'woocommerce_breadcrumb' ) ) : ?>
+            <div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+                <?php woocommerce_breadcrumb(); ?>
             </div>
-        </nav>
+        <?php endif; ?>
 
-        <!-- Categorías destacadas -->
-        <div class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Categorías Populares</h2>
+        <!-- Categorías con imágenes -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Categorías Populares</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <?php
-                $featured_categories = get_terms( array(
-                    'taxonomy' => 'product_cat',
-                    'hide_empty' => true,
-                    'number' => 6,
-                    'parent' => 0,
-                ) );
+                // Categorías predefinidas con imágenes
+                $featured_categories = array(
+                    array(
+                        'name' => 'Herramientas',
+                        'slug' => 'herramientas',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-herramientas.svg',
+                        'count' => 150
+                    ),
+                    array(
+                        'name' => 'Refacciones',
+                        'slug' => 'refacciones',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-refacciones.svg',
+                        'count' => 89
+                    ),
+                    array(
+                        'name' => 'Baterías',
+                        'slug' => 'baterias',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-baterias.svg',
+                        'count' => 45
+                    ),
+                    array(
+                        'name' => 'Accesorios',
+                        'slug' => 'accesorios',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-accesorios.svg',
+                        'count' => 120
+                    ),
+                    array(
+                        'name' => 'Cargadores',
+                        'slug' => 'cargadores',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-cargadores.svg',
+                        'count' => 67
+                    ),
+                    array(
+                        'name' => 'Pantallas',
+                        'slug' => 'pantallas',
+                        'image' => get_stylesheet_directory_uri() . '/images/categoria-pantallas.svg',
+                        'count' => 78
+                    )
+                );
                 
-                if ( ! empty( $featured_categories ) && ! is_wp_error( $featured_categories ) ) :
-                    foreach ( $featured_categories as $category ) :
-                        $category_url = get_term_link( $category );
-                        $thumbnail_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
-                        $image_url = $thumbnail_id ? wp_get_attachment_url( $thumbnail_id ) : wc_placeholder_img_src();
+                foreach ( $featured_categories as $category ) :
+                    $category_url = home_url( '/tienda/?product_cat=' . $category['slug'] );
                 ?>
                     <a href="<?php echo esc_url( $category_url ); ?>" 
-                       class="group bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <img src="<?php echo esc_url( $image_url ); ?>" 
-                                 alt="<?php echo esc_attr( $category->name ); ?>"
-                                 class="w-8 h-8 object-contain">
+                       class="group bg-white rounded-xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100">
+                        <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-white flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                            <img src="<?php echo esc_url( $category['image'] ); ?>" 
+                                 alt="<?php echo esc_attr( $category['name'] ); ?>"
+                                 class="w-10 h-10 object-contain"
+                                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMCAxMkMxNi42ODYzIDEyIDEzLjUwNTQgMTMuMzE2NCAxMS4yNzIxIDE1LjU0OTdDOS4wMzg3OSAxNy43ODMgNy43MjI2NiAyMC45NjM3IDcuNzIyNjYgMjQuMjc3M0M3LjcyMjY2IDI3LjU5MSA5LjAzODc5IDMwLjc3MTcgMTEuMjcyMSAzMy4wMDVDMTMuNTA1NCAzNS4yMzg0IDE2LjY4NjMgMzYuNTU0NyAyMCAzNi41NTQ3QzIzLjMxMzcgMzYuNTU0NyAyNi40OTQ2IDM1LjIzODQgMjguNzI3OSAzMy4wMDVDMzAuOTYxMiAzMC43NzE3IDMyLjI3NzMgMjcuNTkxIDMyLjI3NzMgMjQuMjc3M0MzMi4yNzczIDIwLjk2MzcgMzAuOTYxMiAxNy43ODMgMjguNzI3OSAxNS41NDk3QzI2LjQ5NDYgMTMuMzE2NCAyMy4zMTM3IDEyIDIwIDEyWk0yMCA5LjMzMzMzQzI0LjI0MzUgOS4zMzMzMyAyOC4zMTMxIDEwLjkxNjcgMzEuMzEzNyAxMy45MTczQzM0LjMxNDIgMTYuOTE3OSAzNS44OTc2IDIwLjk4NzUgMzUuODk3NiAyNS4yMzA5QzM1Ljg5NzYgMjkuNDc0NCAzNC4zMTQyIDMzLjU0NCAzMS4zMTM3IDM2LjU0NDZDMI4zMTMxIDM5LjU0NTIgMjQuMjQzNSA0MS4xMjg2IDIwIDQxLjEyODZDMTUuNzU2NSA0MS4xMjg2IDExLjY4NjkgMzkuNTQ1MiA4LjY4NjMgMzYuNTQ0NkM1LjY4NTcxIDMzLjU0NCA0LjEwMjM4IDI5LjQ3NDQgNC4xMDIzOCAyNS4yMzA5QzQuMTAyMzggMjAuOTg3NSA1LjY4NTcxIDE2LjkxNzkgOC42ODYzIDEzLjkxNzNDMTEuNjg2OSAxMC45MTY3IDE1Ljc1NjUgOS4zMzMzMyAyMCA5LjMzMzMzWiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K'" />
                         </div>
                         <h3 class="font-semibold text-gray-900 text-sm group-hover:text-blue-600 transition-colors">
-                            <?php echo esc_html( $category->name ); ?>
+                            <?php echo esc_html( $category['name'] ); ?>
                         </h3>
-                        <p class="text-xs text-gray-500 mt-1"><?php echo $category->count; ?> productos</p>
+                        <p class="text-xs text-gray-500 mt-1"><?php echo $category['count']; ?> productos</p>
                     </a>
-                <?php 
-                    endforeach;
-                endif;
-                ?>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- Botón para mostrar filtros en móvil -->
-        <div class="lg:hidden mb-6">
-            <button 
-                id="toggle-filters" 
-                class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-2xl flex items-center gap-3 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+        <?php if ( woocommerce_product_loop() ) : ?>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Sidebar con filtros simples -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 sticky top-4">
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+                            </svg>
+                            Filtros
+                        </h3>
+
+                        <!-- Filtro por precio -->
+                        <?php if ( is_active_sidebar( 'sidebar-shop' ) ) : ?>
+                            <?php dynamic_sidebar( 'sidebar-shop' ); ?>
+                        <?php else : ?>
+                            <!-- Widget de precio WooCommerce -->
+                            <?php the_widget( 'WC_Widget_Price_Filter' ); ?>
+                            
+                            <!-- Widget de categorías -->
+                            <?php the_widget( 'WC_Widget_Product_Categories' ); ?>
+                            
+                            <!-- Widget de atributos -->
+                            <?php 
+                            if ( class_exists( 'WC_Widget_Layered_Nav' ) ) {
+                                the_widget( 'WC_Widget_Layered_Nav', array( 'title' => 'Filtrar por Marca', 'attribute' => 'pa_marca' ) );
+                            }
+                            ?>
+                        <?php endif; ?>
+                        
+                    </div>
+                </aside>
+
+                <!-- Contenido principal -->
+                <main class="lg:w-3/4">
+                    
+                    <!-- Header con resultados y ordenamiento -->
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <?php
+                                /**
+                                 * Hook: woocommerce_before_shop_loop.
+                                 */
+                                do_action( 'woocommerce_before_shop_loop' );
+                                ?>
+                            </div>
+                            
+                            <!-- Ordenamiento -->
+                            <div class="flex items-center gap-4">
+                                <?php
+                                /**
+                                 * Hook: woocommerce_before_shop_loop.
+                                 */
+                                woocommerce_catalog_ordering();
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid de productos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <?php
+                        if ( wc_get_loop_prop( 'is_shortcode' ) ) {
+                            $columns = absint( wc_get_loop_prop( 'columns' ) );
+                        } else {
+                            $columns = 3;
+                        }
+
+                        woocommerce_product_loop_start();
+
+                        if ( wc_get_loop_prop( 'total' ) ) {
+                            while ( have_posts() ) {
+                                the_post();
+
+                                /**
+                                 * Hook: woocommerce_shop_loop.
+                                 */
+                                do_action( 'woocommerce_shop_loop' );
+
+                                wc_get_template_part( 'content', 'product' );
+                            }
+                        }
+
+                        woocommerce_product_loop_end();
+                        ?>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div class="mt-12">
+                        <?php
+                        /**
+                         * Hook: woocommerce_after_shop_loop.
+                         */
+                        do_action( 'woocommerce_after_shop_loop' );
+                        ?>
+                    </div>
+
+                </main>
+            </div>
+
+        <?php else : ?>
+
+            <!-- No se encontraron productos -->
+            <div class="text-center py-16">
+                <div class="max-w-md mx-auto">
+                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0118 12a8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8c2.027 0 3.9.756 5.336 2"></path>
+                    </svg>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">No se encontraron productos</h2>
+                    <p class="text-gray-600 mb-6">Intenta ajustar tus filtros o búsqueda</p>
+                    <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                       class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block">
+                        Ver todos los productos
+                    </a>
+                </div>
+            </div>
+
+        <?php endif; ?>
+
+        <?php
+        /**
+         * Hook: woocommerce_after_main_content.
+         */
+        do_action( 'woocommerce_after_main_content' );
+        ?>
+
+    </div>
+</div>
+
+<?php get_footer(); ?>
                 </svg>
                 Filtros y Ordenar
                 <div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
