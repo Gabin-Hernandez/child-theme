@@ -64,6 +64,50 @@ function itools_modify_search_query( $query ) {
 }
 add_action( 'pre_get_posts', 'itools_modify_search_query' );
 
+// Filtro de precio personalizado para tienda
+function itools_filter_products_by_price( $query ) {
+    if ( !is_admin() && $query->is_main_query() && 
+         ( is_shop() || is_product_taxonomy() || ( is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) ) ) {
+        
+        $meta_query = $query->get( 'meta_query' ) ?: array();
+        
+        // Filtro de precio
+        if ( isset($_GET['min_price']) || isset($_GET['max_price']) ) {
+            $price_meta = array(
+                'key' => '_price',
+                'type' => 'NUMERIC',
+                'compare' => 'BETWEEN'
+            );
+            
+            $min_price = isset($_GET['min_price']) ? floatval($_GET['min_price']) : 0;
+            $max_price = isset($_GET['max_price']) ? floatval($_GET['max_price']) : 999999;
+            
+            $price_meta['value'] = array( $min_price, $max_price );
+            $meta_query[] = $price_meta;
+        }
+        
+        // Filtro de categorías
+        if ( !empty($_GET['product_cat']) ) {
+            $categories = explode(',', sanitize_text_field($_GET['product_cat']));
+            $tax_query = $query->get( 'tax_query' ) ?: array();
+            
+            $tax_query[] = array(
+                'taxonomy' => 'product_cat',
+                'field'    => 'term_id',
+                'terms'    => $categories,
+                'operator' => 'IN'
+            );
+            
+            $query->set( 'tax_query', $tax_query );
+        }
+        
+        if ( !empty($meta_query) ) {
+            $query->set( 'meta_query', $meta_query );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'itools_filter_products_by_price' );
+
 // Personalizar el número de productos por página y columnas
 function itools_products_per_page() {
     return 12; // Múltiplo de 3 para el grid
@@ -197,6 +241,66 @@ function itools_custom_styles() {
     .hover-lift:hover {
         transform: translateY(-8px) scale(1.02);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para el slider de precio */
+    .price_slider {
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        margin: 20px 0;
+        position: relative;
+    }
+    
+    .price_slider .ui-slider-range {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border-radius: 3px;
+        height: 100%;
+    }
+    
+    .price_slider .ui-slider-handle {
+        width: 20px;
+        height: 20px;
+        background: #ffffff;
+        border: 3px solid #3b82f6;
+        border-radius: 50%;
+        cursor: pointer;
+        outline: none;
+        top: -7px;
+        position: absolute;
+        z-index: 2;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+    
+    .price_slider .ui-slider-handle:hover,
+    .price_slider .ui-slider-handle:focus {
+        transform: scale(1.2);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        border-color: #2563eb;
+    }
+    
+    .price_slider .ui-slider-handle:active {
+        transform: scale(1.1);
+    }
+    
+    .price_label {
+        font-weight: 600;
+        color: #374151;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+    
+    /* Estilos para inputs de precio cuando no hay slider */
+    .price-filter-widget input[type="number"] {
+        transition: all 0.3s ease;
+    }
+    
+    .price-filter-widget input[type="number"]:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        outline: none;
     }
 
     /* Gradientes animados */
@@ -566,15 +670,35 @@ add_action( 'wp_footer', 'itools_custom_scripts' );
 // Encolar script para el slider de precios en la tienda
 function itools_enqueue_price_slider_script() {
     if ( is_shop() || is_product_taxonomy() ) {
-        // Asegura que el script base de WooCommerce para el slider esté disponible
-        wp_enqueue_script( 'wc-price-slider' );
+        // Asegurar que jQuery UI esté disponible
+        wp_enqueue_script( 'jquery-ui-slider' );
+        
+        // Encolar CSS de jQuery UI para el slider
+        wp_enqueue_style( 'jquery-ui-style', 'https://code.jquery.com/ui/1.13.2/themes/ui-lightness/jquery-ui.css', array(), '1.13.2' );
+        
+        // Asegura que el script base de WooCommerce para el slider esté disponible si existe
+        if ( wp_script_is( 'wc-price-slider', 'registered' ) ) {
+            wp_enqueue_script( 'wc-price-slider' );
+        }
+        
         wp_enqueue_script(
             'itools-price-slider',
             get_stylesheet_directory_uri() . '/js/price-slider.js',
-            array( 'jquery', 'jquery-ui-slider', 'wc-price-slider' ),
-            '1.0.0',
+            array( 'jquery', 'jquery-ui-slider' ),
+            '1.0.2',
             true
         );
+        
+        // Localizar script con parámetros de WooCommerce si están disponibles
+        $params = array(
+            'currency_symbol' => get_woocommerce_currency_symbol(),
+            'currency_position' => get_option( 'woocommerce_currency_pos', 'left' ),
+            'currency_format_decimal_sep' => wc_get_price_decimal_separator(),
+            'currency_format_thousand_sep' => wc_get_price_thousand_separator(),
+            'currency_format_num_decimals' => wc_get_price_decimals(),
+        );
+        
+        wp_localize_script( 'itools-price-slider', 'woocommerce_price_slider_params', $params );
     }
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_price_slider_script' );

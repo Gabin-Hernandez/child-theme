@@ -105,19 +105,52 @@ get_header(); ?>
                                 </div>
                             <?php else : ?>
                                 <div class="space-y-4">
+                                    <?php
+                                    // Obtener rangos de precios de los productos
+                                    global $wpdb;
+                                    $min_max_prices = $wpdb->get_row( "
+                                        SELECT MIN(meta_value + 0) as min_price, MAX(meta_value + 0) as max_price 
+                                        FROM {$wpdb->postmeta} 
+                                        WHERE meta_key='_price' 
+                                        AND meta_value != ''
+                                    " );
+                                    
+                                    $min_price = $min_max_prices ? floor($min_max_prices->min_price) : 0;
+                                    $max_price = $min_max_prices ? ceil($min_max_prices->max_price) : 10000;
+                                    
+                                    $current_min = isset($_GET['min_price']) ? intval($_GET['min_price']) : $min_price;
+                                    $current_max = isset($_GET['max_price']) ? intval($_GET['max_price']) : $max_price;
+                                    ?>
+                                    
+                                    <div class="price_slider" style="margin: 20px 0;"></div>
+                                    
+                                    <div class="price_label text-center font-semibold text-gray-700">
+                                        Precio: <span class="from">$<?php echo number_format($current_min); ?></span> — <span class="to">$<?php echo number_format($current_max); ?></span>
+                                    </div>
+                                    
                                     <div class="grid grid-cols-2 gap-3">
                                         <div class="relative">
                                             <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
                                             <input type="number" 
                                                    id="min_price" 
-                                                   placeholder="Mínimo" 
+                                                   placeholder="Mínimo"
+                                                   value="<?php echo $current_min; ?>"
+                                                   data-min="<?php echo $min_price; ?>"
+                                                   data-max="<?php echo $max_price; ?>"
+                                                   min="<?php echo $min_price; ?>"
+                                                   max="<?php echo $max_price; ?>"
                                                    class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                         </div>
                                         <div class="relative">
                                             <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
                                             <input type="number" 
                                                    id="max_price" 
-                                                   placeholder="Máximo" 
+                                                   placeholder="Máximo"
+                                                   value="<?php echo $current_max; ?>"
+                                                   data-min="<?php echo $min_price; ?>"
+                                                   data-max="<?php echo $max_price; ?>"
+                                                   min="<?php echo $min_price; ?>"
+                                                   max="<?php echo $max_price; ?>"
                                                    class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                         </div>
                                     </div>

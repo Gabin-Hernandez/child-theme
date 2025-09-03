@@ -1,22 +1,58 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('Price slider script loaded');
+    
     function initPriceFilter() {
-        var $minInput = jQuery('.price_slider_amount #min_price');
-        var $maxInput = jQuery('.price_slider_amount #max_price');
+        console.log('Inicializando filtro de precio...');
+        
+        // Intentar encontrar elementos del widget de WooCommerce
+        var $minInput = jQuery('.price_slider_amount #min_price, #min_price');
+        var $maxInput = jQuery('.price_slider_amount #max_price, #max_price');
 
-        if (!$minInput.length || !$maxInput.length) return;
+        // Si no hay elementos del widget, buscar los campos personalizados
+        if (!$minInput.length) {
+            $minInput = jQuery('#min_price');
+        }
+        if (!$maxInput.length) {
+            $maxInput = jQuery('#max_price');
+        }
+
+        console.log('Elementos encontrados:', {
+            minInput: $minInput.length,
+            maxInput: $maxInput.length
+        });
+
+        if (!$minInput.length || !$maxInput.length) {
+            console.log('Elementos de precio no encontrados');
+            return;
+        }
 
         var min_price = parseInt($minInput.data('min'), 10);
         var max_price = parseInt($maxInput.data('max'), 10);
         var current_min_price = parseInt($minInput.val(), 10);
         var current_max_price = parseInt($maxInput.val(), 10);
 
+        // Valores por defecto más realistas
         if (isNaN(min_price)) min_price = 0;
-        if (isNaN(max_price)) max_price = 1000;
+        if (isNaN(max_price)) max_price = 10000;
         if (isNaN(current_min_price)) current_min_price = min_price;
         if (isNaN(current_max_price)) current_max_price = max_price;
+        
+        console.log('Valores de precio:', {min_price, max_price, current_min_price, current_max_price});
 
         var $slider = jQuery('.price_slider');
-        if (!$slider.length) return;
+        
+        // Si no hay slider de WooCommerce, crear uno personalizado
+        if (!$slider.length) {
+            // Crear un slider personalizado para los campos de entrada
+            var sliderHtml = '<div class="price_slider"></div>';
+            $minInput.closest('.space-y-4, .price-filter-widget').prepend(sliderHtml);
+            $slider = jQuery('.price_slider');
+        }
+        
+        if (!$slider.length) {
+            console.log('No se pudo crear el slider');
+            return;
+        }
 
         if ($slider.hasClass('ui-slider')) {
             $slider.slider('destroy');
@@ -81,6 +117,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 jQuery(document.body).trigger('price_slider_change', [ui.values[0], ui.values[1]]);
             }
         });
+        
+        // Actualizar slider cuando cambien los inputs
+        $minInput.on('change input', function() {
+            var value = parseInt(jQuery(this).val(), 10);
+            if (!isNaN(value) && value >= min_price && value <= max_price) {
+                var maxVal = parseInt($maxInput.val(), 10) || max_price;
+                if (value <= maxVal) {
+                    $slider.slider('values', [value, maxVal]);
+                    updateLabel(value, maxVal);
+                }
+            }
+        });
+        
+        $maxInput.on('change input', function() {
+            var value = parseInt(jQuery(this).val(), 10);
+            if (!isNaN(value) && value >= min_price && value <= max_price) {
+                var minVal = parseInt($minInput.val(), 10) || min_price;
+                if (value >= minVal) {
+                    $slider.slider('values', [minVal, value]);
+                    updateLabel(minVal, value);
+                }
+            }
+        });
     }
 
     // Inicial inicialización y al cargar fragmentos/AJAX de WooCommerce
@@ -92,4 +151,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fallback por si hay retrasos
     setTimeout(initPriceFilter, 300);
     setTimeout(initPriceFilter, 800);
+    
+    // Reinicializar después de actualizaciones AJAX de WooCommerce
+    jQuery(document.body).on('updated_wc_div', function() {
+        setTimeout(initPriceFilter, 100);
+    });
 });
