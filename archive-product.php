@@ -98,85 +98,33 @@ get_header(); ?>
                             
                             <div class="space-y-4">
                                 <?php
-                                // Obtener rangos de precios de los productos actuales
-                                $current_min = isset($_GET['min_price']) ? intval($_GET['min_price']) : '';
-                                $current_max = isset($_GET['max_price']) ? intval($_GET['max_price']) : '';
+                                $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : '';
+                                $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : '';
                                 ?>
                                 
-                                <p class="text-sm text-gray-600 mb-4">
-                                    Filtra por precio: ingresa el rango deseado
-                                </p>
+                                <p>Filtrar por precio:</p>
                                 
-                                <?php 
-                                // Debug temporal - mostrar parámetros recibidos
-                                if (isset($_GET['min_price']) || isset($_GET['max_price'])): ?>
-                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-2 mb-3 text-xs">
-                                    <strong>Debug:</strong> 
-                                    min_price = <?php echo isset($_GET['min_price']) ? $_GET['min_price'] : 'no enviado'; ?>, 
-                                    max_price = <?php echo isset($_GET['max_price']) ? $_GET['max_price'] : 'no enviado'; ?>
-                                </div>
-                                <?php endif; ?>
+                                <input type="number" 
+                                       id="min_price" 
+                                       placeholder="Precio mínimo" 
+                                       value="<?php echo $current_min; ?>"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0;">
-                                    <div style="position: relative;">
-                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6b7280; font-size: 14px;">$</span>
-                                        <input type="number" 
-                                               id="min_price" 
-                                               name="min_price"
-                                               placeholder="Precio mínimo"
-                                               value="<?php echo $current_min; ?>"
-                                               min="0"
-                                               step="1"
-                                               onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
-                                               style="width: 100%; padding: 12px 12px 12px 32px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; background: white;">
-                                    </div>
-                                    <div style="position: relative;">
-                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6b7280; font-size: 14px;">$</span>
-                                        <input type="number" 
-                                               id="max_price" 
-                                               name="max_price"
-                                               placeholder="Precio máximo"
-                                               value="<?php echo $current_max; ?>"
-                                               min="0"
-                                               step="1"
-                                               onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
-                                               style="width: 100%; padding: 12px 12px 12px 32px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; background: white;">
-                                    </div>
-                                </div>
-                                
-                                <?php if ($current_min || $current_max): ?>
-                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
-                                    <p class="text-blue-800 text-sm font-medium">
-                                        🎯 Filtro activo: 
-                                        <?php if ($current_min && $current_max): ?>
-                                            $<?php echo number_format($current_min); ?> - $<?php echo number_format($current_max); ?>
-                                        <?php elseif ($current_min): ?>
-                                            Desde $<?php echo number_format($current_min); ?>
-                                        <?php elseif ($current_max): ?>
-                                            Hasta $<?php echo number_format($current_max); ?>
-                                        <?php endif; ?>
-                                    </p>
-                                    <p class="text-blue-600 text-xs mt-1">
-                                        Modifica los valores abajo y haz clic en "Filtrar" para cambiar
-                                    </p>
-                                </div>
-                                <?php else: ?>
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-3">
-                                    <p class="text-green-800 text-sm">
-                                        💡 <strong>Tip:</strong> Puedes filtrar por precio mínimo, máximo o ambos
-                                    </p>
-                                </div>
-                                <?php endif; ?>
+                                <input type="number" 
+                                       id="max_price" 
+                                       placeholder="Precio máximo" 
+                                       value="<?php echo $current_max; ?>"
+                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
                                 <button id="apply-price-filter" 
-                                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                        style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
                                     Filtrar por Precio
                                 </button>
                                 
                                 <?php if ($current_min || $current_max): ?>
                                 <button id="clear-price-filter" 
-                                        class="w-full bg-gray-100 text-gray-700 py-2 rounded-xl hover:bg-gray-200 transition-all duration-300 font-medium">
-                                    Limpiar Filtro de Precio
+                                        style="width: 100%; padding: 8px; background: #gray; color: #333; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                                    Limpiar Filtro
                                 </button>
                                 <?php endif; ?>
                             </div>
