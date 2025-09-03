@@ -38,12 +38,43 @@ get_header(); ?>
             <!-- Galería de imágenes del producto -->
             <div class="product-images space-y-6">
                 <div class="relative bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+                    
+                    <!-- Imagen principal del producto -->
+                    <div class="aspect-square relative">
+                        <?php if ( has_post_thumbnail() ) : ?>
+                            <img src="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'large' ); ?>" 
+                                 alt="<?php echo get_the_title(); ?>"
+                                 class="w-full h-full object-cover">
+                        <?php else : ?>
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                                <svg class="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <!-- Galería de imágenes adicionales -->
                     <?php
-                    /**
-                     * Hook: woocommerce_before_single_product_summary.
-                     */
-                    do_action( 'woocommerce_before_single_product_summary' );
+                    $attachment_ids = $product->get_gallery_image_ids();
+                    if ( $attachment_ids && has_post_thumbnail() ) :
                     ?>
+                        <div class="p-4">
+                            <div class="grid grid-cols-4 gap-3">
+                                <!-- Imagen principal como thumbnail -->
+                                <div class="aspect-square rounded-lg overflow-hidden border-2 border-blue-500 cursor-pointer thumbnail-img active" data-image="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'large' ); ?>">
+                                    <?php the_post_thumbnail( 'thumbnail', array( 'class' => 'w-full h-full object-cover' ) ); ?>
+                                </div>
+                                
+                                <!-- Imágenes de galería como thumbnails -->
+                                <?php foreach ( array_slice( $attachment_ids, 0, 3 ) as $attachment_id ) : ?>
+                                    <div class="aspect-square rounded-lg overflow-hidden border-2 border-gray-200 hover:border-blue-500 cursor-pointer thumbnail-img" data-image="<?php echo wp_get_attachment_url( $attachment_id ); ?>">
+                                        <?php echo wp_get_attachment_image( $attachment_id, 'thumbnail', false, array( 'class' => 'w-full h-full object-cover' ) ); ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     
                     <!-- Badges del producto -->
                     <div class="absolute top-6 left-6 flex flex-col gap-3 z-10">
@@ -183,6 +214,39 @@ get_header(); ?>
                          */
                         do_action( 'woocommerce_single_product_summary' );
                         ?>
+                        
+                        <!-- Formulario de agregar al carrito personalizado -->
+                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                            <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+                                
+                                <!-- Cantidad y botón agregar al carrito -->
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                                        <button type="button" class="qty-btn minus px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold">-</button>
+                                        <input type="number" 
+                                               id="quantity_<?php echo esc_attr( $product->get_id() ); ?>" 
+                                               class="qty text-center border-0 outline-none w-16 py-3" 
+                                               name="quantity" 
+                                               value="1" 
+                                               min="1" 
+                                               max="<?php echo $product->get_max_purchase_quantity(); ?>"
+                                               step="1" 
+                                               inputmode="numeric">
+                                        <button type="button" class="qty-btn plus px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold">+</button>
+                                    </div>
+                                    
+                                    <button type="submit" 
+                                            name="add-to-cart" 
+                                            value="<?php echo esc_attr( $product->get_id() ); ?>" 
+                                            class="single_add_to_cart_button button alt flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                        <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                                    </button>
+                                </div>
+                                
+                                <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+                                <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+                            </form>
+                        <?php endif; ?>
                         
                         <!-- Botones de acción -->
                         <div class="flex flex-col sm:flex-row gap-4 mt-8">
@@ -389,9 +453,10 @@ get_header(); ?>
     </div>
 </div>
 
-<!-- JavaScript para las pestañas -->
+<!-- JavaScript para las pestañas y galería -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Funcionalidad de las pestañas
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     
@@ -421,6 +486,71 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Funcionalidad de la galería de imágenes
+    const thumbnails = document.querySelectorAll('.thumbnail-img');
+    const mainImage = document.querySelector('.product-images img');
+    
+    if (thumbnails.length > 0 && mainImage) {
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                const newImageSrc = this.getAttribute('data-image');
+                
+                // Remover border activo de todos los thumbnails
+                thumbnails.forEach(thumb => {
+                    thumb.classList.remove('border-blue-500');
+                    thumb.classList.add('border-gray-200');
+                });
+                
+                // Agregar border activo al thumbnail clickeado
+                this.classList.add('border-blue-500');
+                this.classList.remove('border-gray-200');
+                
+                // Cambiar imagen principal con efecto
+                mainImage.style.opacity = '0.7';
+                setTimeout(() => {
+                    mainImage.src = newImageSrc;
+                    mainImage.style.opacity = '1';
+                }, 150);
+            });
+        });
+    }
+    
+    // Funcionalidad de cantidad
+    const qtyInput = document.querySelector('.qty');
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    
+    if (qtyInput && minusBtn && plusBtn) {
+        minusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(qtyInput.value);
+            const minValue = parseInt(qtyInput.getAttribute('min')) || 1;
+            if (currentValue > minValue) {
+                qtyInput.value = currentValue - 1;
+            }
+        });
+        
+        plusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(qtyInput.value);
+            const maxValue = parseInt(qtyInput.getAttribute('max')) || 999;
+            if (currentValue < maxValue) {
+                qtyInput.value = currentValue + 1;
+            }
+        });
+        
+        // Validar entrada manual
+        qtyInput.addEventListener('change', function() {
+            const value = parseInt(this.value);
+            const minValue = parseInt(this.getAttribute('min')) || 1;
+            const maxValue = parseInt(this.getAttribute('max')) || 999;
+            
+            if (value < minValue) {
+                this.value = minValue;
+            } else if (value > maxValue) {
+                this.value = maxValue;
+            }
+        });
+    }
     
     // Funcionalidad de wishlist
     const wishlistBtn = document.querySelector('.wishlist-btn');
