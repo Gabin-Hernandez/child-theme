@@ -566,6 +566,8 @@ add_action( 'wp_footer', 'itools_custom_scripts' );
 // Encolar script para el slider de precios en la tienda
 function itools_enqueue_price_slider_script() {
     if ( is_shop() || is_product_taxonomy() ) {
+        // Asegura que el script base de WooCommerce para el slider esté disponible
+        wp_enqueue_script( 'wc-price-slider' );
         wp_enqueue_script(
             'itools-price-slider',
             get_stylesheet_directory_uri() . '/js/price-slider.js',
