@@ -96,70 +96,71 @@ get_header(); ?>
                                 Rango de Precio
                             </h4>
                             
-                            <?php if ( class_exists( 'WC_Widget_Price_Filter' ) ) : ?>
-                                <div class="price-filter-widget">
-                                    <?php
-                                    $widget = new WC_Widget_Price_Filter();
-                                    $widget->widget( array(), array() );
-                                    ?>
-                                </div>
-                            <?php else : ?>
-                                <div class="space-y-4">
-                                    <?php
-                                    // Obtener rangos de precios de los productos
-                                    global $wpdb;
-                                    $min_max_prices = $wpdb->get_row( "
-                                        SELECT MIN(meta_value + 0) as min_price, MAX(meta_value + 0) as max_price 
-                                        FROM {$wpdb->postmeta} 
-                                        WHERE meta_key='_price' 
-                                        AND meta_value != ''
-                                    " );
-                                    
-                                    $min_price = $min_max_prices ? floor($min_max_prices->min_price) : 0;
-                                    $max_price = $min_max_prices ? ceil($min_max_prices->max_price) : 10000;
-                                    
-                                    $current_min = isset($_GET['min_price']) ? intval($_GET['min_price']) : $min_price;
-                                    $current_max = isset($_GET['max_price']) ? intval($_GET['max_price']) : $max_price;
-                                    ?>
-                                    
-                                    <div class="price_slider" style="margin: 20px 0;"></div>
-                                    
-                                    <div class="price_label text-center font-semibold text-gray-700">
-                                        Precio: <span class="from">$<?php echo number_format($current_min); ?></span> — <span class="to">$<?php echo number_format($current_max); ?></span>
+                            <div class="space-y-4">
+                                <?php
+                                // Obtener rangos de precios de los productos actuales
+                                $current_min = isset($_GET['min_price']) ? intval($_GET['min_price']) : '';
+                                $current_max = isset($_GET['max_price']) ? intval($_GET['max_price']) : '';
+                                ?>
+                                
+                                <p class="text-sm text-gray-600 mb-4">
+                                    Filtra por precio: ingresa el rango deseado
+                                </p>
+                                
+                                <div class="price-filter-inputs">
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                        <input type="number" 
+                                               id="min_price" 
+                                               name="min_price"
+                                               placeholder="Desde"
+                                               value="<?php echo $current_min; ?>"
+                                               min="0"
+                                               step="1"
+                                               onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
+                                               class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                     </div>
-                                    
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div class="relative">
-                                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
-                                            <input type="number" 
-                                                   id="min_price" 
-                                                   placeholder="Mínimo"
-                                                   value="<?php echo $current_min; ?>"
-                                                   data-min="<?php echo $min_price; ?>"
-                                                   data-max="<?php echo $max_price; ?>"
-                                                   min="<?php echo $min_price; ?>"
-                                                   max="<?php echo $max_price; ?>"
-                                                   class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
-                                        </div>
-                                        <div class="relative">
-                                            <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</div>
-                                            <input type="number" 
-                                                   id="max_price" 
-                                                   placeholder="Máximo"
-                                                   value="<?php echo $current_max; ?>"
-                                                   data-min="<?php echo $min_price; ?>"
-                                                   data-max="<?php echo $max_price; ?>"
-                                                   min="<?php echo $min_price; ?>"
-                                                   max="<?php echo $max_price; ?>"
-                                                   class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
-                                        </div>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                        <input type="number" 
+                                               id="max_price" 
+                                               name="max_price"
+                                               placeholder="Hasta"
+                                               value="<?php echo $current_max; ?>"
+                                               min="0"
+                                               step="1"
+                                               onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
+                                               class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
                                     </div>
-                                    <button id="apply-price-filter" 
-                                            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                        Aplicar Filtro
-                                    </button>
                                 </div>
-                            <?php endif; ?>
+                                
+                                <?php if ($current_min || $current_max): ?>
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                    <p class="text-blue-800 text-sm font-medium">
+                                        Filtro activo: 
+                                        <?php if ($current_min && $current_max): ?>
+                                            $<?php echo number_format($current_min); ?> - $<?php echo number_format($current_max); ?>
+                                        <?php elseif ($current_min): ?>
+                                            Desde $<?php echo number_format($current_min); ?>
+                                        <?php elseif ($current_max): ?>
+                                            Hasta $<?php echo number_format($current_max); ?>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                                <?php endif; ?>
+                                
+                                <button id="apply-price-filter" 
+                                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                    Filtrar por Precio
+                                </button>
+                                
+                                <?php if ($current_min || $current_max): ?>
+                                <button id="clear-price-filter" 
+                                        class="w-full bg-gray-100 text-gray-700 py-2 rounded-xl hover:bg-gray-200 transition-all duration-300 font-medium">
+                                    Limpiar Filtro de Precio
+                                </button>
+                                <?php endif; ?>
+                            </div>
                         </div>
 
                         <!-- Filtro por Categorías -->
@@ -829,15 +830,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Aplicar filtro de precio
+    // Aplicar filtro de precio simple
     if (applyPriceBtn) {
         applyPriceBtn.addEventListener('click', function() {
-            this.innerHTML = '<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
+            this.textContent = 'Aplicando...';
             this.disabled = true;
             
-            setTimeout(() => {
-                applyFilters();
-            }, 300);
+            const minPrice = document.getElementById('min_price');
+            const maxPrice = document.getElementById('max_price');
+            const currentUrl = new URL(window.location);
+            
+            // Limpiar parámetros de precio anteriores
+            currentUrl.searchParams.delete('min_price');
+            currentUrl.searchParams.delete('max_price');
+            
+            // Agregar nuevos parámetros si tienen valor
+            if (minPrice && minPrice.value && parseInt(minPrice.value) > 0) {
+                currentUrl.searchParams.set('min_price', minPrice.value);
+            }
+            if (maxPrice && maxPrice.value && parseInt(maxPrice.value) > 0) {
+                currentUrl.searchParams.set('max_price', maxPrice.value);
+            }
+            
+            // Mantener otros parámetros como búsqueda
+            if (!currentUrl.searchParams.get('post_type')) {
+                currentUrl.searchParams.set('post_type', 'product');
+            }
+            
+            window.location.href = currentUrl.toString();
+        });
+    }
+    
+    // Limpiar filtro de precio
+    const clearPriceBtn = document.getElementById('clear-price-filter');
+    if (clearPriceBtn) {
+        clearPriceBtn.addEventListener('click', function() {
+            const currentUrl = new URL(window.location);
+            currentUrl.searchParams.delete('min_price');
+            currentUrl.searchParams.delete('max_price');
+            window.location.href = currentUrl.toString();
         });
     }
     

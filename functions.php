@@ -243,64 +243,26 @@ function itools_custom_styles() {
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
 
-    /* Estilos para el slider de precio */
-    .price_slider {
-        height: 6px;
-        background: #e2e8f0;
-        border-radius: 3px;
-        margin: 20px 0;
-        position: relative;
+    /* Estilos simples para filtros de precio */
+    .price-filter-inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 15px 0;
     }
     
-    .price_slider .ui-slider-range {
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        border-radius: 3px;
-        height: 100%;
-    }
-    
-    .price_slider .ui-slider-handle {
-        width: 20px;
-        height: 20px;
-        background: #ffffff;
-        border: 3px solid #3b82f6;
-        border-radius: 50%;
-        cursor: pointer;
-        outline: none;
-        top: -7px;
-        position: absolute;
-        z-index: 2;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
-    }
-    
-    .price_slider .ui-slider-handle:hover,
-    .price_slider .ui-slider-handle:focus {
-        transform: scale(1.2);
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
-        border-color: #2563eb;
-    }
-    
-    .price_slider .ui-slider-handle:active {
-        transform: scale(1.1);
-    }
-    
-    .price_label {
-        font-weight: 600;
-        color: #374151;
-        text-align: center;
-        margin-top: 10px;
+    .price-filter-inputs input {
+        padding: 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
         font-size: 14px;
+        transition: border-color 0.2s ease;
     }
     
-    /* Estilos para inputs de precio cuando no hay slider */
-    .price-filter-widget input[type="number"] {
-        transition: all 0.3s ease;
-    }
-    
-    .price-filter-widget input[type="number"]:focus {
+    .price-filter-inputs input:focus {
         border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
     /* Gradientes animados */
@@ -666,39 +628,3 @@ function itools_custom_scripts() {
     <?php
 }
 add_action( 'wp_footer', 'itools_custom_scripts' );
-
-// Encolar script para el slider de precios en la tienda
-function itools_enqueue_price_slider_script() {
-    if ( is_shop() || is_product_taxonomy() ) {
-        // Asegurar que jQuery UI esté disponible
-        wp_enqueue_script( 'jquery-ui-slider' );
-        
-        // Encolar CSS de jQuery UI para el slider
-        wp_enqueue_style( 'jquery-ui-style', 'https://code.jquery.com/ui/1.13.2/themes/ui-lightness/jquery-ui.css', array(), '1.13.2' );
-        
-        // Asegura que el script base de WooCommerce para el slider esté disponible si existe
-        if ( wp_script_is( 'wc-price-slider', 'registered' ) ) {
-            wp_enqueue_script( 'wc-price-slider' );
-        }
-        
-        wp_enqueue_script(
-            'itools-price-slider',
-            get_stylesheet_directory_uri() . '/js/price-slider.js',
-            array( 'jquery', 'jquery-ui-slider' ),
-            '1.0.2',
-            true
-        );
-        
-        // Localizar script con parámetros de WooCommerce si están disponibles
-        $params = array(
-            'currency_symbol' => get_woocommerce_currency_symbol(),
-            'currency_position' => get_option( 'woocommerce_currency_pos', 'left' ),
-            'currency_format_decimal_sep' => wc_get_price_decimal_separator(),
-            'currency_format_thousand_sep' => wc_get_price_thousand_separator(),
-            'currency_format_num_decimals' => wc_get_price_decimals(),
-        );
-        
-        wp_localize_script( 'itools-price-slider', 'woocommerce_price_slider_params', $params );
-    }
-}
-add_action( 'wp_enqueue_scripts', 'itools_enqueue_price_slider_script' );
