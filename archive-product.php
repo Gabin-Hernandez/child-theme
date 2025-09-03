@@ -337,20 +337,6 @@ get_header(); ?>
                             
                             <!-- Controles simples -->
                             <div class="flex items-center gap-3">
-                                <!-- Selector de vista -->
-                                <div class="flex bg-gray-100 rounded-xl p-1">
-                                    <button id="grid-view" class="px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm">
-                                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
-                                        </svg>
-                                    </button>
-                                    <button id="list-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                
                                 <!-- Ordenamiento básico -->
                                 <div class="woocommerce-ordering">
                                     <?php woocommerce_catalog_ordering(); ?>
@@ -360,7 +346,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 sm:gap-16 lg:gap-20 px-4 sm:px-6 lg:px-8" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -623,9 +609,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const clearAllFiltersBtn = document.getElementById('clear-all-filters');
     const applyPriceBtn = document.getElementById('apply-price-filter');
     const heroSearch = document.getElementById('hero-search');
-    const gridViewBtn = document.getElementById('grid-view');
-    const listViewBtn = document.getElementById('list-view');
-    const productsGrid = document.getElementById('products-grid');
     
     // Funcionalidad del hero search
     if (heroSearch) {
@@ -651,62 +634,6 @@ document.addEventListener('DOMContentLoaded', function() {
             currentUrl.searchParams.set('post_type', 'product');
             window.location.href = currentUrl.toString();
         }
-    }
-    
-    // Toggle vista de productos (grid/list)
-    if (gridViewBtn && listViewBtn) {
-        gridViewBtn.addEventListener('click', function() {
-            setProductView('grid');
-        });
-        
-        listViewBtn.addEventListener('click', function() {
-            setProductView('list');
-        });
-    }
-    
-    function setProductView(view) {
-        if (view === 'grid') {
-            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
-            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-        } else {
-            productsGrid.className = 'grid grid-cols-1 gap-6';
-            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-            
-            // Para vista de lista, cambiar el layout de las tarjetas
-            const productCards = productsGrid.querySelectorAll('.group');
-            productCards.forEach(card => {
-                if (view === 'list') {
-                    card.className = 'group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-blue-300 flex flex-row h-auto';
-                    
-                    // Reorganizar el contenido para vista lista
-                    const img = card.querySelector('.aspect-square');
-                    const content = card.querySelector('.p-3');
-                    if (img && content) {
-                        img.className = 'relative overflow-hidden bg-gray-50 w-32 h-32 flex-shrink-0';
-                        content.className = 'p-4 flex-1 flex flex-col justify-between';
-                    }
-                } else {
-                    // Restaurar vista de grid
-                    card.className = 'group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col';
-                    
-                    const img = card.querySelector('div:first-child');
-                    const content = card.querySelector('div:last-child');
-                    if (img && content) {
-                        img.className = 'relative overflow-hidden bg-gray-50 aspect-square';
-                        content.className = 'p-3 lg:p-4 flex-1 flex flex-col';
-                    }
-                }
-            });
-        }
-        localStorage.setItem('productView', view);
-    }
-    
-    // Restaurar vista guardada
-    const savedView = localStorage.getItem('productView');
-    if (savedView) {
-        setProductView(savedView);
     }
     
     // Mostrar/ocultar filtros en móvil con animaciones
