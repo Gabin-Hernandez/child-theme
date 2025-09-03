@@ -117,30 +117,30 @@ get_header(); ?>
                                 </div>
                                 <?php endif; ?>
                                 
-                                <div class="price-filter-inputs">
-                                    <div class="relative">
-                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0;">
+                                    <div style="position: relative;">
+                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6b7280; font-size: 14px;">$</span>
                                         <input type="number" 
                                                id="min_price" 
                                                name="min_price"
-                                               placeholder="Desde"
+                                               placeholder="Precio mínimo"
                                                value="<?php echo $current_min; ?>"
                                                min="0"
                                                step="1"
                                                onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
-                                               class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
+                                               style="width: 100%; padding: 12px 12px 12px 32px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; background: white;">
                                     </div>
-                                    <div class="relative">
-                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                    <div style="position: relative;">
+                                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6b7280; font-size: 14px;">$</span>
                                         <input type="number" 
                                                id="max_price" 
                                                name="max_price"
-                                               placeholder="Hasta"
+                                               placeholder="Precio máximo"
                                                value="<?php echo $current_max; ?>"
                                                min="0"
                                                step="1"
                                                onkeypress="if(event.key==='Enter') document.getElementById('apply-price-filter').click()"
-                                               class="w-full pl-8 pr-3 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm">
+                                               style="width: 100%; padding: 12px 12px 12px 32px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; background: white;">
                                     </div>
                                 </div>
                                 
