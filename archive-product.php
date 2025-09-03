@@ -375,9 +375,9 @@ get_header(); ?>
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 h-full flex flex-col">
+                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col">
                                 <!-- Imagen del producto -->
-                                <div class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 aspect-square">
+                                <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
                                         <?php
                                         if ( has_post_thumbnail() ) {
@@ -385,9 +385,9 @@ get_header(); ?>
                                                 'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                             ) );
                                         } else {
-                                            echo '<div class="w-full h-full flex items-center justify-center">';
-                                            echo '<svg class="w-12 h-12 lg:w-16 lg:h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
-                                            echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
+                                            echo '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">';
+                                            echo '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                                            echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
                                             echo '</svg>';
                                             echo '</div>';
                                         }
@@ -395,30 +395,30 @@ get_header(); ?>
                                     </a>
                                     
                                     <!-- Badges -->
-                                    <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                    <div class="absolute top-2 left-2 flex flex-col gap-1 z-10">
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
                                             <?php if ( $product->is_on_sale() ) : ?>
-                                                <span class="bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-lg">
+                                                <span class="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-md">
                                                     Oferta
                                                 </span>
                                             <?php endif; ?>
                                             <?php if ( $product->is_featured() ) : ?>
-                                                <span class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-lg">
-                                                    ⭐ Destacado
+                                                <span class="bg-yellow-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-md">
+                                                    ⭐
                                                 </span>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <!-- Botones de acción rápida -->
-                                    <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <button class="w-8 h-8 lg:w-10 lg:h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 wishlist-btn">
-                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                                        <button class="w-8 h-8 bg-white/95 rounded-full shadow-md flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 wishlist-btn">
+                                            <svg class="w-4 h-4 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                             </svg>
                                         </button>
-                                        <button class="w-8 h-8 lg:w-10 lg:h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 quick-view-btn">
-                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <button class="w-8 h-8 bg-white/95 rounded-full shadow-md flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 quick-view-btn">
+                                            <svg class="w-4 h-4 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                             </svg>
@@ -427,15 +427,16 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Información del producto -->
-                                <div class="p-4 lg:p-6 flex-1 flex flex-col">
-                                    <div class="mb-3 flex-1">
-                                        <h3 class="text-base lg:text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
+                                <div class="p-3 lg:p-4 flex-1 flex flex-col">
+                                    <!-- Título y rating -->
+                                    <div class="mb-2 flex-1">
+                                        <h3 class="text-sm lg:text-base font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug mb-1">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Valoración -->
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
-                                            <div class="flex items-center gap-2 mt-2">
+                                            <div class="flex items-center gap-1 mt-1">
                                                 <?php 
                                                 $rating = $product->get_average_rating();
                                                 $review_count = $product->get_review_count();
@@ -443,47 +444,41 @@ get_header(); ?>
                                                 ?>
                                                     <div class="flex items-center">
                                                         <?php for ( $i = 1; $i <= 5; $i++ ) : ?>
-                                                            <svg class="w-3 h-3 lg:w-4 lg:h-4 <?php echo $i <= $rating ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                                            <svg class="w-3 h-3 <?php echo $i <= $rating ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
                                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                                             </svg>
                                                         <?php endfor; ?>
                                                     </div>
-                                                    <span class="text-xs lg:text-sm text-gray-600">(<?php echo $review_count; ?>)</span>
+                                                    <span class="text-xs text-gray-500 ml-1">(<?php echo $review_count; ?>)</span>
                                                 <?php else : ?>
-                                                    <span class="text-xs lg:text-sm text-gray-500">Sin reseñas</span>
+                                                    <span class="text-xs text-gray-400">Sin reseñas</span>
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <!-- Precio -->
-                                    <div class="mb-4">
+                                    <div class="mb-3">
                                         <?php if ( $product ) : ?>
-                                            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">
+                                            <div class="text-base lg:text-lg font-bold text-gray-900">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <!-- Botón de agregar al carrito -->
-                                    <div class="flex gap-2 lg:gap-3 mt-auto">
+                                    <div class="mt-auto">
                                         <?php if ( $product ) : ?>
                                             <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                                <button class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2.5 lg:py-3 px-3 lg:px-4 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                                                    Agregar
+                                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                                                    Agregar al carrito
                                                 </button>
                                             <?php else : ?>
-                                                <button class="flex-1 bg-gray-300 text-gray-600 py-2.5 lg:py-3 px-3 lg:px-4 rounded-xl lg:rounded-2xl text-sm lg:text-base font-semibold cursor-not-allowed">
-                                                    No Disponible
+                                                <button class="w-full bg-gray-300 text-gray-600 py-2 px-3 rounded-lg text-sm font-medium cursor-not-allowed">
+                                                    No disponible
                                                 </button>
                                             <?php endif; ?>
                                         <?php endif; ?>
-                                        
-                                        <button class="w-10 h-10 lg:w-12 lg:h-12 bg-gray-100 rounded-xl lg:rounded-2xl flex items-center justify-center hover:bg-gray-200 transition-colors">
-                                            <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-                                            </svg>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -670,7 +665,7 @@ document.addEventListener('DOMContentLoaded', function() {
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         } else {
-            productsGrid.className = 'grid grid-cols-1 gap-4 lg:gap-6';
+            productsGrid.className = 'grid grid-cols-1 gap-4';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
             
@@ -678,24 +673,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const productCards = productsGrid.querySelectorAll('.group');
             productCards.forEach(card => {
                 if (view === 'list') {
-                    card.className = 'group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-blue-200 flex flex-row h-auto';
+                    card.className = 'group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-blue-300 flex flex-row h-auto';
                     
                     // Reorganizar el contenido para vista lista
                     const img = card.querySelector('.aspect-square');
-                    const content = card.querySelector('.p-4');
+                    const content = card.querySelector('.p-3');
                     if (img && content) {
-                        img.className = 'relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 w-48 h-48 flex-shrink-0';
-                        content.className = 'p-4 lg:p-6 flex-1 flex flex-col justify-between';
+                        img.className = 'relative overflow-hidden bg-gray-50 w-32 h-32 flex-shrink-0';
+                        content.className = 'p-4 flex-1 flex flex-col justify-between';
                     }
                 } else {
-                    card.className = 'group bg-white rounded-2xl lg:rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 h-full flex flex-col';
+                    // Restaurar vista de grid
+                    card.className = 'group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col';
                     
-                    // Restaurar layout de grid
                     const img = card.querySelector('div:first-child');
                     const content = card.querySelector('div:last-child');
                     if (img && content) {
-                        img.className = 'relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 aspect-square';
-                        content.className = 'p-4 lg:p-6 flex-1 flex flex-col';
+                        img.className = 'relative overflow-hidden bg-gray-50 aspect-square';
+                        content.className = 'p-3 lg:p-4 flex-1 flex flex-col';
                     }
                 }
             });
