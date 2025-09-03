@@ -359,7 +359,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -375,7 +375,7 @@ get_header(); ?>
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col">
+                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px]">
                                 <!-- Imagen del producto -->
                                 <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -395,7 +395,7 @@ get_header(); ?>
                                     </a>
                                     
                                     <!-- Badges -->
-                                    <div class="absolute top-2 left-2 flex flex-col gap-1 z-10">
+                                    <div class="absolute top-3 left-3 flex flex-col gap-1 z-10">
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
                                             <?php if ( $product->is_on_sale() ) : ?>
                                                 <span class="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-md">
@@ -411,7 +411,7 @@ get_header(); ?>
                                     </div>
                                     
                                     <!-- Botones de acción rápida -->
-                                    <div class="absolute top-2 right-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                                    <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                                         <button class="w-8 h-8 bg-white/95 rounded-full shadow-md flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 wishlist-btn">
                                             <svg class="w-4 h-4 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
@@ -427,16 +427,17 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Información del producto -->
-                                <div class="p-3 lg:p-4 flex-1 flex flex-col">
-                                    <!-- Título y rating -->
-                                    <div class="mb-2 flex-1">
-                                        <h3 class="text-sm lg:text-base font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug mb-1">
+                                <div class="p-4 flex-1 flex flex-col justify-between">
+                                    <!-- Contenido superior -->
+                                    <div class="flex-1">
+                                        <!-- Título -->
+                                        <h3 class="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug mb-2 min-h-[2.5rem]">
                                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Valoración -->
                                         <?php if ( $product = wc_get_product( get_the_ID() ) ) : ?>
-                                            <div class="flex items-center gap-1 mt-1">
+                                            <div class="flex items-center gap-1 mb-3 min-h-[1.25rem]">
                                                 <?php 
                                                 $rating = $product->get_average_rating();
                                                 $review_count = $product->get_review_count();
@@ -457,28 +458,31 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <!-- Precio -->
-                                    <div class="mb-3">
-                                        <?php if ( $product ) : ?>
-                                            <div class="text-base lg:text-lg font-bold text-gray-900">
-                                                <?php echo $product->get_price_html(); ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    
-                                    <!-- Botón de agregar al carrito -->
+                                    <!-- Contenido inferior fijo -->
                                     <div class="mt-auto">
-                                        <?php if ( $product ) : ?>
-                                            <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
-                                                    Agregar al carrito
-                                                </button>
-                                            <?php else : ?>
-                                                <button class="w-full bg-gray-300 text-gray-600 py-2 px-3 rounded-lg text-sm font-medium cursor-not-allowed">
-                                                    No disponible
-                                                </button>
+                                        <!-- Precio -->
+                                        <div class="mb-4">
+                                            <?php if ( $product ) : ?>
+                                                <div class="text-lg font-bold text-gray-900 min-h-[1.75rem] flex items-center">
+                                                    <?php echo $product->get_price_html(); ?>
+                                                </div>
                                             <?php endif; ?>
-                                        <?php endif; ?>
+                                        </div>
+                                        
+                                        <!-- Botón de agregar al carrito -->
+                                        <div>
+                                            <?php if ( $product ) : ?>
+                                                <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                                                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                                                        Agregar al carrito
+                                                    </button>
+                                                <?php else : ?>
+                                                    <button class="w-full bg-gray-300 text-gray-600 py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed">
+                                                        No disponible
+                                                    </button>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
