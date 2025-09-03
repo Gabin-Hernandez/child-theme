@@ -562,3 +562,17 @@ function itools_custom_scripts() {
     <?php
 }
 add_action( 'wp_footer', 'itools_custom_scripts' );
+
+// Encolar script para el slider de precios en la tienda
+function itools_enqueue_price_slider_script() {
+    if ( is_shop() || is_product_taxonomy() ) {
+        wp_enqueue_script(
+            'itools-price-slider',
+            get_stylesheet_directory_uri() . '/js/price-slider.js',
+            array( 'jquery', 'jquery-ui-slider', 'wc-price-slider' ),
+            '1.0.0',
+            true
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'itools_enqueue_price_slider_script' );
