@@ -108,15 +108,13 @@ get_header(); ?>
                                        id="min_price" 
                                        placeholder="Precio mínimo" 
                                        value="<?php echo $current_min; ?>"
-                                       min="0"
-                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 5px;">
+                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
                                 <input type="number" 
                                        id="max_price" 
                                        placeholder="Precio máximo" 
                                        value="<?php echo $current_max; ?>"
-                                       min="0"
-                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 5px;">
+                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
                                 <button id="apply-price-filter" 
                                         style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
@@ -125,7 +123,7 @@ get_header(); ?>
                                 
                                 <?php if ($current_min || $current_max): ?>
                                 <button id="clear-price-filter" 
-                                        style="width: 100%; padding: 8px; background: #f5f5f5; color: #333; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; margin-top: 10px;">
+                                        style="width: 100%; padding: 8px; background: #gray; color: #333; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; margin-top: 10px;">
                                     Limpiar Filtro
                                 </button>
                                 <?php endif; ?>
