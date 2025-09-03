@@ -97,36 +97,24 @@ get_header(); ?>
                             </h4>
                             
                             <div class="space-y-4">
-                                <?php
-                                $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : '';
-                                $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : '';
-                                ?>
-                                
                                 <p>Filtrar por precio:</p>
                                 
                                 <input type="number" 
                                        id="min_price" 
                                        placeholder="Precio mínimo" 
-                                       value="<?php echo $current_min; ?>"
+                                       value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>"
                                        style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
                                 <input type="number" 
                                        id="max_price" 
                                        placeholder="Precio máximo" 
-                                       value="<?php echo $current_max; ?>"
+                                       value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>"
                                        style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
                                 
                                 <button id="apply-price-filter" 
                                         style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
-                                    Filtrar por Precio
+                                    Filtrar
                                 </button>
-                                
-                                <?php if ($current_min || $current_max): ?>
-                                <button id="clear-price-filter" 
-                                        style="width: 100%; padding: 8px; background: #gray; color: #333; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; margin-top: 10px;">
-                                    Limpiar Filtro
-                                </button>
-                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -771,73 +759,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Aplicar filtro de precio simple
+    // Aplicar filtro de precio - básico
     if (applyPriceBtn) {
         applyPriceBtn.addEventListener('click', function() {
-            this.textContent = 'Aplicando...';
-            this.disabled = true;
-            
-            const minPrice = document.getElementById('min_price');
-            const maxPrice = document.getElementById('max_price');
+            const minPrice = document.getElementById('min_price').value;
+            const maxPrice = document.getElementById('max_price').value;
             const currentUrl = new URL(window.location);
             
-            // Obtener valores y validar
-            const minVal = minPrice ? minPrice.value.trim() : '';
-            const maxVal = maxPrice ? maxPrice.value.trim() : '';
-            
-            console.log('Filtro de precio:', { minVal, maxVal });
-            
-            // Validar que al menos uno tenga valor
-            if (!minVal && !maxVal) {
-                alert('Por favor, ingresa al menos un valor de precio');
-                this.textContent = 'Filtrar por Precio';
-                this.disabled = false;
-                return;
+            if (minPrice) {
+                currentUrl.searchParams.set('min_price', minPrice);
+            } else {
+                currentUrl.searchParams.delete('min_price');
             }
             
-            // Validar números negativos
-            if ((minVal && parseFloat(minVal) < 0) || (maxVal && parseFloat(maxVal) < 0)) {
-                alert('Los precios no pueden ser negativos');
-                this.textContent = 'Filtrar por Precio';
-                this.disabled = false;
-                return;
+            if (maxPrice) {
+                currentUrl.searchParams.set('max_price', maxPrice);
+            } else {
+                currentUrl.searchParams.delete('max_price');
             }
             
-            // Validar que min no sea mayor que max si ambos están presentes
-            if (minVal && maxVal && parseFloat(minVal) > parseFloat(maxVal)) {
-                alert('El precio mínimo no puede ser mayor al precio máximo');
-                this.textContent = 'Filtrar por Precio';
-                this.disabled = false;
-                return;
-            }
-            
-            // Limpiar parámetros de precio anteriores
-            currentUrl.searchParams.delete('min_price');
-            currentUrl.searchParams.delete('max_price');
-            
-            // Agregar nuevos parámetros si tienen valor válido
-            if (minVal && parseFloat(minVal) >= 0) {
-                currentUrl.searchParams.set('min_price', minVal);
-            }
-            if (maxVal && parseFloat(maxVal) >= 0) {
-                currentUrl.searchParams.set('max_price', maxVal);
-            }
-            
-            // Asegurar que estamos en productos
-            currentUrl.searchParams.set('post_type', 'product');
-            
-            console.log('Redirigiendo a:', currentUrl.toString());
-            window.location.href = currentUrl.toString();
-        });
-    }
-    
-    // Limpiar filtro de precio
-    const clearPriceBtn = document.getElementById('clear-price-filter');
-    if (clearPriceBtn) {
-        clearPriceBtn.addEventListener('click', function() {
-            const currentUrl = new URL(window.location);
-            currentUrl.searchParams.delete('min_price');
-            currentUrl.searchParams.delete('max_price');
             window.location.href = currentUrl.toString();
         });
     }
