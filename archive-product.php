@@ -107,6 +107,16 @@ get_header(); ?>
                                     Filtra por precio: ingresa el rango deseado
                                 </p>
                                 
+                                <?php 
+                                // Debug temporal - mostrar parámetros recibidos
+                                if (isset($_GET['min_price']) || isset($_GET['max_price'])): ?>
+                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-2 mb-3 text-xs">
+                                    <strong>Debug:</strong> 
+                                    min_price = <?php echo isset($_GET['min_price']) ? $_GET['min_price'] : 'no enviado'; ?>, 
+                                    max_price = <?php echo isset($_GET['max_price']) ? $_GET['max_price'] : 'no enviado'; ?>
+                                </div>
+                                <?php endif; ?>
+                                
                                 <div class="price-filter-inputs">
                                     <div class="relative">
                                         <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -135,9 +145,9 @@ get_header(); ?>
                                 </div>
                                 
                                 <?php if ($current_min || $current_max): ?>
-                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
                                     <p class="text-blue-800 text-sm font-medium">
-                                        Filtro activo: 
+                                        🎯 Filtro activo: 
                                         <?php if ($current_min && $current_max): ?>
                                             $<?php echo number_format($current_min); ?> - $<?php echo number_format($current_max); ?>
                                         <?php elseif ($current_min): ?>
@@ -145,6 +155,15 @@ get_header(); ?>
                                         <?php elseif ($current_max): ?>
                                             Hasta $<?php echo number_format($current_max); ?>
                                         <?php endif; ?>
+                                    </p>
+                                    <p class="text-blue-600 text-xs mt-1">
+                                        Modifica los valores abajo y haz clic en "Filtrar" para cambiar
+                                    </p>
+                                </div>
+                                <?php else: ?>
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-3">
+                                    <p class="text-green-800 text-sm">
+                                        💡 <strong>Tip:</strong> Puedes filtrar por precio mínimo, máximo o ambos
                                     </p>
                                 </div>
                                 <?php endif; ?>
@@ -840,23 +859,44 @@ document.addEventListener('DOMContentLoaded', function() {
             const maxPrice = document.getElementById('max_price');
             const currentUrl = new URL(window.location);
             
+            // Obtener valores y validar
+            const minVal = minPrice ? minPrice.value.trim() : '';
+            const maxVal = maxPrice ? maxPrice.value.trim() : '';
+            
+            console.log('Filtro de precio:', { minVal, maxVal });
+            
+            // Validar que al menos uno tenga valor
+            if (!minVal && !maxVal) {
+                alert('Por favor, ingresa al menos un valor de precio');
+                this.textContent = 'Filtrar por Precio';
+                this.disabled = false;
+                return;
+            }
+            
+            // Validar que min no sea mayor que max si ambos están presentes
+            if (minVal && maxVal && parseFloat(minVal) > parseFloat(maxVal)) {
+                alert('El precio mínimo no puede ser mayor al precio máximo');
+                this.textContent = 'Filtrar por Precio';
+                this.disabled = false;
+                return;
+            }
+            
             // Limpiar parámetros de precio anteriores
             currentUrl.searchParams.delete('min_price');
             currentUrl.searchParams.delete('max_price');
             
-            // Agregar nuevos parámetros si tienen valor
-            if (minPrice && minPrice.value && parseInt(minPrice.value) > 0) {
-                currentUrl.searchParams.set('min_price', minPrice.value);
+            // Agregar nuevos parámetros si tienen valor válido
+            if (minVal && parseFloat(minVal) >= 0) {
+                currentUrl.searchParams.set('min_price', minVal);
             }
-            if (maxPrice && maxPrice.value && parseInt(maxPrice.value) > 0) {
-                currentUrl.searchParams.set('max_price', maxPrice.value);
-            }
-            
-            // Mantener otros parámetros como búsqueda
-            if (!currentUrl.searchParams.get('post_type')) {
-                currentUrl.searchParams.set('post_type', 'product');
+            if (maxVal && parseFloat(maxVal) >= 0) {
+                currentUrl.searchParams.set('max_price', maxVal);
             }
             
+            // Asegurar que estamos en productos
+            currentUrl.searchParams.set('post_type', 'product');
+            
+            console.log('Redirigiendo a:', currentUrl.toString());
             window.location.href = currentUrl.toString();
         });
     }

@@ -69,21 +69,46 @@ function itools_filter_products_by_price( $query ) {
     if ( !is_admin() && $query->is_main_query() && 
          ( is_shop() || is_product_taxonomy() || ( is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) ) ) {
         
+        // Debug: ver qué parámetros están llegando
+        if ( isset($_GET['min_price']) || isset($_GET['max_price']) ) {
+            error_log('Filtro de precio activo: min=' . (isset($_GET['min_price']) ? $_GET['min_price'] : 'no') . ', max=' . (isset($_GET['max_price']) ? $_GET['max_price'] : 'no'));
+        }
+        
         $meta_query = $query->get( 'meta_query' ) ?: array();
         
         // Filtro de precio
         if ( isset($_GET['min_price']) || isset($_GET['max_price']) ) {
-            $price_meta = array(
-                'key' => '_price',
-                'type' => 'NUMERIC',
-                'compare' => 'BETWEEN'
-            );
+            $min_price = isset($_GET['min_price']) && $_GET['min_price'] !== '' ? floatval($_GET['min_price']) : null;
+            $max_price = isset($_GET['max_price']) && $_GET['max_price'] !== '' ? floatval($_GET['max_price']) : null;
             
-            $min_price = isset($_GET['min_price']) ? floatval($_GET['min_price']) : 0;
-            $max_price = isset($_GET['max_price']) ? floatval($_GET['max_price']) : 999999;
-            
-            $price_meta['value'] = array( $min_price, $max_price );
-            $meta_query[] = $price_meta;
+            if ( $min_price !== null && $max_price !== null ) {
+                // Ambos valores proporcionados
+                $meta_query[] = array(
+                    'key' => '_price',
+                    'value' => array( $min_price, $max_price ),
+                    'type' => 'NUMERIC',
+                    'compare' => 'BETWEEN'
+                );
+                error_log('Filtro BETWEEN: ' . $min_price . ' - ' . $max_price);
+            } elseif ( $min_price !== null ) {
+                // Solo precio mínimo
+                $meta_query[] = array(
+                    'key' => '_price',
+                    'value' => $min_price,
+                    'type' => 'NUMERIC',
+                    'compare' => '>='
+                );
+                error_log('Filtro MIN: >= ' . $min_price);
+            } elseif ( $max_price !== null ) {
+                // Solo precio máximo
+                $meta_query[] = array(
+                    'key' => '_price',
+                    'value' => $max_price,
+                    'type' => 'NUMERIC',
+                    'compare' => '<='
+                );
+                error_log('Filtro MAX: <= ' . $max_price);
+            }
         }
         
         // Filtro de categorías
