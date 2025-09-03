@@ -98,6 +98,72 @@ get_header(); ?>
                             
                             <?php if ( class_exists( 'WC_Widget_Price_Filter' ) ) : ?>
                                 <div class="price-filter-widget">
+                                    <style>
+                                        .price_slider_wrapper .price_slider {
+                                            background: linear-gradient(to right, #e5e7eb, #e5e7eb) !important;
+                                            border: none !important;
+                                            height: 6px !important;
+                                            border-radius: 3px !important;
+                                        }
+                                        .price_slider_wrapper .ui-slider-range {
+                                            background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+                                            border-radius: 3px !important;
+                                            height: 6px !important;
+                                        }
+                                        .price_slider_wrapper .ui-slider-handle {
+                                            background: white !important;
+                                            border: 2px solid #3b82f6 !important;
+                                            border-radius: 50% !important;
+                                            width: 20px !important;
+                                            height: 20px !important;
+                                            top: -7px !important;
+                                            cursor: pointer !important;
+                                            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                                        }
+                                        .price_slider_wrapper .ui-slider-handle:hover {
+                                            border-color: #8b5cf6 !important;
+                                            transform: scale(1.1) !important;
+                                        }
+                                        .price_slider_wrapper .price_slider_amount {
+                                            margin-top: 1rem !important;
+                                        }
+                                        .price_slider_wrapper .price_slider_amount input {
+                                            border: 1px solid #e5e7eb !important;
+                                            border-radius: 12px !important;
+                                            padding: 12px 16px !important;
+                                            background: rgba(255,255,255,0.8) !important;
+                                            backdrop-filter: blur(4px) !important;
+                                            font-size: 14px !important;
+                                            transition: all 0.3s ease !important;
+                                        }
+                                        .price_slider_wrapper .price_slider_amount input:focus {
+                                            border-color: #3b82f6 !important;
+                                            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+                                            outline: none !important;
+                                        }
+                                        .price_slider_wrapper .price_slider_amount button {
+                                            background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+                                            color: white !important;
+                                            border: none !important;
+                                            border-radius: 12px !important;
+                                            padding: 12px 24px !important;
+                                            font-weight: 600 !important;
+                                            margin-top: 12px !important;
+                                            width: 100% !important;
+                                            transition: all 0.3s ease !important;
+                                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
+                                        }
+                                        .price_slider_wrapper .price_slider_amount button:hover {
+                                            background: linear-gradient(to right, #2563eb, #7c3aed) !important;
+                                            transform: translateY(-1px) !important;
+                                            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
+                                        }
+                                        .price_slider_wrapper .price_label {
+                                            color: #374151 !important;
+                                            font-weight: 500 !important;
+                                            margin-bottom: 8px !important;
+                                        }
+                                    </style>
                                     <?php
                                     $widget = new WC_Widget_Price_Filter();
                                     $widget->widget( array(), array() );
@@ -359,7 +425,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -375,7 +441,7 @@ get_header(); ?>
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px]">
+                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px] mt-2">
                                 <!-- Imagen del producto -->
                                 <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -665,11 +731,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function setProductView(view) {
         if (view === 'grid') {
-            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8';
+            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         } else {
-            productsGrid.className = 'grid grid-cols-1 gap-4';
+            productsGrid.className = 'grid grid-cols-1 gap-6';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
             
@@ -979,13 +1045,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentView = localStorage.getItem('productView') || 'grid';
         if (currentView === 'grid') {
             if (window.innerWidth >= 1536) { // 2xl
-                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-8';
+                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
             } else if (window.innerWidth >= 1024) { // lg
-                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8';
+                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12';
             } else if (window.innerWidth >= 640) { // sm
-                productsGrid.className = 'grid grid-cols-2 gap-4';
+                productsGrid.className = 'grid grid-cols-2 gap-6';
             } else {
-                productsGrid.className = 'grid grid-cols-1 gap-4';
+                productsGrid.className = 'grid grid-cols-1 gap-6';
             }
         }
     });
