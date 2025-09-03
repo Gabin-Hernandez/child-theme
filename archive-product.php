@@ -97,23 +97,25 @@ get_header(); ?>
                             </h4>
                             
                             <div class="space-y-4">
-                                <p>Filtrar por precio:</p>
+                                <p class="text-sm text-gray-600 mb-3">Filtrar por precio:</p>
                                 
                                 <input type="number" 
                                        id="min_price" 
                                        placeholder="Precio mínimo" 
                                        value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>"
-                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+                                       min="0">
                                 
                                 <input type="number" 
                                        id="max_price" 
                                        placeholder="Precio máximo" 
                                        value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>"
-                                       style="width: 100%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;">
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+                                       min="0">
                                 
                                 <button id="apply-price-filter" 
-                                        style="width: 100%; padding: 12px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
-                                    Filtrar
+                                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
+                                    Filtrar Precios
                                 </button>
                             </div>
                         </div>
@@ -766,6 +768,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const maxPrice = document.getElementById('max_price').value;
             const currentUrl = new URL(window.location);
             
+            console.log('Valores capturados:', { minPrice, maxPrice });
+            
             if (minPrice) {
                 currentUrl.searchParams.set('min_price', minPrice);
             } else {
@@ -778,6 +782,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentUrl.searchParams.delete('max_price');
             }
             
+            console.log('URL final:', currentUrl.toString());
             window.location.href = currentUrl.toString();
         });
     }
