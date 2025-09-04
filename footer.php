@@ -37,7 +37,7 @@
                         
                         <!-- Social Media -->
                         <div class="space-y-4">
-                            <h4 class="text-white font-semibold">Síguenos</h4>
+                            <p class="text-white font-semibold">Síguenos</p>
                             <div class="flex space-x-4">
                                 <a href="#" class="group">
                                     <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
@@ -73,13 +73,13 @@
 
                     <!-- Quick Links -->
                     <div>
-                        <h4 class="text-white font-semibold text-lg mb-6 relative">
+                        <p class="text-white font-semibold text-lg mb-6 relative">
                             Navegación
                             <div class="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                        </h4>
+                        </p>
                         <ul class="space-y-3">
                             <li>
-                                <a href="<?php echo home_url(); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo home_url(); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
