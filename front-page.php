@@ -5,6 +5,24 @@
 
 get_header(); ?>
 
+<!-- Sticky Navbar Backup -->
+<div id="backup-sticky-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transform translate-y-0 transition-transform duration-300" style="display: none;">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+            <div class="text-xl font-bold text-blue-600">ITOOLS MX</div>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#categorias" class="text-gray-700 hover:text-blue-600 transition-colors">Categorías</a>
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" class="text-gray-700 hover:text-blue-600 transition-colors">Tienda</a>
+                <a href="#ofertas" class="text-gray-700 hover:text-blue-600 transition-colors">Ofertas</a>
+                <a href="#contacto" class="text-gray-700 hover:text-blue-600 transition-colors">Contacto</a>
+            </nav>
+            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                Ver Catálogo
+            </a>
+        </div>
+    </div>
+</div>
+
 <main id="main" class="site-main">
     
     <!-- He                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
@@ -1264,5 +1282,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Sticky Navbar Backup Control
+    const backupNav = document.getElementById('backup-sticky-nav');
+    const header = document.querySelector('header');
+    
+    function showBackupNav() {
+        if (backupNav) {
+            backupNav.style.display = 'block';
+        }
+    }
+    
+    function hideBackupNav() {
+        if (backupNav) {
+            backupNav.style.display = 'none';
+        }
+    }
+    
+    // Mostrar/ocultar navbar backup basado en scroll
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const headerHeight = header ? header.offsetHeight : 120;
+        
+        if (scrollTop > headerHeight + 50) {
+            showBackupNav();
+        } else {
+            hideBackupNav();
+        }
+    });
+    
+    // Smooth scroll para los links del navbar backup
+    if (backupNav) {
+        const navLinks = backupNav.querySelectorAll('a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+});
+</script>
 
 <?php get_footer(); ?>

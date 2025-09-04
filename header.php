@@ -56,6 +56,35 @@
             transform: rotate(180deg);
         }
         
+        /* Sticky Navigation - CSS puro para garantizar funcionalidad */
+        .nav-row {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        /* Asegurar que funcione en todos los navegadores */
+        .nav-row {
+            -webkit-position: sticky;
+            -moz-position: sticky;
+            -ms-position: sticky;
+            -o-position: sticky;
+        }
+        
+        /* Evitar saltos al hacer sticky */
+        .nav-row.is-sticky {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+        }
+        
         /* Responsivo */
         @media (max-width: 768px) {
             .nav-row {
@@ -176,41 +205,6 @@
                     }
                 });
             }
-
-            // Sticky Navigation Behavior
-            const navRow = document.querySelector('.nav-row');
-            const header = document.querySelector('header');
-            let lastScrollTop = 0;
-            let navRowInitialTop = 0;
-
-            // Calcular la posición inicial del nav-row
-            window.addEventListener('load', function() {
-                navRowInitialTop = navRow.offsetTop;
-            });
-
-            window.addEventListener('scroll', function() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                // Solo aplicar comportamiento sticky si hemos pasado la posición inicial del nav-row
-                if (scrollTop >= navRowInitialTop) {
-                    // Mostrar cuando llegamos a la posición del nav-row
-                    navRow.style.opacity = '1';
-                    navRow.style.transform = 'translateY(0)';
-                    
-                    // Comportamiento inteligente: ocultar al scrollear hacia abajo rápido
-                    if (scrollTop > lastScrollTop + 5 && scrollTop > navRowInitialTop + 100) {
-                        navRow.style.transform = 'translateY(-100%)';
-                    } else if (scrollTop < lastScrollTop - 5) {
-                        navRow.style.transform = 'translateY(0)';
-                    }
-                } else {
-                    // Cuando estamos arriba, asegurar que esté visible y en posición normal
-                    navRow.style.opacity = '1';
-                    navRow.style.transform = 'translateY(0)';
-                }
-
-                lastScrollTop = scrollTop;
-            });
         });
     </script>
     
@@ -321,7 +315,7 @@
             </div>
 
             <!-- Segunda fila: Menú de navegación dropdown -->
-            <div class="nav-row sticky top-0 z-50 bg-white shadow-sm transition-all duration-300" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
+            <div class="nav-row" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
                 <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
                     <!-- Dropdown Refacciones -->
                     <div class="dropdown-container" style="position: relative;">

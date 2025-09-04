@@ -88,7 +88,7 @@
                             </li>
                             <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'shop' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'shop' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -96,7 +96,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -104,7 +104,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'cart' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'cart' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -113,7 +113,7 @@
                             </li>
                             <?php endif; ?>
                             <li>
-                                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="#" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
