@@ -79,7 +79,7 @@
                         </p>
                         <ul class="space-y-3">
                             <li>
-                                <a href="<?php echo home_url(); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo home_url(); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -88,7 +88,7 @@
                             </li>
                             <?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'shop' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'shop' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -96,7 +96,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'myaccount' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -104,7 +104,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo wc_get_page_permalink( 'cart' ); ?>" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="<?php echo wc_get_page_permalink( 'cart' ); ?>" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -113,7 +113,7 @@
                             </li>
                             <?php endif; ?>
                             <li>
-                                <a href="#" class="text-white hover:text-white transition-colors duration-300 flex items-center group">
+                                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 flex items-center group">
                                     <svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -125,10 +125,10 @@
 
                     <!-- Contact Info -->
                     <div>
-                        <h4 class="text-white font-semibold text-lg mb-6 relative">
+                        <p class="text-white font-semibold text-lg mb-6 relative">
                             Contacto
                             <div class="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                        </h4>
+                        </p>
                         <div class="space-y-4">
                             <div class="flex items-start space-x-3">
                                 <div class="w-5 h-5 mt-1 text-blue-400">
@@ -196,6 +196,44 @@
         // do_action( 'storefront_footer' );
         ?>
     </footer><!-- #colophon -->
+
+    <!-- Estilos adicionales para el footer -->
+    <style>
+        /* Asegurar que todos los textos del footer sean blancos/grises */
+        #colophon * {
+            color: inherit !important;
+        }
+        
+        #colophon a {
+            color: #d1d5db !important; /* text-gray-300 */
+            transition: color 0.3s ease !important;
+        }
+        
+        #colophon a:hover {
+            color: #ffffff !important; /* text-white */
+        }
+        
+        #colophon .text-white {
+            color: #ffffff !important;
+        }
+        
+        #colophon .text-gray-300 {
+            color: #d1d5db !important;
+        }
+        
+        #colophon .text-gray-400 {
+            color: #9ca3af !important;
+        }
+        
+        /* Específicamente para los enlaces de navegación */
+        #colophon ul li a {
+            color: #d1d5db !important;
+        }
+        
+        #colophon ul li a:hover {
+            color: #ffffff !important;
+        }
+    </style>
 
     <?php
     /**
