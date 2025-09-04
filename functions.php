@@ -653,3 +653,128 @@ function itools_custom_scripts() {
     <?php
 }
 add_action( 'wp_footer', 'itools_custom_scripts' );
+
+/**
+ * Asegurar que las plantillas personalizadas de WooCommerce se carguen
+ */
+function itools_woocommerce_template_override() {
+    // Forzar la carga de nuestras plantillas personalizadas
+    if ( class_exists( 'WooCommerce' ) ) {
+        // Asegurar que el tema hijo tome precedencia
+        add_filter( 'woocommerce_locate_template', 'itools_woocommerce_locate_template', 10, 3 );
+    }
+}
+add_action( 'init', 'itools_woocommerce_template_override' );
+
+/**
+ * Localizar plantillas personalizadas de WooCommerce en el tema hijo
+ */
+function itools_woocommerce_locate_template( $template, $template_name, $template_path ) {
+    global $woocommerce;
+
+    $_template = $template;
+
+    if ( ! $template_path ) {
+        $template_path = $woocommerce->template_url;
+    }
+
+    $plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) ) . $template_path;
+
+    // Buscar en el tema hijo primero
+    $template = locate_template(
+        array(
+            $template_path . $template_name,
+            $template_name
+        )
+    );
+
+    // Si no se encuentra en el tema hijo, usar el original
+    if ( ! $template && file_exists( $plugin_path . $template_name ) ) {
+        $template = $plugin_path . $template_name;
+    }
+
+    if ( ! $template ) {
+        $template = $_template;
+    }
+
+    return $template;
+}
+
+/**
+ * Personalizar clases CSS del body para el carrito
+ */
+function itools_custom_body_classes( $classes ) {
+    if ( is_cart() ) {
+        $classes[] = 'itools-cart-page';
+        $classes[] = 'modern-cart-design';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'itools_custom_body_classes' );
+
+/**
+ * Remover acciones de WooCommerce que pueden interferir con nuestro diseño
+ */
+function itools_remove_woocommerce_cart_actions() {
+    if ( is_cart() ) {
+        // Remover el wrapper de contenido de Storefront si existe
+        remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
+        
+        // Personalizar los mensajes del carrito
+        add_filter( 'woocommerce_add_to_cart_message_html', 'itools_custom_add_to_cart_message', 10, 2 );
+    }
+}
+add_action( 'wp', 'itools_remove_woocommerce_cart_actions' );
+
+/**
+ * Personalizar mensajes de "Añadido al carrito"
+ */
+function itools_custom_add_to_cart_message( $message, $products ) {
+    $titles = array();
+    $count  = 0;
+
+    foreach ( $products as $product_id => $qty ) {
+        $titles[] = ( $qty > 1 ? absint( $qty ) . ' &times; ' : '' ) . sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'woocommerce' ), strip_tags( get_the_title( $product_id ) ) );
+        $count   += $qty;
+    }
+
+    $titles = array_filter( $titles );
+    
+    $added_text = sprintf(
+        /* translators: %s: product name */
+        _n( '%s ha sido añadido a tu carrito.', '%s han sido añadidos a tu carrito.', $count, 'woocommerce' ),
+        wc_format_list_of_items( $titles )
+    );
+
+    $message = sprintf(
+        '<div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+            <div class="flex items-center">
+                <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div class="text-green-800">
+                    <p class="font-semibold">¡Producto añadido!</p>
+                    <p class="text-sm">%s</p>
+                </div>
+            </div>
+        </div>',
+        $added_text
+    );
+
+    return $message;
+}
+
+/**
+ * Debug: Verificar que las plantillas se están cargando correctamente
+ */
+function itools_debug_woocommerce_templates() {
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG && is_cart() ) {
+        // Solo para administradores y en modo debug
+        if ( current_user_can( 'manage_options' ) ) {
+            add_action( 'wp_footer', function() {
+                echo '<!-- ITOOLS DEBUG: Plantilla del carrito personalizada cargada desde el tema hijo -->';
+            });
+        }
+    }
+}
+add_action( 'wp', 'itools_debug_woocommerce_templates' );
