@@ -5,6 +5,71 @@
 
 get_header(); ?>
 
+<!-- Navbar Sticky -->
+<nav id="sticky-navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transform -translate-y-full transition-transform duration-300">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center space-x-4">
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    ITOOLS MX
+                </div>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#categorias" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Categorías
+                </a>
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                   class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Tienda
+                </a>
+                <a href="#ofertas" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Ofertas
+                </a>
+                <a href="#contacto" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Contacto
+                </a>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="flex items-center space-x-4">
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                   class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+                    Ver Catálogo
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#categorias" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Categorías
+                </a>
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                   class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Tienda
+                </a>
+                <a href="#ofertas" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Ofertas
+                </a>
+                <a href="#contacto" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                    Contacto
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <main id="main" class="site-main">
     
     <!-- He                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
@@ -180,7 +245,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares - Diseño Moderno -->
-    <section class="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="categorias" class="py-20 bg-gray-900 relative overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -302,6 +367,33 @@ get_header(); ?>
         <div class="absolute inset-0">
             <div class="absolute top-0 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
             <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+        </div>
+        
+        <!-- Partículas animadas -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="particles-container">
+                <!-- Partículas pequeñas -->
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
+                <div class="particle particle-6"></div>
+                <div class="particle particle-7"></div>
+                <div class="particle particle-8"></div>
+                <div class="particle particle-9"></div>
+                <div class="particle particle-10"></div>
+                
+                <!-- Partículas medianas -->
+                <div class="particle-medium particle-m1"></div>
+                <div class="particle-medium particle-m2"></div>
+                <div class="particle-medium particle-m3"></div>
+                <div class="particle-medium particle-m4"></div>
+                
+                <!-- Partículas grandes -->
+                <div class="particle-large particle-l1"></div>
+                <div class="particle-large particle-l2"></div>
+            </div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
@@ -489,7 +581,7 @@ get_header(); ?>
     </section>
 
     <!-- Productos en Oferta -->
-    <section class="py-20 bg-gradient-to-br from-red-50 to-orange-50">
+    <section id="ofertas" class="py-20 bg-gradient-to-br from-red-50 to-orange-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-4 py-2 rounded-full font-semibold mb-4">
@@ -949,7 +1041,7 @@ get_header(); ?>
     </section>
 
     <!-- Newsletter -->
-    <section class="py-16 bg-gradient-to-r from-blue-900 to-blue-800">
+    <section id="contacto" class="py-16 bg-gradient-to-r from-blue-900 to-blue-800">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
             <p class="text-blue-100 mb-8 max-w-2xl mx-auto">
@@ -1150,6 +1242,154 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth',
                     block: 'start'
                 });
+            }
+        });
+    });
+});
+</script>
+
+<!-- CSS y JavaScript para Navbar Sticky y Partículas -->
+<style>
+    /* Navbar Sticky Styles */
+    #sticky-navbar.show {
+        transform: translateY(0);
+    }
+    
+    /* Partículas Animadas */
+    .particles-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+    
+    .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    
+    .particle-medium {
+        position: absolute;
+        background: rgba(59, 130, 246, 0.2);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    
+    .particle-large {
+        position: absolute;
+        background: rgba(147, 51, 234, 0.15);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    
+    /* Partículas pequeñas */
+    .particle-1 { width: 4px; height: 4px; top: 10%; left: 10%; animation: float1 6s ease-in-out infinite; }
+    .particle-2 { width: 6px; height: 6px; top: 20%; left: 80%; animation: float2 8s ease-in-out infinite; }
+    .particle-3 { width: 3px; height: 3px; top: 60%; left: 15%; animation: float3 7s ease-in-out infinite; }
+    .particle-4 { width: 5px; height: 5px; top: 80%; left: 70%; animation: float1 9s ease-in-out infinite; }
+    .particle-5 { width: 4px; height: 4px; top: 30%; left: 45%; animation: float2 5s ease-in-out infinite; }
+    .particle-6 { width: 3px; height: 3px; top: 70%; left: 90%; animation: float3 6s ease-in-out infinite; }
+    .particle-7 { width: 5px; height: 5px; top: 15%; left: 60%; animation: float1 7s ease-in-out infinite; }
+    .particle-8 { width: 4px; height: 4px; top: 85%; left: 25%; animation: float2 8s ease-in-out infinite; }
+    .particle-9 { width: 6px; height: 6px; top: 40%; left: 85%; animation: float3 6s ease-in-out infinite; }
+    .particle-10 { width: 3px; height: 3px; top: 90%; left: 50%; animation: float1 9s ease-in-out infinite; }
+    
+    /* Partículas medianas */
+    .particle-m1 { width: 12px; height: 12px; top: 25%; left: 20%; animation: float2 10s ease-in-out infinite; }
+    .particle-m2 { width: 10px; height: 10px; top: 75%; left: 75%; animation: float3 12s ease-in-out infinite; }
+    .particle-m3 { width: 14px; height: 14px; top: 50%; left: 65%; animation: float1 11s ease-in-out infinite; }
+    .particle-m4 { width: 8px; height: 8px; top: 35%; left: 5%; animation: float2 9s ease-in-out infinite; }
+    
+    /* Partículas grandes */
+    .particle-l1 { width: 20px; height: 20px; top: 45%; left: 35%; animation: float3 15s ease-in-out infinite; }
+    .particle-l2 { width: 18px; height: 18px; top: 65%; left: 55%; animation: float1 13s ease-in-out infinite; }
+    
+    /* Animaciones de flotación */
+    @keyframes float1 {
+        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
+        25% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+        50% { transform: translateY(-10px) translateX(-15px); opacity: 1; }
+        75% { transform: translateY(-30px) translateX(5px); opacity: 0.8; }
+    }
+    
+    @keyframes float2 {
+        0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.3; }
+        33% { transform: translateY(-25px) translateX(-10px) rotate(120deg); opacity: 0.8; }
+        66% { transform: translateY(-15px) translateX(20px) rotate(240deg); opacity: 1; }
+    }
+    
+    @keyframes float3 {
+        0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.5; }
+        50% { transform: translateY(-35px) translateX(15px) scale(1.2); opacity: 0.9; }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .particle, .particle-medium, .particle-large {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Navbar Sticky Functionality
+    const navbar = document.getElementById('sticky-navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let lastScrollTop = 0;
+    
+    // Show/Hide navbar on scroll
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+            navbar.classList.add('show');
+        } else {
+            navbar.classList.remove('show');
+        }
+        
+        // Hide navbar when scrolling down, show when scrolling up
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            navbar.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Mobile menu toggle
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+    
+    // Smooth scroll for navbar links
+    const navLinks = navbar.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 80; // Account for navbar height
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
             }
         });
     });
