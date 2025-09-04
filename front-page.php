@@ -356,8 +356,8 @@ get_header(); ?>
             </div>
             
             <!-- Carrusel de marcas mejorado -->
-            <div class="overflow-hidden relative brands-container">
-                <div class="flex brands-carousel space-x-12 items-center">
+            <div class="overflow-hidden relative brands-container" style="height: 100px;">
+                <div class="flex brands-carousel space-x-12 items-center" style="animation: scrollBrands 20s linear infinite; width: 200%; will-change: transform;">
                     <!-- Apple -->
                     <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
                         <svg class="w-16 h-16 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
@@ -444,6 +444,47 @@ get_header(); ?>
                     </div>
                 </div>
             </div>
+
+            <!-- CSS y JavaScript inline para garantizar que funcione -->
+            <style>
+                @keyframes scrollBrands {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                
+                .brands-carousel {
+                    animation: scrollBrands 20s linear infinite !important;
+                    width: 200% !important;
+                }
+                
+                .brands-container:hover .brands-carousel {
+                    animation-play-state: paused !important;
+                }
+            </style>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Asegurar que la animación se aplique
+                    const carousel = document.querySelector('.brands-carousel');
+                    if (carousel) {
+                        carousel.style.animation = 'scrollBrands 20s linear infinite';
+                        carousel.style.width = '200%';
+                        carousel.style.willChange = 'transform';
+                    }
+                    
+                    // Pausar al hacer hover
+                    const container = document.querySelector('.brands-container');
+                    if (container && carousel) {
+                        container.addEventListener('mouseenter', function() {
+                            carousel.style.animationPlayState = 'paused';
+                        });
+                        
+                        container.addEventListener('mouseleave', function() {
+                            carousel.style.animationPlayState = 'running';
+                        });
+                    }
+                });
+            </script>
         </div>
     </section>
 
