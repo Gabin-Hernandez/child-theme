@@ -302,7 +302,7 @@ Text Domain:    child-theme
 }
 
 /* Animación para el carrusel de marcas */
-@keyframes scroll {
+@keyframes scrollBrands {
     0% {
         transform: translateX(0);
     }
@@ -311,13 +311,13 @@ Text Domain:    child-theme
     }
 }
 
-.animate-scroll {
-    animation: scroll 30s linear infinite;
-    width: calc(200%);
-    will-change: transform;
+.brands-carousel {
+    animation: scrollBrands 25s linear infinite !important;
+    width: calc(200%) !important;
+    will-change: transform !important;
 }
 
 /* Para pausar la animación al hacer hover sobre el contenedor */
-.overflow-hidden:hover .animate-scroll {
-    animation-play-state: paused;
+.brands-container:hover .brands-carousel {
+    animation-play-state: paused !important;
 }

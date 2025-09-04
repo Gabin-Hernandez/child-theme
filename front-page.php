@@ -356,8 +356,8 @@ get_header(); ?>
             </div>
             
             <!-- Carrusel de marcas mejorado -->
-            <div class="overflow-hidden relative">
-                <div class="flex animate-scroll space-x-12 items-center">
+            <div class="overflow-hidden relative brands-container">
+                <div class="flex brands-carousel space-x-12 items-center">
                     <!-- Apple -->
                     <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
                         <svg class="w-16 h-16 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
