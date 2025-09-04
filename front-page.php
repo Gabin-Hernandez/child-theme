@@ -5,71 +5,6 @@
 
 get_header(); ?>
 
-<!-- Navbar Sticky -->
-<nav id="sticky-navbar" class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md shadow-lg transform -translate-y-full transition-transform duration-300">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between h-16">
-            <!-- Logo -->
-            <div class="flex items-center space-x-4">
-                <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    ITOOLS MX
-                </div>
-            </div>
-            
-            <!-- Navigation Links -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#categorias" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Categorías
-                </a>
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                   class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Tienda
-                </a>
-                <a href="#ofertas" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Ofertas
-                </a>
-                <a href="#contacto" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Contacto
-                </a>
-            </div>
-            
-            <!-- CTA Button -->
-            <div class="flex items-center space-x-4">
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                   class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
-                    Ver Catálogo
-                </a>
-                
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-blue-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
-            <div class="px-4 py-4 space-y-3">
-                <a href="#categorias" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Categorías
-                </a>
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                   class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Tienda
-                </a>
-                <a href="#ofertas" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Ofertas
-                </a>
-                <a href="#contacto" class="block text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                    Contacto
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-
 <main id="main" class="site-main">
     
     <!-- He                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
@@ -1250,11 +1185,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- CSS y JavaScript para Navbar Sticky y Partículas -->
 <style>
-    /* Navbar Sticky Styles */
-    #sticky-navbar.show {
-        transform: translateY(0);
-    }
-    
     /* Partículas Animadas */
     .particles-container {
         position: absolute;
@@ -1334,74 +1264,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Navbar Sticky Functionality
-    const navbar = document.getElementById('sticky-navbar');
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    let lastScrollTop = 0;
-    
-    // Calcular la altura del header dinámicamente
-    function getHeaderHeight() {
-        const header = document.querySelector('header');
-        return header ? header.offsetHeight : 120; // fallback a 120px
-    }
-    
-    // Show/Hide navbar on scroll
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const headerHeight = getHeaderHeight();
-        
-        // Solo mostrar el navbar sticky cuando hayamos pasado completamente el header
-        if (scrollTop > headerHeight + 50) { // +50px de buffer
-            navbar.classList.add('show');
-        } else {
-            navbar.classList.remove('show');
-        }
-        
-        // Hide navbar when scrolling down fast, show when scrolling up
-        if (scrollTop > lastScrollTop && scrollTop > headerHeight + 100) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else if (scrollTop > headerHeight) {
-            navbar.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-    
-    // Mobile menu toggle
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-    
-    // Smooth scroll for navbar links
-    const navLinks = navbar.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80; // Account for navbar height
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            }
-        });
-    });
-});
-</script>
 
 <?php get_footer(); ?>

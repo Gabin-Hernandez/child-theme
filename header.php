@@ -176,6 +176,41 @@
                     }
                 });
             }
+
+            // Sticky Navigation Behavior
+            const navRow = document.querySelector('.nav-row');
+            const header = document.querySelector('header');
+            let lastScrollTop = 0;
+            let navRowInitialTop = 0;
+
+            // Calcular la posición inicial del nav-row
+            window.addEventListener('load', function() {
+                navRowInitialTop = navRow.offsetTop;
+            });
+
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Solo aplicar comportamiento sticky si hemos pasado la posición inicial del nav-row
+                if (scrollTop >= navRowInitialTop) {
+                    // Mostrar cuando llegamos a la posición del nav-row
+                    navRow.style.opacity = '1';
+                    navRow.style.transform = 'translateY(0)';
+                    
+                    // Comportamiento inteligente: ocultar al scrollear hacia abajo rápido
+                    if (scrollTop > lastScrollTop + 5 && scrollTop > navRowInitialTop + 100) {
+                        navRow.style.transform = 'translateY(-100%)';
+                    } else if (scrollTop < lastScrollTop - 5) {
+                        navRow.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    // Cuando estamos arriba, asegurar que esté visible y en posición normal
+                    navRow.style.opacity = '1';
+                    navRow.style.transform = 'translateY(0)';
+                }
+
+                lastScrollTop = scrollTop;
+            });
         });
     </script>
     
@@ -286,7 +321,7 @@
             </div>
 
             <!-- Segunda fila: Menú de navegación dropdown -->
-            <div class="nav-row" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
+            <div class="nav-row sticky top-0 z-50 bg-white shadow-sm transition-all duration-300" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
                 <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
                     <!-- Dropdown Refacciones -->
                     <div class="dropdown-container" style="position: relative;">
