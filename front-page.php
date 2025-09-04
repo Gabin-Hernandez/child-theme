@@ -6,7 +6,7 @@
 get_header(); ?>
 
 <!-- Navbar Sticky -->
-<nav id="sticky-navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg transform -translate-y-full transition-transform duration-300">
+<nav id="sticky-navbar" class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md shadow-lg transform -translate-y-full transition-transform duration-300">
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <!-- Logo -->
@@ -1343,20 +1343,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
     let lastScrollTop = 0;
     
+    // Calcular la altura del header dinámicamente
+    function getHeaderHeight() {
+        const header = document.querySelector('header');
+        return header ? header.offsetHeight : 120; // fallback a 120px
+    }
+    
     // Show/Hide navbar on scroll
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const headerHeight = getHeaderHeight();
         
-        if (scrollTop > 100) {
+        // Solo mostrar el navbar sticky cuando hayamos pasado completamente el header
+        if (scrollTop > headerHeight + 50) { // +50px de buffer
             navbar.classList.add('show');
         } else {
             navbar.classList.remove('show');
         }
         
-        // Hide navbar when scrolling down, show when scrolling up
-        if (scrollTop > lastScrollTop && scrollTop > 200) {
+        // Hide navbar when scrolling down fast, show when scrolling up
+        if (scrollTop > lastScrollTop && scrollTop > headerHeight + 100) {
             navbar.style.transform = 'translateY(-100%)';
-        } else {
+        } else if (scrollTop > headerHeight) {
             navbar.style.transform = 'translateY(0)';
         }
         
