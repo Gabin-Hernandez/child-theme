@@ -718,3 +718,317 @@ function itools_custom_add_to_cart_message( $message, $products ) {
     return $message;
 }
 add_filter( 'woocommerce_add_to_cart_message_html', 'itools_custom_add_to_cart_message', 10, 2 );
+
+// ================================
+// FUNCIONALIDAD DE RESEÑAS
+// ================================
+
+// Crear tabla personalizada para reseñas al activar el tema
+function itools_create_reviews_table() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'itools_product_reviews';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        product_id bigint(20) NOT NULL,
+        reviewer_name varchar(100) NOT NULL,
+        reviewer_email varchar(100) NOT NULL,
+        review_title varchar(255) NOT NULL,
+        review_comment text NOT NULL,
+        rating tinyint(1) NOT NULL,
+        would_recommend tinyint(1) DEFAULT 0,
+        is_verified tinyint(1) DEFAULT 0,
+        status varchar(20) DEFAULT 'pending',
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id),
+        KEY product_id (product_id),
+        KEY status (status),
+        KEY rating (rating)
+    ) $charset_collate;";
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+
+// Crear tabla al activar el tema
+add_action('after_switch_theme', 'itools_create_reviews_table');
+
+// AJAX handler para enviar reseñas
+function itools_submit_review() {
+    // Verificar nonce por seguridad
+    check_ajax_referer('itools_review_nonce', 'security');
+    
+    global $wpdb;
+    
+    // Sanitizar datos
+    $product_id = intval($_POST['product_id']);
+    $reviewer_name = sanitize_text_field($_POST['reviewer_name']);
+    $reviewer_email = sanitize_email($_POST['reviewer_email']);
+    $review_title = sanitize_text_field($_POST['review_title']);
+    $review_comment = sanitize_textarea_field($_POST['review_comment']);
+    $rating = intval($_POST['rating']);
+    $would_recommend = isset($_POST['would_recommend']) ? 1 : 0;
+    
+    // Validaciones básicas
+    if (empty($reviewer_name) || empty($reviewer_email) || empty($review_title) || empty($review_comment) || $rating < 1 || $rating > 5) {
+        wp_die('Datos inválidos');
+    }
+    
+    // Verificar si el email ya dejó una reseña para este producto
+    $table_name = $wpdb->prefix . 'itools_product_reviews';
+    $existing_review = $wpdb->get_var($wpdb->prepare(
+        "SELECT id FROM $table_name WHERE product_id = %d AND reviewer_email = %s",
+        $product_id,
+        $reviewer_email
+    ));
+    
+    if ($existing_review) {
+        wp_send_json_error('Ya has dejado una reseña para este producto');
+        return;
+    }
+    
+    // Insertar reseña
+    $result = $wpdb->insert(
+        $table_name,
+        array(
+            'product_id' => $product_id,
+            'reviewer_name' => $reviewer_name,
+            'reviewer_email' => $reviewer_email,
+            'review_title' => $review_title,
+            'review_comment' => $review_comment,
+            'rating' => $rating,
+            'would_recommend' => $would_recommend,
+            'status' => 'pending', // Reseñas requieren moderación
+            'created_at' => current_time('mysql')
+        ),
+        array('%d', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s')
+    );
+    
+    if ($result === false) {
+        wp_send_json_error('Error al guardar la reseña');
+    } else {
+        wp_send_json_success('Reseña enviada correctamente. Será revisada antes de publicarse.');
+    }
+}
+
+// Registrar AJAX handlers
+add_action('wp_ajax_itools_submit_review', 'itools_submit_review');
+add_action('wp_ajax_nopriv_itools_submit_review', 'itools_submit_review');
+
+// Obtener reseñas de un producto
+function itools_get_product_reviews($product_id, $limit = 10, $offset = 0) {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'itools_product_reviews';
+    
+    $reviews = $wpdb->get_results($wpdb->prepare(
+        "SELECT * FROM $table_name 
+         WHERE product_id = %d AND status = 'approved' 
+         ORDER BY created_at DESC 
+         LIMIT %d OFFSET %d",
+        $product_id,
+        $limit,
+        $offset
+    ));
+    
+    return $reviews;
+}
+
+// Obtener estadísticas de reseñas
+function itools_get_review_stats($product_id) {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'itools_product_reviews';
+    
+    $stats = $wpdb->get_row($wpdb->prepare(
+        "SELECT 
+            COUNT(*) as total_reviews,
+            AVG(rating) as average_rating,
+            SUM(CASE WHEN rating = 5 THEN 1 ELSE 0 END) as five_star,
+            SUM(CASE WHEN rating = 4 THEN 1 ELSE 0 END) as four_star,
+            SUM(CASE WHEN rating = 3 THEN 1 ELSE 0 END) as three_star,
+            SUM(CASE WHEN rating = 2 THEN 1 ELSE 0 END) as two_star,
+            SUM(CASE WHEN rating = 1 THEN 1 ELSE 0 END) as one_star,
+            SUM(would_recommend) as total_recommended
+        FROM $table_name 
+        WHERE product_id = %d AND status = 'approved'",
+        $product_id
+    ));
+    
+    return $stats;
+}
+
+// Shortcode para mostrar reseñas
+function itools_reviews_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'product_id' => get_the_ID(),
+        'limit' => 5
+    ), $atts);
+    
+    $reviews = itools_get_product_reviews($atts['product_id'], $atts['limit']);
+    $stats = itools_get_review_stats($atts['product_id']);
+    
+    if (empty($reviews)) {
+        return '<p>No hay reseñas aún para este producto.</p>';
+    }
+    
+    ob_start();
+    ?>
+    <div class="itools-reviews">
+        <div class="reviews-summary">
+            <h3>Reseñas (<?php echo $stats->total_reviews; ?>)</h3>
+            <div class="average-rating">
+                <span class="rating-score"><?php echo number_format($stats->average_rating, 1); ?></span>
+                <div class="stars">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="star <?php echo $i <= round($stats->average_rating) ? 'filled' : ''; ?>">★</span>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reviews-list">
+            <?php foreach ($reviews as $review): ?>
+                <div class="review-item">
+                    <div class="review-header">
+                        <strong><?php echo esc_html($review->reviewer_name); ?></strong>
+                        <div class="review-rating">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="star <?php echo $i <= $review->rating ? 'filled' : ''; ?>">★</span>
+                            <?php endfor; ?>
+                        </div>
+                        <span class="review-date"><?php echo date('d/m/Y', strtotime($review->created_at)); ?></span>
+                    </div>
+                    <h4><?php echo esc_html($review->review_title); ?></h4>
+                    <p><?php echo esc_html($review->review_comment); ?></p>
+                    <?php if ($review->would_recommend): ?>
+                        <span class="recommended">👍 Recomendado</span>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('itools_reviews', 'itools_reviews_shortcode');
+
+// Agregar scripts necesarios para AJAX
+function itools_enqueue_review_scripts() {
+    if (is_product()) {
+        wp_enqueue_script('jquery');
+        wp_localize_script('jquery', 'itools_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'review_nonce' => wp_create_nonce('itools_review_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_review_scripts');
+
+// Panel de administración para gestionar reseñas
+function itools_reviews_admin_menu() {
+    add_submenu_page(
+        'edit.php?post_type=product',
+        'Reseñas de Productos',
+        'Reseñas',
+        'manage_options',
+        'itools-reviews',
+        'itools_reviews_admin_page'
+    );
+}
+add_action('admin_menu', 'itools_reviews_admin_menu');
+
+// Página del panel de administración
+function itools_reviews_admin_page() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'itools_product_reviews';
+    
+    // Manejar acciones
+    if (isset($_GET['action']) && isset($_GET['review_id'])) {
+        $review_id = intval($_GET['review_id']);
+        $action = sanitize_text_field($_GET['action']);
+        
+        if ($action === 'approve') {
+            $wpdb->update($table_name, array('status' => 'approved'), array('id' => $review_id));
+            echo '<div class="notice notice-success"><p>Reseña aprobada.</p></div>';
+        } elseif ($action === 'reject') {
+            $wpdb->update($table_name, array('status' => 'rejected'), array('id' => $review_id));
+            echo '<div class="notice notice-success"><p>Reseña rechazada.</p></div>';
+        } elseif ($action === 'delete') {
+            $wpdb->delete($table_name, array('id' => $review_id));
+            echo '<div class="notice notice-success"><p>Reseña eliminada.</p></div>';
+        }
+    }
+    
+    // Obtener reseñas pendientes
+    $pending_reviews = $wpdb->get_results(
+        "SELECT r.*, p.post_title as product_name 
+         FROM $table_name r 
+         LEFT JOIN {$wpdb->posts} p ON r.product_id = p.ID 
+         WHERE r.status = 'pending' 
+         ORDER BY r.created_at DESC"
+    );
+    
+    ?>
+    <div class="wrap">
+        <h1>Gestión de Reseñas</h1>
+        
+        <h2>Reseñas Pendientes (<?php echo count($pending_reviews); ?>)</h2>
+        
+        <?php if (empty($pending_reviews)): ?>
+            <p>No hay reseñas pendientes de moderación.</p>
+        <?php else: ?>
+            <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cliente</th>
+                        <th>Calificación</th>
+                        <th>Título</th>
+                        <th>Comentario</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($pending_reviews as $review): ?>
+                        <tr>
+                            <td><strong><?php echo esc_html($review->product_name); ?></strong></td>
+                            <td>
+                                <?php echo esc_html($review->reviewer_name); ?><br>
+                                <small><?php echo esc_html($review->reviewer_email); ?></small>
+                            </td>
+                            <td>
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <span style="color: <?php echo $i <= $review->rating ? '#ffc107' : '#ddd'; ?>;">★</span>
+                                <?php endfor; ?>
+                                (<?php echo $review->rating; ?>/5)
+                            </td>
+                            <td><?php echo esc_html($review->review_title); ?></td>
+                            <td><?php echo esc_html(wp_trim_words($review->review_comment, 15)); ?></td>
+                            <td><?php echo date('d/m/Y H:i', strtotime($review->created_at)); ?></td>
+                            <td>
+                                <a href="?post_type=product&page=itools-reviews&action=approve&review_id=<?php echo $review->id; ?>" 
+                                   class="button button-primary button-small">Aprobar</a>
+                                <a href="?post_type=product&page=itools-reviews&action=reject&review_id=<?php echo $review->id; ?>" 
+                                   class="button button-small">Rechazar</a>
+                                <a href="?post_type=product&page=itools-reviews&action=delete&review_id=<?php echo $review->id; ?>" 
+                                   class="button button-small" 
+                                   onclick="return confirm('¿Estás seguro de eliminar esta reseña?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+// ================================
+// FIN FUNCIONALIDAD DE RESEÑAS
+// ================================
