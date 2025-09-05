@@ -327,7 +327,7 @@
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
                             <a href="https://itoolsmx.com/categoria/lcd-y-touch/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
-                            <a href="https://itoolsmx.com/categoria/baterias/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
+                            <a href="<?php echo home_url('/categoria-producto/baterias/'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
                             <a href="https://itoolsmx.com/categoria/tapa-de-bateria/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
                             <a href="https://itoolsmx.com/categoria/refacciones/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las refacciones</a>
                         </div>
