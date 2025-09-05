@@ -778,3 +778,41 @@ function itools_debug_woocommerce_templates() {
     }
 }
 add_action( 'wp', 'itools_debug_woocommerce_templates' );
+
+/**
+ * Forzar el uso de nuestra plantilla personalizada para el carrito
+ */
+function itools_force_cart_template( $template ) {
+    if ( is_cart() ) {
+        $cart_template = locate_template( 'page-cart.php' );
+        if ( $cart_template ) {
+            return $cart_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'template_include', 'itools_force_cart_template', 99 );
+
+/**
+ * Redireccionar la página de carrito por defecto a nuestra plantilla personalizada
+ */
+function itools_cart_redirect() {
+    if ( is_cart() && !is_admin() ) {
+        // Asegurar que se use nuestra plantilla
+        add_filter( 'woocommerce_locate_template', 'itools_override_cart_template', 10, 3 );
+    }
+}
+add_action( 'template_redirect', 'itools_cart_redirect' );
+
+/**
+ * Override específico para plantillas del carrito
+ */
+function itools_override_cart_template( $template, $template_name, $template_path ) {
+    if ( $template_name === 'cart/cart.php' || strpos( $template_name, 'cart' ) !== false ) {
+        $custom_template = get_stylesheet_directory() . '/page-cart.php';
+        if ( file_exists( $custom_template ) ) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
