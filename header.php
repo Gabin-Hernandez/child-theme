@@ -326,10 +326,10 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo get_term_link('pantallas', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
-                            <a href="<?php echo get_term_link('baterias', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
-                            <a href="<?php echo get_term_link('cargadores', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cargadores</a>
-                            <a href="<?php echo get_term_link('refacciones', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las refacciones</a>
+                            <a href="https://itoolsmx.com/categoria/lcd-y-touch/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
+                            <a href="https://itoolsmx.com/categoria/baterias/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
+                            <a href="https://itoolsmx.com/categoria/tapa-de-bateria/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
+                            <a href="https://itoolsmx.com/categoria/refacciones/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las refacciones</a>
                         </div>
                     </div>
 
@@ -359,17 +359,17 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo get_term_link('apple', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">🍎 Apple</a>
-                            <a href="<?php echo get_term_link('samsung', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📱 Samsung</a>
-                            <a href="<?php echo get_term_link('huawei', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📲 Huawei</a>
-                            <a href="<?php echo get_term_link('xiaomi', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">🎯 Xiaomi</a>
-                            <a href="<?php echo get_term_link('motorola', 'product_cat'); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📞 Motorola</a>
-                            <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las marcas</a>
+                            <a href="https://itoolsmx.com/categoria/apple/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">🍎 Apple</a>
+                            <a href="https://itoolsmx.com/categoria/samsung/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📱 Samsung</a>
+                            <a href="https://itoolsmx.com/categoria/huawei/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📲 Huawei</a>
+                            <a href="https://itoolsmx.com/categoria/xiaomi/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">🎯 Xiaomi</a>
+                            <a href="https://itoolsmx.com/categoria/motorola/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">📞 Motorola</a>
+                            <a href="https://itoolsmx.com/tienda/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las marcas</a>
                         </div>
                     </div>
 
                     <!-- Link directo Accesorios -->
-                    <a href="<?php echo get_term_link('accesorios', 'product_cat'); ?>" style="padding: 8px 12px; color: #374151; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;">
+                    <a href="https://itoolsmx.com/categoria/accesorios/" style="padding: 8px 12px; color: #374151; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;">
                         Accesorios
                     </a>
 
@@ -409,36 +409,36 @@
                 <div>
                     <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Refacciones</h3>
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px;">
-                        <a href="<?php echo get_term_link('pantallas', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Pantallas LCD & Touch</a>
-                        <a href="<?php echo get_term_link('baterias', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Baterías</a>
-                        <a href="<?php echo get_term_link('cargadores', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Cargadores</a>
-                        <a href="<?php echo get_term_link('refacciones', 'product_cat'); ?>" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                        <a href="https://itoolsmx.com/categoria/lcd-y-touch/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Pantallas LCD & Touch</a>
+                        <a href="https://itoolsmx.com/categoria/baterias/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Baterías</a>
+                        <a href="https://itoolsmx.com/categoria/tapa-de-bateria/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Carcasas</a>
+                        <a href="https://itoolsmx.com/categoria/refacciones/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
                     </div>
                 </div>
                 
                 <div>
                     <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Herramientas</h3>
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px;">
-                        <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Microscopios</a>
-                        <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Estaciones de Soldadura</a>
-                        <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Cautines</a>
-                        <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                        <a href="https://itoolsmx.com/categoria/herramientas/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Microscopios</a>
+                        <a href="https://itoolsmx.com/categoria/herramientas/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Estaciones de Soldadura</a>
+                        <a href="https://itoolsmx.com/categoria/herramientas/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Cautines</a>
+                        <a href="https://itoolsmx.com/categoria/herramientas/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
                     </div>
                 </div>
                 
                 <div>
                     <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Marcas</h3>
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px;">
-                        <a href="<?php echo get_term_link('apple', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">🍎 Apple</a>
-                        <a href="<?php echo get_term_link('samsung', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">📱 Samsung</a>
-                        <a href="<?php echo get_term_link('huawei', 'product_cat'); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">📲 Huawei</a>
-                        <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                        <a href="https://itoolsmx.com/categoria/apple/" style="color: #6b7280; text-decoration: none; font-size: 14px;">🍎 Apple</a>
+                        <a href="https://itoolsmx.com/categoria/samsung/" style="color: #6b7280; text-decoration: none; font-size: 14px;">📱 Samsung</a>
+                        <a href="https://itoolsmx.com/categoria/huawei/" style="color: #6b7280; text-decoration: none; font-size: 14px;">📲 Huawei</a>
+                        <a href="https://itoolsmx.com/tienda/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
                     </div>
                 </div>
                 
                 <div style="border-top: 1px solid #e5e7eb; padding-top: 16px;">
-                    <a href="<?php echo get_term_link('accesorios', 'product_cat'); ?>" style="display: block; padding: 12px 0; color: #374151; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f3f4f6;">Accesorios</a>
-                    <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" style="display: block; padding: 12px 0; color: #dc2626; font-weight: 600; text-decoration: none;">🏷️ Ofertas</a>
+                    <a href="https://itoolsmx.com/categoria/accesorios/" style="display: block; padding: 12px 0; color: #374151; font-weight: 500; text-decoration: none; border-bottom: 1px solid #f3f4f6;">Accesorios</a>
+                    <a href="https://itoolsmx.com/ofertas/" style="display: block; padding: 12px 0; color: #dc2626; font-weight: 600; text-decoration: none;">🏷️ Ofertas</a>
                 </div>
             </div>
         </div>
