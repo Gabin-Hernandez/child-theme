@@ -263,32 +263,144 @@ get_header(); ?>
                             </button>
                         </div>
                         
-                        <!-- Información de stock y disponibilidad -->
-                        <div class="mt-8 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border border-green-200">
-                            <?php if ( $product->is_in_stock() ) : ?>
+                        <!-- Información de inventario y disponibilidad -->
+                        <?php
+                        $inventory = itools_get_product_inventory($product->get_id());
+                        $delivery_info = itools_get_estimated_delivery_date($product->get_id());
+                        $availability_status = $inventory ? itools_calculate_availability_status($inventory) : 'unknown';
+                        $available_stock = $inventory ? ($inventory->current_stock - $inventory->reserved_stock) : 0;
+                        ?>
+                        
+                        <div class="mt-8 space-y-4">
+                            
+                            <!-- Estado de Disponibilidad -->
+                            <div class="p-6 rounded-2xl border <?php 
+                                switch($availability_status) {
+                                    case 'in_stock':
+                                        echo 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-200';
+                                        break;
+                                    case 'low_stock':
+                                        echo 'bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200';
+                                        break;
+                                    case 'out_of_stock':
+                                        echo 'bg-gradient-to-br from-red-50 to-pink-50 border-red-200';
+                                        break;
+                                    default:
+                                        echo 'bg-gradient-to-br from-gray-50 to-slate-50 border-gray-200';
+                                } ?>">
+                                
                                 <div class="flex items-center gap-3 mb-3">
-                                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                                    <span class="font-semibold text-green-800">En Stock</span>
+                                    <?php 
+                                    switch($availability_status) {
+                                        case 'in_stock':
+                                            echo '<div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>';
+                                            echo '<span class="font-semibold text-green-800">En Stock</span>';
+                                            break;
+                                        case 'low_stock':
+                                            echo '<div class="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>';
+                                            echo '<span class="font-semibold text-yellow-800">Stock Limitado</span>';
+                                            break;
+                                        case 'out_of_stock':
+                                            echo '<div class="w-3 h-3 bg-red-500 rounded-full"></div>';
+                                            echo '<span class="font-semibold text-red-800">Agotado</span>';
+                                            break;
+                                        default:
+                                            echo '<div class="w-3 h-3 bg-gray-500 rounded-full"></div>';
+                                            echo '<span class="font-semibold text-gray-800">Consultar Disponibilidad</span>';
+                                    }
+                                    ?>
                                 </div>
                                 
-                                <?php if ( $product->get_stock_quantity() ) : ?>
-                                    <div class="text-sm text-green-700">
-                                        Disponible: <?php echo $product->get_stock_quantity(); ?> unidades
+                                <?php if ($inventory && $available_stock > 0): ?>
+                                    <div class="text-sm mb-2 <?php echo $availability_status === 'in_stock' ? 'text-green-700' : 'text-yellow-700'; ?>">
+                                        <strong>Disponible:</strong> <?php echo $available_stock; ?> unidades
+                                        <?php if ($inventory->reserved_stock > 0): ?>
+                                            <span class="text-gray-600">(<?php echo $inventory->reserved_stock; ?> reservadas)</span>
+                                        <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
                                 
-                                <div class="text-sm text-green-600 mt-2">
-                                    ✓ Envío rápido disponible<br>
-                                    ✓ Instalación disponible<br>
-                                    ✓ Soporte técnico incluido
+                                <?php if ($delivery_info): ?>
+                                    <div class="text-sm mb-3 font-medium <?php 
+                                        echo $availability_status === 'in_stock' ? 'text-green-700' : 
+                                             ($availability_status === 'low_stock' ? 'text-yellow-700' : 'text-red-700'); 
+                                    ?>">
+                                        <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <strong>Tiempo estimado de entrega:</strong> <?php echo $delivery_info['days']; ?> días hábiles
+                                        <span class="text-xs block mt-1">(Llegada estimada: <?php echo $delivery_info['formatted_date']; ?>)</span>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if ($inventory && $inventory->restock_date && $availability_status === 'out_of_stock'): ?>
+                                    <div class="text-sm text-red-700 mb-3">
+                                        <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a4 4 0 11-8 0V11a3 3 0 013-3h10a3 3 0 013 3v6a4 4 0 11-8 0z"></path>
+                                        </svg>
+                                        <strong>Próxima reposición:</strong> <?php echo date('d/m/Y', strtotime($inventory->restock_date)); ?>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <div class="text-sm <?php 
+                                    echo $availability_status === 'in_stock' ? 'text-green-600' : 
+                                         ($availability_status === 'low_stock' ? 'text-yellow-600' : 'text-red-600'); 
+                                ?>">
+                                    <?php if ($availability_status === 'in_stock'): ?>
+                                        ✓ Envío rápido disponible<br>
+                                        ✓ Instalación disponible<br>
+                                        ✓ Soporte técnico incluido
+                                    <?php elseif ($availability_status === 'low_stock'): ?>
+                                        ⚠ Últimas unidades disponibles<br>
+                                        ✓ Instalación disponible<br>
+                                        ✓ Soporte técnico incluido
+                                    <?php else: ?>
+                                        📧 Te notificaremos cuando esté disponible<br>
+                                        📞 Consulta alternativas similares<br>
+                                        ✓ Soporte técnico incluido
+                                        
+                                        <!-- Formulario de notificación de disponibilidad -->
+                                        <div class="mt-4 p-4 bg-white rounded-lg border border-red-200">
+                                            <h4 class="font-semibold text-gray-800 mb-3">¿Te interesa este producto?</h4>
+                                            <p class="text-sm text-gray-600 mb-3">Déjanos tu email y te avisaremos cuando esté disponible nuevamente.</p>
+                                            
+                                            <form id="availability-notification-form" class="space-y-3">
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                    <input type="text" 
+                                                           id="notification-name" 
+                                                           placeholder="Tu nombre" 
+                                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                                    <input type="email" 
+                                                           id="notification-email" 
+                                                           placeholder="Tu email" 
+                                                           required
+                                                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                                </div>
+                                                <button type="submit" 
+                                                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                                                    Notificarme cuando esté disponible
+                                                </button>
+                                            </form>
+                                            
+                                            <div id="notification-message" class="mt-3 hidden"></div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
-                            <?php else : ?>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                                    <span class="font-semibold text-red-800">Agotado</span>
-                                </div>
-                                <div class="text-sm text-red-600 mt-2">
-                                    Notificaremos cuando esté disponible
+                            </div>
+                            
+                            <!-- Información adicional de inventario para administradores -->
+                            <?php if (current_user_can('manage_options') && $inventory): ?>
+                                <div class="p-4 bg-gray-100 rounded-xl border border-gray-300">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Info para Administradores</h4>
+                                    <div class="text-xs text-gray-600 space-y-1">
+                                        <div><strong>Stock Total:</strong> <?php echo $inventory->current_stock; ?></div>
+                                        <div><strong>Stock Reservado:</strong> <?php echo $inventory->reserved_stock; ?></div>
+                                        <div><strong>Alerta Mínima:</strong> <?php echo $inventory->min_stock_alert; ?></div>
+                                        <?php if ($inventory->supplier_info): ?>
+                                            <div><strong>Proveedor:</strong> <?php echo esc_html($inventory->supplier_info); ?></div>
+                                        <?php endif; ?>
+                                        <div><strong>Última actualización:</strong> <?php echo date('d/m/Y H:i', strtotime($inventory->last_updated)); ?></div>
+                                    </div>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -1195,5 +1307,86 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Formulario de notificación de disponibilidad
+    const availabilityForm = document.getElementById('availability-notification-form');
+    if (availabilityForm) {
+        availabilityForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('notification-name').value;
+            const email = document.getElementById('notification-email').value;
+            const messageDiv = document.getElementById('notification-message');
+            
+            if (!email || !email.includes('@')) {
+                showNotificationMessage('Por favor ingresa un email válido', 'error');
+                return;
+            }
+            
+            // Mostrar loading
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Procesando...';
+            submitBtn.disabled = true;
+            
+            // Envío AJAX
+            jQuery.ajax({
+                url: itools_ajax.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'request_availability_notification',
+                    nonce: itools_ajax.nonce,
+                    product_id: <?php echo get_the_ID(); ?>,
+                    name: name,
+                    email: email
+                },
+                success: function(response) {
+                    if (response.success) {
+                        showNotificationMessage(response.data, 'success');
+                        availabilityForm.reset();
+                        
+                        // Ocultar formulario después de éxito
+                        setTimeout(() => {
+                            availabilityForm.style.opacity = '0.5';
+                            availabilityForm.style.pointerEvents = 'none';
+                        }, 2000);
+                    } else {
+                        showNotificationMessage(response.data || 'Error al procesar la solicitud', 'error');
+                    }
+                },
+                error: function() {
+                    showNotificationMessage('Error de conexión. Inténtalo nuevamente.', 'error');
+                },
+                complete: function() {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    }
+    
+    function showNotificationMessage(message, type) {
+        const messageDiv = document.getElementById('notification-message');
+        if (!messageDiv) return;
+        
+        messageDiv.className = `mt-3 p-3 rounded-lg text-sm ${type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}`;
+        messageDiv.textContent = message;
+        messageDiv.classList.remove('hidden');
+        
+        if (type === 'success') {
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+            }, 5000);
+        }
+    }
 });
+
+// Agregar nonce para AJAX
+if (typeof itools_ajax === 'undefined') {
+    window.itools_ajax = {
+        ajax_url: '<?php echo admin_url('admin-ajax.php'); ?>',
+        nonce: '<?php echo wp_create_nonce('itools_nonce'); ?>',
+        review_nonce: '<?php echo wp_create_nonce('itools_review_nonce'); ?>'
+    };
+}
 </script>
