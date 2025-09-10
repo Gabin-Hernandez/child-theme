@@ -311,7 +311,7 @@ get_header(); ?>
                         Especificaciones
                     </button>
                     <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="reviews">
-                        Reseñas (<?php echo $product->get_review_count(); ?>)
+                        Reseñas
                     </button>
                     <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="shipping">
                         Envío y Devoluciones
@@ -438,282 +438,7 @@ get_header(); ?>
             </div>
         </div>
 
-        <!-- Sección de Reseñas -->
-        <div class="mt-16 mb-16">
-            <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
-                
-                <!-- Header de Reseñas -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 border-b border-gray-100">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Reseñas de Clientes</h2>
-                            <div class="flex items-center space-x-4">
-                                <div class="flex items-center">
-                                    <div class="flex items-center space-x-1" id="average-rating">
-                                        <!-- Estrellas promedio - se actualizan dinámicamente -->
-                                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                        <svg class="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </div>
-                                    <span class="ml-2 text-lg font-semibold text-gray-900" id="average-score">4.2</span>
-                                    <span class="ml-1 text-gray-600">de 5</span>
-                                </div>
-                                <div class="text-gray-600">
-                                    <span id="total-reviews">23</span> reseñas
-                                </div>
-                            </div>
-                        </div>
-                        <button id="write-review-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                            </svg>
-                            Escribir Reseña
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Formulario para nueva reseña (inicialmente oculto) -->
-                <div id="review-form-section" class="hidden bg-gray-50 p-8 border-b border-gray-100">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Comparte tu experiencia</h3>
-                    <form id="review-form" class="space-y-6">
-                        
-                        <!-- Campo de calificación -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-3">Calificación</label>
-                            <div class="flex items-center space-x-2">
-                                <div class="flex items-center space-x-1" id="rating-input">
-                                    <button type="button" class="star-btn w-8 h-8 text-gray-300 hover:text-yellow-400 transition-colors" data-rating="1">
-                                        <svg class="w-full h-full fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="star-btn w-8 h-8 text-gray-300 hover:text-yellow-400 transition-colors" data-rating="2">
-                                        <svg class="w-full h-full fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="star-btn w-8 h-8 text-gray-300 hover:text-yellow-400 transition-colors" data-rating="3">
-                                        <svg class="w-full h-full fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="star-btn w-8 h-8 text-gray-300 hover:text-yellow-400 transition-colors" data-rating="4">
-                                        <svg class="w-full h-full fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </button>
-                                    <button type="button" class="star-btn w-8 h-8 text-gray-300 hover:text-yellow-400 transition-colors" data-rating="5">
-                                        <svg class="w-full h-full fill-current" viewBox="0 0 20 20">
-                                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <span id="rating-text" class="ml-3 text-sm text-gray-600">Selecciona una calificación</span>
-                            </div>
-                            <input type="hidden" id="rating-value" name="rating" value="0">
-                        </div>
-
-                        <!-- Campo de nombre -->
-                        <div>
-                            <label for="reviewer-name" class="block text-sm font-semibold text-gray-700 mb-2">Nombre</label>
-                            <input type="text" id="reviewer-name" name="reviewer_name" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                   placeholder="Tu nombre">
-                        </div>
-
-                        <!-- Campo de email -->
-                        <div>
-                            <label for="reviewer-email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                            <input type="email" id="reviewer-email" name="reviewer_email" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                   placeholder="tu@email.com">
-                        </div>
-
-                        <!-- Campo de título -->
-                        <div>
-                            <label for="review-title" class="block text-sm font-semibold text-gray-700 mb-2">Título de la reseña</label>
-                            <input type="text" id="review-title" name="review_title" required 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                   placeholder="Resume tu experiencia en pocas palabras">
-                        </div>
-
-                        <!-- Campo de comentario -->
-                        <div>
-                            <label for="review-comment" class="block text-sm font-semibold text-gray-700 mb-2">Tu reseña</label>
-                            <textarea id="review-comment" name="review_comment" required rows="4" 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
-                                      placeholder="Comparte los detalles de tu experiencia con este producto..."></textarea>
-                        </div>
-
-                        <!-- Checkbox de recomendación -->
-                        <div class="flex items-center">
-                            <input type="checkbox" id="would-recommend" name="would_recommend" 
-                                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                            <label for="would-recommend" class="ml-3 text-sm text-gray-700">
-                                ¿Recomendarías este producto?
-                            </label>
-                        </div>
-
-                        <!-- Botones de acción -->
-                        <div class="flex items-center space-x-4 pt-4">
-                            <button type="submit" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl">
-                                Publicar Reseña
-                            </button>
-                            <button type="button" id="cancel-review-btn" class="bg-gray-100 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors">
-                                Cancelar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Lista de reseñas existentes -->
-                <div class="p-8">
-                    <div id="reviews-list" class="space-y-6">
-                        
-                        <!-- Reseña ejemplo 1 -->
-                        <div class="review-item bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                            <div class="flex items-start justify-between mb-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                        M
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">María González</h4>
-                                        <div class="flex items-center space-x-2">
-                                            <div class="flex items-center">
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                            </div>
-                                            <span class="text-sm text-gray-600">• Hace 2 días</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                    ✓ Compra verificada
-                                </div>
-                            </div>
-                            <h5 class="font-semibold text-gray-900 mb-2">Excelente calidad y entrega rápida</h5>
-                            <p class="text-gray-700 mb-4">
-                                Muy satisfecha con la compra. El producto llegó exactamente como se describía y en perfectas condiciones. 
-                                La entrega fue más rápida de lo esperado. Definitivamente recomiendo este producto y esta tienda.
-                            </p>
-                            <div class="flex items-center justify-between">
-                                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                    👍 Recomendado
-                                </div>
-                                <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                    <button class="hover:text-blue-600 transition-colors">
-                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V6a2 2 0 012-2h2.5L12 7l-3-3h6.5L18 7v3a2 2 0 01-2 2h-7z"></path>
-                                        </svg>
-                                        Útil (12)
-                                    </button>
-                                    <button class="hover:text-red-600 transition-colors">
-                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 13l3 3 7-7"></path>
-                                        </svg>
-                                        Reportar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Reseña ejemplo 2 -->
-                        <div class="review-item bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                            <div class="flex items-start justify-between mb-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                                        C
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Carlos Rodríguez</h4>
-                                        <div class="flex items-center space-x-2">
-                                            <div class="flex items-center">
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                                <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
-                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
-                                                </svg>
-                                            </div>
-                                            <span class="text-sm text-gray-600">• Hace 1 semana</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                    ✓ Compra verificada
-                                </div>
-                            </div>
-                            <h5 class="font-semibold text-gray-900 mb-2">Buen producto, cumple expectativas</h5>
-                            <p class="text-gray-700 mb-4">
-                                El producto es tal como se describe. La calidad es buena y el precio justo. 
-                                La única observación es que el empaque podría ser mejor, pero el producto llegó sin daños.
-                            </p>
-                            <div class="flex items-center justify-between">
-                                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                    👍 Recomendado
-                                </div>
-                                <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                    <button class="hover:text-blue-600 transition-colors">
-                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V18m-7-8a2 2 0 01-2-2V6a2 2 0 012-2h2.5L12 7l-3-3h6.5L18 7v3a2 2 0 01-2 2h-7z"></path>
-                                        </svg>
-                                        Útil (8)
-                                    </button>
-                                    <button class="hover:text-red-600 transition-colors">
-                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 13l3 3 7-7"></path>
-                                        </svg>
-                                        Reportar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Botón para cargar más reseñas -->
-                        <div class="text-center pt-6">
-                            <button id="load-more-reviews" class="bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 px-8 py-3 rounded-xl font-semibold hover:from-gray-200 hover:to-gray-300 transition-all duration-200 shadow-md hover:shadow-lg">
-                                Cargar más reseñas
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Productos relacionados -->
         <div class="mt-16">
@@ -829,135 +554,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ================================
-    // FUNCIONALIDAD DE RESEÑAS
-    // ================================
+    // Funcionalidad de wishlist
     
-    // Mostrar/Ocultar formulario de reseña
-    const writeReviewBtn = document.getElementById('write-review-btn');
-    const reviewFormSection = document.getElementById('review-form-section');
-    const cancelReviewBtn = document.getElementById('cancel-review-btn');
+
+
+
+
+
     
-    if (writeReviewBtn && reviewFormSection) {
-        writeReviewBtn.addEventListener('click', function() {
-            reviewFormSection.classList.toggle('hidden');
-            if (!reviewFormSection.classList.contains('hidden')) {
-                reviewFormSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-    }
+
+
+
+
+
     
-    if (cancelReviewBtn && reviewFormSection) {
-        cancelReviewBtn.addEventListener('click', function() {
-            reviewFormSection.classList.add('hidden');
-            document.getElementById('review-form').reset();
-            resetStarRating();
-        });
-    }
-    
-    // Funcionalidad de calificación con estrellas
-    const starButtons = document.querySelectorAll('.star-btn');
-    const ratingValue = document.getElementById('rating-value');
-    const ratingText = document.getElementById('rating-text');
-    
-    const ratingLabels = {
-        1: 'Malo',
-        2: 'Regular', 
-        3: 'Bueno',
-        4: 'Muy bueno',
-        5: 'Excelente'
-    };
-    
-    starButtons.forEach((star, index) => {
-        star.addEventListener('click', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            setStarRating(rating);
-        });
-        
-        star.addEventListener('mouseenter', function() {
-            const rating = parseInt(this.getAttribute('data-rating'));
-            highlightStars(rating);
-        });
-    });
-    
-    // Resetear hover cuando sale del contenedor
-    const ratingInput = document.getElementById('rating-input');
-    if (ratingInput) {
-        ratingInput.addEventListener('mouseleave', function() {
-            const currentRating = parseInt(ratingValue.value) || 0;
-            highlightStars(currentRating);
-        });
-    }
-    
-    function setStarRating(rating) {
-        ratingValue.value = rating;
-        ratingText.textContent = ratingLabels[rating] || 'Selecciona una calificación';
-        highlightStars(rating);
-    }
-    
-    function highlightStars(rating) {
-        starButtons.forEach((star, index) => {
-            if (index < rating) {
-                star.classList.remove('text-gray-300');
-                star.classList.add('text-yellow-400');
-            } else {
-                star.classList.remove('text-yellow-400');
-                star.classList.add('text-gray-300');
-            }
-        });
-    }
-    
-    function resetStarRating() {
-        ratingValue.value = '0';
-        ratingText.textContent = 'Selecciona una calificación';
-        highlightStars(0);
-    }
-    
-    // Envío del formulario de reseña
-    const reviewForm = document.getElementById('review-form');
-    if (reviewForm) {
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validar que se haya seleccionado una calificación
-            const rating = parseInt(ratingValue.value);
-            if (rating === 0) {
-                alert('Por favor selecciona una calificación');
-                return;
-            }
-            
-            // Obtener datos del formulario
-            const formData = {
-                rating: rating,
-                reviewer_name: document.getElementById('reviewer-name').value,
-                reviewer_email: document.getElementById('reviewer-email').value,
-                review_title: document.getElementById('review-title').value,
-                review_comment: document.getElementById('review-comment').value,
-                would_recommend: document.getElementById('would-recommend').checked,
-                product_id: <?php echo get_the_ID(); ?>
-            };
-            
-            // Mostrar indicador de carga
-            const submitBtn = reviewForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Enviando...';
-            submitBtn.disabled = true;
-            
-            // Envío AJAX real
-            jQuery.ajax({
-                url: itools_ajax.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'itools_submit_review',
-                    security: itools_ajax.review_nonce,
-                    ...formData
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Crear nueva reseña en el DOM
-                        const newReview = createReviewElement(formData);
-                        const reviewsList = document.getElementById('reviews-list');
-                        const firstReview = reviewsList.querySelector('.review-item');
+    // Funcionalidad de wishlist
                         
                         if (firstReview) {
                             reviewsList.insertBefore(newReview, firstReview);
@@ -1143,9 +754,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ================================
-    // FIN FUNCIONALIDAD DE RESEÑAS
-    // ================================
+
     
     // Funcionalidad de wishlist
     const wishlistBtn = document.querySelector('.wishlist-btn');
