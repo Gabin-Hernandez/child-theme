@@ -177,6 +177,7 @@ get_header(); ?>
             <button onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
             <button onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
             <button onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
+            <button onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
         </div>
         
         <!-- Flechas de navegación mejoradas -->
@@ -557,88 +558,104 @@ get_header(); ?>
                         <!-- Producto 1 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                                     alt="Pantalla iPhone 14" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14&post_type=product' : '/tienda/?s=pantalla+iphone+14'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
+                                         alt="Pantalla iPhone 14" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     -25%
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Pantalla iPhone 14</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14&post_type=product' : '/tienda/?s=pantalla+iphone+14'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Pantalla iPhone 14</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$750.00</span>
                                     <span class="text-gray-400 line-through">$1,000.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14&post_type=product' : '/tienda/?s=pantalla+iphone+14'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto 2 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
-                                     alt="Batería Samsung" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung&post_type=product' : '/categoria/baterias/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
+                                         alt="Batería Samsung" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     -30%
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Batería Samsung</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung&post_type=product' : '/categoria/baterias/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Batería Samsung</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$175.00</span>
                                     <span class="text-gray-400 line-through">$250.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung&post_type=product' : '/categoria/baterias/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto 3 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                                     alt="Kit Herramientas" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
+                                         alt="Kit Herramientas" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     -20%
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Kit Herramientas</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Kit Herramientas</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$320.00</span>
                                     <span class="text-gray-400 line-through">$400.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas&post_type=product' : '/categoria/herramientas/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto 4 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                                     alt="Accesorios Pro" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios&post_type=product' : '/categoria/accesorios/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
+                                         alt="Accesorios Pro" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     -15%
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Accesorios Pro</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios&post_type=product' : '/categoria/accesorios/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Accesorios Pro</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$85.00</span>
                                     <span class="text-gray-400 line-through">$100.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios&post_type=product' : '/categoria/accesorios/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -679,84 +696,100 @@ get_header(); ?>
                         <!-- Producto Destacado 1 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                                     alt="Microscopio Pro" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=microscopio&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
+                                         alt="Microscopio Pro" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     TOP
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Microscopio Pro</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=microscopio&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Microscopio Pro</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-blue-600 font-bold text-xl">$6,900.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=microscopio&post_type=product' : '/categoria/herramientas/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto Destacado 2 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                                     alt="LCD iPhone 15" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=lcd+iphone+15&post_type=product' : '/categoria/lcd-y-touch/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
+                                         alt="LCD iPhone 15" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     TOP
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">LCD iPhone 15</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=lcd+iphone+15&post_type=product' : '/categoria/lcd-y-touch/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">LCD iPhone 15</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-blue-600 font-bold text-xl">$700.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=lcd+iphone+15&post_type=product' : '/categoria/lcd-y-touch/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto Destacado 3 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
-                                     alt="Estación Soldadura" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=estacion+soldadura&post_type=product' : '/categoria/estaciones-soldadura/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
+                                         alt="Estación Soldadura" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     TOP
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Estación Soldadura</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=estacion+soldadura&post_type=product' : '/categoria/estaciones-soldadura/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Estación Soldadura</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-blue-600 font-bold text-xl">$7,450.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=estacion+soldadura&post_type=product' : '/categoria/estaciones-soldadura/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <!-- Producto Destacado 4 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                                     alt="Kit Completo" 
-                                     class="w-full h-48 object-cover">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+completo&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
+                                         alt="Kit Completo" 
+                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                </a>
                                 <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
                                     TOP
                                 </div>
                             </div>
                             <div class="p-4">
-                                <h3 class="font-bold text-lg mb-2">Kit Completo</h3>
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+completo&post_type=product' : '/categoria/herramientas/'; ?>">
+                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Kit Completo</h3>
+                                </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-blue-600 font-bold text-xl">$1,350.00</span>
                                 </div>
-                                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors">
+                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+completo&post_type=product' : '/categoria/herramientas/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -841,9 +874,9 @@ get_header(); ?>
                                 <span class="text-2xl font-bold text-orange-400">$6,900</span>
                                 <span class="text-gray-500 line-through ml-2">$8,500</span>
                             </div>
-                            <button class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=microscopio&post_type=product' : '/categoria/herramientas/'; ?>" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
                                 Ver Producto
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -885,9 +918,9 @@ get_header(); ?>
                                 <span class="text-2xl font-bold text-blue-400">$2,850</span>
                                 <span class="text-gray-500 line-through ml-2">$3,200</span>
                             </div>
-                            <button class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+15&post_type=product' : '/categoria/lcd-y-touch/'; ?>" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
                                 Ver Producto
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -929,9 +962,9 @@ get_header(); ?>
                                 <span class="text-2xl font-bold text-green-400">$4,750</span>
                                 <span class="text-gray-500 line-through ml-2">$5,400</span>
                             </div>
-                            <button class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=estacion+soldadura&post_type=product' : '/categoria/estaciones-soldadura/'; ?>" class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
                                 Ver Producto
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
