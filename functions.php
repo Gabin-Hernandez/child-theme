@@ -727,4 +727,348 @@ function mostrar_site_reviews() {
     echo do_shortcode('[site_reviews assigned_posts="' . $product->get_id() . '" template="default"]');
 }
 
+// Mejorar el diseño de las valoraciones de WooCommerce
+function itools_woocommerce_reviews_styles() {
+    ?>
+    <style>
+    /* Diseño moderno para las valoraciones de WooCommerce */
+    .woocommerce-Reviews {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+    }
+
+    .woocommerce-Reviews-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .woocommerce-Reviews-title::before {
+        content: "⭐";
+        font-size: 1.5rem;
+    }
+
+    /* Estrellas mejoradas */
+    .woocommerce .star-rating {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem;
+        line-height: 1;
+        margin: 0.5rem 0;
+    }
+
+    .woocommerce .star-rating::before {
+        content: "★★★★★";
+        color: #e5e7eb;
+        position: relative;
+        z-index: 1;
+    }
+
+    .woocommerce .star-rating span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    .woocommerce .star-rating span::before {
+        content: "★★★★★";
+        color: #fbbf24;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Comentarios/Reseñas individuales */
+    .commentlist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .commentlist .review {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .commentlist .review:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+        border-color: #3b82f6;
+    }
+
+    .commentlist .review::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    }
+
+    .commentlist .review .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .commentlist .review .meta strong {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .commentlist .review .meta strong::before {
+        content: "👤";
+        font-size: 1rem;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        padding: 0.25rem;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+    }
+
+    .commentlist .review .meta time {
+        color: #6b7280;
+        font-size: 0.875rem;
+        background: #e5e7eb;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+    }
+
+    .commentlist .review .description p {
+        color: #374151;
+        line-height: 1.6;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    /* Formulario de agregar reseña */
+    #review_form_wrapper {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    #review_form_wrapper h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #review_form_wrapper h3::before {
+        content: "✍️";
+        font-size: 1.25rem;
+    }
+
+    #review_form .comment-form-rating {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+    }
+
+    #review_form .comment-form-rating label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    #review_form .stars {
+        display: flex;
+        gap: 0.25rem;
+        margin-top: 0.5rem;
+    }
+
+    #review_form .stars a {
+        color: #e5e7eb;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: color 0.2s ease;
+    }
+
+    #review_form .stars a:hover,
+    #review_form .stars a.active {
+        color: #fbbf24;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #review_form .comment-form-comment textarea,
+    #review_form .comment-form-author input,
+    #review_form .comment-form-email input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+        background: #fff;
+    }
+
+    #review_form .comment-form-comment textarea:focus,
+    #review_form .comment-form-author input:focus,
+    #review_form .comment-form-email input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    #review_form .form-submit input {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    #review_form .form-submit input:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Resumen de valoraciones */
+    .woocommerce-product-rating {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .woocommerce-product-rating .star-rating {
+        font-size: 1.5rem;
+    }
+
+    .woocommerce-product-rating a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        background: #fff;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .woocommerce-product-rating a:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .woocommerce-Reviews,
+        #review_form_wrapper {
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .commentlist .review {
+            padding: 1rem;
+        }
+
+        .commentlist .review .meta {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .woocommerce-product-rating {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .commentlist .review {
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    .commentlist .review:nth-child(even) {
+        animation-delay: 0.1s;
+    }
+
+    .commentlist .review:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+    </style>
+    <?php
+}
+add_action('wp_head', 'itools_woocommerce_reviews_styles');
+
+// Mejorar el texto de las valoraciones
+function itools_custom_review_text($translated_text, $text, $domain) {
+    if ($domain === 'woocommerce') {
+        switch ($text) {
+            case 'Reviews (%d)':
+                return 'Reseñas de Clientes (%d)';
+            case 'Be the first to review "%s"':
+                return 'Sé el primero en reseñar "%s"';
+            case 'Add a review':
+                return 'Agregar una Reseña';
+            case 'Your review':
+                return 'Tu Reseña';
+            case 'Name':
+                return 'Nombre';
+            case 'Email':
+                return 'Correo Electrónico';
+            case 'Your rating':
+                return 'Tu Calificación';
+            case 'Submit':
+                return 'Enviar Reseña';
+        }
+    }
+    return $translated_text;
+}
+add_filter('gettext', 'itools_custom_review_text', 20, 3);
+
 
