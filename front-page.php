@@ -96,7 +96,7 @@ get_header(); ?>
                             <p class="text-xl text-gray-200 mb-8">
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=refacciones' : '/categoria/refacciones/'; ?>" 
+                            <a href="/categoria/refacciones/" 
                                class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
                                 Ver Refacciones
                             </a>
@@ -129,7 +129,7 @@ get_header(); ?>
                             <p class="text-xl text-purple-100 mb-8">
                                 Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                             </p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>" 
+                            <a href="/categoria/lcd-y-touch/" 
                                class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
                                 Ver Pantallas
                             </a>
@@ -162,7 +162,7 @@ get_header(); ?>
                             <p class="text-xl text-yellow-100 mb-8">
                                 Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                             </p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
+                            <a href="/categoria/baterias/" 
                                class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
                                 Ver Baterías
                             </a>
@@ -213,7 +213,7 @@ get_header(); ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                 
                 <!-- Refacciones -->
-                <div class="group cursor-pointer" onclick="window.location.href='<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=refacciones' : '/categoria/refacciones/'; ?>'">
+                <div class="group cursor-pointer" onclick="window.location.href='/categoria/refacciones/'">
                     <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                              alt="Refacciones de celulares" 
@@ -238,7 +238,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Pantallas -->
-                <div class="group cursor-pointer" onclick="window.location.href='<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>'">
+                <div class="group cursor-pointer" onclick="window.location.href='/categoria/lcd-y-touch/'">
                     <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                              alt="Pantallas LCD y Touch" 
@@ -263,7 +263,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Herramientas -->
-                <div class="group cursor-pointer" onclick="window.location.href='<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=herramientas' : '/categoria/herramientas/'; ?>'">
+                <div class="group cursor-pointer" onclick="window.location.href='/categoria/herramientas/'">
                     <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                              alt="Herramientas profesionales" 
@@ -288,7 +288,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Baterías -->
-                <div class="group cursor-pointer" onclick="window.location.href='<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>'">
+                <div class="group cursor-pointer" onclick="window.location.href='/categoria/baterias/'">
                     <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                              alt="Baterías y accesorios" 
@@ -558,7 +558,7 @@ get_header(); ?>
                         <!-- Producto 1 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>">
+                                <a href="/categoria/lcd-y-touch/">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                                          alt="Pantalla iPhone 14" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -568,14 +568,14 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>">
+                                <a href="/categoria/lcd-y-touch/">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Pantalla iPhone 14</h3>
                                 </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$750.00</span>
                                     <span class="text-gray-400 line-through">$1,000.00</span>
                                 </div>
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas' : '/categoria/lcd-y-touch/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
+                                <a href="/categoria/lcd-y-touch/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
                                 </a>
                             </div>
@@ -584,7 +584,7 @@ get_header(); ?>
                         <!-- Producto 2 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>">
+                                <a href="/categoria/baterias/">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                                          alt="Batería Samsung" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -594,14 +594,14 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>">
+                                <a href="/categoria/baterias/">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Batería Samsung</h3>
                                 </a>
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="text-red-500 font-bold text-xl">$175.00</span>
                                     <span class="text-gray-400 line-through">$250.00</span>
                                 </div>
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
+                                <a href="/categoria/baterias/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
                                     Ver Producto
                                 </a>
                             </div>
@@ -1369,3 +1369,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php get_footer(); ?>
+
