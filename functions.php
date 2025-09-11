@@ -1119,3 +1119,105 @@ function itools_woocommerce_search_modification( $query ) {
 }
 add_action( 'pre_get_posts', 'itools_woocommerce_search_modification', 20 );
 
+// Función para obtener URL de producto específico
+function itools_get_product_url($search_term) {
+    if (!function_exists('wc_get_page_permalink')) {
+        return '/tienda/?s=' . urlencode($search_term);
+    }
+    
+    // Buscar producto específico por nombre
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'name' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return get_permalink($products[0]->get_id());
+    }
+    
+    // Si no encuentra producto específico, buscar por términos similares
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        's' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return get_permalink($products[0]->get_id());
+    }
+    
+    // Fallback a búsqueda general
+    return esc_url(wc_get_page_permalink('shop')) . '?s=' . urlencode($search_term);
+}
+
+// Función para obtener ID de producto por nombre/slug
+function itools_get_product_id($search_term) {
+    if (!function_exists('wc_get_products')) {
+        return false;
+    }
+    
+    // Buscar por nombre exacto
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'name' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return $products[0]->get_id();
+    }
+    
+    // Buscar por slug
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'slug' => sanitize_title($search_term)
+    ));
+    
+    if (!empty($products)) {
+        return $products[0]->get_id();
+    }
+    
+    return false;
+}
+
+// AJAX handler para agregar al carrito
+function itools_ajax_add_to_cart() {
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_cart_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    $product_id = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity']) ?: 1;
+    
+    if (!$product_id) {
+        wp_send_json_error('Invalid product ID');
+        return;
+    }
+    
+    $result = WC()->cart->add_to_cart($product_id, $quantity);
+    
+    if ($result) {
+        wp_send_json_success(array(
+            'message' => 'Producto agregado al carrito',
+            'cart_count' => WC()->cart->get_cart_contents_count()
+        ));
+    } else {
+        wp_send_json_error('Error al agregar producto al carrito');
+    }
+}
+add_action('wp_ajax_itools_add_to_cart', 'itools_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_itools_add_to_cart', 'itools_ajax_add_to_cart');
+
+// Agregar variables JavaScript necesarias
+function itools_localize_scripts() {
+    if (is_front_page()) {
+        wp_localize_script('jquery', 'itools_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('itools_cart_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_localize_scripts');
+

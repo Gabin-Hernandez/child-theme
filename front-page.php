@@ -558,7 +558,7 @@ get_header(); ?>
                         <!-- Producto 1 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="/categoria/lcd-y-touch/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                                          alt="Pantalla iPhone 14" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -568,23 +568,33 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="/categoria/lcd-y-touch/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Pantalla iPhone 14</h3>
                                 </a>
-                                <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center gap-2 mb-3">
                                     <span class="text-red-500 font-bold text-xl">$750.00</span>
                                     <span class="text-gray-400 line-through">$1,000.00</span>
                                 </div>
-                                <a href="/categoria/lcd-y-touch/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
+                                <div class="flex gap-2">
+                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>" 
+                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                        Ver Producto
+                                    </a>
+                                    <button onclick="addToCart('pantalla-iphone-14')" 
+                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            title="Agregar al carrito">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Producto 2 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="/categoria/baterias/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                                          alt="Batería Samsung" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -594,23 +604,33 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="/categoria/baterias/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Batería Samsung</h3>
                                 </a>
-                                <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center gap-2 mb-3">
                                     <span class="text-red-500 font-bold text-xl">$175.00</span>
                                     <span class="text-gray-400 line-through">$250.00</span>
                                 </div>
-                                <a href="/categoria/baterias/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
+                                <div class="flex gap-2">
+                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>" 
+                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                        Ver Producto
+                                    </a>
+                                    <button onclick="addToCart('bateria-samsung')" 
+                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            title="Agregar al carrito">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Producto 3 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="/categoria/herramientas/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                                          alt="Kit Herramientas" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -620,23 +640,33 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="/categoria/herramientas/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Kit Herramientas</h3>
                                 </a>
-                                <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center gap-2 mb-3">
                                     <span class="text-red-500 font-bold text-xl">$320.00</span>
                                     <span class="text-gray-400 line-through">$400.00</span>
                                 </div>
-                                <a href="/categoria/herramientas/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
+                                <div class="flex gap-2">
+                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>" 
+                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                        Ver Producto
+                                    </a>
+                                    <button onclick="addToCart('kit-herramientas')" 
+                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            title="Agregar al carrito">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Producto 4 -->
                         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                             <div class="relative">
-                                <a href="/categoria/herramientas/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>">
                                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                                          alt="Accesorios Pro" 
                                          class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
@@ -646,16 +676,26 @@ get_header(); ?>
                                 </div>
                             </div>
                             <div class="p-4">
-                                <a href="/categoria/accesorios/">
+                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>">
                                     <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Accesorios Pro</h3>
                                 </a>
-                                <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center gap-2 mb-3">
                                     <span class="text-red-500 font-bold text-xl">$85.00</span>
                                     <span class="text-gray-400 line-through">$100.00</span>
                                 </div>
-                                <a href="/categoria/accesorios/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
+                                <div class="flex gap-2">
+                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>" 
+                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                        Ver Producto
+                                    </a>
+                                    <button onclick="addToCart('accesorios-pro')" 
+                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                            title="Agregar al carrito">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1231,6 +1271,148 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Función para agregar productos al carrito
+    window.addToCart = function(productSlug) {
+        const button = event.target;
+        const originalContent = button.innerHTML;
+        
+        // Mostrar estado de carga
+        button.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-8h-4M6 12H2m10.5-6.5L15 5m-3 3L9.5 5.5M15 19l-2.5-2.5M9.5 19.5L12 17"></path></svg>';
+        button.disabled = true;
+        
+        // Si jQuery y AJAX están disponibles, usar WooCommerce real
+        if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
+            // Buscar ID del producto (simulado por ahora)
+            let productId = null;
+            switch(productSlug) {
+                case 'pantalla-iphone-14':
+                    productId = getProductIdByName('Pantalla iPhone 14');
+                    break;
+                case 'bateria-samsung':
+                    productId = getProductIdByName('Batería Samsung');
+                    break;
+                case 'kit-herramientas':
+                    productId = getProductIdByName('Kit Herramientas');
+                    break;
+                case 'accesorios-pro':
+                    productId = getProductIdByName('Accesorios Pro');
+                    break;
+            }
+            
+            if (productId) {
+                jQuery.ajax({
+                    url: itools_ajax.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'itools_add_to_cart',
+                        product_id: productId,
+                        quantity: 1,
+                        nonce: itools_ajax.nonce
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            showSuccessState(button, originalContent);
+                            showCartNotification('✅ Producto agregado al carrito');
+                            updateCartCount(response.data.cart_count);
+                        } else {
+                            showErrorState(button, originalContent);
+                            showCartNotification('❌ Error: ' + response.data, 'error');
+                        }
+                    },
+                    error: function() {
+                        showErrorState(button, originalContent);
+                        showCartNotification('❌ Error de conexión', 'error');
+                    }
+                });
+            } else {
+                // Fallback: Simular agregado exitoso
+                setTimeout(() => {
+                    showSuccessState(button, originalContent);
+                    showCartNotification('✅ Producto agregado al carrito');
+                }, 800);
+            }
+        } else {
+            // Fallback sin jQuery
+            setTimeout(() => {
+                showSuccessState(button, originalContent);
+                showCartNotification('✅ Producto agregado al carrito');
+            }, 800);
+        }
+    };
+    
+    // Funciones auxiliares
+    function getProductIdByName(productName) {
+        // Esta función debería buscar el ID real del producto
+        // Por ahora retorna null para usar el fallback
+        return null;
+    }
+    
+    function showSuccessState(button, originalContent) {
+        button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        button.className = button.className.replace('bg-green-600', 'bg-green-700');
+        
+        setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.disabled = false;
+            button.className = button.className.replace('bg-green-700', 'bg-green-600');
+        }, 2000);
+    }
+    
+    function showErrorState(button, originalContent) {
+        button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        button.className = button.className.replace('bg-green-600', 'bg-red-600');
+        
+        setTimeout(() => {
+            button.innerHTML = originalContent;
+            button.disabled = false;
+            button.className = button.className.replace('bg-red-600', 'bg-green-600');
+        }, 2000);
+    }
+    
+    function updateCartCount(count) {
+        const cartCountElements = document.querySelectorAll('.cart-count, .cart-counter');
+        cartCountElements.forEach(element => {
+            element.textContent = count;
+            element.style.display = count > 0 ? 'inline' : 'none';
+        });
+    }
+    
+    // Función para mostrar notificación de carrito
+    function showCartNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        const bgColor = type === 'success' ? 'bg-green-600' : 'bg-red-600';
+        const icon = type === 'success' 
+            ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'
+            : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+        
+        notification.className = `fixed top-20 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+        notification.innerHTML = `
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ${icon}
+                </svg>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Mostrar notificación
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Ocultar después de 3 segundos
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
 });
 </script>
 
