@@ -6,6 +6,17 @@
 // Encolar estilos del tema padre
 function itools_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+    
+    // Encolar JavaScript para páginas de producto individual
+    if ( is_product() ) {
+        wp_enqueue_script( 
+            'itools-single-product', 
+            get_stylesheet_directory_uri() . '/js/single-product.js', 
+            array(), 
+            '1.0.0', 
+            true 
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
 
@@ -29,6 +40,22 @@ function itools_child_theme_setup() {
     add_theme_support( 'menus' );
 }
 add_action( 'after_setup_theme', 'itools_child_theme_setup' );
+
+// Remover hooks duplicados de WooCommerce en páginas de producto individual
+function itools_remove_woocommerce_single_product_hooks() {
+    // Solo aplicar en páginas de producto individual
+    if ( is_product() ) {
+        // Remover el formulario por defecto de agregar al carrito
+        remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+        
+        // Remover el selector de cantidad por defecto
+        remove_action( 'woocommerce_before_add_to_cart_button', 'woocommerce_quantity_input', 20 );
+        
+        // Remover metadatos adicionales que pueden duplicarse
+        remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+    }
+}
+add_action( 'wp', 'itools_remove_woocommerce_single_product_hooks' );
 
 // Mejorar la búsqueda de productos básica
 function itools_modify_search_query( $query ) {

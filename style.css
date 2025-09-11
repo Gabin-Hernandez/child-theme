@@ -48,15 +48,98 @@ Text Domain:    child-theme
     width: 100% !important;
     background-color: #2563eb !important;
     color: white !important;
-    padding: 8px 16px !important;
-    border-radius: 8px !important;
     border: none !important;
-    font-size: 14px !important;
+    border-radius: 0.75rem !important;
+    padding: 12px 24px !important;
     font-weight: 600 !important;
     transition: all 0.3s ease !important;
-    text-align: center !important;
 }
 
+.woocommerce .button.add_to_cart_button:hover,
+.woocommerce .button.product_type_simple:hover {
+    background-color: #1d4ed8 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Estilos específicos para la página de producto individual */
+.single-product .single_add_to_cart_button {
+    background: #2563eb !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
+    font-size: 1rem !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+    background: #1d4ed8 !important;
+    box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Mejoras para las pestañas de producto */
+.tab-content {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.border-b-3 {
+    border-bottom-width: 3px !important;
+}
+
+/* Estilos para las reseñas de WooCommerce */
+.woocommerce #reviews #comments ol.commentlist li {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.woocommerce .star-rating {
+    color: #fbbf24 !important;
+}
+
+.woocommerce .star-rating::before {
+    color: #e5e7eb !important;
+}
+
+/* Ocultar elementos duplicados de WooCommerce */
+.single-product .woocommerce-product-details__short-description {
+    display: none !important;
+}
+
+/* Mejoras para el selector de cantidad */
+.qty {
+    text-align: center !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+}
+
+.qty:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .single-product .grid.grid-cols-1.lg\\:grid-cols-2 {
+        gap: 2rem !important;
+    }
+    
+    .single-product .flex.items-center.gap-4 {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    .single-product .flex.items-center.gap-4 > div:first-child {
+        justify-content: center !important;
+    }
+}
+
+/* Botones de WooCommerce - hover states */
 .woocommerce .button.add_to_cart_button:hover,
 .woocommerce .button.product_type_simple:hover {
     background-color: #1d4ed8 !important;
@@ -352,4 +435,64 @@ Text Domain:    child-theme
     background-color: #fef2f2 !important;
     color: #991b1b !important;
     border-left-color: #ef4444 !important;
+}
+
+/* Estilos específicos para página de producto individual */
+.single-product .single_add_to_cart_button {
+    background: #2563eb !important;
+    border: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+    background: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+}
+
+.single-product .qty-btn {
+    transition: all 0.2s ease !important;
+}
+
+.single-product .qty-btn:hover {
+    background-color: #e5e7eb !important;
+}
+
+.single-product .border-b-3 {
+    border-bottom-width: 3px !important;
+}
+
+.single-product .tab-content {
+    transition: all 0.3s ease-in-out !important;
+    display: none !important;
+}
+
+.single-product .tab-content.active,
+.single-product .tab-content:first-child {
+    display: block !important;
+}
+
+.single-product .thumbnail-img {
+    transition: all 0.2s ease !important;
+}
+
+.single-product .thumbnail-img:hover {
+    transform: scale(1.05) !important;
+}
+
+/* Mejorar el diseño de las pestañas */
+.single-product .tab-btn {
+    transition: all 0.2s ease-in-out !important;
+    position: relative !important;
+}
+
+.single-product .tab-btn.active::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -1px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background-color: #3b82f6 !important;
+    border-radius: 1px 1px 0 0 !important;
 }

@@ -208,16 +208,11 @@ get_header(); ?>
                             </div>
                         <?php endif; ?>
 
-                        <?php
-                        /**
-                         * Hook: woocommerce_single_product_summary.
-                         */
-                        do_action( 'woocommerce_single_product_summary' );
-                        ?>
-                        
                         <!-- Formulario de agregar al carrito personalizado -->
                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                             <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+                                
+                                <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
                                 
                                 <!-- Cantidad y botón agregar al carrito -->
                                 <div class="flex items-center gap-4 mb-6">
@@ -238,12 +233,16 @@ get_header(); ?>
                                     <button type="submit" 
                                             name="add-to-cart" 
                                             value="<?php echo esc_attr( $product->get_id() ); ?>" 
-                                            class="single_add_to_cart_button button alt flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                        <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                                            class="single_add_to_cart_button button alt flex-1 bg-blue-600 text-white py-4 px-8 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                        <span class="flex items-center justify-center gap-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8 9.2M7 13l2.6-7.4M16 6l2 2-2 2m2-2H4"></path>
+                                            </svg>
+                                            <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                                        </span>
                                     </button>
                                 </div>
                                 
-                                <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
                                 <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
                             </form>
                         <?php endif; ?>
@@ -298,22 +297,43 @@ get_header(); ?>
             </div>
         </div>
 
+        <!-- Descripción del producto -->
+        <?php if ( $product->get_description() ) : ?>
+            <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Descripción del Producto
+                </h2>
+                <div class="prose prose-lg max-w-none text-gray-700">
+                    <?php echo $product->get_description(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <!-- Pestañas del producto con diseño moderno -->
         <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
             
             <!-- Navegación de pestañas -->
-            <div class="border-b border-gray-200">
-                <nav class="flex space-x-8 px-8 py-4" aria-label="Tabs">
-                    <button class="tab-btn active whitespace-nowrap py-3 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="description">
-                        Descripción
-                    </button>
-                    <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="additional">
+            <div class="border-b border-gray-200 bg-gray-50">
+                <nav class="flex space-x-0" aria-label="Tabs">
+                    <button class="tab-btn active flex-1 py-4 px-6 font-semibold text-sm text-blue-600 bg-white border-b-3 border-blue-500 transition-all duration-200" data-tab="additional">
+                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
                         Especificaciones
                     </button>
-                    <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="reviews">
+                    <button class="tab-btn flex-1 py-4 px-6 font-semibold text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 transition-all duration-200" data-tab="reviews">
+                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
                         Reseñas
                     </button>
-                    <button class="tab-btn whitespace-nowrap py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="shipping">
+                    <button class="tab-btn flex-1 py-4 px-6 font-semibold text-sm text-gray-600 bg-gray-50 hover:bg-gray-100 transition-all duration-200" data-tab="shipping">
+                        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
                         Envío y Devoluciones
                     </button>
                 </nav>
@@ -322,30 +342,19 @@ get_header(); ?>
             <!-- Contenido de pestañas -->
             <div class="p-8">
                 
-                <!-- Descripción -->
-                <div id="description" class="tab-content">
-                    <div class="prose max-w-none">
-                        <?php if ( $product->get_description() ) : ?>
-                            <?php echo $product->get_description(); ?>
-                        <?php else : ?>
-                            <p class="text-gray-600">No hay descripción disponible para este producto.</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                
                 <!-- Especificaciones -->
-                <div id="additional" class="tab-content hidden">
+                <div id="additional" class="tab-content">
                     <?php 
                     $attributes = $product->get_attributes();
                     if ( ! empty( $attributes ) ) :
                     ?>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <?php foreach ( $attributes as $attribute ) : ?>
-                                <div class="bg-gray-50 p-6 rounded-2xl">
-                                    <dt class="font-semibold text-gray-900 mb-2">
+                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
+                                    <dt class="font-bold text-gray-900 mb-3 text-lg">
                                         <?php echo wc_attribute_label( $attribute->get_name() ); ?>
                                     </dt>
-                                    <dd class="text-gray-700">
+                                    <dd class="text-gray-700 text-base">
                                         <?php
                                         if ( $attribute->is_taxonomy() ) {
                                             $values = wc_get_product_terms( $product->get_id(), $attribute->get_name(), array( 'fields' => 'names' ) );
@@ -359,80 +368,105 @@ get_header(); ?>
                             <?php endforeach; ?>
                         </div>
                     <?php else : ?>
-                        <p class="text-gray-600">No hay especificaciones adicionales para este producto.</p>
+                        <div class="text-center py-12">
+                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <p class="text-gray-600 text-lg">No hay especificaciones adicionales para este producto.</p>
+                        </div>
                     <?php endif; ?>
                 </div>
                 
                 <!-- Reseñas -->
                 <div id="reviews" class="tab-content hidden">
-                    <?php
-                    if ( comments_open() || get_comments_number() ) {
-                        comments_template();
-                    } else {
-                        echo '<p class="text-gray-600">Las reseñas están deshabilitadas para este producto.</p>';
-                    }
-                    ?>
+                    <div class="space-y-6">
+                        <?php
+                        if ( comments_open() || get_comments_number() ) {
+                            // Agregar algunos estilos personalizados para las reseñas
+                            echo '<div class="woocommerce-reviews-section">';
+                            comments_template();
+                            echo '</div>';
+                        } else {
+                            echo '<div class="text-center py-12">';
+                            echo '<svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                            echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>';
+                            echo '</svg>';
+                            echo '<p class="text-gray-600 text-lg">Las reseñas están deshabilitadas para este producto.</p>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
                 </div>
                 
                 <!-- Envío y Devoluciones -->
                 <div id="shipping" class="tab-content hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         
                         <!-- Información de envío -->
-                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl">
-                            <h3 class="font-bold text-gray-900 mb-4 flex items-center">
-                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border border-blue-200">
+                            <h3 class="font-bold text-gray-900 mb-6 flex items-center text-xl">
+                                <svg class="w-7 h-7 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                 </svg>
                                 Opciones de Envío
                             </h3>
-                            <ul class="space-y-3 text-gray-700">
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                                    Envío gratis en pedidos superiores a $50
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Envío gratis</strong> en pedidos superiores a $50</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                                    Entrega estándar: 3-5 días hábiles
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Entrega estándar:</strong> 3-5 días hábiles</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
-                                    Entrega express: 1-2 días hábiles
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Entrega express:</strong> 1-2 días hábiles</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
-                                    Recogida en tienda disponible
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Recogida en tienda</strong> disponible</span>
                                 </li>
                             </ul>
                         </div>
                         
                         <!-- Política de devoluciones -->
-                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl">
-                            <h3 class="font-bold text-gray-900 mb-4 flex items-center">
-                                <svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl border border-green-200">
+                            <h3 class="font-bold text-gray-900 mb-6 flex items-center text-xl">
+                                <svg class="w-7 h-7 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                 </svg>
                                 Devoluciones y Cambios
                             </h3>
-                            <ul class="space-y-3 text-gray-700">
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
-                                    30 días para devoluciones
+                            <ul class="space-y-4 text-gray-700">
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-green-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>30 días</strong> para devoluciones</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
-                                    Devolución gratuita en productos defectuosos
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-blue-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Devolución gratuita</strong> en productos defectuosos</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
-                                    Reembolso completo o cambio
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-purple-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span><strong>Reembolso completo</strong> o cambio</span>
                                 </li>
-                                <li class="flex items-center">
-                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
-                                    Producto debe estar en condiciones originales
+                                <li class="flex items-center text-base">
+                                    <span class="w-3 h-3 bg-orange-500 rounded-full mr-4 flex-shrink-0"></span>
+                                    <span>Producto debe estar en <strong>condiciones originales</strong></span>
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    
+                    <!-- Información adicional -->
+                    <div class="mt-8 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                        <h4 class="font-semibold text-gray-900 mb-3">Información Importante:</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Los productos electrónicos requieren empaque original para devoluciones</li>
+                            <li>• Los costos de envío de devolución corren por cuenta del cliente (excepto productos defectuosos)</li>
+                            <li>• El procesamiento de reembolsos toma de 3-5 días hábiles</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -443,10 +477,8 @@ get_header(); ?>
         <!-- Productos relacionados -->
         <div class="mt-16">
             <?php
-            /**
-             * Hook: woocommerce_after_single_product_summary.
-             */
-            do_action( 'woocommerce_after_single_product_summary' );
+            // Solo mostrar productos relacionados, no duplicar otros elementos
+            woocommerce_output_related_products();
             ?>
         </div>
 
@@ -456,11 +488,90 @@ get_header(); ?>
 </div>
 
 <!-- JavaScript para las pestañas y galería -->
+<style>
+    .border-b-3 {
+        border-bottom-width: 3px;
+    }
+    
+    .tab-content {
+        transition: all 0.3s ease-in-out;
+        display: none;
+    }
+    
+    .tab-content.active,
+    .tab-content:first-child {
+        display: block;
+    }
+    
+    .tab-btn {
+        transition: all 0.2s ease-in-out;
+    }
+    
+    .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        margin-top: 1.5em;
+        margin-bottom: 0.75em;
+        font-weight: 600;
+        color: #1f2937;
+    }
+    
+    .prose p {
+        margin-bottom: 1em;
+        line-height: 1.7;
+    }
+    
+    .prose ul, .prose ol {
+        margin-bottom: 1em;
+        padding-left: 1.5em;
+    }
+    
+    .prose li {
+        margin-bottom: 0.5em;
+    }
+    
+    .woocommerce-reviews-section .comment-list {
+        padding: 0;
+        list-style: none;
+    }
+    
+    .woocommerce-reviews-section .comment {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .woocommerce-reviews-section .star-rating {
+        color: #fbbf24;
+    }
+    
+    .product-images img {
+        transition: all 0.3s ease;
+    }
+    
+    .thumbnail-img {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .thumbnail-img:hover {
+        transform: scale(1.05);
+    }
+</style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Funcionalidad de las pestañas
+    // Funcionalidad de pestañas
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Mostrar primera pestaña por defecto
+    if (tabContents.length > 0) {
+        tabContents[0].style.display = 'block';
+        // Ocultar las demás pestañas
+        for (let i = 1; i < tabContents.length; i++) {
+            tabContents[i].style.display = 'none';
+        }
+    }
     
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -468,23 +579,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Remover clase active de todos los botones
             tabButtons.forEach(btn => {
-                btn.classList.remove('active', 'border-blue-500', 'text-blue-600');
-                btn.classList.add('border-transparent', 'text-gray-500');
+                btn.classList.remove('active', 'text-blue-600', 'bg-white', 'border-blue-500', 'border-b-3');
+                btn.classList.add('text-gray-600', 'bg-gray-50', 'hover:bg-gray-100');
             });
             
             // Agregar clase active al botón clickeado
-            this.classList.add('active', 'border-blue-500', 'text-blue-600');
-            this.classList.remove('border-transparent', 'text-gray-500');
+            this.classList.add('active', 'text-blue-600', 'bg-white', 'border-blue-500', 'border-b-3');
+            this.classList.remove('text-gray-600', 'bg-gray-50', 'hover:bg-gray-100');
             
             // Ocultar todos los contenidos
             tabContents.forEach(content => {
-                content.classList.add('hidden');
+                content.style.display = 'none';
             });
             
             // Mostrar el contenido correspondiente
             const targetContent = document.getElementById(targetTab);
             if (targetContent) {
-                targetContent.classList.remove('hidden');
+                targetContent.style.display = 'block';
             }
         });
     });
@@ -553,22 +664,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // Funcionalidad de wishlist
-    
+});
+</script>
 
-
-
-
-
-    
-
-
-
-
-
-    
-    // Funcionalidad de wishlist
+<?php get_footer(); ?>
                         
                         if (firstReview) {
                             reviewsList.insertBefore(newReview, firstReview);
