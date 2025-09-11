@@ -1071,4 +1071,51 @@ function itools_custom_review_text($translated_text, $text, $domain) {
 }
 add_filter('gettext', 'itools_custom_review_text', 20, 3);
 
+// Mejorar la búsqueda de productos para que sea más flexible
+function itools_improve_product_search( $query ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
+        // Solo aplicar a búsquedas de productos
+        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+            $search_term = $query->get('s');
+            
+            if ( !empty($search_term) ) {
+                // Remover el parámetro de búsqueda por defecto para personalizar
+                $query->set('s', '');
+                
+                // Buscar en título y contenido del producto
+                $query->set('meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => '_sku',
+                        'value' => $search_term,
+                        'compare' => 'LIKE'
+                    )
+                ));
+                
+                // Buscar en título del post
+                add_filter('posts_where', function($where) use ($search_term) {
+                    global $wpdb;
+                    if ( !empty($search_term) ) {
+                        $where .= " OR {$wpdb->posts}.post_title LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_content LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_excerpt LIKE '%" . esc_sql($search_term) . "%'";
+                    }
+                    return $where;
+                });
+            }
+        }
+    }
+}
+add_action( 'pre_get_posts', 'itools_improve_product_search' );
+
+// Asegurar que WooCommerce maneje correctamente las búsquedas
+function itools_woocommerce_search_modification( $query ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search() && function_exists('is_woocommerce') ) {
+        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+            $query->set( 'post_type', 'product' );
+            $query->set( 'post_status', 'publish' );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'itools_woocommerce_search_modification', 20 );
 
