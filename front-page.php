@@ -1063,10 +1063,10 @@ get_header(); ?>
     </section>
 
     <!-- Newsletter -->
-    <section id="contacto" class="pt-16 pb-0 bg-gradient-to-r from-blue-900 to-blue-800">
+    <section id="contacto" class="pt-16 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
-            <p class="text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
                 Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
             </p>
             <div class="max-w-md mx-auto flex mb-16">
