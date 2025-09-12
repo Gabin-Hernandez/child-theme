@@ -22,48 +22,69 @@ Text Domain:    child-theme
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Eliminación agresiva de pseudo-elementos que causan espacios */
 .page-template-default main::before,
 .page-template-default main *::after,
-.page-template-default main *::before {
+.page-template-default main *::before,
+.home main::before,
+.home main *::after,
+.home main *::before,
+body.home main::before,
+body.home main *::after,
+body.home main *::before {
     display: none !important;
     content: none !important;
     height: 0 !important;
     min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
 }
 
 /* 4. Fix específico para el main - forzar altura mínima */
 .home main,
-.page-template-default main {
+.page-template-default main,
+body.home main {
     min-height: 0 !important;
     height: auto !important;
     display: block !important;
     overflow: visible !important;
     position: static !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
-/* 5. Fix para elementos flotantes que pueden causar expansión */
-.home main::after {
-    content: "" !important;
-    display: table !important;
-    clear: both !important;
+/* 5. Fix para elementos flotantes que pueden causar expansión - Eliminado completamente */
+.home main::after,
+body.home main::after {
+    display: none !important;
+    content: none !important;
     height: 0 !important;
     line-height: 0 !important;
     font-size: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* 6. Fix específico para secciones dentro del main */
 .home main section,
-.page-template-default main section {
+.page-template-default main section,
+body.home main section {
     display: block !important;
     height: auto !important;
     min-height: auto !important;
     overflow: visible !important;
     position: relative !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 /* 7. Fix para el último elemento del main */
 .home main > *:last-child,
-.page-template-default main > *:last-child {
+.page-template-default main > *:last-child,
+body.home main > *:last-child {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
     height: auto !important;
