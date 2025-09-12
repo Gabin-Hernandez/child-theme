@@ -226,7 +226,6 @@ get_header(); ?>
                                     <h3 class="text-2xl font-bold text-white mb-2">REFACCIONES</h3>
                                     <p class="text-gray-300 text-sm">Más de 19,000 productos</p>
                                 </div>
-                                <div class="text-orange-500 text-3xl transform group-hover:translate-x-2 transition-transform">&gt;</div>
                             </div>
                             
                             <div>
@@ -251,7 +250,6 @@ get_header(); ?>
                                     <h3 class="text-2xl font-bold text-white mb-2">PANTALLAS</h3>
                                     <p class="text-gray-300 text-sm">Calidad es nuestra prioridad</p>
                                 </div>
-                                <div class="text-blue-500 text-3xl transform group-hover:translate-x-2 transition-transform">&gt;</div>
                             </div>
                             
                             <div>
@@ -276,7 +274,6 @@ get_header(); ?>
                                     <h3 class="text-2xl font-bold text-white mb-2">HERRAMIENTAS</h3>
                                     <p class="text-gray-300 text-sm">Servicio integral</p>
                                 </div>
-                                <div class="text-red-500 text-3xl transform group-hover:translate-x-2 transition-transform">&gt;</div>
                             </div>
                             
                             <div>
@@ -301,7 +298,6 @@ get_header(); ?>
                                     <h3 class="text-2xl font-bold text-white mb-2">BATERÍAS</h3>
                                     <p class="text-gray-300 text-sm">Energía completa</p>
                                 </div>
-                                <div class="text-green-500 text-3xl transform group-hover:translate-x-2 transition-transform">&gt;</div>
                             </div>
                             
                             <div>
