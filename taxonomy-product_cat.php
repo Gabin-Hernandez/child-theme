@@ -12,7 +12,10 @@ $category_slug = $queried_object->slug;
 $category_description = $queried_object->description;
 ?>
 
-<!-- Hero Section Moderno para Categoría -->
+<!--                <!-- Contenido principal -->
+                <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
+                    
+                    <!-- Barra superior limpia con información básica -->Section Moderno para Categoría -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
     <div class="container mx-auto px-4">
         <div class="text-center">
@@ -67,6 +70,243 @@ $category_description = $queried_object->description;
                 <span class="text-gray-900 font-medium capitalize"><?php echo esc_html($category_name); ?></span>
             </nav>
         </div>
+
+        <!-- Botón para mostrar filtros en móvil -->
+        <div class="xl:hidden mb-6">
+            <button id="toggle-filters" class="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+                </svg>
+                Filtros y Ordenar
+                <div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+            </button>
+        </div>
+
+        <?php if ( have_posts() ) : ?>
+
+            <div class="flex flex-col xl:flex-row gap-8">
+                
+                <!-- Sidebar con filtros modernos -->
+                <aside 
+                    id="filters-sidebar" 
+                    class="xl:w-80 2xl:w-96 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
+                    <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
+                        
+                        <!-- Header del sidebar -->
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                                <div class="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
+                                Filtros
+                            </h3>
+                            <button id="close-filters" class="xl:hidden text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Filtro por Precio -->
+                        <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
+                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
+                                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                    </svg>
+                                </div>
+                                Rango de Precio
+                            </h4>
+                            
+                            <div class="space-y-4">
+                                <p class="text-sm text-gray-600 mb-3">Filtrar por precio:</p>
+                                
+                                <input type="number" 
+                                       id="min_price" 
+                                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                       placeholder="Precio mínimo"
+                                       min="0">
+                                
+                                <input type="number" 
+                                       id="max_price" 
+                                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                                       placeholder="Precio máximo"
+                                       min="0">
+                                
+                                <button id="apply-price-filter" 
+                                        class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                                    Filtrar Precios
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filtro por Categorías -->
+                        <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14-7H5m10 18H5"></path>
+                                    </svg>
+                                </div>
+                                Categorías
+                            </h4>
+                            
+                            <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
+                                <?php
+                                $product_categories = get_terms( array(
+                                    'taxonomy' => 'product_cat',
+                                    'hide_empty' => true,
+                                    'parent' => 0,
+                                ) );
+
+                                if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
+                                    foreach ( $product_categories as $category ) :
+                                        $current_cat_slug = get_queried_object()->slug;
+                                        $is_current = $category->slug === $current_cat_slug;
+                                ?>
+                                    <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
+                                        <input type="checkbox" 
+                                               name="product_categories[]" 
+                                               value="<?php echo esc_attr( $category->slug ); ?>"
+                                               <?php echo $is_current ? 'checked' : ''; ?>
+                                               class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                        <div class="flex-1 flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 group-hover:text-blue-600 <?php echo $is_current ? 'text-blue-600' : ''; ?>">
+                                                <?php echo esc_html( $category->name ); ?>
+                                            </span>
+                                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                                                <?php echo $category->count; ?>
+                                            </span>
+                                        </div>
+                                    </label>
+                                <?php 
+                                    endforeach;
+                                endif;
+                                ?>
+                            </div>
+                        </div>
+
+                        <!-- Filtro por Marcas -->
+                        <div class="mb-8 p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
+                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                    </svg>
+                                </div>
+                                Marcas
+                            </h4>
+                            
+                            <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
+                                <?php
+                                $brand_taxonomies = array( 'product_brand', 'pa_marca', 'pa_brand' );
+                                $brands = array();
+                                
+                                foreach ( $brand_taxonomies as $taxonomy ) {
+                                    if ( taxonomy_exists( $taxonomy ) ) {
+                                        $terms = get_terms( array(
+                                            'taxonomy' => $taxonomy,
+                                            'hide_empty' => true,
+                                        ) );
+                                        if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+                                            $brands = array_merge( $brands, $terms );
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if ( ! empty( $brands ) && ! is_wp_error( $brands ) ) :
+                                    foreach ( $brands as $brand ) :
+                                ?>
+                                    <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-purple-200">
+                                        <input type="checkbox" 
+                                               name="product_brands[]" 
+                                               value="<?php echo esc_attr( $brand->slug ); ?>"
+                                               class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2">
+                                        <div class="flex-1 flex items-center justify-between">
+                                            <span class="font-medium text-gray-900 group-hover:text-purple-600">
+                                                <?php echo esc_html( $brand->name ); ?>
+                                            </span>
+                                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                                                <?php echo $brand->count; ?>
+                                            </span>
+                                        </div>
+                                    </label>
+                                <?php 
+                                    endforeach;
+                                else :
+                                ?>
+                                    <div class="space-y-3">
+                                        <?php $sample_brands = array('Bosch', 'DeWalt', 'Makita', 'Black & Decker', 'Stanley'); ?>
+                                        <?php foreach ($sample_brands as $brand) : ?>
+                                            <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-purple-200">
+                                                <input type="checkbox" name="sample_brands[]" value="<?php echo strtolower($brand); ?>" class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2">
+                                                <div class="flex-1 flex items-center justify-between">
+                                                    <span class="font-medium text-gray-900 group-hover:text-purple-600"><?php echo $brand; ?></span>
+                                                    <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">0</span>
+                                                </div>
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="space-y-4">
+                            <button id="apply-filters" 
+                                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Aplicar Filtros
+                            </button>
+                            <button id="clear-filters" 
+                                    class="w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 py-4 rounded-2xl font-bold hover:from-gray-200 hover:to-gray-300 transition-all duration-300 border border-gray-300 hover:border-gray-400 flex items-center justify-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                Limpiar Todo
+                            </button>
+                        </div>
+
+                        <!-- Filtros rápidos -->
+                        <div class="mt-8 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
+                            <h5 class="font-bold text-gray-900 mb-4 flex items-center">
+                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                Filtros Rápidos
+                            </h5>
+                            <div class="space-y-2">
+                                <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
+                                    🔥 Más Vendidos
+                                </button>
+                                <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
+                                    ⭐ Mejor Valorados
+                                </button>
+                                <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
+                                    💰 Ofertas
+                                </button>
+                                <button class="quick-filter w-full text-left p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700">
+                                    🆕 Nuevos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Widget sidebar adicional -->
+                        <div class="mt-8">
+                            <?php
+                            if ( is_active_sidebar( 'sidebar-shop' ) ) {
+                                dynamic_sidebar( 'sidebar-shop' );
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Contenido principal -->
+                <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
 
         <?php if ( have_posts() ) : ?>
 
@@ -412,6 +652,31 @@ $category_description = $queried_object->description;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Estilos para los filtros */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+@media (max-width: 1279px) {
+    #filters-sidebar {
+        backdrop-filter: blur(8px);
+    }
+}
 </style>
 
 <!-- JavaScript para funcionalidades -->
@@ -478,6 +743,126 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Aquí podrías implementar una modal de vista rápida
             console.log('Vista rápida del producto');
+        });
+    });
+
+    // ===== FUNCIONALIDAD DE FILTROS =====
+    
+    // Manejo del sidebar de filtros en móviles
+    const toggleFilters = document.getElementById('toggle-filters');
+    const filtersSidebar = document.getElementById('filters-sidebar');
+    const closeFilters = document.getElementById('close-filters');
+
+    if (toggleFilters && filtersSidebar) {
+        toggleFilters.addEventListener('click', function() {
+            filtersSidebar.classList.toggle('hidden');
+        });
+    }
+
+    if (closeFilters) {
+        closeFilters.addEventListener('click', function() {
+            filtersSidebar.classList.add('hidden');
+        });
+    }
+
+    // Cerrar filtros al hacer clic fuera (solo móvil)
+    if (filtersSidebar) {
+        filtersSidebar.addEventListener('click', function(e) {
+            if (e.target === filtersSidebar) {
+                filtersSidebar.classList.add('hidden');
+            }
+        });
+    }
+
+    // Aplicar filtros de precio
+    const applyPriceFilter = document.getElementById('apply-price-filter');
+    if (applyPriceFilter) {
+        applyPriceFilter.addEventListener('click', function() {
+            const minPrice = document.getElementById('min_price').value;
+            const maxPrice = document.getElementById('max_price').value;
+            
+            const url = new URL(window.location);
+            
+            if (minPrice) url.searchParams.set('min_price', minPrice);
+            else url.searchParams.delete('min_price');
+            
+            if (maxPrice) url.searchParams.set('max_price', maxPrice);
+            else url.searchParams.delete('max_price');
+            
+            window.location.href = url.toString();
+        });
+    }
+
+    // Aplicar filtros generales
+    const applyFilters = document.getElementById('apply-filters');
+    if (applyFilters) {
+        applyFilters.addEventListener('click', function() {
+            const url = new URL(window.location);
+            
+            // Recoger categorías seleccionadas (excluyendo la actual)
+            const selectedCategories = [];
+            document.querySelectorAll('input[name="product_categories[]"]:checked').forEach(checkbox => {
+                selectedCategories.push(checkbox.value);
+            });
+            
+            // Recoger marcas seleccionadas
+            const selectedBrands = [];
+            document.querySelectorAll('input[name="product_brands[]"]:checked').forEach(checkbox => {
+                selectedBrands.push(checkbox.value);
+            });
+            
+            // Aplicar filtros a la URL
+            if (selectedCategories.length > 0) {
+                url.searchParams.set('product_categories', selectedCategories.join(','));
+            } else {
+                url.searchParams.delete('product_categories');
+            }
+            
+            if (selectedBrands.length > 0) {
+                url.searchParams.set('product_brands', selectedBrands.join(','));
+            } else {
+                url.searchParams.delete('product_brands');
+            }
+            
+            window.location.href = url.toString();
+        });
+    }
+
+    // Limpiar todos los filtros
+    const clearFilters = document.getElementById('clear-filters');
+    if (clearFilters) {
+        clearFilters.addEventListener('click', function() {
+            // Limpiar checkboxes (mantener la categoría actual marcada)
+            document.querySelectorAll('input[type="checkbox"]:not([name="current_category"])').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Limpiar campos de precio
+            if (document.getElementById('min_price')) document.getElementById('min_price').value = '';
+            if (document.getElementById('max_price')) document.getElementById('max_price').value = '';
+            
+            // Volver a la URL base de la categoría
+            const baseUrl = window.location.pathname;
+            window.location.href = baseUrl;
+        });
+    }
+
+    // Filtros rápidos
+    document.querySelectorAll('.quick-filter').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const url = new URL(window.location);
+            
+            if (this.textContent.includes('Más Vendidos')) {
+                url.searchParams.set('orderby', 'popularity');
+            } else if (this.textContent.includes('Mejor Valorados')) {
+                url.searchParams.set('orderby', 'rating');
+            } else if (this.textContent.includes('Ofertas')) {
+                url.searchParams.set('on_sale', '1');
+            } else if (this.textContent.includes('Nuevos')) {
+                url.searchParams.set('orderby', 'date');
+            }
+            
+            window.location.href = url.toString();
         });
     });
 });
