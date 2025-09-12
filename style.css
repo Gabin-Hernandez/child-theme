@@ -16,8 +16,85 @@ Text Domain:    child-theme
 
 /* Utilidad para limitar líneas de texto */
 .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
+    display: -webki/* --- Fix: main expandiéndose de más - Solución completa --- */
+
+/* 1. Fix para alturas forzadas dentro del main */
+.home main *,
+.page-template-default main * {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Específicamente evitar 100vh en elementos del main */
+.home main [style*="height: 100vh"],
+.home main [style*="min-height: 100vh"],
+.page-template-default main [style*="height: 100vh"],
+.page-template-default main [style*="min-height: 100vh"] {
+    height: auto !important;
+    min-height: auto !important;
+}
+
+/* 2. Fix para clear: both mal aplicado */
+.home main,
+.home main *,
+.page-template-default main,
+.page-template-default main * {
+    clear: none !important;
+}
+
+/* 3. Fix para pseudo-elementos problemáticos */
+.home main::after,
+.home main::before,
+.home main *::after,
+.home main *::before,
+.page-template-default main::after,
+.page-template-default main::before,
+.page-template-default main *::after,
+.page-template-default main *::before {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+/* 4. Fix específico para el main - forzar altura mínima */
+.home main,
+.page-template-default main {
+    min-height: 0 !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    position: static !important;
+}
+
+/* 5. Fix para elementos flotantes que pueden causar expansión */
+.home main::after {
+    content: "" !important;
+    display: table !important;
+    clear: both !important;
+    height: 0 !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+}
+
+/* 6. Fix específico para secciones dentro del main */
+.home main section,
+.page-template-default main section {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* 7. Fix para el último elemento del main */
+.home main > *:last-child,
+.page-template-default main > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+}-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -555,6 +632,86 @@ body {
 /* Para pausar la animación al hacer hover sobre el contenedor */
 .brands-container:hover .brands-carousel {
     animation-play-state: paused !important;
+}
+
+/* --- Fix: main expandiéndose de más - Solución completa --- */
+
+/* 1. Fix para alturas forzadas dentro del main */
+.home main *,
+.page-template-default main * {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Específicamente evitar 100vh en elementos del main */
+.home main [style*="height: 100vh"],
+.home main [style*="min-height: 100vh"],
+.page-template-default main [style*="height: 100vh"],
+.page-template-default main [style*="min-height: 100vh"] {
+    height: auto !important;
+    min-height: auto !important;
+}
+
+/* 2. Fix para clear: both mal aplicado */
+.home main,
+.home main *,
+.page-template-default main,
+.page-template-default main * {
+    clear: none !important;
+}
+
+/* 3. Fix para pseudo-elementos problemáticos */
+.home main::after,
+.home main::before,
+.home main *::after,
+.home main *::before,
+.page-template-default main::after,
+.page-template-default main::before,
+.page-template-default main *::after,
+.page-template-default main *::before {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+/* 4. Fix específico para el main - forzar altura mínima */
+.home main,
+.page-template-default main {
+    min-height: 0 !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    position: static !important;
+}
+
+/* 5. Fix para elementos flotantes que pueden causar expansión */
+.home main::after {
+    content: "" !important;
+    display: table !important;
+    clear: both !important;
+    height: 0 !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
+}
+
+/* 6. Fix específico para secciones dentro del main */
+.home main section,
+.page-template-default main section {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    position: relative !important;
+}
+
+/* 7. Fix para el último elemento del main */
+.home main > *:last-child,
+.page-template-default main > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
 }
 
 /* ====================================
