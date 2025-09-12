@@ -1079,6 +1079,8 @@ get_header(); ?>
         </div>
     </section>
 
+    <?php get_footer(); ?>
+
 </main>
 
 <!-- JavaScript del Slider Mejorado -->
@@ -1546,5 +1548,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php get_footer(); ?>
+</body>
+</html>
 
