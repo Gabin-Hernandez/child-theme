@@ -1062,23 +1062,6 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Newsletter -->
-    <section id="contacto" class="pt-16 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
-            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
-                Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
-            </p>
-            <div class="max-w-md mx-auto flex mb-16">
-                <input type="email" placeholder="Tu correo electrónico" 
-                       class="flex-1 px-4 py-3 rounded-l-lg border-0 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-lg font-semibold transition duration-300">
-                    Suscribirse
-                </button>
-            </div>
-        </div>
-    </section>
-
 </main>
 
 <!-- JavaScript del Slider Mejorado -->
