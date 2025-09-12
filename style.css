@@ -490,11 +490,44 @@ body {
 .page-template-default .site-main {
     margin: 0 !important;
     margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin-bottom: -10px !important; /* Negativo para cancelar margen del tema padre */
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-bottom: 0 !important;
     border-bottom: none !important;
+}
+
+/* También aplicar margen negativo al newsletter CTA para que "suba" */
+#newsletter-cta {
+    margin-top: -10px !important;
+    margin-bottom: 0 !important;
+}
+
+/* Responsive - ajustar el margen negativo según el tamaño */
+@media (max-width: 768px) {
+    .home main,
+    .home .site-main,
+    .page-template-default main,
+    .page-template-default .site-main {
+        margin-bottom: -5px !important; /* Menor en móvil */
+    }
+    
+    #newsletter-cta {
+        margin-top: -5px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .home main,
+    .home .site-main,
+    .page-template-default main,
+    .page-template-default .site-main {
+        margin-bottom: -15px !important; /* Mayor en desktop grande */
+    }
+    
+    #newsletter-cta {
+        margin-top: -15px !important;
+    }
 }
 
 /* Forzar que no haya espacio después del último elemento del main */
