@@ -395,15 +395,45 @@ Text Domain:    child-theme
 }
 
 /* --- Fix: evitar espacio en blanco / overflow horizontal en páginas de categoría --- */
-body.tax-product_cat, body.tax-product_cat html {
+body.tax-product_cat, 
+body.tax-product_cat html,
+body.tax-product_cat * {
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+body.tax-product_cat, 
+body.tax-product_cat html {
     overflow-x: hidden;
 }
+
 body.tax-product_cat #products-grid {
     margin-right: 0 !important;
+    width: 100% !important;
 }
+
 body.tax-product_cat #products-grid > div {
     /* asegurar que las tarjetas no sumen margen extra que rompa el ancho */
     margin: 0 !important;
+}
+
+/* Contenedores principales también controlados */
+body.tax-product_cat .container,
+body.tax-product_cat main {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Control específico para el main con ancho calculado */
+body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
+    width: 100% !important;
+}
+
+@media (min-width: 1280px) {
+    body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
+        width: calc(100% - 21rem) !important;
+        max-width: calc(100vw - 21rem) !important;
+    }
 }
 
 .brands-carousel {

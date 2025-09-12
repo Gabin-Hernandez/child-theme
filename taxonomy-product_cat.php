@@ -12,10 +12,7 @@ $category_slug = $queried_object->slug;
 $category_description = $queried_object->description;
 ?>
 
-<!--                <!-- Contenido principal -->
-                <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
-                    
-                    <!-- Barra superior limpia con información básica -->Section Moderno para Categoría -->
+<!-- Section Moderno para Categoría -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
     <div class="container mx-auto px-4">
         <div class="text-center">
