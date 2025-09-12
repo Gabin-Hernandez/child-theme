@@ -437,9 +437,16 @@ body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
 }
 
 /* --- Fix: eliminar espacios en blanco entre main y footer --- */
-main {
+main,
+main.site-main,
+#main,
+.site-main {
+    margin: 0 !important;
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+    border: none !important;
+    outline: none !important;
 }
 
 #newsletter-cta {
@@ -459,6 +466,49 @@ body {
 }
 
 .site-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Override específico para Storefront theme */
+.storefront-full-width-content main,
+.storefront-full-width-content .site-main {
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Override para cualquier margen del contenedor */
+.col-full {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* CSS agresivo específico para front-page */
+.home main,
+.home .site-main,
+.page-template-default main,
+.page-template-default .site-main {
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+}
+
+/* Forzar que no haya espacio después del último elemento del main */
+.home main > *:last-child,
+.page-template-default main > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Override para elementos específicos que podrían causar margen */
+.home .content-area,
+.home #primary,
+.page-template-default .content-area,
+.page-template-default #primary {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
