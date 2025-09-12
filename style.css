@@ -394,6 +394,18 @@ Text Domain:    child-theme
     }
 }
 
+/* --- Fix: evitar espacio en blanco / overflow horizontal en páginas de categoría --- */
+body.tax-product_cat, body.tax-product_cat html {
+    overflow-x: hidden;
+}
+body.tax-product_cat #products-grid {
+    margin-right: 0 !important;
+}
+body.tax-product_cat #products-grid > div {
+    /* asegurar que las tarjetas no sumen margen extra que rompa el ancho */
+    margin: 0 !important;
+}
+
 .brands-carousel {
     animation: scrollBrands 25s linear infinite !important;
     width: calc(200%) !important;
