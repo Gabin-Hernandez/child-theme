@@ -560,57 +560,22 @@ get_header(); ?>
 
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
 <style>
-/* Prevenir overflow horizontal - enfoque específico */
-html, body {
+/* Solo prevenir overflow horizontal sin afectar otras funciones */
+html {
     overflow-x: hidden;
-    width: 100%;
+}
+
+body {
+    overflow-x: hidden;
     max-width: 100vw;
 }
 
-/* Contenedor principal con límites específicos */
-.bg-gray-50.min-h-screen {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-}
-
-/* Ajustar específicamente el main grid que causa problemas */
-main.flex-1 {
-    width: 100%;
-    max-width: calc(100vw - 2rem);
-    overflow-x: hidden;
-}
-
-/* El problema principal: el grid de productos */
-#products-grid {
-    width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
-#products-grid > div {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Ajuste específico para desktop con sidebar */
+/* El problema principal era el ancho del main en desktop */
 @media (min-width: 1280px) {
-    main.flex-1.xl\\:flex-none {
+    main.flex-1 {
+        width: auto;
         max-width: none;
-        width: calc(100% - 21rem - 2rem);
     }
-}
-
-@media (min-width: 1536px) {
-    main.flex-1.xl\\:flex-none.xl\\:w-\\[calc\\(100\\%-21rem\\)\\].\\32xl\\:w-\\[calc\\(100\\%-25rem\\)\\] {
-        width: calc(100% - 25rem - 2rem);
-    }
-}
-
-/* Corregir el contenedor flex principal */
-.flex.flex-col.xl\\:flex-row {
-    width: 100%;
-    overflow-x: hidden;
 }
 
 /* Estilo personalizado para el selector de ordenamiento */
@@ -653,10 +618,6 @@ main.flex-1 {
         max-width: 100% !important;
         font-size: 13px !important;
         padding: 6px 10px !important;
-    }
-    
-    main.flex-1 {
-        max-width: calc(100vw - 1.5rem);
     }
 }
 </style>
