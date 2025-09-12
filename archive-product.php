@@ -560,6 +560,107 @@ get_header(); ?>
 
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
 <style>
+/* Prevenir overflow horizontal */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+.container {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* Ajustar el grid principal para prevenir overflow */
+.flex.flex-col.xl\\:flex-row {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ajustar el sidebar para que no cause overflow */
+aside {
+    flex-shrink: 0;
+}
+
+/* Ajustar el contenido principal */
+main {
+    min-width: 0;
+    flex: 1;
+}
+
+/* Ajustar el grid de productos para prevenir overflow */
+#products-grid {
+    width: 100%;
+    max-width: 100%;
+}
+
+#products-grid > div {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Ajustar formulario de búsqueda */
+.flex.gap-3 {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.flex.gap-3 > .flex-1 {
+    min-width: 200px;
+    flex: 1;
+}
+
+.flex.gap-3 > select,
+.flex.gap-3 > button {
+    flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+    .flex.gap-3 {
+        flex-direction: column;
+    }
+    
+    .flex.gap-3 > select,
+    .flex.gap-3 > button {
+        width: 100%;
+    }
+}
+
+/* Prevenir que las imágenes causen overflow */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ajustar el hero section para prevenir overflow */
+.bg-gradient-to-br {
+    width: 100%;
+    max-width: 100vw;
+}
+
 /* Estilo personalizado para el selector de ordenamiento */
 .woocommerce-ordering select {
     padding: 8px 12px !important;
@@ -569,6 +670,7 @@ get_header(); ?>
     font-size: 14px !important;
     color: #374151 !important;
     min-width: 160px !important;
+    max-width: 200px !important;
     appearance: none !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
     background-position: right 8px center !important;
@@ -592,12 +694,27 @@ get_header(); ?>
     display: none !important;
 }
 
-/* Estilos para el grid responsivo */
+/* Estilos para el grid responsivo - ajustado para prevenir overflow */
 @media (max-width: 640px) {
     .woocommerce-ordering select {
         min-width: 140px !important;
+        max-width: 100% !important;
         font-size: 13px !important;
         padding: 6px 10px !important;
+    }
+    
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
+    #products-grid {
+        gap: 1rem !important;
+    }
+    
+    /* Ajustar tarjetas de producto en móvil */
+    #products-grid > div {
+        margin: 0 !important;
     }
 }
 </style>
