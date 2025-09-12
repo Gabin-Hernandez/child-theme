@@ -436,6 +436,33 @@ body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
     }
 }
 
+/* --- Fix: eliminar espacios en blanco entre main y footer --- */
+main {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#newsletter-cta {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Asegurar que no hay espacios entre secciones */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.site-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .brands-carousel {
     animation: scrollBrands 25s linear infinite !important;
     width: calc(200%) !important;
