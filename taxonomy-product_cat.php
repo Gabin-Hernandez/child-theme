@@ -307,10 +307,8 @@ $category_description = $queried_object->description;
 
                 <!-- Contenido principal -->
                 <main class="flex-1 xl:flex-none xl:w-[calc(100%-21rem)] 2xl:w-[calc(100%-25rem)]">
-
-        <?php if ( have_posts() ) : ?>
-
-            <!-- Barra superior limpia con información básica -->
+                    
+                    <!-- Barra superior limpia con información básica -->
             <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-sm mb-6 border border-gray-100">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     
@@ -496,6 +494,9 @@ $category_description = $queried_object->description;
                 ?>
             </div>
 
+                </main>
+            </div>
+
         <?php else : ?>
 
             <!-- Estado vacío mejorado -->
@@ -526,36 +527,6 @@ $category_description = $queried_object->description;
                 </div>
             </div>
 
-        <?php endif; ?>
-
-        <!-- Categorías relacionadas -->
-        <?php if ( have_posts() ) : ?>
-        <div class="mt-16">
-            <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Otras categorías que te pueden interesar</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <?php
-                $other_categories = get_terms(array(
-                    'taxonomy' => 'product_cat',
-                    'hide_empty' => true,
-                    'exclude' => array($queried_object->term_id), // Excluir la categoría actual
-                    'number' => 4
-                ));
-                
-                if ($other_categories && !is_wp_error($other_categories)) :
-                    foreach ($other_categories as $cat) :
-                ?>
-                    <a href="<?php echo get_term_link($cat); ?>" 
-                       class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                        <div class="text-3xl mb-3">🛍️</div>
-                        <h4 class="font-semibold text-gray-900 capitalize"><?php echo esc_html($cat->name); ?></h4>
-                        <p class="text-sm text-gray-600 mt-1"><?php echo $cat->count; ?> productos</p>
-                    </a>
-                <?php 
-                    endforeach;
-                endif;
-                ?>
-            </div>
-        </div>
         <?php endif; ?>
 
     </div>
