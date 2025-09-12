@@ -366,7 +366,7 @@ get_header(); ?>
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px] m-4">
+                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px]">
                                 <!-- Imagen del producto -->
                                 <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -560,105 +560,147 @@ get_header(); ?>
 
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
 <style>
-/* Prevenir overflow horizontal */
+/* Prevenir overflow horizontal global */
 * {
     box-sizing: border-box;
 }
 
 html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
 }
 
 .container {
-    max-width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
-@media (min-width: 640px) {
-    .container {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
+/* Ajustes específicos para el layout principal */
+.bg-gray-50 {
+    overflow-x: hidden !important;
 }
 
-@media (min-width: 1024px) {
-    .container {
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
+/* Hero section ajustado */
+.bg-gradient-to-br {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+}
+
+/* Formulario de búsqueda hero - ajustado */
+.max-w-2xl {
+    max-width: 100% !important;
+    width: 100% !important;
 }
 
 /* Ajustar el grid principal para prevenir overflow */
 .flex.flex-col.xl\\:flex-row {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
-/* Ajustar el sidebar para que no cause overflow */
+/* Sidebar ajustado */
 aside {
     flex-shrink: 0;
+    max-width: 100% !important;
 }
 
-/* Ajustar el contenido principal */
+/* Contenido principal ajustado */
 main {
-    min-width: 0;
+    min-width: 0 !important;
     flex: 1;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
-/* Ajustar el grid de productos para prevenir overflow */
+/* Grid de productos completamente ajustado */
 #products-grid {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
 #products-grid > div {
-    min-width: 0;
-    max-width: 100%;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
 }
 
-/* Ajustar formulario de búsqueda */
-.flex.gap-3 {
-    width: 100%;
-    max-width: 100%;
-    flex-wrap: wrap;
-}
-
-.flex.gap-3 > .flex-1 {
-    min-width: 200px;
-    flex: 1;
-}
-
-.flex.gap-3 > select,
-.flex.gap-3 > button {
-    flex-shrink: 0;
-}
-
+/* Ajustes específicos para móvil */
 @media (max-width: 640px) {
-    .flex.gap-3 {
-        flex-direction: column;
+    .container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+        max-width: 100% !important;
     }
     
-    .flex.gap-3 > select,
-    .flex.gap-3 > button {
-        width: 100%;
+    #products-grid {
+        gap: 1rem !important;
+        grid-template-columns: 1fr !important;
+    }
+    
+    .xl\\:w-80 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .xl\\:w-96 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .min-h-\\[380px\\] {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Hero section en móvil */
+    .py-16 {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+    
+    /* Formulario de búsqueda en móvil */
+    .flex.gap-3 {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .flex.gap-3 > * {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Ajustes para tablet */
+@media (min-width: 641px) and (max-width: 1279px) {
+    .container {
+        max-width: 100% !important;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+    }
+    
+    #products-grid {
+        max-width: 100% !important;
+    }
+}
+
+/* Ajustes para desktop */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
 }
 
 /* Prevenir que las imágenes causen overflow */
 img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Ajustar el hero section para prevenir overflow */
-.bg-gradient-to-br {
-    width: 100%;
-    max-width: 100vw;
+    max-width: 100% !important;
+    height: auto !important;
 }
 
 /* Estilo personalizado para el selector de ordenamiento */
@@ -716,6 +758,24 @@ img {
     #products-grid > div {
         margin: 0 !important;
     }
+}
+
+/* Ocultar cualquier texto suelto que pueda aparecer */
+body::before,
+body > *:first-child::before {
+    display: none !important;
+}
+
+/* Asegurar que todo el contenido esté contenido */
+body {
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+/* Ocultar cualquier comentario HTML visible */
+.comment,
+.html-comment {
+    display: none !important;
 }
 </style>
 
