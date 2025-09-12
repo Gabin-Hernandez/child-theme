@@ -43,6 +43,34 @@ body.home main *::before {
     background: none !important;
 }
 
+/* Fix específico para el div #content que contiene el main */
+#content,
+.site-content,
+div#content,
+body.home #content,
+body.home .site-content {
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+/* Fix específico para el div #content después del main */
+#content::after,
+.site-content::after,
+div#content::after,
+body.home #content::after,
+body.home .site-content::after {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 /* 4. Fix específico para el main - forzar altura mínima */
 .home main,
 .page-template-default main,
