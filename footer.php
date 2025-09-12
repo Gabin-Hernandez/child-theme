@@ -15,23 +15,6 @@
         <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h40V20H20z"/%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         
         <div class="relative z-10">
-            <!-- Newsletter CTA Section -->
-            <section id="contacto" class="pt-16 pb-8 border-b border-gray-700/30">
-                <div class="container mx-auto px-4 text-center">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
-                    <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
-                        Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
-                    </p>
-                    <div class="max-w-md mx-auto flex">
-                        <input type="email" placeholder="Tu correo electrónico" 
-                               class="flex-1 px-4 py-3 rounded-l-lg border-0 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                        <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-lg font-semibold transition duration-300">
-                            Suscribirse
-                        </button>
-                    </div>
-                </div>
-            </section>
-
             <!-- Main Footer Content -->
             <div class="container mx-auto px-4 py-16">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
