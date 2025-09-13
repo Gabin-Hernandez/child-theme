@@ -227,7 +227,7 @@
                 </div>
 
                 <!-- Búsqueda simplificada (centrado) -->
-                <div class="header-search" style="flex: 1; max-width: 500px; margin: 8px 40px 0 40px;"> 
+                <div class="header-search" style="flex: 1; max-width: 500px; margin: 20px 40px 0 40px;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         <!-- Campo de búsqueda -->
                         <input 
@@ -359,6 +359,50 @@
                         </div>
                     </div>
 
+                    <!-- Dropdown Modelos -->
+                    <div class="dropdown-container" style="position: relative;">
+                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
+                            Modelos
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 250px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000; max-height: 400px; overflow-y: auto;">
+                            <!-- iPhone -->
+                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">iPhone</div>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-15-pro-max/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Pro Max</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-15-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Pro</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-15-plus/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Plus</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-15/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-14-pro-max/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 14 Pro Max</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-14-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 14 Pro</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-13-pro-max/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 13 Pro Max</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-12-pro-max/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 12 Pro Max</a>
+                            
+                            <!-- Samsung -->
+                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Samsung</div>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-s24-ultra/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S24 Ultra</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-s23-ultra/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S23 Ultra</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-s22-ultra/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S22 Ultra</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-a54/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy A54</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-a34/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy A34</a>
+                            
+                            <!-- Huawei -->
+                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Huawei</div>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/huawei-p60-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">P60 Pro</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/huawei-mate-50-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Mate 50 Pro</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/huawei-p50-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">P50 Pro</a>
+                            
+                            <!-- Xiaomi -->
+                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Xiaomi</div>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/xiaomi-14-ultra/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Xiaomi 14 Ultra</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/xiaomi-13-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Xiaomi 13 Pro</a>
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelo/redmi-note-13-pro/" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Redmi Note 13 Pro</a>
+                            
+                            <a href="https://lightblue-gull-856657.hostingersite.com/modelos/" style="display: block; padding: 12px 16px; color: #2563eb; text-decoration: none; transition: background 0.2s; font-weight: 500; border-top: 1px solid #e5e7eb; margin-top: 8px;">Ver todos los modelos</a>
+                        </div>
+                    </div>
+
                     <!-- Link directo Accesorios -->
                     <a href="https://lightblue-gull-856657.hostingersite.com/categoria/accesorios/" style="padding: 8px 12px; color: #374151; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;">
                         Accesorios
@@ -442,6 +486,25 @@
                             Huawei
                         </a>
                         <a href="https://lightblue-gull-856657.hostingersite.com/tienda/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Modelos</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px; max-height: 200px; overflow-y: auto;">
+                        <!-- iPhone populares -->
+                        <div style="font-size: 12px; color: #9ca3af; font-weight: 500; margin-top: 4px;">iPhone</div>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-15-pro-max/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">iPhone 15 Pro Max</a>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-14-pro-max/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">iPhone 14 Pro Max</a>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/iphone-13-pro-max/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">iPhone 13 Pro Max</a>
+                        
+                        <!-- Samsung populares -->
+                        <div style="font-size: 12px; color: #9ca3af; font-weight: 500; margin-top: 8px;">Samsung</div>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-s24-ultra/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">Galaxy S24 Ultra</a>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-s23-ultra/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">Galaxy S23 Ultra</a>
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelo/samsung-galaxy-a54/" style="color: #6b7280; text-decoration: none; font-size: 13px; padding-left: 8px;">Galaxy A54</a>
+                        
+                        <a href="https://lightblue-gull-856657.hostingersite.com/modelos/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 8px;">Ver todos →</a>
                     </div>
                 </div>
                 
