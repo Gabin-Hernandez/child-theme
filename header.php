@@ -86,6 +86,27 @@
             width: 100% !important;
         }
         
+        /* Estilos específicos para mega-menu */
+        @media (min-width: 1200px) {
+            .mega-menu-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .mega-menu-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 20px !important;
+            }
+        }
+        
+        @media (max-width: 991px) and (min-width: 769px) {
+            .mega-menu-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 16px !important;
+            }
+        }
+        
         /* Responsivo */
         @media (max-width: 768px) {
             .nav-row {
@@ -382,7 +403,7 @@
                         </div>
                     </div>
 
-                    <!-- Dropdown Modelos -->
+                    <!-- Dropdown Modelos - Mega Menu -->
                     <div class="dropdown-container" style="position: relative;">
                         <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Modelos
@@ -390,39 +411,103 @@
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg>
                         </button>
-                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 250px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000; max-height: 400px; overflow-y: auto;">
-                            <!-- iPhone -->
-                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase;">iPhone</div>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+15+pro+max&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Pro Max</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+15+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Pro</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+15+plus&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15 Plus</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+15&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 15</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+14+pro+max&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 14 Pro Max</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+14+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 14 Pro</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+13+pro+max&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 13 Pro Max</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=iphone+12+pro+max&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">iPhone 12 Pro Max</a>
+                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: -200px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); min-width: 800px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1000; padding: 20px;">
                             
-                            <!-- Samsung -->
-                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Samsung</div>
-                            <a href="<?php echo esc_url( home_url( '/?s=galaxy+s24+ultra&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S24 Ultra</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=galaxy+s23+ultra&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S23 Ultra</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=galaxy+s22+ultra&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy S22 Ultra</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=galaxy+a54&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy A54</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=galaxy+a34&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Galaxy A34</a>
+                            <!-- Grid de 4 columnas -->
+                            <div class="mega-menu-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
+                                
+                                <!-- Columna 1: iPhone -->
+                                <div>
+                                    <div style="padding: 8px 0 16px 0; font-size: 16px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2563eb">
+                                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                        </svg>
+                                        iPhone
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+15+pro+max&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15 Pro Max</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+15+pro&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15 Pro</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+15+plus&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15 Plus</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+15&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+14+pro+max&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 14 Pro Max</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+14+pro&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 14 Pro</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+13+pro+max&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 13 Pro Max</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+12+pro+max&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 12 Pro Max</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=iphone+11&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 11</a>
+                                    </div>
+                                </div>
+
+                                <!-- Columna 2: Samsung -->
+                                <div>
+                                    <div style="padding: 8px 0 16px 0; font-size: 16px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2563eb">
+                                            <path d="M22.86 5.82v12.36c0 3.21-2.61 5.82-5.82 5.82H6.96c-3.21 0-5.82-2.61-5.82-5.82V5.82C1.14 2.61 3.75 0 6.96 0h10.08c3.21 0 5.82 2.61 5.82 5.82z"/>
+                                        </svg>
+                                        Samsung
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+s24+ultra&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S24 Ultra</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+s24+plus&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S24 Plus</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+s24&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S24</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+s23+ultra&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S23 Ultra</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+s22+ultra&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S22 Ultra</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+a54&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy A54</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+a34&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy A34</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+a24&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy A24</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=galaxy+note&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy Note</a>
+                                    </div>
+                                </div>
+
+                                <!-- Columna 3: Huawei & Honor -->
+                                <div>
+                                    <div style="padding: 8px 0 16px 0; font-size: 16px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2563eb">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        Huawei & Honor
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <a href="<?php echo esc_url( home_url( '/?s=huawei+p60+pro&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei P60 Pro</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=huawei+mate+50&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei Mate 50</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=huawei+p50+pro&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei P50 Pro</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=huawei+p40&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei P40</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=honor+90&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Honor 90</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=honor+70&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Honor 70</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=honor+x9a&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Honor X9A</a>
+                                    </div>
+                                </div>
+
+                                <!-- Columna 4: Xiaomi & Otros -->
+                                <div>
+                                    <div style="padding: 8px 0 16px 0; font-size: 16px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#2563eb">
+                                            <path d="M19.15 5c.28 0 .85.11.85.4v13.2c0 .29-.57.4-.85.4h-2.4c-.28 0-.75-.11-.75-.4V5.4c0-.29.47-.4.75-.4h2.4zm-4.8 6c.28 0 .65.11.65.4v7.2c0 .29-.37.4-.65.4h-2.8c-.28 0-.65-.11-.65-.4v-7.2c0-.29.37-.4.65-.4h2.8zm-5 3c.28 0 .65.11.65.4v4.2c0 .29-.37.4-.65.4H6.5c-.28 0-.65-.11-.65-.4v-4.2c0-.29.37-.4.65-.4h2.85zm-5-11c.28 0 .65.11.65.4v10.8c0 .29-.37.4-.65.4H1.65c-.28 0-.65-.11-.65-.4V3.4c0-.29.37-.4.65-.4h2.7z"/>
+                                        </svg>
+                                        Xiaomi & Otros
+                                    </div>
+                                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                                        <a href="<?php echo esc_url( home_url( '/?s=xiaomi+14+ultra&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Xiaomi 14 Ultra</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=xiaomi+13+pro&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Xiaomi 13 Pro</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=redmi+note+13&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Redmi Note 13</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=poco+x6&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Poco X6</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=motorola+edge&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Motorola Edge</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=oppo&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Oppo</a>
+                                        <a href="<?php echo esc_url( home_url( '/?s=vivo&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; font-size: 14px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Vivo</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
                             
-                            <!-- Huawei -->
-                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Huawei</div>
-                            <a href="<?php echo esc_url( home_url( '/?s=huawei+p60+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">P60 Pro</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=huawei+mate+50+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Mate 50 Pro</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=huawei+p50+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">P50 Pro</a>
+                            <!-- Footer del mega menu -->
+                            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center;">
+                                <a href="<?php echo esc_url( home_url( '/tienda/' ) ); ?>" style="display: inline-flex; align-items: center; gap: 8px; color: #2563eb; text-decoration: none; font-weight: 600; padding: 12px 24px; background: #f3f4f6; border-radius: 8px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#2563eb'; this.style.color='white'" onmouseout="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    Ver todos los modelos disponibles
+                                </a>
+                            </div>
                             
-                            <!-- Xiaomi -->
-                            <div style="padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 8px;">Xiaomi</div>
-                            <a href="<?php echo esc_url( home_url( '/?s=xiaomi+14+ultra&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Xiaomi 14 Ultra</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=xiaomi+13+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Xiaomi 13 Pro</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=redmi+note+13+pro&post_type=product' ) ); ?>" style="display: block; padding: 10px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; font-size: 14px;">Redmi Note 13 Pro</a>
-                            
-                            <a href="<?php echo esc_url( home_url( '/tienda/' ) ); ?>" style="display: block; padding: 12px 16px; color: #2563eb; text-decoration: none; transition: background 0.2s; font-weight: 500; border-top: 1px solid #e5e7eb; margin-top: 8px;">Ver todos los modelos</a>
                         </div>
                     </div>
 
