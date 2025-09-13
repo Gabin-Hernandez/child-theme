@@ -104,6 +104,12 @@
                 max-width: none !important;
                 margin: 0 10px !important;
             }
+            
+            /* Ajustar logo en móvil */
+            .header-logo img {
+                height: 40px !important;
+                max-width: 150px !important;
+            }
         }
         
         @media (max-width: 640px) {
@@ -115,6 +121,12 @@
             .account-link::after {
                 content: "👤";
                 font-size: 16px;
+            }
+            
+            /* Logo aún más pequeño en pantallas muy pequeñas */
+            .header-logo img {
+                height: 36px !important;
+                max-width: 120px !important;
             }
         }
     </style>
@@ -220,9 +232,9 @@
             <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
             <div style="display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 4px;">
                 <!-- Logo -->
-                <div style="flex-shrink: 0;">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-size: 1.5rem; font-weight: bold; color: #1f2937; text-decoration: none;">
-                    <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX">    
+                <div class="header-logo" style="flex-shrink: 0;">
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: block; text-decoration: none;">
+                        <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/09/logo-itoolsmx-Photoroom.png" alt="iTOOLS MX" style="height: 48px; width: auto; max-width: 200px; object-fit: contain;">    
                     </a>
                 </div>
 
