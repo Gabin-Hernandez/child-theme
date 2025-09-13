@@ -56,34 +56,24 @@
             transform: rotate(180deg);
         }
         
-        /* Sticky Navigation - CSS puro para garantizar funcionalidad */
-        .nav-row {
+        /* Sticky Header Completo - CSS puro para garantizar funcionalidad */
+        header {
             position: sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
-            background: rgba(23, 23, 23, 0.95) !important;
+            background: #171717 !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
             transition: all 0.3s ease !important;
-            border-top: 1px solid rgba(255,255,255,0.1) !important;
         }
         
         /* Asegurar que funcione en todos los navegadores */
-        .nav-row {
+        header {
             -webkit-position: sticky;
             -moz-position: sticky;
             -ms-position: sticky;
             -o-position: sticky;
-        }
-        
-        /* Evitar saltos al hacer sticky */
-        .nav-row.is-sticky {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
         }
         
         /* Estilos específicos para mega-menu */
@@ -259,7 +249,7 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header style="background: #171717; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border-bottom: 1px solid #2a2a2a;">
+    <header>
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
             <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
