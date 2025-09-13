@@ -222,7 +222,7 @@
                 <!-- Logo -->
                 <div style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-size: 1.5rem; font-weight: bold; color: #1f2937; text-decoration: none;">
-                        ITOOLS MX
+                    <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX">    
                     </a>
                 </div>
 
