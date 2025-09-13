@@ -310,15 +310,18 @@
                         <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
-                            Carrito<?php if ( function_exists('WC') && WC()->cart ) { echo ' (' . WC()->cart->get_cart_contents_count() . ')'; } ?>
+                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" id="cart-link" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+                            Carrito<span class="cart-count"><?php if ( function_exists('WC') && WC()->cart ) { 
+                                $cart_count = WC()->cart->get_cart_contents_count();
+                                echo $cart_count > 0 ? ' (' . $cart_count . ')' : '';
+                            } ?></span>
                         </a>
                     <?php else : ?>
                         <a href="/mi-cuenta/" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="/carrito/" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
-                            Carrito
+                        <a href="/carrito/" id="cart-link" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
+                            Carrito<span class="cart-count"></span>
                         </a>
                     <?php endif; ?>
                 </div>

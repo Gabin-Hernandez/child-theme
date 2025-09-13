@@ -1209,6 +1209,60 @@ function itools_get_product_id($search_term) {
     return false;
 }
 
+// AJAX handler para buscar producto por nombre
+function itools_ajax_get_product_id() {
+    $product_name = sanitize_text_field($_POST['product_name']);
+    
+    if (!$product_name) {
+        wp_send_json_error('Nombre de producto inválido');
+        return;
+    }
+    
+    // Buscar producto por título exacto primero
+    $product = get_page_by_title($product_name, OBJECT, 'product');
+    
+    if (!$product) {
+        // Buscar por título similar
+        $args = array(
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            's' => $product_name,
+            'posts_per_page' => 1
+        );
+        $products = get_posts($args);
+        
+        if (!empty($products)) {
+            $product = $products[0];
+        }
+    }
+    
+    if ($product) {
+        wp_send_json_success(array(
+            'product_id' => $product->ID,
+            'product_name' => $product->post_title
+        ));
+    } else {
+        wp_send_json_error('Producto no encontrado');
+    }
+}
+add_action('wp_ajax_itools_get_product_id', 'itools_ajax_get_product_id');
+add_action('wp_ajax_nopriv_itools_get_product_id', 'itools_ajax_get_product_id');
+
+// AJAX handler para obtener el contador del carrito
+function itools_ajax_get_cart_count() {
+    if (function_exists('WC') && WC()->cart) {
+        wp_send_json_success(array(
+            'cart_count' => WC()->cart->get_cart_contents_count()
+        ));
+    } else {
+        wp_send_json_success(array(
+            'cart_count' => 0
+        ));
+    }
+}
+add_action('wp_ajax_itools_get_cart_count', 'itools_ajax_get_cart_count');
+add_action('wp_ajax_nopriv_itools_get_cart_count', 'itools_ajax_get_cart_count');
+
 // AJAX handler para agregar al carrito
 function itools_ajax_add_to_cart() {
     if (!wp_verify_nonce($_POST['nonce'], 'itools_cart_nonce')) {
