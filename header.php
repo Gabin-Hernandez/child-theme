@@ -27,8 +27,8 @@
         /* Estilos para dropdown menus */
         .dropdown-trigger:hover,
         .dropdown-container:hover .dropdown-trigger {
-            background-color: #f3f4f6;
-            color: #2563eb;
+            background-color: rgba(255,255,255,0.15);
+            color: white;
         }
         
         .dropdown-container:hover .dropdown-menu {
@@ -61,11 +61,12 @@
             position: sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
-            background: rgba(255, 255, 255, 0.95) !important;
+            background: rgba(30, 58, 138, 0.95) !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
             transition: all 0.3s ease !important;
+            border-top: 1px solid rgba(255,255,255,0.1) !important;
         }
         
         /* Asegurar que funcione en todos los navegadores */
@@ -107,8 +108,8 @@
             
             /* Ajustar logo en móvil */
             .header-logo img {
-                height: 40px !important;
-                max-width: 150px !important;
+                height: 50px !important;
+                max-width: 180px !important;
             }
         }
         
@@ -125,8 +126,8 @@
             
             /* Logo aún más pequeño en pantallas muy pequeñas */
             .header-logo img {
-                height: 36px !important;
-                max-width: 120px !important;
+                height: 45px !important;
+                max-width: 140px !important;
             }
         }
     </style>
@@ -227,14 +228,14 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header style="background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #e5e7eb;">
+    <header style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #1e40af;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
-            <div style="display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 4px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 4px;">
                 <!-- Logo -->
                 <div class="header-logo" style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: block; text-decoration: none;">
-                        <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX" style="height: 48px; width: auto; max-width: 200px; object-fit: contain;">    
+                        <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX" style="height: 60px; width: auto; max-width: 250px; object-fit: contain; filter: brightness(1.1);">    
                     </a>
                 </div>
 
@@ -268,24 +269,24 @@
                 <!-- Enlaces de cuenta -->
                 <div style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
                     <!-- Botón menú móvil -->
-                    <button id="mobile-menu-btn" style="display: none; background: none; border: none; color: #374151; cursor: pointer; padding: 8px;">
+                    <button id="mobile-menu-btn" style="display: none; background: none; border: none; color: white; cursor: pointer; padding: 8px;">
                         <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                         </svg>
                     </button>
                     
                     <?php if ( function_exists('wc_get_account_endpoint_url') && class_exists( 'WooCommerce' ) ) : ?>
-                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: #6b7280; text-decoration: none; white-space: nowrap;">
+                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; white-space: nowrap;">
+                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
                             Carrito<?php if ( function_exists('WC') && WC()->cart ) { echo ' (' . WC()->cart->get_cart_contents_count() . ')'; } ?>
                         </a>
                     <?php else : ?>
-                        <a href="/mi-cuenta/" class="account-link" style="color: #6b7280; text-decoration: none; white-space: nowrap;">
+                        <a href="/mi-cuenta/" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="/carrito/" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; white-space: nowrap;">
+                        <a href="/carrito/" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
                             Carrito
                         </a>
                     <?php endif; ?>
@@ -293,11 +294,11 @@
             </div>
 
             <!-- Segunda fila: Menú de navegación dropdown -->
-            <div class="nav-row" style="border-top: 1px solid #f3f4f6; padding: 12px 0;">
+            <div class="nav-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 0;">
                 <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
                     <!-- Dropdown Refacciones -->
                     <div class="dropdown-container" style="position: relative;">
-                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
+                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Refacciones
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -313,7 +314,7 @@
 
                     <!-- Dropdown Herramientas -->
                     <div class="dropdown-container" style="position: relative;">
-                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
+                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Herramientas
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -330,7 +331,7 @@
 
                     <!-- Dropdown Marcas -->
                     <div class="dropdown-container" style="position: relative;">
-                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
+                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Marcas
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -373,7 +374,7 @@
 
                     <!-- Dropdown Modelos -->
                     <div class="dropdown-container" style="position: relative;">
-                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: #374151; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
+                        <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Modelos
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -416,12 +417,12 @@
                     </div>
 
                     <!-- Link directo Accesorios -->
-                    <a href="https://lightblue-gull-856657.hostingersite.com/categoria/accesorios/" style="padding: 8px 12px; color: #374151; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;">
+                    <a href="https://lightblue-gull-856657.hostingersite.com/categoria/accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         Accesorios
                     </a>
 
                     <!-- Link directo Ofertas -->
-                    <a href="https://lightblue-gull-856657.hostingersite.com/ofertas/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #dc2626; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;">
+                    <a href="https://lightblue-gull-856657.hostingersite.com/ofertas/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #fbbf24; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.79 21L3 11.21v2c0 .45.54 1 1.21 1h7.36l2.15 2.15c.31.31.85.31 1.16 0L12.79 21zM11.38 17.41c.39.39.39 1.02 0 1.41-.39.39-1.02.39-1.41 0L8.21 17.06 3 11.85V9c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v2.85l-5.21 5.21-1.76-1.76c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.76 1.76z"/>
                         </svg>
