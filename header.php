@@ -411,7 +411,7 @@
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg>
                         </button>
-                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: -200px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); min-width: 800px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1000; padding: 20px;">
+                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: -400px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); min-width: 800px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s; z-index: 1000; padding: 20px;">
                             
                             <!-- Grid de 4 columnas -->
                             <div class="mega-menu-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;">
