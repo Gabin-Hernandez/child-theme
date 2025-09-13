@@ -928,3 +928,35 @@ main > *:last-child,
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
+
+/* FIX CRÍTICO: Asegurar que sticky header funcione */
+html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    transform: none !important;
+    contain: none !important;
+}
+
+.sticky-header-wrapper {
+    position: sticky !important;
+    position: -webkit-sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    isolation: isolate !important;
+    contain: layout style paint !important;
+    transform: translateZ(0) !important;
+    will-change: auto !important;
+}
+
+/* Anular conflictos específicos de overflow en categorías */
+body.tax-product_cat, 
+body.tax-product_cat html {
+    overflow-y: auto !important;
+}
+
+/* Anular transformaciones que puedan crear contextos de stacking problemáticos */
+#page, .site, #content, .site-content {
+    transform: none !important;
+    contain: none !important;
+    isolation: auto !important;
+}
