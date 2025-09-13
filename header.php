@@ -44,7 +44,12 @@
         
         /* Asegurar que los dropdowns estén por encima de otros elementos */
         .dropdown-container {
-            z-index: 1000;
+            z-index: 10000 !important;
+            position: relative !important;
+        }
+        
+        .dropdown-menu {
+            z-index: 10001 !important;
         }
         
         /* Animación suave para los iconos */
@@ -58,38 +63,18 @@
         
         /* Sticky Header Completo - CSS fuertes para garantizar funcionalidad */
         .sticky-header-wrapper {
-            position: sticky !important;
             position: -webkit-sticky !important;
+            position: sticky !important;
             top: 0 !important;
             z-index: 9999 !important;
             width: 100% !important;
-            isolation: isolate !important;
-            contain: layout style paint !important;
-            will-change: auto !important;
-            transform: translateZ(0) !important;
-        }
-        
-        /* Forzar el body y html a no interferir con sticky */
-        html {
-            overflow-y: auto !important;
-            transform: none !important;
-        }
-        
-        body {
-            overflow-y: auto !important;
-            transform: none !important;
-        }
-        
-        /* Asegurar que contenedores padres no interfieran */
-        #page, .site {
-            transform: none !important;
-            contain: none !important;
-            overflow: visible !important;
+            background: #171717 !important;
         }
         
         header {
             background: #171717 !important;
-            backdrop-filter: blur(10px) !important;
+            position: relative !important;
+            z-index: 9999 !important;
             -webkit-backdrop-filter: blur(10px) !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
             transition: all 0.3s ease !important;
@@ -277,41 +262,33 @@
             stickyWrapper.style.zIndex = '1000';
             
             // Verificar soporte sticky
-            // Sticky fallback más robusto
-            const testElement = document.createElement('div');
-            testElement.style.position = 'sticky';
-            
-            // Forzar sticky behavior - script más agresivo
-            function forceStickyBehavior() {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            // Sticky fallback simple y efectivo
+            function ensureStickyBehavior() {
+                const stickySupported = CSS.supports('position', 'sticky') || CSS.supports('position', '-webkit-sticky');
                 
-                // Siempre aplicar estilos fuertes
-                stickyWrapper.style.position = 'sticky';
-                stickyWrapper.style.position = '-webkit-sticky';
-                stickyWrapper.style.top = '0';
-                stickyWrapper.style.zIndex = '9999';
-                stickyWrapper.style.isolation = 'isolate';
-                stickyWrapper.style.transform = 'translateZ(0)';
-                stickyWrapper.style.contain = 'layout style paint';
-                stickyWrapper.style.willChange = 'auto';
-                
-                // Fallback para navegadores que no soportan sticky
-                if (testElement.style.position !== 'sticky') {
-                    if (scrollTop > 0) {
-                        stickyWrapper.style.position = 'fixed';
-                        stickyWrapper.style.left = '0';
-                        stickyWrapper.style.right = '0';
-                        stickyWrapper.style.width = '100%';
-                    }
+                if (!stickySupported) {
+                    // Solo para navegadores muy antiguos
+                    let isFixed = false;
+                    window.addEventListener('scroll', function() {
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        
+                        if (scrollTop > 100 && !isFixed) {
+                            stickyWrapper.style.position = 'fixed';
+                            stickyWrapper.style.top = '0';
+                            stickyWrapper.style.left = '0';
+                            stickyWrapper.style.right = '0';
+                            stickyWrapper.style.width = '100%';
+                            isFixed = true;
+                        } else if (scrollTop <= 100 && isFixed) {
+                            stickyWrapper.style.position = 'sticky';
+                            stickyWrapper.style.position = '-webkit-sticky';
+                            isFixed = false;
+                        }
+                    });
                 }
             }
             
-            // Ejecutar inmediatamente y en cada scroll
-            forceStickyBehavior();
-            window.addEventListener('scroll', forceStickyBehavior, { passive: true });
-            
-            // También ejecutar en resize por si acaso
-            window.addEventListener('resize', forceStickyBehavior, { passive: true });
+            ensureStickyBehavior();
         }
     </script>
     
@@ -322,7 +299,7 @@
 
 <div id="page" class="site">
     <!-- Header Sticky Wrapper -->
-    <div class="sticky-header-wrapper sticky top-0 z-50" style="position: sticky !important; position: -webkit-sticky !important; top: 0 !important; z-index: 9999 !important; isolation: isolate !important; contain: layout style paint !important; will-change: auto !important; transform: translateZ(0) !important;">
+    <div class="sticky-header-wrapper sticky top-0 z-50" style="position: -webkit-sticky !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: #171717 !important;">
         <!-- Header Simple -->
         <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); position: relative !important; z-index: 9999 !important;">
             <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
