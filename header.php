@@ -61,10 +61,10 @@
             position: sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
-            background: rgba(30, 58, 138, 0.95) !important;
+            background: rgba(23, 23, 23, 0.95) !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
             transition: all 0.3s ease !important;
             border-top: 1px solid rgba(255,255,255,0.1) !important;
         }
@@ -108,8 +108,13 @@
             
             /* Ajustar logo en móvil */
             .header-logo img {
-                height: 50px !important;
-                max-width: 180px !important;
+                height: 70px !important;
+                max-width: 280px !important;
+            }
+            
+            /* Ajustar altura del header en móvil */
+            .header-row {
+                height: 90px !important;
             }
         }
         
@@ -126,8 +131,13 @@
             
             /* Logo aún más pequeño en pantallas muy pequeñas */
             .header-logo img {
-                height: 45px !important;
-                max-width: 140px !important;
+                height: 60px !important;
+                max-width: 220px !important;
+            }
+            
+            /* Ajustar altura del header en móviles pequeños */
+            .header-row {
+                height: 80px !important;
             }
         }
     </style>
@@ -228,14 +238,14 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header style="background: linear-gradient(135deg, #171717 0%, #333333ff 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #171717;">
+    <header style="background: #171717; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border-bottom: 1px solid #2a2a2a;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
-            <div style="display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 4px;">
+            <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
                 <!-- Logo -->
                 <div class="header-logo" style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: block; text-decoration: none;">
-                        <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX" style="height: 60px; width: auto; max-width: 250px; object-fit: contain; filter: brightness(1.1);">    
+                        <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
                     </a>
                 </div>
 
@@ -257,7 +267,7 @@
                         <?php endif; ?>
                         
                         <!-- Botón de búsqueda -->
-                        <button type="submit" style="background: #171717; color: white; border: none; padding: 12px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#112e7eff'" onmouseout="this.style.background='#171717'">
+                        <button type="submit" style="background: #414040ff; color: white; border: none; padding: 12px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#112e7eff'" onmouseout="this.style.background='#171717'">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
