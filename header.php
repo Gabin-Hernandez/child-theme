@@ -228,7 +228,7 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header style="background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #1e40af;">
+    <header style="background: linear-gradient(135deg, #171717 0%, #333333ff 100%); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-bottom: 1px solid #171717;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
             <div style="display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 4px;">
@@ -257,7 +257,7 @@
                         <?php endif; ?>
                         
                         <!-- Botón de búsqueda -->
-                        <button type="submit" style="background: #2563eb; color: white; border: none; padding: 12px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+                        <button type="submit" style="background: #171717; color: white; border: none; padding: 12px 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background-color 0.2s;" onmouseover="this.style.background='#112e7eff'" onmouseout="this.style.background='#171717'">
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
