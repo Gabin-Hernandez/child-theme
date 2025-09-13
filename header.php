@@ -56,11 +56,16 @@
             transform: rotate(180deg);
         }
         
-        /* Sticky Header Completo - CSS puro para garantizar funcionalidad */
-        header {
+        /* Sticky Header Completo - CSS fuertes para garantizar funcionalidad */
+        .sticky-header-wrapper {
             position: sticky !important;
+            position: -webkit-sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
+            width: 100% !important;
+        }
+        
+        header {
             background: #171717 !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
@@ -69,7 +74,7 @@
         }
         
         /* Asegurar que funcione en todos los navegadores */
-        header {
+        .sticky-header-wrapper {
             -webkit-position: sticky;
             -moz-position: sticky;
             -ms-position: sticky;
@@ -240,6 +245,33 @@
                 });
             }
         });
+        
+        // Forzar sticky header en caso de conflictos
+        const stickyWrapper = document.querySelector('.sticky-header-wrapper');
+        if (stickyWrapper) {
+            // Asegurar posición sticky
+            stickyWrapper.style.position = 'sticky';
+            stickyWrapper.style.top = '0';
+            stickyWrapper.style.zIndex = '1000';
+            
+            // Verificar soporte sticky
+            const testElement = document.createElement('div');
+            testElement.style.position = 'sticky';
+            if (testElement.style.position !== 'sticky') {
+                // Fallback para navegadores antiguos
+                window.addEventListener('scroll', function() {
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    if (scrollTop > 0) {
+                        stickyWrapper.style.position = 'fixed';
+                        stickyWrapper.style.top = '0';
+                        stickyWrapper.style.left = '0';
+                        stickyWrapper.style.right = '0';
+                    } else {
+                        stickyWrapper.style.position = 'sticky';
+                    }
+                });
+            }
+        }
     </script>
     
     <?php wp_head(); ?>
@@ -248,11 +280,13 @@
 <?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 
 <div id="page" class="site">
-    <!-- Header Simple -->
-    <header>
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
-            <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
+    <!-- Header Sticky Wrapper -->
+    <div class="sticky-header-wrapper sticky top-0 z-50" style="position: sticky !important; position: -webkit-sticky !important; top: 0 !important; z-index: 1000 !important;">
+        <!-- Header Simple -->
+        <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
+                <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
                 <!-- Logo -->
                 <div class="header-logo" style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: block; text-decoration: none;">
@@ -621,5 +655,7 @@
             </div>
         </div>
     </div>
+    </div>
+    <!-- End Header Sticky Wrapper -->
 
     <div id="content" class="site-content"><?php
