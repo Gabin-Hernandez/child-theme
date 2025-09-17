@@ -253,43 +253,7 @@
             }
         });
         
-        // Forzar sticky header en caso de conflictos
-        const stickyWrapper = document.querySelector('.sticky-header-wrapper');
-        if (stickyWrapper) {
-            // Asegurar posición sticky
-            stickyWrapper.style.position = 'sticky';
-            stickyWrapper.style.top = '0';
-            stickyWrapper.style.zIndex = '1000';
-            
-            // Verificar soporte sticky
-            // Sticky fallback simple y efectivo
-            function ensureStickyBehavior() {
-                const stickySupported = CSS.supports('position', 'sticky') || CSS.supports('position', '-webkit-sticky');
-                
-                if (!stickySupported) {
-                    // Solo para navegadores muy antiguos
-                    let isFixed = false;
-                    window.addEventListener('scroll', function() {
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        
-                        if (scrollTop > 100 && !isFixed) {
-                            stickyWrapper.style.position = 'fixed';
-                            stickyWrapper.style.top = '0';
-                            stickyWrapper.style.left = '0';
-                            stickyWrapper.style.right = '0';
-                            stickyWrapper.style.width = '100%';
-                            isFixed = true;
-                        } else if (scrollTop <= 100 && isFixed) {
-                            stickyWrapper.style.position = 'sticky';
-                            stickyWrapper.style.position = '-webkit-sticky';
-                            isFixed = false;
-                        }
-                    });
-                }
-            }
-            
-            ensureStickyBehavior();
-        }
+        // Eliminado ensureStickyBehavior: se usará un wrapper sticky único via CSS.
     </script>
     
     <?php wp_head(); ?>
@@ -298,8 +262,9 @@
 <?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 
 <div id="page" class="site">
-    <!-- Header Sticky Wrapper -->
-    <div class="sticky-header-wrapper sticky top-0 z-50" style="position: -webkit-sticky !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: #171717 !important;">
+    <!-- Header Sticky Wrapper (encapsulado en global-sticky-header) -->
+    <div class="global-sticky-header">
+    <div class="sticky-header-wrapper" style="position: -webkit-sticky !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: #171717 !important;">
         <!-- Header Simple -->
         <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); position: relative !important; z-index: 9999 !important;">
             <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
@@ -672,6 +637,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
     <!-- End Header Sticky Wrapper -->

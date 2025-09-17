@@ -938,6 +938,12 @@ main > *:last-child,
     background: #171717 !important;
 }
 
+/* Nuevo wrapper externo para aislar sticky y evitar interferencias */
+.global-sticky-header {
+    position: relative !important; /* no sticky aquí, solo contenedor */
+    width: 100% !important;
+}
+
 /* Z-index para dropdowns */
 .dropdown-container {
     z-index: 10000 !important;
