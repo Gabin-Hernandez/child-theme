@@ -41,14 +41,7 @@ function mi_tally_script() {
         Tally.openPopup('waW7My', { 
           layout: 'modal',   // modal centrado
           width: 600,        // ancho del modal
-          hideTitle: true,   // oculta el título
-          onClose: function() {
-            // Después de cerrar Tally, redirigir a WhatsApp
-            const whatsappNumber = '1234567890'; // Cambia por tu número
-            const whatsappMessage = '¡Hola! Me interesa obtener más información sobre sus productos.';
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappUrl, '_blank');
-          }
+          hideTitle: false,   // oculta el título
         });
       }
     </script>
