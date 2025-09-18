@@ -1256,6 +1256,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para agregar productos al carrito
     window.addToCart = function(productSlug) {
+        console.log('addToCart llamado con:', productSlug);
+        
         const button = event.target;
         const originalContent = button.innerHTML;
         
@@ -1263,8 +1265,14 @@ document.addEventListener('DOMContentLoaded', function() {
         button.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-8h-4M6 12H2m10.5-6.5L15 5m-3 3L9.5 5.5M15 19l-2.5-2.5M9.5 19.5L12 17"></path></svg>';
         button.disabled = true;
         
+        // Debug: verificar disponibilidad
+        console.log('jQuery disponible:', typeof jQuery !== 'undefined');
+        console.log('itools_ajax disponible:', typeof itools_ajax !== 'undefined');
+        console.log('itools_ajax objeto:', itools_ajax);
+        
         // Si jQuery y AJAX están disponibles, usar WooCommerce real
         if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
+            console.log('Usando método AJAX...');
             // Obtener nombre del producto basado en el slug
             let productName = '';
             switch(productSlug) {
@@ -1285,6 +1293,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Buscar ID del producto
+            console.log('Buscando producto:', productName);
             jQuery.ajax({
                 url: itools_ajax.ajax_url,
                 type: 'POST',
@@ -1293,7 +1302,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     product_name: productName
                 },
                 success: function(response) {
+                    console.log('Respuesta búsqueda producto:', response);
                     if (response.success) {
+                        console.log('Producto encontrado, ID:', response.data.product_id);
                         // Agregar al carrito con el ID encontrado
                         addProductToCart(response.data.product_id, button, originalContent, productName);
                     } else {
@@ -1305,9 +1316,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         updateCartCount(getRandomCartCount());
                     }
                 },
-                error: function() {
+                error: function(xhr, status, error) {
                     // Fallback en caso de error
-                    console.log('Error en búsqueda de producto, usando fallback');
+                    console.log('Error en búsqueda de producto:', error);
+                    console.log('XHR:', xhr);
+                    console.log('Status:', status);
                     showSuccessState(button, originalContent);
                     showCartNotification('✅ Producto agregado al carrito');
                     updateCartCount(getRandomCartCount());
@@ -1325,19 +1338,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función auxiliar para agregar producto al carrito
     function addProductToCart(productId, button, originalContent, productName) {
+        console.log('addProductToCart llamado con ID:', productId, 'Nombre:', productName);
         jQuery.ajax({
             url: itools_ajax.ajax_url,
             type: 'POST',
             data: {
                 action: 'itools_add_to_cart',
                 product_id: productId,
-                quantity: 1,
-                nonce: itools_ajax.nonce
+                quantity: 1
             },
             success: function(response) {
+                console.log('Respuesta agregar al carrito:', response);
                 if (response.success) {
+                    console.log('Producto agregado exitosamente');
                     showSuccessState(button, originalContent);
                     showCartNotification('✅ ' + productName + ' agregado al carrito');
+                    // Actualizar contador del carrito
+                    if (response.data.cart_display && typeof updateCartCounter === 'function') {
+                        console.log('Actualizando contador:', response.data.cart_display);
+                        updateCartCounter(response.data.cart_count, response.data.cart_display);
+                    }
+                } else {
+                    // Error en la respuesta
+                    console.log('Error en respuesta:', response.data);
+                    showErrorState(button, originalContent);
+                    showCartNotification('❌ Error: ' + (response.data.message || 'No se pudo agregar al carrito'));
+                }
+            },
                     updateCartCount(response.data.cart_count);
                 } else {
                     showErrorState(button, originalContent);
