@@ -1,22 +1,35 @@
 /**
  * JavaScript para el botón flotante de WhatsApp
- * Funcionalidad adicional y mejoras de usuario
+ * Funcionalidad adicional y correcciones de posicionamiento
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     const whatsappFloat = document.querySelector('.whatsapp-float');
     
     if (whatsappFloat) {
-        // Asegurar que siempre esté visible y en posición fija
-        whatsappFloat.style.position = 'fixed';
-        whatsappFloat.style.zIndex = '99999';
+        // Función para forzar el posicionamiento correcto
+        function forceCorrectPosition() {
+            whatsappFloat.style.position = 'fixed';
+            whatsappFloat.style.zIndex = '2147483647'; // Z-index máximo
+            whatsappFloat.style.bottom = '25px';
+            whatsappFloat.style.right = '25px';
+            whatsappFloat.style.top = 'auto';
+            whatsappFloat.style.left = 'auto';
+            whatsappFloat.style.margin = '0';
+            whatsappFloat.style.padding = '0';
+            whatsappFloat.style.transform = 'none';
+        }
+        
+        // Aplicar posicionamiento inmediatamente
+        forceCorrectPosition();
         
         // Agregar efecto de click con vibración suave
         whatsappFloat.addEventListener('click', function(e) {
             // Agregar clase temporal para efecto de click
             this.style.transform = 'scale(0.9)';
             setTimeout(() => {
-                this.style.transform = '';
+                forceCorrectPosition();
+                this.style.transform = 'none';
             }, 150);
             
             // Opcional: agregar vibración en dispositivos móviles
@@ -35,25 +48,32 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 whatsappFloat.style.opacity = '1';
                 whatsappFloat.style.transform = 'scale(1) translateY(0)';
+                
+                // Después de la animación, resetear transform
+                setTimeout(() => {
+                    forceCorrectPosition();
+                    whatsappFloat.style.transition = 'all 0.3s ease';
+                }, 600);
             }, 200);
         }, 800);
         
-        // Asegurar que el botón siempre permanezca flotante y visible
-        // Sin comportamiento de ocultarse al hacer scroll
-        window.addEventListener('scroll', function() {
-            // Mantener siempre visible
-            if (whatsappFloat.style.position !== 'fixed') {
-                whatsappFloat.style.position = 'fixed';
-            }
-            if (whatsappFloat.style.zIndex < '99999') {
-                whatsappFloat.style.zIndex = '99999';
-            }
+        // Monitorear y corregir posicionamiento constantemente
+        setInterval(forceCorrectPosition, 1000);
+        
+        // Corregir en eventos específicos
+        window.addEventListener('scroll', forceCorrectPosition);
+        window.addEventListener('resize', forceCorrectPosition);
+        
+        // Observer para cambios en el DOM que puedan afectar el posicionamiento
+        const observer = new MutationObserver(function(mutations) {
+            forceCorrectPosition();
         });
         
-        // Prevenir que otros estilos interfieran
-        window.addEventListener('resize', function() {
-            whatsappFloat.style.position = 'fixed';
-            whatsappFloat.style.zIndex = '99999';
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
         });
     }
 });

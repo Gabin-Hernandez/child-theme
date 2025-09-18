@@ -957,19 +957,37 @@ main > *:last-child,
    BOTÓN FLOTANTE DE WHATSAPP
    ======================================== */
 
+/* Corregir overflow del body y html para evitar espacios en blanco */
+html {
+    overflow-x: hidden !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    position: relative !important;
+}
+
+/* Asegurar que no haya espacios extra al final */
+body::after,
+#page::after,
+.site::after {
+    content: none !important;
+    display: none !important;
+}
+
 /* Contenedor del botón flotante */
 .whatsapp-float {
     position: fixed !important;
     width: 70px;
     height: 70px;
-    bottom: 25px;
-    right: 25px;
+    bottom: 25px !important;
+    right: 25px !important;
     background: #25d366;
     color: white;
     border-radius: 50%;
     text-align: center;
     font-size: 36px;
-    z-index: 99999 !important;
+    z-index: 2147483647 !important; /* Valor máximo de z-index */
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex !important;
@@ -979,6 +997,12 @@ main > *:last-child,
     box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
     border: none;
     outline: none;
+    /* Asegurar que se posicione respecto al viewport */
+    top: auto !important;
+    left: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
 }
 
 /* Efecto hover */
@@ -1031,6 +1055,7 @@ main > *:last-child,
         bottom: 20px !important;
         right: 20px !important;
         font-size: 32px !important;
+        position: fixed !important;
     }
     
     .whatsapp-float i {
@@ -1047,10 +1072,33 @@ main > *:last-child,
         bottom: 15px !important;
         right: 15px !important;
         font-size: 28px !important;
+        position: fixed !important;
     }
     
     .whatsapp-float i {
         font-size: 30px !important;
         line-height: 1 !important;
     }
+}
+
+/* Correcciones adicionales para eliminar espacios en blanco */
+.site-footer,
+#colophon,
+footer {
+    overflow: hidden !important;
+}
+
+/* Eliminar cualquier margen o padding extra que pueda causar espacios */
+.site-footer::after,
+#colophon::after,
+footer::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Asegurar que el botón de WhatsApp esté siempre accesible */
+.whatsapp-float {
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
