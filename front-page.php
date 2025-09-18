@@ -1354,9 +1354,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     showSuccessState(button, originalContent);
                     showCartNotification('✅ ' + productName + ' agregado al carrito');
                     // Actualizar contador del carrito
-                    if (response.data.cart_display && typeof updateCartCounter === 'function') {
-                        console.log('Actualizando contador:', response.data.cart_display);
-                        updateCartCounter(response.data.cart_count, response.data.cart_display);
+                    if (response.data.cart_count !== undefined) {
+                        console.log('Actualizando contador:', response.data.cart_count);
+                        updateCartCount(response.data.cart_count);
                     }
                 } else {
                     // Error en la respuesta
@@ -1365,39 +1365,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     showCartNotification('❌ Error: ' + (response.data.message || 'No se pudo agregar al carrito'));
                 }
             },
-                    updateCartCount(response.data.cart_count);
-                } else {
-                    showErrorState(button, originalContent);
-                    showCartNotification('❌ Error: ' + response.data, 'error');
-                }
-            },
-            error: function() {
+            error: function(xhr, status, error) {
+                console.log('Error AJAX:', error);
                 showErrorState(button, originalContent);
                 showCartNotification('❌ Error de conexión', 'error');
             }
         });
     }
-                        }
-                    },
-                    error: function() {
-                        showErrorState(button, originalContent);
-                        showCartNotification('❌ Error de conexión', 'error');
-                    }
-                });
-            } else {
-                // Fallback: Simular agregado exitoso
-                setTimeout(() => {
-                    showSuccessState(button, originalContent);
-                    showCartNotification('✅ Producto agregado al carrito');
-                }, 800);
-            }
-        } else {
-            // Fallback sin jQuery
-            setTimeout(() => {
-                showSuccessState(button, originalContent);
-                showCartNotification('✅ Producto agregado al carrito');
-            }, 800);
-        }
     };
     
     // Funciones auxiliares
