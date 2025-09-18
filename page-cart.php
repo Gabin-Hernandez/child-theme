@@ -71,42 +71,46 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     font-weight: 600 !important;
 }
 
-.itools-cart-page .cart_totals {
-    background: white !important;
-    border-radius: 1rem !important;
-    padding: 2rem !important;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+/* Estilos para los totales personalizados */
+.itools-custom-totals .cart_totals {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
 }
 
-.itools-cart-page .cart_totals h2 {
-    background: linear-gradient(to right, #2563eb, #9333ea) !important;
-    color: white !important;
-    margin: -2rem -2rem 2rem -2rem !important;
-    padding: 1rem 2rem !important;
-    border-radius: 1rem 1rem 0 0 !important;
+.itools-custom-totals .cart_totals h2 {
+    display: none !important; /* Ocultar el título por defecto */
 }
 
-.itools-cart-page .cart_totals table th,
-.itools-cart-page .cart_totals table td {
+.itools-custom-totals .cart_totals table {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.itools-custom-totals .cart_totals table th,
+.itools-custom-totals .cart_totals table td {
     padding: 1rem 0 !important;
     border-bottom: 1px solid #e5e7eb !important;
+    font-size: 0.95rem !important;
 }
 
-.itools-cart-page .cart_totals .order-total {
+.itools-custom-totals .cart_totals .order-total {
     background: linear-gradient(to right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)) !important;
     padding: 1rem !important;
     border-radius: 0.5rem !important;
     border: 2px solid #3b82f6 !important;
 }
 
-.itools-cart-page .cart_totals .order-total th,
-.itools-cart-page .cart_totals .order-total td {
+.itools-custom-totals .cart_totals .order-total th,
+.itools-custom-totals .cart_totals .order-total td {
     border: none !important;
     font-weight: bold !important;
-    font-size: 1.25rem !important;
+    font-size: 1.1rem !important;
 }
 
-.itools-cart-page .wc-proceed-to-checkout a {
+.itools-custom-totals .wc-proceed-to-checkout a {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -119,11 +123,12 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     font-size: 1.125rem !important;
     transition: all 0.3s ease !important;
     margin-top: 1rem !important;
+    width: 100% !important;
 }
 
-.itools-cart-page .wc-proceed-to-checkout a:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+.itools-custom-totals .wc-proceed-to-checkout a:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .itools-cart-page .remove {
@@ -173,10 +178,17 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border-left-color: #ef4444 !important;
 }
 
-/* Ocultar el total duplicado del tema padre */
-.storefront-cart-totals,
-.cart-collaterals .col2-set .col-2 {
+/* Ocultar TODOS los totales duplicados */
+.woocommerce-cart-form .cart_totals,
+.cart-collaterals,
+.woocommerce-cart-collaterals,
+.storefront-cart-totals {
     display: none !important;
+}
+
+/* Solo mostrar nuestros totales personalizados */
+.itools-custom-totals .cart_totals {
+    display: block !important;
 }
 </style>
 
@@ -340,10 +352,15 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                 </h2>
                             </div>
                             
-                            <!-- WooCommerce totals integrados aquí -->
+                            <!-- Solo los totales específicos del carrito -->
                             <div class="p-6">
-                                <div class="woocommerce-cart-collaterals">
-                                    <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+                                <div class="itools-custom-totals">
+                                    <?php 
+                                    // Mostrar solo la tabla de totales sin duplicar
+                                    if ( ! WC()->cart->is_empty() ) {
+                                        wc_get_template( 'cart/cart-totals.php' );
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -441,7 +458,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Personalizar el botón de "Proceder al pago"
-    const checkoutButton = document.querySelector('.wc-proceed-to-checkout a');
+    const checkoutButton = document.querySelector('.itools-custom-totals .wc-proceed-to-checkout a');
     if (checkoutButton) {
         checkoutButton.innerHTML = `
             <svg class="w-6 h-6 mr-3" style="animation: pulse 2s infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -454,11 +471,13 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         checkoutButton.addEventListener('mouseover', function() {
-            this.querySelector('svg:last-child').style.transform = 'translateX(4px)';
+            const arrow = this.querySelector('svg:last-child');
+            if (arrow) arrow.style.transform = 'translateX(4px)';
         });
         
         checkoutButton.addEventListener('mouseout', function() {
-            this.querySelector('svg:last-child').style.transform = 'translateX(0)';
+            const arrow = this.querySelector('svg:last-child');
+            if (arrow) arrow.style.transform = 'translateX(0)';
         });
     }
     
@@ -483,23 +502,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Ocultar totales duplicados del tema padre
+    // Asegurar que solo haya un total visible - eliminación agresiva de duplicados
     setTimeout(function() {
-        // Buscar y ocultar elementos duplicados
-        const cartTotals = document.querySelectorAll('.cart_totals');
-        if (cartTotals.length > 1) {
-            // Mantener solo el primero y ocultar los demás
-            for (let i = 1; i < cartTotals.length; i++) {
-                cartTotals[i].style.display = 'none';
-            }
-        }
+        // Ocultar TODOS los totales excepto el nuestro
+        const allCartTotals = document.querySelectorAll('.cart_totals');
+        const customTotals = document.querySelector('.itools-custom-totals .cart_totals');
         
-        // Ocultar elementos específicos del tema Storefront
-        const storefrontElements = document.querySelectorAll('.storefront-cart-totals, .cart-collaterals .col2-set .col-2');
-        storefrontElements.forEach(element => {
-            element.style.display = 'none';
+        allCartTotals.forEach(function(total) {
+            if (total !== customTotals && !total.closest('.itools-custom-totals')) {
+                total.style.display = 'none';
+                total.style.visibility = 'hidden';
+                total.style.opacity = '0';
+                total.style.height = '0';
+                total.style.overflow = 'hidden';
+            }
         });
-    }, 100);
+        
+        // Ocultar elementos específicos del tema y WooCommerce
+        const hideElements = [
+            '.cart-collaterals',
+            '.woocommerce-cart-collaterals', 
+            '.storefront-cart-totals',
+            '.cart_totals:not(.itools-custom-totals .cart_totals)'
+        ];
+        
+        hideElements.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                if (!element.closest('.itools-custom-totals')) {
+                    element.style.display = 'none';
+                }
+            });
+        });
+    }, 50);
 });
 </script>
 
