@@ -38,6 +38,11 @@ function itools_cart_update_script() {
         ?>
         <script>
         jQuery(document).ready(function($) {
+            // Función para actualizar contador manualmente
+            window.updateCartCounter = function(newCount, newDisplay) {
+                $('.cart-count').text(newDisplay || '');
+            };
+            
             // Escuchar evento de WooCommerce cuando se agrega un producto
             $(document.body).on('added_to_cart', function(event, fragments, cart_hash, $button) {
                 // Actualizar fragmentos del carrito
@@ -51,6 +56,84 @@ function itools_cart_update_script() {
     }
 }
 add_action( 'wp_footer', 'itools_cart_update_script' );
+
+// Configuración mínima AJAX solo para front-page (sin funciones complejas)
+function itools_simple_ajax_config() {
+    if ( is_front_page() || is_home() ) {
+        ?>
+        <script>
+        // Configuración simple para que funcionen los botones del carrito
+        window.itools_ajax = {
+            ajax_url: '<?php echo admin_url( 'admin-ajax.php' ); ?>'
+        };
+        </script>
+        <?php
+    }
+}
+add_action( 'wp_footer', 'itools_simple_ajax_config', 5 );
+
+// Función AJAX simple para buscar productos (sin nonces para evitar errores)
+function itools_simple_get_product_id() {
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_send_json_error( 'WooCommerce no disponible' );
+    }
+    
+    $product_name = isset( $_POST['product_name'] ) ? sanitize_text_field( $_POST['product_name'] ) : '';
+    
+    if ( empty( $product_name ) ) {
+        wp_send_json_error( 'Nombre vacío' );
+    }
+    
+    // Buscar producto por título
+    $products = get_posts( array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'title' => $product_name,
+        'numberposts' => 1
+    ) );
+    
+    if ( ! empty( $products ) ) {
+        wp_send_json_success( array( 
+            'product_id' => $products[0]->ID,
+            'product_name' => $products[0]->post_title
+        ) );
+    } else {
+        wp_send_json_error( 'Producto no encontrado' );
+    }
+}
+add_action( 'wp_ajax_itools_get_product_id', 'itools_simple_get_product_id' );
+add_action( 'wp_ajax_nopriv_itools_get_product_id', 'itools_simple_get_product_id' );
+
+// Función AJAX simple para agregar al carrito
+function itools_simple_add_to_cart() {
+    if ( ! class_exists( 'WooCommerce' ) ) {
+        wp_send_json_error( 'WooCommerce no disponible' );
+    }
+    
+    $product_id = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : 0;
+    $quantity = isset( $_POST['quantity'] ) ? intval( $_POST['quantity'] ) : 1;
+    
+    if ( $product_id <= 0 ) {
+        wp_send_json_error( 'ID inválido' );
+    }
+    
+    $result = WC()->cart->add_to_cart( $product_id, $quantity );
+    
+    if ( $result ) {
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $cart_display = $cart_count > 0 ? ' (' . $cart_count . ')' : '';
+        
+        wp_send_json_success( array(
+            'message' => 'Agregado al carrito',
+            'cart_count' => $cart_count,
+            'cart_display' => $cart_display
+        ) );
+    } else {
+        wp_send_json_error( 'Error al agregar' );
+    }
+}
+add_action( 'wp_ajax_itools_add_to_cart', 'itools_simple_add_to_cart' );
+add_action( 'wp_ajax_nopriv_itools_add_to_cart', 'itools_simple_add_to_cart' );
 
 // Agregar fragmentos del carrito para actualización AJAX
 function itools_add_cart_fragments( $fragments ) {
