@@ -19,6 +19,21 @@ function itools_enqueue_styles() {
         true 
     );
     
+    // Asegurar que los scripts críticos de WooCommerce se carguen
+    if ( class_exists( 'WooCommerce' ) ) {
+        // Script para agregar al carrito AJAX
+        wp_enqueue_script( 'wc-add-to-cart' );
+        
+        // Script para fragmentos del carrito (contador)
+        wp_enqueue_script( 'wc-cart-fragments' );
+        
+        // Scripts adicionales de WooCommerce en la página principal
+        if ( is_front_page() || is_home() || is_shop() || is_product_category() ) {
+            wp_enqueue_script( 'woocommerce' );
+            wp_enqueue_script( 'wc-single-product' );
+        }
+    }
+    
     // Encolar JavaScript para páginas de producto individual
     if ( is_product() ) {
         wp_enqueue_script( 
@@ -31,6 +46,148 @@ function itools_enqueue_styles() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
+
+// JavaScript para actualizar contador del carrito dinámicamente
+function itools_cart_update_script() {
+    if ( class_exists( 'WooCommerce' ) ) {
+        ?>
+        <script>
+        jQuery(document).ready(function($) {
+            // Actualizar contador del carrito
+            function updateCartCount() {
+                $('.cart-count').each(function() {
+                    $(this).load(location.href + ' .cart-count', function() {
+                        // Callback después de cargar
+                    });
+                });
+            }
+            
+            // Escuchar evento de WooCommerce cuando se agrega un producto
+            $(document.body).on('added_to_cart', function(event, fragments, cart_hash, $button) {
+                // Actualizar fragmentos del carrito
+                if (typeof fragments !== 'undefined' && fragments['span.cart-count']) {
+                    $('span.cart-count').replaceWith(fragments['span.cart-count']);
+                } else {
+                    // Fallback: recargar contador manualmente
+                    updateCartCount();
+                }
+            });
+            
+            // Para botones de agregar al carrito AJAX
+            $('.add_to_cart_button, .single_add_to_cart_button').on('click', function() {
+                setTimeout(function() {
+                    updateCartCount();
+                }, 1000);
+            });
+        });
+        </script>
+        <?php
+    }
+}
+add_action( 'wp_footer', 'itools_cart_update_script' );
+
+// Agregar fragmentos del carrito para actualización AJAX
+function itools_add_cart_fragments( $fragments ) {
+    if ( class_exists( 'WooCommerce' ) && WC()->cart ) {
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $cart_display = $cart_count > 0 ? ' (' . $cart_count . ')' : '';
+        
+        // Fragmento para el contador del carrito
+        $fragments['span.cart-count'] = '<span class="cart-count">' . $cart_display . '</span>';
+    }
+    
+    return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'itools_add_cart_fragments' );
+
+// Configuración AJAX para front-page
+function itools_localize_ajax_script() {
+    if ( is_front_page() || is_home() ) {
+        wp_localize_script( 'jquery', 'itools_ajax', array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'nonce' => wp_create_nonce( 'itools_ajax_nonce' )
+        ) );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'itools_localize_ajax_script', 20 );
+
+// AJAX handler para obtener ID del producto
+function itools_ajax_get_product_id() {
+    // Verificar nonce por seguridad
+    if ( ! wp_verify_nonce( $_POST['nonce'] ?? '', 'itools_ajax_nonce' ) ) {
+        wp_die( 'Error de seguridad' );
+    }
+    
+    $product_name = sanitize_text_field( $_POST['product_name'] ?? '' );
+    
+    if ( empty( $product_name ) ) {
+        wp_send_json_error( array( 'message' => 'Nombre de producto vacío' ) );
+    }
+    
+    // Buscar producto por nombre
+    $products = get_posts( array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'title' => $product_name,
+        'numberposts' => 1
+    ) );
+    
+    if ( empty( $products ) ) {
+        // Buscar por título similar
+        $products = get_posts( array(
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            's' => $product_name,
+            'numberposts' => 1
+        ) );
+    }
+    
+    if ( ! empty( $products ) ) {
+        wp_send_json_success( array( 
+            'product_id' => $products[0]->ID,
+            'product_name' => $products[0]->post_title
+        ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'Producto no encontrado' ) );
+    }
+}
+add_action( 'wp_ajax_itools_get_product_id', 'itools_ajax_get_product_id' );
+add_action( 'wp_ajax_nopriv_itools_get_product_id', 'itools_ajax_get_product_id' );
+
+// AJAX handler para agregar producto al carrito
+function itools_ajax_add_to_cart() {
+    // Verificar nonce por seguridad
+    if ( ! wp_verify_nonce( $_POST['nonce'] ?? '', 'itools_ajax_nonce' ) ) {
+        wp_die( 'Error de seguridad' );
+    }
+    
+    $product_id = intval( $_POST['product_id'] ?? 0 );
+    $quantity = intval( $_POST['quantity'] ?? 1 );
+    
+    if ( $product_id <= 0 ) {
+        wp_send_json_error( array( 'message' => 'ID de producto inválido' ) );
+    }
+    
+    // Agregar producto al carrito
+    $result = WC()->cart->add_to_cart( $product_id, $quantity );
+    
+    if ( $result ) {
+        // Obtener contador actualizado
+        $cart_count = WC()->cart->get_cart_contents_count();
+        $cart_display = $cart_count > 0 ? ' (' . $cart_count . ')' : '';
+        
+        wp_send_json_success( array(
+            'message' => 'Producto agregado al carrito',
+            'cart_count' => $cart_count,
+            'cart_display' => $cart_display,
+            'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array() )
+        ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'Error al agregar producto al carrito' ) );
+    }
+}
+add_action( 'wp_ajax_itools_add_to_cart', 'itools_ajax_add_to_cart' );
+add_action( 'wp_ajax_nopriv_itools_add_to_cart', 'itools_ajax_add_to_cart' );
 
 // Enqueue script de Tally + función para abrir el popup
 function mi_tally_script() {
@@ -70,6 +227,8 @@ function itools_child_theme_setup() {
 }
 add_action( 'after_setup_theme', 'itools_child_theme_setup' );
 
+// TEMPORAL: Comentado para corregir problemas con el carrito
+/*
 // Remover hooks duplicados de WooCommerce en páginas de producto individual
 function itools_remove_woocommerce_single_product_hooks() {
     // Solo aplicar en páginas de producto individual
@@ -85,6 +244,7 @@ function itools_remove_woocommerce_single_product_hooks() {
     }
 }
 add_action( 'wp', 'itools_remove_woocommerce_single_product_hooks' );
+*/
 
 // Mejorar la búsqueda de productos básica
 function itools_modify_search_query( $query ) {
