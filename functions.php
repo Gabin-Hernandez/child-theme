@@ -32,6 +32,30 @@ function itools_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
 
+// Enqueue script de Tally + función para abrir el popup
+function mi_tally_script() {
+    ?>
+    <script async src="https://tally.so/widgets/embed.js"></script>
+    <script>
+      function openTally() {
+        Tally.openPopup('waW7My', { 
+          layout: 'modal',   // modal centrado
+          width: 600,        // ancho del modal
+          hideTitle: true,   // oculta el título
+          onClose: function() {
+            // Después de cerrar Tally, redirigir a WhatsApp
+            const whatsappNumber = '1234567890'; // Cambia por tu número
+            const whatsappMessage = '¡Hola! Me interesa obtener más información sobre sus productos.';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank');
+          }
+        });
+      }
+    </script>
+    <?php
+}
+add_action('wp_footer', 'mi_tally_script'); // lo cargamos al final de la página
+
 // Soporte básico del tema hijo
 function itools_child_theme_setup() {
     // Soporte para logos personalizados

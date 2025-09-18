@@ -1,5 +1,5 @@
 /**
- * JavaScript para el botón flotante de WhatsApp - VERSIÓN SUPER VISIBLE
+ * JavaScript para el botón flotante de WhatsApp con Tally
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const whatsappContainer = document.querySelector('#whatsapp-float-container');
     
     if (whatsappFloat && whatsappContainer) {
-        console.log('Botón WhatsApp encontrado - Inicializando...');
+        console.log('Botón WhatsApp con Tally encontrado - Inicializando...');
         
         // Función para forzar el posicionamiento correcto
         function forceCorrectPosition() {
@@ -34,14 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
             whatsappFloat.style.alignItems = 'center';
             whatsappFloat.style.justifyContent = 'center';
             whatsappFloat.style.border = '3px solid #ffffff';
+            whatsappFloat.style.cursor = 'pointer';
         }
         
         // Aplicar posicionamiento inmediatamente
         forceCorrectPosition();
         
-        // Agregar efecto de click con vibración
+        // Agregar efectos visuales al click
         whatsappFloat.addEventListener('click', function(e) {
-            console.log('Botón WhatsApp clickeado!');
+            console.log('Botón WhatsApp clickeado - Abriendo Tally...');
             this.style.transform = 'scale(0.9)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
@@ -51,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navigator.vibrate) {
                 navigator.vibrate(100);
             }
+            
+            // Nota: La función openTally() se ejecuta por el onclick del HTML
         });
         
         // Mostrar el botón con animación
@@ -65,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 1000);
         
-        // Monitoreo constante
+        // Monitoreo constante del posicionamiento
         setInterval(forceCorrectPosition, 2000);
         
         // Event listeners para mantener posición
@@ -86,8 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        console.log('Botón WhatsApp configurado correctamente');
+        console.log('Botón WhatsApp con Tally configurado correctamente');
     } else {
-        console.log('No se encontró el botón WhatsApp');
+        console.log('No se encontró el botón WhatsApp con Tally');
     }
 });

@@ -649,12 +649,10 @@ $whatsapp_message = '¡Hola! Me interesa obtener más información sobre sus pro
 $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($whatsapp_message);
 ?>
 
-<!-- BOTÓN FLOTANTE WHATSAPP - SUPER VISIBLE -->
+<!-- BOTÓN FLOTANTE WHATSAPP - SUPER VISIBLE CON TALLY -->
 <div id="whatsapp-float-container" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; pointer-events: none !important; z-index: 2147483647 !important;">
-    <a href="<?php echo esc_url($whatsapp_url); ?>" 
+    <button onclick="openTally()" 
        id="whatsapp-super-button"
-       target="_blank" 
-       rel="noopener noreferrer" 
        title="Contactar por WhatsApp"
        style="
            position: absolute !important;
@@ -673,13 +671,14 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
            pointer-events: auto !important;
            z-index: 2147483647 !important;
            border: 3px solid #ffffff !important;
+           cursor: pointer !important;
        ">
         <i class="fab fa-whatsapp" style="
             font-size: 45px !important;
             color: #ffffff !important;
             line-height: 1 !important;
         "></i>
-    </a>
+    </button>
 </div>
 
 <style>
