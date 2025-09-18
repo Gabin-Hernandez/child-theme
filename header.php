@@ -642,4 +642,92 @@
     </div>
     <!-- End Header Sticky Wrapper -->
 
+<?php 
+// Botón flotante de WhatsApp - VERSIÓN HEADER
+$whatsapp_number = '1234567890'; // Cambia este número por el número de WhatsApp de la empresa
+$whatsapp_message = '¡Hola! Me interesa obtener más información sobre sus productos.'; // Mensaje predeterminado
+$whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($whatsapp_message);
+?>
+
+<!-- BOTÓN FLOTANTE WHATSAPP - SUPER VISIBLE -->
+<div id="whatsapp-float-container" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; pointer-events: none !important; z-index: 2147483647 !important;">
+    <a href="<?php echo esc_url($whatsapp_url); ?>" 
+       id="whatsapp-super-button"
+       target="_blank" 
+       rel="noopener noreferrer" 
+       title="Contactar por WhatsApp"
+       style="
+           position: absolute !important;
+           bottom: 30px !important;
+           right: 30px !important;
+           width: 80px !important;
+           height: 80px !important;
+           background: #25D366 !important;
+           border-radius: 50% !important;
+           display: flex !important;
+           align-items: center !important;
+           justify-content: center !important;
+           text-decoration: none !important;
+           box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6) !important;
+           transition: all 0.3s ease !important;
+           pointer-events: auto !important;
+           z-index: 2147483647 !important;
+           border: 3px solid #ffffff !important;
+       ">
+        <i class="fab fa-whatsapp" style="
+            font-size: 45px !important;
+            color: #ffffff !important;
+            line-height: 1 !important;
+        "></i>
+    </a>
+</div>
+
+<style>
+/* CSS adicional para el botón WhatsApp */
+#whatsapp-super-button:hover {
+    background: #20BA5A !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 12px 40px rgba(37, 211, 102, 0.8) !important;
+}
+
+/* Animación de pulso */
+#whatsapp-super-button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -5px !important;
+    left: -5px !important;
+    right: -5px !important;
+    bottom: -5px !important;
+    border-radius: 50% !important;
+    border: 3px solid #25D366 !important;
+    animation: whatsapp-pulse-super 2s infinite !important;
+    opacity: 0 !important;
+}
+
+@keyframes whatsapp-pulse-super {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    #whatsapp-super-button {
+        width: 70px !important;
+        height: 70px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+    }
+    
+    #whatsapp-super-button i {
+        font-size: 38px !important;
+    }
+}
+</style>
+
     <div id="content" class="site-content"><?php

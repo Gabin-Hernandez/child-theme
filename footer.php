@@ -244,18 +244,6 @@
 
 </div><!-- #page -->
 
-<?php 
-// Botón flotante de WhatsApp
-$whatsapp_number = '1234567890'; // Cambia este número por el número de WhatsApp de la empresa
-$whatsapp_message = '¡Hola! Me interesa obtener más información sobre sus productos.'; // Mensaje predeterminado
-$whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($whatsapp_message);
-?>
-
-<!-- Botón flotante de WhatsApp -->
-<a href="<?php echo esc_url($whatsapp_url); ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 <?php wp_footer(); ?>
 
 </body>
