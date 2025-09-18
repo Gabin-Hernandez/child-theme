@@ -1253,216 +1253,221 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+// FUNCIONES DE CARRITO - DISPONIBLES GLOBALMENTE DESDE EL INICIO
+window.addToCart = function(productSlug) {
+    console.log('addToCart llamado con:', productSlug);
     
-    // Función para agregar productos al carrito
-    window.addToCart = function(productSlug) {
-        console.log('addToCart llamado con:', productSlug);
-        
-        const button = event.target;
-        const originalContent = button.innerHTML;
-        
-        // Mostrar estado de carga
-        button.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-8h-4M6 12H2m10.5-6.5L15 5m-3 3L9.5 5.5M15 19l-2.5-2.5M9.5 19.5L12 17"></path></svg>';
-        button.disabled = true;
-        
-        // Debug: verificar disponibilidad
-        console.log('jQuery disponible:', typeof jQuery !== 'undefined');
-        console.log('itools_ajax disponible:', typeof itools_ajax !== 'undefined');
-        console.log('itools_ajax objeto:', itools_ajax);
-        
-        // Si jQuery y AJAX están disponibles, usar WooCommerce real
-        if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
-            console.log('Usando método AJAX...');
-            // Obtener nombre del producto basado en el slug
-            let productName = '';
-            switch(productSlug) {
-                case 'pantalla-iphone-14':
-                    productName = 'Pantalla iPhone 14';
-                    break;
-                case 'bateria-samsung':
-                    productName = 'Batería Samsung';
-                    break;
-                case 'kit-herramientas':
-                    productName = 'Kit Herramientas';
-                    break;
-                case 'accesorios-pro':
-                    productName = 'Accesorios Pro';
-                    break;
-                default:
-                    productName = productSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            }
-            
-            // Buscar ID del producto
-            console.log('Buscando producto:', productName);
-            jQuery.ajax({
-                url: itools_ajax.ajax_url,
-                type: 'POST',
-                data: {
-                    action: 'itools_get_product_id',
-                    product_name: productName
-                },
-                success: function(response) {
-                    console.log('Respuesta búsqueda producto:', response);
-                    if (response.success) {
-                        console.log('Producto encontrado, ID:', response.data.product_id);
-                        // Agregar al carrito con el ID encontrado
-                        addProductToCart(response.data.product_id, button, originalContent, productName);
-                    } else {
-                        // Fallback: Simular agregado exitoso si no se encuentra el producto
-                        console.log('Producto no encontrado, usando fallback:', response.data);
-                        showSuccessState(button, originalContent);
-                        showCartNotification('✅ Producto agregado al carrito');
-                        // Simular actualización de contador
-                        updateCartCount(getRandomCartCount());
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Fallback en caso de error
-                    console.log('Error en búsqueda de producto:', error);
-                    console.log('XHR:', xhr);
-                    console.log('Status:', status);
-                    showSuccessState(button, originalContent);
-                    showCartNotification('✅ Producto agregado al carrito');
-                    updateCartCount(getRandomCartCount());
-                }
-            });
-        } else {
-            // Fallback sin jQuery
-            setTimeout(() => {
-                showSuccessState(button, originalContent);
-                showCartNotification('✅ Producto agregado al carrito');
-                updateCartCount(getRandomCartCount());
-            }, 800);
+    const button = event.target;
+    const originalContent = button.innerHTML;
+    
+    // Mostrar estado de carga
+    button.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-8h-4M6 12H2m10.5-6.5L15 5m-3 3L9.5 5.5M15 19l-2.5-2.5M9.5 19.5L12 17"></path></svg>';
+    button.disabled = true;
+    
+    // Debug: verificar disponibilidad
+    console.log('jQuery disponible:', typeof jQuery !== 'undefined');
+    console.log('itools_ajax disponible:', typeof itools_ajax !== 'undefined');
+    console.log('itools_ajax objeto:', itools_ajax);
+    
+    // Si jQuery y AJAX están disponibles, usar WooCommerce real
+    if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
+        console.log('Usando método AJAX...');
+        // Obtener nombre del producto basado en el slug
+        let productName = '';
+        switch(productSlug) {
+            case 'pantalla-iphone-14':
+                productName = 'Pantalla iPhone 14';
+                break;
+            case 'bateria-samsung':
+                productName = 'Batería Samsung';
+                break;
+            case 'kit-herramientas':
+                productName = 'Kit Herramientas';
+                break;
+            case 'accesorios-pro':
+                productName = 'Accesorios Pro';
+                break;
+            default:
+                productName = productSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         }
-    };
-    
-    // Función auxiliar para agregar producto al carrito
-    function addProductToCart(productId, button, originalContent, productName) {
-        console.log('addProductToCart llamado con ID:', productId, 'Nombre:', productName);
+        
+        // Buscar ID del producto
+        console.log('Buscando producto:', productName);
         jQuery.ajax({
             url: itools_ajax.ajax_url,
             type: 'POST',
             data: {
-                action: 'itools_add_to_cart',
-                product_id: productId,
-                quantity: 1
+                action: 'itools_get_product_id',
+                product_name: productName
             },
             success: function(response) {
-                console.log('Respuesta agregar al carrito:', response);
+                console.log('Respuesta búsqueda producto:', response);
                 if (response.success) {
-                    console.log('Producto agregado exitosamente');
-                    showSuccessState(button, originalContent);
-                    showCartNotification('✅ ' + productName + ' agregado al carrito');
-                    // Actualizar contador del carrito
-                    if (response.data.cart_count !== undefined) {
-                        console.log('Actualizando contador:', response.data.cart_count);
-                        updateCartCount(response.data.cart_count);
-                    }
+                    console.log('Producto encontrado, ID:', response.data.product_id);
+                    // Agregar al carrito con el ID encontrado
+                    addProductToCart(response.data.product_id, button, originalContent, productName);
                 } else {
-                    // Error en la respuesta
-                    console.log('Error en respuesta:', response.data);
-                    showErrorState(button, originalContent);
-                    showCartNotification('❌ Error: ' + (response.data.message || 'No se pudo agregar al carrito'));
+                    // Fallback: Simular agregado exitoso si no se encuentra el producto
+                    console.log('Producto no encontrado, usando fallback:', response.data);
+                    showSuccessState(button, originalContent);
+                    showCartNotification('✅ Producto agregado al carrito');
+                    // Simular actualización de contador
+                    updateCartCount(getRandomCartCount());
                 }
             },
             error: function(xhr, status, error) {
-                console.log('Error AJAX:', error);
-                showErrorState(button, originalContent);
-                showCartNotification('❌ Error de conexión', 'error');
+                // Fallback en caso de error
+                console.log('Error en búsqueda de producto:', error);
+                console.log('XHR:', xhr);
+                console.log('Status:', status);
+                showSuccessState(button, originalContent);
+                showCartNotification('✅ Producto agregado al carrito');
+                updateCartCount(getRandomCartCount());
             }
         });
-    }
-    };
-    
-    // Funciones auxiliares
-    function getRandomCartCount() {
-        // Simular un contador de carrito entre 1 y 5
-        return Math.floor(Math.random() * 5) + 1;
-    }
-    
-    function showSuccessState(button, originalContent) {
-        button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
-        button.className = button.className.replace('bg-green-600', 'bg-green-700');
-        
+    } else {
+        // Fallback sin jQuery
         setTimeout(() => {
-            button.innerHTML = originalContent;
-            button.disabled = false;
-            button.className = button.className.replace('bg-green-700', 'bg-green-600');
-        }, 2000);
+            showSuccessState(button, originalContent);
+            showCartNotification('✅ Producto agregado al carrito');
+            updateCartCount(getRandomCartCount());
+        }, 800);
     }
-    
-    function showErrorState(button, originalContent) {
-        button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-        button.className = button.className.replace('bg-green-600', 'bg-red-600');
-        
-        setTimeout(() => {
-            button.innerHTML = originalContent;
-            button.disabled = false;
-            button.className = button.className.replace('bg-red-600', 'bg-green-600');
-        }, 2000);
-    }
-    
-    function updateCartCount(count) {
-        // Actualizar el contador del carrito en el header
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        cartCountElements.forEach(element => {
-            if (count > 0) {
-                element.textContent = ' (' + count + ')';
-                element.style.display = 'inline';
-            } else {
-                element.textContent = '';
-                element.style.display = 'none';
-            }
-        });
-        
-        // Añadir efecto visual al link del carrito
-        const cartLink = document.getElementById('cart-link');
-        if (cartLink) {
-            cartLink.style.transform = 'scale(1.05)';
-            cartLink.style.boxShadow = '0 4px 12px rgba(255,255,255,0.3)';
-            
-            setTimeout(() => {
-                cartLink.style.transform = 'scale(1)';
-                cartLink.style.boxShadow = 'none';
-            }, 300);
-        }
-    }
-    
-    // Función para mostrar notificación de carrito
-    function showCartNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        const bgColor = type === 'success' ? 'bg-green-600' : 'bg-red-600';
-        const icon = type === 'success' 
-            ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'
-            : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
-        
-        notification.className = `fixed top-20 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
-        notification.innerHTML = `
-            <div class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    ${icon}
-                </svg>
-                <span>${message}</span>
-            </div>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Mostrar notificación
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-        
-        // Ocultar después de 3 segundos
-        setTimeout(() => {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-                if (document.body.contains(notification)) {
-                    document.body.removeChild(notification);
+};
+
+// Función auxiliar para agregar producto al carrito
+function addProductToCart(productId, button, originalContent, productName) {
+    console.log('addProductToCart llamado con ID:', productId, 'Nombre:', productName);
+    jQuery.ajax({
+        url: itools_ajax.ajax_url,
+        type: 'POST',
+        data: {
+            action: 'itools_add_to_cart',
+            product_id: productId,
+            quantity: 1
+        },
+        success: function(response) {
+            console.log('Respuesta agregar al carrito:', response);
+            if (response.success) {
+                console.log('Producto agregado exitosamente');
+                showSuccessState(button, originalContent);
+                showCartNotification('✅ ' + productName + ' agregado al carrito');
+                // Actualizar contador del carrito
+                if (response.data.cart_count !== undefined) {
+                    console.log('Actualizando contador:', response.data.cart_count);
+                    updateCartCount(response.data.cart_count);
                 }
-            }, 300);
-        }, 3000);
+            } else {
+                // Error en la respuesta
+                console.log('Error en respuesta:', response.data);
+                showErrorState(button, originalContent);
+                showCartNotification('❌ Error: ' + (response.data.message || 'No se pudo agregar al carrito'));
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error AJAX:', error);
+            showErrorState(button, originalContent);
+            showCartNotification('❌ Error de conexión', 'error');
+        }
+    });
+}
+
+// Funciones auxiliares
+function getRandomCartCount() {
+    // Simular un contador de carrito entre 1 y 5
+    return Math.floor(Math.random() * 5) + 1;
+}
+
+function showSuccessState(button, originalContent) {
+    button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+    button.className = button.className.replace('bg-green-600', 'bg-green-700');
+    
+    setTimeout(() => {
+        button.innerHTML = originalContent;
+        button.disabled = false;
+        button.className = button.className.replace('bg-green-700', 'bg-green-600');
+    }, 2000);
+}
+
+function showErrorState(button, originalContent) {
+    button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+    button.className = button.className.replace('bg-green-600', 'bg-red-600');
+    
+    setTimeout(() => {
+        button.innerHTML = originalContent;
+        button.disabled = false;
+        button.className = button.className.replace('bg-red-600', 'bg-green-600');
+    }, 2000);
+}
+
+function updateCartCount(count) {
+    // Actualizar el contador del carrito en el header
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(element => {
+        if (count > 0) {
+            element.textContent = ' (' + count + ')';
+            element.style.display = 'inline';
+        } else {
+            element.textContent = '';
+            element.style.display = 'none';
+        }
+    });
+    
+    // Añadir efecto visual al link del carrito
+    const cartLink = document.getElementById('cart-link');
+    if (cartLink) {
+        cartLink.style.transform = 'scale(1.05)';
+        cartLink.style.boxShadow = '0 4px 12px rgba(255,255,255,0.3)';
+        
+        setTimeout(() => {
+            cartLink.style.transform = 'scale(1)';
+            cartLink.style.boxShadow = 'none';
+        }, 300);
     }
+}
+
+// Función para mostrar notificación de carrito
+function showCartNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    const bgColor = type === 'success' ? 'bg-green-600' : 'bg-red-600';
+    const icon = type === 'success' 
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+    
+    notification.className = `fixed top-20 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+    notification.innerHTML = `
+        <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                ${icon}
+            </svg>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Mostrar notificación
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Inicialización específica cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado - Funciones de carrito ya disponibles globalmente');
+    console.log('addToCart función disponible:', typeof window.addToCart);
     
     // Inicializar contador del carrito al cargar la página
     if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
@@ -1480,6 +1485,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+// Verificación que la función está disponible (solo para debug)
+console.log('🛒 Script de carrito cargado');
+console.log('🔧 addToCart function:', typeof window.addToCart);
+console.log('📦 Funciones auxiliares disponibles:', {
+    addProductToCart: typeof addProductToCart,
+    getRandomCartCount: typeof getRandomCartCount,
+    showSuccessState: typeof showSuccessState,
+    showErrorState: typeof showErrorState,
+    updateCartCount: typeof updateCartCount,
+    showCartNotification: typeof showCartNotification
 });
 </script>
 
