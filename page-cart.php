@@ -267,11 +267,11 @@ if ( ! class_exists( 'WooCommerce' ) ) {
             
         <?php else : ?>
             
-            <!-- Grid principal: Carrito + Totales -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Grid principal: Carrito + Totales optimizado -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 
-                <!-- Contenido del carrito (2/3) -->
-                <div class="lg:col-span-2 space-y-8">
+                <!-- Contenido del carrito (3/4) -->
+                <div class="lg:col-span-3 space-y-8">
                     
                     <!-- Header del carrito -->
                     <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -325,45 +325,106 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                     </div>
                 </div>
 
-                <!-- Totales del carrito (1/3) - SOLO UNA SECCIÓN -->
+                <!-- Sidebar de totales y pagos (1/4) -->
                 <div class="lg:col-span-1">
-                    <div class="sticky top-8">
-                        <!-- Aquí WooCommerce insertará automáticamente los totales con Google Pay -->
-                        <div class="woocommerce-cart-collaterals">
-                            <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+                    <div class="sticky top-8 space-y-6">
+                        
+                        <!-- Total del carrito integrado -->
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="px-6 py-4" style="background: linear-gradient(to right, #2563eb, #9333ea);">
+                                <h2 class="text-lg font-bold text-white flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Total del pedido
+                                </h2>
+                            </div>
+                            
+                            <!-- WooCommerce totals integrados aquí -->
+                            <div class="p-6">
+                                <div class="woocommerce-cart-collaterals">
+                                    <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Métodos de pago aceptados -->
-                        <div class="mt-8 p-4 bg-gray-50 rounded-xl">
+                        <div class="bg-white rounded-2xl shadow-xl p-6">
                             <div class="text-center">
-                                <p class="text-sm text-gray-600 mb-3">Métodos de pago aceptados:</p>
-                                <div class="flex justify-center items-center space-x-4 opacity-75">
-                                    <div class="bg-white rounded p-2 shadow-sm">
-                                        <span class="text-xs font-semibold text-blue-600">VISA</span>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Métodos de pago aceptados</h3>
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200">
+                                        <span class="text-sm font-bold text-blue-700">VISA</span>
                                     </div>
-                                    <div class="bg-white rounded p-2 shadow-sm">
-                                        <span class="text-xs font-semibold text-red-600">MC</span>
+                                    <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-lg p-3 border border-red-200">
+                                        <span class="text-sm font-bold text-red-700">MC</span>
                                     </div>
-                                    <div class="bg-white rounded p-2 shadow-sm">
-                                        <span class="text-xs font-semibold text-blue-800">AMEX</span>
+                                    <div class="bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg p-3 border border-indigo-200">
+                                        <span class="text-sm font-bold text-indigo-700">AMEX</span>
                                     </div>
-                                    <div class="bg-white rounded p-2 shadow-sm">
-                                        <span class="text-xs font-semibold text-blue-700">PayPal</span>
+                                    <div class="bg-gradient-to-r from-blue-50 to-purple-100 rounded-lg p-3 border border-blue-200">
+                                        <span class="text-sm font-bold text-blue-800">PayPal</span>
                                     </div>
-                                    <div class="bg-white rounded p-2 shadow-sm">
-                                        <span class="text-xs font-semibold text-green-600">OXXO</span>
+                                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 border border-green-200">
+                                        <span class="text-sm font-bold text-green-700">OXXO</span>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-3 border border-gray-200">
+                                        <span class="text-sm font-bold text-gray-700">Google Pay</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Garantía de seguridad -->
-                        <div class="mt-6 text-center">
-                            <div class="flex items-center justify-center text-sm text-gray-600">
-                                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                                Compra 100% segura y protegida
+                        <div class="bg-white rounded-2xl shadow-xl p-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Compra 100% Segura</h4>
+                                <p class="text-sm text-gray-600">Tus datos están protegidos con encriptación SSL</p>
+                            </div>
+                        </div>
+
+                        <!-- Beneficios adicionales -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6">
+                            <h4 class="text-lg font-semibold text-gray-900 mb-4 text-center">¿Por qué ITOOLS MX?</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-gray-900 text-sm">Envío Express</h5>
+                                        <p class="text-xs text-gray-600">24-48 horas</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-gray-900 text-sm">Soporte Técnico</h5>
+                                        <p class="text-xs text-gray-600">Especializado</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: linear-gradient(135deg, #fed7aa 0%, #fecaca 100%);">
+                                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-gray-900 text-sm">Garantía Total</h5>
+                                        <p class="text-xs text-gray-600">Calidad asegurada</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -374,46 +435,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     </div>
 </section>
 
-<!-- Sección de beneficios -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <!-- Envío gratis -->
-            <div class="text-center p-6">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Envío Express</h3>
-                <p class="text-gray-600">Envíos en 24-48 horas a toda la República Mexicana</p>
-            </div>
-
-            <!-- Soporte -->
-            <div class="text-center p-6">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);">
-                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Soporte Técnico</h3>
-                <p class="text-gray-600">Asesoría especializada para técnicos profesionales</p>
-            </div>
-
-            <!-- Garantía -->
-            <div class="text-center p-6">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #fed7aa 0%, #fecaca 100%);">
-                    <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Garantía Total</h3>
-                <p class="text-gray-600">Productos garantizados y servicio post-venta</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 </div>
 
