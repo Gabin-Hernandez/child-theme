@@ -528,156 +528,104 @@ get_header(); ?>
             </div>
             
             <div class="woocommerce">
-                <?php if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('sale_products') ) : ?>
-                    <?php echo do_shortcode( '[sale_products limit="8" columns="4"]' ); ?>
-                <?php else : ?>
-                    <!-- Productos en oferta estáticos -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Producto 1 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                                         alt="Pantalla iPhone 14" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    -25%
+                <?php 
+                // Usar productos en oferta reales de WooCommerce
+                if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('sale_products') ) : 
+                    echo do_shortcode( '[sale_products limit="8" columns="4"]' ); 
+                else :
+                    // Fallback: usar productos reales con consulta personalizada
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 8,
+                        'meta_key' => '_sale_price',
+                        'meta_compare' => 'EXISTS',
+                        'post_status' => 'publish',
+                        'meta_query' => array(
+                            array(
+                                'key' => '_visibility',
+                                'value' => array('catalog', 'visible'),
+                                'compare' => 'IN'
+                            )
+                        )
+                    );
+                    
+                    $sale_products = new WP_Query( $args );
+                    
+                    if ( $sale_products->have_posts() ) : ?>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <?php while ( $sale_products->have_posts() ) : $sale_products->the_post(); 
+                                global $product;
+                                if ( ! $product || ! $product->is_on_sale() ) continue;
+                                
+                                $regular_price = $product->get_regular_price();
+                                $sale_price = $product->get_sale_price();
+                                $discount_percentage = $regular_price ? round((($regular_price - $sale_price) / $regular_price) * 100) : 0;
+                                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                                $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                            ?>
+                                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                                    <div class="relative">
+                                        <a href="<?php echo get_permalink(); ?>">
+                                            <img src="<?php echo esc_url($image_url); ?>" 
+                                                 alt="<?php echo esc_attr(get_the_title()); ?>" 
+                                                 class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                        </a>
+                                        <?php if ( $discount_percentage > 0 ) : ?>
+                                            <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                                -<?php echo $discount_percentage; ?>%
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="p-4">
+                                        <a href="<?php echo get_permalink(); ?>">
+                                            <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">
+                                                <?php echo get_the_title(); ?>
+                                            </h3>
+                                        </a>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <?php if ( $sale_price ) : ?>
+                                                <span class="text-red-500 font-bold text-xl">
+                                                    <?php echo wc_price($sale_price); ?>
+                                                </span>
+                                                <?php if ( $regular_price && $regular_price != $sale_price ) : ?>
+                                                    <span class="text-gray-400 line-through">
+                                                        <?php echo wc_price($regular_price); ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            <?php else : ?>
+                                                <span class="text-blue-600 font-bold text-xl">
+                                                    <?php echo $product->get_price_html(); ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <a href="<?php echo get_permalink(); ?>" 
+                                               class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                                Ver Producto
+                                            </a>
+                                            <button onclick="addToCart('<?php echo esc_js($product->get_slug()); ?>')" 
+                                                    class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                                    title="Agregar al carrito">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Pantalla iPhone 14</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="text-red-500 font-bold text-xl">$750.00</span>
-                                    <span class="text-gray-400 line-through">$1,000.00</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Pantalla iPhone 14') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=pantalla+iphone+14' : '/tienda/?s=pantalla+iphone+14'); ?>" 
-                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
-                                        Ver Producto
-                                    </a>
-                                    <button onclick="addToCart('pantalla-iphone-14')" 
-                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
-                                            title="Agregar al carrito">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
+                            <?php endwhile; ?>
                         </div>
-                        
-                        <!-- Producto 2 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
-                                         alt="Batería Samsung" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    -30%
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Batería Samsung</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="text-red-500 font-bold text-xl">$175.00</span>
-                                    <span class="text-gray-400 line-through">$250.00</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Batería Samsung') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=bateria+samsung' : '/tienda/?s=bateria+samsung'); ?>" 
-                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
-                                        Ver Producto
-                                    </a>
-                                    <button onclick="addToCart('bateria-samsung')" 
-                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
-                                            title="Agregar al carrito">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
+                    <?php else : ?>
+                        <div class="text-center py-12">
+                            <p class="text-gray-600 text-lg">No hay productos en oferta disponibles en este momento.</p>
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                               class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                Ver Todos los Productos
+                            </a>
                         </div>
-                        
-                        <!-- Producto 3 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                                         alt="Kit Herramientas" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    -20%
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Kit Herramientas</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="text-red-500 font-bold text-xl">$320.00</span>
-                                    <span class="text-gray-400 line-through">$400.00</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Kit Herramientas') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=kit+herramientas' : '/tienda/?s=kit+herramientas'); ?>" 
-                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
-                                        Ver Producto
-                                    </a>
-                                    <button onclick="addToCart('kit-herramientas')" 
-                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
-                                            title="Agregar al carrito">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Producto 4 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                                         alt="Accesorios Pro" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    -15%
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Accesorios Pro</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="text-red-500 font-bold text-xl">$85.00</span>
-                                    <span class="text-gray-400 line-through">$100.00</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <a href="<?php echo function_exists('itools_get_product_url') ? itools_get_product_url('Accesorios Pro') : (function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?s=accesorios+pro' : '/tienda/?s=accesorios+pro'); ?>" 
-                                       class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
-                                        Ver Producto
-                                    </a>
-                                    <button onclick="addToCart('accesorios-pro')" 
-                                            class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
-                                            title="Agregar al carrito">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif;
+                    wp_reset_postdata();
+                endif; ?>
             </div>
             
             <div class="text-center mt-12">
@@ -706,112 +654,124 @@ get_header(); ?>
             </div>
             
             <div class="woocommerce">
-                <?php if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('featured_products') ) : ?>
-                    <?php echo do_shortcode( '[featured_products limit="8" columns="4"]' ); ?>
-                <?php else : ?>
-                    <!-- Productos destacados estáticos -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- Producto Destacado 1 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="/categoria/herramientas/">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                                         alt="Microscopio Pro" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    TOP
+                <?php 
+                // Usar productos destacados reales de WooCommerce
+                if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('featured_products') ) : 
+                    echo do_shortcode( '[featured_products limit="8" columns="4"]' ); 
+                else :
+                    // Fallback: usar productos reales marcados como destacados
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 8,
+                        'post_status' => 'publish',
+                        'meta_query' => array(
+                            'relation' => 'OR',
+                            array(
+                                'key' => '_featured',
+                                'value' => 'yes',
+                                'compare' => '='
+                            ),
+                            array(
+                                'key' => '_visibility',
+                                'value' => 'featured',
+                                'compare' => '='
+                            )
+                        )
+                    );
+                    
+                    $featured_products = new WP_Query( $args );
+                    
+                    // Si no hay productos destacados, usar los productos más recientes
+                    if ( ! $featured_products->have_posts() ) {
+                        $args = array(
+                            'post_type' => 'product',
+                            'posts_per_page' => 8,
+                            'post_status' => 'publish',
+                            'orderby' => 'date',
+                            'order' => 'DESC'
+                        );
+                        $featured_products = new WP_Query( $args );
+                    }
+                    
+                    if ( $featured_products->have_posts() ) : ?>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <?php while ( $featured_products->have_posts() ) : $featured_products->the_post(); 
+                                global $product;
+                                if ( ! $product ) continue;
+                                
+                                $regular_price = $product->get_regular_price();
+                                $sale_price = $product->get_sale_price();
+                                $is_featured = $product->is_featured();
+                                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                                $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                            ?>
+                                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                                    <div class="relative">
+                                        <a href="<?php echo get_permalink(); ?>">
+                                            <img src="<?php echo esc_url($image_url); ?>" 
+                                                 alt="<?php echo esc_attr(get_the_title()); ?>" 
+                                                 class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                        </a>
+                                        <?php if ( $is_featured ) : ?>
+                                            <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                                TOP
+                                            </div>
+                                        <?php elseif ( $product->is_on_sale() ) : ?>
+                                            <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                                OFERTA
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="p-4">
+                                        <a href="<?php echo get_permalink(); ?>">
+                                            <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">
+                                                <?php echo get_the_title(); ?>
+                                            </h3>
+                                        </a>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <?php if ( $sale_price && $product->is_on_sale() ) : ?>
+                                                <span class="text-red-500 font-bold text-xl">
+                                                    <?php echo wc_price($sale_price); ?>
+                                                </span>
+                                                <?php if ( $regular_price && $regular_price != $sale_price ) : ?>
+                                                    <span class="text-gray-400 line-through text-sm">
+                                                        <?php echo wc_price($regular_price); ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            <?php else : ?>
+                                                <span class="text-blue-600 font-bold text-xl">
+                                                    <?php echo $product->get_price_html(); ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <a href="<?php echo get_permalink(); ?>" 
+                                               class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                                Ver Producto
+                                            </a>
+                                            <button onclick="addToCart('<?php echo esc_js($product->get_slug()); ?>')" 
+                                                    class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                                    title="Agregar al carrito">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="/categoria/herramientas/">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Microscopio Pro</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-blue-600 font-bold text-xl">$6,900.00</span>
-                                </div>
-                                <a href="/categoria/herramientas/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
-                            </div>
+                            <?php endwhile; ?>
                         </div>
-                        
-                        <!-- Producto Destacado 2 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="/categoria/lcd-y-touch/">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                                         alt="LCD iPhone 15" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    TOP
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="/categoria/lcd-y-touch/">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">LCD iPhone 15</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-blue-600 font-bold text-xl">$700.00</span>
-                                </div>
-                                <a href="/categoria/lcd-y-touch/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
-                            </div>
+                    <?php else : ?>
+                        <div class="text-center py-12">
+                            <p class="text-gray-600 text-lg">No hay productos destacados disponibles en este momento.</p>
+                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                               class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                                Ver Todos los Productos
+                            </a>
                         </div>
-                        
-                        <!-- Producto Destacado 3 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="/categoria/estaciones-soldadura/">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
-                                         alt="Estación Soldadura" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    TOP
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="/categoria/estaciones-soldadura/">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Estación Soldadura</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-blue-600 font-bold text-xl">$7,450.00</span>
-                                </div>
-                                <a href="/categoria/estaciones-soldadura/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Producto Destacado 4 -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                            <div class="relative">
-                                <a href="/categoria/herramientas/">
-                                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                                         alt="Kit Completo" 
-                                         class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
-                                </a>
-                                <div class="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                                    TOP
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <a href="/categoria/herramientas/">
-                                    <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">Kit Completo</h3>
-                                </a>
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-blue-600 font-bold text-xl">$1,350.00</span>
-                                </div>
-                                <a href="/categoria/herramientas/" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors block text-center">
-                                    Ver Producto
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                    <?php endif;
+                    wp_reset_postdata();
+                endif; ?>
             </div>
             
             <div class="text-center mt-12">
@@ -1382,23 +1342,27 @@ function getRandomCartCount() {
 
 function showSuccessState(button, originalContent) {
     button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
-    button.className = button.className.replace('bg-green-600', 'bg-green-700');
+    button.classList.remove('bg-green-600');
+    button.classList.add('bg-green-700');
     
     setTimeout(() => {
         button.innerHTML = originalContent;
         button.disabled = false;
-        button.className = button.className.replace('bg-green-700', 'bg-green-600');
+        button.classList.remove('bg-green-700');
+        button.classList.add('bg-green-600');
     }, 2000);
 }
 
 function showErrorState(button, originalContent) {
     button.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
-    button.className = button.className.replace('bg-green-600', 'bg-red-600');
+    button.classList.remove('bg-green-600');
+    button.classList.add('bg-red-600');
     
     setTimeout(() => {
         button.innerHTML = originalContent;
         button.disabled = false;
-        button.className = button.className.replace('bg-red-600', 'bg-green-600');
+        button.classList.remove('bg-red-600');
+        button.classList.add('bg-green-600');
     }, 2000);
 }
 
