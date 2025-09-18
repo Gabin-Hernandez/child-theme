@@ -322,6 +322,367 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                 <!-- Totales del carrito (1/3) -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-8">
+                        <!-- Aquí WooCommerce insertará automáticamente los totales con Google Pay -->
+                        <div class="woocommerce-cart-collaterals">
+                            <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+                        </div>
+                        
+                        <!-- Métodos de pago aceptados -->
+                        <div class="mt-8 p-4 bg-gray-50 rounded-xl">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-600 mb-3">Métodos de pago aceptados:</p>
+                                <div class="flex justify-center items-center space-x-4 opacity-75">
+                                    <div class="bg-white rounded p-2 shadow-sm">
+                                        <span class="text-xs font-semibold text-blue-600">VISA</span>
+                                    </div>
+                                    <div class="bg-white rounded p-2 shadow-sm">
+                                        <span class="text-xs font-semibold text-red-600">MC</span>
+                                    </div>
+                                    <div class="bg-white rounded p-2 shadow-sm">
+                                        <span class="text-xs font-semibold text-blue-800">AMEX</span>
+                                    </div>
+                                    <div class="bg-white rounded p-2 shadow-sm">
+                                        <span class="text-xs font-semibold text-blue-700">PayPal</span>
+                                    </div>
+                                    <div class="bg-white rounded p-2 shadow-sm">
+                                        <span class="text-xs font-semibold text-green-600">OXXO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Garantía de seguridad -->
+                        <div class="mt-6 text-center">
+                            <div class="flex items-center justify-center text-sm text-gray-600">
+                                <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                Compra 100% segura y protegida
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php endif; ?>
+    </div>
+</section>
+
+<!-- Sección de beneficios -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Envío gratis -->
+            <div class="text-center p-6">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Envío Express</h3>
+                <p class="text-gray-600">Envíos en 24-48 horas a toda la República Mexicana</p>
+            </div>
+
+            <!-- Soporte -->
+            <div class="text-center p-6">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Soporte Técnico</h3>
+                <p class="text-gray-600">Asesoría especializada para técnicos profesionales</p>
+            </div>
+
+            <!-- Garantía -->
+            <div class="text-center p-6">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background: linear-gradient(135deg, #fed7aa 0%, #fecaca 100%);">
+                    <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Garantía Total</h3>
+                <p class="text-gray-600">Productos garantizados y servicio post-venta</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Personalizar el botón de "Proceder al pago"
+    const checkoutButton = document.querySelector('.wc-proceed-to-checkout a');
+    if (checkoutButton) {
+        checkoutButton.innerHTML = `
+            <svg class="w-6 h-6 mr-3" style="animation: pulse 2s infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Proceder al pago
+            <svg class="w-5 h-5 ml-3" style="transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+        `;
+        
+        checkoutButton.addEventListener('mouseover', function() {
+            this.querySelector('svg:last-child').style.transform = 'translateX(4px)';
+        });
+        
+        checkoutButton.addEventListener('mouseout', function() {
+            this.querySelector('svg:last-child').style.transform = 'translateX(0)';
+        });
+    }
+    
+    // Mejorar los botones de eliminar producto
+    const removeButtons = document.querySelectorAll('.remove');
+    removeButtons.forEach(button => {
+        button.innerHTML = '×';
+        button.setAttribute('title', 'Eliminar producto');
+    });
+    
+    // Mejorar los inputs de cantidad
+    const quantityInputs = document.querySelectorAll('input[name*="[qty]"]');
+    quantityInputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = '#3b82f6';
+            this.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.borderColor = '#d1d5db';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+
+<?php get_footer(); ?>
+
+.itools-cart-page .cart_totals .order-total th,
+.itools-cart-page .cart_totals .order-total td {
+    border: none !important;
+    font-weight: bold !important;
+    font-size: 1.25rem !important;
+}
+
+.itools-cart-page .wc-proceed-to-checkout a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(to right, #16a34a, #059669) !important;
+    color: white !important;
+    padding: 1rem 2rem !important;
+    border-radius: 0.75rem !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    font-size: 1.125rem !important;
+    transition: all 0.3s ease !important;
+    margin-top: 1rem !important;
+}
+
+.itools-cart-page .wc-proceed-to-checkout a:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+}
+
+.itools-cart-page .remove {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    font-size: 18px !important;
+    transition: all 0.3s ease !important;
+}
+
+.itools-cart-page .remove:hover {
+    background: #dc2626 !important;
+    color: white !important;
+}
+
+/* Mensajes de WooCommerce */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+    border-radius: 0.75rem !important;
+    padding: 1rem 1.5rem !important;
+    margin: 1rem 0 !important;
+    border-left: 4px solid !important;
+}
+
+.woocommerce-message {
+    background-color: #ecfdf5 !important;
+    color: #065f46 !important;
+    border-left-color: #10b981 !important;
+}
+
+.woocommerce-info {
+    background-color: #eff6ff !important;
+    color: #1e40af !important;
+    border-left-color: #3b82f6 !important;
+}
+
+.woocommerce-error {
+    background-color: #fef2f2 !important;
+    color: #991b1b !important;
+    border-left-color: #ef4444 !important;
+}
+</style>
+
+<div class="itools-cart-page">
+
+<!-- Hero Section del Carrito -->
+<section class="relative overflow-hidden py-20" style="background: linear-gradient(135deg, #1e3a8a 0%, #581c87 50%, #1e3a8a 100%);">
+    <!-- Efectos de fondo -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-1/4 w-72 h-72 rounded-full opacity-20" style="background: #3b82f6; filter: blur(40px); animation: pulse 2s infinite;"></div>
+        <div class="absolute bottom-0 right-1/4 w-72 h-72 rounded-full opacity-20" style="background: #8b5cf6; filter: blur(40px); animation: pulse 2s infinite;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center">
+            <div class="inline-flex items-center text-white px-6 py-3 rounded-full font-semibold mb-6" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm-10 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
+                </svg>
+                TU CARRITO DE COMPRAS
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                Carrito de Compras
+            </h1>
+            <p class="text-xl text-white opacity-80 max-w-2xl mx-auto">
+                Revisa los productos seleccionados y finaliza tu compra de manera segura
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contenido Principal del Carrito -->
+<section class="py-16 min-h-screen" style="background: #f9fafb;">
+    <div class="container mx-auto px-4">
+        
+        <?php 
+        // Mostrar mensajes de WooCommerce
+        if ( function_exists( 'wc_print_notices' ) ) {
+            wc_print_notices();
+        }
+        ?>
+        
+        <?php if ( WC()->cart->is_empty() ) : ?>
+            
+            <!-- Carrito Vacío -->
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="bg-white rounded-2xl shadow-xl p-12 border border-gray-100">
+                    <!-- Icono de carrito vacío -->
+                    <div class="w-24 h-24 mx-auto mb-8 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm-10 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Tu carrito está vacío</h2>
+                    <p class="text-gray-600 mb-8">¡Descubre nuestros productos y encuentra lo que necesitas!</p>
+                    
+                    <!-- CTA para continuar comprando -->
+                    <div class="space-y-4">
+                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                           class="inline-flex items-center text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 shadow-lg"
+                           style="background: linear-gradient(to right, #2563eb, #9333ea);"
+                           onmouseover="this.style.transform='scale(1.05)'"
+                           onmouseout="this.style.transform='scale(1)'">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Explorar Productos
+                        </a>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=refacciones'; ?>" 
+                               class="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                                Ver Refacciones
+                            </a>
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=herramientas'; ?>" 
+                               class="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                                Ver Herramientas
+                            </a>
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=ofertas'; ?>" 
+                               class="text-red-600 hover:text-red-800 font-medium transition-colors">
+                                Ver Ofertas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <?php else : ?>
+            
+            <!-- Grid principal: Carrito + Totales -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Contenido del carrito (2/3) -->
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <!-- Header del carrito -->
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="px-6 py-4" style="background: linear-gradient(to right, #2563eb, #9333ea);">
+                            <h2 class="text-xl font-bold text-white flex items-center">
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                </svg>
+                                Productos en tu carrito (<?php echo WC()->cart->get_cart_contents_count(); ?>)
+                            </h2>
+                        </div>
+                        
+                        <!-- Contenido del carrito de WooCommerce -->
+                        <div class="p-6">
+                            <?php echo do_shortcode('[woocommerce_cart]'); ?>
+                        </div>
+                    </div>
+
+                    <!-- Continuar comprando -->
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            ¿Necesitas algo más?
+                        </h3>
+                        <p class="text-gray-600 mb-6">Explora nuestras categorías más populares y encuentra todo lo que necesitas para tu taller.</p>
+                        
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=refacciones'; ?>" 
+                               class="bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-xl p-4 text-center hover:from-orange-100 hover:to-red-100 transition-all duration-300 transform hover:scale-105">
+                                <div class="text-2xl mb-2">🔧</div>
+                                <div class="font-semibold text-orange-700">Refacciones</div>
+                            </a>
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=herramientas'; ?>" 
+                               class="bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4 text-center hover:from-blue-100 hover:to-purple-100 transition-all duration-300 transform hover:scale-105">
+                                <div class="text-2xl mb-2">🛠️</div>
+                                <div class="font-semibold text-blue-700">Herramientas</div>
+                            </a>
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=pantallas'; ?>" 
+                               class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 text-center hover:from-green-100 hover:to-emerald-100 transition-all duration-300 transform hover:scale-105">
+                                <div class="text-2xl mb-2">📱</div>
+                                <div class="font-semibold text-green-700">Pantallas</div>
+                            </a>
+                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias'; ?>" 
+                               class="bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200 rounded-xl p-4 text-center hover:from-yellow-100 hover:to-amber-100 transition-all duration-300 transform hover:scale-105">
+                                <div class="text-2xl mb-2">🔋</div>
+                                <div class="font-semibold text-yellow-700">Baterías</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Totales del carrito (1/3) -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-8">
                         <!-- Aquí WooCommerce insertará automáticamente los totales -->
                         <div class="woocommerce-cart-collaterals">
                             <?php do_action( 'woocommerce_cart_collaterals' ); ?>
