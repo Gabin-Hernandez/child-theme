@@ -71,7 +71,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     font-weight: 600 !important;
 }
 
-/* Estilos para los totales personalizados */
+/* Estilos para los totales personalizados - Optimizados */
 .itools-custom-totals .cart_totals {
     background: transparent !important;
     border: none !important;
@@ -81,33 +81,63 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 }
 
 .itools-custom-totals .cart_totals h2 {
-    display: none !important; /* Ocultar el título por defecto */
+    display: none !important;
 }
 
 .itools-custom-totals .cart_totals table {
     width: 100% !important;
     margin: 0 !important;
+    border-spacing: 0 !important;
 }
 
 .itools-custom-totals .cart_totals table th,
 .itools-custom-totals .cart_totals table td {
-    padding: 1rem 0 !important;
-    border-bottom: 1px solid #e5e7eb !important;
+    padding: 0.75rem 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #f3f4f6 !important;
     font-size: 0.95rem !important;
+    color: #374151 !important;
+    vertical-align: middle !important;
 }
 
-.itools-custom-totals .cart_totals .order-total {
-    background: linear-gradient(to right, rgba(37, 99, 235, 0.1), rgba(147, 51, 234, 0.1)) !important;
-    padding: 1rem !important;
-    border-radius: 0.5rem !important;
-    border: 2px solid #3b82f6 !important;
+.itools-custom-totals .cart_totals table th {
+    font-weight: 500 !important;
+    text-align: left !important;
 }
 
+.itools-custom-totals .cart_totals table td {
+    text-align: right !important;
+    font-weight: 600 !important;
+}
+
+/* Estilo especial para el total final */
 .itools-custom-totals .cart_totals .order-total th,
 .itools-custom-totals .cart_totals .order-total td {
-    border: none !important;
-    font-weight: bold !important;
+    background: linear-gradient(to right, rgba(37, 99, 235, 0.08), rgba(147, 51, 234, 0.08)) !important;
+    padding: 1rem !important;
+    border: 2px solid #e0e7ff !important;
+    border-radius: 0.75rem !important;
+    font-weight: 700 !important;
     font-size: 1.1rem !important;
+    color: #1e40af !important;
+    border-bottom: 2px solid #e0e7ff !important;
+}
+
+.itools-custom-totals .cart_totals .order-total th {
+    border-top-left-radius: 0.75rem !important;
+    border-bottom-left-radius: 0.75rem !important;
+    border-right: 1px solid #e0e7ff !important;
+}
+
+.itools-custom-totals .cart_totals .order-total td {
+    border-top-right-radius: 0.75rem !important;
+    border-bottom-right-radius: 0.75rem !important;
+    border-left: 1px solid #e0e7ff !important;
+}
+
+/* Botón de proceder al pago optimizado */
+.itools-custom-totals .wc-proceed-to-checkout {
+    margin-top: 1.5rem !important;
 }
 
 .itools-custom-totals .wc-proceed-to-checkout a {
@@ -116,19 +146,41 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     justify-content: center !important;
     background: linear-gradient(to right, #16a34a, #059669) !important;
     color: white !important;
-    padding: 1rem 2rem !important;
+    padding: 1rem 1.5rem !important;
     border-radius: 0.75rem !important;
     text-decoration: none !important;
-    font-weight: bold !important;
-    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
     transition: all 0.3s ease !important;
-    margin-top: 1rem !important;
     width: 100% !important;
+    box-shadow: 0 4px 14px 0 rgba(22, 163, 74, 0.25) !important;
+    border: none !important;
+    text-transform: none !important;
+    letter-spacing: 0.025em !important;
 }
 
 .itools-custom-totals .wc-proceed-to-checkout a:hover {
-    transform: scale(1.02) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(22, 163, 74, 0.35) !important;
+    background: linear-gradient(to right, #15803d, #047857) !important;
+}
+
+/* Estilos para información de envío */
+.itools-custom-totals .cart_totals .shipping th,
+.itools-custom-totals .cart_totals .shipping td {
+    padding: 0.5rem 0 !important;
+    font-size: 0.875rem !important;
+    color: #6b7280 !important;
+}
+
+.itools-custom-totals .cart_totals .shipping a {
+    color: #3b82f6 !important;
+    text-decoration: underline !important;
+    font-size: 0.875rem !important;
+}
+
+.itools-custom-totals .cart_totals .shipping a:hover {
+    color: #1d4ed8 !important;
 }
 
 .itools-cart-page .remove {
@@ -302,6 +354,31 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         </div>
                     </div>
 
+                    <!-- Total del pedido - Solo visible en mobile/tablet -->
+                    <div class="lg:hidden">
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                            <div class="px-6 py-4" style="background: linear-gradient(to right, #2563eb, #9333ea);">
+                                <h2 class="text-lg font-bold text-white flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Total del pedido
+                                </h2>
+                            </div>
+                            
+                            <!-- Totales optimizados para mobile -->
+                            <div class="p-6">
+                                <div class="itools-custom-totals">
+                                    <?php 
+                                    if ( ! WC()->cart->is_empty() ) {
+                                        wc_get_template( 'cart/cart-totals.php' );
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Continuar comprando -->
                     <div class="bg-white rounded-2xl shadow-xl p-8">
                         <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
@@ -431,10 +508,9 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                     </div>
                 </div>
 
-                <!-- Sidebar solo con total del pedido (1/4) -->
-                <div class="lg:col-span-1">
+                <!-- Sidebar con total del pedido - Solo desktop -->
+                <div class="hidden lg:block lg:col-span-1">
                     <div class="sticky top-8">
-                        <!-- Total del carrito integrado -->
                         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                             <div class="px-6 py-4" style="background: linear-gradient(to right, #2563eb, #9333ea);">
                                 <h2 class="text-lg font-bold text-white flex items-center">
@@ -445,11 +521,9 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                 </h2>
                             </div>
                             
-                            <!-- Solo los totales específicos del carrito -->
                             <div class="p-6">
                                 <div class="itools-custom-totals">
                                     <?php 
-                                    // Mostrar solo la tabla de totales sin duplicar
                                     if ( ! WC()->cart->is_empty() ) {
                                         wc_get_template( 'cart/cart-totals.php' );
                                     }
@@ -470,29 +544,31 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Personalizar el botón de "Proceder al pago"
-    const checkoutButton = document.querySelector('.itools-custom-totals .wc-proceed-to-checkout a');
-    if (checkoutButton) {
-        checkoutButton.innerHTML = `
-            <svg class="w-6 h-6 mr-3" style="animation: pulse 2s infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            Proceder al pago
-            <svg class="w-5 h-5 ml-3" style="transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-            </svg>
-        `;
-        
-        checkoutButton.addEventListener('mouseover', function() {
-            const arrow = this.querySelector('svg:last-child');
-            if (arrow) arrow.style.transform = 'translateX(4px)';
-        });
-        
-        checkoutButton.addEventListener('mouseout', function() {
-            const arrow = this.querySelector('svg:last-child');
-            if (arrow) arrow.style.transform = 'translateX(0)';
-        });
-    }
+    // Personalizar TODOS los botones de "Proceder al pago" (móvil y desktop)
+    const checkoutButtons = document.querySelectorAll('.itools-custom-totals .wc-proceed-to-checkout a');
+    checkoutButtons.forEach(function(checkoutButton) {
+        if (checkoutButton) {
+            checkoutButton.innerHTML = `
+                <svg class="w-5 h-5 mr-2" style="animation: pulse 2s infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Proceder al pago
+                <svg class="w-4 h-4 ml-2" style="transition: transform 0.3s ease;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            `;
+            
+            checkoutButton.addEventListener('mouseover', function() {
+                const arrow = this.querySelector('svg:last-child');
+                if (arrow) arrow.style.transform = 'translateX(4px)';
+            });
+            
+            checkoutButton.addEventListener('mouseout', function() {
+                const arrow = this.querySelector('svg:last-child');
+                if (arrow) arrow.style.transform = 'translateX(0)';
+            });
+        }
+    });
     
     // Mejorar los botones de eliminar producto
     const removeButtons = document.querySelectorAll('.remove');
@@ -517,12 +593,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Asegurar que solo haya un total visible - eliminación agresiva de duplicados
     setTimeout(function() {
-        // Ocultar TODOS los totales excepto el nuestro
+        // Ocultar TODOS los totales excepto los nuestros
         const allCartTotals = document.querySelectorAll('.cart_totals');
-        const customTotals = document.querySelector('.itools-custom-totals .cart_totals');
+        const customTotals = document.querySelectorAll('.itools-custom-totals .cart_totals');
         
         allCartTotals.forEach(function(total) {
-            if (total !== customTotals && !total.closest('.itools-custom-totals')) {
+            let isCustomTotal = false;
+            customTotals.forEach(function(customTotal) {
+                if (total === customTotal) {
+                    isCustomTotal = true;
+                }
+            });
+            
+            if (!isCustomTotal && !total.closest('.itools-custom-totals')) {
                 total.style.display = 'none';
                 total.style.visibility = 'hidden';
                 total.style.opacity = '0';
@@ -535,8 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const hideElements = [
             '.cart-collaterals',
             '.woocommerce-cart-collaterals', 
-            '.storefront-cart-totals',
-            '.cart_totals:not(.itools-custom-totals .cart_totals)'
+            '.storefront-cart-totals'
         ];
         
         hideElements.forEach(selector => {
@@ -548,6 +630,24 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }, 50);
+    
+    // Optimizar diseño de totales
+    setTimeout(function() {
+        // Mejorar espaciado en las filas de totales
+        const totalRows = document.querySelectorAll('.itools-custom-totals .cart_totals tr');
+        totalRows.forEach(function(row, index) {
+            if (!row.classList.contains('order-total')) {
+                row.style.borderBottom = '1px solid #f3f4f6';
+            }
+            
+            // Agregar separación antes del total final
+            if (row.classList.contains('order-total') && index > 0) {
+                row.style.marginTop = '0.5rem';
+                row.style.display = 'block';
+                row.style.width = '100%';
+            }
+        });
+    }, 100);
 });
 </script>
 
