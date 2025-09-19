@@ -165,6 +165,28 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     display: none !important;
 }
 
+/* Asegurar que los payment boxes se muestren correctamente */
+.itools-checkout-page .payment_box {
+    display: none;
+}
+
+.itools-checkout-page .wc_payment_method input[type="radio"]:checked + label + .payment_box {
+    display: block !important;
+}
+
+/* Estilos para campos de Stripe */
+.itools-checkout-page .wc-stripe-elements-field,
+.itools-checkout-page .wc-stripe-card-element {
+    padding: 12px !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    background: white !important;
+}
+
+.itools-checkout-page .wc-stripe-elements-field iframe {
+    height: 40px !important;
+}
+
 /* Estilos de tabla del resumen - NO NECESARIOS (tabla oculta) */
 /*
 .itools-checkout-page .shop_table th,
@@ -610,6 +632,24 @@ document.addEventListener('DOMContentLoaded', function() {
                     paymentBox.className = 'p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-600';
                 }
             });
+
+            // Re-inicializar los event listeners de WooCommerce para los métodos de pago
+            const radioButtons = paymentMethods.querySelectorAll('input[type="radio"][name="payment_method"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    // Trigger WooCommerce payment method change event
+                    jQuery('body').trigger('payment_method_selected');
+                    jQuery(document.body).trigger('checkout_error');
+                });
+            });
+
+            // Asegurar que los payment boxes se muestren/oculten correctamente
+            jQuery(document.body).on('payment_method_selected', function() {
+                jQuery('.payment_methods .payment_box').slideUp(250);
+                if (jQuery('.payment_methods input[name="payment_method"]:checked').length === 1) {
+                    jQuery('.payment_methods input[name="payment_method"]:checked').closest('.wc_payment_method').find('.payment_box').slideDown(250);
+                }
+            });
         }
         
         if (placeOrderButton && customPlaceOrderContainer) {
@@ -622,10 +662,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Ejecutar cuando la página carga
-    movePaymentMethods();
+    setTimeout(movePaymentMethods, 100);
     
     // También ejecutar cuando WooCommerce actualiza el checkout
-    document.body.addEventListener('updated_checkout', movePaymentMethods);
+    jQuery(document.body).on('updated_checkout', function() {
+        setTimeout(movePaymentMethods, 100);
+    });
+    
+    // Trigger inicial para mostrar el método de pago seleccionado por defecto
+    setTimeout(function() {
+        jQuery(document.body).trigger('payment_method_selected');
+    }, 200);
     
     // Mejorar la experiencia de usuario en el formulario
     const formInputs = document.querySelectorAll('.itools-checkout-page input, .itools-checkout-page select, .itools-checkout-page textarea');
