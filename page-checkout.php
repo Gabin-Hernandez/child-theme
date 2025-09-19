@@ -409,115 +409,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 .woocommerce-checkout .woocommerce-breadcrumb {
     display: none;
 }
-
-/* Estilos para el resumen del pedido en la nueva ubicación */
-.order-summary-content .shop_table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-}
-
-.order-summary-content .shop_table th,
-.order-summary-content .shop_table td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.order-summary-content .shop_table thead th {
-    background: #f8fafc;
-    font-weight: 600;
-    color: #374151;
-}
-
-.order-summary-content .shop_table tbody tr:nth-child(even) {
-    background: #f9fafb;
-}
-
-.order-summary-content .shop_table .order-total {
-    background: #eff6ff;
-    font-weight: 600;
-}
-
-.order-summary-content .shop_table .order-total th,
-.order-summary-content .shop_table .order-total td {
-    color: #1e40af;
-    font-size: 1rem;
-    padding: 1rem;
-}
-
-.order-summary-content .wc_payment_methods {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.order-summary-content .wc_payment_method {
-    flex: 1;
-    min-width: 120px;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.order-summary-content .wc_payment_method label {
-    display: block;
-    padding: 0.75rem;
-    background: #fff;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.8rem;
-    text-align: center;
-}
-
-.order-summary-content .wc_payment_method:hover label {
-    background: #f3f4f6;
-}
-
-.order-summary-content .wc_payment_method input[type="radio"]:checked + label {
-    background: #dbeafe;
-    border-color: #3b82f6;
-    color: #1e40af;
-}
-
-.order-summary-content #place_order {
-    width: 100%;
-    background: #3b82f6;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.order-summary-content #place_order:hover {
-    background: #2563eb;
-}
-
-/* Responsive para las cards horizontales */
-@media (max-width: 768px) {
-    .order-summary-content .shop_table th,
-    .order-summary-content .shop_table td {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .order-summary-content .wc_payment_methods {
-        flex-direction: column;
-    }
-    
-    .order-summary-content .wc_payment_method {
-        min-width: auto;
-    }
-}
 </style>
 
 <div class="itools-checkout-page">
@@ -608,14 +499,44 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                         <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                                         <span class="text-gray-700">Envío express disponible</span>
                                     </div>
+                                    <div class="flex items-center text-sm">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="text-gray-700">Soporte técnico especializado</span>
+                                    </div>
+                                    <div class="flex items-center text-sm">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="text-gray-700">Garantía en todos los productos</span>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Card de tu pedido -->
                             <div class="bg-white rounded-xl p-6 border border-gray-200">
                                 <h3 class="font-semibold text-gray-900 mb-4">Tu pedido</h3>
-                                <!-- Aquí se insertará automáticamente el resumen del pedido -->
-                                <div id="order-review-insert"></div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-700">Producto</span>
+                                        <span class="text-gray-700">Subtotal</span>
+                                    </div>
+                                    <hr class="border-gray-200">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">2UUL CL21 LIMPIADOR DE CAMARAS × 1</span>
+                                        <span class="font-medium text-gray-900">$150.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-700">Subtotal</span>
+                                        <span class="font-medium text-gray-900">$150.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-700">Envío</span>
+                                        <span class="font-medium text-gray-900">Precio fijo: $150.00</span>
+                                    </div>
+                                    <hr class="border-gray-200">
+                                    <div class="flex justify-between font-semibold text-blue-600 bg-blue-50 p-2 rounded">
+                                        <span>Total</span>
+                                        <span>$300.00</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Card de soporte -->
@@ -643,23 +564,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Mover el resumen del pedido al lugar correcto
-    setTimeout(function() {
-        const orderReview = document.querySelector('.woocommerce-checkout-review-order');
-        const orderInsert = document.getElementById('order-review-insert');
-        
-        if (orderReview && orderInsert) {
-            // Clonar el contenido del resumen
-            const clonedReview = orderReview.cloneNode(true);
-            // Remover clases de estilo del original para que no interfiera
-            clonedReview.className = 'order-summary-content';
-            // Insertar en la nueva ubicación
-            orderInsert.appendChild(clonedReview);
-            // Ocultar el original
-            orderReview.style.display = 'none';
-        }
-    }, 500);
-    
     // Mejorar la experiencia de usuario en el formulario
     const formInputs = document.querySelectorAll('.itools-checkout-page input, .itools-checkout-page select, .itools-checkout-page textarea');
     
