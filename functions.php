@@ -1448,3 +1448,79 @@ function itools_localize_scripts() {
 }
 add_action('wp_enqueue_scripts', 'itools_localize_scripts');
 
+// === FUNCIONES PARA CHECKOUT PERSONALIZADO ===
+
+// Forzar el uso de nuestro template para la página de checkout
+function itools_custom_checkout_template( $template ) {
+    if ( is_checkout() && ! is_wc_endpoint_url() ) {
+        $custom_template = locate_template( array( 'page-checkout.php' ) );
+        if ( $custom_template ) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'template_include', 'itools_custom_checkout_template', 99 );
+
+// Cambiar el texto del botón de realizar pedido
+function itools_custom_order_button_text() {
+    return 'Completar Pedido';
+}
+add_filter( 'woocommerce_order_button_text', 'itools_custom_order_button_text' );
+
+// Personalizar placeholders y labels del checkout
+function itools_checkout_fields( $fields ) {
+    // Campos de facturación
+    if ( isset( $fields['billing'] ) ) {
+        $fields['billing']['billing_first_name']['placeholder'] = 'Nombre';
+        $fields['billing']['billing_last_name']['placeholder'] = 'Apellidos';
+        $fields['billing']['billing_company']['placeholder'] = 'Empresa (opcional)';
+        $fields['billing']['billing_address_1']['placeholder'] = 'Dirección completa';
+        $fields['billing']['billing_address_2']['placeholder'] = 'Apartamento, suite, etc. (opcional)';
+        $fields['billing']['billing_city']['placeholder'] = 'Ciudad';
+        $fields['billing']['billing_state']['placeholder'] = 'Estado';
+        $fields['billing']['billing_postcode']['placeholder'] = 'Código postal';
+        $fields['billing']['billing_phone']['placeholder'] = 'Teléfono';
+        $fields['billing']['billing_email']['placeholder'] = 'Correo electrónico';
+    }
+
+    // Campos de envío
+    if ( isset( $fields['shipping'] ) ) {
+        $fields['shipping']['shipping_first_name']['placeholder'] = 'Nombre';
+        $fields['shipping']['shipping_last_name']['placeholder'] = 'Apellidos';
+        $fields['shipping']['shipping_company']['placeholder'] = 'Empresa (opcional)';
+        $fields['shipping']['shipping_address_1']['placeholder'] = 'Dirección completa';
+        $fields['shipping']['shipping_address_2']['placeholder'] = 'Apartamento, suite, etc. (opcional)';
+        $fields['shipping']['shipping_city']['placeholder'] = 'Ciudad';
+        $fields['shipping']['shipping_state']['placeholder'] = 'Estado';
+        $fields['shipping']['shipping_postcode']['placeholder'] = 'Código postal';
+    }
+
+    return $fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'itools_checkout_fields' );
+
+// Remover campos innecesarios del checkout
+function itools_remove_checkout_fields( $fields ) {
+    // Remover campo de empresa si no es necesario para tu negocio
+    // unset( $fields['billing']['billing_company'] );
+    // unset( $fields['shipping']['shipping_company'] );
+    
+    return $fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'itools_remove_checkout_fields' );
+
+// Personalizar títulos de las secciones del checkout
+function itools_checkout_section_titles() {
+    // Cambiar texto "Billing details" a "Información de facturación"
+    add_filter( 'woocommerce_checkout_billing_heading', function() {
+        return 'Información de facturación';
+    });
+    
+    // Cambiar texto "Ship to a different address?" a "¿Enviar a una dirección diferente?"
+    add_filter( 'woocommerce_checkout_shipping_heading', function() {
+        return 'Información de envío';
+    });
+}
+add_action( 'init', 'itools_checkout_section_titles' );
+
