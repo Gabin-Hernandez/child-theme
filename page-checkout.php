@@ -30,8 +30,20 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 /* Grid principal del checkout */
 .itools-checkout-page .col2-set {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 0;
+}
+
+/* Contenedor principal que agrupa todas las secciones */
+.itools-checkout-page .woocommerce-checkout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 /* Formularios de checkout - layout horizontal */
@@ -44,6 +56,10 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border: 1px solid #e5e7eb;
     margin-bottom: 2rem;
     width: 100%;
+    max-width: none;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .itools-checkout-page .woocommerce-billing-fields h3,
@@ -119,6 +135,10 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border: 1px solid #e5e7eb;
     margin-bottom: 2rem;
     width: 100%;
+    max-width: none;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .itools-checkout-page .woocommerce-checkout-review-order h3 {
@@ -334,6 +354,13 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     .itools-checkout-page .woocommerce-shipping-fields,
     .itools-checkout-page .woocommerce-checkout-review-order {
         padding: 1.5rem;
+        width: 100% !important;
+        max-width: none !important;
+        flex: none !important;
+    }
+    
+    .itools-checkout-page .woocommerce-checkout {
+        padding: 1rem;
     }
     
     /* Tabla del resumen más compacta en móvil */
