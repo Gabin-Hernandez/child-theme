@@ -464,9 +464,55 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- Resumen del pedido - layout modificado -->
-                    <div class="w-full">
-                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Resumen del pedido - layout reorganizado -->
+                    <div class="w-full space-y-6">
+                        
+                        <!-- Card ancha: Tu pedido + Métodos de pago -->
+                        <div class="bg-white rounded-xl p-6 border border-gray-200">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                
+                                <!-- Tu pedido (lado izquierdo) -->
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 mb-4">Tu pedido</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-700">Producto</span>
+                                            <span class="text-gray-700">Subtotal</span>
+                                        </div>
+                                        <hr class="border-gray-200">
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-600">2UUL CL21 LIMPIADOR DE CAMARAS × 1</span>
+                                            <span class="font-medium text-gray-900">$150.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-700">Subtotal</span>
+                                            <span class="font-medium text-gray-900">$150.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm">
+                                            <span class="text-gray-700">Envío</span>
+                                            <span class="font-medium text-gray-900">Precio fijo: $150.00</span>
+                                        </div>
+                                        <hr class="border-gray-200">
+                                        <div class="flex justify-between font-semibold text-blue-600 bg-blue-50 p-2 rounded">
+                                            <span>Total</span>
+                                            <span>$300.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Métodos de pago (lado derecho) -->
+                                <div>
+                                    <h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>
+                                    <div class="space-y-3">
+                                        <!-- Aquí se mostraría la sección de métodos de pago del checkout -->
+                                        <p class="text-sm text-gray-600">Los métodos de pago aparecerán aquí cuando se procese el checkout.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grid inferior: Garantías + Ayuda -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             
                             <!-- Card de garantías -->
                             <div class="bg-white rounded-xl p-6 border border-gray-200">
@@ -496,35 +542,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                 </div>
                             </div>
 
-                            <!-- Card de tu pedido -->
-                            <div class="bg-white rounded-xl p-6 border border-gray-200">
-                                <h3 class="font-semibold text-gray-900 mb-4">Tu pedido</h3>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between text-sm">
-                                        <span class="text-gray-700">Producto</span>
-                                        <span class="text-gray-700">Subtotal</span>
-                                    </div>
-                                    <hr class="border-gray-200">
-                                    <div class="flex justify-between text-sm">
-                                        <span class="text-gray-600">2UUL CL21 LIMPIADOR DE CAMARAS × 1</span>
-                                        <span class="font-medium text-gray-900">$150.00</span>
-                                    </div>
-                                    <div class="flex justify-between text-sm">
-                                        <span class="text-gray-700">Subtotal</span>
-                                        <span class="font-medium text-gray-900">$150.00</span>
-                                    </div>
-                                    <div class="flex justify-between text-sm">
-                                        <span class="text-gray-700">Envío</span>
-                                        <span class="font-medium text-gray-900">Precio fijo: $150.00</span>
-                                    </div>
-                                    <hr class="border-gray-200">
-                                    <div class="flex justify-between font-semibold text-blue-600 bg-blue-50 p-2 rounded">
-                                        <span>Total</span>
-                                        <span>$300.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Card de soporte -->
                             <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                                 <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
@@ -540,11 +557,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                     </svg>
                                     WhatsApp
                                 </a>
-                            </div>
-
-                            <!-- Métodos de pago (4ta columna) -->
-                            <div class="bg-white rounded-xl p-6 border border-gray-200">
-                                <!-- Aquí iría el contenido de métodos de pago extraído del checkout -->
                             </div>
                         </div>
                     </div>
