@@ -248,28 +248,27 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 }
 */
 
-/* Métodos de pago - diseño horizontal mejorado */
+/* Métodos de pago - diseño horizontal mejorado con mejor espaciado */
 .itools-checkout-page .wc_payment_methods {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
 }
 
 .itools-checkout-page .wc_payment_method {
-    flex: 1;
-    min-width: 200px;
     border: 2px solid #e5e7eb;
     border-radius: 0.75rem;
     overflow: hidden;
     transition: all 0.2s ease;
+    background: white;
 }
 
 .itools-checkout-page .wc_payment_method:hover {
     border-color: #3b82f6;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
@@ -281,12 +280,14 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 .itools-checkout-page .wc_payment_method label {
     display: flex;
     align-items: center;
-    padding: 1.25rem;
+    padding: 1.25rem 1.5rem;
     background: #fff;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
-    min-height: 60px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
 }
 
 .itools-checkout-page .wc_payment_method label:hover {
@@ -294,20 +295,66 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 }
 
 .itools-checkout-page .wc_payment_method input[type="radio"] {
-    margin-right: 0.75rem;
+    margin-right: 1rem;
     width: 1.25rem;
     height: 1.25rem;
     accent-color: #3b82f6;
+    flex-shrink: 0;
 }
 
 .itools-checkout-page .payment_box {
-    padding: 1rem 1.25rem;
+    padding: 1.5rem;
     background: #f8fafc;
-    border-top: 2px solid #e5e7eb;
-    font-size: 0.875rem;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.9rem;
     color: #6b7280;
+    line-height: 1.6;
     margin-top: 0;
     width: 100%;
+}
+
+.itools-checkout-page .payment_box p {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.itools-checkout-page .payment_box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilos específicos para campos de pago (Stripe, etc.) */
+.itools-checkout-page .payment_box .form-row {
+    margin-bottom: 1.25rem;
+}
+
+.itools-checkout-page .payment_box label {
+    display: block !important;
+    font-weight: 500 !important;
+    color: #374151 !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 0.875rem !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.itools-checkout-page .payment_box input[type="text"],
+.itools-checkout-page .payment_box input[type="email"],
+.itools-checkout-page .payment_box input[type="tel"],
+.itools-checkout-page .payment_box select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    background: white;
+    transition: border-color 0.2s ease;
+}
+
+.itools-checkout-page .payment_box input:focus,
+.itools-checkout-page .payment_box select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* Botón de realizar pedido */
@@ -478,34 +525,32 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                     <div class="w-full space-y-6">
                         
                         <!-- Card ancha: Tu pedido + Métodos de pago -->
-                        <div class="bg-white rounded-xl p-6 border border-gray-200">
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                                 
                                 <!-- Tu pedido (lado izquierdo) -->
                                 <div>
-                                    <h3 class="font-semibold text-gray-900 mb-4">Tu pedido</h3>
-                                    <div class="space-y-3">
-                                        <div class="flex justify-between text-sm">
-                                            <span class="text-gray-700">Producto</span>
-                                            <span class="text-gray-700">Subtotal</span>
+                                    <h3 class="font-semibold text-gray-900 mb-6 text-lg">Tu pedido</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex justify-between text-sm font-medium text-gray-600 border-b border-gray-100 pb-2">
+                                            <span>Producto</span>
+                                            <span>Subtotal</span>
                                         </div>
-                                        <hr class="border-gray-200">
-                                        <div class="flex justify-between text-sm">
-                                            <span class="text-gray-600">2UUL CL21 LIMPIADOR DE CAMARAS × 1</span>
+                                        <div class="flex justify-between text-sm py-2">
+                                            <span class="text-gray-700 pr-4 flex-1">2UUL CL21 LIMPIADOR DE CAMARAS × 1</span>
+                                            <span class="font-medium text-gray-900 flex-shrink-0">$150.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm py-2 border-t border-gray-100 pt-3">
+                                            <span class="text-gray-700">Subtotal</span>
                                             <span class="font-medium text-gray-900">$150.00</span>
                                         </div>
-                                        <div class="flex justify-between text-sm">
-                                            <span class="text-gray-700">Subtotal</span>
-                                            <span class="font-medium text-gray-900">$150.00</span>
-                                        </div>
-                                        <div class="flex justify-between text-sm">
+                                        <div class="flex justify-between text-sm py-2">
                                             <span class="text-gray-700">Envío</span>
                                             <span class="font-medium text-gray-900">Precio fijo: $150.00</span>
                                         </div>
-                                        <hr class="border-gray-200">
-                                        <div class="flex justify-between font-semibold text-blue-600 bg-blue-50 p-2 rounded">
-                                            <span>Total</span>
-                                            <span>$300.00</span>
+                                        <div class="flex justify-between font-semibold text-blue-600 bg-blue-50 p-4 rounded-lg border-t-2 border-blue-100 mt-4">
+                                            <span class="text-base">Total</span>
+                                            <span class="text-base">$300.00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -519,7 +564,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                         echo '<form name="checkout" method="post" class="checkout woocommerce-checkout" action="' . esc_url( wc_get_checkout_url() ) . '" enctype="multipart/form-data">';
                                         
                                         do_action( 'woocommerce_checkout_before_order_review_heading' );
-                                        echo '<h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>';
+                                        echo '<h3 class="font-semibold text-gray-900 mb-6 text-lg">Métodos de pago</h3>';
                                         do_action( 'woocommerce_checkout_before_order_review' );
                                         echo '<div id="order_review" class="woocommerce-checkout-review-order">';
                                         do_action( 'woocommerce_checkout_order_review' );
@@ -534,46 +579,46 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         </div>
 
                         <!-- Grid inferior: Garantías + Ayuda -->
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             
                             <!-- Card de garantías -->
-                            <div class="bg-white rounded-xl p-6 border border-gray-200">
-                                <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
-                                    <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+                                <h3 class="font-semibold text-gray-900 mb-6 text-lg flex items-center">
+                                    <svg class="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                     Garantías de compra
                                 </h3>
-                                <div class="space-y-3">
+                                <div class="space-y-4">
                                     <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Compra 100% segura</span>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-4 flex-shrink-0"></div>
+                                        <span class="text-gray-700 leading-relaxed">Compra 100% segura</span>
                                     </div>
                                     <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Envío express disponible</span>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-4 flex-shrink-0"></div>
+                                        <span class="text-gray-700 leading-relaxed">Envío express disponible</span>
                                     </div>
                                     <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Soporte técnico especializado</span>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-4 flex-shrink-0"></div>
+                                        <span class="text-gray-700 leading-relaxed">Soporte técnico especializado</span>
                                     </div>
                                     <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Garantía en todos los productos</span>
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-4 flex-shrink-0"></div>
+                                        <span class="text-gray-700 leading-relaxed">Garantía en todos los productos</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Card de soporte -->
-                            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                                <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
-                                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="bg-gray-50 rounded-xl p-8 border border-gray-200 shadow-sm">
+                                <h3 class="font-semibold text-gray-900 mb-6 text-lg flex items-center">
+                                    <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                     ¿Necesitas ayuda?
                                 </h3>
-                                <p class="text-sm text-gray-600 mb-4">Contacta con nuestro equipo de soporte especializado</p>
-                                <a href="https://wa.me/5215512345678" target="_blank" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200 flex items-center justify-center text-sm">
+                                <p class="text-sm text-gray-600 mb-6 leading-relaxed">Contacta con nuestro equipo de soporte especializado</p>
+                                <a href="https://wa.me/5215512345678" target="_blank" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center justify-center text-sm font-medium">
                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.785"/>
                                     </svg>
