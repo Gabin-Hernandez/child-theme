@@ -150,17 +150,13 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border-bottom: 2px solid #e5e7eb;
 }
 
-/* Tabla del resumen - diseño compacto horizontal */
+/* Tabla del resumen - OCULTA porque se muestra en la tarjeta separada */
 .itools-checkout-page .shop_table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 1.5rem;
-    background: #f9fafb;
-    border-radius: 0.75rem;
-    overflow: hidden;
+    display: none !important;
 }
 
+/* Estilos de tabla del resumen - NO NECESARIOS (tabla oculta) */
+/*
 .itools-checkout-page .shop_table th,
 .itools-checkout-page .shop_table td {
     padding: 1rem;
@@ -198,8 +194,10 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     font-weight: 600;
     color: #111827;
 }
+*/
 
-/* Filas de totales - diseño horizontal compacto */
+/* Filas de totales - NO NECESARIAS (tabla oculta) */
+/*
 .itools-checkout-page .shop_table .cart-subtotal,
 .itools-checkout-page .shop_table .shipping,
 .itools-checkout-page .shop_table .order-total {
@@ -238,6 +236,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     text-transform: none;
     letter-spacing: normal;
 }
+*/
 
 /* Métodos de pago - diseño horizontal mejorado */
 .itools-checkout-page .wc_payment_methods {

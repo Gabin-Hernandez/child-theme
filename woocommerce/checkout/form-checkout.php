@@ -49,7 +49,7 @@ if ( ! is_user_logged_in() && WC()->checkout()->is_registration_required() && ! 
     
     <?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
     
-    <h3 id="order_review_heading"><?php esc_html_e( 'Tu pedido', 'woocommerce' ); ?></h3>
+    <h3 id="order_review_heading"><?php esc_html_e( 'Métodos de pago', 'woocommerce' ); ?></h3>
     
     <?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 
