@@ -155,6 +155,16 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     display: none !important;
 }
 
+/* Ocultar también toda la sección de checkout review que incluye métodos de pago */
+.itools-checkout-page .woocommerce-checkout-review-order {
+    display: none !important;
+}
+
+/* Ocultar el heading del order review */
+.itools-checkout-page #order_review_heading {
+    display: none !important;
+}
+
 /* Estilos de tabla del resumen - NO NECESARIOS (tabla oculta) */
 /*
 .itools-checkout-page .shop_table th,
@@ -503,9 +513,12 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                 <!-- Métodos de pago (lado derecho) -->
                                 <div>
                                     <h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>
-                                    <div class="space-y-3">
-                                        <!-- Aquí se mostraría la sección de métodos de pago del checkout -->
-                                        <p class="text-sm text-gray-600">Los métodos de pago aparecerán aquí cuando se procese el checkout.</p>
+                                    <div id="custom-payment-methods" class="space-y-3">
+                                        <!-- Los métodos de pago se moverán aquí via JavaScript -->
+                                        <p class="text-sm text-gray-600">Cargando métodos de pago...</p>
+                                    </div>
+                                    <div id="custom-place-order" class="mt-6">
+                                        <!-- El botón de completar pedido se moverá aquí -->
                                     </div>
                                 </div>
                             </div>
@@ -567,6 +580,53 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Mover métodos de pago a la card personalizada
+    function movePaymentMethods() {
+        const paymentMethods = document.querySelector('.wc_payment_methods');
+        const placeOrderButton = document.querySelector('#place_order');
+        const customPaymentContainer = document.getElementById('custom-payment-methods');
+        const customPlaceOrderContainer = document.getElementById('custom-place-order');
+        
+        if (paymentMethods && customPaymentContainer) {
+            // Limpiar el contenedor y mover los métodos de pago
+            customPaymentContainer.innerHTML = '';
+            customPaymentContainer.appendChild(paymentMethods);
+            
+            // Aplicar estilos Tailwind a los métodos de pago
+            paymentMethods.className = 'space-y-3';
+            
+            // Estilizar cada método de pago
+            const paymentItems = paymentMethods.querySelectorAll('.wc_payment_method');
+            paymentItems.forEach(item => {
+                item.className = 'border border-gray-200 rounded-lg overflow-hidden hover:border-blue-300 transition-colors';
+                
+                const label = item.querySelector('label');
+                if (label) {
+                    label.className = 'flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors';
+                }
+                
+                const paymentBox = item.querySelector('.payment_box');
+                if (paymentBox) {
+                    paymentBox.className = 'p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-600';
+                }
+            });
+        }
+        
+        if (placeOrderButton && customPlaceOrderContainer) {
+            // Mover el botón de completar pedido
+            customPlaceOrderContainer.appendChild(placeOrderButton);
+            
+            // Aplicar estilos Tailwind al botón
+            placeOrderButton.className = 'w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors';
+        }
+    }
+    
+    // Ejecutar cuando la página carga
+    movePaymentMethods();
+    
+    // También ejecutar cuando WooCommerce actualiza el checkout
+    document.body.addEventListener('updated_checkout', movePaymentMethods);
+    
     // Mejorar la experiencia de usuario en el formulario
     const formInputs = document.querySelectorAll('.itools-checkout-page input, .itools-checkout-page select, .itools-checkout-page textarea');
     
