@@ -167,6 +167,46 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     color: #1d4ed8 !important;
 }
 
+/* Estilos para la calculadora de envío */
+.itools-custom-totals .woocommerce-shipping-calculator {
+    margin-top: 0.5rem !important;
+    padding: 0.75rem 0 !important;
+    border-top: 1px solid #f3f4f6 !important;
+}
+
+.itools-custom-totals .woocommerce-shipping-calculator p {
+    margin: 0 0 0.5rem 0 !important;
+    font-size: 0.875rem !important;
+    color: #6b7280 !important;
+}
+
+.itools-custom-totals .woocommerce-shipping-calculator select,
+.itools-custom-totals .woocommerce-shipping-calculator input {
+    width: 100% !important;
+    padding: 0.5rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.itools-custom-totals .woocommerce-shipping-calculator button {
+    background: linear-gradient(to right, #3b82f6, #1d4ed8) !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+    border: none !important;
+    border-radius: 0.375rem !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+}
+
+.itools-custom-totals .woocommerce-shipping-calculator button:hover {
+    background: linear-gradient(to right, #1d4ed8, #1e40af) !important;
+    transform: translateY(-1px) !important;
+}
+
 /* Botón de proceder al pago optimizado */
 .itools-custom-totals .wc-proceed-to-checkout {
     margin-top: 1.5rem !important;
@@ -259,11 +299,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 /* Ocultar botones de checkout duplicados - solo mantener el primero */
 .itools-custom-totals .wc-proceed-to-checkout:not(:first-of-type) {
-    display: none !important;
-}
-
-/* Ocultar calculadoras de envío duplicadas */
-.itools-custom-totals .woocommerce-shipping-calculator:not(:first-of-type) {
     display: none !important;
 }
 </style>
@@ -665,15 +700,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     button.remove(); // Eliminar completamente los duplicados
                 }
             });
-        });
-
-        // También ocultar calculadoras de envío duplicadas
-        const shippingCalculators = document.querySelectorAll('.itools-custom-totals .woocommerce-shipping-calculator');
-        shippingCalculators.forEach(function(calculator, index) {
-            if (index > 0) {
-                calculator.style.display = 'none !important';
-                calculator.remove(); // Eliminar completamente los duplicados
-            }
         });
     }, 50);
     
