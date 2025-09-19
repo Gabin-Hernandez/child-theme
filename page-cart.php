@@ -92,10 +92,10 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 .itools-custom-totals .cart_totals table th,
 .itools-custom-totals .cart_totals table td {
-    padding: 0.75rem 0 !important;
+    padding: 1rem 0 !important;
     border: none !important;
     border-bottom: 1px solid #f3f4f6 !important;
-    font-size: 0.95rem !important;
+    font-size: 1rem !important;
     color: #374151 !important;
     vertical-align: middle !important;
 }
@@ -110,29 +110,21 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     font-weight: 600 !important;
 }
 
-/* Estilo especial para el total final */
+/* Estilo especial para el total final - SIN BORDERS */
 .itools-custom-totals .cart_totals .order-total th,
 .itools-custom-totals .cart_totals .order-total td {
-    background: linear-gradient(to right, rgba(37, 99, 235, 0.08), rgba(147, 51, 234, 0.08)) !important;
-    padding: 1rem !important;
-    border: 2px solid #e0e7ff !important;
-    border-radius: 0.75rem !important;
+    background: linear-gradient(to right, rgba(37, 99, 235, 0.05), rgba(147, 51, 234, 0.05)) !important;
+    padding: 1.25rem 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
     font-weight: 700 !important;
-    font-size: 1.1rem !important;
+    font-size: 1.25rem !important;
     color: #1e40af !important;
-    border-bottom: 2px solid #e0e7ff !important;
+    border-bottom: none !important;
 }
 
-.itools-custom-totals .cart_totals .order-total th {
-    border-top-left-radius: 0.75rem !important;
-    border-bottom-left-radius: 0.75rem !important;
-    border-right: 1px solid #e0e7ff !important;
-}
-
-.itools-custom-totals .cart_totals .order-total td {
-    border-top-right-radius: 0.75rem !important;
-    border-bottom-right-radius: 0.75rem !important;
-    border-left: 1px solid #e0e7ff !important;
+.itools-custom-totals .cart_totals .order-total {
+    margin-top: 0.5rem !important;
 }
 
 /* Botón de proceder al pago optimizado */
@@ -168,15 +160,15 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 /* Estilos para información de envío */
 .itools-custom-totals .cart_totals .shipping th,
 .itools-custom-totals .cart_totals .shipping td {
-    padding: 0.5rem 0 !important;
-    font-size: 0.875rem !important;
+    padding: 1rem 0 !important;
+    font-size: 0.95rem !important;
     color: #6b7280 !important;
 }
 
 .itools-custom-totals .cart_totals .shipping a {
     color: #3b82f6 !important;
     text-decoration: underline !important;
-    font-size: 0.875rem !important;
+    font-size: 0.95rem !important;
 }
 
 .itools-custom-totals .cart_totals .shipping a:hover {
