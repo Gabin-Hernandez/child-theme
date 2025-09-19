@@ -361,16 +361,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     .itools-checkout-page .woocommerce-checkout {
         padding: 1rem;
     }
-    
-    /* Grid de 4 columnas se convierte en 1 columna en móvil */
-    .grid.grid-cols-1.lg\\:grid-cols-4 {
-        grid-template-columns: 1fr !important;
-    }
-    
-    /* Grid de 2 columnas se mantiene en 1 columna en móvil */
-    .grid.grid-cols-1.lg\\:grid-cols-2 {
-        grid-template-columns: 1fr !important;
-    }
 }
 
 /* Mensajes */
@@ -441,73 +431,43 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                 }
                 ?>
 
-                <?php if ( WC()->cart->is_empty() ) : ?>
+                <!-- Grid principal: Formulario completo arriba, Resumen abajo -->
+                <div class="space-y-6">
                     
-                    <!-- Carrito vacío -->
-                    <div class="bg-white rounded-xl p-8 text-center border border-gray-200">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Tu carrito está vacío</h3>
-                        <p class="text-gray-600 mb-6">Necesitas agregar productos antes de realizar un pedido.</p>
-                        <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
-                           class="inline-flex items-center bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7"></path>
-                            </svg>
-                            Ir a la tienda
-                        </a>
-                    </div>
-                    
-                <?php else : ?>
-                    
-                    <!-- Grid principal: Formulario de datos arriba, checkout y cards abajo -->
-                    <div class="space-y-6">
-                        
-                        <!-- Solo los campos del formulario (datos de facturación y envío) -->
-                        <div class="w-full">
-                            <?php 
-                            // Renderizar solo los campos del formulario usando hooks específicos
-                            do_action( 'woocommerce_checkout_before_customer_details' );
-                            ?>
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                <div class="bg-white rounded-xl p-6 border border-gray-200">
-                                    <?php do_action( 'woocommerce_checkout_billing' ); ?>
+                    <!-- Formulario de checkout completo -->
+                    <div class="w-full">
+                        <?php if ( WC()->cart->is_empty() ) : ?>
+                            
+                            <!-- Carrito vacío -->
+                            <div class="bg-white rounded-xl p-8 text-center border border-gray-200">
+                                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5"></path>
+                                    </svg>
                                 </div>
-                                <div class="bg-white rounded-xl p-6 border border-gray-200">
-                                    <?php do_action( 'woocommerce_checkout_shipping' ); ?>
-                                </div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">Tu carrito está vacío</h3>
+                                <p class="text-gray-600 mb-6">Necesitas agregar productos antes de realizar un pedido.</p>
+                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                                   class="inline-flex items-center bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7"></path>
+                                    </svg>
+                                    Ir a la tienda
+                                </a>
                             </div>
-                            <?php 
-                            do_action( 'woocommerce_checkout_after_customer_details' );
-                            ?>
-                        </div>
+                            
+                        <?php else : ?>
+                            
+                            <!-- Formulario de checkout -->
+                            <?php echo do_shortcode('[woocommerce_checkout]'); ?>
+                            
+                        <?php endif; ?>
+                    </div>
 
-                        <!-- Grid: Métodos de pago + 3 cards informativas -->
+                    <!-- Resumen del pedido - layout modificado -->
+                    <div class="w-full">
                         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                             
-                            <!-- Métodos de pago (ocupa 1 columna) -->
-                            <div class="lg:col-span-1">
-                                <?php 
-                                // Abrir el formulario de checkout para la sección de review
-                                echo '<form name="checkout" method="post" class="checkout woocommerce-checkout" action="' . esc_url( wc_get_checkout_url() ) . '" enctype="multipart/form-data">';
-                                
-                                // Mostrar solo la sección de métodos de pago
-                                do_action( 'woocommerce_checkout_before_order_review_heading' );
-                                echo '<div class="bg-white rounded-xl p-6 border border-gray-200">';
-                                echo '<h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>';
-                                echo '<div id="order_review" class="woocommerce-checkout-review-order">';
-                                do_action( 'woocommerce_checkout_order_review' );
-                                echo '</div>';
-                                echo '</div>';
-                                do_action( 'woocommerce_checkout_after_order_review' );
-                                
-                                echo '</form>';
-                                ?>
-                            </div>
-
                             <!-- Card de garantías -->
                             <div class="bg-white rounded-xl p-6 border border-gray-200">
                                 <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
@@ -581,10 +541,14 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                     WhatsApp
                                 </a>
                             </div>
+
+                            <!-- Métodos de pago (4ta columna) -->
+                            <div class="bg-white rounded-xl p-6 border border-gray-200">
+                                <!-- Aquí iría el contenido de métodos de pago extraído del checkout -->
+                            </div>
                         </div>
                     </div>
-                    
-                <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
