@@ -155,36 +155,14 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     display: none !important;
 }
 
-/* Ocultar también toda la sección de checkout review que incluye métodos de pago */
+/* NO ocultar la sección de métodos de pago - necesitamos que funcione */
 .itools-checkout-page .woocommerce-checkout-review-order {
-    display: none !important;
-}
-
-/* Ocultar el heading del order review */
-.itools-checkout-page #order_review_heading {
-    display: none !important;
-}
-
-/* Asegurar que los payment boxes se muestren correctamente */
-.itools-checkout-page .payment_box {
-    display: none;
-}
-
-.itools-checkout-page .wc_payment_method input[type="radio"]:checked + label + .payment_box {
-    display: block !important;
-}
-
-/* Estilos para campos de Stripe */
-.itools-checkout-page .wc-stripe-elements-field,
-.itools-checkout-page .wc-stripe-card-element {
-    padding: 12px !important;
-    border: 1px solid #d1d5db !important;
-    border-radius: 0.5rem !important;
-    background: white !important;
-}
-
-.itools-checkout-page .wc-stripe-elements-field iframe {
-    height: 40px !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
 }
 
 /* Estilos de tabla del resumen - NO NECESARIOS (tabla oculta) */
@@ -532,16 +510,25 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                     </div>
                                 </div>
                                 
-                                <!-- Métodos de pago (lado derecho) -->
+                                <!-- Métodos de pago (lado derecho) - Renderizado directamente aquí -->
                                 <div>
-                                    <h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>
-                                    <div id="custom-payment-methods" class="space-y-3">
-                                        <!-- Los métodos de pago se moverán aquí via JavaScript -->
-                                        <p class="text-sm text-gray-600">Cargando métodos de pago...</p>
-                                    </div>
-                                    <div id="custom-place-order" class="mt-6">
-                                        <!-- El botón de completar pedido se moverá aquí -->
-                                    </div>
+                                    <?php
+                                    // Renderizar solo la sección de métodos de pago del checkout
+                                    if ( ! WC()->cart->is_empty() ) {
+                                        // Abrir form para la sección de métodos de pago
+                                        echo '<form name="checkout" method="post" class="checkout woocommerce-checkout" action="' . esc_url( wc_get_checkout_url() ) . '" enctype="multipart/form-data">';
+                                        
+                                        do_action( 'woocommerce_checkout_before_order_review_heading' );
+                                        echo '<h3 class="font-semibold text-gray-900 mb-4">Métodos de pago</h3>';
+                                        do_action( 'woocommerce_checkout_before_order_review' );
+                                        echo '<div id="order_review" class="woocommerce-checkout-review-order">';
+                                        do_action( 'woocommerce_checkout_order_review' );
+                                        echo '</div>';
+                                        do_action( 'woocommerce_checkout_after_order_review' );
+                                        
+                                        echo '</form>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -602,78 +589,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Mover métodos de pago a la card personalizada
-    function movePaymentMethods() {
-        const paymentMethods = document.querySelector('.wc_payment_methods');
-        const placeOrderButton = document.querySelector('#place_order');
-        const customPaymentContainer = document.getElementById('custom-payment-methods');
-        const customPlaceOrderContainer = document.getElementById('custom-place-order');
-        
-        if (paymentMethods && customPaymentContainer) {
-            // Limpiar el contenedor y mover los métodos de pago
-            customPaymentContainer.innerHTML = '';
-            customPaymentContainer.appendChild(paymentMethods);
-            
-            // Aplicar estilos Tailwind a los métodos de pago
-            paymentMethods.className = 'space-y-3';
-            
-            // Estilizar cada método de pago
-            const paymentItems = paymentMethods.querySelectorAll('.wc_payment_method');
-            paymentItems.forEach(item => {
-                item.className = 'border border-gray-200 rounded-lg overflow-hidden hover:border-blue-300 transition-colors';
-                
-                const label = item.querySelector('label');
-                if (label) {
-                    label.className = 'flex items-center p-4 cursor-pointer hover:bg-gray-50 transition-colors';
-                }
-                
-                const paymentBox = item.querySelector('.payment_box');
-                if (paymentBox) {
-                    paymentBox.className = 'p-4 bg-gray-50 border-t border-gray-200 text-sm text-gray-600';
-                }
-            });
-
-            // Re-inicializar los event listeners de WooCommerce para los métodos de pago
-            const radioButtons = paymentMethods.querySelectorAll('input[type="radio"][name="payment_method"]');
-            radioButtons.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    // Trigger WooCommerce payment method change event
-                    jQuery('body').trigger('payment_method_selected');
-                    jQuery(document.body).trigger('checkout_error');
-                });
-            });
-
-            // Asegurar que los payment boxes se muestren/oculten correctamente
-            jQuery(document.body).on('payment_method_selected', function() {
-                jQuery('.payment_methods .payment_box').slideUp(250);
-                if (jQuery('.payment_methods input[name="payment_method"]:checked').length === 1) {
-                    jQuery('.payment_methods input[name="payment_method"]:checked').closest('.wc_payment_method').find('.payment_box').slideDown(250);
-                }
-            });
-        }
-        
-        if (placeOrderButton && customPlaceOrderContainer) {
-            // Mover el botón de completar pedido
-            customPlaceOrderContainer.appendChild(placeOrderButton);
-            
-            // Aplicar estilos Tailwind al botón
-            placeOrderButton.className = 'w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors';
-        }
-    }
-    
-    // Ejecutar cuando la página carga
-    setTimeout(movePaymentMethods, 100);
-    
-    // También ejecutar cuando WooCommerce actualiza el checkout
-    jQuery(document.body).on('updated_checkout', function() {
-        setTimeout(movePaymentMethods, 100);
-    });
-    
-    // Trigger inicial para mostrar el método de pago seleccionado por defecto
-    setTimeout(function() {
-        jQuery(document.body).trigger('payment_method_selected');
-    }, 200);
-    
     // Mejorar la experiencia de usuario en el formulario
     const formInputs = document.querySelectorAll('.itools-checkout-page input, .itools-checkout-page select, .itools-checkout-page textarea');
     
