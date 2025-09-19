@@ -28,23 +28,13 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     min-height: 100vh;
 }
 
-/* Formularios de checkout */
-.itools-checkout-page .woocommerce-checkout {
-    background: transparent;
+/* Grid principal del checkout */
+.itools-checkout-page .col2-set {
+    display: block;
+    width: 100%;
 }
 
-.itools-checkout-page .woocommerce-checkout .col2-set {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-}
-
-@media (min-width: 1024px) {
-    .itools-checkout-page .woocommerce-checkout .col2-set {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
+/* Formularios de checkout - layout horizontal */
 .itools-checkout-page .woocommerce-billing-fields,
 .itools-checkout-page .woocommerce-shipping-fields {
     background: white;
@@ -52,6 +42,8 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+    width: 100%;
 }
 
 .itools-checkout-page .woocommerce-billing-fields h3,
@@ -63,6 +55,19 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #e5e7eb;
+}
+
+/* Layout de campos en grid horizontal */
+.itools-checkout-page .woocommerce-billing-fields__field-wrapper,
+.itools-checkout-page .woocommerce-shipping-fields__field-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Campos que deben ocupar toda la fila */
+.itools-checkout-page .form-row-wide {
+    grid-column: 1 / -1;
 }
 
 /* Campos de formulario */
@@ -105,26 +110,15 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     color: #dc2626;
 }
 
-/* Campos de dos columnas */
-.itools-checkout-page .form-row-first,
-.itools-checkout-page .form-row-last {
-    width: calc(50% - 0.5rem);
-    display: inline-block;
-}
-
-.itools-checkout-page .form-row-first {
-    margin-right: 1rem;
-}
-
-/* Resumen del pedido */
+/* Resumen del pedido - layout horizontal mejorado */
 .itools-checkout-page .woocommerce-checkout-review-order {
     background: white;
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
-    position: sticky;
-    top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
 }
 
 .itools-checkout-page .woocommerce-checkout-review-order h3 {
@@ -186,15 +180,17 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     color: #1e40af;
 }
 
-/* Métodos de pago */
+/* Métodos de pago - layout horizontal */
 .itools-checkout-page .wc_payment_methods {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 .itools-checkout-page .wc_payment_method {
-    margin-bottom: 1rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     overflow: hidden;
@@ -223,6 +219,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border-top: 1px solid #e5e7eb;
     font-size: 0.875rem;
     color: #6b7280;
+    grid-column: 1 / -1;
 }
 
 /* Botón de realizar pedido */
@@ -257,6 +254,25 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     margin-top: 2rem;
 }
 
+/* Responsive - en mobile todo se apila */
+@media (max-width: 768px) {
+    .itools-checkout-page .woocommerce-billing-fields__field-wrapper,
+    .itools-checkout-page .woocommerce-shipping-fields__field-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .itools-checkout-page .wc_payment_methods {
+        grid-template-columns: 1fr;
+    }
+    
+    .itools-checkout-page .woocommerce-billing-fields,
+    .itools-checkout-page .woocommerce-shipping-fields,
+    .itools-checkout-page .woocommerce-checkout-review-order {
+        padding: 1.5rem;
+    }
+}
+
 /* Mensajes */
 .woocommerce-error,
 .woocommerce-info,
@@ -283,27 +299,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     background-color: #ecfdf5;
     color: #065f46;
     border-left-color: #10b981;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .itools-checkout-page .form-row-first,
-    .itools-checkout-page .form-row-last {
-        width: 100%;
-        display: block;
-        margin-right: 0;
-        margin-bottom: 1.5rem;
-    }
-    
-    .itools-checkout-page .woocommerce-billing-fields,
-    .itools-checkout-page .woocommerce-shipping-fields,
-    .itools-checkout-page .woocommerce-checkout-review-order {
-        padding: 1.5rem;
-    }
-    
-    .itools-checkout-page .woocommerce-checkout-review-order {
-        position: static;
-    }
 }
 
 /* Ocultar elementos innecesarios */
@@ -349,8 +344,8 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                 <!-- Grid principal: Formulario + Resumen -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
-                    <!-- Formulario de checkout (2/3) -->
-                    <div class="lg:col-span-2 space-y-8">
+                    <!-- Formulario de checkout (2/3 - más ancho) -->
+                    <div class="lg:col-span-2">
                         <?php if ( WC()->cart->is_empty() ) : ?>
                             
                             <!-- Carrito vacío -->
@@ -379,9 +374,10 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- Sidebar con información adicional (1/3) -->
+                    <!-- Sidebar (1/3 - más estrecho) -->
                     <div class="lg:col-span-1">
-                        <div class="space-y-8">
+                        <!-- Espacio para que las cards aparezcan al final -->
+                        <div class="space-y-6">
                             
                             <!-- Garantías -->
                             <div class="bg-white rounded-xl p-6 border border-gray-200">
