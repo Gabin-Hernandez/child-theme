@@ -92,7 +92,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 
 .itools-custom-totals .cart_totals table th,
 .itools-custom-totals .cart_totals table td {
-    padding: 1rem 0 !important;
+    padding: 1rem !important;
     border: none !important;
     border-bottom: 1px solid #f3f4f6 !important;
     font-size: 1rem !important;
@@ -103,18 +103,20 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 .itools-custom-totals .cart_totals table th {
     font-weight: 500 !important;
     text-align: left !important;
+    padding-left: 0 !important;
 }
 
 .itools-custom-totals .cart_totals table td {
-    text-align: right !important;
+    text-align: center !important;
     font-weight: 600 !important;
+    padding-right: 0 !important;
 }
 
 /* Estilo especial para el total final - SIN BORDERS */
 .itools-custom-totals .cart_totals .order-total th,
 .itools-custom-totals .cart_totals .order-total td {
     background: linear-gradient(to right, rgba(37, 99, 235, 0.05), rgba(147, 51, 234, 0.05)) !important;
-    padding: 1.25rem 0 !important;
+    padding: 1.25rem !important;
     border: none !important;
     border-radius: 0 !important;
     font-weight: 700 !important;
@@ -123,8 +125,46 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     border-bottom: none !important;
 }
 
+.itools-custom-totals .cart_totals .order-total th {
+    text-align: left !important;
+    padding-left: 0 !important;
+}
+
+.itools-custom-totals .cart_totals .order-total td {
+    text-align: center !important;
+    padding-right: 0 !important;
+}
+
 .itools-custom-totals .cart_totals .order-total {
     margin-top: 0.5rem !important;
+}
+
+/* Estilos para información de envío */
+.itools-custom-totals .cart_totals .shipping th,
+.itools-custom-totals .cart_totals .shipping td {
+    padding: 1rem !important;
+    font-size: 0.95rem !important;
+    color: #6b7280 !important;
+}
+
+.itools-custom-totals .cart_totals .shipping th {
+    text-align: left !important;
+    padding-left: 0 !important;
+}
+
+.itools-custom-totals .cart_totals .shipping td {
+    text-align: center !important;
+    padding-right: 0 !important;
+}
+
+.itools-custom-totals .cart_totals .shipping a {
+    color: #3b82f6 !important;
+    text-decoration: underline !important;
+    font-size: 0.95rem !important;
+}
+
+.itools-custom-totals .cart_totals .shipping a:hover {
+    color: #1d4ed8 !important;
 }
 
 /* Botón de proceder al pago optimizado */
@@ -155,24 +195,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(22, 163, 74, 0.35) !important;
     background: linear-gradient(to right, #15803d, #047857) !important;
-}
-
-/* Estilos para información de envío */
-.itools-custom-totals .cart_totals .shipping th,
-.itools-custom-totals .cart_totals .shipping td {
-    padding: 1rem 0 !important;
-    font-size: 0.95rem !important;
-    color: #6b7280 !important;
-}
-
-.itools-custom-totals .cart_totals .shipping a {
-    color: #3b82f6 !important;
-    text-decoration: underline !important;
-    font-size: 0.95rem !important;
-}
-
-.itools-custom-totals .cart_totals .shipping a:hover {
-    color: #1d4ed8 !important;
 }
 
 .itools-cart-page .remove {
@@ -233,6 +255,16 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 /* Solo mostrar nuestros totales personalizados */
 .itools-custom-totals .cart_totals {
     display: block !important;
+}
+
+/* Ocultar botones de checkout duplicados - solo mantener el primero */
+.itools-custom-totals .wc-proceed-to-checkout:not(:first-of-type) {
+    display: none !important;
+}
+
+/* Ocultar calculadoras de envío duplicadas */
+.itools-custom-totals .woocommerce-shipping-calculator:not(:first-of-type) {
+    display: none !important;
 }
 </style>
 
@@ -620,6 +652,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.style.display = 'none';
                 }
             });
+        });
+
+        // Eliminar botones de checkout duplicados - mantener solo el primero de cada contenedor
+        const allCheckoutContainers = document.querySelectorAll('.itools-custom-totals');
+        allCheckoutContainers.forEach(function(container) {
+            const checkoutButtons = container.querySelectorAll('.wc-proceed-to-checkout');
+            // Mantener solo el primer botón, ocultar el resto
+            checkoutButtons.forEach(function(button, index) {
+                if (index > 0) {
+                    button.style.display = 'none !important';
+                    button.remove(); // Eliminar completamente los duplicados
+                }
+            });
+        });
+
+        // También ocultar calculadoras de envío duplicadas
+        const shippingCalculators = document.querySelectorAll('.itools-custom-totals .woocommerce-shipping-calculator');
+        shippingCalculators.forEach(function(calculator, index) {
+            if (index > 0) {
+                calculator.style.display = 'none !important';
+                calculator.remove(); // Eliminar completamente los duplicados
+            }
         });
     }, 50);
     
