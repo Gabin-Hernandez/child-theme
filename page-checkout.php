@@ -526,7 +526,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         
                         <!-- Card ancha: Tu pedido + Métodos de pago -->
                         <div class="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                            <div class="grid grid-cols-1 lg:grid-cols-1 gap-12">
                                 
                                 <!-- Tu pedido (lado izquierdo) -->
                                 <div>
