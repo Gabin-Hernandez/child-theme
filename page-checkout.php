@@ -409,6 +409,115 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 .woocommerce-checkout .woocommerce-breadcrumb {
     display: none;
 }
+
+/* Estilos para el resumen del pedido en la nueva ubicación */
+.order-summary-content .shop_table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+}
+
+.order-summary-content .shop_table th,
+.order-summary-content .shop_table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.order-summary-content .shop_table thead th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+}
+
+.order-summary-content .shop_table tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+.order-summary-content .shop_table .order-total {
+    background: #eff6ff;
+    font-weight: 600;
+}
+
+.order-summary-content .shop_table .order-total th,
+.order-summary-content .shop_table .order-total td {
+    color: #1e40af;
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.order-summary-content .wc_payment_methods {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.order-summary-content .wc_payment_method {
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.order-summary-content .wc_payment_method label {
+    display: block;
+    padding: 0.75rem;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.order-summary-content .wc_payment_method:hover label {
+    background: #f3f4f6;
+}
+
+.order-summary-content .wc_payment_method input[type="radio"]:checked + label {
+    background: #dbeafe;
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+.order-summary-content #place_order {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.order-summary-content #place_order:hover {
+    background: #2563eb;
+}
+
+/* Responsive para las cards horizontales */
+@media (max-width: 768px) {
+    .order-summary-content .shop_table th,
+    .order-summary-content .shop_table td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .order-summary-content .wc_payment_methods {
+        flex-direction: column;
+    }
+    
+    .order-summary-content .wc_payment_method {
+        min-width: auto;
+    }
+}
 </style>
 
 <div class="itools-checkout-page">
@@ -445,11 +554,11 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                 }
                 ?>
 
-                <!-- Grid principal: Formulario + Resumen -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Grid principal: Formulario completo arriba, Resumen abajo -->
+                <div class="space-y-6">
                     
-                    <!-- Formulario de checkout (2/3 - más ancho) -->
-                    <div class="lg:col-span-2">
+                    <!-- Formulario de checkout completo -->
+                    <div class="w-full">
                         <?php if ( WC()->cart->is_empty() ) : ?>
                             
                             <!-- Carrito vacío -->
@@ -478,12 +587,11 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- Sidebar (1/3 - más estrecho) -->
-                    <div class="lg:col-span-1">
-                        <!-- Espacio para que las cards aparezcan al final -->
-                        <div class="space-y-6">
+                    <!-- Resumen del pedido - ancho completo -->
+                    <div class="w-full">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             
-                            <!-- Garantías -->
+                            <!-- Card de garantías -->
                             <div class="bg-white rounded-xl p-6 border border-gray-200">
                                 <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
                                     <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -500,18 +608,17 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                         <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
                                         <span class="text-gray-700">Envío express disponible</span>
                                     </div>
-                                    <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Soporte técnico especializado</span>
-                                    </div>
-                                    <div class="flex items-center text-sm">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                        <span class="text-gray-700">Garantía en todos los productos</span>
-                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Contacto de soporte -->
+                            <!-- Card de tu pedido -->
+                            <div class="bg-white rounded-xl p-6 border border-gray-200">
+                                <h3 class="font-semibold text-gray-900 mb-4">Tu pedido</h3>
+                                <!-- Aquí se insertará automáticamente el resumen del pedido -->
+                                <div id="order-review-insert"></div>
+                            </div>
+
+                            <!-- Card de soporte -->
                             <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
                                 <h3 class="font-semibold text-gray-900 mb-4 flex items-center">
                                     <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -519,27 +626,14 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                     </svg>
                                     ¿Necesitas ayuda?
                                 </h3>
-                                <p class="text-sm text-gray-600 mb-4">
-                                    Nuestro equipo está listo para ayudarte con tu pedido.
-                                </p>
-                                <div class="space-y-2">
-                                    <a href="https://wa.me/5215512345678" 
-                                       class="flex items-center text-sm text-green-600 hover:text-green-700">
-                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.688"/>
-                                        </svg>
-                                        WhatsApp: +52 155 1234 5678
-                                    </a>
-                                    <a href="mailto:soporte@itoolsmx.com" 
-                                       class="flex items-center text-sm text-blue-600 hover:text-blue-700">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                        </svg>
-                                        soporte@itoolsmx.com
-                                    </a>
-                                </div>
+                                <p class="text-sm text-gray-600 mb-4">Contacta con nuestro equipo de soporte especializado</p>
+                                <a href="https://wa.me/5215512345678" target="_blank" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-200 flex items-center justify-center text-sm">
+                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.785"/>
+                                    </svg>
+                                    WhatsApp
+                                </a>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -547,9 +641,25 @@ if ( ! class_exists( 'WooCommerce' ) ) {
         </div>
     </section>
 </div>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Mover el resumen del pedido al lugar correcto
+    setTimeout(function() {
+        const orderReview = document.querySelector('.woocommerce-checkout-review-order');
+        const orderInsert = document.getElementById('order-review-insert');
+        
+        if (orderReview && orderInsert) {
+            // Clonar el contenido del resumen
+            const clonedReview = orderReview.cloneNode(true);
+            // Remover clases de estilo del original para que no interfiera
+            clonedReview.className = 'order-summary-content';
+            // Insertar en la nueva ubicación
+            orderInsert.appendChild(clonedReview);
+            // Ocultar el original
+            orderReview.style.display = 'none';
+        }
+    }, 500);
+    
     // Mejorar la experiencia de usuario en el formulario
     const formInputs = document.querySelectorAll('.itools-checkout-page input, .itools-checkout-page select, .itools-checkout-page textarea');
     
