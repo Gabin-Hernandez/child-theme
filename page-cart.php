@@ -301,6 +301,16 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 .itools-custom-totals .wc-proceed-to-checkout:not(:first-of-type) {
     display: none !important;
 }
+
+/* Prevenir aparición de contenedores duplicados */
+.itools-custom-totals:nth-of-type(n+3) {
+    display: none !important;
+}
+
+/* Asegurar que solo haya un cart_totals por contenedor */
+.itools-custom-totals .cart_totals:nth-of-type(n+2) {
+    display: none !important;
+}
 </style>
 
 <div class="itools-cart-page">
@@ -650,58 +660,112 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Asegurar que solo haya un total visible - eliminación agresiva de duplicados
-    setTimeout(function() {
-        // Ocultar TODOS los totales excepto los nuestros
-        const allCartTotals = document.querySelectorAll('.cart_totals');
-        const customTotals = document.querySelectorAll('.itools-custom-totals .cart_totals');
+    // Función para eliminar duplicados de manera agresiva
+    function cleanupDuplicates() {
+        // Primero: eliminar TODOS los contenedores de totales existentes excepto el original
+        const allTotalContainers = document.querySelectorAll('.itools-custom-totals');
         
-        allCartTotals.forEach(function(total) {
-            let isCustomTotal = false;
-            customTotals.forEach(function(customTotal) {
-                if (total === customTotal) {
-                    isCustomTotal = true;
+        // Si hay más de 2 contenedores (móvil + desktop), eliminar los extras
+        if (allTotalContainers.length > 2) {
+            // Mantener solo los primeros 2 (móvil y desktop originales)
+            for (let i = 2; i < allTotalContainers.length; i++) {
+                allTotalContainers[i].remove();
+            }
+        }
+        
+        // Segundo: dentro de cada contenedor válido, limpiar duplicados
+        const validContainers = document.querySelectorAll('.itools-custom-totals');
+        validContainers.forEach(function(container) {
+            // Eliminar múltiples cart_totals dentro del mismo contenedor
+            const cartTotalsInContainer = container.querySelectorAll('.cart_totals');
+            if (cartTotalsInContainer.length > 1) {
+                // Mantener solo el primero, eliminar el resto
+                for (let i = 1; i < cartTotalsInContainer.length; i++) {
+                    cartTotalsInContainer[i].remove();
                 }
-            });
+            }
             
-            if (!isCustomTotal && !total.closest('.itools-custom-totals')) {
-                total.style.display = 'none';
-                total.style.visibility = 'hidden';
-                total.style.opacity = '0';
-                total.style.height = '0';
-                total.style.overflow = 'hidden';
+            // Eliminar botones de checkout duplicados
+            const checkoutButtons = container.querySelectorAll('.wc-proceed-to-checkout');
+            if (checkoutButtons.length > 1) {
+                for (let i = 1; i < checkoutButtons.length; i++) {
+                    checkoutButtons[i].remove();
+                }
             }
         });
         
-        // Ocultar elementos específicos del tema y WooCommerce
+        // Tercero: ocultar totales del tema original
+        const allCartTotals = document.querySelectorAll('.cart_totals');
+        const validTotals = document.querySelectorAll('.itools-custom-totals .cart_totals');
+        
+        allCartTotals.forEach(function(total) {
+            let isValid = false;
+            validTotals.forEach(function(validTotal) {
+                if (total === validTotal) {
+                    isValid = true;
+                }
+            });
+            
+            if (!isValid) {
+                total.style.display = 'none !important';
+                total.style.visibility = 'hidden !important';
+                total.style.opacity = '0 !important';
+                total.style.height = '0 !important';
+                total.style.overflow = 'hidden !important';
+            }
+        });
+        
+        // Cuarto: ocultar elementos específicos del tema
         const hideElements = [
-            '.cart-collaterals',
-            '.woocommerce-cart-collaterals', 
+            '.cart-collaterals:not(.itools-custom-totals .cart-collaterals)',
+            '.woocommerce-cart-collaterals:not(.itools-custom-totals .woocommerce-cart-collaterals)', 
             '.storefront-cart-totals'
         ];
         
         hideElements.forEach(selector => {
             const elements = document.querySelectorAll(selector);
             elements.forEach(element => {
-                if (!element.closest('.itools-custom-totals')) {
-                    element.style.display = 'none';
-                }
+                element.style.display = 'none !important';
             });
         });
-
-        // Eliminar botones de checkout duplicados - mantener solo el primero de cada contenedor
-        const allCheckoutContainers = document.querySelectorAll('.itools-custom-totals');
-        allCheckoutContainers.forEach(function(container) {
-            const checkoutButtons = container.querySelectorAll('.wc-proceed-to-checkout');
-            // Mantener solo el primer botón, ocultar el resto
-            checkoutButtons.forEach(function(button, index) {
-                if (index > 0) {
-                    button.style.display = 'none !important';
-                    button.remove(); // Eliminar completamente los duplicados
-                }
-            });
+    }
+    
+    // Ejecutar limpieza inicial
+    cleanupDuplicates();
+    
+    // Ejecutar limpieza después de cada actualización del carrito
+    setTimeout(cleanupDuplicates, 50);
+    setTimeout(cleanupDuplicates, 200);
+    setTimeout(cleanupDuplicates, 500);
+    
+    // Observar cambios en el DOM para detectar actualizaciones del carrito
+    const observer = new MutationObserver(function(mutations) {
+        let shouldClean = false;
+        mutations.forEach(function(mutation) {
+            // Si se añadieron nuevos nodos que contienen totales
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1) { // Element node
+                        if (node.classList && (node.classList.contains('cart_totals') || 
+                            node.classList.contains('itools-custom-totals') ||
+                            node.querySelector && (node.querySelector('.cart_totals') || node.querySelector('.wc-proceed-to-checkout')))) {
+                            shouldClean = true;
+                        }
+                    }
+                });
+            }
         });
-    }, 50);
+        
+        if (shouldClean) {
+            setTimeout(cleanupDuplicates, 100);
+        }
+    });
+    
+    // Observar cambios en todo el documento
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
     
     // Optimizar diseño de totales
     setTimeout(function() {
