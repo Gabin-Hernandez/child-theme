@@ -12,7 +12,170 @@ Text Domain:    child-theme
 /* Import parent theme styles */
 @import url("../storefront/style.css");
 
-/* Estilos personalizados para WooCommerce */
+/* ========================================
+   ESTILOS ESPECÍFICOS PARA FRONT-PAGE
+   ======================================== */
+
+/* Reset completo SOLO para front-page */
+.home {
+    overflow-x: hidden;
+}
+
+.home main,
+.home .site-main,
+.home #main,
+.home .site-content,
+.home #content {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Hero slider para front-page */
+.home #hero-slider {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.home #hero-slider .slide {
+    position: relative;
+}
+
+/* Secciones del front-page con espaciado correcto */
+.home section {
+    margin: 0 !important;
+    border: none !important;
+}
+
+.home section.py-20 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+}
+
+.home section.py-16 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Cards de productos SOLO en front-page */
+.home .grid .bg-white.rounded-xl {
+    height: auto !important;
+    min-height: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.home .grid .bg-white.rounded-xl .relative:first-child {
+    height: 192px !important;
+    flex-shrink: 0 !important;
+}
+
+.home .grid .bg-white.rounded-xl .relative:first-child img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.home .grid .bg-white.rounded-xl .p-4 {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 1rem !important;
+}
+
+.home .grid .bg-white.rounded-xl h3 {
+    height: 3.5rem !important;
+    line-height: 1.75rem !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    margin-bottom: 1rem !important;
+}
+
+.home .grid .bg-white.rounded-xl .p-4 > div:last-child {
+    margin-top: auto !important;
+}
+
+.home .grid .bg-white.rounded-xl:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-8px) !important;
+}
+
+/* Responsive para front-page */
+@media (max-width: 768px) {
+    .home .grid .bg-white.rounded-xl {
+        min-height: 380px !important;
+    }
+    
+    .home #hero-slider .slide {
+        height: 500px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .home .grid .bg-white.rounded-xl {
+        min-height: 360px !important;
+    }
+    
+    .home .grid .bg-white.rounded-xl .relative:first-child {
+        height: 160px !important;
+    }
+    
+    .home .grid .bg-white.rounded-xl h3 {
+        height: 3rem !important;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+    }
+    
+    .home #hero-slider .slide {
+        height: 400px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .home .grid .bg-white.rounded-xl {
+        min-height: 450px !important;
+    }
+}
+
+/* Container para front-page */
+.home .container {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Animación del carrusel de marcas */
+@keyframes scrollBrands {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.home .brands-carousel {
+    animation: scrollBrands 25s linear infinite !important;
+    width: calc(200%) !important;
+    will-change: transform !important;
+}
+
+.home .brands-container:hover .brands-carousel {
+    animation-play-state: paused !important;
+}
+
+/* ========================================
+   ESTILOS ESENCIALES DE WOOCOMMERCE
+   ======================================== */
 
 /* Utilidad para limitar líneas de texto */
 .line-clamp-2 {
@@ -21,6 +184,207 @@ Text Domain:    child-theme
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* Precios de WooCommerce */
+.woocommerce .price {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+}
+
+.woocommerce .price del {
+    color: #9ca3af !important;
+    text-decoration: line-through !important;
+    font-weight: 400 !important;
+}
+
+.woocommerce .price ins {
+    color: #dc2626 !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+}
+
+/* Botones de WooCommerce */
+.woocommerce .button.add_to_cart_button,
+.woocommerce .button.product_type_simple {
+    width: 100% !important;
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.woocommerce .button.add_to_cart_button:hover,
+.woocommerce .button.product_type_simple:hover {
+    background-color: #1d4ed8 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Página de producto individual */
+.single-product .single_add_to_cart_button {
+    background: #2563eb !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    text-transform: none !important;
+    font-size: 1rem !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+    background: #1d4ed8 !important;
+    box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Estrellas de rating */
+.woocommerce .star-rating {
+    font-size: 12px !important;
+    color: #fbbf24 !important;
+}
+
+.woocommerce .star-rating::before {
+    color: #e5e7eb !important;
+}
+
+.woocommerce .star-rating span::before {
+    color: #fbbf24 !important;
+}
+
+/* ========================================
+   CORRECCIÓN DE ESPACIOS EN BLANCO
+   ======================================== */
+
+/* Solo aplicar a páginas que NO sean front-page */
+body:not(.home) main::after,
+body:not(.home) .site-main::after,
+body:not(.home) #content::after,
+body:not(.home) .site-content::after {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body:not(.home) main,
+body:not(.home) .site-main,
+body:not(.home) #main,
+body:not(.home) #content,
+body:not(.home) .site-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+body:not(.home) main > *:last-child,
+body:not(.home) .site-main > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* ========================================
+   HEADER STICKY
+   ======================================== */
+
+.sticky-header-wrapper {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    background: #171717 !important;
+}
+
+.dropdown-container {
+    z-index: 10000 !important;
+}
+
+.dropdown-menu {
+    z-index: 10001 !important;
+}
+
+/* ========================================
+   BOTÓN WHATSAPP
+   ======================================== */
+
+.whatsapp-float {
+    position: fixed !important;
+    width: 70px;
+    height: 70px;
+    bottom: 25px !important;
+    right: 25px !important;
+    background: #25d366;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 36px;
+    z-index: 2147483647 !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    border: none;
+    outline: none;
+}
+
+.whatsapp-float:hover {
+    background: #20ba5a !important;
+    color: white !important;
+    text-decoration: none !important;
+    transform: scale(1.15);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid #25d366;
+    animation: whatsapp-pulse 2.5s infinite;
+    opacity: 0;
+    z-index: -1;
+}
+
+@keyframes whatsapp-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.whatsapp-float i {
+    font-size: 38px !important;
+    line-height: 1 !important;
+    color: white !important;
+}
+
+@media screen and (max-width: 768px) {
+    .whatsapp-float {
+        width: 65px !important;
+        height: 65px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        font-size: 32px !important;
+    }
+    
+    .whatsapp-float i {
+        font-size: 34px !important;
+    }
 }
 
 /* Mejoras para los precios de WooCommerce */
