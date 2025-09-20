@@ -518,20 +518,28 @@ Text Domain:    child-theme
     animation-play-state: paused !important;
 }
 
-/* Estilos esenciales para mantener el layout correcto */
-.home, .page-template-default {
-    overflow-x: hidden;
-}
+/* ====== ESTILOS ESPECÍFICOS SOLO PARA FRONT-PAGE ====== */
+/* Estas reglas SOLO se aplican en la página de inicio */
 
-/* Solo corregir el hero slider si es necesario */
-#hero-slider {
+.home #hero-slider {
     position: relative;
     z-index: 1;
 }
 
-/* Asegurar que las cards de productos mantengan su tamaño uniforme */
-.woocommerce .products .product,
-.grid .bg-white.rounded-xl {
+/* Permitir que front-page mantenga su espaciado natural */
+.home section.py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.home section.py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+/* Cards de productos uniformes SOLO en front-page */
+.home .woocommerce .products .product,
+.home .grid .bg-white.rounded-xl {
     height: auto !important;
     min-height: 420px !important;
     display: flex !important;
@@ -630,15 +638,37 @@ Text Domain:    child-theme
     border-radius: 1px 1px 0 0 !important;
 }
 
-/* ===== SOLUCIÓN GLOBAL PARA ESPACIOS EN BLANCO ANTES DEL FOOTER ===== */
+/* ===== SOLUCIÓN ESPECÍFICA PARA FRONT-PAGE ===== */
 
-/* Eliminar ::after problemáticos que crean espacios en blanco */
-#content::after,
-.site-content::after,
-#page::after,
-body::after,
-main::after,
-.site-main::after {
+/* Estilos SOLO para front-page - no afectar otras páginas */
+.home main,
+.home .site-main,
+.home #main {
+    /* Restaurar espaciado natural solo en front-page */
+    margin: 0;
+    padding: 0;
+}
+
+/* Asegurar que solo front-page tenga overflow controlado */
+.home {
+    overflow-x: hidden;
+}
+
+/* Hero slider solo para front-page */
+.home #hero-slider {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== SOLUCIÓN GLOBAL PARA ESPACIOS EN BLANCO ANTES DEL FOOTER ===== */
+/* EXCLUIR FRONT-PAGE de estas reglas problemáticas */
+
+/* Eliminar ::after problemáticos que crean espacios en blanco - EXCLUIR .home */
+body:not(.home) #content::after,
+body:not(.home) .site-content::after,
+body:not(.home) #page::after,
+body:not(.home) main::after,
+body:not(.home) .site-main::after {
     display: none !important;
     content: none !important;
     height: 0 !important;
@@ -647,23 +677,23 @@ main::after,
     padding: 0 !important;
 }
 
-/* Eliminar márgenes y padding de contenedores principales */
-main,
-.site-main,
-#main,
-#content,
-.site-content,
-#primary,
-.content-area {
+/* Eliminar márgenes y padding de contenedores principales - EXCLUIR .home */
+body:not(.home) main,
+body:not(.home) .site-main,
+body:not(.home) #main,
+body:not(.home) #content,
+body:not(.home) .site-content,
+body:not(.home) #primary,
+body:not(.home) .content-area {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-/* Eliminar espacios de elementos que pueden causar gap */
-.col-full,
-.storefront-full-width-content,
-.woocommerce-tabs-wrapper,
-.single-product-summary {
+/* Eliminar espacios de elementos que pueden causar gap - EXCLUIR .home */
+body:not(.home) .col-full,
+body:not(.home) .storefront-full-width-content,
+body:not(.home) .woocommerce-tabs-wrapper,
+body:not(.home) .single-product-summary {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
@@ -675,38 +705,47 @@ footer {
     margin-top: 0 !important;
 }
 
-/* Fix específico para páginas de WooCommerce */
-.woocommerce #content,
-.woocommerce .site-content,
-.woocommerce main {
+/* Fix específico para páginas de WooCommerce - EXCLUIR .home */
+body:not(.home) .woocommerce #content,
+body:not(.home) .woocommerce .site-content,
+body:not(.home) .woocommerce main {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-/* Fix para taxonomías de productos */
-.tax-product_cat main,
-.tax-product_cat .site-main {
+/* Fix para taxonomías de productos - EXCLUIR .home */
+body:not(.home).tax-product_cat main,
+body:not(.home).tax-product_cat .site-main {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-/* Fix responsive para todos los dispositivos */
+/* Fix responsive para todos los dispositivos - EXCLUIR .home */
 @media (max-width: 768px) {
-    main, .site-main, #content, .site-content {
+    body:not(.home) main, 
+    body:not(.home) .site-main, 
+    body:not(.home) #content, 
+    body:not(.home) .site-content {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-    main, .site-main, #content, .site-content {
+    body:not(.home) main, 
+    body:not(.home) .site-main, 
+    body:not(.home) #content, 
+    body:not(.home) .site-content {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
     }
 }
 
 @media (min-width: 1025px) {
-    main, .site-main, #content, .site-content {
+    body:not(.home) main, 
+    body:not(.home) .site-main, 
+    body:not(.home) #content, 
+    body:not(.home) .site-content {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
     }
@@ -721,11 +760,11 @@ footer {
     padding: 0 !important;
 }
 
-/* Forzar que todos los últimos elementos no tengan margen */
-main > *:last-child,
-.site-main > *:last-child,
-#content > *:last-child,
-.site-content > *:last-child {
+/* Forzar que todos los últimos elementos no tengan margen - EXCLUIR .home */
+body:not(.home) main > *:last-child,
+body:not(.home) .site-main > *:last-child,
+body:not(.home) #content > *:last-child,
+body:not(.home) .site-content > *:last-child {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
@@ -768,10 +807,10 @@ body {
     position: relative !important;
 }
 
-/* Asegurar que no haya espacios extra al final */
-body::after,
-#page::after,
-.site::after {
+/* Asegurar que no haya espacios extra al final - EXCLUIR .home */
+body:not(.home)::after,
+body:not(.home) #page::after,
+body:not(.home) .site::after {
     content: none !important;
     display: none !important;
 }
