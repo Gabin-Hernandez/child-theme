@@ -43,6 +43,23 @@ body.home main *::before {
     background: none !important;
 }
 
+/* Espaciado correcto entre secciones de la front page */
+.site-main section {
+    margin-bottom: 0 !important;
+    position: relative !important;
+}
+
+/* Asegurar espaciado adecuado para secciones específicas */
+section#categorias {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+section#ofertas {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 /* Fix específico para el div #content que contiene el main */
 #content,
 .site-content,
@@ -96,7 +113,7 @@ body.home main::after {
     padding: 0 !important;
 }
 
-/* 6. Fix específico para secciones dentro del main */
+/* Fix específico para secciones dentro del main - permitir espaciado natural */
 .home main section,
 .page-template-default main section,
 body.home main section {
@@ -105,16 +122,30 @@ body.home main section {
     min-height: auto !important;
     overflow: visible !important;
     position: relative !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+    /* Permitir el espaciado natural del padding de las secciones */
 }
 
-/* 7. Fix para el último elemento del main */
+/* Permitir que las secciones mantengan su padding natural */
+.home main section.py-20,
+.page-template-default main section.py-20,
+body.home main section.py-20 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+}
+
+.home main section.py-16,
+.page-template-default main section.py-16,
+body.home main section.py-16 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Fix para el último elemento del main - permitir padding natural */
 .home main > *:last-child,
 .page-template-default main > *:last-child,
 body.home main > *:last-child {
     margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+    /* Permitir padding natural para secciones */
     height: auto !important;
     min-height: auto !important;
 }.line-clamp-2 {
@@ -237,6 +268,52 @@ body.home main > *:last-child {
     .single-product .flex.items-center.gap-4 > div:first-child {
         justify-content: center !important;
     }
+    
+    /* Mejoras responsive para cards de productos */
+    .grid .bg-white.rounded-xl {
+        min-height: 380px !important;
+    }
+    
+    /* Hero slider responsive */
+    #hero-slider .slide {
+        height: 500px !important;
+    }
+    
+    /* Botones más grandes en móvil */
+    .grid .bg-white.rounded-xl .flex.gap-2 a,
+    .grid .bg-white.rounded-xl .flex.gap-2 button {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.875rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Cards de productos en móvil - más compactas */
+    .grid .bg-white.rounded-xl {
+        min-height: 360px !important;
+    }
+    
+    .grid .bg-white.rounded-xl .relative:first-child {
+        height: 160px !important;
+    }
+    
+    .grid .bg-white.rounded-xl h3 {
+        height: 3rem !important;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+    }
+    
+    /* Hero slider más pequeño en móvil */
+    #hero-slider .slide {
+        height: 400px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* En pantallas grandes, asegurar altura consistente */
+    .grid .bg-white.rounded-xl {
+        min-height: 450px !important;
+    }
 }
 
 /* Botones de WooCommerce - hover states */
@@ -259,6 +336,96 @@ body.home main > *:last-child {
 
 .woocommerce .star-rating span::before {
     color: #fbbf24 !important;
+}
+
+/* Corrección del z-index para el banner principal */
+#hero-slider {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+#hero-slider .slide {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Asegurar que el main tenga el z-index correcto */
+main#main.site-main {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Estilos para cards de productos - tamaño uniforme */
+.woocommerce .products .product,
+.grid .bg-white.rounded-xl {
+    height: auto !important;
+    min-height: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Contenedor de imagen de producto - altura fija */
+.grid .bg-white.rounded-xl .relative:first-child {
+    height: 192px !important; /* h-48 = 192px */
+    flex-shrink: 0 !important;
+}
+
+.grid .bg-white.rounded-xl .relative:first-child img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Contenido de la card - ocupa el resto del espacio */
+.grid .bg-white.rounded-xl .p-4 {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 1rem !important;
+}
+
+/* Título del producto - altura fija con line-clamp */
+.grid .bg-white.rounded-xl h3 {
+    height: 3.5rem !important; /* aprox 2 líneas */
+    line-height: 1.75rem !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Contenedor de precio y botones - en la parte inferior */
+.grid .bg-white.rounded-xl .p-4 > div:last-child {
+    margin-top: auto !important;
+}
+
+/* Mejoras adicionales para el layout */
+.container {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Asegurar que las secciones no se superpongan */
+.site-main section {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Mejorar la transición de hover en las cards */
+.grid .bg-white.rounded-xl:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-8px) !important;
+}
+
+/* Asegurar que los botones tengan el tamaño correcto */
+.grid .bg-white.rounded-xl .flex.gap-2 {
+    margin-top: 0.75rem !important;
 }
 
 /* Mejoras para los widgets de filtros - Slider de precio visible y bonito */
