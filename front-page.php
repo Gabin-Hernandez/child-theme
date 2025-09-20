@@ -7,10 +7,7 @@ get_header(); ?>
 
 <main id="main" class="site-main">
     
-    <!-- He                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) . '?product_cat=baterias' : '/categoria/baterias/'; ?>" 
-                               class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
-                                🔋 Ver Baterías
-                            </a>lider Moderno -->
+    <!-- Hero Slider Moderno -->
     <section class="relative overflow-hidden">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
