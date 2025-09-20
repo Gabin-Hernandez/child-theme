@@ -761,11 +761,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Observar cambios en todo el documento
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+    // Observar cambios SOLO en páginas de carrito
+    if (document.body.classList.contains('woocommerce-cart') || 
+        document.querySelector('.woocommerce-cart') || 
+        document.querySelector('.itools-cart-page')) {
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
     
     // Optimizar diseño de totales
     setTimeout(function() {
