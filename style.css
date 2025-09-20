@@ -23,16 +23,10 @@ Text Domain:    child-theme
     overflow: hidden;
 }
 
-/* Eliminación agresiva de pseudo-elementos que causan espacios */
+/* Eliminación agresiva de pseudo-elementos que causan espacios - pero conservando layout */
 .page-template-default main::before,
-.page-template-default main *::after,
-.page-template-default main *::before,
 .home main::before,
-.home main *::after,
-.home main *::before,
-body.home main::before,
-body.home main *::after,
-body.home main *::before {
+body.home main::before {
     display: none !important;
     content: none !important;
     height: 0 !important;
@@ -41,23 +35,6 @@ body.home main *::before {
     padding: 0 !important;
     border: none !important;
     background: none !important;
-}
-
-/* Espaciado correcto entre secciones de la front page */
-.site-main section {
-    margin-bottom: 0 !important;
-    position: relative !important;
-}
-
-/* Asegurar espaciado adecuado para secciones específicas */
-section#categorias {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-section#ofertas {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
 }
 
 /* Fix específico para el div #content que contiene el main */
@@ -72,6 +49,8 @@ body.home .site-content {
     padding: 0 !important;
     display: block !important;
     overflow: visible !important;
+    position: static !important;
+    z-index: auto !important;
 }
 
 /* Fix específico para el div #content después del main */
@@ -338,21 +317,83 @@ body.home main > *:last-child {
     color: #fbbf24 !important;
 }
 
-/* Corrección del z-index para el banner principal */
+/* Fix completo para el layout de la front page */
+.home, .page-template-default {
+    overflow-x: hidden !important;
+}
+
+/* Asegurar que el contenido aparezca debajo del header sticky */
+body.home main#main,
+body.page-template-default main#main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Corrección completa del layout de front page */
+.home main,
+.page-template-default main,
+body.home main {
+    position: static !important;
+    z-index: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both !important;
+}
+
+/* Hero slider con posicionamiento correcto - debe estar DESPUÉS del header */
 #hero-slider {
     position: relative !important;
-    z-index: 10 !important;
+    z-index: 1 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    clear: both !important;
+    display: block !important;
 }
 
 #hero-slider .slide {
     position: relative !important;
-    z-index: 10 !important;
+    z-index: auto !important;
 }
 
-/* Asegurar que el main tenga el z-index correcto */
-main#main.site-main {
+/* Asegurar que todas las secciones mantengan el orden correcto */
+.site-main section {
+    position: relative !important;
+    z-index: auto !important;
+    clear: both !important;
+}
+
+/* Reset completo para elementos que puedan estar interfiriendo */
+.home .site-content,
+.page-template-default .site-content,
+body.home .site-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: static !important;
+    z-index: auto !important;
+}
+
+/* Asegurar que el hero slider nunca se superponga al header */
+body.home #hero-slider,
+body.page-template-default #hero-slider {
     position: relative !important;
     z-index: 1 !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Forzar que el contenido siga el flujo normal del documento */
+body.home .site-main,
+body.page-template-default .site-main {
+    position: static !important;
+    z-index: auto !important;
+    display: block !important;
+    width: 100% !important;
 }
 
 /* Estilos para cards de productos - tamaño uniforme */
