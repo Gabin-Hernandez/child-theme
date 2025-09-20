@@ -23,116 +23,6 @@ Text Domain:    child-theme
     overflow: hidden;
 }
 
-/* Eliminación agresiva de pseudo-elementos que causan espacios - pero conservando layout */
-.page-template-default main::before,
-.home main::before,
-body.home main::before {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    background: none !important;
-}
-
-/* Fix específico para el div #content que contiene el main */
-#content,
-.site-content,
-div#content,
-body.home #content,
-body.home .site-content {
-    min-height: 0 !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    overflow: visible !important;
-    position: static !important;
-    z-index: auto !important;
-}
-
-/* Fix específico para el div #content después del main */
-#content::after,
-.site-content::after,
-div#content::after,
-body.home #content::after,
-body.home .site-content::after {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* 4. Fix específico para el main - forzar altura mínima */
-.home main,
-.page-template-default main,
-body.home main {
-    min-height: 0 !important;
-    height: auto !important;
-    display: block !important;
-    overflow: visible !important;
-    position: static !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* 5. Fix para elementos flotantes que pueden causar expansión - Eliminado completamente */
-.home main::after,
-body.home main::after {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    line-height: 0 !important;
-    font-size: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Fix específico para secciones dentro del main - permitir espaciado natural */
-.home main section,
-.page-template-default main section,
-body.home main section {
-    display: block !important;
-    height: auto !important;
-    min-height: auto !important;
-    overflow: visible !important;
-    position: relative !important;
-    /* Permitir el espaciado natural del padding de las secciones */
-}
-
-/* Permitir que las secciones mantengan su padding natural */
-.home main section.py-20,
-.page-template-default main section.py-20,
-body.home main section.py-20 {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
-}
-
-.home main section.py-16,
-.page-template-default main section.py-16,
-body.home main section.py-16 {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-}
-
-/* Fix para el último elemento del main - permitir padding natural */
-.home main > *:last-child,
-.page-template-default main > *:last-child,
-body.home main > *:last-child {
-    margin-bottom: 0 !important;
-    /* Permitir padding natural para secciones */
-    height: auto !important;
-    min-height: auto !important;
-}.line-clamp-2 {
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
 /* Mejoras para los precios de WooCommerce */
 .woocommerce .price {
     font-size: 1.125rem !important;
@@ -317,85 +207,6 @@ body.home main > *:last-child {
     color: #fbbf24 !important;
 }
 
-/* Fix completo para el layout de la front page */
-.home, .page-template-default {
-    overflow-x: hidden !important;
-}
-
-/* Asegurar que el contenido aparezca debajo del header sticky */
-body.home main#main,
-body.page-template-default main#main {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-}
-
-/* Corrección completa del layout de front page */
-.home main,
-.page-template-default main,
-body.home main {
-    position: static !important;
-    z-index: auto !important;
-    min-height: 0 !important;
-    height: auto !important;
-    display: block !important;
-    overflow: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    clear: both !important;
-}
-
-/* Hero slider con posicionamiento correcto - debe estar DESPUÉS del header */
-#hero-slider {
-    position: relative !important;
-    z-index: 1 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    clear: both !important;
-    display: block !important;
-}
-
-#hero-slider .slide {
-    position: relative !important;
-    z-index: auto !important;
-}
-
-/* Asegurar que todas las secciones mantengan el orden correcto */
-.site-main section {
-    position: relative !important;
-    z-index: auto !important;
-    clear: both !important;
-}
-
-/* Reset completo para elementos que puedan estar interfiriendo */
-.home .site-content,
-.page-template-default .site-content,
-body.home .site-content {
-    margin: 0 !important;
-    padding: 0 !important;
-    position: static !important;
-    z-index: auto !important;
-}
-
-/* Asegurar que el hero slider nunca se superponga al header */
-body.home #hero-slider,
-body.page-template-default #hero-slider {
-    position: relative !important;
-    z-index: 1 !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-}
-
-/* Forzar que el contenido siga el flujo normal del documento */
-body.home .site-main,
-body.page-template-default .site-main {
-    position: static !important;
-    z-index: auto !important;
-    display: block !important;
-    width: 100% !important;
-}
-
 /* Estilos para cards de productos - tamaño uniforme */
 .woocommerce .products .product,
 .grid .bg-white.rounded-xl {
@@ -450,12 +261,6 @@ body.page-template-default .site-main {
     margin-right: auto !important;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-}
-
-/* Asegurar que las secciones no se superpongan */
-.site-main section {
-    position: relative !important;
-    z-index: 1 !important;
 }
 
 /* Mejorar la transición de hover en las cards */
@@ -702,158 +507,6 @@ body.page-template-default .site-main {
     }
 }
 
-/* --- Fix: evitar espacio en blanco / overflow horizontal en páginas de categoría --- */
-body.tax-product_cat, 
-body.tax-product_cat html,
-body.tax-product_cat * {
-    max-width: 100vw;
-    box-sizing: border-box;
-}
-
-body.tax-product_cat, 
-body.tax-product_cat html {
-    overflow-x: hidden;
-}
-
-body.tax-product_cat #products-grid {
-    margin-right: 0 !important;
-    width: 100% !important;
-}
-
-body.tax-product_cat #products-grid > div {
-    /* asegurar que las tarjetas no sumen margen extra que rompa el ancho */
-    margin: 0 !important;
-}
-
-/* Contenedores principales también controlados */
-body.tax-product_cat .container,
-body.tax-product_cat main {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-}
-
-/* Control específico para el main con ancho calculado */
-body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
-    width: 100% !important;
-}
-
-@media (min-width: 1280px) {
-    body.tax-product_cat main[class*="xl:w-[calc(100%-21rem)"] {
-        width: calc(100% - 21rem) !important;
-        max-width: calc(100vw - 21rem) !important;
-    }
-}
-
-/* --- Fix: eliminar espacios en blanco entre main y footer --- */
-main,
-main.site-main,
-#main,
-.site-main {
-    margin: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    border: none !important;
-    outline: none !important;
-}
-
-#newsletter-cta {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-/* Asegurar que no hay espacios entre secciones */
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-#page {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.site-content {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Override específico para Storefront theme */
-.storefront-full-width-content main,
-.storefront-full-width-content .site-main {
-    margin: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Override para cualquier margen del contenedor */
-.col-full {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* CSS agresivo específico para front-page */
-.home main,
-.home .site-main,
-.page-template-default main,
-.page-template-default .site-main {
-    margin: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: -10px !important; /* Negativo para cancelar margen del tema padre */
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-bottom: 0 !important;
-    border-bottom: none !important;
-}
-
-/* También aplicar margen negativo al newsletter CTA para que "suba" */
-#newsletter-cta {
-    margin-top: -10px !important;
-    margin-bottom: 0 !important;
-}
-
-/* Responsive - ajustar el margen negativo según el tamaño */
-@media (max-width: 768px) {
-    .home main,
-    .home .site-main,
-    .page-template-default main,
-    .page-template-default .site-main {
-        margin-bottom: -5px !important; /* Menor en móvil */
-    }
-    
-    #newsletter-cta {
-        margin-top: -5px !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .home main,
-    .home .site-main,
-    .page-template-default main,
-    .page-template-default .site-main {
-        margin-bottom: -15px !important; /* Mayor en desktop grande */
-    }
-    
-    #newsletter-cta {
-        margin-top: -15px !important;
-    }
-}
-
-/* Forzar que no haya espacio después del último elemento del main */
-.home main > *:last-child,
-.page-template-default main > *:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Override para elementos específicos que podrían causar margen */
-.home .content-area,
-.home #primary,
-.page-template-default .content-area,
-.page-template-default #primary {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
 .brands-carousel {
     animation: scrollBrands 25s linear infinite !important;
     width: calc(200%) !important;
@@ -865,84 +518,24 @@ body {
     animation-play-state: paused !important;
 }
 
-/* --- Fix: main expandiéndose de más - Solución completa --- */
+/* Estilos esenciales para mantener el layout correcto */
+.home, .page-template-default {
+    overflow-x: hidden;
+}
 
-/* 1. Fix para alturas forzadas dentro del main */
-.home main *,
-.page-template-default main * {
-    min-height: auto !important;
+/* Solo corregir el hero slider si es necesario */
+#hero-slider {
+    position: relative;
+    z-index: 1;
+}
+
+/* Asegurar que las cards de productos mantengan su tamaño uniforme */
+.woocommerce .products .product,
+.grid .bg-white.rounded-xl {
     height: auto !important;
-}
-
-/* Específicamente evitar 100vh en elementos del main */
-.home main [style*="height: 100vh"],
-.home main [style*="min-height: 100vh"],
-.page-template-default main [style*="height: 100vh"],
-.page-template-default main [style*="min-height: 100vh"] {
-    height: auto !important;
-    min-height: auto !important;
-}
-
-/* 2. Fix para clear: both mal aplicado */
-.home main,
-.home main *,
-.page-template-default main,
-.page-template-default main * {
-    clear: none !important;
-}
-
-/* 3. Fix para pseudo-elementos problemáticos */
-.home main::after,
-.home main::before,
-.home main *::after,
-.home main *::before,
-.page-template-default main::after,
-.page-template-default main::before,
-.page-template-default main *::after,
-.page-template-default main *::before {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-}
-
-/* 4. Fix específico para el main - forzar altura mínima */
-.home main,
-.page-template-default main {
-    min-height: 0 !important;
-    height: auto !important;
-    display: block !important;
-    overflow: visible !important;
-    position: static !important;
-}
-
-/* 5. Fix para elementos flotantes que pueden causar expansión */
-.home main::after {
-    content: "" !important;
-    display: table !important;
-    clear: both !important;
-    height: 0 !important;
-    line-height: 0 !important;
-    font-size: 0 !important;
-}
-
-/* 6. Fix específico para secciones dentro del main */
-.home main section,
-.page-template-default main section {
-    display: block !important;
-    height: auto !important;
-    min-height: auto !important;
-    overflow: visible !important;
-    position: relative !important;
-}
-
-/* 7. Fix para el último elemento del main */
-.home main > *:last-child,
-.page-template-default main > *:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    height: auto !important;
-    min-height: auto !important;
+    min-height: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 /* ====================================
