@@ -1162,14 +1162,18 @@ body:not(.home) .site-content > *:last-child {
    ======================================== */
 
 /* Corregir overflow del body y html para evitar espacios en blanco */
+/* DESHABILITADO TEMPORALMENTE - PUEDE INTERFERIR
 html {
     overflow-x: hidden !important;
 }
+*/
 
+/* DESHABILITADO TEMPORALMENTE - PUEDE INTERFERIR
 body {
     overflow-x: hidden !important;
     position: relative !important;
 }
+*/
 
 /* Asegurar que no haya espacios extra al final - EXCLUIR .home */
 body:not(.home)::after,

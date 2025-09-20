@@ -777,7 +777,8 @@ function itools_custom_scripts() {
             });
         }
         
-        // Dark mode toggle (opcional)
+        // Dark mode toggle (opcional) - DESHABILITADO TEMPORALMENTE
+        /*
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
         if (darkModeToggle) {
             darkModeToggle.addEventListener('click', () => {
@@ -790,6 +791,7 @@ function itools_custom_scripts() {
                 document.body.classList.add('dark-mode');
             }
         }
+        */
         
         // Feedback haptico en dispositivos compatibles
         const addHapticFeedback = (element, intensity = 'light') => {
