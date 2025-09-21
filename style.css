@@ -408,6 +408,59 @@ body.home .woocommerce-notices-wrapper {
     display: none !important; /* Ocultar si está vacío */
 }
 
+/* === SOLUCIÓN DEFINITIVA: RESET DE MÁRGENES/PADDINGS ENTRE SECCIONES === */
+/* Quitar espacios verticales innecesarios en la Home */
+body.home main#main.site-main section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Ajustar padding para que cada sección no meta tanto espacio */
+body.home main#main.site-main section {
+    padding-top: 20px !important;   /* espacio interior controlado */
+    padding-bottom: 20px !important;
+}
+
+/* Respetar las clases de Tailwind que ya ajustamos */
+body.home main#main.site-main section.py-8 {
+    padding-top: 2rem !important;   /* py-8 equivalente */
+    padding-bottom: 2rem !important;
+}
+
+body.home main#main.site-main section.py-6 {
+    padding-top: 1.5rem !important; /* py-6 equivalente */
+    padding-bottom: 1.5rem !important;
+}
+
+/* Evitar doble espacio si una sección viene seguida de otra */
+body.home main#main.site-main section + section {
+    margin-top: 0 !important;
+}
+
+/* Excepción especial: Hero slider no necesita padding */
+body.home main#main.site-main section:first-child {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+}
+
+/* === SOBRESCRIBIR ESPECÍFICAMENTE STOREFRONT === */
+/* Reset de márgenes que Storefront pueda aplicar */
+body.home .site-main section,
+body.home .col-full section,
+body.home .storefront-full-width-content section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Reset específico para elementos de WordPress */
+body.home .hfeed section,
+body.home .content-area section,
+body.home .site-content section {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 /* === CSS AGRESIVO PARA ELIMINAR ESPACIO BLANCO === */
 body.home section {
     margin: 0 !important;
