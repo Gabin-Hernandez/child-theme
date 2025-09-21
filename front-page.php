@@ -178,7 +178,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares - Diseño Moderno -->
-    <section id="categorias" class="py-8 bg-gray-900 relative overflow-hidden">
+    <section id="categorias" class="py-8 bg-gray-900 relative overflow-hidden" style="margin-top: 0 !important; transform: translateY(-1px);">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">

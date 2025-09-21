@@ -131,6 +131,23 @@ body.home #hero-slider ~ section:first-of-type {
     padding-top: 2rem !important; /* Solo padding interno de la sección */
 }
 
+/* ELIMINAR ESPACIO BLANCO ESPECÍFICAMENTE EN FRONT-PAGE */
+body.home #hero-slider {
+    margin-bottom: 0 !important;
+}
+
+body.home #hero-slider + #categorias,
+body.home #hero-slider + section#categorias {
+    margin-top: 0 !important;
+    padding-top: 2rem !important;
+    transform: translateY(0) !important;
+}
+
+/* Forzar que no haya elementos entre hero slider y categorías */
+body.home #hero-slider + * + #categorias {
+    margin-top: -50px !important;
+}
+
 /* Eliminar cualquier barra blanca o elemento después del slider */
 body.home #hero-slider::after,
 body.home #hero-slider + * {
@@ -282,10 +299,65 @@ body.home #hero-slider #progress-bar {
     gap: 15px !important;
 }
 
+/* FRONT-PAGE: Eliminar espaciado de WooCommerce/Storefront */
+body.home .site-main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+body.home #main {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Eliminar espaciado entre main y hero slider */
+body.home #main #hero-slider:first-child {
+    margin-top: 0 !important;
+}
+
+/* Eliminar margin/padding del contenedor principal solo en front-page */
+body.home .hfeed,
+body.home .site-content,
+body.home .content-area {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 /* Fix específico para newsletter y otras secciones */
 body.home #newsletter-cta {
     position: static !important; /* Asegurar que no esté posicionado absolutamente */
     z-index: auto !important;
+}
+
+/* ELIMINAR LÍNEAS/BORDES ENTRE SECCIONES EN FRONT-PAGE */
+body.home section::before,
+body.home section::after,
+body.home #hero-slider::before,
+body.home #hero-slider::after,
+body.home #categorias::before,
+body.home #categorias::after {
+    display: none !important;
+    content: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+}
+
+/* Eliminar cualquier línea azul o elemento decorativo */
+body.home *::before,
+body.home *::after {
+    border-top: none !important;
+    border-bottom: none !important;
+    background-image: none !important;
+}
+
+/* Forzar elementos contiguos sin espacio */
+body.home #hero-slider,
+body.home #categorias {
+    display: block !important;
+    position: relative !important;
 }
 
 /* Permitir que las clases de Tailwind funcionen correctamente */
@@ -307,6 +379,54 @@ body.home .px-4 {
 body.home .px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+}
+
+/* === SOBRESCRIBIR STOREFRONT/WOOCOMMERCE SPACING EN FRONT-PAGE === */
+body.home.woocommerce .site-main,
+body.home.woocommerce-page .site-main,
+body.home .storefront-full-width-content .site-main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Eliminar padding del tema Storefront específicamente en front-page */
+body.home .col-full {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Storefront container fixes solo para front-page */
+body.home .site-content .col-full {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
+/* Eliminar espaciado de elementos WooCommerce en front-page */
+body.home .woocommerce-notices-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none !important; /* Ocultar si está vacío */
+}
+
+/* === CSS AGRESIVO PARA ELIMINAR ESPACIO BLANCO === */
+body.home section {
+    margin: 0 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* Forzar que hero slider y categorías estén pegados */
+body.home #hero-slider + #categorias {
+    margin-top: -1px !important;
+    border-top: none !important;
+}
+
+/* Eliminar line-height o espacios de elementos invisibles */
+body.home #hero-slider ~ *:empty,
+body.home #hero-slider + *:empty {
+    display: none !important;
+    line-height: 0 !important;
+    font-size: 0 !important;
 }
 
 /* Grid y flex utilities - asegurar compatibilidad */
