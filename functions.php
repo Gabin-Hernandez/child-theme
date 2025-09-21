@@ -10,8 +10,6 @@ function itools_enqueue_styles() {
     // Encolar Font Awesome para el botón de WhatsApp
     wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0' );
     
-    // CSS integrado directamente en front-page.php - Ya no es necesario cargar archivo externo
-    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
