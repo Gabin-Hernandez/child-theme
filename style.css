@@ -22,13 +22,12 @@ body.home {
     overflow-x: hidden;
 }
 
-/* Solo resetear contenedores principales, no todos los elementos */
+/* Permitir que los contenedores principales tengan margin/padding de Tailwind */
 body.home main,
 body.home .site-main,
 body.home #main {
-    margin: 0;
-    padding: 0;
     width: 100%;
+    /* NO forzar margin: 0 ni padding: 0 - permitir que Tailwind funcione */
 }
 
 /* Permitir que Tailwind funcione normalmente en secciones */
@@ -74,11 +73,21 @@ body.home #hero-slider {
     position: relative;
     z-index: 1;
     width: 100%;
+    margin-bottom: 2rem; /* Asegurar separación después del banner */
 }
 
 body.home #hero-slider .slide {
     position: relative;
     width: 100%;
+}
+
+/* FORZAR que las secciones tengan espaciado correcto */
+body.home section {
+    margin-bottom: 2rem !important;
+}
+
+body.home section:last-child {
+    margin-bottom: 0 !important;
 }
 
 /* Permitir que las clases de Tailwind funcionen correctamente */
@@ -121,62 +130,56 @@ body.home .rounded-xl {
 }
 
 body.home .shadow-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Hero slider para front-page - Compatible con Tailwind */
-body.home #hero-slider {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-}
-
-body.home #hero-slider .slide {
-    position: relative;
-    width: 100%;
+/* Asegurar separación adecuada después del hero slider */
+body.home #hero-slider + section,
+body.home #hero-slider ~ section:first-of-type {
+    margin-top: 2rem !important;
 }
 
 /* Permitir que las clases de Tailwind funcionen correctamente */
 body.home .py-20 {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
 }
 
 body.home .py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
 }
 
 body.home .px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
 body.home .px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
 }
 
 /* Grid y flex utilities - asegurar compatibilidad */
 body.home .grid {
-    display: grid;
+    display: grid !important;
 }
 
 body.home .flex {
-    display: flex;
+    display: flex !important;
 }
 
 /* Cards de productos - permitir que Tailwind funcione */
 body.home .bg-white {
-    background-color: #ffffff;
+    background-color: #ffffff !important;
 }
 
 body.home .rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 0.75rem !important;
 }
 
 body.home .shadow-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Cards de productos MEJORADAS - altura mínima y flex */
@@ -972,11 +975,6 @@ body.home .grid .bg-white.rounded-xl {
 /* ====== ESTILOS ESPECÍFICOS SOLO PARA FRONT-PAGE ====== */
 /* Estas reglas SOLO se aplican en la página de inicio */
 
-.home #hero-slider {
-    position: relative;
-    z-index: 1;
-}
-
 /* Permitir que front-page mantenga su espaciado natural */
 .home section.py-20 {
     padding-top: 5rem;
@@ -1103,12 +1101,6 @@ body.home .grid .bg-white.rounded-xl {
 /* Asegurar que solo front-page tenga overflow controlado */
 .home {
     overflow-x: hidden;
-}
-
-/* Hero slider solo para front-page */
-.home #hero-slider {
-    position: relative;
-    z-index: 1;
 }
 
 /* ========================================
