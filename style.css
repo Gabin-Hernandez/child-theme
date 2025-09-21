@@ -13,76 +13,177 @@ Text Domain:    child-theme
 @import url("../storefront/style.css");
 
 /* ========================================
-   ESTILOS ESPECÍFICOS PARA FRONT-PAGE
+   ESTILOS LIMPIOS PARA FRONT-PAGE
+   Compatible con Tailwind CSS
    ======================================== */
 
-/* Reset completo SOLO para front-page con especificidad alta */
-body.home,
-html body.home {
-    overflow-x: hidden !important;
+/* Reset mínimo SOLO para contenedores principales del front-page */
+body.home {
+    overflow-x: hidden;
 }
 
-/* AISLAMIENTO COMPLETO: Asegurar que el front-page no se vea afectado por otros estilos */
-body.home *,
+/* Solo resetear contenedores principales, no todos los elementos */
 body.home main,
 body.home .site-main,
-body.home #main,
-body.home .site-content,
-body.home #content {
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    outline: none !important;
+body.home #main {
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-/* Restaurar contenido específico del front-page */
+/* Permitir que Tailwind funcione normalmente en secciones */
 body.home section {
-    margin: 0 !important;
-    padding: 0 !important;
+    position: relative;
+    width: 100%;
 }
 
+/* Contenedores con Tailwind classes funcionando */
 body.home .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    max-width: 1280px !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Hero slider para front-page */
+/* Responsive containers - compatible con Tailwind */
+@media (min-width: 640px) {
+    body.home .container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 768px) {
+    body.home .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home .container {
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1280px) {
+    body.home .container {
+        max-width: 1280px;
+    }
+}
+
+/* Hero slider para front-page - Compatible con Tailwind */
 body.home #hero-slider {
-    position: relative !important;
-    z-index: 1 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    position: relative;
+    z-index: 1;
+    width: 100%;
 }
 
 body.home #hero-slider .slide {
-    position: relative !important;
+    position: relative;
+    width: 100%;
 }
 
-/* Secciones del front-page con espaciado correcto */
-body.home section {
-    margin: 0 !important;
-    border: none !important;
+/* Permitir que las clases de Tailwind funcionen correctamente */
+body.home .py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
-body.home section.py-20 {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
+body.home .py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }
 
-body.home section.py-16 {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
+body.home .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
-/* Cards de productos SOLO en front-page */
+body.home .px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Grid y flex utilities - asegurar compatibilidad */
+body.home .grid {
+    display: grid;
+}
+
+body.home .flex {
+    display: flex;
+}
+
+/* Cards de productos - permitir que Tailwind funcione */
+body.home .bg-white {
+    background-color: #ffffff;
+}
+
+body.home .rounded-xl {
+    border-radius: 0.75rem;
+}
+
+body.home .shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Hero slider para front-page - Compatible con Tailwind */
+body.home #hero-slider {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+body.home #hero-slider .slide {
+    position: relative;
+    width: 100%;
+}
+
+/* Permitir que las clases de Tailwind funcionen correctamente */
+body.home .py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+body.home .py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+body.home .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+body.home .px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Grid y flex utilities - asegurar compatibilidad */
+body.home .grid {
+    display: grid;
+}
+
+body.home .flex {
+    display: flex;
+}
+
+/* Cards de productos - permitir que Tailwind funcione */
+body.home .bg-white {
+    background-color: #ffffff;
+}
+
+body.home .rounded-xl {
+    border-radius: 0.75rem;
+}
+
+body.home .shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Cards de productos MEJORADAS - altura mínima y flex */
 body.home .grid .bg-white.rounded-xl {
-    height: auto !important;
-    min-height: 420px !important;
-    display: flex !important;
-    flex-direction: column !important;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
 }
 
 .home .grid .bg-white.rounded-xl .relative:first-child {
@@ -271,37 +372,6 @@ body.home .grid .bg-white.rounded-xl {
 
 .woocommerce .star-rating span::before {
     color: #fbbf24 !important;
-}
-
-/* ========================================
-   CORRECCIÓN DE ESPACIOS EN BLANCO
-   ======================================== */
-
-/* Solo aplicar a páginas que NO sean front-page */
-body:not(.home) main::after,
-body:not(.home) .site-main::after,
-body:not(.home) #content::after,
-body:not(.home) .site-content::after {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body:not(.home) main,
-body:not(.home) .site-main,
-body:not(.home) #main,
-body:not(.home) #content,
-body:not(.home) .site-content {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-body:not(.home) main > *:last-child,
-body:not(.home) .site-main > *:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
 }
 
 /* ========================================
@@ -1041,113 +1111,15 @@ body:not(.home) .site-main > *:last-child {
     z-index: 1;
 }
 
-/* ===== SOLUCIÓN GLOBAL PARA ESPACIOS EN BLANCO ANTES DEL FOOTER ===== */
-/* EXCLUIR FRONT-PAGE de estas reglas problemáticas */
+/* ========================================
+   FOOTER SIMPLE FIX - Sin afectar espaciados
+   ======================================== */
 
-/* Eliminar ::after problemáticos que crean espacios en blanco - EXCLUIR .home */
-body:not(.home) #content::after,
-body:not(.home) .site-content::after,
-body:not(.home) #page::after,
-body:not(.home) main::after,
-body:not(.home) .site-main::after {
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    visibility: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Eliminar márgenes y padding de contenedores principales - EXCLUIR .home */
-body:not(.home) main,
-body:not(.home) .site-main,
-body:not(.home) #main,
-body:not(.home) #content,
-body:not(.home) .site-content,
-body:not(.home) #primary,
-body:not(.home) .content-area {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Eliminar espacios de elementos que pueden causar gap - EXCLUIR .home */
-body:not(.home) .col-full,
-body:not(.home) .storefront-full-width-content,
-body:not(.home) .woocommerce-tabs-wrapper,
-body:not(.home) .single-product-summary {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Asegurar que el footer esté pegado al contenido */
+/* Solo asegurar que el footer no tenga margin-top excesivo */
 #colophon,
 .site-footer,
 footer {
-    margin-top: 0 !important;
-}
-
-/* Fix específico para páginas de WooCommerce - EXCLUIR .home */
-body:not(.home) .woocommerce #content,
-body:not(.home) .woocommerce .site-content,
-body:not(.home) .woocommerce main {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Fix para taxonomías de productos - EXCLUIR .home */
-body:not(.home).tax-product_cat main,
-body:not(.home).tax-product_cat .site-main {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* Fix responsive para todos los dispositivos - EXCLUIR .home */
-@media (max-width: 768px) {
-    body:not(.home) main, 
-    body:not(.home) .site-main, 
-    body:not(.home) #content, 
-    body:not(.home) .site-content {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    body:not(.home) main, 
-    body:not(.home) .site-main, 
-    body:not(.home) #content, 
-    body:not(.home) .site-content {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-}
-
-@media (min-width: 1025px) {
-    body:not(.home) main, 
-    body:not(.home) .site-main, 
-    body:not(.home) #content, 
-    body:not(.home) .site-content {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-}
-
-/* Fix para hooks de WordPress que puedan agregar espacios */
-.storefront-before-footer,
-.before-footer-content {
-    display: none !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Forzar que todos los últimos elementos no tengan margen - EXCLUIR .home */
-body:not(.home) main > *:last-child,
-body:not(.home) .site-main > *:last-child,
-body:not(.home) #content > *:last-child,
-body:not(.home) .site-content > *:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
+    margin-top: 0;
 }
 
 /* FIX: Sticky header simple pero efectivo */
@@ -1177,28 +1149,6 @@ body:not(.home) .site-content > *:last-child {
 /* ========================================
    BOTÓN FLOTANTE DE WHATSAPP
    ======================================== */
-
-/* Corregir overflow del body y html para evitar espacios en blanco */
-/* DESHABILITADO TEMPORALMENTE - PUEDE INTERFERIR
-html {
-    overflow-x: hidden !important;
-}
-*/
-
-/* DESHABILITADO TEMPORALMENTE - PUEDE INTERFERIR
-body {
-    overflow-x: hidden !important;
-    position: relative !important;
-}
-*/
-
-/* Asegurar que no haya espacios extra al final - EXCLUIR .home */
-body:not(.home)::after,
-body:not(.home) #page::after,
-body:not(.home) .site::after {
-    content: none !important;
-    display: none !important;
-}
 
 /* Contenedor del botón flotante */
 .whatsapp-float {
