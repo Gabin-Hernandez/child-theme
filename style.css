@@ -19,7 +19,7 @@ Text Domain:    child-theme
 
 /* Reset mínimo SOLO para contenedores principales del front-page */
 body.home {
-    overflow-x: hidden;
+    /* Eliminar overflow-x: hidden temporalmente para depurar */
 }
 
 /* Permitir que los contenedores principales tengan margin/padding de Tailwind */
@@ -32,8 +32,9 @@ body.home #main {
 
 /* Permitir que Tailwind funcione normalmente en secciones */
 body.home section {
-    position: relative;
+    /* Eliminar position: relative que puede estar causando problemas de apilamiento */
     width: 100%;
+    display: block; /* Asegurar que sean elementos de bloque normales */
 }
 
 /* Contenedores con Tailwind classes funcionando */
@@ -84,10 +85,20 @@ body.home #hero-slider .slide {
 /* FORZAR que las secciones tengan espaciado correcto */
 body.home section {
     margin-bottom: 2rem !important;
+    clear: both !important; /* Asegurar que no haya flotación */
+    display: block !important; /* Forzar comportamiento de bloque */
 }
 
 body.home section:last-child {
     margin-bottom: 0 !important;
+}
+
+/* Fix específico para newsletter y otras secciones */
+body.home #newsletter-cta {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+    position: static !important; /* Asegurar que no esté posicionado absolutamente */
+    z-index: auto !important;
 }
 
 /* Permitir que las clases de Tailwind funcionen correctamente */
