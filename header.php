@@ -700,4 +700,4 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
 }
 </style>
 
-    <div id="content" class="site-content"><?php
+<div id="content" class="site-content">

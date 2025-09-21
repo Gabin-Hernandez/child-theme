@@ -20,6 +20,25 @@ Text Domain:    child-theme
 /* Reset mínimo SOLO para contenedores principales del front-page */
 body.home {
     overflow-x: hidden; /* Solo ocultar scroll horizontal, no vertical */
+    min-height: 100vh; /* Asegurar altura mínima */
+}
+
+/* EMERGENCIA: Asegurar que el contenido sea visible */
+body, html {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+}
+
+#page {
+    min-height: 100vh !important;
+    display: block !important;
+}
+
+#content {
+    display: block !important;
+    width: 100% !important;
+    min-height: 50vh !important;
 }
 
 /* Permitir que los contenedores principales tengan margin/padding de Tailwind */
@@ -27,6 +46,8 @@ body.home main,
 body.home .site-main,
 body.home #main {
     width: 100%;
+    min-height: 50vh !important;
+    display: block !important;
     /* NO forzar margin: 0 ni padding: 0 - permitir que Tailwind funcione */
 }
 
@@ -76,12 +97,14 @@ body.home #hero-slider {
     width: 100%;
     margin-bottom: 2rem; /* Asegurar separación después del banner */
     overflow: hidden; /* Contener las imágenes absolutas */
+    min-height: 600px !important; /* Asegurar altura mínima visible */
 }
 
 body.home #hero-slider .slide {
     position: relative;
     width: 100%;
     overflow: hidden; /* Evitar que las imágenes se salgan */
+    min-height: 600px !important;
 }
 
 /* Corregir las imágenes de fondo del slider */
@@ -99,6 +122,9 @@ body.home section {
     margin-bottom: 2rem !important;
     clear: both !important; /* Asegurar que no haya flotación */
     display: block !important; /* Forzar comportamiento de bloque */
+    min-height: 100px !important; /* Altura mínima visible para debug */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 body.home section:last-child {
