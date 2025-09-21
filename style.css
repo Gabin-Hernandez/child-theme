@@ -415,6 +415,35 @@ body.home section {
     outline: none !important;
 }
 
+/* === OCULTAR SECCIONES VACÍAS QUE CAUSAN EL ESPACIO BLANCO === */
+/* Solo en la home (body.home) */
+body.home section.relative.overflow-hidden:empty {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+}
+
+/* Ocultar secciones que solo tienen espacios en blanco */
+body.home section.relative.overflow-hidden:not([id]):not([class*="py-"]) {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Forzar que cualquier section.relative.overflow-hidden sin contenido visible se oculte */
+body.home section.relative.overflow-hidden:not(#hero-slider):not(#categorias) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
 /* Forzar que hero slider y categorías estén pegados */
 body.home #hero-slider + #categorias {
     margin-top: -1px !important;
@@ -427,6 +456,31 @@ body.home #hero-slider + *:empty {
     display: none !important;
     line-height: 0 !important;
     font-size: 0 !important;
+}
+
+/* === ADICIONAL: OCULTAR ELEMENTOS PROBLEMÁTICOS === */
+/* Cualquier div o section vacío entre hero slider y categorías */
+body.home #main > section:empty,
+body.home #main > div:empty,
+body.home .site-main > section:empty,
+body.home .site-main > div:empty {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* === FORZAR ELIMINACIÓN DE ELEMENTOS WORDPRESS/WOOCOMMERCE === */
+/* Elementos que WordPress o WooCommerce puedan insertar automáticamente */
+body.home .woocommerce-notices-wrapper:empty,
+body.home .wc-block-components-notices:empty,
+body.home .site-main > *:empty,
+body.home #main > *:empty {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    visibility: hidden !important;
 }
 
 /* Grid y flex utilities - asegurar compatibilidad */
