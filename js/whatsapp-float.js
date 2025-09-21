@@ -41,4 +41,3 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('No se encontró el botón WhatsApp con Tally');
     }
 });
-});

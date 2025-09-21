@@ -66,6 +66,7 @@
             background: #171717;
             position: relative;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            z-index: 1000 !important;
         }
         
         /* Estilos específicos para mega-menu */
@@ -614,7 +615,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
 <?php 
 // Botón flotante de WhatsApp - VERSIÓN HEADER
