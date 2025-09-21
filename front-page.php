@@ -152,20 +152,20 @@ get_header(); ?>
         </div>
         
         <!-- Navegación del slider mejorada -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
-            <button onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
-            <button onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
-            <button onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
-            <button onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125"></button>
+        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3" style="z-index: 9999; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 30px; gap: 15px;">
+            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
+            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
+            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
+            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
         </div>
         
         <!-- Flechas de navegación mejoradas -->
-        <button onclick="prevSlide()" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110">
+        <button id="prev-arrow" onclick="prevSlide()" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110" style="z-index: 9999; display: flex; visibility: visible; opacity: 1; background: rgba(0,0,0,0.7); width: 60px; height: 60px; align-items: center; justify-content: center;">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
-        <button onclick="nextSlide()" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110">
+        <button id="next-arrow" onclick="nextSlide()" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110" style="z-index: 9999; display: flex; visibility: visible; opacity: 1; background: rgba(0,0,0,0.7); width: 60px; height: 60px; align-items: center; justify-content: center;">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
