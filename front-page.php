@@ -1017,12 +1017,10 @@ get_header(); ?>
             </div>
         </div>
     </section>
-        <div>
-    <?php get_footer(); ?>
-
-       </div>
 
 </main>
+
+<?php get_footer(); ?>
 
 <!-- JavaScript del Slider Mejorado -->
 <script>

@@ -61,31 +61,11 @@
             transform: rotate(180deg);
         }
         
-        /* Sticky Header Completo - CSS fuertes para garantizar funcionalidad */
-        .sticky-header-wrapper {
-            position: -webkit-sticky !important;
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 9999 !important;
-            width: 100% !important;
-            background: #171717 !important;
-        }
-        
+        /* Header normal - sin sticky */
         header {
-            background: #171717 !important;
-            position: relative !important;
-            z-index: 9999 !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        /* Asegurar que funcione en todos los navegadores */
-        .sticky-header-wrapper {
-            -webkit-position: sticky;
-            -moz-position: sticky;
-            -ms-position: sticky;
-            -o-position: sticky;
+            background: #171717;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
         
         /* Estilos específicos para mega-menu */
@@ -262,12 +242,9 @@
 <?php if ( function_exists( 'wp_body_open' ) ) { wp_body_open(); } ?>
 
 <div id="page" class="site">
-    <!-- Header Sticky Wrapper (encapsulado en global-sticky-header) -->
-    <div class="global-sticky-header">
-    <div class="sticky-header-wrapper" style="position: -webkit-sticky !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: #171717 !important;">
-        <!-- Header Simple -->
-        <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); position: relative !important; z-index: 9999 !important;">
-            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <!-- Header Simple -->
+    <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
                 <!-- Logo -->
@@ -637,10 +614,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-    <!-- End Header Sticky Wrapper -->
+    </header>
 
 <?php 
 // Botón flotante de WhatsApp - VERSIÓN HEADER
@@ -649,37 +623,34 @@ $whatsapp_message = '¡Hola! Me interesa obtener más información sobre sus pro
 $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($whatsapp_message);
 ?>
 
-<!-- BOTÓN FLOTANTE WHATSAPP - SUPER VISIBLE CON TALLY -->
-<div id="whatsapp-float-container" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; pointer-events: none !important; z-index: 2147483647 !important;">
-    <button onclick="openTally()" 
-       id="whatsapp-super-button"
-       title="Contactar por WhatsApp"
-       style="
-           position: absolute !important;
-           bottom: 30px !important;
-           right: 30px !important;
-           width: 80px !important;
-           height: 80px !important;
-           background: #25D366 !important;
-           border-radius: 50% !important;
-           display: flex !important;
-           align-items: center !important;
-           justify-content: center !important;
-           text-decoration: none !important;
-           box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6) !important;
-           transition: all 0.3s ease !important;
-           pointer-events: auto !important;
-           z-index: 2147483647 !important;
-           border: 3px solid #ffffff !important;
-           cursor: pointer !important;
-       ">
-        <i class="fab fa-whatsapp" style="
-            font-size: 45px !important;
-            color: #ffffff !important;
-            line-height: 1 !important;
-        "></i>
-    </button>
-</div>
+<!-- BOTÓN FLOTANTE WHATSAPP - CORREGIDO -->
+<button onclick="openTally()" 
+   id="whatsapp-super-button"
+   title="Contactar por WhatsApp"
+   style="
+       position: fixed !important;
+       bottom: 30px !important;
+       right: 30px !important;
+       width: 80px !important;
+       height: 80px !important;
+       background: #25D366 !important;
+       border-radius: 50% !important;
+       display: flex !important;
+       align-items: center !important;
+       justify-content: center !important;
+       text-decoration: none !important;
+       box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6) !important;
+       transition: all 0.3s ease !important;
+       z-index: 9999 !important;
+       border: 3px solid #ffffff !important;
+       cursor: pointer !important;
+   ">
+    <i class="fab fa-whatsapp" style="
+        font-size: 45px !important;
+        color: #ffffff !important;
+        line-height: 1 !important;
+    "></i>
+</button>
 
 <style>
 /* CSS adicional para el botón WhatsApp */
