@@ -5,6 +5,459 @@
 
 get_header(); ?>
 
+<style>
+/* ========================================
+   ESTILOS DE DISEÑO PARA FRONT-PAGE
+   Tema hijo ITOOLS - Diseños modernos y limpios
+   ======================================== */
+
+/* RESET COMPLETO Y AGRESIVO PARA FRONT-PAGE */
+body.home,
+body.home *,
+body.home main,
+body.home .site-main,
+body.home #main,
+body.home .site-content,
+body.home #content,
+body.home section,
+body.home div,
+body.home .container {
+    all: revert !important;
+    box-sizing: border-box !important;
+}
+
+/* Estructura principal del front-page */
+body.home main,
+body.home .site-main,
+body.home #main,
+body.home .site-content,
+body.home #content {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+/* Secciones */
+body.home section {
+    margin: 0 !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+/* Containers */
+body.home .container {
+    max-width: 1280px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+    body.home .container { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+}
+
+@media (min-width: 1024px) {
+    body.home .container { padding-left: 2rem !important; padding-right: 2rem !important; }
+}
+
+/* ========================================
+   HERO SLIDER - DISEÑO MODERNO
+   ======================================== */
+
+body.home #hero-slider {
+    position: relative !important;
+    z-index: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+body.home #hero-slider .slide {
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #db2777 100%) !important;
+}
+
+/* Hero content styling */
+body.home #hero-slider .slide h1 {
+    font-size: 3rem !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin-bottom: 1.5rem !important;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+@media (min-width: 768px) {
+    body.home #hero-slider .slide h1 {
+        font-size: 4.5rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home #hero-slider .slide h1 {
+        font-size: 6rem !important;
+    }
+}
+
+body.home #hero-slider .slide h1 span {
+    display: block !important;
+    font-size: 0.6em !important;
+    font-weight: 400 !important;
+    color: #bfdbfe !important;
+    margin-top: 0.5rem !important;
+}
+
+body.home #hero-slider .slide p {
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+    color: #e0e7ff !important;
+    margin-bottom: 2rem !important;
+}
+
+@media (min-width: 768px) {
+    body.home #hero-slider .slide p {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* Hero buttons */
+body.home #hero-slider .slide a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem 2.5rem !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    border-radius: 9999px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    text-decoration: none !important;
+    transform: translateY(0) !important;
+}
+
+body.home #hero-slider .slide a:hover {
+    transform: translateY(-2px) scale(1.05) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ========================================
+   SECCIONES PRINCIPALES
+   ======================================== */
+
+/* Background gradients and colors */
+body.home .bg-gray-900 {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%) !important;
+}
+
+body.home .bg-gray-50 {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+}
+
+body.home .bg-white {
+    background: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Titles and typography */
+body.home h2 {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+    body.home h2 {
+        font-size: 3rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home h2 {
+        font-size: 3.5rem !important;
+    }
+}
+
+body.home h3 {
+    font-size: 1.5rem !important;
+    line-height: 1.4 !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+}
+
+body.home h4 {
+    font-size: 1.25rem !important;
+    line-height: 1.5 !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* ========================================
+   GRID LAYOUTS Y CARDS
+   ======================================== */
+
+/* Grid layouts */
+body.home .grid {
+    display: grid !important;
+    gap: 2rem !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body.home .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+body.home .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+body.home .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+body.home .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+@media (min-width: 768px) {
+    body.home .md\\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    
+    body.home .grid {
+        gap: 2rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home .lg\\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    
+    body.home .grid {
+        gap: 2.5rem !important;
+    }
+}
+
+/* Cards modernas con efectos */
+body.home .grid .bg-white.rounded-xl,
+body.home .grid .bg-black.rounded-2xl {
+    background: #ffffff !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    position: relative !important;
+}
+
+/* Category cards specific styling */
+body.home .grid .bg-black.rounded-2xl {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.home .grid .bg-black.rounded-2xl:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Product cards */
+body.home .grid .bg-white.rounded-xl {
+    height: auto !important;
+    min-height: 420px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+body.home .grid .bg-white.rounded-xl:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+body.home .grid .bg-white.rounded-xl .relative:first-child {
+    height: 200px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+body.home .grid .bg-white.rounded-xl .relative:first-child img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.4s ease !important;
+}
+
+body.home .grid .bg-white.rounded-xl:hover .relative:first-child img {
+    transform: scale(1.1) !important;
+}
+
+body.home .grid .bg-white.rounded-xl .p-4 {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 1.25rem !important;
+}
+
+body.home .grid .bg-white.rounded-xl h3 {
+    height: 3.5rem !important;
+    line-height: 1.75rem !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    margin-bottom: 1rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Flex utilities */
+body.home .flex { display: flex !important; }
+body.home .flex-col { flex-direction: column !important; }
+body.home .flex-row { flex-direction: row !important; }
+body.home .items-center { align-items: center !important; }
+body.home .items-start { align-items: flex-start !important; }
+body.home .justify-center { justify-content: center !important; }
+body.home .justify-between { justify-content: space-between !important; }
+body.home .justify-around { justify-content: space-around !important; }
+
+/* Spacing */
+body.home .py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+body.home .py-20 { padding-top: 5rem !important; padding-bottom: 5rem !important; }
+body.home .px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+body.home .px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+body.home .px-8 { padding-left: 2rem !important; padding-right: 2rem !important; }
+
+body.home .mb-4 { margin-bottom: 1rem !important; }
+body.home .mb-6 { margin-bottom: 1.5rem !important; }
+body.home .mb-8 { margin-bottom: 2rem !important; }
+body.home .mb-16 { margin-bottom: 4rem !important; }
+body.home .mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+body.home .gap-4 { gap: 1rem !important; }
+body.home .gap-6 { gap: 1.5rem !important; }
+body.home .gap-8 { gap: 2rem !important; }
+
+/* Position utilities */
+body.home .relative { position: relative !important; }
+body.home .absolute { position: absolute !important; }
+body.home .fixed { position: fixed !important; }
+
+/* Size utilities */
+body.home .w-full { width: 100% !important; }
+body.home .h-full { height: 100% !important; }
+body.home .min-h-screen { min-height: 100vh !important; }
+body.home .max-w-3xl { max-width: 48rem !important; }
+body.home .max-w-4xl { max-width: 56rem !important; }
+body.home .max-w-5xl { max-width: 64rem !important; }
+
+/* Z-index */
+body.home [style*="z-index: 10"] { z-index: 10 !important; }
+body.home .z-10 { z-index: 10 !important; }
+body.home .z-20 { z-index: 20 !important; }
+
+/* Display utilities */
+body.home .block { display: block !important; }
+body.home .inline-block { display: inline-block !important; }
+body.home .inline-flex { display: inline-flex !important; }
+body.home .hidden { display: none !important; }
+
+/* Text alignment */
+body.home .text-center { text-align: center !important; }
+body.home .text-left { text-align: left !important; }
+body.home .text-right { text-align: right !important; }
+
+/* Overflow */
+body.home .overflow-hidden { overflow: hidden !important; }
+
+/* Border radius */
+body.home .rounded-xl { border-radius: 0.75rem !important; }
+body.home .rounded-2xl { border-radius: 1rem !important; }
+body.home .rounded-full { border-radius: 9999px !important; }
+
+/* ========================================
+   ANIMACIONES Y EFECTOS
+   ======================================== */
+
+/* Hover effects */
+body.home .group:hover .group-hover\\:scale-105 {
+    transform: scale(1.05) !important;
+}
+
+body.home .transform {
+    transform: translateZ(0) !important;
+}
+
+body.home .transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Shadow utilities */
+body.home .shadow-xl {
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.home .shadow-2xl {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    body.home .grid {
+        gap: 1rem !important;
+    }
+    
+    body.home .py-16 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+    body.home .py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    
+    body.home .mb-16 { margin-bottom: 2rem !important; }
+    
+    body.home #hero-slider .slide {
+        min-height: 500px !important;
+    }
+    
+    body.home .grid .bg-white.rounded-xl,
+    body.home .grid .bg-black.rounded-2xl {
+        transform: none !important;
+    }
+    
+    body.home .grid .bg-white.rounded-xl:hover,
+    body.home .grid .bg-black.rounded-2xl:hover {
+        transform: translateY(-2px) !important;
+    }
+}
+
+/* Override any parent theme interference */
+body.home {
+    overflow-x: hidden !important;
+}
+
+/* Ensure proper stacking */
+body.home .site-header {
+    position: relative !important;
+    z-index: 1000 !important;
+}
+
+body.home main {
+    position: relative !important;
+    z-index: 1 !important;
+}
+</style>
+
 <main id="main" class="site-main">
     
     <!-- Hero Slider Moderno -->

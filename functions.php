@@ -10,15 +10,7 @@ function itools_enqueue_styles() {
     // Encolar Font Awesome para el botón de WhatsApp
     wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0' );
     
-    // CSS limpio específico para front-page SOLO
-    if ( is_front_page() || is_home() ) {
-        wp_enqueue_style( 
-            'itools-frontpage-clean', 
-            get_stylesheet_directory_uri() . '/itools-frontpage-clean.css', 
-            array('parent-style'), 
-            '1.0.0' 
-        );
-    }
+    // CSS integrado directamente en front-page.php - Ya no es necesario cargar archivo externo
     
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
