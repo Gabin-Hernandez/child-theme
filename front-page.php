@@ -178,7 +178,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares - Diseño Moderno -->
-    <section id="categorias" class="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="categorias" class="py-8 bg-gray-900 relative overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -291,7 +291,7 @@ get_header(); ?>
     </section>
 
     <!-- CTA con Estadísticas -->
-    <section class="py-20 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 relative overflow-hidden">
+    <section class="py-8 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 relative overflow-hidden">
         <!-- Efectos de fondo -->
         <div class="absolute inset-0">
             <div class="absolute top-0 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -369,7 +369,7 @@ get_header(); ?>
     </section>
 
     <!-- Marcas Populares -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-6 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Marcas de Confianza</h3>
@@ -510,7 +510,7 @@ get_header(); ?>
     </section>
 
     <!-- Productos en Oferta -->
-    <section id="ofertas" class="py-20 bg-gradient-to-br from-red-50 to-orange-50">
+    <section id="ofertas" class="py-8 bg-gradient-to-br from-red-50 to-orange-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-4 py-2 rounded-full font-semibold mb-4">
@@ -636,7 +636,7 @@ get_header(); ?>
 
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
-    <section class="py-20 bg-white">
+    <section class="py-8 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold mb-4">
@@ -782,7 +782,7 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Productos Destacados Premium -->
-    <section class="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <section class="py-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
         <!-- Efectos de fondo -->
         <div class="absolute inset-0">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
@@ -1002,7 +1002,7 @@ get_header(); ?>
     </section>
 
     <!-- Newsletter CTA - Dentro del main -->
-    <section id="newsletter-cta" class="bg-gradient-to-b from-blue-900 via-gray-900 to-black py-16">
+    <section id="newsletter-cta" class="bg-gradient-to-b from-blue-900 via-gray-900 to-black py-6">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
             <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
