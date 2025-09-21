@@ -19,7 +19,7 @@ Text Domain:    child-theme
 
 /* Reset mínimo SOLO para contenedores principales del front-page */
 body.home {
-    /* Eliminar overflow-x: hidden temporalmente para depurar */
+    overflow-x: hidden; /* Solo ocultar scroll horizontal, no vertical */
 }
 
 /* Permitir que los contenedores principales tengan margin/padding de Tailwind */
@@ -75,11 +75,23 @@ body.home #hero-slider {
     z-index: 1;
     width: 100%;
     margin-bottom: 2rem; /* Asegurar separación después del banner */
+    overflow: hidden; /* Contener las imágenes absolutas */
 }
 
 body.home #hero-slider .slide {
     position: relative;
     width: 100%;
+    overflow: hidden; /* Evitar que las imágenes se salgan */
+}
+
+/* Corregir las imágenes de fondo del slider */
+body.home #hero-slider .slide .absolute.inset-0 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* NO usar inset-0 global que puede extenderse fuera del contenedor */
 }
 
 /* FORZAR que las secciones tengan espaciado correcto */
@@ -386,26 +398,6 @@ body.home .grid .bg-white.rounded-xl {
 
 .woocommerce .star-rating span::before {
     color: #fbbf24 !important;
-}
-
-/* ========================================
-   HEADER STICKY
-   ======================================== */
-
-.sticky-header-wrapper {
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 9999 !important;
-    background: #171717 !important;
-}
-
-.dropdown-container {
-    z-index: 10000 !important;
-}
-
-.dropdown-menu {
-    z-index: 10001 !important;
 }
 
 /* ========================================
@@ -1123,21 +1115,6 @@ body.home .grid .bg-white.rounded-xl {
 .site-footer,
 footer {
     margin-top: 0;
-}
-
-/* FIX: Sticky header simple pero efectivo */
-.sticky-header-wrapper {
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 9999 !important;
-    background: #171717 !important;
-}
-
-/* Nuevo wrapper externo para aislar sticky y evitar interferencias */
-.global-sticky-header {
-    position: relative !important; /* no sticky aquí, solo contenedor */
-    width: 100% !important;
 }
 
 /* Z-index para dropdowns */
