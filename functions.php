@@ -638,6 +638,14 @@ function itools_custom_scripts() {
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // PROTECCIÓN: No ejecutar en front-page para evitar conflictos
+        if (document.body.classList.contains('home') || 
+            document.body.classList.contains('front-page') ||
+            window.location.pathname === '/' || 
+            window.location.pathname === '/inicio/') {
+            return; // Salir sin ejecutar en front-page
+        }
+        
         // Lazy loading mejorado para imágenes
         if ('IntersectionObserver' in window) {
             const imageObserver = new IntersectionObserver((entries, observer) => {

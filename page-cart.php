@@ -761,10 +761,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Observar cambios SOLO en páginas de carrito
-    if (document.body.classList.contains('woocommerce-cart') || 
-        document.querySelector('.woocommerce-cart') || 
-        document.querySelector('.itools-cart-page')) {
+    // Observar cambios SOLO en páginas de carrito - CON VERIFICACIÓN MEJORADA
+    if (!document.body.classList.contains('home') && 
+        !document.body.classList.contains('front-page') &&
+        (document.body.classList.contains('woocommerce-cart') || 
+         document.querySelector('.woocommerce-cart') || 
+         document.querySelector('.itools-cart-page') ||
+         window.location.pathname.includes('cart') ||
+         window.location.pathname.includes('carrito'))) {
         observer.observe(document.body, {
             childList: true,
             subtree: true

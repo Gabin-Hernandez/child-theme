@@ -16,52 +16,69 @@ Text Domain:    child-theme
    ESTILOS ESPECÍFICOS PARA FRONT-PAGE
    ======================================== */
 
-/* Reset completo SOLO para front-page */
-.home {
-    overflow-x: hidden;
+/* Reset completo SOLO para front-page con especificidad alta */
+body.home,
+html body.home {
+    overflow-x: hidden !important;
 }
 
-.home main,
-.home .site-main,
-.home #main,
-.home .site-content,
-.home #content {
+/* AISLAMIENTO COMPLETO: Asegurar que el front-page no se vea afectado por otros estilos */
+body.home *,
+body.home main,
+body.home .site-main,
+body.home #main,
+body.home .site-content,
+body.home #content {
     margin: 0 !important;
     padding: 0 !important;
     border: none !important;
     outline: none !important;
 }
 
-/* Hero slider para front-page */
-.home #hero-slider {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-    padding: 0;
+/* Restaurar contenido específico del front-page */
+body.home section {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.home #hero-slider .slide {
-    position: relative;
+body.home .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 1280px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Hero slider para front-page */
+body.home #hero-slider {
+    position: relative !important;
+    z-index: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.home #hero-slider .slide {
+    position: relative !important;
 }
 
 /* Secciones del front-page con espaciado correcto */
-.home section {
+body.home section {
     margin: 0 !important;
     border: none !important;
 }
 
-.home section.py-20 {
+body.home section.py-20 {
     padding-top: 5rem !important;
     padding-bottom: 5rem !important;
 }
 
-.home section.py-16 {
+body.home section.py-16 {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
 }
 
 /* Cards de productos SOLO en front-page */
-.home .grid .bg-white.rounded-xl {
+body.home .grid .bg-white.rounded-xl {
     height: auto !important;
     min-height: 420px !important;
     display: flex !important;
