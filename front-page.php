@@ -1065,7 +1065,9 @@ function showSlide(index) {
     // Animación de salida
     slides[currentSlide].style.opacity = '0';
     slides[currentSlide].style.transform = 'translateX(-50px)';
-    dots[currentSlide].classList.remove('bg-opacity-100');
+    
+    // Actualizar dots - remover estados activos
+    dots[currentSlide].classList.remove('bg-opacity-100', 'active');
     dots[currentSlide].classList.add('bg-opacity-50');
     
     setTimeout(() => {
@@ -1086,8 +1088,9 @@ function showSlide(index) {
             slides[index].style.transform = 'translateX(0)';
         }, 50);
         
+        // Actualizar dots - añadir estados activos
         dots[index].classList.remove('bg-opacity-50');
-        dots[index].classList.add('bg-opacity-100');
+        dots[index].classList.add('bg-opacity-100', 'active');
         currentSlide = index;
     }, 300);
 }
@@ -1120,7 +1123,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Marcar el primer dot como activo
     if (dots[0]) {
-        dots[0].classList.add('bg-opacity-100');
+        dots[0].classList.add('bg-opacity-100', 'active');
+        dots[0].classList.remove('bg-opacity-50');
     }
     
     // Iniciar slider automático

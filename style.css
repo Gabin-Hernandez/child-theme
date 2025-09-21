@@ -100,7 +100,8 @@ body.home #hero-slider {
     position: relative;
     z-index: 1;
     width: 100%;
-    margin-bottom: 0; /* Sin margen extra */
+    margin: 0 !important; /* Sin margen extra */
+    padding: 0 !important; /* Sin padding extra */
     overflow: hidden; /* Contener las imágenes absolutas */
 }
 
@@ -108,6 +109,15 @@ body.home #hero-slider .slide {
     position: relative;
     width: 100%;
     overflow: hidden; /* Evitar que las imágenes se salgan */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Eliminar cualquier espacio después del hero slider */
+body.home #hero-slider + section,
+body.home #hero-slider ~ section:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 2rem !important; /* Solo padding interno de la sección */
 }
 
 /* Corregir las imágenes de fondo del slider */
@@ -118,6 +128,75 @@ body.home #hero-slider .slide .absolute.inset-0 {
     width: 100%;
     height: 100%;
     /* NO usar inset-0 global que puede extenderse fuera del contenedor */
+}
+
+/* Controles del Hero Slider - Mejorar visibilidad */
+body.home #hero-slider .slider-dot {
+    position: relative !important;
+    z-index: 10 !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+}
+
+body.home #hero-slider .slider-dot:hover {
+    background-color: rgba(255, 255, 255, 1) !important;
+    transform: scale(1.2) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Estado activo del dot */
+body.home #hero-slider .slider-dot.bg-opacity-100,
+body.home #hero-slider .slider-dot.active {
+    background-color: rgba(255, 255, 255, 1) !important;
+    border-color: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Contenedor de los dots */
+body.home #hero-slider .absolute.bottom-8 {
+    z-index: 10 !important;
+    display: flex !important;
+    gap: 12px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 8px 16px !important;
+    border-radius: 25px !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Flechas de navegación del slider */
+body.home #hero-slider button[onclick*="Slide"] {
+    position: absolute !important;
+    z-index: 10 !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+body.home #hero-slider button[onclick*="Slide"]:hover {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Barra de progreso del slider */
+body.home #hero-slider #progress-bar {
+    z-index: 5 !important;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
 }
 
 /* Fix específico para newsletter y otras secciones */
@@ -167,23 +246,6 @@ body.home .rounded-xl {
 
 body.home .shadow-xl {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-}
-
-/* Asegurar separación adecuada después del hero slider */
-body.home #hero-slider + section,
-body.home #hero-slider ~ section:first-of-type {
-    margin-top: 2rem !important;
-}
-
-/* Permitir que las clases de Tailwind funcionen correctamente */
-body.home .py-20 {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
-}
-
-body.home .py-16 {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
 }
 
 body.home .px-4 {
@@ -990,17 +1052,6 @@ body.home .grid .bg-white.rounded-xl {
 
 /* ====== ESTILOS ESPECÍFICOS SOLO PARA FRONT-PAGE ====== */
 /* Estas reglas SOLO se aplican en la página de inicio */
-
-/* Permitir que front-page mantenga su espaciado natural */
-.home section.py-20 {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-}
-
-.home section.py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-}
 
 /* Cards de productos uniformes SOLO en front-page */
 .home .woocommerce .products .product,
