@@ -11,7 +11,7 @@
 
     <footer id="colophon" class="site-footer relative overflow-hidden" role="contentinfo">
         <!-- Background with gradient and pattern -->
-        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-blue-1000 to-slate-900 "></div>
         <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20v20h40V20H20z"/%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         
         <div class="relative z-10">

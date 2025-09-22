@@ -1002,7 +1002,7 @@ get_header(); ?>
     </section>
 
     <!-- Newsletter CTA - Dentro del main -->
-    <section id="newsletter-cta" class="bg-gradient-to-b from-blue-900 via-gray-900 to-black py-6">
+    <section id="newsletter-cta" class="bg-gradient-to-tr from-slate-900 via-blue-900 to-slate-900 py-6">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
             <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
