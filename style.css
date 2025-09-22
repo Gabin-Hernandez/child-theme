@@ -1,3 +1,27 @@
+/* Espaciado uniforme y reset de márgenes para la home */
+body.home main#main.site-main section h1,
+body.home main#main.site-main section h2,
+body.home main#main.site-main section h3,
+body.home main#main.site-main section h4,
+body.home main#main.site-main section h5,
+body.home main#main.site-main section h6,
+body.home main#main.site-main section p,
+body.home main#main.site-main section form {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+body.home main#main.site-main section h2 {
+    margin-bottom: 8px;
+}
+
+body.home main#main.site-main section p {
+    margin-bottom: 12px;
+}
+
+body.home main#main.site-main section form {
+    margin-top: 12px;
+}
 /*
 Theme Name:     Child Theme ITOOLS
 Theme URI:      https://tusitio.com
