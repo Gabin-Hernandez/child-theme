@@ -1,3 +1,8 @@
+/* Eliminar padding vertical entre secciones solo en la home */
+body.home main#main.site-main > section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
 /* Espaciado uniforme y reset de márgenes para la home */
 body.home main#main.site-main section h1,
 body.home main#main.site-main section h2,
