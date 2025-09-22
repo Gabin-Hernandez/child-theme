@@ -8,7 +8,7 @@ get_header(); ?>
 <main id="main" class="site-main">
     
     <!-- Hero Slider Moderno -->
-    <section class="relative overflow-hidden">
+    <section class="relative">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
             <div class="slide active h-[600px] md:h-[700px] relative">
@@ -178,7 +178,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares - Diseño Moderno -->
-    <section id="categorias" class="py-8 bg-gray-900 relative overflow-hidden">
+    <section id="categorias" class="py-8 bg-gray-900 relative">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -291,7 +291,7 @@ get_header(); ?>
     </section>
 
     <!-- CTA con Estadísticas -->
-    <section class="py-8 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 relative overflow-hidden">
+    <section class="py-8 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 relative">
         <!-- Efectos de fondo -->
         <div class="absolute inset-0">
             <div class="absolute top-0 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -782,7 +782,7 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Productos Destacados Premium -->
-    <section class="py-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <section class="py-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative">
         <!-- Efectos de fondo -->
         <div class="absolute inset-0">
             <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
