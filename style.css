@@ -1,3 +1,7 @@
+/* Fondo azulado para main en la home, para cubrir espacios blancos entre secciones */
+body.home main#main.site-main {
+    background: #1e2a47 !important; /* Usa el azul oscuro del sitio, ajusta si es necesario */
+}
 /* Eliminar padding vertical entre secciones solo en la home */
 body.home main#main.site-main > section {
     padding-top: 0 !important;
