@@ -42,6 +42,15 @@ function itools_enqueue_styles() {
         'nonce' => wp_create_nonce( 'itools_cart_nonce' )
     ));
     
+    // Script de debug temporal
+    wp_enqueue_script( 
+        'itools-cart-debug', 
+        get_stylesheet_directory_uri() . '/js/cart-debug.js', 
+        array(), 
+        '1.0.0', 
+        true 
+    );
+    
     // Encolar JavaScript para páginas de producto individual
     if ( is_product() ) {
         wp_enqueue_script( 
