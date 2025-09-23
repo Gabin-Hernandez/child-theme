@@ -21,7 +21,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Contenido -->
-                <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
                             <div class="inline-flex items-center bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full font-semibold mb-6">
@@ -60,7 +60,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
                             <div class="inline-flex items-center bg-green-500/20 backdrop-blur-sm text-green-200 px-4 py-2 rounded-full font-semibold mb-6">
@@ -93,7 +93,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
                             <div class="inline-flex items-center bg-purple-500/20 backdrop-blur-sm text-purple-200 px-4 py-2 rounded-full font-semibold mb-6">
@@ -126,7 +126,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container mx-auto px-4 relative z-10 h-full flex items-center">
+                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
                             <div class="inline-flex items-center bg-yellow-500/20 backdrop-blur-sm text-yellow-200 px-4 py-2 rounded-full font-semibold mb-6">
@@ -179,7 +179,7 @@ get_header(); ?>
 
     <!-- Categorías Populares - Diseño Moderno -->
     <section id="categorias" class="py-8 bg-gray-900 relative">
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="container max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
                     Nuestras Especialidades
@@ -325,7 +325,7 @@ get_header(); ?>
             </div>
         </div>
         
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="container max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
                     ¿Por qué elegirnos?
@@ -370,7 +370,7 @@ get_header(); ?>
 
     <!-- Marcas Populares -->
     <section class="py-6 bg-gray-50">
-        <div class="container mx-auto px-4">
+        <div class="container max-w-7xl mx-auto px-4">
             <div class="text-center mb-12">
                 <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Marcas de Confianza</h3>
                 <p class="text-gray-600">Trabajamos con las mejores marcas del mercado mundial</p>
@@ -511,7 +511,7 @@ get_header(); ?>
 
     <!-- Productos en Oferta -->
     <section id="ofertas" class="py-8 bg-gradient-to-br from-red-50 to-orange-50">
-        <div class="container mx-auto px-4">
+        <div class="container max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-4 py-2 rounded-full font-semibold mb-4">
                     OFERTAS ESPECIALES
@@ -645,7 +645,7 @@ get_header(); ?>
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
     <section class="py-8 bg-white">
-        <div class="container mx-auto px-4">
+        <div class="container max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold mb-4">
                     PRODUCTOS DESTACADOS
@@ -797,7 +797,7 @@ get_header(); ?>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse animation-delay-2000"></div>
         </div>
         
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="container max-w-7xl mx-auto px-4 relative z-10">
             <!-- Header -->
             <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm text-orange-200 px-6 py-3 rounded-full font-semibold mb-6">
@@ -1011,7 +1011,7 @@ get_header(); ?>
 
     <!-- Newsletter CTA - Dentro del main -->
     <section id="newsletter-cta" class="bg-gradient-to-tr from-slate-900 via-blue-900 to-slate-900 py-6">
-        <div class="container mx-auto px-4 text-center">
+        <div class="container max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
             <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
                 Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
