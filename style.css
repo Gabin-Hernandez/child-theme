@@ -129,12 +129,6 @@ body.home .container {
     }
 }
 
-@media (min-width: 1280px) {
-    body.home .container {
-        max-width: 1280px;
-    }
-}
-
 /* Hero slider para front-page - Diseño profesional */
 body.home #hero-slider {
     position: relative;

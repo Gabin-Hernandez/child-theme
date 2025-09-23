@@ -576,12 +576,11 @@ class NewCartSidepanel {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar que WooCommerce esté disponible
-    if (typeof wc_add_to_cart_params !== 'undefined') {
-        window.cartSidepanel = new NewCartSidepanel();
-    } else {
-        console.warn('⚠️ WooCommerce no detectado, cart sidepanel no inicializado');
-    }
+    console.log('🛒 Inicializando Cart Sidepanel...');
+    
+    // Inicializar siempre, sin depender de WooCommerce params
+    window.cartSidepanel = new NewCartSidepanel();
+    console.log('✅ Cart Sidepanel inicializado correctamente');
 });
 
 // Exportar para uso global
