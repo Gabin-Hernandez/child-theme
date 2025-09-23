@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template Name: Pagina de Ofertas
  */
@@ -31,8 +31,8 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                 <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10"></div>
             </div>
         <?php endif; ?>
-        <div class="container mx-auto px-4 -mt-20 relative z-10">
-            <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10">
+        <div class="container mx-auto px-4 -mt-20 relative z-10 pb-8 md:pb-10">
+            <div class="bg-gradient-to-r from-white to-blue-50 rounded-3xl shadow-2xl p-6 md:p-10 border border-blue-100">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div>
                         <p class="inline-flex items-center gap-2 text-sm font-semibold text-red-500 uppercase tracking-wide mb-2">
@@ -71,7 +71,7 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
         </div>
     </section>
 
-    <section class="py-12 md:py-16">
+    <section class="pt-16 pb-12 md:pt-20 md:pb-16">
         <div class="container mx-auto px-4">
             <?php
             if ( empty( $sale_ids ) ) :
@@ -115,7 +115,7 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12">
                         <?php
                         while ( $sale_query->have_posts() ) :
                             $sale_query->the_post();
@@ -181,7 +181,7 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <?php
-                                            $button_classes = 'w-full inline-flex items-center justify-center gap-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors duration-200 add_to_cart_button';
+                                            $button_classes = 'w-full inline-flex items-center justify-center gap-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 add_to_cart_button h-auto';
                                             if ( $product->supports( 'ajax_add_to_cart' ) ) {
                                                 $button_classes .= ' ajax_add_to_cart';
                                             }
@@ -202,7 +202,7 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                                                 Agregar al carrito
                                             </a>
                                         <?php else : ?>
-                                            <span class="w-full inline-flex items-center justify-center gap-2 bg-gray-200 text-gray-500 px-4 py-2.5 rounded-xl text-sm font-semibold">
+                                            <span class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold">
                                                 No disponible
                                             </span>
                                         <?php endif; ?>
@@ -254,3 +254,8 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
 
 <?php
 get_footer();
+
+
+
+
+
