@@ -48,7 +48,7 @@ get_header(); ?>
     </div>
 </div>
 
-<div class="bg-gray-50 min-h-screen py-8">
+<div class="bg-gray-50 min-h-screen pt-0 pb-8">
     <div class="container mx-auto px-4">
 
         <!-- Botón para mostrar filtros en móvil -->
@@ -1034,3 +1034,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php get_footer( 'shop' ); ?>
+
