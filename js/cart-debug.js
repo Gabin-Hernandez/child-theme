@@ -19,20 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar si el script principal se cargó
     console.log('🔍 Window cartSidepanel:', window.cartSidepanel);
     
-    // Agregar event listener de prueba
-    if (cartToggle) {
-        cartToggle.addEventListener('click', function(e) {
-            console.log('🔍 Cart button clicked!');
-            e.preventDefault();
-            alert('¡Botón del carrito clickeado!');
-        });
-    }
-    
-    if (cartToggleFallback) {
-        cartToggleFallback.addEventListener('click', function(e) {
-            console.log('🔍 Cart fallback button clicked!');
-            e.preventDefault();
-            alert('¡Botón del carrito fallback clickeado!');
-        });
-    }
+    // Verificar si el script principal funciona
+    setTimeout(() => {
+        console.log('🔍 Checking after 1 second...');
+        console.log('🔍 Window cartSidepanel after delay:', window.cartSidepanel);
+        
+        if (window.cartSidepanel) {
+            console.log('✅ CartSidepanel is available');
+        } else {
+            console.log('❌ CartSidepanel is NOT available');
+        }
+    }, 1000);
 });

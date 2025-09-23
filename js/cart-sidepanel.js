@@ -95,21 +95,24 @@ class CartSidepanel {
     }
     
     openSidepanel() {
-        if (!this.sidepanel) return;
+        console.log('🛒 Opening sidepanel...');
+        if (!this.sidepanel) {
+            console.error('❌ Sidepanel element not found!');
+            return;
+        }
         
+        console.log('🛒 Sidepanel element found, applying classes...');
         this.isOpen = true;
         this.sidepanel.classList.add('cart-sidepanel-open');
         document.body.classList.add('cart-sidepanel-active');
         
+        // Forzar visibilidad inmediata
+        this.sidepanel.style.visibility = 'visible';
+        
+        console.log('🛒 Classes applied:', this.sidepanel.classList.toString());
+        
         // Cargar contenido actualizado
         this.loadCartContent();
-        
-        // Animación de entrada
-        setTimeout(() => {
-            if (this.sidepanel) {
-                this.sidepanel.style.visibility = 'visible';
-            }
-        }, 10);
     }
     
     closeSidepanel() {

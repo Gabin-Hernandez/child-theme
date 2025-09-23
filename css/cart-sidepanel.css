@@ -37,12 +37,12 @@
 }
 
 /* Estados activos */
-.cart-sidepanel-open #cart-overlay {
+#cart-sidepanel.cart-sidepanel-open #cart-overlay {
     opacity: 1;
     visibility: visible;
 }
 
-.cart-sidepanel-open #cart-sidepanel {
+#cart-sidepanel.cart-sidepanel-open {
     transform: translateX(0);
     visibility: visible;
 }
