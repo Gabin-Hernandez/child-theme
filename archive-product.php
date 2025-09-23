@@ -259,7 +259,7 @@ get_header(); ?>
                             </button>
                         </div>
 
-                        <!-- Filtros rápidos -->
+                        <!-- Filtros Rápidos -->
                         <div class="mt-8 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
                             <h5 class="font-bold text-gray-900 mb-4 flex items-center">
                                 <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-3">
@@ -374,7 +374,7 @@ get_header(); ?>
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -636,11 +636,23 @@ body {
 }
 
 /* Ajustes de la vista de productos */
-#products-grid ul.products {
+#products-grid > li {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    display: contents;
+    float: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+#products-grid > li::marker {
+    content: none;
+}
+
+#products-grid.list-layout {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+#products-grid.list-layout > li {
+    width: 100% !important;
 }
 
 /* Responsive básico */
@@ -668,6 +680,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const gridViewBtn = document.getElementById('grid-view');
     const listViewBtn = document.getElementById('list-view');
     const productsGrid = document.getElementById('products-grid');
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12';
+    const listGridClasses = 'grid grid-cols-1 gap-y-10 list-layout';
+
+
 
     if (productsGrid) {
         const legacyList = productsGrid.querySelector('ul.products');
@@ -720,27 +736,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    function applyGridClasses(view) {
+        if (!productsGrid) {
+            return;
+        }
+
+        if (view === 'list') {
+            productsGrid.className = listGridClasses;
+        } else {
+            productsGrid.className = baseGridClasses;
+        }
+    }
+
     function setProductView(view, persist = true) {
         if (!productsGrid) {
             return;
         }
 
-        if (view === 'grid') {
-            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
-            if (gridViewBtn) {
-                gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            }
-            if (listViewBtn) {
-                listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-            }
-        } else {
-            productsGrid.className = 'grid grid-cols-1 gap-6 list-layout';
-            if (listViewBtn) {
-                listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            }
-            if (gridViewBtn) {
-                gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-            }
+        applyGridClasses(view);
+
+        if (gridViewBtn) {
+            gridViewBtn.className = view === 'grid'
+                ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
+                : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
+        }
+
+        if (listViewBtn) {
+            listViewBtn.className = view === 'list'
+                ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
+                : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         }
 
         if (persist) {
@@ -771,7 +795,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function closeMobileFilters() {
-        if (filtersSidebar) {
+        if (!filtersSidebar) {
+            return;
+        }
+
+        filtersSidebar.style.opacity = '0';
+        const sidebarContent = filtersSidebar.querySelector('div');
+        if (sidebarContent) {
+            sidebarContent.style.transform = 'translateX(100%)';
+        }
+
+        setTimeout(() => {
+            filtersSidebar.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            if (sidebarContent) {
+                sidebarContent.style.transform = '';
+            }
+        }, 300);
+    }
+
     // Filtros rapidos
     document.querySelectorAll('.quick-filter').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -1004,12 +1046,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Responsive: cerrar filtros al cambiar a desktop y optimizar grid
     window.addEventListener('resize', function() {
-        if (window.innerWidth >= 1280) { // xl breakpoint
+        if (window.innerWidth >= 1280) {
             if (filtersSidebar) {
                 filtersSidebar.classList.remove('hidden');
                 filtersSidebar.style.opacity = '';
-                if (filtersSidebar.querySelector('div')) {
-                    filtersSidebar.querySelector('div').style.transform = '';
+                const sidebarContent = filtersSidebar.querySelector('div');
+                if (sidebarContent) {
+                    sidebarContent.style.transform = '';
                 }
             }
             document.body.style.overflow = 'auto';
@@ -1018,20 +1061,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeMobileFilters();
             }
         }
-        
-        // Ajustar grid según el tamaño de pantalla
+
         const currentView = localStorage.getItem('productView') || 'grid';
-        if (currentView === 'grid') {
-            if (window.innerWidth >= 1536) { // 2xl
-                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
-            } else if (window.innerWidth >= 1024) { // lg
-                productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12';
-            } else if (window.innerWidth >= 640) { // sm
-                productsGrid.className = 'grid grid-cols-2 gap-6';
-            } else {
-                productsGrid.className = 'grid grid-cols-1 gap-6';
-            }
-        }
+        applyGridClasses(currentView);
     });
     
     // Lazy loading para imágenes (si es necesario)
@@ -1079,6 +1111,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php get_footer( 'shop' ); ?>
+
+
+
 
 
 
