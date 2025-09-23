@@ -204,10 +204,10 @@ class NewCartSidepanel {
      */
     async fetchCartData() {
         const formData = new FormData();
-        formData.append('action', 'itools_get_cart_content');
-        formData.append('nonce', window.itools_ajax?.nonce || '');
+        formData.append('action', 'get_cart_contents');
+        formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
         
-        const response = await fetch(window.itools_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
+        const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
             method: 'POST',
             body: formData
         });
@@ -438,12 +438,12 @@ class NewCartSidepanel {
     async updateQuantity(key, increase = true) {
         try {
             const formData = new FormData();
-            formData.append('action', 'itools_update_cart_quantity');
-            formData.append('key', key);
+            formData.append('action', 'update_cart_quantity');
+            formData.append('cart_item_key', key);
             formData.append('increase', increase ? '1' : '0');
-            formData.append('nonce', window.itools_ajax?.nonce || '');
+            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
             
-            const response = await fetch(window.itools_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
+            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
                 body: formData
             });
@@ -468,11 +468,11 @@ class NewCartSidepanel {
     async removeItem(key) {
         try {
             const formData = new FormData();
-            formData.append('action', 'itools_remove_cart_item');
-            formData.append('key', key);
-            formData.append('nonce', window.itools_ajax?.nonce || '');
+            formData.append('action', 'remove_cart_item');
+            formData.append('cart_item_key', key);
+            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
             
-            const response = await fetch(window.itools_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
+            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
                 body: formData
             });

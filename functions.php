@@ -1481,10 +1481,12 @@ add_action('wp_ajax_nopriv_itools_add_to_cart', 'itools_ajax_add_to_cart');
 
 // Agregar variables JavaScript necesarias
 function itools_localize_scripts() {
-    wp_localize_script('jquery', 'itools_ajax', array(
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('itools_cart_nonce')
-    ));
+    if (is_front_page()) {
+        wp_localize_script('jquery', 'itools_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('itools_cart_nonce')
+        ));
+    }
 }
 add_action('wp_enqueue_scripts', 'itools_localize_scripts');
 
