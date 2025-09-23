@@ -525,29 +525,27 @@ get_header(); ?>
             </div>
             
             <div class="woocommerce">
-                <?php 
-                // Usar productos en oferta reales de WooCommerce
-                if ( function_exists('woocommerce_shortcode_products') && shortcode_exists('sale_products') ) : 
-                    echo do_shortcode( '[sale_products limit="8" columns="4"]' ); 
-                else :
-                    // Fallback: usar productos reales con consulta personalizada
-                    $args = array(
-                        'post_type' => 'product',
-                        'posts_per_page' => 8,
-                        'meta_key' => '_sale_price',
-                        'meta_compare' => 'EXISTS',
-                        'post_status' => 'publish',
-                        'meta_query' => array(
-                            array(
-                                'key' => '_visibility',
-                                'value' => array('catalog', 'visible'),
-                                'compare' => 'IN'
-                            )
-                        )
-                    );
-                    
-                    $sale_products = new WP_Query( $args );
-                    
+                <?php
+                $sale_products = null;
+
+                if ( function_exists( 'wc_get_product_ids_on_sale' ) ) {
+                    $sale_product_ids = array_filter( array_map( 'absint', wc_get_product_ids_on_sale() ) );
+
+                    if ( ! empty( $sale_product_ids ) ) {
+                        $args = array(
+                            'post_type'      => 'product',
+                            'post__in'       => $sale_product_ids,
+                            'posts_per_page' => 8,
+                            'orderby'        => 'date',
+                            'order'          => 'DESC',
+                            'post_status'    => 'publish',
+                        );
+
+                        $sale_products = new WP_Query( $args );
+                    }
+                }
+
+                if ( $sale_products ) :
                     if ( $sale_products->have_posts() ) : ?>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <?php while ( $sale_products->have_posts() ) : $sale_products->the_post(); 
@@ -621,10 +619,20 @@ get_header(); ?>
                             </a>
                         </div>
                     <?php endif;
+
                     wp_reset_postdata();
-                endif; ?>
+                elseif ( function_exists('woocommerce_shortcode_products') && shortcode_exists('sale_products') ) :
+                    echo do_shortcode( '[sale_products limit="8" columns="4"]' );
+                else : ?>
+                    <div class="text-center py-12">
+                        <p class="text-gray-600 text-lg">No hay productos en oferta disponibles en este momento.</p>
+                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                           class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
+                            Ver Todos los Productos
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
-            
             <div class="text-center mt-12">
                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
                    class="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">

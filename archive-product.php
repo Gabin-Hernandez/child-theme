@@ -611,6 +611,21 @@ body {
     display: none !important;
 }
 
+/* Ajustes de la vista de productos */
+#products-grid ul.products.list-layout {
+    display: block !important;
+}
+
+#products-grid ul.products.list-layout > li {
+    width: 100% !important;
+    float: none !important;
+    margin: 0 0 2rem 0 !important;
+}
+
+#products-grid ul.products.list-layout > li:last-child {
+    margin-bottom: 0 !important;
+}
+
 /* Responsive básico */
 @media (max-width: 640px) {
     .woocommerce-ordering select {
@@ -636,6 +651,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const gridViewBtn = document.getElementById('grid-view');
     const listViewBtn = document.getElementById('list-view');
     const productsGrid = document.getElementById('products-grid');
+    const productList = productsGrid ? productsGrid.querySelector('ul.products') : null;
     
     // Funcionalidad del hero search
     if (heroSearch) {
@@ -674,23 +690,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function setProductView(view) {
+    function setProductView(view, persist = true) {
+        if (!productsGrid) {
+            return;
+        }
+
         if (view === 'grid') {
             productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
+            if (productList) {
+                productList.classList.remove('list-layout');
+            }
         } else {
             productsGrid.className = 'grid grid-cols-1 gap-6';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
+            if (productList) {
+                productList.classList.add('list-layout');
+            }
         }
-        localStorage.setItem('productView', view);
+
+        if (persist) {
+            localStorage.setItem('productView', view);
+        }
     }
-    
+
     // Restaurar vista guardada
     const savedView = localStorage.getItem('productView');
-    if (savedView) {
-        setProductView(savedView);
+    if (savedView === 'list' || savedView === 'grid') {
+        setProductView(savedView, false);
+    } else {
+        setProductView('grid', false);
     }
     
     // Mostrar/ocultar filtros en móvil con animaciones
