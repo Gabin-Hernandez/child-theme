@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Front Page - ITOOLS MX - Diseño Moderno
  */
@@ -38,11 +38,11 @@ get_header(); ?>
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4">
                                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                                   class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl text-center">
+                                   class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg text-center">
                                     Explorar Catálogo
                                 </a>
                                 <a href="#categorias" 
-                                   class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 text-center">
+                                   class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 text-center">
                                     Ver Categorías
                                 </a>
                             </div>
@@ -76,7 +76,7 @@ get_header(); ?>
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
                             <a href="/categoria/refacciones/" 
-                               class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
+                               class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
                                 Ver Refacciones
                             </a>
                         </div>
@@ -109,7 +109,7 @@ get_header(); ?>
                                 Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                             </p>
                             <a href="/categoria/lcd-y-touch/" 
-                               class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
+                               class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
                                 Ver Pantallas
                             </a>
                         </div>
@@ -142,7 +142,7 @@ get_header(); ?>
                                 Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                             </p>
                             <a href="/categoria/baterias/" 
-                               class="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl inline-block">
+                               class="bg-yellow-600 hover:bg-yellow-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
                                 Ver Baterías
                             </a>
                         </div>

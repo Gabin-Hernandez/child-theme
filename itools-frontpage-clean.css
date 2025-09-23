@@ -1,6 +1,6 @@
 /* ========================================
    ESTILOS DE DISEÑO PARA FRONT-PAGE
-   Tema hijo ITOOLS - Diseños modernos y limpios
+   Tema hijo ITOOLS - Diseño profesional y elegante
    ======================================== */
 
 /* RESET COMPLETO Y AGRESIVO PARA FRONT-PAGE */
@@ -61,7 +61,7 @@ body.home .container {
 }
 
 /* ========================================
-   HERO SLIDER - DISEÑO MODERNO
+   HERO SLIDER - DISEÑO PROFESIONAL
    ======================================== */
 
 body.home #hero-slider {
@@ -76,131 +76,134 @@ body.home #hero-slider .slide {
     position: relative !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #db2777 100%) !important;
+    background: #1a1a1a !important; /* Fondo sólido elegante */
 }
 
-/* Hero content styling */
+/* Hero content styling - Tipografía profesional */
 body.home #hero-slider .slide h1 {
-    font-size: 3rem !important;
-    line-height: 1.1 !important;
-    font-weight: 800 !important;
+    font-size: 2.5rem !important; /* Tamaño más moderado */
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
     color: #ffffff !important;
-    margin-bottom: 1.5rem !important;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+    margin-bottom: 1.25rem !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Sombra más sutil */
+    letter-spacing: -0.025em !important;
 }
 
 @media (min-width: 768px) {
     body.home #hero-slider .slide h1 {
-        font-size: 4.5rem !important;
+        font-size: 3.5rem !important;
     }
 }
 
 @media (min-width: 1024px) {
     body.home #hero-slider .slide h1 {
-        font-size: 6rem !important;
+        font-size: 4.5rem !important; /* Menos exagerado */
     }
 }
 
 body.home #hero-slider .slide h1 span {
     display: block !important;
-    font-size: 0.6em !important;
+    font-size: 0.65em !important;
     font-weight: 400 !important;
-    color: #bfdbfe !important;
+    color: #cbd5e1 !important; /* Color más sutil */
     margin-top: 0.5rem !important;
 }
 
 body.home #hero-slider .slide p {
-    font-size: 1.25rem !important;
+    font-size: 1.125rem !important; /* Tamaño más moderado */
     line-height: 1.6 !important;
-    color: #e0e7ff !important;
-    margin-bottom: 2rem !important;
+    color: #e2e8f0 !important; /* Color más sutil */
+    margin-bottom: 1.75rem !important;
 }
 
 @media (min-width: 768px) {
     body.home #hero-slider .slide p {
-        font-size: 1.5rem !important;
+        font-size: 1.25rem !important;
     }
 }
 
-/* Hero buttons */
+/* Hero buttons - Diseño profesional */
 body.home #hero-slider .slide a {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 1rem 2.5rem !important;
-    font-size: 1.25rem !important;
-    font-weight: 700 !important;
-    border-radius: 9999px !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    padding: 0.875rem 2rem !important; /* Padding más compacto */
+    font-size: 1.125rem !important; /* Tamaño más moderado */
+    font-weight: 600 !important; /* Peso más sutil */
+    border-radius: 0.5rem !important; /* Bordes menos redondeados */
+    transition: all 0.2s ease !important; /* Transición más rápida */
     text-decoration: none !important;
     transform: translateY(0) !important;
 }
 
 body.home #hero-slider .slide a:hover {
-    transform: translateY(-2px) scale(1.05) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-1px) scale(1.02) !important; /* Efecto más sutil */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important; /* Sombra más sutil */
 }
 
 /* ========================================
    SECCIONES PRINCIPALES
    ======================================== */
 
-/* Background gradients and colors */
+/* Background colors - Diseño profesional */
 body.home .bg-gray-900 {
-    background: linear-gradient(135deg, #111827 0%, #1f2937 100%) !important;
+    background: #111827 !important; /* Gris oscuro sólido */
 }
 
 body.home .bg-gray-50 {
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+    background: #f8fafc !important; /* Gris claro sólido */
 }
 
 body.home .bg-white {
     background: #ffffff !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important; /* Sombra sutil */
 }
 
-/* Titles and typography */
+/* Titles and typography - Diseño profesional */
 body.home h2 {
-    font-size: 2.5rem !important;
-    line-height: 1.2 !important;
-    font-weight: 700 !important;
-    margin-bottom: 1.5rem !important;
+    font-size: 2.25rem !important; /* Tamaño más moderado */
+    line-height: 1.3 !important; /* Mejor legibilidad */
+    font-weight: 600 !important; /* Peso más sutil */
+    margin-bottom: 1.25rem !important;
+    letter-spacing: -0.025em !important; /* Espaciado de letras profesional */
 }
 
 @media (min-width: 768px) {
     body.home h2 {
-        font-size: 3rem !important;
+        font-size: 2.75rem !important;
     }
 }
 
 @media (min-width: 1024px) {
     body.home h2 {
-        font-size: 3.5rem !important;
+        font-size: 3.25rem !important; /* Menos exagerado */
     }
 }
 
 body.home h3 {
-    font-size: 1.5rem !important;
+    font-size: 1.375rem !important; /* Tamaño más equilibrado */
     line-height: 1.4 !important;
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
+    font-weight: 500 !important; /* Peso más sutil */
+    margin-bottom: 0.875rem !important;
+    letter-spacing: -0.015em !important;
 }
 
 body.home h4 {
-    font-size: 1.25rem !important;
+    font-size: 1.125rem !important;
     line-height: 1.5 !important;
-    font-weight: 600 !important;
-    margin-bottom: 0.75rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.625rem !important;
 }
 
 /* ========================================
    GRID LAYOUTS Y CARDS
    ======================================== */
 
-/* Grid layouts */
+/* Grid layouts - Espaciado optimizado */
 body.home .grid {
     display: grid !important;
-    gap: 2rem !important;
+    gap: 1.5rem !important; /* Espaciado más moderado */
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -219,7 +222,7 @@ body.home .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !impor
     body.home .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
     
     body.home .grid {
-        gap: 2rem !important;
+        gap: 1.75rem !important; /* Espaciado equilibrado */
     }
 }
 
@@ -230,221 +233,71 @@ body.home .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !impor
     body.home .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
     
     body.home .grid {
-        gap: 2.5rem !important;
+        gap: 2rem !important; /* Espaciado final más controlado */
     }
 }
 
-/* Cards modernas con efectos */
+/* Cards modernas con diseño profesional */
 body.home .grid .bg-white.rounded-xl,
 body.home .grid .bg-black.rounded-2xl {
     background: #ffffff !important;
-    border-radius: 1rem !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0.75rem !important; /* Bordes menos redondeados */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important; /* Sombra más sutil */
     overflow: hidden !important;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important; /* Transición más suave */
+    border: 1px solid rgba(0, 0, 0, 0.06) !important; /* Borde más sutil */
     position: relative !important;
 }
 
 /* Category cards specific styling */
 body.home .grid .bg-black.rounded-2xl {
-    background: linear-gradient(135deg, #111827 0%, #1f2937 100%) !important;
+    background: #1f2937 !important; /* Fondo sólido elegante */
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* Hover effects más sutiles */
+body.home .grid .bg-white.rounded-xl:hover,
 body.home .grid .bg-black.rounded-2xl:hover {
-    transform: translateY(-8px) scale(1.02) !important;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
+    transform: translateY(-2px) !important; /* Efecto más sutil */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Product cards */
-body.home .grid .bg-white.rounded-xl {
-    height: auto !important;
-    min-height: 420px !important;
-    display: flex !important;
-    flex-direction: column !important;
+/* Botones profesionales */
+body.home .btn,
+body.home button,
+body.home input[type="submit"] {
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 500 !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    cursor: pointer !important;
 }
 
-body.home .grid .bg-white.rounded-xl:hover {
-    transform: translateY(-6px) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+body.home .btn:hover,
+body.home button:hover,
+body.home input[type="submit"]:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
-body.home .grid .bg-white.rounded-xl .relative:first-child {
-    height: 200px !important;
-    flex-shrink: 0 !important;
-    overflow: hidden !important;
-    position: relative !important;
+/* Formularios profesionales */
+body.home input[type="text"],
+body.home input[type="email"],
+body.home textarea,
+body.home select {
+    padding: 0.75rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease !important;
+    background: #ffffff !important;
 }
 
-body.home .grid .bg-white.rounded-xl .relative:first-child img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transition: transform 0.4s ease !important;
-}
-
-body.home .grid .bg-white.rounded-xl:hover .relative:first-child img {
-    transform: scale(1.1) !important;
-}
-
-body.home .grid .bg-white.rounded-xl .p-4 {
-    flex: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    padding: 1.25rem !important;
-}
-
-body.home .grid .bg-white.rounded-xl h3 {
-    height: 3.5rem !important;
-    line-height: 1.75rem !important;
-    overflow: hidden !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    margin-bottom: 1rem !important;
-    font-weight: 600 !important;
-    color: #1f2937 !important;
-}
-
-/* ========================================
-   UTILITY CLASSES
-   ======================================== */
-
-/* Flex utilities */
-body.home .flex { display: flex !important; }
-body.home .flex-col { flex-direction: column !important; }
-body.home .flex-row { flex-direction: row !important; }
-body.home .items-center { align-items: center !important; }
-body.home .items-start { align-items: flex-start !important; }
-body.home .justify-center { justify-content: center !important; }
-body.home .justify-between { justify-content: space-between !important; }
-body.home .justify-around { justify-content: space-around !important; }
-
-/* Spacing */
-body.home .py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-body.home .py-20 { padding-top: 5rem !important; padding-bottom: 5rem !important; }
-body.home .px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
-body.home .px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
-body.home .px-8 { padding-left: 2rem !important; padding-right: 2rem !important; }
-
-body.home .mb-4 { margin-bottom: 1rem !important; }
-body.home .mb-6 { margin-bottom: 1.5rem !important; }
-body.home .mb-8 { margin-bottom: 2rem !important; }
-body.home .mb-16 { margin-bottom: 4rem !important; }
-body.home .mx-auto { margin-left: auto !important; margin-right: auto !important; }
-
-body.home .gap-4 { gap: 1rem !important; }
-body.home .gap-6 { gap: 1.5rem !important; }
-body.home .gap-8 { gap: 2rem !important; }
-
-/* Position utilities */
-body.home .relative { position: relative !important; }
-body.home .absolute { position: absolute !important; }
-body.home .fixed { position: fixed !important; }
-
-/* Size utilities */
-body.home .w-full { width: 100% !important; }
-body.home .h-full { height: 100% !important; }
-body.home .min-h-screen { min-height: 100vh !important; }
-body.home .max-w-3xl { max-width: 48rem !important; }
-body.home .max-w-4xl { max-width: 56rem !important; }
-body.home .max-w-5xl { max-width: 64rem !important; }
-
-/* Z-index */
-body.home [style*="z-index: 10"] { z-index: 10 !important; }
-body.home .z-10 { z-index: 10 !important; }
-body.home .z-20 { z-index: 20 !important; }
-
-/* Display utilities */
-body.home .block { display: block !important; }
-body.home .inline-block { display: inline-block !important; }
-body.home .inline-flex { display: inline-flex !important; }
-body.home .hidden { display: none !important; }
-
-/* Text alignment */
-body.home .text-center { text-align: center !important; }
-body.home .text-left { text-align: left !important; }
-body.home .text-right { text-align: right !important; }
-
-/* Overflow */
-body.home .overflow-hidden { overflow: hidden !important; }
-
-/* Border radius */
-body.home .rounded-xl { border-radius: 0.75rem !important; }
-body.home .rounded-2xl { border-radius: 1rem !important; }
-body.home .rounded-full { border-radius: 9999px !important; }
-
-/* ========================================
-   ANIMACIONES Y EFECTOS
-   ======================================== */
-
-/* Hover effects */
-body.home .group:hover .group-hover\\:scale-105 {
-    transform: scale(1.05) !important;
-}
-
-body.home .transform {
-    transform: translateZ(0) !important;
-}
-
-body.home .transition-all {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* Shadow utilities */
-body.home .shadow-xl {
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04) !important;
-}
-
-body.home .shadow-2xl {
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25) !important;
-}
-
-/* ========================================
-   RESPONSIVE ADJUSTMENTS
-   ======================================== */
-
-@media (max-width: 768px) {
-    body.home .grid {
-        gap: 1rem !important;
-    }
-    
-    body.home .py-16 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
-    body.home .py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
-    
-    body.home .mb-16 { margin-bottom: 2rem !important; }
-    
-    body.home #hero-slider .slide {
-        min-height: 500px !important;
-    }
-    
-    body.home .grid .bg-white.rounded-xl,
-    body.home .grid .bg-black.rounded-2xl {
-        transform: none !important;
-    }
-    
-    body.home .grid .bg-white.rounded-xl:hover,
-    body.home .grid .bg-black.rounded-2xl:hover {
-        transform: translateY(-2px) !important;
-    }
-}
-
-/* Override any parent theme interference */
-body.home {
-    overflow-x: hidden !important;
-}
-
-/* Ensure proper stacking */
-body.home .site-header {
-    position: relative !important;
-    z-index: 1000 !important;
-}
-
-body.home main {
-    position: relative !important;
-    z-index: 1 !important;
+body.home input[type="text"]:focus,
+body.home input[type="email"]:focus,
+body.home textarea:focus,
+body.home select:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }

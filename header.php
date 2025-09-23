@@ -295,19 +295,35 @@
                         <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" id="cart-link" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
-                            Carrito<span class="cart-count"><?php if ( function_exists('WC') && WC()->cart ) { 
-                                $cart_count = WC()->cart->get_cart_contents_count();
-                                echo $cart_count > 0 ? ' (' . $cart_count . ')' : '';
-                            } ?></span>
-                        </a>
+                        <!-- Icono de carrito moderno con contador -->
+                        <button id="cart-toggle" class="cart-icon-btn relative" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
+                            <!-- Icono SVG del carrito -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="cart-icon">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <!-- Contador de productos -->
+                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="display: none;">
+                                <?php if ( function_exists('WC') && WC()->cart ) { 
+                                    $cart_count = WC()->cart->get_cart_contents_count();
+                                    echo $cart_count > 0 ? $cart_count : '0';
+                                } else {
+                                    echo '0';
+                                } ?>
+                            </span>
+                        </button>
                     <?php else : ?>
                         <a href="/mi-cuenta/" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <a href="/carrito/" id="cart-link" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; white-space: nowrap; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
-                            Carrito<span class="cart-count"></span>
-                        </a>
+                        <!-- Icono de carrito moderno con contador (fallback) -->
+                        <button id="cart-toggle-fallback" class="cart-icon-btn relative" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
+                            <!-- Icono SVG del carrito -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="cart-icon">
+                                <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <!-- Contador de productos -->
+                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="display: none;">0</span>
+                        </button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -702,3 +718,66 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
 </style>
 
 <div id="content" class="site-content">
+
+<!-- Sidepanel del carrito -->
+<div id="cart-sidepanel" class="cart-sidepanel">
+    <!-- Overlay para cerrar el sidepanel -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    
+    <!-- Panel deslizable -->
+    <div class="cart-panel">
+        <!-- Header del sidepanel -->
+        <div class="cart-panel-header">
+            <h3 class="cart-panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline mr-2">
+                    <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Tu Carrito
+            </h3>
+            <button class="cart-panel-close" id="cart-panel-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Contenido del carrito -->
+        <div class="cart-panel-content" id="cart-panel-content">
+            <!-- Aquí se cargará dinámicamente el contenido del carrito -->
+            <div class="cart-empty-state">
+                <div class="cart-empty-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h4>Tu carrito está vacío</h4>
+                <p>Agrega algunos productos para comenzar</p>
+                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn-continue-shopping">
+                    Continuar Comprando
+                </a>
+            </div>
+        </div>
+        
+        <!-- Footer del sidepanel -->
+        <div class="cart-panel-footer" id="cart-panel-footer" style="display: none;">
+            <div class="cart-total">
+                <div class="cart-total-row">
+                    <span>Subtotal:</span>
+                    <span class="cart-subtotal-amount">$0.00</span>
+                </div>
+                <div class="cart-total-row cart-total-final">
+                    <span>Total:</span>
+                    <span class="cart-total-amount">$0.00</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <a href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>" class="btn-view-cart">
+                    Ver Carrito
+                </a>
+                <a href="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ); ?>" class="btn-checkout">
+                    Finalizar Compra
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

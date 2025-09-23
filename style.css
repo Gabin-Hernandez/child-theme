@@ -135,14 +135,15 @@ body.home .container {
     }
 }
 
-/* Hero slider para front-page - Compatible con Tailwind */
+/* Hero slider para front-page - Diseño profesional */
 body.home #hero-slider {
     position: relative;
     z-index: 1;
     width: 100%;
-    margin: 0 !important; /* Sin margen extra */
-    padding: 0 !important; /* Sin padding extra */
-    overflow: hidden; /* Contener las imágenes absolutas */
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #1a1a1a; /* Fondo sólido elegante */
 }
 
 /* Asegurar que el header no interfiera */
@@ -215,24 +216,24 @@ body.home #hero-slider .slide .absolute.inset-0 {
     /* NO usar inset-0 global que puede extenderse fuera del contenedor */
 }
 
-/* Controles del Hero Slider - Mejorar visibilidad */
+/* Controles del Hero Slider - Diseño profesional */
 body.home #hero-slider .slider-dot {
     position: relative !important;
     z-index: 10 !important;
-    width: 16px !important;
-    height: 16px !important;
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    width: 12px !important; /* Tamaño más discreto */
+    height: 12px !important;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border: 2px solid rgba(255, 255, 255, 0.7) !important;
     border-radius: 50% !important;
     cursor: pointer !important;
-    transition: all 0.3s ease !important;
+    transition: all 0.2s ease !important; /* Transición más rápida */
     display: inline-block !important;
 }
 
 body.home #hero-slider .slider-dot:hover {
-    background-color: rgba(255, 255, 255, 1) !important;
-    transform: scale(1.3) !important;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    transform: scale(1.2) !important; /* Menos exagerado */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6) !important; /* Sombra más sutil */
 }
 
 /* Estado activo del dot - MÁS VISIBLE */
@@ -244,18 +245,18 @@ body.home #hero-slider .slider-dot.active {
     transform: scale(1.1) !important;
 }
 
-/* Flechas de navegación del slider - FORZAR VISIBILIDAD */
+/* Flechas de navegación del slider - Diseño profesional */
 body.home #hero-slider button[onclick*="Slide"] {
     position: absolute !important;
     z-index: 999 !important;
-    background-color: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Fondo más sutil */
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Borde más sutil */
     color: white !important;
     cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    width: 60px !important;
-    height: 60px !important;
+    transition: all 0.2s ease !important; /* Transición más rápida */
+    width: 48px !important; /* Tamaño más discreto */
+    height: 48px !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
@@ -265,23 +266,23 @@ body.home #hero-slider button[onclick*="Slide"] {
 }
 
 body.home #hero-slider button[onclick*="Slide"]:hover {
-    background-color: rgba(0, 0, 0, 0.9) !important;
-    transform: scale(1.1) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
-    border-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    transform: scale(1.05) !important; /* Menos exagerado */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important; /* Sombra más sutil */
+    border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Contenedor de los dots - FORZAR VISIBILIDAD */
+/* Contenedor de los dots - Diseño profesional */
 body.home #hero-slider .absolute.bottom-8 {
     z-index: 999 !important;
     display: flex !important;
-    gap: 12px !important;
-    background: rgba(0, 0, 0, 0.7) !important;
-    padding: 12px 20px !important;
-    border-radius: 25px !important;
-    backdrop-filter: blur(10px) !important;
+    gap: 8px !important; /* Espaciado más compacto */
+    background: rgba(0, 0, 0, 0.6) !important; /* Fondo más sutil */
+    padding: 8px 16px !important; /* Padding más compacto */
+    border-radius: 20px !important; /* Menos redondeado */
+    backdrop-filter: blur(8px) !important;
     position: absolute !important;
-    bottom: 30px !important;
+    bottom: 24px !important; /* Más cerca del borde */
     left: 50% !important;
     transform: translateX(-50%) !important;
 }
@@ -302,10 +303,11 @@ body.home #hero-slider .slider-dot {
     opacity: 1 !important;
 }
 
-/* Barra de progreso del slider */
+/* Barra de progreso del slider - Diseño elegante */
 body.home #hero-slider #progress-bar {
     z-index: 5 !important;
-    background: linear-gradient(to right, #3b82f6, #8b5cf6) !important;
+    background: #2563eb !important; /* Azul sólido profesional */
+    transition: width 0.3s ease !important;
 }
 
 /* === CSS DE EMERGENCIA PARA CONTROLES DEL SLIDER === */
