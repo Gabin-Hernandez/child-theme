@@ -111,23 +111,7 @@ body.home .container {
 }
 
 /* Responsive containers - compatible con Tailwind */
-@media (min-width: 640px) {
-    body.home .container {
-        max-width: 640px;
-    }
-}
 
-@media (min-width: 768px) {
-    body.home .container {
-        max-width: 768px;
-    }
-}
-
-@media (min-width: 1024px) {
-    body.home .container {
-        max-width: 1024px;
-    }
-}
 
 /* Hero slider para front-page - Diseño profesional */
 body.home #hero-slider {
