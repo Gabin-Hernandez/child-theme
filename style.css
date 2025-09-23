@@ -1671,3 +1671,11 @@ footer::after {
     visibility: visible !important;
     opacity: 1 !important;
 }
+
+/* Evita que los pseudo-elementos del grid creen un hueco inicial en la lista de productos */
+.woocommerce ul.products::before,
+.woocommerce ul.products::after {
+    content: none !important;
+    display: none !important;
+}
+
