@@ -1,241 +1,382 @@
 /**
- * Cart Sidepanel Functionality
- * ITOOLS Child Theme - Carrito moderno con sidepanel
+ * Nuevo Cart Sidepanel - JavaScript
+ * ITOOLS Child Theme - Carrito moderno y funcional
  */
 
-class CartSidepanel {
+class NewCartSidepanel {
     constructor() {
-        this.sidepanel = null;
-        this.overlay = null;
-        this.cartToggle = null;
-        this.cartToggleFallback = null;
-        this.closeBtn = null;
-        this.cartContent = null;
-        this.cartFooter = null;
-        this.cartCounter = null;
         this.isOpen = false;
+        this.isLoading = false;
+        this.cartData = null;
+        
+        // Elementos del DOM
+        this.overlay = null;
+        this.sidepanel = null;
+        this.content = null;
+        this.closeBtn = null;
+        this.cartTriggers = [];
+        
+        // Configuración
+        this.config = {
+            animationDuration: 300,
+            notificationDuration: 3000,
+            debounceDelay: 300,
+            maxRetries: 3
+        };
         
         this.init();
     }
     
+    /**
+     * Inicializar el sidepanel
+     */
     init() {
-        // Esperar a que el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => this.setupElements());
-        } else {
-            this.setupElements();
-        }
-    }
-    
-    setupElements() {
-        // Obtener elementos del DOM
-        this.sidepanel = document.getElementById('cart-sidepanel');
-        this.overlay = document.getElementById('cart-overlay');
-        this.cartToggle = document.getElementById('cart-toggle');
-        this.cartToggleFallback = document.getElementById('cart-toggle-fallback');
-        this.closeBtn = document.getElementById('cart-panel-close');
-        this.cartContent = document.getElementById('cart-panel-content');
-        this.cartFooter = document.getElementById('cart-panel-footer');
-        this.cartCounter = document.querySelectorAll('.cart-counter');
-        
-        if (!this.sidepanel) {
-            console.warn('Cart sidepanel not found');
-            return;
-        }
-        
+        this.createElements();
         this.bindEvents();
-        this.loadCartContent();
-        this.updateCartCounter();
-    }
-    
-    bindEvents() {
-        // Eventos para abrir el sidepanel
-        if (this.cartToggle) {
-            this.cartToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.openSidepanel();
-            });
-        }
-        
-        if (this.cartToggleFallback) {
-            this.cartToggleFallback.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.openSidepanel();
-            });
-        }
-        
-        // Eventos para cerrar el sidepanel
-        if (this.closeBtn) {
-            this.closeBtn.addEventListener('click', () => this.closeSidepanel());
-        }
-        
-        if (this.overlay) {
-            this.overlay.addEventListener('click', () => this.closeSidepanel());
-        }
-        
-        // Cerrar con tecla ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                this.closeSidepanel();
-            }
-        });
+        this.loadCartData();
         
         // Escuchar eventos de WooCommerce
-        document.body.addEventListener('added_to_cart', () => {
-            this.loadCartContent();
-            this.updateCartCounter();
-            this.showAddedNotification();
-        });
+        this.bindWooCommerceEvents();
         
-        // Escuchar actualizaciones del carrito
-        document.body.addEventListener('updated_wc_div', () => {
-            this.loadCartContent();
-            this.updateCartCounter();
-        });
+        console.log('🛒 Nuevo Cart Sidepanel inicializado');
     }
     
-    openSidepanel() {
-        console.log('🛒 Opening sidepanel...');
-        if (!this.sidepanel) {
-            console.error('❌ Sidepanel element not found!');
+    /**
+     * Crear elementos del DOM
+     */
+    createElements() {
+        // Buscar elementos existentes primero
+        this.overlay = document.querySelector('.cart-overlay');
+        this.sidepanel = document.querySelector('.cart-sidepanel');
+        this.content = document.querySelector('.cart-content');
+        this.closeBtn = document.querySelector('.cart-close');
+        
+        // Si no existen, los creamos (fallback)
+        if (!this.overlay || !this.sidepanel) {
+            console.warn('⚠️ Elementos del cart sidepanel no encontrados en el DOM');
             return;
         }
         
-        console.log('🛒 Sidepanel element found, applying classes...');
-        this.isOpen = true;
-        this.sidepanel.classList.add('cart-sidepanel-open');
-        document.body.classList.add('cart-sidepanel-active');
-        
-        // Forzar visibilidad inmediata
-        this.sidepanel.style.visibility = 'visible';
-        
-        console.log('🛒 Classes applied:', this.sidepanel.classList.toString());
-        
-        // Cargar contenido actualizado
-        this.loadCartContent();
+        // Buscar triggers del carrito
+        this.cartTriggers = document.querySelectorAll('[data-cart-trigger], .cart-trigger, .add-to-cart-btn');
     }
     
-    closeSidepanel() {
-        if (!this.sidepanel) return;
+    /**
+     * Vincular eventos
+     */
+    bindEvents() {
+        if (!this.overlay || !this.sidepanel) return;
+        
+        // Evento para cerrar el sidepanel
+        if (this.closeBtn) {
+            this.closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.close();
+            });
+        }
+        
+        // Cerrar al hacer clic en el overlay
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.close();
+            }
+        });
+        
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen) {
+                this.close();
+            }
+        });
+        
+        // Triggers para abrir el carrito
+        this.cartTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                // Solo abrir si es un enlace al carrito, no un botón de agregar
+                if (trigger.getAttribute('href')?.includes('cart') || 
+                    trigger.classList.contains('cart-trigger') ||
+                    trigger.hasAttribute('data-cart-trigger')) {
+                    e.preventDefault();
+                    this.open();
+                }
+            });
+        });
+        
+        // Prevenir scroll del body cuando el sidepanel está abierto
+        this.sidepanel.addEventListener('touchmove', (e) => {
+            e.stopPropagation();
+        });
+    }
+    
+    /**
+     * Vincular eventos de WooCommerce
+     */
+    bindWooCommerceEvents() {
+        // Producto agregado al carrito
+        document.body.addEventListener('added_to_cart', (e) => {
+            this.handleProductAdded(e.detail);
+        });
+        
+        // Carrito actualizado
+        document.body.addEventListener('updated_wc_div', () => {
+            if (this.isOpen) {
+                this.loadCartData();
+            }
+        });
+        
+        // Fragmentos actualizados
+        document.body.addEventListener('wc_fragments_refreshed', () => {
+            this.updateCartCounter();
+        });
+    }
+    
+    /**
+     * Abrir el sidepanel
+     */
+    open() {
+        if (this.isOpen) return;
+        
+        this.isOpen = true;
+        
+        // Agregar clases activas
+        this.overlay.classList.add('active');
+        this.sidepanel.classList.add('active');
+        document.body.classList.add('cart-open');
+        
+        // Cargar datos del carrito
+        this.loadCartData();
+        
+        // Focus en el botón de cerrar para accesibilidad
+        setTimeout(() => {
+            if (this.closeBtn) {
+                this.closeBtn.focus();
+            }
+        }, this.config.animationDuration);
+        
+        console.log('🛒 Sidepanel abierto');
+    }
+    
+    /**
+     * Cerrar el sidepanel
+     */
+    close() {
+        if (!this.isOpen) return;
         
         this.isOpen = false;
-        this.sidepanel.classList.remove('cart-sidepanel-open');
-        document.body.classList.remove('cart-sidepanel-active');
         
-        // Animación de salida
-        setTimeout(() => {
-            if (this.sidepanel) {
-                this.sidepanel.style.visibility = 'hidden';
-            }
-        }, 300);
+        // Remover clases activas
+        this.overlay.classList.remove('active');
+        this.sidepanel.classList.remove('active');
+        document.body.classList.remove('cart-open');
+        
+        console.log('🛒 Sidepanel cerrado');
     }
     
-    async loadCartContent() {
-        if (!this.cartContent) return;
+    /**
+     * Cargar datos del carrito via AJAX
+     */
+    async loadCartData() {
+        if (this.isLoading) return;
+        
+        this.isLoading = true;
+        this.showLoading();
         
         try {
-            // Mostrar loading
-            this.showLoading();
+            const response = await this.fetchCartData();
             
-            // Hacer petición AJAX para obtener el contenido del carrito
-            const response = await fetch(itools_cart_ajax.ajax_url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    action: 'itools_get_cart_content',
-                    nonce: itools_cart_ajax.nonce
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success) {
-                this.renderCartContent(data.data);
+            if (response.success) {
+                this.cartData = response.data;
+                this.renderCart();
+                this.updateCartCounter();
             } else {
-                this.showEmptyCart();
+                throw new Error(response.data || 'Error al cargar el carrito');
             }
         } catch (error) {
-            console.error('Error loading cart content:', error);
-            this.showEmptyCart();
+            console.error('❌ Error cargando carrito:', error);
+            this.showError('Error al cargar el carrito. Por favor, intenta de nuevo.');
+        } finally {
+            this.isLoading = false;
         }
     }
     
-    renderCartContent(cartData) {
-        if (!this.cartContent || !this.cartFooter) return;
+    /**
+     * Obtener datos del carrito via AJAX
+     */
+    async fetchCartData() {
+        const formData = new FormData();
+        formData.append('action', 'get_cart_contents');
+        formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
         
-        if (!cartData.items || cartData.items.length === 0) {
-            this.showEmptyCart();
-            return;
-        }
-        
-        // Renderizar productos
-        let itemsHtml = '<div class="cart-items">';
-        
-        cartData.items.forEach(item => {
-            itemsHtml += `
-                <div class="cart-item" data-key="${item.key}">
-                    <div class="cart-item-image">
-                        <img src="${item.image}" alt="${item.name}" loading="lazy">
-                    </div>
-                    <div class="cart-item-details">
-                        <h4 class="cart-item-name">${item.name}</h4>
-                        <div class="cart-item-price">${item.price}</div>
-                        <div class="cart-item-quantity">
-                            <button class="qty-btn qty-minus" data-key="${item.key}">-</button>
-                            <span class="qty-value">${item.quantity}</span>
-                            <button class="qty-btn qty-plus" data-key="${item.key}">+</button>
-                        </div>
-                    </div>
-                    <div class="cart-item-total">${item.total}</div>
-                    <button class="cart-item-remove" data-key="${item.key}" title="Eliminar producto">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                </div>
-            `;
+        const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: formData
         });
         
-        itemsHtml += '</div>';
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         
-        this.cartContent.innerHTML = itemsHtml;
-        
-        // Mostrar footer con totales
-        this.cartFooter.style.display = 'block';
-        this.cartFooter.querySelector('.cart-subtotal-amount').textContent = cartData.subtotal;
-        this.cartFooter.querySelector('.cart-total-amount').textContent = cartData.total;
-        
-        // Bind eventos de cantidad y eliminar
-        this.bindCartItemEvents();
+        return await response.json();
     }
     
-    showEmptyCart() {
-        if (!this.cartContent || !this.cartFooter) return;
+    /**
+     * Renderizar el contenido del carrito
+     */
+    renderCart() {
+        if (!this.content || !this.cartData) return;
         
-        this.cartContent.innerHTML = `
-            <div class="cart-empty-state">
-                <div class="cart-empty-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+        if (this.cartData.items && this.cartData.items.length > 0) {
+            this.renderCartItems();
+        } else {
+            this.renderEmptyCart();
+        }
+    }
+    
+    /**
+     * Renderizar items del carrito
+     */
+    renderCartItems() {
+        const itemsHtml = this.cartData.items.map(item => this.renderCartItem(item)).join('');
+        
+        this.content.innerHTML = `
+            <div class="cart-items">
+                ${itemsHtml}
+            </div>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    ${this.renderCartSummary()}
                 </div>
-                <h4>Tu carrito está vacío</h4>
-                <p>Agrega algunos productos para comenzar</p>
-                <button class="btn-continue-shopping" onclick="cartSidepanel.closeSidepanel()">
-                    Continuar Comprando
-                </button>
+                <div class="cart-actions">
+                    <a href="${this.cartData.cart_url || '/cart'}" class="btn-cart">
+                        Ver Carrito
+                    </a>
+                    <a href="${this.cartData.checkout_url || '/checkout'}" class="btn-checkout">
+                        Finalizar Compra
+                    </a>
+                </div>
             </div>
         `;
         
-        this.cartFooter.style.display = 'none';
+        // Vincular eventos de los items
+        this.bindItemEvents();
     }
     
-    showLoading() {
-        if (!this.cartContent) return;
+    /**
+     * Renderizar un item del carrito
+     */
+    renderCartItem(item) {
+        return `
+            <div class="cart-item" data-key="${item.key}">
+                <div class="item-image">
+                    <img src="${item.image || '/wp-content/themes/default/images/placeholder.png'}" 
+                         alt="${item.name}" 
+                         loading="lazy">
+                </div>
+                <div class="item-details">
+                    <h4 class="item-name">${item.name}</h4>
+                    <div class="item-price">${item.price}</div>
+                    <div class="item-quantity">
+                        <button class="qty-btn qty-decrease" data-key="${item.key}" ${item.quantity <= 1 ? 'disabled' : ''}>
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M2 6h8"/>
+                            </svg>
+                        </button>
+                        <span class="qty-value">${item.quantity}</span>
+                        <button class="qty-btn qty-increase" data-key="${item.key}">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M6 2v8M2 6h8"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="item-total">${item.total}</div>
+                </div>
+                <button class="item-remove" data-key="${item.key}" title="Eliminar producto">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                        <path d="M1 1l12 12M13 1L1 13"/>
+                    </svg>
+                </button>
+            </div>
+        `;
+    }
+    
+    /**
+     * Renderizar resumen del carrito
+     */
+    renderCartSummary() {
+        if (!this.cartData.totals) return '';
         
-        this.cartContent.innerHTML = `
+        let summaryHtml = '';
+        
+        // Subtotal
+        if (this.cartData.totals.subtotal) {
+            summaryHtml += `
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>${this.cartData.totals.subtotal}</span>
+                </div>
+            `;
+        }
+        
+        // Envío
+        if (this.cartData.totals.shipping) {
+            summaryHtml += `
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span>${this.cartData.totals.shipping}</span>
+                </div>
+            `;
+        }
+        
+        // Impuestos
+        if (this.cartData.totals.tax) {
+            summaryHtml += `
+                <div class="summary-row">
+                    <span>Impuestos:</span>
+                    <span>${this.cartData.totals.tax}</span>
+                </div>
+            `;
+        }
+        
+        // Total
+        summaryHtml += `
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span>${this.cartData.totals.total || this.cartData.total}</span>
+            </div>
+        `;
+        
+        return summaryHtml;
+    }
+    
+    /**
+     * Renderizar carrito vacío
+     */
+    renderEmptyCart() {
+        this.content.innerHTML = `
+            <div class="cart-empty">
+                <div class="empty-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </div>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega algunos productos para comenzar tu compra</p>
+                <a href="${this.cartData?.shop_url || '/shop'}" class="btn-shop">
+                    Continuar Comprando
+                </a>
+            </div>
+        `;
+    }
+    
+    /**
+     * Mostrar estado de carga
+     */
+    showLoading() {
+        if (!this.content) return;
+        
+        this.content.innerHTML = `
             <div class="cart-loading">
                 <div class="loading-spinner"></div>
                 <p>Cargando carrito...</p>
@@ -243,19 +384,46 @@ class CartSidepanel {
         `;
     }
     
-    bindCartItemEvents() {
-        // Eventos para botones de cantidad
+    /**
+     * Mostrar error
+     */
+    showError(message) {
+        if (!this.content) return;
+        
+        this.content.innerHTML = `
+            <div class="cart-empty">
+                <div class="empty-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <h3>Error</h3>
+                <p>${message}</p>
+                <button class="btn-shop" onclick="window.cartSidepanel.loadCartData()">
+                    Reintentar
+                </button>
+            </div>
+        `;
+    }
+    
+    /**
+     * Vincular eventos de los items del carrito
+     */
+    bindItemEvents() {
+        // Botones de cantidad
         document.querySelectorAll('.qty-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const key = btn.dataset.key;
-                const isPlus = btn.classList.contains('qty-plus');
-                this.updateQuantity(key, isPlus);
+                const isIncrease = btn.classList.contains('qty-increase');
+                this.updateQuantity(key, isIncrease);
             });
         });
         
-        // Eventos para eliminar productos
-        document.querySelectorAll('.cart-item-remove').forEach(btn => {
+        // Botones de eliminar
+        document.querySelectorAll('.item-remove').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const key = btn.dataset.key;
@@ -264,155 +432,157 @@ class CartSidepanel {
         });
     }
     
-    async updateQuantity(key, increase) {
+    /**
+     * Actualizar cantidad de un producto
+     */
+    async updateQuantity(key, increase = true) {
         try {
-            const response = await fetch(itools_cart_ajax.ajax_url, {
+            const formData = new FormData();
+            formData.append('action', 'update_cart_quantity');
+            formData.append('cart_item_key', key);
+            formData.append('increase', increase ? '1' : '0');
+            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
+            
+            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    action: 'itools_update_cart_quantity',
-                    key: key,
-                    increase: increase ? '1' : '0',
-                    nonce: itools_cart_ajax.nonce
-                })
+                body: formData
             });
             
-            const data = await response.json();
+            const result = await response.json();
             
-            if (data.success) {
-                this.loadCartContent();
-                this.updateCartCounter();
-                
-                // Trigger WooCommerce event
-                document.body.dispatchEvent(new CustomEvent('updated_wc_div'));
+            if (result.success) {
+                this.loadCartData();
+                this.showNotification('Cantidad actualizada');
+            } else {
+                throw new Error(result.data || 'Error al actualizar cantidad');
             }
         } catch (error) {
-            console.error('Error updating quantity:', error);
+            console.error('❌ Error actualizando cantidad:', error);
+            this.showNotification('Error al actualizar cantidad', 'error');
         }
     }
     
+    /**
+     * Eliminar un producto del carrito
+     */
     async removeItem(key) {
         try {
-            const response = await fetch(itools_cart_ajax.ajax_url, {
+            const formData = new FormData();
+            formData.append('action', 'remove_cart_item');
+            formData.append('cart_item_key', key);
+            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
+            
+            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    action: 'itools_remove_cart_item',
-                    key: key,
-                    nonce: itools_cart_ajax.nonce
-                })
+                body: formData
             });
             
-            const data = await response.json();
+            const result = await response.json();
             
-            if (data.success) {
-                this.loadCartContent();
-                this.updateCartCounter();
-                
-                // Trigger WooCommerce event
-                document.body.dispatchEvent(new CustomEvent('updated_wc_div'));
+            if (result.success) {
+                this.loadCartData();
+                this.showNotification('Producto eliminado del carrito');
+            } else {
+                throw new Error(result.data || 'Error al eliminar producto');
             }
         } catch (error) {
-            console.error('Error removing item:', error);
+            console.error('❌ Error eliminando producto:', error);
+            this.showNotification('Error al eliminar producto', 'error');
         }
     }
     
-    async updateCartCounter() {
-        try {
-            const response = await fetch(itools_cart_ajax.ajax_url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    action: 'itools_get_cart_count',
-                    nonce: itools_cart_ajax.nonce
-                })
-            });
-            
-            const data = await response.json();
-            
-            if (data.success && this.cartCounter) {
-                const count = data.data.cart_count;
-                
-                this.cartCounter.forEach(counter => {
-                    counter.textContent = count;
-                    
-                    if (count > 0) {
-                        counter.style.display = 'flex';
-                        counter.classList.add('cart-counter-animate');
-                        
-                        setTimeout(() => {
-                            counter.classList.remove('cart-counter-animate');
-                        }, 300);
-                    } else {
-                        counter.style.display = 'none';
-                    }
-                });
-            }
-        } catch (error) {
-            console.error('Error updating cart counter:', error);
-        }
+    /**
+     * Manejar producto agregado al carrito
+     */
+    handleProductAdded(data) {
+        this.showNotification('Producto agregado al carrito');
+        this.loadCartData();
+        
+        // Abrir el sidepanel automáticamente
+        setTimeout(() => {
+            this.open();
+        }, 500);
     }
     
-    showAddedNotification() {
-        // Crear notificación temporal
+    /**
+     * Actualizar contador del carrito
+     */
+    updateCartCounter() {
+        const counters = document.querySelectorAll('.cart-count, .cart-counter');
+        const count = this.cartData?.count || 0;
+        
+        counters.forEach(counter => {
+            counter.textContent = count;
+            counter.style.display = count > 0 ? 'flex' : 'none';
+        });
+    }
+    
+    /**
+     * Mostrar notificación
+     */
+    showNotification(message, type = 'success') {
+        // Remover notificación existente
+        const existing = document.querySelector('.cart-notification');
+        if (existing) {
+            existing.remove();
+        }
+        
+        // Crear nueva notificación
         const notification = document.createElement('div');
-        notification.className = 'cart-added-notification';
-        notification.innerHTML = `
-            <div class="notification-content">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Producto agregado al carrito</span>
-            </div>
-        `;
+        notification.className = `cart-notification ${type}`;
+        notification.textContent = message;
         
         document.body.appendChild(notification);
         
-        // Mostrar notificación
+        // Mostrar con animación
         setTimeout(() => {
             notification.classList.add('show');
         }, 100);
         
-        // Ocultar y eliminar notificación
+        // Ocultar después del tiempo configurado
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => {
                 if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
+                    notification.remove();
                 }
             }, 300);
-        }, 3000);
+        }, this.config.notificationDuration);
+    }
+    
+    /**
+     * Destruir el sidepanel
+     */
+    destroy() {
+        // Remover event listeners
+        if (this.closeBtn) {
+            this.closeBtn.removeEventListener('click', this.close);
+        }
+        
+        if (this.overlay) {
+            this.overlay.removeEventListener('click', this.close);
+        }
+        
+        document.removeEventListener('keydown', this.handleKeydown);
+        
+        // Cerrar si está abierto
+        if (this.isOpen) {
+            this.close();
+        }
+        
+        console.log('🛒 Cart Sidepanel destruido');
     }
 }
 
-// Inicializar el sidepanel del carrito
-let cartSidepanel;
-
-document.addEventListener('DOMContentLoaded', function() {
-    cartSidepanel = new CartSidepanel();
-    
-    // Hacer disponible globalmente
-    window.cartSidepanel = cartSidepanel;
-    
-    console.log('🛒 Cart Sidepanel initialized');
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    // Verificar que WooCommerce esté disponible
+    if (typeof wc_add_to_cart_params !== 'undefined') {
+        window.cartSidepanel = new NewCartSidepanel();
+    } else {
+        console.warn('⚠️ WooCommerce no detectado, cart sidepanel no inicializado');
+    }
 });
 
-// Función global para abrir el sidepanel (compatibilidad)
-window.openCartSidepanel = function() {
-    if (window.cartSidepanel) {
-        window.cartSidepanel.openSidepanel();
-    }
-};
-
-// Función global para cerrar el sidepanel (compatibilidad)
-window.closeCartSidepanel = function() {
-    if (window.cartSidepanel) {
-        window.cartSidepanel.closeSidepanel();
-    }
-};
+// Exportar para uso global
+window.NewCartSidepanel = NewCartSidepanel;

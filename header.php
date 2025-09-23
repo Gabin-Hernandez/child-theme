@@ -719,65 +719,68 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
 
 <div id="content" class="site-content">
 
-<!-- Sidepanel del carrito -->
+<!-- Nuevo Sidepanel del Carrito -->
+<!-- Overlay -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
+<!-- Sidepanel -->
 <div id="cart-sidepanel" class="cart-sidepanel">
-    <!-- Overlay para cerrar el sidepanel -->
-    <div class="cart-overlay" id="cart-overlay"></div>
-    
-    <!-- Panel deslizable -->
-    <div class="cart-panel">
-        <!-- Header del sidepanel -->
-        <div class="cart-panel-header">
-            <h3 class="cart-panel-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline mr-2">
-                    <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Tu Carrito
-            </h3>
-            <button class="cart-panel-close" id="cart-panel-close">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+    <!-- Header -->
+    <div class="cart-header">
+        <div class="cart-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            </svg>
+            <span>Mi Carrito</span>
+            <span id="cart-count" class="cart-count">0</span>
         </div>
-        
-        <!-- Contenido del carrito -->
-        <div class="cart-panel-content" id="cart-panel-content">
-            <!-- Aquí se cargará dinámicamente el contenido del carrito -->
-            <div class="cart-empty-state">
-                <div class="cart-empty-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.7 15.3C4.3 15.7 4.6 16.5 5.1 16.5H17M17 13V17C17 18.1 16.1 19 15 19H9C7.9 19 7 18.1 7 17V13M9 21C9.6 21 10 21.4 10 22S9.6 23 9 23 8 22.6 8 22 8.4 21 9 21ZM20 21C20.6 21 21 21.4 21 22S20.6 23 20 23 19 22.6 19 22 19.4 21 20 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <h4>Tu carrito está vacío</h4>
-                <p>Agrega algunos productos para comenzar</p>
-                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn-continue-shopping">
-                    Continuar Comprando
-                </a>
+        <button id="cart-close" class="cart-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Content -->
+    <div id="cart-content" class="cart-content">
+        <div class="cart-empty">
+            <div class="empty-icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="8" cy="21" r="1"></circle>
+                    <circle cx="19" cy="21" r="1"></circle>
+                    <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+                </svg>
+            </div>
+            <h3>Tu carrito está vacío</h3>
+            <p>Descubre nuestros productos y comienza a comprar</p>
+            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn-shop">
+                Ir a la Tienda
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="cart-footer" class="cart-footer" style="display: none;">
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="cart-total">$0.00</span>
             </div>
         </div>
-        
-        <!-- Footer del sidepanel -->
-        <div class="cart-panel-footer" id="cart-panel-footer" style="display: none;">
-            <div class="cart-total">
-                <div class="cart-total-row">
-                    <span>Subtotal:</span>
-                    <span class="cart-subtotal-amount">$0.00</span>
-                </div>
-                <div class="cart-total-row cart-total-final">
-                    <span>Total:</span>
-                    <span class="cart-total-amount">$0.00</span>
-                </div>
-            </div>
-            <div class="cart-actions">
-                <a href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>" class="btn-view-cart">
-                    Ver Carrito
-                </a>
-                <a href="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ); ?>" class="btn-checkout">
-                    Finalizar Compra
-                </a>
-            </div>
+        <div class="cart-actions">
+            <a href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>" class="btn-cart">
+                Ver Carrito
+            </a>
+            <a href="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ); ?>" class="btn-checkout">
+                Finalizar Compra
+            </a>
         </div>
     </div>
 </div>
