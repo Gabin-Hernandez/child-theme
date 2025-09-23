@@ -204,10 +204,10 @@ class NewCartSidepanel {
      */
     async fetchCartData() {
         const formData = new FormData();
-        formData.append('action', 'get_cart_contents');
-        formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
+        formData.append('action', 'itools_get_cart_content');
+        formData.append('nonce', window.itools_cart_ajax?.nonce || '');
         
-        const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
+        const response = await fetch(window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
             method: 'POST',
             body: formData
         });
@@ -216,7 +216,19 @@ class NewCartSidepanel {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        return await response.json();
+        const text = await response.text();
+        
+        // Verificar si la respuesta está vacía
+        if (!text.trim()) {
+            throw new Error('Respuesta vacía del servidor');
+        }
+        
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Error parsing JSON:', text);
+            throw new Error('Respuesta inválida del servidor');
+        }
     }
     
     /**
@@ -438,17 +450,23 @@ class NewCartSidepanel {
     async updateQuantity(key, increase = true) {
         try {
             const formData = new FormData();
-            formData.append('action', 'update_cart_quantity');
-            formData.append('cart_item_key', key);
+            formData.append('action', 'itools_update_cart_quantity');
+            formData.append('key', key);
             formData.append('increase', increase ? '1' : '0');
-            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
+            formData.append('nonce', window.itools_cart_ajax?.nonce || '');
             
-            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
+            const response = await fetch(window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
                 body: formData
             });
             
-            const result = await response.json();
+            const text = await response.text();
+            
+            if (!text.trim()) {
+                throw new Error('Respuesta vacía del servidor');
+            }
+            
+            const result = JSON.parse(text);
             
             if (result.success) {
                 this.loadCartData();
@@ -468,16 +486,22 @@ class NewCartSidepanel {
     async removeItem(key) {
         try {
             const formData = new FormData();
-            formData.append('action', 'remove_cart_item');
-            formData.append('cart_item_key', key);
-            formData.append('nonce', window.wc_add_to_cart_params?.wc_ajax_nonce || '');
+            formData.append('action', 'itools_remove_cart_item');
+            formData.append('key', key);
+            formData.append('nonce', window.itools_cart_ajax?.nonce || '');
             
-            const response = await fetch(window.wc_add_to_cart_params?.wc_ajax_url || '/wp-admin/admin-ajax.php', {
+            const response = await fetch(window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
                 method: 'POST',
                 body: formData
             });
             
-            const result = await response.json();
+            const text = await response.text();
+            
+            if (!text.trim()) {
+                throw new Error('Respuesta vacía del servidor');
+            }
+            
+            const result = JSON.parse(text);
             
             if (result.success) {
                 this.loadCartData();
