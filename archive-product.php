@@ -612,18 +612,11 @@ body {
 }
 
 /* Ajustes de la vista de productos */
-#products-grid ul.products.list-layout {
-    display: block !important;
-}
-
-#products-grid ul.products.list-layout > li {
-    width: 100% !important;
-    float: none !important;
-    margin: 0 0 2rem 0 !important;
-}
-
-#products-grid ul.products.list-layout > li:last-child {
-    margin-bottom: 0 !important;
+#products-grid ul.products {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: contents;
 }
 
 /* Responsive básico */
@@ -651,8 +644,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const gridViewBtn = document.getElementById('grid-view');
     const listViewBtn = document.getElementById('list-view');
     const productsGrid = document.getElementById('products-grid');
-    const productList = productsGrid ? productsGrid.querySelector('ul.products') : null;
-    
+
+    if (productsGrid) {
+        const legacyList = productsGrid.querySelector('ul.products');
+        if (legacyList) {
+            legacyList.style.listStyle = 'none';
+            legacyList.style.margin = '0';
+            legacyList.style.padding = '0';
+
+            while (legacyList.firstChild) {
+                productsGrid.appendChild(legacyList.firstChild);
+            }
+
+            legacyList.remove();
+        }
+    }
     // Funcionalidad del hero search
     if (heroSearch) {
         heroSearch.addEventListener('keypress', function(e) {
@@ -697,17 +703,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (view === 'grid') {
             productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
-            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-            if (productList) {
-                productList.classList.remove('list-layout');
+            if (gridViewBtn) {
+                gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
+            }
+            if (listViewBtn) {
+                listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
             }
         } else {
-            productsGrid.className = 'grid grid-cols-1 gap-6';
-            listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
-            gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-            if (productList) {
-                productList.classList.add('list-layout');
+            productsGrid.className = 'grid grid-cols-1 gap-6 list-layout';
+            if (listViewBtn) {
+                listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
+            }
+            if (gridViewBtn) {
+                gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
             }
         }
 
