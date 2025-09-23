@@ -1139,7 +1139,6 @@ body.home .grid .bg-white.rounded-xl {
 
 /* Mejoras adicionales para el layout */
 .container {
-    max-width: 1200px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding-left: 1rem !important;
