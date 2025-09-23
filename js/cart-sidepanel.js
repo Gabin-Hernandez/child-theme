@@ -242,6 +242,11 @@ class NewCartSidepanel {
         } else {
             this.renderEmptyCart();
         }
+        
+        // Initialize Lucide icons after rendering
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     }
     
     /**
@@ -289,23 +294,17 @@ class NewCartSidepanel {
                     <div class="item-price">${item.price}</div>
                     <div class="item-quantity">
                         <button class="qty-btn qty-decrease" data-key="${item.key}" ${item.quantity <= 1 ? 'disabled' : ''}>
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                                <path d="M2 6h8"/>
-                            </svg>
+                            <i data-lucide="minus" class="w-3 h-3"></i>
                         </button>
                         <span class="qty-value">${item.quantity}</span>
                         <button class="qty-btn qty-increase" data-key="${item.key}">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                                <path d="M6 2v8M2 6h8"/>
-                            </svg>
+                            <i data-lucide="plus" class="w-3 h-3"></i>
                         </button>
                     </div>
                     <div class="item-total">${item.total}</div>
                 </div>
                 <button class="item-remove" data-key="${item.key}" title="Eliminar producto">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                        <path d="M1 1l12 12M13 1L1 13"/>
-                    </svg>
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
             </div>
         `;
@@ -367,11 +366,7 @@ class NewCartSidepanel {
         this.content.innerHTML = `
             <div class="cart-empty">
                 <div class="empty-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="m1 1 4 4 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
+                    <i data-lucide="shopping-cart" class="w-16 h-16 text-gray-400"></i>
                 </div>
                 <h3>Tu carrito está vacío</h3>
                 <p>Agrega algunos productos para comenzar tu compra</p>
@@ -380,6 +375,11 @@ class NewCartSidepanel {
                 </a>
             </div>
         `;
+        
+        // Initialize Lucide icons after rendering
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     }
     
     /**
@@ -405,11 +405,7 @@ class NewCartSidepanel {
         this.content.innerHTML = `
             <div class="cart-empty">
                 <div class="empty-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
+                    <i data-lucide="alert-circle" class="w-16 h-16 text-red-400"></i>
                 </div>
                 <h3>Error</h3>
                 <p>${message}</p>
@@ -418,6 +414,11 @@ class NewCartSidepanel {
                 </button>
             </div>
         `;
+        
+        // Initialize Lucide icons after rendering
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     }
     
     /**
