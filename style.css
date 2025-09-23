@@ -717,7 +717,6 @@ body.home .grid .bg-white.rounded-xl {
 
 /* Container para front-page */
 .home .container {
-    max-width: 1200px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding-left: 1rem !important;
