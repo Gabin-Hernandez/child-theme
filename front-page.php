@@ -23,8 +23,8 @@ get_header(); ?>
                         </div>
                         
                         <!-- Contenido -->
-                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl ml-8 lg:ml-16">
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Líderes en Tecnología
@@ -64,8 +64,8 @@ get_header(); ?>
                             <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl ml-8 lg:ml-16">
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Refacciones Originales
@@ -99,8 +99,8 @@ get_header(); ?>
                             <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl ml-8 lg:ml-16">
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Tecnología Avanzada
@@ -134,8 +134,8 @@ get_header(); ?>
                             <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl ml-8 lg:ml-16">
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Energía Confiable
