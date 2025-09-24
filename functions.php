@@ -79,6 +79,100 @@ function itools_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_styles' );
 
+// Asegurar que WooCommerce use los templates correctos
+function itools_woocommerce_template_redirect() {
+    if (function_exists('is_woocommerce') && is_woocommerce()) {
+        // Forzar el uso de nuestros templates personalizados
+        if (is_shop()) {
+            // Asegurar que la página de tienda use archive-product.php
+            add_filter('template_include', function($template) {
+                $new_template = locate_template(array('archive-product.php'));
+                if (!empty($new_template)) {
+                    return $new_template;
+                }
+                return $template;
+            });
+        }
+    }
+}
+add_action('template_redirect', 'itools_woocommerce_template_redirect');
+
+// Configurar WooCommerce correctamente
+function itools_woocommerce_setup() {
+    // Asegurar soporte para WooCommerce
+    add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
+}
+add_action('after_setup_theme', 'itools_woocommerce_setup');
+
+// Manejar filtros personalizados de marca
+function itools_handle_brand_filter($query) {
+    if (!is_admin() && $query->is_main_query()) {
+        // Solo aplicar en páginas de tienda y archivo de productos
+        if (is_shop() || is_product_category() || is_product_taxonomy()) {
+            
+            // Manejar filtro de marca desde URL
+            if (isset($_GET['product_brand']) && !empty($_GET['product_brand'])) {
+                $brands = explode(',', sanitize_text_field($_GET['product_brand']));
+                
+                // Buscar en diferentes taxonomías de marca
+                $brand_taxonomies = array('product_brand', 'pa_marca', 'pa_brand');
+                $tax_query = array();
+                
+                foreach ($brand_taxonomies as $taxonomy) {
+                    if (taxonomy_exists($taxonomy)) {
+                        // Verificar si las marcas son IDs o slugs
+                        $brand_terms = array();
+                        foreach ($brands as $brand) {
+                            if (is_numeric($brand)) {
+                                // Es un ID
+                                $brand_terms[] = intval($brand);
+                            } else {
+                                // Es un slug, convertir a ID
+                                $term = get_term_by('slug', $brand, $taxonomy);
+                                if ($term) {
+                                    $brand_terms[] = $term->term_id;
+                                } else {
+                                    // Buscar por nombre también
+                                    $term = get_term_by('name', $brand, $taxonomy);
+                                    if ($term) {
+                                        $brand_terms[] = $term->term_id;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if (!empty($brand_terms)) {
+                            $tax_query[] = array(
+                                'taxonomy' => $taxonomy,
+                                'field'    => 'term_id',
+                                'terms'    => $brand_terms,
+                                'operator' => 'IN',
+                            );
+                        }
+                    }
+                }
+                
+                if (!empty($tax_query)) {
+                    $existing_tax_query = $query->get('tax_query') ?: array();
+                    
+                    if (count($tax_query) > 1) {
+                        $tax_query['relation'] = 'OR';
+                    }
+                    
+                    $existing_tax_query[] = $tax_query;
+                    $existing_tax_query['relation'] = 'AND';
+                    
+                    $query->set('tax_query', $existing_tax_query);
+                }
+            }
+        }
+    }
+}
+add_action('pre_get_posts', 'itools_handle_brand_filter');
+
 // JavaScript para actualizar contador del carrito dinámicamente
 function itools_cart_update_script() {
     if ( class_exists( 'WooCommerce' ) ) {
