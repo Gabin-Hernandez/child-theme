@@ -620,6 +620,38 @@ get_header(); ?>
                                         margin-right: 8px;
                                     }
                                     </style>
+                                    
+                                    <script>
+                                    // Asegurar que el cart sidepanel se abra en la front page
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Escuchar clics en botones de agregar al carrito
+                                        document.addEventListener('click', function(e) {
+                                            if (e.target.matches('.woocommerce-add-to-cart-wrapper .button, .woocommerce-add-to-cart-wrapper .ajax_add_to_cart')) {
+                                                console.log('Botón de agregar al carrito clickeado en front page');
+                                                
+                                                // Esperar a que se complete la acción AJAX
+                                                setTimeout(function() {
+                                                    // Usar la instancia global del sidepanel
+                                                    if (window.cartSidepanel) {
+                                                        console.log('Abriendo cart sidepanel desde front page');
+                                                        window.cartSidepanel.open();
+                                                    }
+                                                }, 1000);
+                                            }
+                                        });
+                                        
+                                        // También escuchar el evento added_to_cart específicamente
+                                        document.body.addEventListener('added_to_cart', function(e) {
+                                            console.log('Evento added_to_cart detectado en front page:', e.detail);
+                                            setTimeout(function() {
+                                                if (window.cartSidepanel) {
+                                                    console.log('Abriendo sidepanel por evento added_to_cart');
+                                                    window.cartSidepanel.open();
+                                                }
+                                            }, 500);
+                                        });
+                                    });
+                                    </script>
                                 </div>
                             </div>
                             
