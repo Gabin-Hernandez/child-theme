@@ -1075,10 +1075,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para aplicar filtros
     function applyFilters() {
-        const currentUrl = new URL(window.location);
+        // Crear URL base para búsqueda de productos
+        const baseUrl = new URL(window.location.origin);
         const searchParams = new URLSearchParams();
         
+        // Asegurar que siempre incluya post_type=product para búsquedas de productos
+        searchParams.set('post_type', 'product');
+        searchParams.set('s', '');
+        
         // Mantener parámetros básicos
+        const currentUrl = new URL(window.location);
         if (currentUrl.searchParams.get('s')) {
             searchParams.set('s', currentUrl.searchParams.get('s'));
         }
@@ -1107,9 +1113,13 @@ document.addEventListener('DOMContentLoaded', function() {
             searchParams.set('product_brand', brands.join(','));
         }
         
+        // Asegurar que siempre incluya post_type=product para búsquedas de productos
+        searchParams.set('post_type', 'product');
+        searchParams.set('s', '');
+        
         // Redirigir con los nuevos parámetros
-        currentUrl.search = searchParams.toString();
-        window.location.href = currentUrl.toString();
+        baseUrl.search = searchParams.toString();
+        window.location.href = baseUrl.toString();
     }
     
     // Función para limpiar filtros con animación
