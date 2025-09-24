@@ -285,9 +285,6 @@ class NewCartSidepanel {
                     ${this.renderCartSummary()}
                 </div>
                 <div class="cart-actions">
-                    <a href="${this.cartData.cart_url || '/cart'}" class="btn-cart">
-                        Ver Carrito
-                    </a>
                     <a href="${this.cartData.checkout_url || '/checkout'}" class="btn-checkout">
                         Finalizar Compra
                     </a>

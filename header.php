@@ -793,9 +793,6 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
             </div>
         </div>
         <div class="cart-actions">
-            <a href="<?php echo esc_url( wc_get_page_permalink( 'cart' ) ); ?>" class="btn-cart">
-                Ver Carrito
-            </a>
             <a href="<?php echo esc_url( wc_get_page_permalink( 'checkout' ) ); ?>" class="btn-checkout">
                 Finalizar Compra
             </a>
