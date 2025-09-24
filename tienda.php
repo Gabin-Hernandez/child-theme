@@ -7,16 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Ocultar cualquier elemento woocommerce-ordering que pueda aparecer automáticamente */
+        /* Ocultar TODOS los elementos de ordenamiento de WooCommerce */
         .woocommerce-ordering,
         .storefront-sorting,
-        form.woocommerce-ordering {
+        form.woocommerce-ordering,
+        .woocommerce-ordering *,
+        .storefront-sorting *,
+        div[class*="woocommerce-ordering"],
+        div[class*="storefront-sorting"],
+        .woocommerce .woocommerce-ordering,
+        .woocommerce .storefront-sorting,
+        #woocommerce_after_shop_loop .woocommerce-ordering,
+        #woocommerce_after_shop_loop .storefront-sorting,
+        .hookmeup-hook .woocommerce-ordering,
+        .hookmeup-hook .storefront-sorting {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            width: 0 !important;
+            overflow: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
         }
         
         /* Asegurar que solo nuestro select personalizado sea visible */
         .custom-ordering-select {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
     </style>
 </head>
