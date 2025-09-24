@@ -24,25 +24,26 @@ get_header(); ?>
                 <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full font-semibold mb-6">
+                            <div class="inline-flex items-center bg-white/15 backdrop-blur-md text-white px-6 py-3 rounded-full font-medium mb-8 border border-white/20">
                                 LÍDERES EN TECNOLOGÍA
                             </div>
-                            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
                                 ITOOLS MX
-                                <span class="block text-3xl md:text-4xl text-blue-200 font-normal mt-2">
+                                <span class="block text-3xl md:text-4xl text-gray-200 font-light mt-3 tracking-wide">
                                     Tu socio tecnológico de confianza
                                 </span>
                             </h1>
-                            <p class="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+                            <p class="text-xl md:text-2xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
                                 Más de 19,000 productos especializados para profesionales y técnicos en electrónica
                             </p>
-                            <div class="flex flex-col sm:flex-row gap-4">
+                            <div class="flex flex-col sm:flex-row gap-6">
                                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg text-center">
-                                    Explorar Catálogo
+                                   class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl text-center overflow-hidden">
+                                    <span class="relative z-10">Explorar Catálogo</span>
+                                    <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </a>
                                 <a href="#categorias" 
-                                   class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 text-center">
+                                   class="group relative bg-transparent border-2 border-white/60 text-white hover:border-white hover:bg-white/10 px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm">
                                     Ver Categorías
                                 </a>
                             </div>
@@ -63,21 +64,22 @@ get_header(); ?>
                 <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-green-500/20 backdrop-blur-sm text-green-200 px-4 py-2 rounded-full font-semibold mb-6">
+                            <div class="inline-flex items-center bg-emerald-500/15 backdrop-blur-md text-emerald-200 px-6 py-3 rounded-full font-medium mb-8 border border-emerald-400/30">
                                 REFACCIONES ORIGINALES
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
                                 Refacciones
-                                <span class="block text-2xl md:text-3xl text-gray-300 font-normal mt-2">
+                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
                                     Más de 19,000 SKU disponibles
                                 </span>
                             </h2>
-                            <p class="text-xl text-gray-200 mb-8">
+                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
                             <a href="/categoria/refacciones/" 
-                               class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
-                                Ver Refacciones
+                               class="group relative bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                                <span class="relative z-10">Ver Refacciones</span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
                         </div>
                     </div>
@@ -96,21 +98,22 @@ get_header(); ?>
                 <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-purple-500/20 backdrop-blur-sm text-purple-200 px-4 py-2 rounded-full font-semibold mb-6">
+                            <div class="inline-flex items-center bg-slate-500/15 backdrop-blur-md text-slate-200 px-6 py-3 rounded-full font-medium mb-8 border border-slate-400/30">
                                 TECNOLOGÍA AVANZADA
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
                                 Pantallas
-                                <span class="block text-2xl md:text-3xl text-purple-200 font-normal mt-2">
+                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
                                     LCD, OLED y Touch de última generación
                                 </span>
                             </h2>
-                            <p class="text-xl text-purple-100 mb-8">
+                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
                                 Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                             </p>
                             <a href="/categoria/lcd-y-touch/" 
-                               class="bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
-                                Ver Pantallas
+                               class="group relative bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                                <span class="relative z-10">Ver Pantallas</span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
                         </div>
                     </div>
@@ -129,21 +132,22 @@ get_header(); ?>
                 <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-yellow-500/20 backdrop-blur-sm text-yellow-200 px-4 py-2 rounded-full font-semibold mb-6">
+                            <div class="inline-flex items-center bg-amber-500/15 backdrop-blur-md text-amber-200 px-6 py-3 rounded-full font-medium mb-8 border border-amber-400/30">
                                 ENERGÍA CONFIABLE
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
                                 Baterías
-                                <span class="block text-2xl md:text-3xl text-yellow-200 font-normal mt-2">
+                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
                                     Máxima duración y rendimiento
                                 </span>
                             </h2>
-                            <p class="text-xl text-yellow-100 mb-8">
+                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
                                 Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                             </p>
                             <a href="/categoria/baterias/" 
-                               class="bg-yellow-600 hover:bg-yellow-700 text-white px-10 py-4 text-xl font-bold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">
-                                Ver Baterías
+                               class="group relative bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                                <span class="relative z-10">Ver Baterías</span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
                         </div>
                     </div>
@@ -152,28 +156,28 @@ get_header(); ?>
         </div>
         
         <!-- Navegación del slider mejorada -->
-        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3" style="z-index: 9999; background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 30px; gap: 15px;">
-            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
-            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
-            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
-            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-4 h-4 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all duration-300 transform hover:scale-125" style="display: block; visibility: visible; opacity: 1;"></button>
+        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 bg-black/60 backdrop-blur-lg px-8 py-4 rounded-full border border-white/10" style="z-index: 9999;">
+            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
+            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
+            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
+            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
         </div>
         
         <!-- Flechas de navegación mejoradas -->
-        <button id="prev-arrow" onclick="prevSlide()" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110" style="z-index: 9999; display: flex; visibility: visible; opacity: 1; background: rgba(0,0,0,0.7); width: 60px; height: 60px; align-items: center; justify-content: center;">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <button id="prev-arrow" onclick="prevSlide()" class="absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
-        <button id="next-arrow" onclick="nextSlide()" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 hover:scale-110" style="z-index: 9999; display: flex; visibility: visible; opacity: 1; background: rgba(0,0,0,0.7); width: 60px; height: 60px; align-items: center; justify-content: center;">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        <button id="next-arrow" onclick="nextSlide()" class="absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
         </button>
         
         <!-- Indicador de progreso -->
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white bg-opacity-20">
-            <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white bg-opacity-10">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"></div>
         </div>
     </section>
 
@@ -291,77 +295,65 @@ get_header(); ?>
     </section>
 
     <!-- CTA con Estadísticas -->
-    <section class="py-8 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900 relative">
-        <!-- Efectos de fondo -->
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-            <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+    <section class="py-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
+        <!-- Patrón geométrico elegante -->
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <pattern id="premium-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#premium-grid)" />
+            </svg>
         </div>
         
-        <!-- Partículas animadas -->
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="particles-container">
-                <!-- Partículas pequeñas -->
-                <div class="particle particle-1"></div>
-                <div class="particle particle-2"></div>
-                <div class="particle particle-3"></div>
-                <div class="particle particle-4"></div>
-                <div class="particle particle-5"></div>
-                <div class="particle particle-6"></div>
-                <div class="particle particle-7"></div>
-                <div class="particle particle-8"></div>
-                <div class="particle particle-9"></div>
-                <div class="particle particle-10"></div>
-                
-                <!-- Partículas medianas -->
-                <div class="particle-medium particle-m1"></div>
-                <div class="particle-medium particle-m2"></div>
-                <div class="particle-medium particle-m3"></div>
-                <div class="particle-medium particle-m4"></div>
-                
-                <!-- Partículas grandes -->
-                <div class="particle-large particle-l1"></div>
-                <div class="particle-large particle-l2"></div>
-            </div>
+        <!-- Elementos decorativos minimalistas -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 right-20 w-32 h-32 border border-amber-500/20 rounded-full"></div>
+            <div class="absolute bottom-20 left-20 w-24 h-24 border border-emerald-500/20 rounded-full"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-white/5 rounded-full"></div>
         </div>
         
         <div class="container max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
                     ¿Por qué elegirnos?
                 </h2>
-                <p class="text-xl text-blue-100 max-w-3xl mx-auto mb-12">
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
                     Somos líderes en el mercado mexicano con más de 10 años de experiencia
                 </p>
                 
-                <!-- Estadísticas -->
+                <!-- Estadísticas con diseño premium -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                    <div class="text-center">
-                        <div class="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">19,000+</div>
-                        <div class="text-white font-semibold">Productos en Stock</div>
+                    <div class="text-center group">
+                        <div class="bg-gradient-to-br from-amber-400 to-orange-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">19,000+</div>
+                        <div class="text-gray-300 font-medium tracking-wide">Productos en Stock</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl md:text-5xl font-bold text-green-400 mb-2">50,000+</div>
-                        <div class="text-white font-semibold">Clientes Satisfechos</div>
+                    <div class="text-center group">
+                        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">50,000+</div>
+                        <div class="text-gray-300 font-medium tracking-wide">Clientes Satisfechos</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl md:text-5xl font-bold text-blue-400 mb-2">24h</div>
-                        <div class="text-white font-semibold">Envío Express</div>
+                    <div class="text-center group">
+                        <div class="bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">24h</div>
+                        <div class="text-gray-300 font-medium tracking-wide">Envío Express</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-4xl md:text-5xl font-bold text-purple-400 mb-2">99.8%</div>
-                        <div class="text-white font-semibold">Satisfacción</div>
+                    <div class="text-center group">
+                        <div class="bg-gradient-to-br from-rose-400 to-pink-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">99.8%</div>
+                        <div class="text-gray-300 font-medium tracking-wide">Satisfacción</div>
                     </div>
                 </div>
                 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
                     <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                       class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
-                        Explorar Catálogo
+                       class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
+                        <span class="relative z-10">Explorar Catálogo</span>
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'myaccount' ) ) : '/mi-cuenta/'; ?>" 
-                       class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-900 px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300">
-                        Crear Cuenta
+                       class="group relative bg-transparent border-2 border-gray-400 text-gray-300 hover:border-white hover:text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
+                        <span class="relative z-10">Crear Cuenta</span>
+                        <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                 </div>
             </div>
@@ -369,11 +361,11 @@ get_header(); ?>
     </section>
 
     <!-- Marcas Populares -->
-    <section class="py-6 bg-gray-50">
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div class="container max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Marcas de Confianza</h3>
-                <p class="text-gray-600">Trabajamos con las mejores marcas del mercado mundial</p>
+            <div class="text-center mb-16">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">Marcas de Confianza</h3>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
             </div>
             
             <!-- Carrusel de marcas mejorado -->
@@ -1485,21 +1477,21 @@ console.log('📦 Funciones auxiliares disponibles:', {
     
     .particle {
         position: absolute;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.08);
         border-radius: 50%;
         pointer-events: none;
     }
     
     .particle-medium {
         position: absolute;
-        background: rgba(59, 130, 246, 0.2);
+        background: rgba(245, 158, 11, 0.12);
         border-radius: 50%;
         pointer-events: none;
     }
     
     .particle-large {
         position: absolute;
-        background: rgba(147, 51, 234, 0.15);
+        background: rgba(156, 163, 175, 0.1);
         border-radius: 50%;
         pointer-events: none;
     }
@@ -1526,23 +1518,23 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .particle-l1 { width: 20px; height: 20px; top: 45%; left: 35%; animation: float3 15s ease-in-out infinite; }
     .particle-l2 { width: 18px; height: 18px; top: 65%; left: 55%; animation: float1 13s ease-in-out infinite; }
     
-    /* Animaciones de flotación */
+    /* Animaciones de flotación más sutiles y elegantes */
     @keyframes float1 {
-        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-        25% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
-        50% { transform: translateY(-10px) translateX(-15px); opacity: 1; }
-        75% { transform: translateY(-30px) translateX(5px); opacity: 0.8; }
+        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+        25% { transform: translateY(-12px) translateX(6px); opacity: 0.4; }
+        50% { transform: translateY(-8px) translateX(-8px); opacity: 0.6; }
+        75% { transform: translateY(-18px) translateX(3px); opacity: 0.3; }
     }
     
     @keyframes float2 {
-        0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.3; }
-        33% { transform: translateY(-25px) translateX(-10px) rotate(120deg); opacity: 0.8; }
-        66% { transform: translateY(-15px) translateX(20px) rotate(240deg); opacity: 1; }
+        0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.15; }
+        33% { transform: translateY(-15px) translateX(-6px) rotate(60deg); opacity: 0.4; }
+        66% { transform: translateY(-10px) translateX(12px) rotate(120deg); opacity: 0.5; }
     }
     
     @keyframes float3 {
-        0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.5; }
-        50% { transform: translateY(-35px) translateX(15px) scale(1.2); opacity: 0.9; }
+        0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.25; }
+        50% { transform: translateY(-20px) translateX(8px) scale(1.1); opacity: 0.45; }
     }
     
     /* Responsive */
