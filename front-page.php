@@ -311,6 +311,157 @@ get_header(); ?>
         </div>
     </section>
 
+    <!-- Productos de Herramientas -->
+    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+    <section class="py-20 bg-slate-50">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
+                    HERRAMIENTAS PROFESIONALES
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                    Herramientas de Precisión
+                </h2>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    Descubre nuestra selección de herramientas especializadas para técnicos profesionales
+                </p>
+            </div>
+            
+            <?php
+            // Query para obtener productos de la categoría 'Herramientas'
+            $herramientas_args = array(
+                'post_type' => 'product',
+                'posts_per_page' => 8,
+                'post_status' => 'publish',
+                'meta_query' => array(
+                    array(
+                        'key' => '_visibility',
+                        'value' => array('catalog', 'visible'),
+                        'compare' => 'IN'
+                    )
+                ),
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field' => 'slug',
+                        'terms' => 'herramientas',
+                    )
+                ),
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            );
+            
+            $herramientas_query = new WP_Query( $herramientas_args );
+            
+            if ( $herramientas_query->have_posts() ) : ?>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <?php while ( $herramientas_query->have_posts() ) : $herramientas_query->the_post(); 
+                        global $product;
+                        if ( ! $product || ! $product->is_visible() ) continue;
+                    ?>
+                        <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-200 hover:border-amber-300">
+                            <!-- Imagen del producto -->
+                            <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                                <a href="<?php the_permalink(); ?>" class="block h-full">
+                                    <?php if ( has_post_thumbnail() ) : ?>
+                                        <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                            'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                        )); ?>
+                                    <?php else : ?>
+                                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </div>
+                                    <?php endif; ?>
+                                </a>
+                                
+                                <!-- Badge de descuento -->
+                                <?php if ( $product->is_on_sale() ) : ?>
+                                    <div class="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                        <?php
+                                        $regular_price = $product->get_regular_price();
+                                        $sale_price = $product->get_sale_price();
+                                        if ( $regular_price && $sale_price ) {
+                                            $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                            echo '-' . $discount . '%';
+                                        } else {
+                                            echo 'OFERTA';
+                                        }
+                                        ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <!-- Información del producto -->
+                            <div class="p-6">
+                                <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-amber-600 transition-colors duration-300">
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                </h3>
+                                
+                                <!-- Precio -->
+                                <div class="mb-4">
+                                    <?php echo $product->get_price_html(); ?>
+                                </div>
+                                
+                                <!-- Rating -->
+                                <?php if ( $product->get_average_rating() ) : ?>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-yellow-400">
+                                            <?php
+                                            $rating = $product->get_average_rating();
+                                            for ( $i = 1; $i <= 5; $i++ ) {
+                                                if ( $i <= $rating ) {
+                                                    echo '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+                                                } else {
+                                                    echo '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+                                                }
+                                            }
+                                            ?>
+                                        </div>
+                                        <span class="text-sm text-gray-500 ml-2">(<?php echo $product->get_review_count(); ?>)</span>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <!-- Botón de agregar al carrito -->
+                                <div class="mt-auto">
+                                    <?php
+                                    woocommerce_template_loop_add_to_cart();
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+                
+                <!-- Botón para ver más herramientas -->
+                <div class="text-center mt-12">
+                    <a href="/categoria/herramientas/" 
+                       class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                        Ver Todas las Herramientas
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+            <?php else : ?>
+                <div class="text-center py-12">
+                    <div class="text-gray-500 mb-4">
+                        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No hay herramientas disponibles</h3>
+                    <p class="text-gray-600">Pronto agregaremos más productos a esta categoría.</p>
+                </div>
+            <?php endif; ?>
+            
+            <?php wp_reset_postdata(); ?>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <!-- Marcas Populares -->
     <section class="py-16 bg-slate-50">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
