@@ -690,7 +690,7 @@ get_header(); ?>
 
         <!-- Continue Shopping -->
         <div class="continue-shopping">
-            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="continue-shopping-btn">
+            <a href="<?php echo esc_url(wc_get_page_permalink('tienda')); ?>" class="continue-shopping-btn">
                 <i data-lucide="arrow-left"></i>
                 Continuar Comprando
             </a>
