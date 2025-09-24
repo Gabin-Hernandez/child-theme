@@ -156,23 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         
         searchResults.innerHTML = html;
-        
-        // Aplicar estilos con z-index alto
-        searchResults.style.cssText = `
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 400px;
-            overflow-y: auto;
-            display: block;
-            z-index: 9999;
-        `;
-        
         showSearchResults();
     }
     
@@ -196,23 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="margin-top: 8px; font-size: 14px;">Buscando...</div>
             </div>
         `;
-        
-        // Aplicar estilos con z-index alto
-        searchResults.style.cssText = `
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 400px;
-            overflow-y: auto;
-            display: block;
-            z-index: 9999;
-        `;
-        
         showSearchResults();
     }
     
@@ -232,50 +198,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                <div style="font-size: 16px; font-weight: 500; margin-bottom: 4px;">
-                    No se encontraron productos
+                <div style="font-size: 14px; margin-bottom: 8px;">
+                    No se encontraron productos para "${searchTerm}"
                 </div>
-                <div style="font-size: 14px;">
-                    No hay resultados para "${searchTerm}"
-                </div>
+                <button onclick="document.querySelector('form').submit()" style="
+                    background: #6b7280;
+                    color: white;
+                    border: none;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    cursor: pointer;
+                ">
+                    Buscar en toda la tienda
+                </button>
             </div>
         `;
-        
-        // Aplicar estilos con z-index alto
-        searchResults.style.cssText = `
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 400px;
-            overflow-y: auto;
-            display: block;
-            z-index: 9999;
-        `;
-        
         showSearchResults();
     }
     
     // Funciones para mostrar/ocultar resultados
     function showSearchResults() {
-        searchResults.style.cssText = `
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 400px;
-            overflow-y: auto;
-            display: block;
-            z-index: 9999;
-        `;
+        searchResults.style.display = 'block';
     }
     
     function hideSearchResults() {
