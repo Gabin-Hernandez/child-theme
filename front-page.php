@@ -168,7 +168,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares -->
-    <section id="categorias" class="!py-32 bg-slate-900">
+    <div id="categorias" class="!py-32 bg-slate-900">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -254,10 +254,10 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Estadísticas y CTA -->
-    <section class="py-32 bg-white">
+    <div class="py-32 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
@@ -299,11 +299,11 @@ get_header(); ?>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-32 bg-slate-50">
+    <div class="py-32 bg-slate-50">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -470,11 +470,11 @@ get_header(); ?>
             
             <?php wp_reset_postdata(); ?>
         </div>
-    </section>
+    </div>
     <?php endif; ?>
 
     <!-- Marcas Populares -->
-    <section class="py-24 bg-slate-50">
+    <div class="py-24 bg-slate-50">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
@@ -612,10 +612,10 @@ get_header(); ?>
                 });
             </script>
         </div>
-    </section>
+    </div>
 
     <!-- Productos en Oferta -->
-    <section id="ofertas" class="py-32 bg-red-50">
+    <div id="ofertas" class="py-32 bg-red-50">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -745,11 +745,11 @@ get_header(); ?>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
-    <section class="py-32 bg-white">
+    <div class="py-32 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -891,11 +891,11 @@ get_header(); ?>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
     <?php endif; ?>
 
     <!-- Productos Destacados Premium -->
-    <section class="py-32 bg-slate-900">
+    <div class="py-32 bg-slate-900">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-white/10 text-white px-6 py-2 rounded-full font-semibold mb-6">
@@ -1087,7 +1087,7 @@ get_header(); ?>
                 </button>
             </div>
         </div>
-    </section>
+    </div>
 
 </main>
 
