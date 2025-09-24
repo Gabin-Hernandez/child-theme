@@ -1957,26 +1957,59 @@ add_action( 'wp_ajax_nopriv_itools_update_cart_quantity', 'itools_update_cart_qu
 
 // Función AJAX para eliminar producto del carrito
 function itools_remove_cart_item() {
-    // Verificar nonce
-    if ( ! wp_verify_nonce( $_POST['nonce'], 'itools_cart_nonce' ) ) {
+    // Log para debugging
+    error_log('🗑️ AJAX remove_cart_item iniciado');
+    error_log('📥 POST data: ' . print_r($_POST, true));
+    
+    // Verificar nonce con mejor manejo de errores
+    $nonce = isset($_POST['nonce']) ? $_POST['nonce'] : '';
+    if ( empty($nonce) ) {
+        error_log('❌ Nonce vacío');
+        wp_send_json_error( 'Nonce requerido' );
+        return;
+    }
+    
+    if ( ! wp_verify_nonce( $nonce, 'itools_cart_nonce' ) ) {
+        error_log('❌ Nonce inválido: ' . $nonce);
         wp_send_json_error( 'Nonce inválido' );
+        return;
     }
     
     if ( ! class_exists( 'WooCommerce' ) ) {
+        error_log('❌ WooCommerce no disponible');
         wp_send_json_error( 'WooCommerce no disponible' );
+        return;
     }
     
-    $cart_item_key = sanitize_text_field( $_POST['key'] );
+    $cart_item_key = isset($_POST['key']) ? sanitize_text_field( $_POST['key'] ) : '';
+    if ( empty($cart_item_key) ) {
+        error_log('❌ Key del carrito vacío');
+        wp_send_json_error( 'Key del producto requerido' );
+        return;
+    }
+    
+    error_log('🔑 Intentando eliminar item con key: ' . $cart_item_key);
     
     $cart = WC()->cart;
+    
+    // Verificar que el item existe en el carrito
+    $cart_contents = $cart->get_cart();
+    if ( ! isset($cart_contents[$cart_item_key]) ) {
+        error_log('❌ Item no encontrado en el carrito');
+        wp_send_json_error( 'Producto no encontrado en el carrito' );
+        return;
+    }
+    
     $removed = $cart->remove_cart_item( $cart_item_key );
     
     if ( $removed ) {
+        error_log('✅ Producto eliminado exitosamente');
         wp_send_json_success( array(
             'message' => 'Producto eliminado del carrito',
             'cart_count' => $cart->get_cart_contents_count()
         ) );
     } else {
+        error_log('❌ Error al eliminar el producto');
         wp_send_json_error( 'Error al eliminar el producto' );
     }
 }

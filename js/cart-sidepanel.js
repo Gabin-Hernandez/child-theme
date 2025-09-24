@@ -507,34 +507,64 @@ class NewCartSidepanel {
      */
     async removeItem(key) {
         try {
+            console.log('🗑️ Intentando eliminar producto con key:', key);
+            console.log('🔑 Nonce disponible:', window.itools_cart_ajax?.nonce);
+            console.log('🌐 AJAX URL:', window.itools_cart_ajax?.ajax_url);
+            
             const formData = new FormData();
             formData.append('action', 'itools_remove_cart_item');
             formData.append('key', key);
-            formData.append('nonce', window.itools_cart_ajax?.nonce || '');
             
-            const response = await fetch(window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php', {
+            // Verificar si tenemos nonce disponible
+            const nonce = window.itools_cart_ajax?.nonce;
+            if (!nonce) {
+                console.warn('⚠️ No se encontró nonce, intentando sin él');
+            }
+            formData.append('nonce', nonce || '');
+            
+            const ajaxUrl = window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php';
+            
+            console.log('📤 Enviando petición a:', ajaxUrl);
+            
+            const response = await fetch(ajaxUrl, {
                 method: 'POST',
                 body: formData
             });
             
+            console.log('📥 Respuesta recibida:', response.status, response.statusText);
+            
             const text = await response.text();
+            console.log('📄 Texto de respuesta:', text);
             
             if (!text.trim()) {
                 throw new Error('Respuesta vacía del servidor');
             }
             
-            const result = JSON.parse(text);
+            let result;
+            try {
+                result = JSON.parse(text);
+            } catch (parseError) {
+                console.error('❌ Error parseando JSON:', parseError);
+                console.log('📄 Respuesta cruda:', text);
+                throw new Error('Respuesta del servidor no es JSON válido');
+            }
+            
+            console.log('✅ Resultado parseado:', result);
             
             if (result.success) {
+                console.log('🎉 Producto eliminado exitosamente');
                 this.loadCartData();
                 this.updateCartCounter();
                 this.showNotification('Producto eliminado del carrito');
             } else {
-                throw new Error(result.data || 'Error al eliminar producto');
+                const errorMessage = result.data || 'Error al eliminar producto';
+                console.error('❌ Error del servidor:', errorMessage);
+                throw new Error(errorMessage);
             }
         } catch (error) {
             console.error('❌ Error eliminando producto:', error);
-            this.showNotification('Error al eliminar producto', 'error');
+            console.error('❌ Stack trace:', error.stack);
+            this.showNotification('Error al eliminar producto: ' + error.message, 'error');
         }
     }
     
