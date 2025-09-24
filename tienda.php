@@ -308,15 +308,11 @@ include_once 'test-products.php';
             const categoryFilters = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
             const brandFilters = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
             
-            // Construir URL base para WooCommerce
+            // Construir URL sin parámetros WooCommerce para mantener tienda.php
             const baseUrl = window.location.origin + window.location.pathname;
             const url = new URL(baseUrl);
             
-            // Agregar parámetros WooCommerce requeridos
-            url.searchParams.set('post_type', 'product');
-            url.searchParams.set('s', '');
-            
-            // Agregar filtros de categoría
+            // Agregar filtros de categoría (sin post_type para evitar archive-product.php)
             if (categoryFilters.length > 0) {
                 url.searchParams.set('product_cat', categoryFilters.join(','));
             }
