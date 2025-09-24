@@ -176,8 +176,11 @@ function itools_add_cart_fragments( $fragments ) {
         // Fragmento para el contador del carrito (formato texto)
         $fragments['span.cart-count'] = '<span class="cart-count">' . $cart_display . '</span>';
         
-        // Fragmento para el contador del carrito (formato badge numérico)
-        $fragments['.cart-counter'] = '<span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . '">' . $cart_count . '</span>';
+        // Fragmento para el nuevo badge del contador
+        $fragments['#cart-count-badge'] = '<span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">' . $cart_count . '</span>';
+        
+        // Fragmento para el badge fallback
+         $fragments['#cart-count-badge-fallback'] = '<span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">' . $cart_count . '</span>';
     }
     
     return $fragments;

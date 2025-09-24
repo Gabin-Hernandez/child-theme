@@ -296,37 +296,45 @@
                         <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <!-- Icono de carrito moderno con contador -->
-                        <button id="cart-toggle" class="cart-icon-btn cart-trigger relative" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
-                            <!-- Icono Lucide del carrito -->
-                            <i data-lucide="shopping-cart" class="cart-icon w-6 h-6"></i>
-                            <!-- Contador de productos -->
-                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="<?php 
-                                if ( function_exists('WC') && WC()->cart ) { 
-                                    $cart_count = WC()->cart->get_cart_contents_count();
-                                    echo $cart_count > 0 ? 'display: flex;' : 'display: none;';
-                                } else {
-                                    echo 'display: none;';
-                                } ?>">
-                                <?php if ( function_exists('WC') && WC()->cart ) { 
-                                    $cart_count = WC()->cart->get_cart_contents_count();
-                                    echo $cart_count > 0 ? $cart_count : '0';
-                                } else {
-                                    echo '0';
-                                } ?>
-                            </span>
-                        </button>
+                        <!-- Nuevo icono de carrito con contador mejorado -->
+                        <div class="cart-wrapper" style="position: relative;">
+                            <button id="cart-toggle-new" class="cart-icon-btn cart-trigger" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
+                                <!-- Icono SVG del carrito -->
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="8" cy="21" r="1"></circle>
+                                    <circle cx="19" cy="21" r="1"></circle>
+                                    <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
+                                </svg>
+                                <!-- Contador mejorado -->
+                                <span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; display: none; align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">
+                                    <?php 
+                                    if ( function_exists('WC') && WC()->cart ) { 
+                                        $cart_count = WC()->cart->get_cart_contents_count();
+                                        echo $cart_count;
+                                    } else {
+                                        echo '0';
+                                    } 
+                                    ?>
+                                </span>
+                            </button>
+                        </div>
                     <?php else : ?>
                         <a href="/mi-cuenta/" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
                             Mi Cuenta
                         </a>
-                        <!-- Icono de carrito moderno con contador (fallback) -->
-                        <button id="cart-toggle-fallback" class="cart-icon-btn cart-trigger relative" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
-                            <!-- Icono Lucide del carrito -->
-                            <i data-lucide="shopping-cart" class="cart-icon w-6 h-6"></i>
-                            <!-- Contador de productos -->
-                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="display: none;">0</span>
-                        </button>
+                        <!-- Nuevo icono de carrito con contador mejorado (fallback) -->
+                        <div class="cart-wrapper" style="position: relative;">
+                            <button id="cart-toggle-fallback-new" class="cart-icon-btn cart-trigger" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
+                                <!-- Icono SVG del carrito -->
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="8" cy="21" r="1"></circle>
+                                    <circle cx="19" cy="21" r="1"></circle>
+                                    <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
+                                </svg>
+                                <!-- Contador mejorado -->
+                                <span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; display: none; align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">0</span>
+                            </button>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
