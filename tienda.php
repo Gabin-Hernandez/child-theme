@@ -1,3 +1,9 @@
+<?php
+// Incluir datos de prueba
+include_once 'test-products.php';
+
+// CSS para ocultar elementos de WooCommerce automáticos
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -86,11 +92,49 @@
                 <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-200">
                     <h3 class="text-lg font-bold text-gray-900 mb-4">Categorías</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Herramientas Eléctricas</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Herramientas Manuales</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Accesorios</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Refacciones</a></li>
+                        <?php
+                        global $test_categories_data;
+                        foreach ($test_categories_data as $category) {
+                            $is_active = isset($_GET['product_cat']) && in_array($category['id'], explode(',', $_GET['product_cat']));
+                            $active_class = $is_active ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600';
+                            echo '<li>';
+                            echo '<label class="flex items-center justify-between cursor-pointer ' . $active_class . '">';
+                            echo '<span class="flex items-center">';
+                            echo '<input type="checkbox" class="category-filter mr-2" value="' . $category['id'] . '" ' . ($is_active ? 'checked' : '') . '>';
+                            echo $category['name'];
+                            echo '</span>';
+                            echo '<span class="text-sm text-gray-500">(' . $category['count'] . ')</span>';
+                            echo '</label>';
+                            echo '</li>';
+                        }
+                        ?>
                     </ul>
+                    
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 mt-6">Marcas</h3>
+                    <ul class="space-y-2">
+                        <?php
+                        global $test_brands_data;
+                        foreach ($test_brands_data as $brand) {
+                            $is_active = isset($_GET['product_brand']) && in_array($brand['slug'], explode(',', $_GET['product_brand']));
+                            $active_class = $is_active ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600';
+                            echo '<li>';
+                            echo '<label class="flex items-center justify-between cursor-pointer ' . $active_class . '">';
+                            echo '<span class="flex items-center">';
+                            echo '<input type="checkbox" class="brand-filter mr-2" value="' . $brand['slug'] . '" ' . ($is_active ? 'checked' : '') . '>';
+                            echo $brand['name'];
+                            echo '</span>';
+                            echo '<span class="text-sm text-gray-500">(' . $brand['count'] . ')</span>';
+                            echo '</label>';
+                            echo '</li>';
+                        }
+                        ?>
+                    </ul>
+                    
+                    <div class="mt-6">
+                        <button id="clear-filters" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200">
+                            Limpiar Filtros
+                        </button>
+                    </div>
                 </div>
             </aside>
 
@@ -191,77 +235,48 @@
                         </div>
                     </div>
 
-                    <!-- Producto 4 -->
-                    <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300">
-                        <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                            <img src="https://via.placeholder.com/300x300/8B5CF6/FFFFFF?text=Sierra" alt="Sierra Circular" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-sm font-semibold text-gray-900 mb-2">Sierra Circular 7 1/4"</h3>
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="far fa-star text-xs"></i>
-                                </div>
-                                <span class="text-xs text-gray-500">(12)</span>
-                            </div>
-                            <div class="text-lg font-bold text-gray-900 mb-4">$899</div>
-                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 5 -->
-                    <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300">
-                        <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                            <img src="https://via.placeholder.com/300x300/EF4444/FFFFFF?text=Llave" alt="Juego de Llaves" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-sm font-semibold text-gray-900 mb-2">Juego de Llaves Combinadas</h3>
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                </div>
-                                <span class="text-xs text-gray-500">(27)</span>
-                            </div>
-                            <div class="text-lg font-bold text-gray-900 mb-4">$449</div>
-                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Producto 6 -->
-                    <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300">
-                        <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                            <img src="https://via.placeholder.com/300x300/06B6D4/FFFFFF?text=Nivel" alt="Nivel de Burbuja" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-sm font-semibold text-gray-900 mb-2">Nivel de Burbuja 24"</h3>
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="fas fa-star text-xs"></i>
-                                    <i class="far fa-star text-xs"></i>
-                                    <i class="far fa-star text-xs"></i>
-                                </div>
-                                <span class="text-xs text-gray-500">(8)</span>
-                            </div>
-                            <div class="text-lg font-bold text-gray-900 mb-4">$149</div>
-                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200">
-                                Agregar al carrito
-                            </button>
-                        </div>
-                    </div>
+                <!-- Productos dinámicos basados en filtros -->
+                <?php
+                global $test_products_data, $test_categories_data, $test_brands_data;
+                
+                // Filtrar productos según parámetros URL
+                $filtered_products = filter_test_products($test_products_data, $test_categories_data, $test_brands_data);
+                
+                if (!empty($filtered_products)) {
+                    foreach ($filtered_products as $product) {
+                        echo '<div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300">';
+                        echo '<div class="relative overflow-hidden bg-gray-50 aspect-square">';
+                        echo '<img src="' . $product['image'] . '" alt="' . $product['name'] . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                        echo '</div>';
+                        echo '<div class="p-4">';
+                        echo '<h3 class="text-sm font-semibold text-gray-900 mb-2">' . $product['name'] . '</h3>';
+                        echo '<div class="flex items-center gap-1 mb-3">';
+                        echo '<div class="flex text-yellow-400">';
+                        echo '<i class="fas fa-star text-xs"></i>';
+                        echo '<i class="fas fa-star text-xs"></i>';
+                        echo '<i class="fas fa-star text-xs"></i>';
+                        echo '<i class="fas fa-star text-xs"></i>';
+                        echo '<i class="far fa-star text-xs"></i>';
+                        echo '</div>';
+                        echo '<span class="text-xs text-gray-500">(15)</span>';
+                        echo '</div>';
+                        echo '<div class="text-lg font-bold text-gray-900 mb-4">$' . number_format($product['price'], 0) . '</div>';
+                        echo '<button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200">';
+                        echo 'Agregar al carrito';
+                        echo '</button>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<div class="col-span-full text-center py-12">';
+                    echo '<div class="text-gray-500 text-lg mb-4">';
+                    echo '<i class="fas fa-search text-4xl mb-4"></i>';
+                    echo '<p>No se encontraron productos que coincidan con los filtros seleccionados.</p>';
+                    echo '<p class="text-sm mt-2">Intenta ajustar los filtros o buscar otros términos.</p>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
 
                 </div>
 
@@ -288,6 +303,44 @@
 
     <!-- JavaScript para funcionalidad básica -->
     <script>
+        // Funcionalidad de filtros
+        function applyFilters() {
+            const categoryFilters = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+            const brandFilters = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
+            
+            const url = new URL(window.location);
+            
+            // Limpiar parámetros existentes
+            url.searchParams.delete('product_cat');
+            url.searchParams.delete('product_brand');
+            
+            // Agregar nuevos filtros
+            if (categoryFilters.length > 0) {
+                url.searchParams.set('product_cat', categoryFilters.join(','));
+            }
+            if (brandFilters.length > 0) {
+                url.searchParams.set('product_brand', brandFilters.join(','));
+            }
+            
+            // Redirigir con nuevos parámetros
+            window.location.href = url.toString();
+        }
+        
+        // Event listeners para filtros
+        document.querySelectorAll('.category-filter, .brand-filter').forEach(checkbox => {
+            checkbox.addEventListener('change', applyFilters);
+        });
+        
+        // Limpiar filtros
+        document.getElementById('clear-filters').addEventListener('click', function() {
+            const url = new URL(window.location);
+            url.searchParams.delete('product_cat');
+            url.searchParams.delete('product_brand');
+            url.searchParams.delete('min_price');
+            url.searchParams.delete('max_price');
+            window.location.href = url.toString();
+        });
+        
         // Simulación de agregar al carrito
         document.querySelectorAll('button').forEach(button => {
             if (button.textContent.includes('Agregar al carrito')) {

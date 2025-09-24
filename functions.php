@@ -359,11 +359,23 @@ function itools_modify_search_query( $query ) {
             
             // Si se seleccionó una categoría específica
             if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
+                $categories = explode(',', sanitize_text_field($_GET['product_cat']));
+                
+                // Determinar si son IDs o slugs
+                $field = 'term_id';
+                if (!empty($categories)) {
+                    // Si el primer elemento no es numérico, asumir que son slugs
+                    if (!is_numeric($categories[0])) {
+                        $field = 'slug';
+                    }
+                }
+                
                 $query->set( 'tax_query', array(
                     array(
                         'taxonomy' => 'product_cat',
-                        'field'    => 'slug',
-                        'terms'    => sanitize_text_field($_GET['product_cat'])
+                        'field'    => $field,
+                        'terms'    => $categories,
+                        'operator' => 'IN'
                     )
                 ));
             }
@@ -436,14 +448,31 @@ function itools_filter_products_by_price( $query ) {
             $categories = explode(',', sanitize_text_field($_GET['product_cat']));
             $tax_query = $query->get( 'tax_query' ) ?: array();
             
+            // Determinar si son IDs o slugs
+            $field = 'term_id';
+            if (!empty($categories)) {
+                // Si el primer elemento no es numérico, asumir que son slugs
+                if (!is_numeric($categories[0])) {
+                    $field = 'slug';
+                }
+            }
+            
             $tax_query[] = array(
                 'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
+                'field'    => $field,
                 'terms'    => $categories,
                 'operator' => 'IN'
             );
             
+            // Si ya hay tax_query existente, combinar con AND
+            if (count($tax_query) > 1) {
+                $tax_query['relation'] = 'AND';
+            }
+            
             $query->set( 'tax_query', $tax_query );
+            
+            // Debug para ver qué categorías se están filtrando
+            error_log('Filtro de categorías activo: ' . print_r($categories, true) . ' usando field: ' . $field);
         }
         
         if ( !empty($meta_query) ) {
