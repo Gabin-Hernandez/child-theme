@@ -1603,35 +1603,70 @@ add_action( 'wp_ajax_nopriv_itools_get_cart_content', 'itools_get_cart_content' 
 
 // Función AJAX para actualizar cantidad de producto en el carrito
 function itools_update_cart_quantity() {
-    // Verificar nonce
-    if ( ! wp_verify_nonce( $_POST['nonce'], 'itools_cart_nonce' ) ) {
-        wp_send_json_error( 'Nonce inválido' );
+    // Check for both old and new nonce formats
+    if (isset($_POST['nonce']) && wp_verify_nonce($_POST['nonce'], 'itools_cart_nonce')) {
+        // Old format from sidepanel
+        if (!class_exists('WooCommerce')) {
+            wp_send_json_error('WooCommerce no disponible');
+        }
+        
+        $cart_item_key = sanitize_text_field($_POST['key']);
+        $increase = $_POST['increase'] === '1';
+        
+        $cart = WC()->cart;
+        $cart_item = $cart->get_cart_item($cart_item_key);
+        
+        if (!$cart_item) {
+            wp_send_json_error('Producto no encontrado en el carrito');
+        }
+        
+        $current_quantity = $cart_item['quantity'];
+        $new_quantity = $increase ? $current_quantity + 1 : max(1, $current_quantity - 1);
+        
+        $cart->set_quantity($cart_item_key, $new_quantity);
+        
+        wp_send_json_success(array(
+            'message' => 'Cantidad actualizada',
+            'new_quantity' => $new_quantity,
+            'cart_count' => $cart->get_cart_contents_count()
+        ));
+    } elseif (isset($_POST['security']) && wp_verify_nonce($_POST['security'], 'update_cart_quantity')) {
+        // New format from cart page
+        $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+        $quantity = intval($_POST['quantity']);
+        
+        if (empty($cart_item_key) || $quantity < 0) {
+            wp_send_json_error('Invalid parameters');
+            return;
+        }
+        
+        // Update cart quantity
+        $updated = WC()->cart->set_quantity($cart_item_key, $quantity);
+        
+        if ($updated) {
+            // Get updated cart item
+            $cart_item = WC()->cart->get_cart_item($cart_item_key);
+            $product = $cart_item['data'];
+            
+            // Calculate new subtotal
+            $subtotal = WC()->cart->get_product_subtotal($product, $cart_item['quantity']);
+            
+            // Get cart totals
+            $cart_total = WC()->cart->get_cart_total();
+            $cart_count = WC()->cart->get_cart_contents_count();
+            
+            wp_send_json_success(array(
+                'subtotal' => $subtotal,
+                'total' => $cart_total,
+                'cart_count' => $cart_count,
+                'cart_totals' => true
+            ));
+        } else {
+            wp_send_json_error('Failed to update cart');
+        }
+    } else {
+        wp_send_json_error('Nonce inválido');
     }
-    
-    if ( ! class_exists( 'WooCommerce' ) ) {
-        wp_send_json_error( 'WooCommerce no disponible' );
-    }
-    
-    $cart_item_key = sanitize_text_field( $_POST['key'] );
-    $increase = $_POST['increase'] === '1';
-    
-    $cart = WC()->cart;
-    $cart_item = $cart->get_cart_item( $cart_item_key );
-    
-    if ( ! $cart_item ) {
-        wp_send_json_error( 'Producto no encontrado en el carrito' );
-    }
-    
-    $current_quantity = $cart_item['quantity'];
-    $new_quantity = $increase ? $current_quantity + 1 : max( 1, $current_quantity - 1 );
-    
-    $cart->set_quantity( $cart_item_key, $new_quantity );
-    
-    wp_send_json_success( array(
-        'message' => 'Cantidad actualizada',
-        'new_quantity' => $new_quantity,
-        'cart_count' => $cart->get_cart_contents_count()
-    ) );
 }
 add_action( 'wp_ajax_itools_update_cart_quantity', 'itools_update_cart_quantity' );
 add_action( 'wp_ajax_nopriv_itools_update_cart_quantity', 'itools_update_cart_quantity' );
@@ -1718,4 +1753,27 @@ function itools_checkout_section_titles() {
     });
 }
 add_action( 'init', 'itools_checkout_section_titles' );
+
+// AJAX handler for removing cart item (new version for cart page)
+function itools_remove_cart_item_new() {
+    check_ajax_referer('remove_cart_item', 'security');
+    
+    $cart_item_key = sanitize_text_field($_POST['cart_item_key']);
+    
+    if (empty($cart_item_key)) {
+        wp_send_json_error('Invalid cart item key');
+        return;
+    }
+    
+    // Remove item from cart
+    $removed = WC()->cart->remove_cart_item($cart_item_key);
+    
+    if ($removed) {
+        wp_send_json_success('Item removed successfully');
+    } else {
+        wp_send_json_error('Failed to remove item');
+    }
+}
+add_action('wp_ajax_remove_cart_item', 'itools_remove_cart_item_new');
+add_action('wp_ajax_nopriv_remove_cart_item', 'itools_remove_cart_item_new');
 

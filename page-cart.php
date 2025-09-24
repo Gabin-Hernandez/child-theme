@@ -573,6 +573,13 @@ get_header(); ?>
         <!-- Cart Totals -->
         <div class="cart-totals">
             <h3>Resumen del pedido</h3>
+            
+            <!-- Subtotal -->
+            <div class="totals-row">
+                <span><?php esc_html_e('Subtotal', 'woocommerce'); ?></span>
+                <span class="cart-subtotal-amount"><?php wc_cart_totals_subtotal_html(); ?></span>
+            </div>
+            
             <?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
                 <div class="totals-row">
                     <span><?php wc_cart_totals_coupon_label($coupon); ?></span>
@@ -703,17 +710,115 @@ function updateQuantity(cartItemKey, change) {
     if (input) {
         let currentValue = parseInt(input.value) || 0;
         let newValue = Math.max(0, currentValue + change);
+        
+        // If quantity becomes 0, remove the item
+        if (newValue === 0) {
+            if (confirm('¿Deseas eliminar este producto del carrito?')) {
+                removeCartItem(cartItemKey);
+            }
+            return;
+        }
+        
         input.value = newValue;
         
-        // Auto-submit form to update cart
-        const form = input.closest('form');
-        if (form) {
-            const updateButton = form.querySelector('input[name="update_cart"]');
-            if (updateButton) {
-                updateButton.click();
-            }
-        }
+        // Update cart via AJAX
+        updateCartQuantity(cartItemKey, newValue);
     }
+}
+
+function updateCartQuantity(cartItemKey, quantity) {
+    // Show loading state
+    const cartItem = document.querySelector(`input[name="cart[${cartItemKey}][qty]"]`).closest('.cart-item');
+    if (cartItem) {
+        cartItem.style.opacity = '0.6';
+    }
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('action', 'itools_update_cart_quantity');
+    formData.append('cart_item_key', cartItemKey);
+    formData.append('quantity', quantity);
+    formData.append('security', '<?php echo wp_create_nonce("update_cart_quantity"); ?>');
+    
+    fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update the subtotal for this item
+            const subtotalElement = cartItem.querySelector('.item-subtotal');
+            if (subtotalElement && data.data.subtotal) {
+                subtotalElement.innerHTML = data.data.subtotal;
+            }
+            
+            // Update cart totals section
+            if (data.data.total) {
+                // Update subtotal in cart totals
+                const subtotalRow = document.querySelector('.cart-totals .cart-subtotal-amount');
+                if (subtotalRow) {
+                    subtotalRow.innerHTML = data.data.total;
+                }
+                
+                // Update total in cart totals (find the row with "Total" text)
+                const totalRows = document.querySelectorAll('.cart-totals .totals-row');
+                totalRows.forEach(row => {
+                    const label = row.querySelector('span:first-child');
+                    if (label && (label.textContent.includes('Total') || label.textContent.includes('total'))) {
+                        const totalAmount = row.querySelector('span:last-child');
+                        if (totalAmount) {
+                            totalAmount.innerHTML = data.data.total;
+                        }
+                    }
+                });
+            }
+            
+            // Update cart counter in header
+            if (typeof updateCartCounter === 'function') {
+                updateCartCounter(data.data.cart_count || 0);
+            }
+        } else {
+            alert('Error al actualizar la cantidad');
+            // Revert the input value
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al actualizar la cantidad');
+        location.reload();
+    })
+    .finally(() => {
+        // Remove loading state
+        if (cartItem) {
+            cartItem.style.opacity = '1';
+        }
+    });
+}
+
+function removeCartItem(cartItemKey) {
+    const formData = new FormData();
+    formData.append('action', 'remove_cart_item');
+    formData.append('cart_item_key', cartItemKey);
+    formData.append('security', '<?php echo wp_create_nonce("remove_cart_item"); ?>');
+    
+    fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error al eliminar el producto');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al eliminar el producto');
+    });
 }
 
 function addToCart(productId) {
@@ -724,7 +829,7 @@ function addToCart(productId) {
         quantity: 1
     };
     
-    fetch(wc_add_to_cart_params.ajax_url, {
+    fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
