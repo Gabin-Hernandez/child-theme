@@ -763,6 +763,12 @@ body {
     }
 }
 
+
+/* Ocultar el botón "Ver en carrito" que aparece después de agregar un producto */
+.added_to_cart {
+    display: none !important;
+}
+
 /* Estilo personalizado para el selector de ordenamiento */
 .woocommerce-ordering select {
     padding: 8px 12px !important;
