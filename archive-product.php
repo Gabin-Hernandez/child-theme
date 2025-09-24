@@ -5,22 +5,20 @@
 
 get_header();
 
-// Procesar filtros de URL
-$args = array(
-    'post_type' => 'product',
-    'posts_per_page' => 12,
-    'post_status' => 'publish',
-    'meta_query' => array(
-        array(
-            'key' => '_visibility',
-            'value' => array('catalog', 'visible'),
-            'compare' => 'IN'
-        )
-    )
-);
+// Solo crear consulta personalizada si hay filtros activos
+$has_filters = !empty($_GET['product_categories']) || !empty($_GET['product_brands']) || 
+               !empty($_GET['min_price']) || !empty($_GET['max_price']) || !empty($_GET['orderby']);
 
-// Filtro por categorías
-if (!empty($_GET['product_categories'])) {
+if ($has_filters) {
+    // Procesar filtros de URL
+    $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => 12,
+        'post_status' => 'publish'
+    );
+
+    // Filtro por categorías
+    if (!empty($_GET['product_categories'])) {
     $selected_categories = $_GET['product_categories'];
     if (is_array($selected_categories)) {
         $category_terms = array();
@@ -151,6 +149,12 @@ $args['paged'] = $paged;
 
 // Crear la consulta personalizada
 $products_query = new WP_Query($args);
+
+} else {
+    // Usar la consulta principal de WordPress cuando no hay filtros
+    global $wp_query;
+    $products_query = $wp_query;
+}
 
 ?>
 
