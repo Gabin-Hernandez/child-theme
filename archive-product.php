@@ -159,7 +159,7 @@ $products_query = new WP_Query($args);
     <div class="container mx-auto px-4">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                Tienda de Herramientasx
+                Tienda de Herramientas
             </h1>
             <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
                 Encuentra las mejores herramientas profesionales para tus proyectos
