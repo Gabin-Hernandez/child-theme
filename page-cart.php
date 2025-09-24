@@ -649,13 +649,6 @@ get_header(); ?>
                         'post_type' => 'product',
                         'posts_per_page' => 4,
                         'post_status' => 'publish',
-                        'meta_query' => array(
-                            array(
-                                'key' => '_visibility',
-                                'value' => array('catalog', 'visible'),
-                                'compare' => 'IN'
-                            )
-                        ),
                         'tax_query' => array(
                             array(
                                 'taxonomy' => 'product_cat',
@@ -667,14 +660,12 @@ get_header(); ?>
                         'orderby' => 'rand'
                     );
                 } else {
-                    // Get popular products if no cart categories
+                    // Get any published products if no cart categories
                     $args = array(
                         'post_type' => 'product',
                         'posts_per_page' => 4,
                         'post_status' => 'publish',
-                        'meta_key' => 'total_sales',
-                        'orderby' => 'meta_value_num',
-                        'order' => 'DESC'
+                        'orderby' => 'rand'
                     );
                 }
                 
