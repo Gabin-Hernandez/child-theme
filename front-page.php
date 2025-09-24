@@ -163,13 +163,13 @@ get_header(); ?>
             <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
         </div>
         
-        <!-- Flechas de navegación mejoradas -->
-        <button id="prev-arrow" onclick="prevSlide()" class="absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
+        <!-- Flechas de navegación mejoradas - Ocultas en móvil -->
+        <button id="prev-arrow" onclick="prevSlide()" class="hidden md:block absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
-        <button id="next-arrow" onclick="nextSlide()" class="absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
+        <button id="next-arrow" onclick="nextSlide()" class="hidden md:block absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
