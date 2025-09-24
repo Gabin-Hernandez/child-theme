@@ -378,10 +378,9 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/lcd-y-touch/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/baterias/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/tapa-de-bateria/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/refacciones/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las refacciones</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=pantallas+lcd+touch&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
                         </div>
                     </div>
 
@@ -394,11 +393,10 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/microscopios/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Microscopios</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/estaciones-soldadura/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Estaciones de Soldadura</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/cautines/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cautines</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/destornilladores/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Destornilladores</a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/categoria/herramientas/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las herramientas</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=microscopios&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Microscopios</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=estaciones+de+soldadura&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Estaciones de Soldadura</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=cautines&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cautines</a>
+                            <a href="<?php echo esc_url( home_url( '/?s=destornilladores&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Destornilladores</a>
                         </div>
                     </div>
 
@@ -597,20 +595,18 @@
                 <div>
                     <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Refacciones</h3>
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px;">
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/lcd-y-touch/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Pantallas LCD & Touch</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/baterias/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Baterías</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/tapa-de-bateria/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Carcasas</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/refacciones/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=pantallas+lcd+touch&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Pantallas LCD & Touch</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Baterías</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Carcasas</a>
                     </div>
                 </div>
                 
                 <div>
                     <h3 style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 16px;">Herramientas</h3>
                     <div style="display: flex; flex-direction: column; gap: 8px; margin-left: 16px;">
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/microscopios/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Microscopios</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/estaciones-soldadura/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Estaciones de Soldadura</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/cautines/" style="color: #6b7280; text-decoration: none; font-size: 14px;">Cautines</a>
-                        <a href="https://lightblue-gull-856657.hostingersite.com/categoria/herramientas/" style="color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500;">Ver todas →</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=microscopios&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Microscopios</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=estaciones+de+soldadura&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Estaciones de Soldadura</a>
+                        <a href="<?php echo esc_url( home_url( '/?s=cautines&post_type=product' ) ); ?>" style="color: #6b7280; text-decoration: none; font-size: 14px;">Cautines</a>
                     </div>
                 </div>
                 
