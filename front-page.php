@@ -7,173 +7,163 @@ get_header(); ?>
 
 <main id="main" class="site-main">
     
-    <!-- Hero Principal -->
+    <!-- Hero Principal con Swiper -->
     <section class="relative bg-slate-900">
-        <div id="hero-slider" class="relative">
-            <!-- Slide 1 - Principal -->
-            <div class="slide active h-[600px] md:h-[700px] lg:h-[800px] relative">
-                <!-- Imagen de fondo -->
-                <div class="absolute inset-0">
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
-                         alt="Herramientas para técnicos" 
-                         class="w-full h-full object-cover opacity-70">
-                    <div class="absolute inset-0 bg-slate-900/60"></div>
+        <div class="swiper hero-swiper">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 - Principal -->
+                <div class="swiper-slide">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
+                        <!-- Imagen de fondo -->
+                        <div class="absolute inset-0">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
+                                 alt="Herramientas para técnicos" 
+                                 class="w-full h-full object-cover opacity-70">
+                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                        </div>
+                        
+                        <!-- Contenido -->
+                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
+                                <div class="space-y-8 slide-content">
+                                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                        Líderes en Tecnología
+                                    </div>
+                                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                                        ITOOLS MX
+                                        <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
+                                            Tu socio tecnológico de confianza
+                                        </span>
+                                    </h1>
+                                    <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
+                                        Más de 19,000 productos especializados para profesionales y técnicos en electrónica
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row gap-4">
+                                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                                           class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
+                                            Explorar Catálogo
+                                        </a>
+                                        <a href="#categorias" 
+                                           class="border-2 border-white/50 text-white hover:border-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center">
+                                            Ver Categorías
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Contenido -->
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
-                        <div class="space-y-8">
-                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
-                                Líderes en Tecnología
+                <!-- Slide 2 - Refacciones -->
+                <div class="swiper-slide">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
+                        <div class="absolute inset-0">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
+                                 alt="Refacciones de celulares" 
+                                 class="w-full h-full object-cover opacity-70">
+                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                        </div>
+                        
+                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
+                                <div class="space-y-8 slide-content">
+                                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                        Refacciones Originales
+                                    </div>
+                                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                                        Refacciones
+                                        <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
+                                            Más de 19,000 SKU disponibles
+                                        </span>
+                                    </h2>
+                                    <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
+                                        Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
+                                    </p>
+                                    <a href="/categoria/refacciones/" 
+                                       class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                        Ver Refacciones
+                                    </a>
+                                </div>
                             </div>
-                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                                ITOOLS MX
-                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
-                                    Tu socio tecnológico de confianza
-                                </span>
-                            </h1>
-                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
-                                Más de 19,000 productos especializados para profesionales y técnicos en electrónica
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                                   class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
-                                    Explorar Catálogo
-                                </a>
-                                <a href="#categorias" 
-                                   class="border-2 border-white/50 text-white hover:border-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center">
-                                    Ver Categorías
-                                </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 - Pantallas -->
+                <div class="swiper-slide">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
+                        <div class="absolute inset-0">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
+                                 alt="Pantallas y displays" 
+                                 class="w-full h-full object-cover opacity-70">
+                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                        </div>
+                        
+                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
+                                <div class="space-y-8 slide-content">
+                                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                        Tecnología Avanzada
+                                    </div>
+                                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                                        Pantallas
+                                        <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
+                                            LCD, OLED y Touch de última generación
+                                        </span>
+                                    </h2>
+                                    <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
+                                        Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
+                                    </p>
+                                    <a href="/categoria/lcd-y-touch/" 
+                                       class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                        Ver Pantallas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4 - Baterías -->
+                <div class="swiper-slide">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
+                        <div class="absolute inset-0">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
+                                 alt="Baterías y accesorios" 
+                                 class="w-full h-full object-cover opacity-70">
+                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                        </div>
+                        
+                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl">
+                                <div class="space-y-8 slide-content">
+                                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                        Energía Confiable
+                                    </div>
+                                    <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                                        Baterías
+                                        <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
+                                            Máxima duración y rendimiento
+                                        </span>
+                                    </h2>
+                                    <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
+                                        Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
+                                    </p>
+                                    <a href="/categoria/baterias/" 
+                                       class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                        Ver Baterías
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Slide 2 - Refacciones -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
-                <div class="absolute inset-0">
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                         alt="Refacciones de celulares" 
-                         class="w-full h-full object-cover opacity-70">
-                    <div class="absolute inset-0 bg-slate-900/60"></div>
-                </div>
-                
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
-                        <div class="space-y-8">
-                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
-                                Refacciones Originales
-                            </div>
-                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                                Refacciones
-                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
-                                    Más de 19,000 SKU disponibles
-                                </span>
-                            </h2>
-                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
-                                Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
-                            </p>
-                            <a href="/categoria/refacciones/" 
-                               class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
-                                Ver Refacciones
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 3 - Pantallas -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
-                <div class="absolute inset-0">
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                         alt="Pantallas y displays" 
-                         class="w-full h-full object-cover opacity-70">
-                    <div class="absolute inset-0 bg-slate-900/60"></div>
-                </div>
-                
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
-                        <div class="space-y-8">
-                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
-                                Tecnología Avanzada
-                            </div>
-                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                                Pantallas
-                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
-                                    LCD, OLED y Touch de última generación
-                                </span>
-                            </h2>
-                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
-                                Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
-                            </p>
-                            <a href="/categoria/lcd-y-touch/" 
-                               class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
-                                Ver Pantallas
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 4 - Baterías -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
-                <div class="absolute inset-0">
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
-                         alt="Baterías y accesorios" 
-                         class="w-full h-full object-cover opacity-70">
-                    <div class="absolute inset-0 bg-slate-900/60"></div>
-                </div>
-                
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
-                        <div class="space-y-8">
-                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
-                                Energía Confiable
-                            </div>
-                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                                Baterías
-                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
-                                    Máxima duración y rendimiento
-                                </span>
-                            </h2>
-                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
-                                Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
-                            </p>
-                            <a href="/categoria/baterias/" 
-                               class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
-                                Ver Baterías
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Navegación del slider -->
-        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 bg-black/50 backdrop-blur-sm px-6 py-3 rounded-full" style="z-index: 9999;">
-            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
-        </div>
-        
-        <!-- Flechas de navegación -->
-        <button id="prev-arrow" onclick="prevSlide()" class="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300" style="z-index: 9999;">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button id="next-arrow" onclick="nextSlide()" class="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300" style="z-index: 9999;">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-        
-        <!-- Indicador de progreso -->
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
-            <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300"></div>
+            <!-- Navegación Swiper -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
 
@@ -1103,120 +1093,7 @@ get_header(); ?>
 
 <?php get_footer(); ?>
 
-<!-- JavaScript del Slider Mejorado -->
-<script>
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.slider-dot');
-const progressBar = document.getElementById('progress-bar');
-const totalSlides = slides.length;
-let slideInterval;
-let progressInterval;
-
-// Configurar slider automático simplificado
-function startAutoSlider() {
-    slideInterval = setInterval(() => {
-        nextSlide();
-    }, 5000); // Cambio cada 5 segundos
-    
-    updateProgressBar();
-}
-
-function updateProgressBar() {
-    progressBar.style.width = '0%';
-    progressBar.style.transition = 'width 5000ms linear';
-    
-    setTimeout(() => {
-        progressBar.style.width = '100%';
-    }, 50);
-}
-
-function resetProgress() {
-    progressBar.style.transition = 'none';
-    progressBar.style.width = '0%';
-    setTimeout(() => {
-        progressBar.style.transition = 'width 5000ms linear';
-        progressBar.style.width = '100%';
-    }, 100);
-}
-
-function showSlide(index) {
-    // Si es el mismo slide, no hacer nada
-    if (index === currentSlide) return;
-    
-    // Actualizar dots
-    dots[currentSlide].classList.remove('bg-white');
-    dots[currentSlide].classList.add('bg-white/50');
-    
-    // Remover clases activas del slide actual
-    slides[currentSlide].classList.remove('active', 'slide-in');
-    slides[currentSlide].classList.add('slide-out');
-    
-    // Después de un pequeño delay, mostrar el nuevo slide
-    setTimeout(() => {
-        // Ocultar todos los slides
-        slides.forEach(slide => {
-            slide.classList.remove('active', 'slide-in', 'slide-out');
-        });
-        
-        // Mostrar el nuevo slide con animación
-        slides[index].classList.add('active', 'slide-in');
-        
-        // Actualizar dots activos
-        dots[index].classList.remove('bg-white/50');
-        dots[index].classList.add('bg-white');
-        
-        currentSlide = index;
-    }, 100);
-}
-
-function changeSlide(index) {
-    showSlide(index);
-    
-    // Reiniciar auto slider
-    clearInterval(slideInterval);
-    resetProgress();
-    setTimeout(startAutoSlider, 100);
-}
-
-function nextSlide() {
-    const next = (currentSlide + 1) % totalSlides;
-    showSlide(next);
-}
-
-function prevSlide() {
-    const prev = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(prev);
-}
-
-// Inicializar slider
-document.addEventListener('DOMContentLoaded', function() {
-    // Configurar el primer slide como activo
-    if (slides[0]) {
-        slides[0].classList.add('active');
-        // Remover la clase hidden de todos los slides inicialmente
-        slides.forEach(slide => slide.classList.remove('hidden'));
-    }
-    
-    // Marcar el primer dot como activo
-    if (dots[0]) {
-        dots[0].classList.add('bg-white');
-        dots[0].classList.remove('bg-white/50');
-    }
-    
-    // Iniciar slider automático
-    setTimeout(startAutoSlider, 1000);
-    
-    // Pausar en hover
-    const sliderContainer = document.getElementById('hero-slider');
-    sliderContainer.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-    });
-    
-    sliderContainer.addEventListener('mouseleave', () => {
-        startAutoSlider();
-    });
-});
+<!-- Hero Swiper ya está configurado en hero-swiper.js -->
 
 // Smooth scroll para enlaces internos
 document.addEventListener('DOMContentLoaded', function() {

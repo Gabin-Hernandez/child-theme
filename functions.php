@@ -10,6 +10,29 @@ function itools_enqueue_styles() {
     // Encolar Font Awesome para el botón de WhatsApp
     wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', array(), '6.0.0' );
     
+    // Encolar Swiper.js CSS
+    wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0' );
+    
+    // Encolar CSS personalizado del Hero Swiper
+    wp_enqueue_style( 
+        'hero-swiper-css', 
+        get_stylesheet_directory_uri() . '/css/hero-swiper.css', 
+        array('swiper-css'), 
+        '1.0.0' 
+    );
+    
+    // Encolar Swiper.js JavaScript
+    wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.0', true );
+    
+    // Encolar JavaScript personalizado del Hero Swiper
+    wp_enqueue_script( 
+        'hero-swiper-js', 
+        get_stylesheet_directory_uri() . '/js/hero-swiper.js', 
+        array('swiper-js'), 
+        '1.0.0', 
+        true 
+    );
+    
     // Encolar CSS del sidepanel del carrito
     wp_enqueue_style( 
         'itools-cart-sidepanel', 
