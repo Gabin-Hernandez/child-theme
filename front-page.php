@@ -1389,6 +1389,20 @@ function updateCartCount(count) {
         }
     });
     
+    // Actualizar los nuevos badges del contador del carrito
+    const badge = document.getElementById('cart-count-badge');
+    const badgeFallback = document.getElementById('cart-count-badge-fallback');
+    
+    if (badge) {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    }
+    
+    if (badgeFallback) {
+        badgeFallback.textContent = count;
+        badgeFallback.style.display = count > 0 ? 'flex' : 'none';
+    }
+    
     // Añadir efecto visual al link del carrito
     const cartLink = document.getElementById('cart-link');
     if (cartLink) {
