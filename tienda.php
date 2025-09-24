@@ -95,12 +95,12 @@ include_once 'test-products.php';
                         <?php
                         global $test_categories_data;
                         foreach ($test_categories_data as $category) {
-                            $is_active = isset($_GET['product_cat']) && in_array($category['id'], explode(',', $_GET['product_cat']));
+                            $is_active = isset($_GET['product_cat']) && in_array($category['slug'], explode(',', $_GET['product_cat']));
                             $active_class = $is_active ? 'text-blue-600 font-semibold' : 'text-gray-600 hover:text-blue-600';
                             echo '<li>';
                             echo '<label class="flex items-center justify-between cursor-pointer ' . $active_class . '">';
                             echo '<span class="flex items-center">';
-                            echo '<input type="checkbox" class="category-filter mr-2" value="' . $category['id'] . '" ' . ($is_active ? 'checked' : '') . '>';
+                            echo '<input type="checkbox" class="category-filter mr-2" value="' . $category['slug'] . '" ' . ($is_active ? 'checked' : '') . '>';
                             echo $category['name'];
                             echo '</span>';
                             echo '<span class="text-sm text-gray-500">(' . $category['count'] . ')</span>';
@@ -308,16 +308,20 @@ include_once 'test-products.php';
             const categoryFilters = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
             const brandFilters = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
             
-            const url = new URL(window.location);
+            // Construir URL base para WooCommerce
+            const baseUrl = window.location.origin + window.location.pathname;
+            const url = new URL(baseUrl);
             
-            // Limpiar parámetros existentes
-            url.searchParams.delete('product_cat');
-            url.searchParams.delete('product_brand');
+            // Agregar parámetros WooCommerce requeridos
+            url.searchParams.set('post_type', 'product');
+            url.searchParams.set('s', '');
             
-            // Agregar nuevos filtros
+            // Agregar filtros de categoría
             if (categoryFilters.length > 0) {
                 url.searchParams.set('product_cat', categoryFilters.join(','));
             }
+            
+            // Agregar filtros de marca
             if (brandFilters.length > 0) {
                 url.searchParams.set('product_brand', brandFilters.join(','));
             }
@@ -333,12 +337,8 @@ include_once 'test-products.php';
         
         // Limpiar filtros
         document.getElementById('clear-filters').addEventListener('click', function() {
-            const url = new URL(window.location);
-            url.searchParams.delete('product_cat');
-            url.searchParams.delete('product_brand');
-            url.searchParams.delete('min_price');
-            url.searchParams.delete('max_price');
-            window.location.href = url.toString();
+            const baseUrl = window.location.origin + window.location.pathname;
+            window.location.href = baseUrl;
         });
         
         // Simulación de agregar al carrito

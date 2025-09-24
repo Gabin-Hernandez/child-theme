@@ -84,8 +84,8 @@ function filter_test_products($products, $categories, $brands) {
     if (isset($_GET['product_cat']) && !empty($_GET['product_cat'])) {
         $category_filter = explode(',', $_GET['product_cat']);
         $filtered = array_filter($filtered, function($product) use ($category_filter) {
-            return in_array($product['category_id'], $category_filter) || 
-                   in_array($product['category'], $category_filter);
+            return in_array($product['category'], $category_filter) || 
+                   in_array($product['category_id'], $category_filter);
         });
     }
     
