@@ -349,6 +349,29 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </h4>
                             
                             <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
+                                <!-- Enlace para todas las categorías -->
+                                <?php 
+                                $all_categories_url = home_url('/?post_type=product&s=');
+                                $is_all_categories = empty($_GET['product_cat']);
+                                ?>
+                                <a href="<?php echo esc_url($all_categories_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_all_categories ? 'bg-blue-50 border-blue-300' : ''; ?>">
+                                    <div class="relative">
+                                        <div class="w-5 h-5 bg-gradient-to-br from-gray-400 to-gray-600 rounded-lg flex items-center justify-center">
+                                            <?php if ($is_all_categories) : ?>
+                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <span class="text-gray-700 font-medium group-hover:text-blue-700 transition-colors <?php echo $is_all_categories ? 'text-blue-700 font-semibold' : ''; ?>">
+                                            Todas las categorías
+                                        </span>
+                                        <div class="text-sm text-gray-500">Ver todos los productos</div>
+                                    </div>
+                                </a>
+                                
                                 <?php
                                 $product_categories = get_terms( array(
                                     'taxonomy' => 'product_cat',
@@ -358,25 +381,28 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                                 if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
                                     foreach ( $product_categories as $category ) :
-                                        $category_url = get_term_link( $category );
-                                        $is_current = is_tax( 'product_cat', $category->term_id );
+                                        // Create correct URL format: ?post_type=product&s=&product_cat=slug
+                                        $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
+                                        $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                 ?>
-                                    <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200">
+                                    <a href="<?php echo esc_url($category_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
                                         <div class="relative">
-                                            <input type="checkbox" 
-                                                   value="<?php echo $category->term_id; ?>" 
-                                                   name="product_categories[]"
-                                                   class="category-filter w-5 h-5 text-blue-600 rounded-lg focus:ring-blue-500 focus:ring-2 border-gray-300"
-                                                   <?php checked( $is_current ); ?>>
+                                            <div class="w-5 h-5 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                                <?php if ($is_current) : ?>
+                                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                <?php endif; ?>
+                                            </div>
                                             <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                                         </div>
                                         <div class="flex-1">
-                                            <span class="text-gray-700 font-medium group-hover:text-blue-700 transition-colors">
+                                            <span class="text-gray-700 font-medium group-hover:text-blue-700 transition-colors <?php echo $is_current ? 'text-blue-700 font-semibold' : ''; ?>">
                                                 <?php echo esc_html( $category->name ); ?>
                                             </span>
                                             <div class="text-sm text-gray-500"><?php echo $category->count; ?> productos</div>
                                         </div>
-                                    </label>
+                                    </a>
                                 <?php 
                                     endforeach;
                                 endif;
@@ -1163,12 +1189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             searchParams.set('max_price', maxPrice.value);
         }
         
-        // Filtros de categorías
-        const categoryFilters = document.querySelectorAll('.category-filter:checked');
-        if (categoryFilters.length > 0) {
-            const categories = Array.from(categoryFilters).map(cb => cb.value);
-            searchParams.set('product_cat', categories.join(','));
-        }
+        // Las categorías ahora usan enlaces directos, no checkboxes
         
         // Filtros de marcas
         const brandFilters = document.querySelectorAll('.brand-filter:checked');
@@ -1188,8 +1209,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para limpiar filtros con animación
     function clearAllFilters() {
-        // Animación de limpiar
-        document.querySelectorAll('.category-filter, .brand-filter').forEach(cb => {
+        // Animación de limpiar - solo para marcas ya que categorías son enlaces directos
+        document.querySelectorAll('.brand-filter').forEach(cb => {
             if (cb.checked) {
                 cb.checked = false;
                 cb.closest('label').style.backgroundColor = '#fee2e2';
@@ -1212,9 +1233,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Redirigir después de la animación
+        // Redirigir después de la animación - ir a la tienda sin filtros
         setTimeout(() => {
-            const baseUrl = window.location.pathname;
+            const baseUrl = window.location.origin + '/?post_type=product&s=';
             window.location.href = baseUrl;
         }, 400);
     }
@@ -1262,15 +1283,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('max_price').value = maxPrice;
         }
         
-        // Cargar categorías
-        const categories = urlParams.get('product_cat');
-        if (categories) {
-            const categoryIds = categories.split(',');
-            categoryIds.forEach(id => {
-                const checkbox = document.querySelector(`.category-filter[value="${id}"]`);
-                if (checkbox) checkbox.checked = true;
-            });
-        }
+        // Las categorías ahora se manejan automáticamente con enlaces directos y estado visual
         
         // Cargar marcas
         const brands = urlParams.get('product_brand');
