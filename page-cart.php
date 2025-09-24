@@ -614,7 +614,7 @@ get_header(); ?>
                             echo apply_filters(
                                 'woocommerce_cart_item_remove_link',
                                 sprintf(
-                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s"><i data-lucide="trash-2"></i> Eliminar</button>',
+                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s"><i data-lucide="trash-2"></i></button>',
                                     esc_attr($cart_item_key),
                                     esc_html__('Remove this item', 'woocommerce')
                                 ),
