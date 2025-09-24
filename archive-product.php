@@ -1,9 +1,158 @@
-﻿<?php
+<?php
 /**
  * Archivo de productos (tienda) - ITOOLS
  */
 
-get_header(); ?>
+get_header();
+
+// Procesar filtros de URL
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 12,
+    'post_status' => 'publish',
+    'meta_query' => array(
+        array(
+            'key' => '_visibility',
+            'value' => array('catalog', 'visible'),
+            'compare' => 'IN'
+        )
+    )
+);
+
+// Filtro por categorías
+if (!empty($_GET['product_categories'])) {
+    $selected_categories = $_GET['product_categories'];
+    if (is_array($selected_categories)) {
+        $category_terms = array();
+        foreach ($selected_categories as $cat) {
+            if (is_numeric($cat)) {
+                $category_terms[] = intval($cat);
+            } else {
+                $term = get_term_by('slug', sanitize_text_field($cat), 'product_cat');
+                if ($term) {
+                    $category_terms[] = $term->term_id;
+                }
+            }
+        }
+        if (!empty($category_terms)) {
+            $args['tax_query'][] = array(
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_terms,
+                'operator' => 'IN'
+            );
+        }
+    } else {
+        // Si es una cadena separada por comas
+        $categories = explode(',', sanitize_text_field($selected_categories));
+        $category_terms = array();
+        foreach ($categories as $cat) {
+            $cat = trim($cat);
+            if (is_numeric($cat)) {
+                $category_terms[] = intval($cat);
+            } else {
+                $term = get_term_by('slug', $cat, 'product_cat');
+                if ($term) {
+                    $category_terms[] = $term->term_id;
+                }
+            }
+        }
+        if (!empty($category_terms)) {
+            $args['tax_query'][] = array(
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_terms,
+                'operator' => 'IN'
+            );
+        }
+    }
+}
+
+// Filtro por marcas
+if (!empty($_GET['product_brands'])) {
+    $selected_brands = $_GET['product_brands'];
+    if (is_array($selected_brands)) {
+        $brand_terms = array_map('intval', $selected_brands);
+    } else {
+        $brands = explode(',', sanitize_text_field($selected_brands));
+        $brand_terms = array_map('intval', array_map('trim', $brands));
+    }
+    if (!empty($brand_terms)) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'product_brand',
+            'field' => 'term_id',
+            'terms' => $brand_terms,
+            'operator' => 'IN'
+        );
+    }
+}
+
+// Filtro por precio
+if (!empty($_GET['min_price']) || !empty($_GET['max_price'])) {
+    $price_query = array('relation' => 'AND');
+    
+    if (!empty($_GET['min_price'])) {
+        $min_price = floatval($_GET['min_price']);
+        $price_query[] = array(
+            'key' => '_price',
+            'value' => $min_price,
+            'compare' => '>=',
+            'type' => 'NUMERIC'
+        );
+    }
+    
+    if (!empty($_GET['max_price'])) {
+        $max_price = floatval($_GET['max_price']);
+        $price_query[] = array(
+            'key' => '_price',
+            'value' => $max_price,
+            'compare' => '<=',
+            'type' => 'NUMERIC'
+        );
+    }
+    
+    $args['meta_query'][] = $price_query;
+}
+
+// Ordenamiento
+if (!empty($_GET['orderby'])) {
+    $orderby = sanitize_text_field($_GET['orderby']);
+    switch ($orderby) {
+        case 'popularity':
+            $args['meta_key'] = 'total_sales';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+        case 'rating':
+            $args['meta_key'] = '_wc_average_rating';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+        case 'date':
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            break;
+        case 'price':
+            $args['meta_key'] = '_price';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'ASC';
+            break;
+        case 'price-desc':
+            $args['meta_key'] = '_price';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+    }
+}
+
+// Paginación
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$args['paged'] = $paged;
+
+// Crear la consulta personalizada
+$products_query = new WP_Query($args);
+
+?>
 
 <!-- Hero Section Moderno -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
@@ -320,6 +469,8 @@ get_header(); ?>
                     </div>
                 </aside>
 
+                <?php if ( $products_query->have_posts() ) : ?>
+
                 <!-- Contenido principal -->
                 <main class="flex-1 w-full xl:w-auto">
                     
@@ -332,10 +483,10 @@ get_header(); ?>
                                 <div class="w-2 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
                                 <div>
                                     <?php
-                                    $total_products = wc_get_loop_prop( 'total' );
+                                    $total_products = $products_query->found_posts;
                                     if ( $total_products ) :
                                         $current_page = max( 1, get_query_var( 'paged' ) );
-                                        $per_page = wc_get_loop_prop( 'per_page' );
+                                        $per_page = $products_query->query_vars['posts_per_page'];
                                         $first = ( $current_page - 1 ) * $per_page + 1;
                                         $last = min( $total_products, $current_page * $per_page );
                                     ?>
@@ -384,8 +535,8 @@ get_header(); ?>
                             $columns = wc_get_default_products_per_row();
                         }
 
-                        while ( have_posts() ) {
-                            the_post();
+                        while ( $products_query->have_posts() ) {
+                            $products_query->the_post();
                             do_action( 'woocommerce_shop_loop' );
                             
                             // Template personalizado de producto
@@ -581,6 +732,8 @@ get_header(); ?>
 
     </div>
 </div>
+
+<?php endif; ?>
 
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
 <style>
