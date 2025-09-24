@@ -119,6 +119,7 @@ class NewCartSidepanel {
         
         // Carrito actualizado
         document.body.addEventListener('updated_wc_div', () => {
+            this.updateCartCounter();
             if (this.isOpen) {
                 this.loadCartData();
             }
@@ -127,6 +128,23 @@ class NewCartSidepanel {
         // Fragmentos actualizados
         document.body.addEventListener('wc_fragments_refreshed', () => {
             this.updateCartCounter();
+        });
+        
+        // Escuchar eventos personalizados de actualización del carrito
+        document.addEventListener('cart_updated', () => {
+            this.updateCartCounter();
+        });
+        
+        // Escuchar cambios en formularios de cantidad (para páginas de producto)
+        document.addEventListener('change', (e) => {
+            if (e.target.matches('input[name="quantity"]') || 
+                e.target.matches('.qty') || 
+                e.target.classList.contains('quantity-input')) {
+                // Pequeño delay para permitir que se procese el cambio
+                setTimeout(() => {
+                    this.updateCartCounter();
+                }, 500);
+            }
         });
     }
     
@@ -474,6 +492,7 @@ class NewCartSidepanel {
             
             if (result.success) {
                 this.loadCartData();
+                this.updateCartCounter();
                 this.showNotification('Cantidad actualizada');
             } else {
                 throw new Error(result.data || 'Error al actualizar cantidad');
@@ -509,6 +528,7 @@ class NewCartSidepanel {
             
             if (result.success) {
                 this.loadCartData();
+                this.updateCartCounter();
                 this.showNotification('Producto eliminado del carrito');
             } else {
                 throw new Error(result.data || 'Error al eliminar producto');
@@ -525,6 +545,7 @@ class NewCartSidepanel {
     handleProductAdded(data) {
         this.showNotification('Producto agregado al carrito');
         this.loadCartData();
+        this.updateCartCounter();
         
         // Abrir el sidepanel automáticamente
         setTimeout(() => {

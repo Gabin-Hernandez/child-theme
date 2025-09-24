@@ -80,6 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for WooCommerce cart updates
     document.body.addEventListener('added_to_cart', animateCartUpdate);
     
+    // Listen for cart counter updates from global manager
+    document.addEventListener('cart_count_updated', (e) => {
+        animateCartUpdate();
+        console.log('Cart count updated to:', e.detail.count);
+    });
+    
     // Enhanced Cart Functionality
     window.addToCartEnhanced = function(productId, quantity = 1) {
         if (typeof wc_add_to_cart_params !== 'undefined') {

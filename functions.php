@@ -36,8 +36,23 @@ function itools_enqueue_styles() {
         true 
     );
     
+    // Encolar JavaScript global del carrito para actualizaciones dinámicas
+    wp_enqueue_script( 
+        'itools-cart-global', 
+        get_stylesheet_directory_uri() . '/js/cart-global.js', 
+        array('jquery'), 
+        '1.0.0', 
+        true 
+    );
+    
     // Localizar script del carrito con datos AJAX
     wp_localize_script( 'itools-cart-sidepanel', 'itools_cart_ajax', array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce' => wp_create_nonce( 'itools_cart_nonce' )
+    ));
+    
+    // Localizar también el script global del carrito
+    wp_localize_script( 'itools-cart-global', 'itools_cart_ajax', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),
         'nonce' => wp_create_nonce( 'itools_cart_nonce' )
     ));
