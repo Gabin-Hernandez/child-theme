@@ -9,9 +9,9 @@ get_header(); ?>
     
     <!-- Hero Principal -->
     <section class="bg-slate-900">
-        <div id="hero-slider" class="relative">
+        <div id="hero-slider" class="">
             <!-- Slide 1 - Principal -->
-            <div class="slide active h-[600px] md:h-[700px] lg:h-[800px] relative">
+            <div class="slide active h-[600px] md:h-[700px] lg:h-[800px]">
                 <!-- Imagen de fondo -->
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
@@ -21,7 +21,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Contenido -->
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="space-y-8">
                             <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
@@ -52,7 +52,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 2 - Refacciones -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                          alt="Refacciones de celulares" 
@@ -60,7 +60,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="space-y-8">
                             <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
@@ -85,7 +85,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 3 - Pantallas -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                          alt="Pantallas y displays" 
@@ -93,7 +93,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="space-y-8">
                             <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
@@ -118,7 +118,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 4 - Baterías -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                          alt="Baterías y accesorios" 
@@ -126,7 +126,7 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 z-10 h-full flex items-center">
                     <div class="max-w-3xl">
                         <div class="space-y-8">
                             <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
