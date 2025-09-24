@@ -45,6 +45,12 @@ function itools_enqueue_styles() {
         true 
     );
     
+    // Encolar scripts de WooCommerce para AJAX add to cart
+    if ( function_exists( 'is_woocommerce' ) ) {
+        wp_enqueue_script( 'wc-add-to-cart' );
+        wp_enqueue_script( 'woocommerce' );
+    }
+    
     // Localizar script del carrito con datos AJAX
     wp_localize_script( 'itools-cart-sidepanel', 'itools_cart_ajax', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),

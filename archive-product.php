@@ -643,9 +643,13 @@ $products_query = new WP_Query($args);
                                         <div>
                                             <?php if ( $product ) : ?>
                                                 <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
-                                                        Agregar al carrito
-                                                    </button>
+                                                    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" 
+                                                       data-quantity="1" 
+                                                       data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" 
+                                                       data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" 
+                                                       class="add_to_cart_button ajax_add_to_cart w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md inline-block text-center">
+                                                        <?php echo esc_html( $product->add_to_cart_text() ); ?>
+                                                    </a>
                                                 <?php else : ?>
                                                     <button class="w-full bg-gray-300 text-gray-600 py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed">
                                                         No disponible
