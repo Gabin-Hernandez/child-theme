@@ -107,11 +107,13 @@ function itools_woocommerce_setup() {
 }
 add_action('after_setup_theme', 'itools_woocommerce_setup');
 
-// Manejar filtros personalizados de marca
-function itools_handle_brand_filter($query) {
+// Manejar filtros personalizados de marca y categorías
+function itools_handle_product_filters($query) {
     if (!is_admin() && $query->is_main_query()) {
-        // Solo aplicar en páginas de tienda y archivo de productos
+        // Solo aplicar en páginas de tienda, categorías de productos y taxonomías
         if (is_shop() || is_product_category() || is_product_taxonomy()) {
+            
+            $tax_query = array();
             
             // Manejar filtro de marca desde URL
             if (isset($_GET['product_brand']) && !empty($_GET['product_brand'])) {
@@ -119,7 +121,7 @@ function itools_handle_brand_filter($query) {
                 
                 // Buscar en diferentes taxonomías de marca
                 $brand_taxonomies = array('product_brand', 'pa_marca', 'pa_brand');
-                $tax_query = array();
+                $brand_tax_query = array();
                 
                 foreach ($brand_taxonomies as $taxonomy) {
                     if (taxonomy_exists($taxonomy)) {
@@ -145,7 +147,7 @@ function itools_handle_brand_filter($query) {
                         }
                         
                         if (!empty($brand_terms)) {
-                            $tax_query[] = array(
+                            $brand_tax_query[] = array(
                                 'taxonomy' => $taxonomy,
                                 'field'    => 'term_id',
                                 'terms'    => $brand_terms,
@@ -155,23 +157,61 @@ function itools_handle_brand_filter($query) {
                     }
                 }
                 
-                if (!empty($tax_query)) {
-                    $existing_tax_query = $query->get('tax_query') ?: array();
-                    
-                    if (count($tax_query) > 1) {
-                        $tax_query['relation'] = 'OR';
+                if (!empty($brand_tax_query)) {
+                    if (count($brand_tax_query) > 1) {
+                        $brand_tax_query['relation'] = 'OR';
                     }
-                    
-                    $existing_tax_query[] = $tax_query;
-                    $existing_tax_query['relation'] = 'AND';
-                    
-                    $query->set('tax_query', $existing_tax_query);
+                    $tax_query[] = $brand_tax_query;
                 }
+            }
+            
+            // Manejar filtro de categorías adicionales desde URL
+            if (isset($_GET['product_categories']) && !empty($_GET['product_categories'])) {
+                $categories = explode(',', sanitize_text_field($_GET['product_categories']));
+                
+                $category_terms = array();
+                foreach ($categories as $category) {
+                    if (is_numeric($category)) {
+                        // Es un ID
+                        $category_terms[] = intval($category);
+                    } else {
+                        // Es un slug, convertir a ID
+                        $term = get_term_by('slug', $category, 'product_cat');
+                        if ($term) {
+                            $category_terms[] = $term->term_id;
+                        }
+                    }
+                }
+                
+                if (!empty($category_terms)) {
+                    $tax_query[] = array(
+                        'taxonomy' => 'product_cat',
+                        'field'    => 'term_id',
+                        'terms'    => $category_terms,
+                        'operator' => 'IN',
+                    );
+                }
+            }
+            
+            // Aplicar tax_query si hay filtros
+            if (!empty($tax_query)) {
+                $existing_tax_query = $query->get('tax_query') ?: array();
+                
+                // Si ya hay una consulta de taxonomía (como estar en una categoría específica)
+                if (!empty($existing_tax_query)) {
+                    $tax_query[] = $existing_tax_query;
+                }
+                
+                if (count($tax_query) > 1) {
+                    $tax_query['relation'] = 'AND';
+                }
+                
+                $query->set('tax_query', $tax_query);
             }
         }
     }
 }
-add_action('pre_get_posts', 'itools_handle_brand_filter');
+add_action('pre_get_posts', 'itools_handle_product_filters');
 
 // JavaScript para actualizar contador del carrito dinámicamente
 function itools_cart_update_script() {
@@ -359,23 +399,11 @@ function itools_modify_search_query( $query ) {
             
             // Si se seleccionó una categoría específica
             if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
-                $categories = explode(',', sanitize_text_field($_GET['product_cat']));
-                
-                // Determinar si son IDs o slugs
-                $field = 'term_id';
-                if (!empty($categories)) {
-                    // Si el primer elemento no es numérico, asumir que son slugs
-                    if (!is_numeric($categories[0])) {
-                        $field = 'slug';
-                    }
-                }
-                
                 $query->set( 'tax_query', array(
                     array(
                         'taxonomy' => 'product_cat',
-                        'field'    => $field,
-                        'terms'    => $categories,
-                        'operator' => 'IN'
+                        'field'    => 'slug',
+                        'terms'    => sanitize_text_field($_GET['product_cat'])
                     )
                 ));
             }
@@ -448,31 +476,14 @@ function itools_filter_products_by_price( $query ) {
             $categories = explode(',', sanitize_text_field($_GET['product_cat']));
             $tax_query = $query->get( 'tax_query' ) ?: array();
             
-            // Determinar si son IDs o slugs
-            $field = 'term_id';
-            if (!empty($categories)) {
-                // Si el primer elemento no es numérico, asumir que son slugs
-                if (!is_numeric($categories[0])) {
-                    $field = 'slug';
-                }
-            }
-            
             $tax_query[] = array(
                 'taxonomy' => 'product_cat',
-                'field'    => $field,
+                'field'    => 'term_id',
                 'terms'    => $categories,
                 'operator' => 'IN'
             );
             
-            // Si ya hay tax_query existente, combinar con AND
-            if (count($tax_query) > 1) {
-                $tax_query['relation'] = 'AND';
-            }
-            
             $query->set( 'tax_query', $tax_query );
-            
-            // Debug para ver qué categorías se están filtrando
-            error_log('Filtro de categorías activo: ' . print_r($categories, true) . ' usando field: ' . $field);
         }
         
         if ( !empty($meta_query) ) {

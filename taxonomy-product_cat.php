@@ -10,6 +10,158 @@ $queried_object = get_queried_object();
 $category_name = $queried_object->name;
 $category_slug = $queried_object->slug;
 $category_description = $queried_object->description;
+
+// Procesar filtros de URL
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 12,
+    'post_status' => 'publish',
+    'meta_query' => array(
+        array(
+            'key' => '_visibility',
+            'value' => array('catalog', 'visible'),
+            'compare' => 'IN'
+        )
+    ),
+    'tax_query' => array(
+        'relation' => 'AND',
+        array(
+            'taxonomy' => 'product_cat',
+            'field' => 'slug',
+            'terms' => $category_slug,
+        )
+    )
+);
+
+// Filtro por categorías adicionales
+if (!empty($_GET['product_categories'])) {
+    $selected_categories = $_GET['product_categories'];
+    if (is_array($selected_categories)) {
+        $category_terms = array();
+        foreach ($selected_categories as $cat) {
+            if (is_numeric($cat)) {
+                $category_terms[] = intval($cat);
+            } else {
+                $term = get_term_by('slug', sanitize_text_field($cat), 'product_cat');
+                if ($term) {
+                    $category_terms[] = $term->term_id;
+                }
+            }
+        }
+        if (!empty($category_terms)) {
+            $args['tax_query'][] = array(
+                'taxonomy' => 'product_cat',
+                'field' => 'term_id',
+                'terms' => $category_terms,
+                'operator' => 'IN'
+            );
+        }
+    }
+}
+
+// Filtro por marcas
+if (!empty($_GET['product_brands'])) {
+    $selected_brands = $_GET['product_brands'];
+    if (is_array($selected_brands)) {
+        $brand_terms = array();
+        $brand_taxonomies = array('product_brand', 'pa_marca', 'pa_brand');
+        
+        foreach ($selected_brands as $brand) {
+            foreach ($brand_taxonomies as $taxonomy) {
+                if (is_numeric($brand)) {
+                    $term = get_term($brand, $taxonomy);
+                } else {
+                    $term = get_term_by('slug', sanitize_text_field($brand), $taxonomy);
+                }
+                
+                if ($term && !is_wp_error($term)) {
+                    $brand_terms[] = array(
+                        'taxonomy' => $taxonomy,
+                        'field' => 'term_id',
+                        'terms' => $term->term_id
+                    );
+                    break;
+                }
+            }
+        }
+        
+        if (!empty($brand_terms)) {
+            if (count($brand_terms) == 1) {
+                $args['tax_query'][] = $brand_terms[0];
+            } else {
+                $args['tax_query'][] = array(
+                    'relation' => 'OR',
+                    ...$brand_terms
+                );
+            }
+        }
+    }
+}
+
+// Filtro por precio
+if (!empty($_GET['min_price']) || !empty($_GET['max_price'])) {
+    $price_query = array('relation' => 'AND');
+    
+    if (!empty($_GET['min_price'])) {
+        $price_query[] = array(
+            'key' => '_price',
+            'value' => floatval($_GET['min_price']),
+            'compare' => '>=',
+            'type' => 'NUMERIC'
+        );
+    }
+    
+    if (!empty($_GET['max_price'])) {
+        $price_query[] = array(
+            'key' => '_price',
+            'value' => floatval($_GET['max_price']),
+            'compare' => '<=',
+            'type' => 'NUMERIC'
+        );
+    }
+    
+    $args['meta_query'][] = $price_query;
+}
+
+// Ordenamiento
+if (!empty($_GET['orderby'])) {
+    switch ($_GET['orderby']) {
+        case 'price':
+            $args['meta_key'] = '_price';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'ASC';
+            break;
+        case 'price-desc':
+            $args['meta_key'] = '_price';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+        case 'popularity':
+            $args['meta_key'] = 'total_sales';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+        case 'rating':
+            $args['meta_key'] = '_wc_average_rating';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+        case 'date':
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            break;
+        default:
+            $args['orderby'] = 'menu_order title';
+            $args['order'] = 'ASC';
+    }
+}
+
+// Paginación
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$args['paged'] = $paged;
+
+// Ejecutar la consulta
+$products_query = new WP_Query($args);
 ?>
 
 <!-- Section Moderno para Categoría -->
@@ -79,7 +231,7 @@ $category_description = $queried_object->description;
             </button>
         </div>
 
-        <?php if ( have_posts() ) : ?>
+        <?php if ( $products_query->have_posts() ) : ?>
 
             <div class="flex flex-col xl:flex-row gap-8">
                 
@@ -314,11 +466,10 @@ $category_description = $queried_object->description;
                         <div class="w-2 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
                         <div>
                             <?php
-                            global $wp_query;
-                            $total_products = $wp_query->found_posts;
+                            $total_products = $products_query->found_posts;
                             if ( $total_products ) :
                                 $current_page = max( 1, get_query_var( 'paged' ) );
-                                $per_page = get_option( 'posts_per_page' );
+                                $per_page = $products_query->query_vars['posts_per_page'];
                                 $first = ( $current_page - 1 ) * $per_page + 1;
                                 $last = min( $total_products, $current_page * $per_page );
                             ?>
@@ -359,8 +510,8 @@ $category_description = $queried_object->description;
             <!-- Grid de productos moderno -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12" id="products-grid">
                 <?php
-                while ( have_posts() ) {
-                    the_post();
+                while ( $products_query->have_posts() ) {
+                    $products_query->the_post();
                     
                     // Template personalizado de producto
                     ?>
@@ -483,11 +634,18 @@ $category_description = $queried_object->description;
             <!-- Paginación moderna -->
             <div class="mt-12">
                 <?php
-                the_posts_pagination( array(
+                // Paginación personalizada para la consulta custom
+                $big = 999999999; // need an unlikely integer
+                echo paginate_links( array(
+                    'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                    'format' => '?paged=%#%',
+                    'current' => max( 1, get_query_var('paged') ),
+                    'total' => $products_query->max_num_pages,
                     'mid_size' => 2,
                     'prev_text' => __( 'Anterior', 'textdomain' ),
                     'next_text' => __( 'Siguiente', 'textdomain' ),
                 ) );
+                wp_reset_postdata();
                 ?>
             </div>
 
@@ -833,6 +991,44 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = url.toString();
         });
     });
+    
+    // Función para cargar filtros desde URL
+    function loadFiltersFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Cargar precio
+        const minPrice = urlParams.get('min_price');
+        const maxPrice = urlParams.get('max_price');
+        if (minPrice && document.getElementById('min_price')) {
+            document.getElementById('min_price').value = minPrice;
+        }
+        if (maxPrice && document.getElementById('max_price')) {
+            document.getElementById('max_price').value = maxPrice;
+        }
+        
+        // Cargar categorías
+        const categories = urlParams.get('product_categories');
+        if (categories) {
+            const categoryIds = categories.split(',');
+            categoryIds.forEach(id => {
+                const checkbox = document.querySelector(`input[name="product_categories[]"][value="${id}"]`);
+                if (checkbox) checkbox.checked = true;
+            });
+        }
+        
+        // Cargar marcas
+        const brands = urlParams.get('product_brands');
+        if (brands) {
+            const brandIds = brands.split(',');
+            brandIds.forEach(id => {
+                const checkbox = document.querySelector(`input[name="product_brands[]"][value="${id}"]`);
+                if (checkbox) checkbox.checked = true;
+            });
+        }
+    }
+    
+    // Cargar filtros al cargar la página
+    loadFiltersFromUrl();
 });
 </script>
 
