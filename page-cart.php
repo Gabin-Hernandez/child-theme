@@ -20,6 +20,9 @@ if (!WC()->session->has_session()) {
 
 get_header(); ?>
 
+<!-- Lucide Icons CDN -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
 <style>
 /* Cart Page Styles */
 .cart-page-container {
@@ -116,13 +119,14 @@ get_header(); ?>
     margin: 0;
 }
 
-/* Cart Items Styles */
-.cart-items-container {
+/* Cart Totals */
+.cart-totals {
     background: #ffffff;
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 .cart-items-header {
@@ -184,8 +188,8 @@ get_header(); ?>
 .quantity-btn {
     width: 35px;
     height: 35px;
-    border: none;
-    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    background: #f8fafc;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -193,7 +197,7 @@ get_header(); ?>
     justify-content: center;
     font-weight: 600;
     color: #64748b;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -201,6 +205,16 @@ get_header(); ?>
     background: #f59e0b;
     color: white;
     transform: scale(1.05);
+    border-color: #f59e0b;
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-btn i {
+    width: 16px;
+    height: 16px;
 }
 
 .quantity-input {
@@ -226,21 +240,46 @@ get_header(); ?>
     padding: 8px 12px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .remove-item:hover {
     background: #dc2626;
     color: white;
+    transform: scale(1.05);
 }
 
-/* Cart Totals */
-.cart-totals {
+.remove-item:active {
+    transform: scale(0.95);
+}
+
+.remove-item i {
+    width: 14px;
+    height: 14px;
+}
+
+/* Cart Items */
+.cart-items {
     background: #ffffff;
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cart-totals h3 {
@@ -282,7 +321,10 @@ get_header(); ?>
     transition: all 0.3s ease;
     margin-top: 20px;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     text-align: center;
 }
 
@@ -291,6 +333,11 @@ get_header(); ?>
     box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
     color: white;
     text-decoration: none;
+}
+
+.checkout-btn i {
+    width: 20px;
+    height: 20px;
 }
 
 /* Suggested Products */
@@ -387,7 +434,9 @@ get_header(); ?>
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .continue-shopping-btn:hover {
@@ -395,6 +444,11 @@ get_header(); ?>
     transform: translateY(-2px);
     color: white;
     text-decoration: none;
+}
+
+.continue-shopping-btn i {
+    width: 18px;
+    height: 18px;
 }
 
 /* Responsive Design */
@@ -452,7 +506,9 @@ get_header(); ?>
     // Check if cart is empty
     if (WC()->cart->is_empty()) : ?>
         <div class="empty-cart">
-            <div class="empty-cart-icon">🛒</div>
+            <div class="empty-cart-icon">
+                <i data-lucide="shopping-cart" style="width: 80px; height: 80px; color: #64748b;"></i>
+            </div>
             <h2>Tu carrito está vacío</h2>
             <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
             
@@ -522,7 +578,9 @@ get_header(); ?>
                         </div>
                         
                         <div class="quantity-controls">
-                            <button type="button" class="quantity-btn minus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', -1)">-</button>
+                            <button type="button" class="quantity-btn minus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', -1)">
+                                <i data-lucide="minus"></i>
+                            </button>
                             <?php
                             if ($_product->is_sold_individually()) {
                                 $product_quantity = sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);
@@ -542,7 +600,9 @@ get_header(); ?>
                             }
                             echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item);
                             ?>
-                            <button type="button" class="quantity-btn plus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', 1)">+</button>
+                            <button type="button" class="quantity-btn plus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', 1)">
+                                <i data-lucide="plus"></i>
+                            </button>
                         </div>
                         
                         <div class="item-subtotal">
@@ -554,7 +614,7 @@ get_header(); ?>
                             echo apply_filters(
                                 'woocommerce_cart_item_remove_link',
                                 sprintf(
-                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s">Eliminar</button>',
+                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s"><i data-lucide="trash-2"></i> Eliminar</button>',
                                     esc_attr($cart_item_key),
                                     esc_html__('Remove this item', 'woocommerce')
                                 ),
@@ -623,6 +683,7 @@ get_header(); ?>
             </div>
 
             <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-btn">
+                <i data-lucide="credit-card"></i>
                 Proceder al Checkout
             </a>
         </div>
@@ -630,6 +691,7 @@ get_header(); ?>
         <!-- Continue Shopping -->
         <div class="continue-shopping">
             <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="continue-shopping-btn">
+                <i data-lucide="arrow-left"></i>
                 Continuar Comprando
             </a>
         </div>
@@ -850,6 +912,13 @@ function addToCart(productId) {
         alert('Error al agregar el producto al carrito');
     });
 }
+
+// Initialize Lucide icons
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+});
 </script>
 
 <?php get_footer(); ?>
