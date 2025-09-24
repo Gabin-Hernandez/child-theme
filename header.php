@@ -62,11 +62,21 @@
             transform: rotate(180deg);
         }
         
-        /* Header normal - sin sticky */
+        /* Header sticky - se mantiene fijo al hacer scroll */
         header {
             background: #171717;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            z-index: 1 !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000 !important;
+            transition: all 0.3s ease;
+        }
+        
+        /* Efecto adicional cuando se hace scroll */
+        header.scrolled {
+            background: rgba(23, 23, 23, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
         
         /* Estilos específicos para mega-menu */
@@ -231,6 +241,18 @@
                         `;
                     }
                 });
+            }
+        });
+        
+        // Funcionalidad para el efecto scroll del header sticky
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             }
         });
         

@@ -174,13 +174,13 @@ body.home #hero-slider .slide.active .space-y-8 > * {
     }
 }
 
-/* Asegurar que el header no interfiera */
+/* Asegurar que el header sticky tenga la prioridad correcta */
 body.home header,
 body.home .site-header {
-    z-index: 1 !important;
+    z-index: 1000 !important;
 }
 
-/* Hero slider debe estar por encima del contenido pero debajo del header */
+/* Hero slider debe estar por encima del contenido pero debajo del header sticky */
 body.home #hero-slider {
     z-index: 5 !important;
 }
