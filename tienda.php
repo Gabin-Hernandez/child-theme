@@ -6,6 +6,19 @@
     <title>Tienda - ITOOLS MX</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ocultar cualquier elemento woocommerce-ordering que pueda aparecer automáticamente */
+        .woocommerce-ordering,
+        .storefront-sorting,
+        form.woocommerce-ordering {
+            display: none !important;
+        }
+        
+        /* Asegurar que solo nuestro select personalizado sea visible */
+        .custom-ordering-select {
+            display: block !important;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
 
@@ -67,7 +80,7 @@
                 <div class="bg-white p-6 rounded-2xl shadow-sm mb-6 border border-gray-100">
                     <div class="flex justify-between items-center">
                         <h3 class="text-xl font-bold text-gray-900">12 Productos</h3>
-                        <select class="px-4 py-2 border border-gray-300 rounded-lg">
+                        <select class="custom-ordering-select px-4 py-2 border border-gray-300 rounded-lg">
                             <option>Ordenar por popularidad</option>
                             <option>Precio: menor a mayor</option>
                             <option>Precio: mayor a menor</option>
