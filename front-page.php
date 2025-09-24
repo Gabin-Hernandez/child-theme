@@ -168,9 +168,9 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares -->
-    <section id="categorias" class="py-20 bg-slate-900">
+    <section id="categorias" class="py-32 bg-slate-900">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
                     Nuestras Especialidades
                 </h2>
@@ -257,9 +257,9 @@ get_header(); ?>
     </section>
 
     <!-- Estadísticas y CTA -->
-    <section class="py-20 bg-white">
+    <section class="py-32 bg-white">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     ¿Por qué elegirnos?
                 </h2>
@@ -303,9 +303,9 @@ get_header(); ?>
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-20 bg-slate-50">
+    <section class="py-32 bg-slate-50">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
                     HERRAMIENTAS PROFESIONALES
                 </div>
@@ -474,9 +474,9 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Marcas Populares -->
-    <section class="py-16 bg-slate-50">
+    <section class="py-24 bg-slate-50">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
             </div>
@@ -615,9 +615,9 @@ get_header(); ?>
     </section>
 
     <!-- Productos en Oferta -->
-    <section id="ofertas" class="py-20 bg-red-50">
+    <section id="ofertas" class="py-32 bg-red-50">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
                     OFERTAS ESPECIALES
                 </div>
@@ -749,9 +749,9 @@ get_header(); ?>
 
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
-    <section class="py-20 bg-white">
+    <section class="py-32 bg-white">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
                     PRODUCTOS DESTACADOS
                 </div>
@@ -895,9 +895,9 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Productos Destacados Premium -->
-    <section class="py-20 bg-slate-900">
+    <section class="py-32 bg-slate-900">
         <div class="container max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-white/10 text-white px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
@@ -1073,7 +1073,7 @@ get_header(); ?>
     </section>
 
     <!-- Newsletter -->
-    <section id="newsletter-cta" class="bg-slate-800 py-16">
+    <section id="newsletter-cta" class="bg-slate-800 py-24">
         <div class="container max-w-4xl mx-auto px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
             <p class="text-slate-300 mb-8 max-w-xl mx-auto">
