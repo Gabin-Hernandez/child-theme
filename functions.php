@@ -529,6 +529,70 @@ function itools_loop_shop_columns() {
 }
 add_filter( 'loop_shop_columns', 'itools_loop_shop_columns' );
 
+// AJAX endpoint para búsqueda en vivo
+function itools_live_search() {
+    // Verificar nonce para seguridad
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_search_nonce')) {
+        wp_die('Acceso denegado');
+    }
+    
+    $search_term = sanitize_text_field($_POST['search_term']);
+    
+    if (empty($search_term) || strlen($search_term) < 2) {
+        wp_send_json_error('Término de búsqueda muy corto');
+        return;
+    }
+    
+    // Configurar argumentos de búsqueda
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => 8,
+        's' => $search_term,
+        'meta_query' => array(
+            array(
+                'key' => '_stock_status',
+                'value' => 'instock',
+                'compare' => '='
+            )
+        )
+    );
+    
+    $search_query = new WP_Query($args);
+    $results = array();
+    
+    if ($search_query->have_posts()) {
+        while ($search_query->have_posts()) {
+            $search_query->the_post();
+            global $product;
+            
+            if (!$product || !$product->is_visible()) {
+                continue;
+            }
+            
+            $image_id = $product->get_image_id();
+            $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'thumbnail') : wc_placeholder_img_src('thumbnail');
+            
+            $results[] = array(
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+                'price' => $product->get_price_html(),
+                'url' => get_permalink(),
+                'image' => $image_url,
+                'stock_status' => $product->get_stock_status(),
+                'categories' => wp_get_post_terms(get_the_ID(), 'product_cat', array('fields' => 'names'))
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    wp_send_json_success($results);
+}
+
+// Registrar endpoints AJAX
+add_action('wp_ajax_itools_live_search', 'itools_live_search');
+add_action('wp_ajax_nopriv_itools_live_search', 'itools_live_search');
+
 // Agregar JavaScript básico para mejorar la experiencia de búsqueda
 function itools_search_scripts() {
     ?>
@@ -553,7 +617,25 @@ function itools_search_scripts() {
     </script>
     <?php
 }
+
+// Enqueue live search scripts and localize AJAX data
+function itools_enqueue_live_search_scripts() {
+    wp_enqueue_script(
+        'itools-live-search',
+        get_stylesheet_directory_uri() . '/js/live-search.js',
+        array(),
+        '1.0.0',
+        true
+    );
+    
+    // Localizar datos AJAX
+    wp_localize_script('itools-live-search', 'itoolsAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('itools_search_nonce')
+    ));
+}
 add_action( 'wp_footer', 'itools_search_scripts' );
+add_action( 'wp_enqueue_scripts', 'itools_enqueue_live_search_scripts' );
 
 // Agregar estilos personalizados para animaciones
 function itools_custom_styles() {

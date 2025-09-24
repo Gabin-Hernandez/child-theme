@@ -257,15 +257,17 @@
                 </div>
 
                 <!-- Búsqueda simplificada (centrado) -->
-                <div class="header-search" style="flex: 1; max-width: 500px; margin: 20px 40px 0 40px;"> 
+                <div class="header-search" style="flex: 1; max-width: 500px; margin: 20px 40px 0 40px; position: relative;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         <!-- Campo de búsqueda -->
                         <input 
                             type="search" 
                             name="s" 
+                            id="live-search-input"
                             style="flex: 1; padding: 12px 16px; border: none; font-size: 14px; outline: none;"
                             placeholder="Buscar productos: iPhone, Samsung, herramientas..." 
                             value="<?php echo esc_attr( get_search_query() ); ?>"
+                            autocomplete="off"
                         >
                         
                         <!-- Input hidden para especificar que es búsqueda de productos -->
@@ -281,6 +283,25 @@
                             Buscar
                         </button>
                     </form>
+                    
+                    <!-- Dropdown de resultados de búsqueda en vivo -->
+                    <div id="live-search-results" style="
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: white;
+                        border: 1px solid #e5e7eb;
+                        border-top: none;
+                        border-radius: 0 0 8px 8px;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                        max-height: 400px;
+                        overflow-y: auto;
+                        z-index: 1000;
+                        display: none;
+                    ">
+                        <!-- Los resultados se cargarán aquí dinámicamente -->
+                    </div>
                 </div>
 
                 <!-- Enlaces de cuenta -->
