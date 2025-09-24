@@ -114,6 +114,7 @@ class NewCartSidepanel {
     bindWooCommerceEvents() {
         // Producto agregado al carrito
         document.body.addEventListener('added_to_cart', (e) => {
+            console.log('Evento added_to_cart detectado:', e.detail);
             this.handleProductAdded(e.detail);
         });
         
@@ -152,6 +153,7 @@ class NewCartSidepanel {
      * Abrir el sidepanel
      */
     open() {
+        console.log('Método open() llamado, isOpen:', this.isOpen);
         if (this.isOpen) return;
         
         this.isOpen = true;
@@ -171,7 +173,7 @@ class NewCartSidepanel {
             }
         }, this.config.animationDuration);
         
-        console.log('🛒 Sidepanel abierto');
+        console.log('Sidebar abierto exitosamente');
     }
     
     /**
@@ -540,12 +542,15 @@ class NewCartSidepanel {
      * Manejar producto agregado al carrito
      */
     handleProductAdded(data) {
+        console.log('handleProductAdded ejecutado con data:', data);
         this.showNotification('Producto agregado al carrito');
         this.loadCartData();
         this.updateCartCounter();
         
         // Abrir el sidepanel automáticamente
+        console.log('Intentando abrir el sidebar en 500ms...');
         setTimeout(() => {
+            console.log('Abriendo sidebar ahora...');
             this.open();
         }, 500);
     }
