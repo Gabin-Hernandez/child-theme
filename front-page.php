@@ -564,7 +564,7 @@ get_header(); ?>
                                 
                                 <!-- Botón de agregar al carrito mejorado -->
                                 <div class="mt-auto">
-                                    <div class="woocommerce-add-to-cart-wrapper">
+                                    <div class="woocommerce-add-to-cart-wrapper gap-4">
                                         <?php
                                         // Obtener el botón de agregar al carrito de WooCommerce
                                         woocommerce_template_loop_add_to_cart();
