@@ -329,27 +329,37 @@ get_header(); ?>
             
             <?php
             // Query para obtener productos de la categoría 'Herramientas'
+            // Primero verificamos si la categoría existe
+            $herramientas_term = get_term_by('slug', 'herramientas', 'product_cat');
+            
+            if (!$herramientas_term) {
+                // Si no existe con slug 'herramientas', intentamos buscar por nombre
+                $herramientas_term = get_term_by('name', 'Herramientas', 'product_cat');
+            }
+            
             $herramientas_args = array(
                 'post_type' => 'product',
                 'posts_per_page' => 8,
                 'post_status' => 'publish',
                 'meta_query' => array(
                     array(
-                        'key' => '_visibility',
-                        'value' => array('catalog', 'visible'),
-                        'compare' => 'IN'
+                        'key' => '_stock_status',
+                        'value' => 'instock',
+                        'compare' => '='
                     )
-                ),
-                'tax_query' => array(
+                )
+            );
+            
+            // Solo agregamos tax_query si encontramos la categoría
+            if ($herramientas_term) {
+                $herramientas_args['tax_query'] = array(
                     array(
                         'taxonomy' => 'product_cat',
-                        'field' => 'slug',
-                        'terms' => 'herramientas',
+                        'field' => 'term_id',
+                        'terms' => $herramientas_term->term_id,
                     )
-                ),
-                'orderby' => 'menu_order',
-                'order' => 'ASC'
-            );
+                );
+            }
             
             $herramientas_query = new WP_Query( $herramientas_args );
             
@@ -454,6 +464,17 @@ get_header(); ?>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No hay herramientas disponibles</h3>
                     <p class="text-gray-600">Pronto agregaremos más productos a esta categoría.</p>
+                    <?php 
+                    // Debug info - solo mostrar si es admin
+                    if (current_user_can('administrator')) {
+                        echo '<div class="text-xs text-gray-500 mt-4 p-2 bg-yellow-50 rounded max-w-md mx-auto">';
+                        echo '<strong>Debug info:</strong><br>';
+                        echo 'Categoría encontrada: ' . ($herramientas_term ? 'Sí (ID: ' . $herramientas_term->term_id . ', Slug: ' . $herramientas_term->slug . ')' : 'No') . '<br>';
+                        echo 'Total productos encontrados: ' . $herramientas_query->found_posts . '<br>';
+                        echo 'URL de categoría: <a href="' . get_term_link('herramientas', 'product_cat') . '" target="_blank">Ver categoría</a>';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             <?php endif; ?>
             
