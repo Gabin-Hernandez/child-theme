@@ -435,6 +435,13 @@ function itools_filter_products_by_price( $query ) {
     if ( !is_admin() && $query->is_main_query() && 
          ( is_shop() || is_product_taxonomy() || ( is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) ) ) {
         
+        // Debug: Log cuando esta función se ejecuta
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('itools_filter_products_by_price ejecutándose');
+            error_log('Query vars: ' . print_r($query->query_vars, true));
+            error_log('GET params: ' . print_r($_GET, true));
+        }
+        
         // Debug: ver qué parámetros están llegando
         if ( isset($_GET['min_price']) || isset($_GET['max_price']) ) {
             error_log('Filtro de precio activo: min=' . (isset($_GET['min_price']) ? $_GET['min_price'] : 'no') . ', max=' . (isset($_GET['max_price']) ? $_GET['max_price'] : 'no'));
@@ -477,17 +484,28 @@ function itools_filter_products_by_price( $query ) {
             }
         }
         
-        // Filtro de categorías
+        // Filtro de categorías - mejorado para manejar slugs correctamente
         if ( !empty($_GET['product_cat']) ) {
-            $categories = explode(',', sanitize_text_field($_GET['product_cat']));
+            $category_param = sanitize_text_field($_GET['product_cat']);
             $tax_query = $query->get( 'tax_query' ) ?: array();
             
-            $tax_query[] = array(
-                'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
-                'terms'    => $categories,
-                'operator' => 'IN'
-            );
+            // Si es un slug (no numérico), usar field 'slug'
+            if (!is_numeric($category_param)) {
+                $tax_query[] = array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'slug',
+                    'terms'    => $category_param,
+                    'operator' => 'IN'
+                );
+            } else {
+                // Si es numérico, asumir que es term_id
+                $tax_query[] = array(
+                    'taxonomy' => 'product_cat',
+                    'field'    => 'term_id',
+                    'terms'    => intval($category_param),
+                    'operator' => 'IN'
+                );
+            }
             
             $query->set( 'tax_query', $tax_query );
         }

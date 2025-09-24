@@ -5,16 +5,19 @@
 
 get_header();
 
-// Solo crear consulta personalizada si hay filtros activos
-$has_filters = !empty($_GET['product_categories']) || !empty($_GET['product_brands']) || 
-               !empty($_GET['min_price']) || !empty($_GET['max_price']) || !empty($_GET['orderby']);
+// Solo crear consulta personalizada si hay filtros avanzados activos
+// NO crear consulta personalizada para product_cat o s ya que WooCommerce los maneja mejor
+$has_advanced_filters = !empty($_GET['product_categories']) || !empty($_GET['product_brands']) || 
+                       !empty($_GET['min_price']) || !empty($_GET['max_price']) || !empty($_GET['orderby']);
 
-if ($has_filters) {
+if ($has_advanced_filters) {
     // Procesar filtros de URL
     $args = array(
         'post_type' => 'product',
         'posts_per_page' => 12,
-        'post_status' => 'publish'
+        'post_status' => 'publish',
+        'tax_query' => array(),
+        'meta_query' => array()
     );
 
     // Filtro por categorías
@@ -65,6 +68,8 @@ if ($has_filters) {
         }
     }
 }
+
+// product_cat se maneja mejor por WooCommerce en la consulta principal
 
 // Filtro por marcas
 if (!empty($_GET['product_brands'])) {
@@ -143,6 +148,21 @@ if (!empty($_GET['orderby'])) {
     }
 }
 
+// Parámetro 's' se maneja mejor por WooCommerce en la consulta principal
+
+// Configurar relación de tax_query si hay múltiples filtros de taxonomía
+if (!empty($args['tax_query']) && count($args['tax_query']) > 1) {
+    $args['tax_query']['relation'] = 'AND';
+}
+
+// Limpiar arrays vacíos
+if (empty($args['tax_query'])) {
+    unset($args['tax_query']);
+}
+if (empty($args['meta_query'])) {
+    unset($args['meta_query']);
+}
+
 // Paginación
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args['paged'] = $paged;
@@ -150,10 +170,54 @@ $args['paged'] = $paged;
 // Crear la consulta personalizada
 $products_query = new WP_Query($args);
 
+// Debug: Mostrar información de la consulta si estamos en modo debug
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    error_log('Custom Query Args: ' . print_r($args, true));
+    error_log('Found Posts: ' . $products_query->found_posts);
+    error_log('URL Parameters: ' . print_r($_GET, true));
+}
+
 } else {
-    // Usar la consulta principal de WordPress cuando no hay filtros
+    // Usar la consulta principal de WordPress cuando no hay filtros avanzados
+    // Esto incluye búsquedas (s) y filtros de categoría (product_cat) que WooCommerce maneja mejor
     global $wp_query;
     $products_query = $wp_query;
+    
+    // Asegurar que la consulta principal esté configurada correctamente para WooCommerce
+    if (!$products_query->is_main_query()) {
+        // Si por alguna razón no es la consulta principal, crear una nueva
+        $args = array(
+            'post_type' => 'product',
+            'posts_per_page' => 12,
+            'post_status' => 'publish'
+        );
+        
+        // Agregar parámetros de búsqueda si existen
+        if (!empty($_GET['s'])) {
+            $args['s'] = sanitize_text_field($_GET['s']);
+        }
+        
+        // Agregar filtro de categoría si existe
+        if (!empty($_GET['product_cat'])) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'product_cat',
+                    'field' => 'slug',
+                    'terms' => sanitize_text_field($_GET['product_cat'])
+                )
+            );
+        }
+        
+        $products_query = new WP_Query($args);
+    }
+    
+    // Debug: Mostrar información de la consulta principal
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        error_log('Using main query - Found Posts: ' . $products_query->found_posts);
+        error_log('Main Query Vars: ' . print_r($products_query->query_vars, true));
+        error_log('Is Main Query: ' . ($products_query->is_main_query() ? 'Yes' : 'No'));
+        error_log('URL Parameters: ' . print_r($_GET, true));
+    }
 }
 
 ?>
