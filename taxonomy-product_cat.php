@@ -314,7 +314,7 @@ $products_query = new WP_Query($args);
                                     <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
                                         <input type="checkbox" 
                                                name="product_categories[]" 
-                                               value="<?php echo esc_attr( $category->slug ); ?>"
+                                               value="<?php echo esc_attr( $category->term_id ); ?>"
                                                <?php echo $is_current ? 'checked' : ''; ?>
                                                class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                                         <div class="flex-1 flex items-center justify-between">
