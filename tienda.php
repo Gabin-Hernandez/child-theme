@@ -233,16 +233,7 @@
 
                 </div>
 
-                <!-- Paginación -->
-                <div class="mt-12 flex justify-center">
-                    <div class="flex space-x-2">
-                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">Anterior</button>
-                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
-                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">2</button>
-                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">3</button>
-                        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">Siguiente</button>
-                    </div>
-                </div>
+
 
             </main>
         </div>
