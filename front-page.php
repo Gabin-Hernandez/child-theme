@@ -8,7 +8,7 @@ get_header(); ?>
 <main id="main" class="site-main">
     
     <!-- Hero Principal -->
-    <section class="relative bg-slate-900">
+    <section class="bg-slate-900">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
             <div class="slide active h-[600px] md:h-[700px] lg:h-[800px] relative">
