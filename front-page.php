@@ -563,16 +563,58 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Botón de agregar al carrito mejorado -->
-                                 <div class="mt-auto">
-                                     <button class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg group-hover:shadow-xl">
-                                         <div class="flex items-center justify-center space-x-2">
-                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293A1 1 0 005 16h12M7 13v4a2 2 0 002 2h6a2 2 0 002-2v-4m-8 2h4"></path>
-                                             </svg>
-                                             <span>Agregar al Carrito</span>
-                                         </div>
-                                     </button>
-                                 </div>
+                                <div class="mt-auto">
+                                    <div class="woocommerce-add-to-cart-wrapper">
+                                        <?php
+                                        // Obtener el botón de agregar al carrito de WooCommerce
+                                        woocommerce_template_loop_add_to_cart();
+                                        ?>
+                                    </div>
+                                    
+                                    <style>
+                                    .woocommerce-add-to-cart-wrapper .button,
+                                    .woocommerce-add-to-cart-wrapper .added_to_cart {
+                                        width: 100% !important;
+                                        background: linear-gradient(to right, #f59e0b, #d97706) !important;
+                                        color: white !important;
+                                        font-weight: 600 !important;
+                                        padding: 12px 16px !important;
+                                        border-radius: 12px !important;
+                                        border: none !important;
+                                        transition: all 0.3s ease !important;
+                                        transform: scale(1) !important;
+                                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                                        display: flex !important;
+                                        align-items: center !important;
+                                        justify-content: center !important;
+                                        gap: 8px !important;
+                                        text-decoration: none !important;
+                                        margin: 0 !important;
+                                    }
+                                    
+                                    .woocommerce-add-to-cart-wrapper .button:hover,
+                                    .woocommerce-add-to-cart-wrapper .added_to_cart:hover {
+                                        background: linear-gradient(to right, #d97706, #b45309) !important;
+                                        transform: scale(1.05) !important;
+                                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+                                    }
+                                    
+                                    .group:hover .woocommerce-add-to-cart-wrapper .button,
+                                    .group:hover .woocommerce-add-to-cart-wrapper .added_to_cart {
+                                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+                                    }
+                                    
+                                    .woocommerce-add-to-cart-wrapper .button::before {
+                                        content: "🛒";
+                                        margin-right: 8px;
+                                    }
+                                    
+                                    .woocommerce-add-to-cart-wrapper .added_to_cart::before {
+                                        content: "✓";
+                                        margin-right: 8px;
+                                    }
+                                    </style>
+                                </div>
                             </div>
                             
                             <!-- Efecto de brillo en hover -->
