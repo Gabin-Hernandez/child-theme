@@ -306,14 +306,14 @@
                                     <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
                                 </svg>
                                 <!-- Contador mejorado -->
-                                <span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; <?php 
+                                <span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; font-size: 13px; font-weight: bold; border-radius: 50%; min-width: 22px; height: 22px; <?php 
                                     if ( function_exists('WC') && WC()->cart ) { 
                                         $cart_count = WC()->cart->get_cart_contents_count();
                                         echo $cart_count > 0 ? 'display: flex;' : 'display: none;';
                                     } else {
                                         echo 'display: none;';
                                     } 
-                                    ?> align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">
+                                    ?> align-items: center; justify-content: center; line-height: 1; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
                                     <?php 
                                     if ( function_exists('WC') && WC()->cart ) { 
                                         $cart_count = WC()->cart->get_cart_contents_count();
@@ -339,7 +339,7 @@
                                     <path d="m2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43h-15.12"></path>
                                 </svg>
                                 <!-- Contador mejorado -->
-                                <span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; font-size: 11px; font-weight: bold; border-radius: 50%; min-width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; line-height: 1; border: 2px solid white;">0</span>
+                                <span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; font-size: 13px; font-weight: bold; border-radius: 50%; min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; line-height: 1; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">0</span>
                             </button>
                         </div>
                     <?php endif; ?>
