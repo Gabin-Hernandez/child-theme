@@ -177,10 +177,10 @@ function itools_add_cart_fragments( $fragments ) {
         $fragments['span.cart-count'] = '<span class="cart-count">' . $cart_display . '</span>';
         
         // Fragmento para el nuevo badge del contador
-        $fragments['#cart-count-badge'] = '<span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; font-size: 13px; font-weight: bold; border-radius: 50%; min-width: 22px; height: 22px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">' . $cart_count . '</span>';
+        $fragments['#cart-count-badge'] = '<span id="cart-count-badge" class="cart-count-badge" style="position: absolute; top: -12px; right: -12px; background: #ef4444; color: white; font-size: 16px; font-weight: bold; border-radius: 50%; min-width: 28px; height: 28px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">' . $cart_count . '</span>';
         
         // Fragmento para el badge fallback
-        $fragments['#cart-count-badge-fallback'] = '<span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; font-size: 13px; font-weight: bold; border-radius: 50%; min-width: 22px; height: 22px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">' . $cart_count . '</span>';
+        $fragments['#cart-count-badge-fallback'] = '<span id="cart-count-badge-fallback" class="cart-count-badge" style="position: absolute; top: -12px; right: -12px; background: #ef4444; color: white; font-size: 16px; font-weight: bold; border-radius: 50%; min-width: 28px; height: 28px; ' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . ' align-items: center; justify-content: center; line-height: 1; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">' . $cart_count . '</span>';
     }
     
     return $fragments;
