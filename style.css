@@ -485,11 +485,6 @@ body.home main#main.site-main section {
     margin-bottom: 0 !important;
 }
 
-/* Ajustar padding para que cada sección no meta tanto espacio */
-body.home main#main.site-main section {
-    padding-top: 20px !important;   /* espacio interior controlado */
-    padding-bottom: 20px !important;
-}
 
 /* Respetar las clases de Tailwind que ya ajustamos */
 body.home main#main.site-main section.py-8 {
