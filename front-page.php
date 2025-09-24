@@ -52,7 +52,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 2 - Refacciones -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                          alt="Refacciones de celulares" 
@@ -85,7 +85,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 3 - Pantallas -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                          alt="Pantallas y displays" 
@@ -118,7 +118,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 4 - Baterías -->
-            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                          alt="Baterías y accesorios" 
@@ -1141,18 +1141,33 @@ function resetProgress() {
 }
 
 function showSlide(index) {
+    // Si es el mismo slide, no hacer nada
+    if (index === currentSlide) return;
+    
     // Actualizar dots
     dots[currentSlide].classList.remove('bg-white');
     dots[currentSlide].classList.add('bg-white/50');
     
-    // Mostrar slide
-    slides.forEach(slide => slide.classList.add('hidden'));
-    slides[index].classList.remove('hidden');
+    // Remover clases activas del slide actual
+    slides[currentSlide].classList.remove('active', 'slide-in');
+    slides[currentSlide].classList.add('slide-out');
     
-    // Actualizar dots activos
-    dots[index].classList.remove('bg-white/50');
-    dots[index].classList.add('bg-white');
-    currentSlide = index;
+    // Después de un pequeño delay, mostrar el nuevo slide
+    setTimeout(() => {
+        // Ocultar todos los slides
+        slides.forEach(slide => {
+            slide.classList.remove('active', 'slide-in', 'slide-out');
+        });
+        
+        // Mostrar el nuevo slide con animación
+        slides[index].classList.add('active', 'slide-in');
+        
+        // Actualizar dots activos
+        dots[index].classList.remove('bg-white/50');
+        dots[index].classList.add('bg-white');
+        
+        currentSlide = index;
+    }, 100);
 }
 
 function changeSlide(index) {
@@ -1176,6 +1191,13 @@ function prevSlide() {
 
 // Inicializar slider
 document.addEventListener('DOMContentLoaded', function() {
+    // Configurar el primer slide como activo
+    if (slides[0]) {
+        slides[0].classList.add('active');
+        // Remover la clase hidden de todos los slides inicialmente
+        slides.forEach(slide => slide.classList.remove('hidden'));
+    }
+    
     // Marcar el primer dot como activo
     if (dots[0]) {
         dots[0].classList.add('bg-white');

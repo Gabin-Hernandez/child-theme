@@ -124,6 +124,56 @@ body.home #hero-slider {
     background: #1a1a1a; /* Fondo sólido elegante */
 }
 
+/* Transiciones suaves para slides */
+body.home #hero-slider .slide {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Slide activo */
+body.home #hero-slider .slide.active {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    position: relative !important;
+}
+
+/* Slide que sale */
+body.home #hero-slider .slide.slide-out {
+    opacity: 0 !important;
+    transform: translateX(-100%) !important;
+}
+
+/* Slide que entra */
+body.home #hero-slider .slide.slide-in {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+}
+
+/* Animación de contenido dentro del slide */
+body.home #hero-slider .slide.active .space-y-8 > * {
+    animation: slideContentIn 1s ease-out forwards;
+}
+
+@keyframes slideContentIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Asegurar que el header no interfiera */
 body.home header,
 body.home .site-header {
@@ -929,9 +979,6 @@ body.home .grid .bg-white.rounded-xl {
 .single-product .single_add_to_cart_button {
     background: #2563eb !important;
     border: none !important;
-    border-radius: 0.75rem !important;
-    color: white !important;
-    font-weight: 600 !important;
     transition: all 0.2s ease !important;
     text-transform: none !important;
     font-size: 1rem !important;
