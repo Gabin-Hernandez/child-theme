@@ -1,582 +1,759 @@
 <?php
 /**
- * The template for displaying the cart page.
- * 
- * Template Name: Cart Page - ITOOLS MX
- * Plantilla optimizada y robusta para el carrito
- *
- * @package ITOOLS_Child_Theme
+ * Template Name: Cart Page
  */
 
-get_header(); 
-
-// Verificar que WooCommerce esté activo
-if ( ! class_exists( 'WooCommerce' ) ) {
-    ?>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50">
-        <div class="max-w-md mx-auto text-center p-8 bg-white rounded-2xl shadow-xl">
-            <div class="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                </svg>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">WooCommerce no está activo</h2>
-            <p class="text-gray-600 mb-6">Por favor, activa el plugin WooCommerce para usar el carrito de compras.</p>
-            <a href="<?php echo admin_url('plugins.php'); ?>" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-                Ir a Plugins
-            </a>
-        </div>
-    </div>
-    <?php
-    get_footer();
+// Check if WooCommerce is active
+if (!class_exists('WooCommerce')) {
+    echo '<div style="padding: 20px; text-align: center;">';
+    echo '<h2>WooCommerce no está activado</h2>';
+    echo '<p>Esta página requiere que WooCommerce esté instalado y activado.</p>';
+    echo '<a href="' . admin_url('plugins.php') . '" style="background: #0073aa; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Ir a Plugins</a>';
+    echo '</div>';
     return;
 }
 
-// Asegurar que la sesión de WooCommerce esté iniciada
-if ( ! WC()->session->has_session() ) {
-    WC()->session->set_customer_session_cookie( true );
+// Ensure WooCommerce session is started
+if (!WC()->session->has_session()) {
+    WC()->session->set_customer_session_cookie(true);
 }
-?>
+
+get_header(); ?>
 
 <style>
-/* Estilos optimizados para el carrito */
-.itools-cart-container {
+/* Cart Page Styles */
+.cart-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cart-hero {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    min-height: 100vh;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.itools-cart-hero {
-    background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #1e40af 100%);
-    position: relative;
-    overflow: hidden;
+.cart-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 10px;
 }
 
-.itools-cart-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+.cart-hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0;
 }
 
-.itools-cart-content {
-    position: relative;
-    z-index: 10;
+/* Empty Cart Styles */
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Estilos para la tabla del carrito */
-.woocommerce-cart-form {
-    background: white !important;
-    border-radius: 1rem !important;
-    overflow: hidden !important;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid #e5e7eb !important;
+.empty-cart-icon {
+    font-size: 4rem;
+    color: #cbd5e0;
+    margin-bottom: 20px;
 }
 
-.shop_table.cart {
-    margin: 0 !important;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    width: 100% !important;
+.empty-cart h2 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    margin-bottom: 15px;
 }
 
-.shop_table.cart th,
-.shop_table.cart td {
-    border: none !important;
-    padding: 1.5rem 1rem !important;
-    vertical-align: middle !important;
-    border-bottom: 1px solid #f3f4f6 !important;
+.empty-cart p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
 }
 
-.shop_table.cart th {
-    background: linear-gradient(to right, #f8fafc, #f1f5f9) !important;
-    font-weight: 600 !important;
-    color: #374151 !important;
-    text-transform: uppercase !important;
-    font-size: 0.875rem !important;
-    letter-spacing: 0.05em !important;
+.explore-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
 }
 
-.shop_table.cart tbody tr:hover {
-    background-color: #f9fafb !important;
+.category-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #2d3748;
 }
 
-.shop_table.cart .product-thumbnail img {
-    border-radius: 0.5rem !important;
-    max-width: 80px !important;
-    height: auto !important;
+.category-card:hover {
+    border-color: #f59e0b;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+    text-decoration: none;
+    color: #2d3748;
 }
 
-.shop_table.cart .product-name a {
-    font-weight: 600 !important;
-    color: #1f2937 !important;
-    text-decoration: none !important;
+.category-card img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
 }
 
-.shop_table.cart .product-name a:hover {
-    color: #2563eb !important;
+.category-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
 }
 
-.shop_table.cart .quantity input[type="number"] {
-    width: 80px !important;
-    text-align: center !important;
-    border: 2px solid #e5e7eb !important;
-    border-radius: 0.5rem !important;
-    padding: 0.5rem !important;
-    font-weight: 600 !important;
-    background: white !important;
+/* Cart Items Styles */
+.cart-items-container {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.shop_table.cart .quantity input[type="number"]:focus {
-    border-color: #2563eb !important;
-    outline: none !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+.cart-items-header {
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.shop_table.cart .product-remove .remove {
-    background: #fee2e2 !important;
-    color: #dc2626 !important;
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-decoration: none !important;
-    font-size: 18px !important;
-    transition: all 0.3s ease !important;
-    border: 2px solid transparent !important;
+.cart-items-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0;
 }
 
-.shop_table.cart .product-remove .remove:hover {
-    background: #dc2626 !important;
-    color: white !important;
-    transform: scale(1.1) !important;
+.cart-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto auto;
+    gap: 20px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-/* Estilos para los totales del carrito */
-.cart_totals {
-    background: white !important;
-    border-radius: 1rem !important;
-    padding: 0 !important;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-    border: 1px solid #e5e7eb !important;
+.cart-item:last-child {
+    border-bottom: none;
 }
 
-.cart_totals h2 {
-    display: none !important;
+.item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #e2e8f0;
 }
 
-.cart_totals table {
-    width: 100% !important;
-    margin: 0 !important;
-    border-spacing: 0 !important;
+.item-details h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 5px 0;
 }
 
-.cart_totals table th,
-.cart_totals table td {
-    padding: 1.25rem !important;
-    border: none !important;
-    border-bottom: 1px solid #f3f4f6 !important;
-    font-size: 1rem !important;
-    vertical-align: middle !important;
+.item-details .item-price {
+    font-size: 1rem;
+    color: #f59e0b;
+    font-weight: 600;
 }
 
-.cart_totals table th {
-    font-weight: 500 !important;
-    text-align: left !important;
-    color: #6b7280 !important;
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 5px;
 }
 
-.cart_totals table td {
-    text-align: right !important;
-    font-weight: 600 !important;
-    color: #1f2937 !important;
+.quantity-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cart_totals .order-total th,
-.cart_totals .order-total td {
-    background: linear-gradient(to right, rgba(37, 99, 235, 0.05), rgba(147, 51, 234, 0.05)) !important;
-    font-weight: 700 !important;
-    font-size: 1.25rem !important;
-    color: #1e40af !important;
-    border-bottom: none !important;
-    border-radius: 0 0 1rem 1rem !important;
+.quantity-btn:hover {
+    background: #f59e0b;
+    color: white;
+    transform: scale(1.05);
 }
 
-/* Botón de proceder al pago */
-.wc-proceed-to-checkout {
-    margin-top: 1.5rem !important;
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    color: #1a202c;
 }
 
-.wc-proceed-to-checkout a {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: linear-gradient(to right, #16a34a, #059669) !important;
-    color: white !important;
-    padding: 1rem 2rem !important;
-    border-radius: 0.75rem !important;
-    text-decoration: none !important;
-    font-weight: 600 !important;
-    font-size: 1.1rem !important;
-    transition: all 0.3s ease !important;
-    width: 100% !important;
-    box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.3) !important;
-    border: none !important;
-    text-transform: none !important;
-    letter-spacing: 0.025em !important;
+.item-subtotal {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a202c;
 }
 
-.wc-proceed-to-checkout a:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 20px 25px -5px rgba(22, 163, 74, 0.4) !important;
-    background: linear-gradient(to right, #15803d, #047857) !important;
+.remove-item {
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
 }
 
-/* Mensajes de WooCommerce */
-.woocommerce-message,
-.woocommerce-info,
-.woocommerce-error {
-    border-radius: 0.75rem !important;
-    padding: 1rem 1.5rem !important;
-    margin: 1.5rem 0 !important;
-    border-left: 4px solid !important;
-    font-weight: 500 !important;
+.remove-item:hover {
+    background: #dc2626;
+    color: white;
 }
 
-.woocommerce-message {
-    background-color: #ecfdf5 !important;
-    color: #065f46 !important;
-    border-left-color: #10b981 !important;
+/* Cart Totals */
+.cart-totals {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-.woocommerce-info {
-    background-color: #eff6ff !important;
-    color: #1e40af !important;
-    border-left-color: #3b82f6 !important;
+.cart-totals h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 15px;
 }
 
-.woocommerce-error {
-    background-color: #fef2f2 !important;
-    color: #991b1b !important;
-    border-left-color: #ef4444 !important;
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
 }
 
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.totals-row:last-child {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1a202c;
+    padding-top: 20px;
+    border-top: 2px solid #e2e8f0;
 }
 
-.animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+.checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
-/* Responsive */
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+/* Suggested Products */
+.suggested-products {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.suggested-products h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: #f8fafc;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: #f59e0b;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 10px;
+}
+
+.product-card .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f59e0b;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.add-to-cart-btn:hover {
+    background: #d97706;
+    transform: scale(1.05);
+}
+
+/* Continue Shopping */
+.continue-shopping {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.continue-shopping-btn {
+    background: #64748b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.continue-shopping-btn:hover {
+    background: #475569;
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .shop_table.cart th,
-    .shop_table.cart td {
-        padding: 1rem 0.5rem !important;
-        font-size: 0.875rem !important;
+    .cart-item {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        text-align: center;
     }
     
-    .shop_table.cart .product-thumbnail img {
-        max-width: 60px !important;
+    .cart-hero h1 {
+        font-size: 2rem;
     }
     
-    .cart_totals table th,
-    .cart_totals table td {
-        padding: 1rem !important;
-        font-size: 0.875rem !important;
+    .explore-categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-page-container {
+        padding: 10px;
+    }
+    
+    .cart-hero {
+        padding: 40px 15px;
+    }
+    
+    .explore-categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
 
-<div class="itools-cart-container">
+<div class="cart-page-container">
     <!-- Hero Section -->
-    <section class="itools-cart-hero py-16 md:py-24">
-        <div class="container mx-auto px-4 itools-cart-content">
-            <div class="text-center animate-fade-in-up">
-                <div class="inline-flex items-center text-white px-6 py-3 rounded-full font-semibold mb-6 bg-white bg-opacity-20 backdrop-blur-sm">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm-10 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
-                    </svg>
-                    CARRITO DE COMPRAS
-                </div>
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                    Tu Carrito
-                </h1>
-                <p class="text-xl text-white opacity-90 max-w-2xl mx-auto">
-                    Revisa tus productos y finaliza tu compra de manera segura
-                </p>
+    <div class="cart-hero">
+        <h1>Tu Carrito de Compras</h1>
+        <p>Revisa tus productos seleccionados y procede al checkout</p>
+    </div>
+
+    <?php
+    // Display WooCommerce notices
+    woocommerce_output_all_notices();
+    
+    // Check if cart is empty
+    if (WC()->cart->is_empty()) : ?>
+        <div class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <h2>Tu carrito está vacío</h2>
+            <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
+            
+            <div class="explore-categories">
+                <a href="<?php echo get_term_link('pantallas', 'product_cat'); ?>" class="category-card">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-pantallas.svg" alt="Pantallas">
+                    <h3>Pantallas</h3>
+                </a>
+                <a href="<?php echo get_term_link('baterias', 'product_cat'); ?>" class="category-card">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-baterias.svg" alt="Baterías">
+                    <h3>Baterías</h3>
+                </a>
+                <a href="<?php echo get_term_link('cargadores', 'product_cat'); ?>" class="category-card">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-cargadores.svg" alt="Cargadores">
+                    <h3>Cargadores</h3>
+                </a>
+                <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" class="category-card">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-herramientas.svg" alt="Herramientas">
+                    <h3>Herramientas</h3>
+                </a>
             </div>
         </div>
-    </section>
-
-    <!-- Contenido Principal -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
+    <?php else : ?>
+        <!-- Cart Items -->
+        <div class="cart-items-container">
+            <div class="cart-items-header">
+                <h2>Productos en tu carrito</h2>
+            </div>
             
-            <?php 
-            // Mostrar mensajes de WooCommerce
-            if ( function_exists( 'wc_print_notices' ) ) {
-                wc_print_notices();
-            }
-            ?>
-            
-            <?php if ( WC()->cart->is_empty() ) : ?>
-                
-                <!-- Carrito Vacío -->
-                <div class="max-w-2xl mx-auto text-center animate-fade-in-up">
-                    <div class="bg-white rounded-2xl shadow-2xl p-12 border border-gray-100">
-                        <div class="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 2.5M7 13l2.5 2.5m6 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm-10 0a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path>
-                            </svg>
-                        </div>
-                        
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Tu carrito está vacío</h2>
-                        <p class="text-gray-600 mb-8 text-lg">¡Descubre nuestros productos y encuentra las mejores herramientas para tu taller!</p>
-                        
-                        <div class="space-y-6">
-                            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
-                               class="inline-flex items-center text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                               style="background: linear-gradient(to right, #2563eb, #9333ea);">
-                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                                Explorar Productos
-                            </a>
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=refacciones" 
-                                   class="bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200 rounded-xl p-4 text-center hover:from-orange-100 hover:to-red-100 transition-all duration-300 transform hover:scale-105 hover:border-orange-300">
-                                    <div class="text-3xl mb-2">🔧</div>
-                                    <div class="font-semibold text-orange-700">Refacciones</div>
-                                </a>
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=herramientas" 
-                                   class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl p-4 text-center hover:from-blue-100 hover:to-purple-100 transition-all duration-300 transform hover:scale-105 hover:border-blue-300">
-                                    <div class="text-3xl mb-2">🛠️</div>
-                                    <div class="font-semibold text-blue-700">Herramientas</div>
-                                </a>
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=pantallas" 
-                                   class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-4 text-center hover:from-green-100 hover:to-emerald-100 transition-all duration-300 transform hover:scale-105 hover:border-green-300">
-                                    <div class="text-3xl mb-2">📱</div>
-                                    <div class="font-semibold text-green-700">Pantallas</div>
-                                </a>
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>?product_cat=baterias" 
-                                   class="bg-gradient-to-br from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-xl p-4 text-center hover:from-yellow-100 hover:to-amber-100 transition-all duration-300 transform hover:scale-105 hover:border-yellow-300">
-                                    <div class="text-3xl mb-2">🔋</div>
-                                    <div class="font-semibold text-yellow-700">Baterías</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            <?php else : ?>
-                
-                <!-- Carrito con productos -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
+                <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) :
+                    $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+                    $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
                     
-                    <!-- Productos del carrito -->
-                    <div class="lg:col-span-2 space-y-8">
+                    if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) :
+                        $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+                ?>
+                    <div class="cart-item">
+                        <div class="item-image-container">
+                            <?php
+                            $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image('woocommerce_thumbnail'), $cart_item, $cart_item_key);
+                            if (!$product_permalink) {
+                                echo $thumbnail;
+                            } else {
+                                printf('<a href="%s">%s</a>', esc_url($product_permalink), $thumbnail);
+                            }
+                            ?>
+                        </div>
                         
-                        <!-- Header del carrito -->
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-in-up">
-                            <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600">
-                                <h2 class="text-xl font-bold text-white flex items-center">
-                                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                                    </svg>
-                                    Productos en tu carrito (<?php echo WC()->cart->get_cart_contents_count(); ?>)
-                                </h2>
-                            </div>
+                        <div class="item-details">
+                            <?php
+                            if (!$product_permalink) {
+                                echo '<h3>' . wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;') . '</h3>';
+                            } else {
+                                echo '<h3>' . wp_kses_post(apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s</a>', esc_url($product_permalink), $_product->get_name()), $cart_item, $cart_item_key)) . '</h3>';
+                            }
                             
-                            <div class="p-6">
-                                <?php woocommerce_output_all_notices(); ?>
-                                <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
-                                    <?php do_action( 'woocommerce_before_cart_table' ); ?>
-                                    
-                                    <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th class="product-remove">&nbsp;</th>
-                                                <th class="product-thumbnail">&nbsp;</th>
-                                                <th class="product-name"><?php esc_html_e( 'Producto', 'woocommerce' ); ?></th>
-                                                <th class="product-price"><?php esc_html_e( 'Precio', 'woocommerce' ); ?></th>
-                                                <th class="product-quantity"><?php esc_html_e( 'Cantidad', 'woocommerce' ); ?></th>
-                                                <th class="product-subtotal"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php do_action( 'woocommerce_before_cart_contents' ); ?>
-                                            
-                                            <?php
-                                            foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-                                                $_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-                                                $product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
-
-                                                if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
-                                                    $product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
-                                                    ?>
-                                                    <tr class="woocommerce-cart-form__cart-item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
-                                                        
-                                                        <td class="product-remove">
-                                                            <?php
-                                                            echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                                                'woocommerce_cart_item_remove_link',
-                                                                sprintf(
-                                                                    '<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
-                                                                    esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-                                                                    esc_html__( 'Remove this item', 'woocommerce' ),
-                                                                    esc_attr( $product_id ),
-                                                                    esc_attr( $_product->get_sku() )
-                                                                ),
-                                                                $cart_item_key
-                                                            );
-                                                            ?>
-                                                        </td>
-                                                        
-                                                        <td class="product-thumbnail">
-                                                            <?php
-                                                            $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
-                                                            if ( ! $product_permalink ) {
-                                                                echo $thumbnail; // PHPCS: XSS ok.
-                                                            } else {
-                                                                printf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $thumbnail ); // PHPCS: XSS ok.
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        
-                                                        <td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-                                                            <?php
-                                                            if ( ! $product_permalink ) {
-                                                                echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
-                                                            } else {
-                                                                echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-                                                            }
-
-                                                            do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
-
-                                                            // Meta data.
-                                                            echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
-
-                                                            // Backorder notification.
-                                                            if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-                                                                echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        
-                                                        <td class="product-price" data-title="<?php esc_attr_e( 'Price', 'woocommerce' ); ?>">
-                                                            <?php
-                                                            echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-                                                            ?>
-                                                        </td>
-                                                        
-                                                        <td class="product-quantity" data-title="<?php esc_attr_e( 'Quantity', 'woocommerce' ); ?>">
-                                                            <?php
-                                                            if ( $_product->is_sold_individually() ) {
-                                                                $product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
-                                                            } else {
-                                                                $product_quantity = woocommerce_quantity_input(
-                                                                    array(
-                                                                        'input_name'   => "cart[{$cart_item_key}][qty]",
-                                                                        'input_value'  => $cart_item['quantity'],
-                                                                        'max_value'    => $_product->get_max_purchase_quantity(),
-                                                                        'min_value'    => '0',
-                                                                        'product_name' => $_product->get_name(),
-                                                                    ),
-                                                                    $_product,
-                                                                    false
-                                                                );
-                                                            }
-
-                                                            echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
-                                                            ?>
-                                                        </td>
-                                                        
-                                                        <td class="product-subtotal" data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>">
-                                                            <?php
-                                                            echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
-                                                            ?>
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                            
-                                            <?php do_action( 'woocommerce_cart_contents' ); ?>
-                                            
-                                            <tr>
-                                                <td colspan="6" class="actions">
-                                                    <?php if ( wc_coupons_enabled() ) { ?>
-                                                        <div class="coupon">
-                                                            <label for="coupon_code"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> 
-                                                            <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> 
-                                                            <button type="submit" class="button" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?></button>
-                                                            <?php do_action( 'woocommerce_cart_coupon' ); ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                    
-                                                    <button type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
-                                                    
-                                                    <?php do_action( 'woocommerce_cart_actions' ); ?>
-                                                    <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
-                                                </td>
-                                            </tr>
-                                            
-                                            <?php do_action( 'woocommerce_after_cart_contents' ); ?>
-                                        </tbody>
-                                    </table>
-                                    <?php do_action( 'woocommerce_after_cart_table' ); ?>
-                                </form>
+                            do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
+                            
+                            if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
+                                echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
+                            }
+                            ?>
+                            <div class="item-price">
+                                <?php echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); ?>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Totales del carrito -->
-                    <div class="lg:col-span-1">
-                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-fade-in-up sticky top-8">
-                            <div class="px-6 py-4 bg-gradient-to-r from-green-600 to-emerald-600">
-                                <h2 class="text-lg font-bold text-white flex items-center">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                    </svg>
-                                    Resumen del pedido
-                                </h2>
-                            </div>
-                            
-                            <div class="p-6">
-                                <?php
-                                /**
-                                 * Cart collaterals hook.
-                                 *
-                                 * @hooked woocommerce_cross_sell_display
-                                 * @hooked woocommerce_cart_totals - 10
-                                 */
-                                do_action( 'woocommerce_cart_collaterals' );
-                                ?>
-                            </div>
+                        
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn minus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', -1)">-</button>
+                            <?php
+                            if ($_product->is_sold_individually()) {
+                                $product_quantity = sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);
+                            } else {
+                                $product_quantity = woocommerce_quantity_input(
+                                    array(
+                                        'input_name'   => "cart[{$cart_item_key}][qty]",
+                                        'input_value'  => $cart_item['quantity'],
+                                        'max_value'    => $_product->get_max_purchase_quantity(),
+                                        'min_value'    => '0',
+                                        'product_name' => $_product->get_name(),
+                                        'classes'      => array('quantity-input'),
+                                    ),
+                                    $_product,
+                                    false
+                                );
+                            }
+                            echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item);
+                            ?>
+                            <button type="button" class="quantity-btn plus-btn" onclick="updateQuantity('<?php echo $cart_item_key; ?>', 1)">+</button>
+                        </div>
+                        
+                        <div class="item-subtotal">
+                            <?php echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); ?>
+                        </div>
+                        
+                        <div class="item-remove">
+                            <?php
+                            echo apply_filters(
+                                'woocommerce_cart_item_remove_link',
+                                sprintf(
+                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s">Eliminar</button>',
+                                    esc_attr($cart_item_key),
+                                    esc_html__('Remove this item', 'woocommerce')
+                                ),
+                                $cart_item_key
+                            );
+                            ?>
                         </div>
                     </div>
-                </div>
+                <?php endif; endforeach; ?>
                 
-            <?php endif; ?>
-            
+                <input type="submit" class="button" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>" style="display: none;">
+                <?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
+            </form>
         </div>
-    </section>
+
+        <!-- Cart Totals -->
+        <div class="cart-totals">
+            <h3>Resumen del pedido</h3>
+            <?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
+                <div class="totals-row">
+                    <span><?php wc_cart_totals_coupon_label($coupon); ?></span>
+                    <span><?php wc_cart_totals_coupon_html($coupon); ?></span>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
+                <div class="totals-row">
+                    <span><?php esc_html_e('Shipping', 'woocommerce'); ?></span>
+                    <span><?php wc_cart_totals_shipping_html(); ?></span>
+                </div>
+            <?php endif; ?>
+
+            <?php foreach (WC()->cart->get_fees() as $fee) : ?>
+                <div class="totals-row">
+                    <span><?php echo esc_html($fee->name); ?></span>
+                    <span><?php wc_cart_totals_fee_html($fee); ?></span>
+                </div>
+            <?php endforeach; ?>
+
+            <?php if (wc_tax_enabled() && !WC()->cart->display_prices_including_tax()) : ?>
+                <?php if ('itemized' === get_option('woocommerce_tax_total_display')) : ?>
+                    <?php foreach (WC()->cart->get_tax_totals() as $code => $tax) : ?>
+                        <div class="totals-row">
+                            <span><?php echo esc_html($tax->label); ?></span>
+                            <span><?php echo wp_kses_post($tax->formatted_amount); ?></span>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <div class="totals-row">
+                        <span><?php echo esc_html(WC()->countries->tax_or_vat()); ?></span>
+                        <span><?php wc_cart_totals_taxes_total_html(); ?></span>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <div class="totals-row">
+                <span><strong><?php esc_html_e('Total', 'woocommerce'); ?></strong></span>
+                <span><strong><?php wc_cart_totals_order_total_html(); ?></strong></span>
+            </div>
+
+            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-btn">
+                Proceder al Checkout
+            </a>
+        </div>
+
+        <!-- Continue Shopping -->
+        <div class="continue-shopping">
+            <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="continue-shopping-btn">
+                Continuar Comprando
+            </a>
+        </div>
+
+        <!-- Suggested Products -->
+        <div class="suggested-products">
+            <h3>Productos Sugeridos</h3>
+            <div class="products-grid">
+                <?php
+                // Get suggested products (related to cart items or popular products)
+                $suggested_products = array();
+                
+                // Get categories from cart items
+                $cart_categories = array();
+                foreach (WC()->cart->get_cart() as $cart_item) {
+                    $product_cats = wp_get_post_terms($cart_item['product_id'], 'product_cat', array('fields' => 'ids'));
+                    $cart_categories = array_merge($cart_categories, $product_cats);
+                }
+                $cart_categories = array_unique($cart_categories);
+                
+                if (!empty($cart_categories)) {
+                    // Get products from same categories
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 4,
+                        'post_status' => 'publish',
+                        'meta_query' => array(
+                            array(
+                                'key' => '_visibility',
+                                'value' => array('catalog', 'visible'),
+                                'compare' => 'IN'
+                            )
+                        ),
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field' => 'term_id',
+                                'terms' => $cart_categories,
+                                'operator' => 'IN'
+                            )
+                        ),
+                        'orderby' => 'rand'
+                    );
+                } else {
+                    // Get popular products if no cart categories
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => 4,
+                        'post_status' => 'publish',
+                        'meta_key' => 'total_sales',
+                        'orderby' => 'meta_value_num',
+                        'order' => 'DESC'
+                    );
+                }
+                
+                $suggested_query = new WP_Query($args);
+                
+                if ($suggested_query->have_posts()) :
+                    while ($suggested_query->have_posts()) : $suggested_query->the_post();
+                        global $product;
+                        if ($product && $product->is_visible()) :
+                ?>
+                    <div class="product-card">
+                        <a href="<?php echo get_permalink(); ?>">
+                            <?php echo woocommerce_get_product_thumbnail(); ?>
+                        </a>
+                        <h4><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h4>
+                        <div class="price"><?php echo $product->get_price_html(); ?></div>
+                        <button class="add-to-cart-btn" onclick="addToCart(<?php echo get_the_ID(); ?>)">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                <?php
+                        endif;
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+                ?>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>
+
+<script>
+function updateQuantity(cartItemKey, change) {
+    const input = document.querySelector(`input[name="cart[${cartItemKey}][qty]"]`);
+    if (input) {
+        let currentValue = parseInt(input.value) || 0;
+        let newValue = Math.max(0, currentValue + change);
+        input.value = newValue;
+        
+        // Auto-submit form to update cart
+        const form = input.closest('form');
+        if (form) {
+            const updateButton = form.querySelector('input[name="update_cart"]');
+            if (updateButton) {
+                updateButton.click();
+            }
+        }
+    }
+}
+
+function addToCart(productId) {
+    // Add AJAX functionality to add products to cart
+    const data = {
+        action: 'woocommerce_add_to_cart',
+        product_id: productId,
+        quantity: 1
+    };
+    
+    fetch(wc_add_to_cart_params.ajax_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error al agregar el producto al carrito');
+        } else {
+            // Refresh page to show updated cart
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al agregar el producto al carrito');
+    });
+}
+</script>
 
 <?php get_footer(); ?>
