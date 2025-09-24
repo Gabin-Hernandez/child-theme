@@ -11,7 +11,7 @@ get_header(); ?>
     <section class="relative">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
-            <div class="slide active h-[600px] md:h-[700px] relative">
+            <div class="slide active h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative">
                 <!-- Imagen de fondo -->
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
@@ -21,29 +21,29 @@ get_header(); ?>
                 </div>
                 
                 <!-- Contenido -->
-                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
+                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-4xl w-full">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-white/15 backdrop-blur-md text-white px-6 py-3 rounded-full font-medium mb-8 border border-white/20">
+                            <div class="inline-flex items-center bg-white/15 backdrop-blur-md text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-white/20 text-sm sm:text-base">
                                 LÍDERES EN TECNOLOGÍA
                             </div>
-                            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+                            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight">
                                 ITOOLS MX
-                                <span class="block text-3xl md:text-4xl text-gray-200 font-light mt-3 tracking-wide">
+                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-200 font-light mt-2 sm:mt-3 tracking-wide">
                                     Tu socio tecnológico de confianza
                                 </span>
                             </h1>
-                            <p class="text-xl md:text-2xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
                                 Más de 19,000 productos especializados para profesionales y técnicos en electrónica
                             </p>
-                            <div class="flex flex-col sm:flex-row gap-6">
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
                                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                                   class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl text-center overflow-hidden">
+                                   class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl text-center overflow-hidden">
                                     <span class="relative z-10">Explorar Catálogo</span>
                                     <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </a>
                                 <a href="#categorias" 
-                                   class="group relative bg-transparent border-2 border-white/60 text-white hover:border-white hover:bg-white/10 px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm">
+                                   class="group relative bg-transparent border-2 border-white/60 text-white hover:border-white hover:bg-white/10 px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm">
                                     Ver Categorías
                                 </a>
                             </div>
@@ -53,7 +53,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 2 - Refacciones -->
-            <div class="slide h-[600px] md:h-[700px] relative hidden">
+            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                          alt="Refacciones de celulares" 
@@ -61,23 +61,23 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
+                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-4xl w-full">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-emerald-500/15 backdrop-blur-md text-emerald-200 px-6 py-3 rounded-full font-medium mb-8 border border-emerald-400/30">
+                            <div class="inline-flex items-center bg-emerald-500/15 backdrop-blur-md text-emerald-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-emerald-400/30 text-sm sm:text-base">
                                 REFACCIONES ORIGINALES
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
                                 Refacciones
-                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
+                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
                                     Más de 19,000 SKU disponibles
                                 </span>
                             </h2>
-                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
                             <a href="/categoria/refacciones/" 
-                               class="group relative bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                               class="group relative bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
                                 <span class="relative z-10">Ver Refacciones</span>
                                 <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
@@ -87,7 +87,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 3 - Pantallas -->
-            <div class="slide h-[600px] md:h-[700px] relative hidden">
+            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                          alt="Pantallas y displays" 
@@ -95,23 +95,23 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
+                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-4xl w-full">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-slate-500/15 backdrop-blur-md text-slate-200 px-6 py-3 rounded-full font-medium mb-8 border border-slate-400/30">
+                            <div class="inline-flex items-center bg-slate-500/15 backdrop-blur-md text-slate-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-slate-400/30 text-sm sm:text-base">
                                 TECNOLOGÍA AVANZADA
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
                                 Pantallas
-                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
+                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
                                     LCD, OLED y Touch de última generación
                                 </span>
                             </h2>
-                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
                                 Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                             </p>
                             <a href="/categoria/lcd-y-touch/" 
-                               class="group relative bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                               class="group relative bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
                                 <span class="relative z-10">Ver Pantallas</span>
                                 <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
@@ -121,7 +121,7 @@ get_header(); ?>
             </div>
             
             <!-- Slide 4 - Baterías -->
-            <div class="slide h-[600px] md:h-[700px] relative hidden">
+            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                          alt="Baterías y accesorios" 
@@ -129,23 +129,23 @@ get_header(); ?>
                     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 relative z-10 h-full flex items-center">
-                    <div class="max-w-3xl">
+                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-4xl w-full">
                         <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-amber-500/15 backdrop-blur-md text-amber-200 px-6 py-3 rounded-full font-medium mb-8 border border-amber-400/30">
+                            <div class="inline-flex items-center bg-amber-500/15 backdrop-blur-md text-amber-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-amber-400/30 text-sm sm:text-base">
                                 ENERGÍA CONFIABLE
                             </div>
-                            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
                                 Baterías
-                                <span class="block text-2xl md:text-3xl text-gray-300 font-light mt-3 tracking-wide">
+                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
                                     Máxima duración y rendimiento
                                 </span>
                             </h2>
-                            <p class="text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
                                 Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                             </p>
                             <a href="/categoria/baterias/" 
-                               class="group relative bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
+                               class="group relative bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
                                 <span class="relative z-10">Ver Baterías</span>
                                 <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
@@ -182,18 +182,18 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares - Diseño Moderno -->
-    <section id="categorias" class="py-8 bg-gray-900 relative">
-        <div class="container max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+    <section id="categorias" class="py-16 sm:py-20 lg:py-24 bg-gray-900 relative">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
                     Nuestras Especialidades
                 </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                     Productos de la más alta calidad para profesionales exigentes
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12 sm:mb-16">
                 
                 <!-- Refacciones -->
                 <div class="group cursor-pointer" onclick="window.location.href='/categoria/refacciones/'">
@@ -295,7 +295,7 @@ get_header(); ?>
     </section>
 
     <!-- CTA con Estadísticas -->
-    <section class="py-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
+    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
         <!-- Patrón geométrico elegante -->
         <div class="absolute inset-0 opacity-5">
             <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -315,43 +315,43 @@ get_header(); ?>
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-white/5 rounded-full"></div>
         </div>
         
-        <div class="container max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
                     ¿Por qué elegirnos?
                 </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed">
                     Somos líderes en el mercado mexicano con más de 10 años de experiencia
                 </p>
                 
                 <!-- Estadísticas con diseño premium -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8 sm:mb-12">
                     <div class="text-center group">
-                        <div class="bg-gradient-to-br from-amber-400 to-orange-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">19,000+</div>
-                        <div class="text-gray-300 font-medium tracking-wide">Productos en Stock</div>
+                        <div class="bg-gradient-to-br from-amber-400 to-orange-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">19,000+</div>
+                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Productos en Stock</div>
                     </div>
                     <div class="text-center group">
-                        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">50,000+</div>
-                        <div class="text-gray-300 font-medium tracking-wide">Clientes Satisfechos</div>
+                        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">50,000+</div>
+                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Clientes Satisfechos</div>
                     </div>
                     <div class="text-center group">
-                        <div class="bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">24h</div>
-                        <div class="text-gray-300 font-medium tracking-wide">Envío Express</div>
+                        <div class="bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">24h</div>
+                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Envío Express</div>
                     </div>
                     <div class="text-center group">
-                        <div class="bg-gradient-to-br from-rose-400 to-pink-500 bg-clip-text text-transparent text-4xl md:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">99.8%</div>
-                        <div class="text-gray-300 font-medium tracking-wide">Satisfacción</div>
+                        <div class="bg-gradient-to-br from-rose-400 to-pink-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">99.8%</div>
+                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Satisfacción</div>
                     </div>
                 </div>
                 
-                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                     <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                       class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
+                       class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
                         <span class="relative z-10">Explorar Catálogo</span>
                         <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
                     <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'myaccount' ) ) : '/mi-cuenta/'; ?>" 
-                       class="group relative bg-transparent border-2 border-gray-400 text-gray-300 hover:border-white hover:text-white px-12 py-4 text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
+                       class="group relative bg-transparent border-2 border-gray-400 text-gray-300 hover:border-white hover:text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
                         <span class="relative z-10">Crear Cuenta</span>
                         <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
@@ -361,11 +361,11 @@ get_header(); ?>
     </section>
 
     <!-- Marcas Populares -->
-    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div class="container max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 tracking-tight">Marcas de Confianza</h3>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
+    <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 sm:mb-16 lg:mb-20">
+                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 lg:mb-8 tracking-tight">Marcas de Confianza</h3>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
             </div>
             
             <!-- Carrusel de marcas mejorado -->
