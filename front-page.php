@@ -572,6 +572,12 @@ get_header(); ?>
                                     </div>
                                     
                                     <style>
+                                    .woocommerce-add-to-cart-wrapper {
+                                        display: flex !important;
+                                        flex-direction: column !important;
+                                        gap: 12px !important;
+                                    }
+                                    
                                     .woocommerce-add-to-cart-wrapper .button,
                                     .woocommerce-add-to-cart-wrapper .added_to_cart {
                                         width: 100% !important;
