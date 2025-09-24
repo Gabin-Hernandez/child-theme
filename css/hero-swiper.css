@@ -1,16 +1,26 @@
 /* Hero Swiper Styles */
 .hero-swiper {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    border-radius: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .hero-swiper .swiper-slide {
-    text-align: left;
-    font-size: 18px;
-    background: #000;
+    width: 100vw;
+    height: 600px;
+    position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
 }
 
 /* Animaciones para el contenido de los slides */

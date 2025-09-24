@@ -8,23 +8,23 @@ get_header(); ?>
 <main id="main" class="site-main">
     
     <!-- Hero Principal con Swiper -->
-    <section class="relative bg-slate-900">
-        <div class="swiper hero-swiper">
+    <section class="relative bg-slate-900 w-full">
+        <div class="swiper hero-swiper w-full">
             <div class="swiper-wrapper">
                 <!-- Slide 1 - Principal -->
                 <div class="swiper-slide">
-                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative w-full">
                         <!-- Imagen de fondo -->
-                        <div class="absolute inset-0">
+                        <div class="absolute inset-0 w-full">
                             <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
                                  alt="Herramientas para técnicos" 
                                  class="w-full h-full object-cover opacity-70">
-                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                            <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
                         <!-- Contenido -->
-                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl">
+                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl ml-8 lg:ml-16">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Líderes en Tecnología
@@ -56,16 +56,16 @@ get_header(); ?>
                 
                 <!-- Slide 2 - Refacciones -->
                 <div class="swiper-slide">
-                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
-                        <div class="absolute inset-0">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative w-full">
+                        <div class="absolute inset-0 w-full">
                             <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                                  alt="Refacciones de celulares" 
                                  class="w-full h-full object-cover opacity-70">
-                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                            <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl">
+                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl ml-8 lg:ml-16">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Refacciones Originales
@@ -91,16 +91,16 @@ get_header(); ?>
                 
                 <!-- Slide 3 - Pantallas -->
                 <div class="swiper-slide">
-                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
-                        <div class="absolute inset-0">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative w-full">
+                        <div class="absolute inset-0 w-full">
                             <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                                  alt="Pantallas y displays" 
                                  class="w-full h-full object-cover opacity-70">
-                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                            <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl">
+                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl ml-8 lg:ml-16">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Tecnología Avanzada
@@ -126,16 +126,16 @@ get_header(); ?>
                 
                 <!-- Slide 4 - Baterías -->
                 <div class="swiper-slide">
-                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative">
-                        <div class="absolute inset-0">
+                    <div class="h-[600px] md:h-[700px] lg:h-[800px] relative w-full">
+                        <div class="absolute inset-0 w-full">
                             <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                                  alt="Baterías y accesorios" 
                                  class="w-full h-full object-cover opacity-70">
-                            <div class="absolute inset-0 bg-slate-900/60"></div>
+                            <div class="absolute inset-0 bg-slate-900/60 w-full"></div>
                         </div>
                         
-                        <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
-                            <div class="max-w-3xl">
+                        <div class="container max-w-full mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-3xl ml-8 lg:ml-16">
                                 <div class="space-y-8 slide-content">
                                     <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
                                         Energía Confiable
