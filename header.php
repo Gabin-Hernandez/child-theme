@@ -301,7 +301,13 @@
                             <!-- Icono Lucide del carrito -->
                             <i data-lucide="shopping-cart" class="cart-icon w-6 h-6"></i>
                             <!-- Contador de productos -->
-                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="display: none;">
+                            <span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="<?php 
+                                if ( function_exists('WC') && WC()->cart ) { 
+                                    $cart_count = WC()->cart->get_cart_contents_count();
+                                    echo $cart_count > 0 ? 'display: flex;' : 'display: none;';
+                                } else {
+                                    echo 'display: none;';
+                                } ?>">
                                 <?php if ( function_exists('WC') && WC()->cart ) { 
                                     $cart_count = WC()->cart->get_cart_contents_count();
                                     echo $cart_count > 0 ? $cart_count : '0';

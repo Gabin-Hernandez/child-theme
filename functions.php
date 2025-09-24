@@ -1689,8 +1689,8 @@ function itools_add_cart_sidepanel_fragments( $fragments ) {
     if ( class_exists( 'WooCommerce' ) && WC()->cart ) {
         $cart_count = WC()->cart->get_cart_contents_count();
         
-        // Fragmento para el contador del carrito en el header
-        $fragments['.cart-counter'] = '<span class="cart-counter" style="' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . '">' . $cart_count . '</span>';
+        // Fragmento para el contador del carrito en el header con clases completas
+        $fragments['.cart-counter'] = '<span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . '">' . $cart_count . '</span>';
     }
     
     return $fragments;

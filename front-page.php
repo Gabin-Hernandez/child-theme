@@ -1378,6 +1378,17 @@ function updateCartCount(count) {
         }
     });
     
+    // Actualizar los contadores del carrito en el header (cart-counter)
+    const cartCounterElements = document.querySelectorAll('.cart-counter');
+    cartCounterElements.forEach(element => {
+        element.textContent = count;
+        if (count > 0) {
+            element.style.display = 'flex';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+    
     // Añadir efecto visual al link del carrito
     const cartLink = document.getElementById('cart-link');
     if (cartLink) {

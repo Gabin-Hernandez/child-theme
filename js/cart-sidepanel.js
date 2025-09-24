@@ -537,8 +537,24 @@ class NewCartSidepanel {
         const count = this.cartData?.count || 0;
         
         counters.forEach(counter => {
-            counter.textContent = count;
-            counter.style.display = count > 0 ? 'flex' : 'none';
+            if (counter.classList.contains('cart-count')) {
+                // Para elementos con clase cart-count (formato de texto)
+                if (count > 0) {
+                    counter.textContent = ' (' + count + ')';
+                    counter.style.display = 'inline';
+                } else {
+                    counter.textContent = '';
+                    counter.style.display = 'none';
+                }
+            } else if (counter.classList.contains('cart-counter')) {
+                // Para elementos con clase cart-counter (badge numérico)
+                counter.textContent = count;
+                if (count > 0) {
+                    counter.style.display = 'flex';
+                } else {
+                    counter.style.display = 'none';
+                }
+            }
         });
     }
     
