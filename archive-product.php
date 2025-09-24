@@ -7,7 +7,7 @@ get_header();
 
 // Solo crear consulta personalizada si hay filtros avanzados activos
 // NO crear consulta personalizada para product_cat o s ya que WooCommerce los maneja mejor
-$has_advanced_filters = !empty($_GET['product_categories']) || !empty($_GET['product_brands']) || 
+$has_advanced_filters = !empty($_GET['product_categories']) || 
                        !empty($_GET['min_price']) || !empty($_GET['max_price']) || !empty($_GET['orderby']);
 
 if ($has_advanced_filters) {
@@ -70,25 +70,7 @@ if ($has_advanced_filters) {
 }
 
 // product_cat se maneja mejor por WooCommerce en la consulta principal
-
-// Filtro por marcas
-if (!empty($_GET['product_brands'])) {
-    $selected_brands = $_GET['product_brands'];
-    if (is_array($selected_brands)) {
-        $brand_terms = array_map('intval', $selected_brands);
-    } else {
-        $brands = explode(',', sanitize_text_field($selected_brands));
-        $brand_terms = array_map('intval', array_map('trim', $brands));
-    }
-    if (!empty($brand_terms)) {
-        $args['tax_query'][] = array(
-            'taxonomy' => 'product_brand',
-            'field' => 'term_id',
-            'terms' => $brand_terms,
-            'operator' => 'IN'
-        );
-    }
-}
+// product_brands ha sido removido del filtro
 
 // Filtro por precio
 if (!empty($_GET['min_price']) || !empty($_GET['max_price'])) {
@@ -410,79 +392,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </div>
                         </div>
 
-                        <!-- Filtro por Marcas -->
-                        <div class="mb-8 p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
-                                <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mr-3">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                    </svg>
-                                </div>
-                                Marcas
-                            </h4>
-                            
-                            <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
-                                <?php
-                                $brand_taxonomies = array( 'product_brand', 'pa_marca', 'pa_brand' );
-                                $brands = array();
-                                
-                                foreach ( $brand_taxonomies as $taxonomy ) {
-                                    if ( taxonomy_exists( $taxonomy ) ) {
-                                        $brands = get_terms( array(
-                                            'taxonomy' => $taxonomy,
-                                            'hide_empty' => true,
-                                        ) );
-                                        if ( ! empty( $brands ) && ! is_wp_error( $brands ) ) {
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if ( ! empty( $brands ) && ! is_wp_error( $brands ) ) :
-                                    foreach ( $brands as $brand ) :
-                                ?>
-                                    <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-purple-200">
-                                        <div class="relative">
-                                            <input type="checkbox" 
-                                                   value="<?php echo $brand->term_id; ?>" 
-                                                   name="product_brands[]"
-                                                   class="brand-filter w-5 h-5 text-purple-600 rounded-lg focus:ring-purple-500 focus:ring-2 border-gray-300">
-                                            <div class="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <span class="text-gray-700 font-medium group-hover:text-purple-700 transition-colors">
-                                                <?php echo esc_html( $brand->name ); ?>
-                                            </span>
-                                            <div class="text-sm text-gray-500"><?php echo $brand->count; ?> productos</div>
-                                        </div>
-                                    </label>
-                                <?php 
-                                    endforeach;
-                                else :
-                                ?>
-                                    <div class="space-y-3">
-                                        <?php
-                                        $common_brands = array(
-                                            'DeWalt', 'Makita', 'Bosch', 'Stanley', 'Black & Decker', 
-                                            'Craftsman', 'Milwaukee', 'Ryobi', 'Hitachi', 'Festool'
-                                        );
-                                        foreach ( $common_brands as $brand ) :
-                                        ?>
-                                            <label class="group flex items-center space-x-4 cursor-pointer hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-purple-200">
-                                                <div class="relative">
-                                                    <input type="checkbox" 
-                                                           value="<?php echo strtolower( $brand ); ?>" 
-                                                           name="product_brands[]"
-                                                           class="brand-filter w-5 h-5 text-purple-600 rounded-lg focus:ring-purple-500 focus:ring-2 border-gray-300">
-                                                    <div class="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                                                </div>
-                                                <span class="text-gray-700 font-medium group-hover:text-purple-700 transition-colors"><?php echo $brand; ?></span>
-                                            </label>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
 
                         <!-- Botones de acción -->
                         <div class="space-y-4">
@@ -1190,13 +1099,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Las categorías ahora usan enlaces directos, no checkboxes
-        
-        // Filtros de marcas
-        const brandFilters = document.querySelectorAll('.brand-filter:checked');
-        if (brandFilters.length > 0) {
-            const brands = Array.from(brandFilters).map(cb => cb.value);
-            searchParams.set('product_brand', brands.join(','));
-        }
+        // Las marcas han sido removidas del filtro
         
         // Asegurar que siempre incluya post_type=product para búsquedas de productos
         searchParams.set('post_type', 'product');
@@ -1209,16 +1112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para limpiar filtros con animación
     function clearAllFilters() {
-        // Animación de limpiar - solo para marcas ya que categorías son enlaces directos
-        document.querySelectorAll('.brand-filter').forEach(cb => {
-            if (cb.checked) {
-                cb.checked = false;
-                cb.closest('label').style.backgroundColor = '#fee2e2';
-                setTimeout(() => {
-                    cb.closest('label').style.backgroundColor = '';
-                }, 200);
-            }
-        });
+        // Las categorías son enlaces directos, las marcas han sido removidas
+        // Solo limpiar campos de precio
         
         // Limpiar campos de precio con animación
         const minPrice = document.getElementById('min_price');
@@ -1284,16 +1179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Las categorías ahora se manejan automáticamente con enlaces directos y estado visual
-        
-        // Cargar marcas
-        const brands = urlParams.get('product_brand');
-        if (brands) {
-            const brandIds = brands.split(',');
-            brandIds.forEach(id => {
-                const checkbox = document.querySelector(`.brand-filter[value="${id}"]`);
-                if (checkbox) checkbox.checked = true;
-            });
-        }
+        // Las marcas han sido removidas del filtro
     }
     
     // Cargar filtros al cargar la página
