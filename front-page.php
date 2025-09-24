@@ -7,43 +7,42 @@ get_header(); ?>
 
 <main id="main" class="site-main">
     
-    <!-- Hero Slider Moderno -->
-    <section class="relative">
+    <!-- Hero Principal -->
+    <section class="relative bg-slate-900">
         <div id="hero-slider" class="relative">
             <!-- Slide 1 - Principal -->
-            <div class="slide active h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative">
+            <div class="slide active h-[600px] md:h-[700px] lg:h-[800px] relative">
                 <!-- Imagen de fondo -->
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
                          alt="Herramientas para técnicos" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                         class="w-full h-full object-cover opacity-70">
+                    <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
                 <!-- Contenido -->
-                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-4xl w-full">
-                        <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-white/15 backdrop-blur-md text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-white/20 text-sm sm:text-base">
-                                LÍDERES EN TECNOLOGÍA
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-3xl">
+                        <div class="space-y-8">
+                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                Líderes en Tecnología
                             </div>
-                            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight">
+                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                                 ITOOLS MX
-                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-200 font-light mt-2 sm:mt-3 tracking-wide">
+                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
                                     Tu socio tecnológico de confianza
                                 </span>
                             </h1>
-                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                 Más de 19,000 productos especializados para profesionales y técnicos en electrónica
                             </p>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                            <div class="flex flex-col sm:flex-row gap-4">
                                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                                   class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl text-center overflow-hidden">
-                                    <span class="relative z-10">Explorar Catálogo</span>
-                                    <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                   class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
+                                    Explorar Catálogo
                                 </a>
                                 <a href="#categorias" 
-                                   class="group relative bg-transparent border-2 border-white/60 text-white hover:border-white hover:bg-white/10 px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 text-center backdrop-blur-sm">
+                                   class="border-2 border-white/50 text-white hover:border-white hover:bg-white/10 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center">
                                     Ver Categorías
                                 </a>
                             </div>
@@ -53,33 +52,32 @@ get_header(); ?>
             </div>
             
             <!-- Slide 2 - Refacciones -->
-            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                          alt="Refacciones de celulares" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                         class="w-full h-full object-cover opacity-70">
+                    <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-4xl w-full">
-                        <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-emerald-500/15 backdrop-blur-md text-emerald-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-emerald-400/30 text-sm sm:text-base">
-                                REFACCIONES ORIGINALES
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-3xl">
+                        <div class="space-y-8">
+                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                Refacciones Originales
                             </div>
-                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
+                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                                 Refacciones
-                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
+                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
                                     Más de 19,000 SKU disponibles
                                 </span>
                             </h2>
-                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                 Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                             </p>
                             <a href="/categoria/refacciones/" 
-                               class="group relative bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
-                                <span class="relative z-10">Ver Refacciones</span>
-                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                               class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                Ver Refacciones
                             </a>
                         </div>
                     </div>
@@ -87,33 +85,32 @@ get_header(); ?>
             </div>
             
             <!-- Slide 3 - Pantallas -->
-            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                          alt="Pantallas y displays" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                         class="w-full h-full object-cover opacity-70">
+                    <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-4xl w-full">
-                        <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-slate-500/15 backdrop-blur-md text-slate-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-slate-400/30 text-sm sm:text-base">
-                                TECNOLOGÍA AVANZADA
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-3xl">
+                        <div class="space-y-8">
+                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                Tecnología Avanzada
                             </div>
-                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
+                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                                 Pantallas
-                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
+                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
                                     LCD, OLED y Touch de última generación
                                 </span>
                             </h2>
-                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                 Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                             </p>
                             <a href="/categoria/lcd-y-touch/" 
-                               class="group relative bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
-                                <span class="relative z-10">Ver Pantallas</span>
-                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                               class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                Ver Pantallas
                             </a>
                         </div>
                     </div>
@@ -121,33 +118,32 @@ get_header(); ?>
             </div>
             
             <!-- Slide 4 - Baterías -->
-            <div class="slide h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
+            <div class="slide h-[600px] md:h-[700px] lg:h-[800px] relative hidden">
                 <div class="absolute inset-0">
                     <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                          alt="Baterías y accesorios" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                         class="w-full h-full object-cover opacity-70">
+                    <div class="absolute inset-0 bg-slate-900/60"></div>
                 </div>
                 
-                <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center">
-                    <div class="max-w-4xl w-full">
-                        <div class="animate-fade-in-up">
-                            <div class="inline-flex items-center bg-amber-500/15 backdrop-blur-md text-amber-200 px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium mb-6 sm:mb-8 border border-amber-400/30 text-sm sm:text-base">
-                                ENERGÍA CONFIABLE
+                <div class="container max-w-6xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                    <div class="max-w-3xl">
+                        <div class="space-y-8">
+                            <div class="inline-flex items-center bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full font-medium border border-white/20">
+                                Energía Confiable
                             </div>
-                            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
+                            <h2 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                                 Baterías
-                                <span class="block text-lg sm:text-xl md:text-3xl lg:text-4xl text-gray-300 font-light mt-2 sm:mt-3 tracking-wide">
+                                <span class="block text-2xl md:text-3xl text-slate-200 font-normal mt-4">
                                     Máxima duración y rendimiento
                                 </span>
                             </h2>
-                            <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-8 sm:mb-10 leading-relaxed max-w-2xl">
+                            <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                 Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                             </p>
                             <a href="/categoria/baterias/" 
-                               class="group relative bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl inline-block overflow-hidden">
-                                <span class="relative z-10">Ver Baterías</span>
-                                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                               class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                                Ver Baterías
                             </a>
                         </div>
                     </div>
@@ -155,65 +151,59 @@ get_header(); ?>
             </div>
         </div>
         
-        <!-- Navegación del slider mejorada -->
-        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 bg-black/60 backdrop-blur-lg px-8 py-4 rounded-full border border-white/10" style="z-index: 9999;">
-            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
-            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
-            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
-            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all duration-300 transform hover:scale-125"></button>
+        <!-- Navegación del slider -->
+        <div id="slider-controls" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 bg-black/50 backdrop-blur-sm px-6 py-3 rounded-full" style="z-index: 9999;">
+            <button id="dot-0" onclick="changeSlide(0)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+            <button id="dot-1" onclick="changeSlide(1)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+            <button id="dot-2" onclick="changeSlide(2)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
+            <button id="dot-3" onclick="changeSlide(3)" class="slider-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white transition-all duration-300"></button>
         </div>
         
-        <!-- Flechas de navegación mejoradas - Ocultas en móvil -->
-        <button id="prev-arrow" onclick="prevSlide()" class="hidden md:block absolute left-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+        <!-- Flechas de navegación -->
+        <button id="prev-arrow" onclick="prevSlide()" class="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300" style="z-index: 9999;">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
             </svg>
         </button>
-        <button id="next-arrow" onclick="nextSlide()" class="hidden md:block absolute right-8 top-1/2 transform -translate-y-1/2 bg-black/60 backdrop-blur-lg hover:bg-black/80 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 border border-white/10" style="z-index: 9999;">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+        <button id="next-arrow" onclick="nextSlide()" class="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300" style="z-index: 9999;">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
         </button>
         
         <!-- Indicador de progreso -->
-        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white bg-opacity-10">
-            <div id="progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+            <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300"></div>
         </div>
     </section>
 
-    <!-- Categorías Populares - Diseño Moderno -->
-    <section id="categorias" class="py-16 sm:py-20 lg:py-24 bg-gray-900 relative">
-        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+    <!-- Categorías Populares -->
+    <section id="categorias" class="py-20 bg-slate-900">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
                     Nuestras Especialidades
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-xl text-slate-300 max-w-2xl mx-auto">
                     Productos de la más alta calidad para profesionales exigentes
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12 sm:mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 <!-- Refacciones -->
                 <div class="group cursor-pointer" onclick="window.location.href='/categoria/refacciones/'">
-                    <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                              alt="Refacciones de celulares" 
-                             class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute inset-0 bg-slate-900/70"></div>
                         
-                        <div class="relative z-10 h-full flex flex-col justify-between p-6">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white mb-2">REFACCIONES</h3>
-                                    <p class="text-gray-300 text-sm">Más de 19,000 productos</p>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Variedad de Piezas</h4>
-                                <p class="text-gray-300 text-sm">Componentes originales y compatibles para todo tipo de dispositivos</p>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
+                            <div class="space-y-2">
+                                <h3 class="text-xl font-bold text-white">REFACCIONES</h3>
+                                <p class="text-slate-300 text-sm">Más de 19,000 productos</p>
+                                <p class="text-slate-400 text-xs">Componentes originales y compatibles</p>
                             </div>
                         </div>
                     </div>
@@ -221,23 +211,17 @@ get_header(); ?>
                 
                 <!-- Pantallas -->
                 <div class="group cursor-pointer" onclick="window.location.href='/categoria/lcd-y-touch/'">
-                    <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                              alt="Pantallas LCD y Touch" 
-                             class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute inset-0 bg-slate-900/70"></div>
                         
-                        <div class="relative z-10 h-full flex flex-col justify-between p-6">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white mb-2">PANTALLAS</h3>
-                                    <p class="text-gray-300 text-sm">Calidad es nuestra prioridad</p>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">LCD y Touch</h4>
-                                <p class="text-gray-300 text-sm">Displays de alta calidad, OLED, INCELL y tecnologías premium</p>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
+                            <div class="space-y-2">
+                                <h3 class="text-xl font-bold text-white">PANTALLAS</h3>
+                                <p class="text-slate-300 text-sm">Calidad es nuestra prioridad</p>
+                                <p class="text-slate-400 text-xs">LCD, OLED y tecnologías premium</p>
                             </div>
                         </div>
                     </div>
@@ -245,23 +229,17 @@ get_header(); ?>
                 
                 <!-- Herramientas -->
                 <div class="group cursor-pointer" onclick="window.location.href='/categoria/herramientas/'">
-                    <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                              alt="Herramientas profesionales" 
-                             class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute inset-0 bg-slate-900/70"></div>
                         
-                        <div class="relative z-10 h-full flex flex-col justify-between p-6">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white mb-2">HERRAMIENTAS</h3>
-                                    <p class="text-gray-300 text-sm">Servicio integral</p>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Para tu Taller</h4>
-                                <p class="text-gray-300 text-sm">Microscopios, estaciones de soldadura, cautines y más</p>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
+                            <div class="space-y-2">
+                                <h3 class="text-xl font-bold text-white">HERRAMIENTAS</h3>
+                                <p class="text-slate-300 text-sm">Servicio integral</p>
+                                <p class="text-slate-400 text-xs">Microscopios, estaciones de soldadura</p>
                             </div>
                         </div>
                     </div>
@@ -269,23 +247,17 @@ get_header(); ?>
                 
                 <!-- Baterías -->
                 <div class="group cursor-pointer" onclick="window.location.href='/categoria/baterias/'">
-                    <div class="relative bg-black rounded-2xl overflow-hidden h-80 transform group-hover:scale-105 transition-all duration-500 shadow-2xl">
+                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                              alt="Baterías y accesorios" 
-                             class="absolute inset-0 w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute inset-0 bg-slate-900/70"></div>
                         
-                        <div class="relative z-10 h-full flex flex-col justify-between p-6">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white mb-2">BATERÍAS</h3>
-                                    <p class="text-gray-300 text-sm">Energía completa</p>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <h4 class="text-lg font-semibold text-white mb-2">Máxima Duración</h4>
-                                <p class="text-gray-300 text-sm">Baterías originales y compatibles con garantía extendida</p>
+                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
+                            <div class="space-y-2">
+                                <h3 class="text-xl font-bold text-white">BATERÍAS</h3>
+                                <p class="text-slate-300 text-sm">Energía completa</p>
+                                <p class="text-slate-400 text-xs">Originales y compatibles con garantía</p>
                             </div>
                         </div>
                     </div>
@@ -294,166 +266,145 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- CTA con Estadísticas -->
-    <section class="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
-        <!-- Patrón geométrico elegante -->
-        <div class="absolute inset-0 opacity-5">
-            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                    <pattern id="premium-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#premium-grid)" />
-            </svg>
-        </div>
-        
-        <!-- Elementos decorativos minimalistas -->
-        <div class="absolute inset-0">
-            <div class="absolute top-20 right-20 w-32 h-32 border border-amber-500/20 rounded-full"></div>
-            <div class="absolute bottom-20 left-20 w-24 h-24 border border-emerald-500/20 rounded-full"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-white/5 rounded-full"></div>
-        </div>
-        
-        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
+    <!-- Estadísticas y CTA -->
+    <section class="py-20 bg-white">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     ¿Por qué elegirnos?
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Somos líderes en el mercado mexicano con más de 10 años de experiencia
                 </p>
-                
-                <!-- Estadísticas con diseño premium -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8 sm:mb-12">
-                    <div class="text-center group">
-                        <div class="bg-gradient-to-br from-amber-400 to-orange-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">19,000+</div>
-                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Productos en Stock</div>
-                    </div>
-                    <div class="text-center group">
-                        <div class="bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">50,000+</div>
-                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Clientes Satisfechos</div>
-                    </div>
-                    <div class="text-center group">
-                        <div class="bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">24h</div>
-                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Envío Express</div>
-                    </div>
-                    <div class="text-center group">
-                        <div class="bg-gradient-to-br from-rose-400 to-pink-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 group-hover:scale-110 transition-transform duration-300">99.8%</div>
-                        <div class="text-gray-300 font-medium tracking-wide text-sm sm:text-base">Satisfacción</div>
-                    </div>
+            </div>
+            
+            <!-- Estadísticas -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">19,000+</div>
+                    <div class="text-slate-600">Productos en Stock</div>
                 </div>
-                
-                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-                    <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                       class="group relative bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 shadow-2xl overflow-hidden">
-                        <span class="relative z-10">Explorar Catálogo</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </a>
-                    <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'myaccount' ) ) : '/mi-cuenta/'; ?>" 
-                       class="group relative bg-transparent border-2 border-gray-400 text-gray-300 hover:border-white hover:text-white px-8 py-3 sm:px-12 sm:py-4 text-lg sm:text-xl font-semibold rounded-xl transform hover:scale-105 transition-all duration-300 overflow-hidden">
-                        <span class="relative z-10">Crear Cuenta</span>
-                        <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </a>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-600 mb-2">50,000+</div>
+                    <div class="text-slate-600">Clientes Satisfechos</div>
                 </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">24h</div>
+                    <div class="text-slate-600">Envío Express</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-amber-600 mb-2">99.8%</div>
+                    <div class="text-slate-600">Satisfacción</div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
+                    Explorar Catálogo
+                </a>
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'myaccount' ) ) : '/mi-cuenta/'; ?>" 
+                   class="border-2 border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center">
+                    Crear Cuenta
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Marcas Populares -->
-    <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 sm:mb-16 lg:mb-20">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 lg:mb-8 tracking-tight">Marcas de Confianza</h3>
-                <p class="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
+    <section class="py-16 bg-slate-50">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
             </div>
             
-            <!-- Carrusel de marcas mejorado -->
-            <div class="overflow-hidden relative brands-container" style="height: 100px;">
-                <div class="flex brands-carousel space-x-12 items-center" style="animation: scrollBrands 20s linear infinite; width: 200%; will-change: transform;">
+            <!-- Carrusel de marcas -->
+            <div class="overflow-hidden relative brands-container" style="height: 80px;">
+                <div class="flex brands-carousel space-x-8 items-center" style="animation: scrollBrands 20s linear infinite; width: 200%; will-change: transform;">
                     <!-- Apple -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <svg class="w-16 h-16 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <svg class="w-12 h-12 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
                     </div>
                     
                     <!-- Samsung -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-blue-600">SAMSUNG</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-blue-600">SAMSUNG</div>
                     </div>
                     
                     <!-- Xiaomi -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-orange-500">Mi</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-orange-500">Mi</div>
                     </div>
                     
                     <!-- Huawei -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-red-600">HUAWEI</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-red-600">HUAWEI</div>
                     </div>
                     
                     <!-- OPPO -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-green-600">OPPO</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-green-600">OPPO</div>
                     </div>
                     
                     <!-- OnePlus -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-black">OnePlus</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-slate-800">OnePlus</div>
                     </div>
                     
                     <!-- Realme -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-yellow-600">realme</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-yellow-600">realme</div>
                     </div>
                     
                     <!-- Motorola -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-lg font-bold text-gray-800">MOTOROLA</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-sm font-bold text-slate-700">MOTOROLA</div>
                     </div>
                     
                     <!-- Duplicados para efecto infinito -->
                     <!-- Apple duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <svg class="w-16 h-16 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <svg class="w-12 h-12 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
                     </div>
                     
                     <!-- Samsung duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-blue-600">SAMSUNG</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-blue-600">SAMSUNG</div>
                     </div>
                     
                     <!-- Xiaomi duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-orange-500">Mi</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-orange-500">Mi</div>
                     </div>
                     
                     <!-- Huawei duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-red-600">HUAWEI</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-red-600">HUAWEI</div>
                     </div>
                     
                     <!-- OPPO duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-2xl font-bold text-green-600">OPPO</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-lg font-bold text-green-600">OPPO</div>
                     </div>
                     
                     <!-- OnePlus duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-black">OnePlus</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-slate-800">OnePlus</div>
                     </div>
                     
                     <!-- Realme duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-xl font-bold text-yellow-600">realme</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-base font-bold text-yellow-600">realme</div>
                     </div>
                     
                     <!-- Motorola duplicado -->
-                    <div class="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                        <div class="text-lg font-bold text-gray-800">MOTOROLA</div>
+                    <div class="flex-shrink-0 w-28 h-16 flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200">
+                        <div class="text-sm font-bold text-slate-700">MOTOROLA</div>
                     </div>
                 </div>
             </div>
@@ -502,16 +453,16 @@ get_header(); ?>
     </section>
 
     <!-- Productos en Oferta -->
-    <section id="ofertas" class="py-8 bg-gradient-to-br from-red-50 to-orange-50">
-        <div class="container max-w-7xl mx-auto px-4">
+    <section id="ofertas" class="py-20 bg-red-50">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
-                <div class="inline-flex items-center bg-red-100 text-red-800 px-4 py-2 rounded-full font-semibold mb-4">
+                <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
                     OFERTAS ESPECIALES
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     Productos en Oferta
                 </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Aprovecha nuestros descuentos exclusivos por tiempo limitado
                 </p>
             </div>
@@ -550,48 +501,48 @@ get_header(); ?>
                                 $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
                                 $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
                             ?>
-                                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-slate-200">
                                     <div class="relative">
                                         <a href="<?php echo get_permalink(); ?>">
                                             <img src="<?php echo esc_url($image_url); ?>" 
                                                  alt="<?php echo esc_attr(get_the_title()); ?>" 
-                                                 class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300">
+                                                 class="w-full h-48 object-cover">
                                         </a>
                                         <?php if ( $discount_percentage > 0 ) : ?>
-                                            <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                                            <div class="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
                                                 -<?php echo $discount_percentage; ?>%
                                             </div>
                                         <?php endif; ?>
                                     </div>
                                     <div class="p-4">
                                         <a href="<?php echo get_permalink(); ?>">
-                                            <h3 class="font-bold text-lg mb-2 hover:text-blue-600 transition-colors">
+                                            <h3 class="font-semibold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
                                                 <?php echo get_the_title(); ?>
                                             </h3>
                                         </a>
-                                        <div class="flex items-center gap-2 mb-3">
+                                        <div class="flex items-center gap-2 mb-4">
                                             <?php if ( $sale_price ) : ?>
-                                                <span class="text-red-500 font-bold text-xl">
+                                                <span class="text-red-600 font-bold text-lg">
                                                     <?php echo wc_price($sale_price); ?>
                                                 </span>
                                                 <?php if ( $regular_price && $regular_price != $sale_price ) : ?>
-                                                    <span class="text-gray-400 line-through">
+                                                    <span class="text-slate-400 line-through text-sm">
                                                         <?php echo wc_price($regular_price); ?>
                                                     </span>
                                                 <?php endif; ?>
                                             <?php else : ?>
-                                                <span class="text-blue-600 font-bold text-xl">
+                                                <span class="text-slate-900 font-bold text-lg">
                                                     <?php echo $product->get_price_html(); ?>
                                                 </span>
                                             <?php endif; ?>
                                         </div>
                                         <div class="flex gap-2">
                                             <a href="<?php echo get_permalink(); ?>" 
-                                               class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors text-center text-sm font-medium">
+                                               class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-md transition-colors text-center text-sm font-medium">
                                                 Ver Producto
                                             </a>
                                             <button onclick="addToCart('<?php echo esc_js($product->get_slug()); ?>')" 
-                                                    class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition-colors flex items-center justify-center"
+                                                    class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-md transition-colors flex items-center justify-center"
                                                     title="Agregar al carrito">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"></path>
@@ -627,7 +578,7 @@ get_header(); ?>
             </div>
             <div class="text-center mt-12">
                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                   class="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
+                   class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                     Ver Todas las Ofertas
                 </a>
             </div>
@@ -636,16 +587,16 @@ get_header(); ?>
 
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
-    <section class="py-8 bg-white">
-        <div class="container max-w-7xl mx-auto px-4">
+    <section class="py-20 bg-white">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
-                <div class="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold mb-4">
+                <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
                     PRODUCTOS DESTACADOS
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     Lo Más Popular
                 </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Los productos más valorados y mejor calificados por nuestros clientes
                 </p>
             </div>
@@ -782,29 +733,19 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Productos Destacados Premium -->
-    <section class="py-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative">
-        <!-- Efectos de fondo -->
-        <div class="absolute inset-0">
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
-            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse animation-delay-2000"></div>
-        </div>
-        
-        <div class="container max-w-7xl mx-auto px-4 relative z-10">
-            <!-- Header -->
+    <section class="py-20 bg-slate-900">
+        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
-                <div class="inline-flex items-center bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm text-orange-200 px-6 py-3 rounded-full font-semibold mb-6">
+                <div class="inline-flex items-center bg-white/10 text-white px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
                     </svg>
                     PRODUCTOS DESTACADOS
                 </div>
-                <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
-                    Lo Mejor de 
-                    <span class="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                        ITOOLS MX
-                    </span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+                    Lo Mejor de ITOOLS MX
                 </h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-xl text-slate-300 max-w-2xl mx-auto">
                     Descubre nuestros productos más vendidos y mejor valorados por técnicos profesionales
                 </p>
             </div>
@@ -813,43 +754,43 @@ get_header(); ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 
                 <!-- Producto 1 - Microscopio -->
-                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-orange-500/50">
-                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                <div class="bg-slate-800 rounded-lg overflow-hidden hover:bg-slate-700 transition-colors duration-300 border border-slate-700">
+                    <div class="relative">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                              alt="Microscopio Profesional" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                             class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-slate-900/50"></div>
                         
                         <!-- Badge -->
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-yellow-500 text-white px-3 py-1 rounded-md text-sm font-semibold">
                                 MÁS VENDIDO
                             </span>
                         </div>
                         
                         <!-- Rating -->
-                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                        <div class="absolute top-3 right-3 flex items-center bg-black/50 rounded-md px-2 py-1">
                             <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
-                            <span class="text-white text-sm font-medium">4.9</span>
+                            <span class="text-white text-sm">4.9</span>
                         </div>
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                        <h3 class="text-lg font-bold text-white mb-2">
                             Microscopio Profesional HD
                         </h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <p class="text-slate-400 text-sm mb-4">
                             Microscopio de alta definición para reparaciones de precisión
                         </p>
                         
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-2xl font-bold text-orange-400">$6,900</span>
-                                <span class="text-gray-500 line-through ml-2">$8,500</span>
+                                <span class="text-xl font-bold text-yellow-400">$6,900</span>
+                                <span class="text-slate-500 line-through ml-2 text-sm">$8,500</span>
                             </div>
-                            <a href="/categoria/herramientas/" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="/categoria/herramientas/" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md font-semibold transition-colors duration-300 text-sm">
                                 Ver Producto
                             </a>
                         </div>
@@ -857,43 +798,43 @@ get_header(); ?>
                 </div>
 
                 <!-- Producto 2 - Pantalla iPhone -->
-                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-blue-500/50">
-                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                <div class="bg-slate-800 rounded-lg overflow-hidden hover:bg-slate-700 transition-colors duration-300 border border-slate-700">
+                    <div class="relative">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                              alt="Pantalla iPhone OLED" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                             class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-slate-900/50"></div>
                         
                         <!-- Badge -->
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-blue-500 text-white px-3 py-1 rounded-md text-sm font-semibold">
                                 MEJOR CALIDAD
                             </span>
                         </div>
                         
                         <!-- Rating -->
-                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                        <div class="absolute top-3 right-3 flex items-center bg-black/50 rounded-md px-2 py-1">
                             <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
-                            <span class="text-white text-sm font-medium">4.8</span>
+                            <span class="text-white text-sm">4.8</span>
                         </div>
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                        <h3 class="text-lg font-bold text-white mb-2">
                             Pantalla iPhone 15 Pro OLED
                         </h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <p class="text-slate-400 text-sm mb-4">
                             Display OLED original con tecnología ProMotion 120Hz
                         </p>
                         
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-2xl font-bold text-blue-400">$2,850</span>
-                                <span class="text-gray-500 line-through ml-2">$3,200</span>
+                                <span class="text-xl font-bold text-blue-400">$2,850</span>
+                                <span class="text-slate-500 line-through ml-2 text-sm">$3,200</span>
                             </div>
-                            <a href="/categoria/lcd-y-touch/" class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="/categoria/lcd-y-touch/" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-semibold transition-colors duration-300 text-sm">
                                 Ver Producto
                             </a>
                         </div>
@@ -901,43 +842,43 @@ get_header(); ?>
                 </div>
 
                 <!-- Producto 3 - Estación de Soldadura -->
-                <div class="group relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 border border-white/10 hover:border-green-500/50">
-                    <div class="aspect-w-16 aspect-h-12 relative overflow-hidden">
+                <div class="bg-slate-800 rounded-lg overflow-hidden hover:bg-slate-700 transition-colors duration-300 border border-slate-700">
+                    <div class="relative">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
                              alt="Estación de Soldadura Profesional" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                             class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-slate-900/50"></div>
                         
                         <!-- Badge -->
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-green-500 text-white px-3 py-1 rounded-md text-sm font-semibold">
                                 PROFESIONAL
                             </span>
                         </div>
                         
                         <!-- Rating -->
-                        <div class="absolute top-4 right-4 flex items-center bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                        <div class="absolute top-3 right-3 flex items-center bg-black/50 rounded-md px-2 py-1">
                             <svg class="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
-                            <span class="text-white text-sm font-medium">5.0</span>
+                            <span class="text-white text-sm">5.0</span>
                         </div>
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
+                        <h3 class="text-lg font-bold text-white mb-2">
                             Estación de Soldadura Pro
                         </h3>
-                        <p class="text-gray-400 text-sm mb-4">
+                        <p class="text-slate-400 text-sm mb-4">
                             Control digital de temperatura y múltiples funciones avanzadas
                         </p>
                         
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-2xl font-bold text-green-400">$4,750</span>
-                                <span class="text-gray-500 line-through ml-2">$5,400</span>
+                                <span class="text-xl font-bold text-green-400">$4,750</span>
+                                <span class="text-slate-500 line-through ml-2 text-sm">$5,400</span>
                             </div>
-                            <a href="/categoria/estaciones-soldadura/" class="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-6 py-2 rounded-full font-semibold transform hover:scale-105 transition-all duration-300">
+                            <a href="/categoria/estaciones-soldadura/" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md font-semibold transition-colors duration-300 text-sm">
                                 Ver Producto
                             </a>
                         </div>
@@ -945,73 +886,41 @@ get_header(); ?>
                 </div>
             </div>
 
-            <!-- Estadísticas y CTA -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Estadísticas -->
-                <div class="space-y-8">
-                    <h3 class="text-3xl font-bold text-white mb-8">Números que nos respaldan</h3>
-                    
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-                            <div class="text-3xl font-bold text-orange-400 mb-2">19,000+</div>
-                            <div class="text-gray-300 text-sm">Productos en Stock</div>
-                        </div>
-                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-                            <div class="text-3xl font-bold text-blue-400 mb-2">50,000+</div>
-                            <div class="text-gray-300 text-sm">Clientes Satisfechos</div>
-                        </div>
-                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-                            <div class="text-3xl font-bold text-green-400 mb-2">98.5%</div>
-                            <div class="text-gray-300 text-sm">Satisfacción</div>
-                        </div>
-                        <div class="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
-                            <div class="text-3xl font-bold text-purple-400 mb-2">24h</div>
-                            <div class="text-gray-300 text-sm">Envío Express</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CTA -->
-                <div class="text-center lg:text-left">
-                    <h3 class="text-3xl font-bold text-white mb-6">
-                        ¿Listo para llevar tu trabajo al siguiente nivel?
-                    </h3>
-                    <p class="text-gray-300 mb-8 text-lg">
-                        Únete a miles de técnicos que ya confían en ITOOLS MX para sus proyectos más importantes.
-                    </p>
-                    
-                    <div class="space-y-4">
-                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
-                           class="inline-flex items-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-4 text-lg font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                            </svg>
-                            Explorar Catálogo Completo
-                        </a>
-                        
-                        <div class="flex items-center justify-center lg:justify-start text-gray-400 text-sm">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                            Compra 100% segura con garantía de satisfacción
-                        </div>
-                    </div>
-                </div>
+            <!-- CTA Final -->
+            <div class="text-center">
+                <h3 class="text-3xl font-bold text-white mb-6">
+                    ¿Listo para llevar tu trabajo al siguiente nivel?
+                </h3>
+                <p class="text-slate-300 mb-8 text-lg max-w-2xl mx-auto">
+                    Únete a miles de técnicos que ya confían en ITOOLS MX para sus proyectos más importantes.
+                </p>
+                
+                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                   class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    Explorar Catálogo Completo
+                </a>
+                
+                <p class="text-slate-400 text-sm mt-4">
+                    Compra 100% segura con garantía de satisfacción
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Newsletter CTA - Dentro del main -->
-    <section id="newsletter-cta" class="bg-gradient-to-tr from-slate-900 via-blue-900 to-slate-900 py-6">
-        <div class="container max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
-            <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+    <!-- Newsletter -->
+    <section id="newsletter-cta" class="bg-slate-800 py-16">
+        <div class="container max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">¡Mantente actualizado!</h2>
+            <p class="text-slate-300 mb-8 max-w-xl mx-auto">
                 Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
             </p>
-            <div class="max-w-md mx-auto flex">
+            <div class="max-w-md mx-auto flex gap-2">
                 <input type="email" placeholder="Tu correo electrónico" 
-                       class="flex-1 px-4 py-3 rounded-l-lg border-0 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-r-lg font-semibold transition duration-300">
+                       class="flex-1 px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300">
                     Suscribirse
                 </button>
             </div>
@@ -1032,73 +941,52 @@ const totalSlides = slides.length;
 let slideInterval;
 let progressInterval;
 
-// Configurar slider automático con barra de progreso
+// Configurar slider automático simplificado
 function startAutoSlider() {
     slideInterval = setInterval(() => {
         nextSlide();
-    }, 6000); // Cambio cada 6 segundos
+    }, 5000); // Cambio cada 5 segundos
     
     updateProgressBar();
 }
 
 function updateProgressBar() {
-    let progress = 0;
     progressBar.style.width = '0%';
+    progressBar.style.transition = 'width 5000ms linear';
     
-    progressInterval = setInterval(() => {
-        progress += 100 / 600; // 6000ms / 10ms = 600 iteraciones
-        progressBar.style.width = progress + '%';
-        
-        if (progress >= 100) {
-            clearInterval(progressInterval);
-        }
-    }, 10);
+    setTimeout(() => {
+        progressBar.style.width = '100%';
+    }, 50);
 }
 
 function resetProgress() {
-    clearInterval(progressInterval);
+    progressBar.style.transition = 'none';
     progressBar.style.width = '0%';
-    setTimeout(updateProgressBar, 100);
+    setTimeout(() => {
+        progressBar.style.transition = 'width 5000ms linear';
+        progressBar.style.width = '100%';
+    }, 100);
 }
 
 function showSlide(index) {
-    // Animación de salida
-    slides[currentSlide].style.opacity = '0';
-    slides[currentSlide].style.transform = 'translateX(-50px)';
+    // Actualizar dots
+    dots[currentSlide].classList.remove('bg-white');
+    dots[currentSlide].classList.add('bg-white/50');
     
-    // Actualizar dots - remover estados activos
-    dots[currentSlide].classList.remove('bg-opacity-100', 'active');
-    dots[currentSlide].classList.add('bg-opacity-50');
+    // Mostrar slide
+    slides.forEach(slide => slide.classList.add('hidden'));
+    slides[index].classList.remove('hidden');
     
-    setTimeout(() => {
-        slides.forEach(slide => {
-            slide.classList.add('hidden');
-            slide.style.opacity = '1';
-            slide.style.transform = 'translateX(0)';
-        });
-        
-        // Mostrar nuevo slide
-        slides[index].classList.remove('hidden');
-        slides[index].style.opacity = '0';
-        slides[index].style.transform = 'translateX(50px)';
-        
-        // Animación de entrada
-        setTimeout(() => {
-            slides[index].style.opacity = '1';
-            slides[index].style.transform = 'translateX(0)';
-        }, 50);
-        
-        // Actualizar dots - añadir estados activos
-        dots[index].classList.remove('bg-opacity-50');
-        dots[index].classList.add('bg-opacity-100', 'active');
-        currentSlide = index;
-    }, 300);
+    // Actualizar dots activos
+    dots[index].classList.remove('bg-white/50');
+    dots[index].classList.add('bg-white');
+    currentSlide = index;
 }
 
 function changeSlide(index) {
     showSlide(index);
     
-    // Reiniciar auto slider y barra de progreso
+    // Reiniciar auto slider
     clearInterval(slideInterval);
     resetProgress();
     setTimeout(startAutoSlider, 100);
@@ -1116,15 +1004,10 @@ function prevSlide() {
 
 // Inicializar slider
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar transiciones CSS
-    slides.forEach(slide => {
-        slide.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    
     // Marcar el primer dot como activo
     if (dots[0]) {
-        dots[0].classList.add('bg-opacity-100', 'active');
-        dots[0].classList.remove('bg-opacity-50');
+        dots[0].classList.add('bg-white');
+        dots[0].classList.remove('bg-white/50');
     }
     
     // Iniciar slider automático
@@ -1134,72 +1017,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const sliderContainer = document.getElementById('hero-slider');
     sliderContainer.addEventListener('mouseenter', () => {
         clearInterval(slideInterval);
-        clearInterval(progressInterval);
     });
     
     sliderContainer.addEventListener('mouseleave', () => {
         startAutoSlider();
     });
-    
-    // Soporte para navegación con teclado
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-            changeSlide(currentSlide);
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            changeSlide(currentSlide);
-        }
-    });
 });
 
-// Animaciones de contadores
-function animateCounters() {
-    const counters = document.querySelectorAll('.count-up');
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        const increment = target / 100;
-        let current = 0;
-        
-        const updateCounter = () => {
-            if (current < target) {
-                current += increment;
-                counter.textContent = Math.floor(current).toLocaleString();
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target.toLocaleString();
-            }
-        };
-        
-        updateCounter();
-    });
-}
-
-// Intersection Observer para animaciones
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px 50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            if (entry.target.classList.contains('stats-section')) {
-                animateCounters();
-            }
-            entry.target.classList.add('animate-fade-in-up');
-        }
-    });
-}, observerOptions);
-
-// Observar elementos cuando el DOM esté listo
+// Smooth scroll para enlaces internos
 document.addEventListener('DOMContentLoaded', function() {
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-    
-    // Smooth scroll para enlaces internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -1488,85 +1314,22 @@ console.log('📦 Funciones auxiliares disponibles:', {
 });
 </script>
 
-<!-- CSS y JavaScript para Navbar Sticky y Partículas -->
+<!-- CSS Simplificado -->
 <style>
-    /* Partículas Animadas */
-    .particles-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
-    
-    .particle {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 50%;
-        pointer-events: none;
-    }
-    
-    .particle-medium {
-        position: absolute;
-        background: rgba(245, 158, 11, 0.12);
-        border-radius: 50%;
-        pointer-events: none;
-    }
-    
-    .particle-large {
-        position: absolute;
-        background: rgba(156, 163, 175, 0.1);
-        border-radius: 50%;
-        pointer-events: none;
-    }
-    
-    /* Partículas pequeñas */
-    .particle-1 { width: 4px; height: 4px; top: 10%; left: 10%; animation: float1 6s ease-in-out infinite; }
-    .particle-2 { width: 6px; height: 6px; top: 20%; left: 80%; animation: float2 8s ease-in-out infinite; }
-    .particle-3 { width: 3px; height: 3px; top: 60%; left: 15%; animation: float3 7s ease-in-out infinite; }
-    .particle-4 { width: 5px; height: 5px; top: 80%; left: 70%; animation: float1 9s ease-in-out infinite; }
-    .particle-5 { width: 4px; height: 4px; top: 30%; left: 45%; animation: float2 5s ease-in-out infinite; }
-    .particle-6 { width: 3px; height: 3px; top: 70%; left: 90%; animation: float3 6s ease-in-out infinite; }
-    .particle-7 { width: 5px; height: 5px; top: 15%; left: 60%; animation: float1 7s ease-in-out infinite; }
-    .particle-8 { width: 4px; height: 4px; top: 85%; left: 25%; animation: float2 8s ease-in-out infinite; }
-    .particle-9 { width: 6px; height: 6px; top: 40%; left: 85%; animation: float3 6s ease-in-out infinite; }
-    .particle-10 { width: 3px; height: 3px; top: 90%; left: 50%; animation: float1 9s ease-in-out infinite; }
-    
-    /* Partículas medianas */
-    .particle-m1 { width: 12px; height: 12px; top: 25%; left: 20%; animation: float2 10s ease-in-out infinite; }
-    .particle-m2 { width: 10px; height: 10px; top: 75%; left: 75%; animation: float3 12s ease-in-out infinite; }
-    .particle-m3 { width: 14px; height: 14px; top: 50%; left: 65%; animation: float1 11s ease-in-out infinite; }
-    .particle-m4 { width: 8px; height: 8px; top: 35%; left: 5%; animation: float2 9s ease-in-out infinite; }
-    
-    /* Partículas grandes */
-    .particle-l1 { width: 20px; height: 20px; top: 45%; left: 35%; animation: float3 15s ease-in-out infinite; }
-    .particle-l2 { width: 18px; height: 18px; top: 65%; left: 55%; animation: float1 13s ease-in-out infinite; }
-    
-    /* Animaciones de flotación más sutiles y elegantes */
-    @keyframes float1 {
-        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
-        25% { transform: translateY(-12px) translateX(6px); opacity: 0.4; }
-        50% { transform: translateY(-8px) translateX(-8px); opacity: 0.6; }
-        75% { transform: translateY(-18px) translateX(3px); opacity: 0.3; }
-    }
-    
-    @keyframes float2 {
-        0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.15; }
-        33% { transform: translateY(-15px) translateX(-6px) rotate(60deg); opacity: 0.4; }
-        66% { transform: translateY(-10px) translateX(12px) rotate(120deg); opacity: 0.5; }
-    }
-    
-    @keyframes float3 {
-        0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.25; }
-        50% { transform: translateY(-20px) translateX(8px) scale(1.1); opacity: 0.45; }
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-        .particle, .particle-medium, .particle-large {
-            display: none;
+    /* Animaciones sutiles */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
     }
 </style>
 
