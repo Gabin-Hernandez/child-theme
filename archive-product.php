@@ -647,8 +647,9 @@ $products_query = new WP_Query($args);
                                                        data-quantity="1" 
                                                        data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" 
                                                        data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" 
-                                                       class="add_to_cart_button ajax_add_to_cart w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md inline-block text-center">
-                                                        <?php echo esc_html( $product->add_to_cart_text() ); ?>
+                                                       class="add_to_cart_button ajax_add_to_cart product_type_simple w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 px-4 rounded-lg text-sm font-medium transition-colors duration-200 shadow-sm hover:shadow-md inline-block text-center"
+                                                       rel="nofollow">
+                                                        Agregar al carrito
                                                     </a>
                                                 <?php else : ?>
                                                     <button class="w-full bg-gray-300 text-gray-600 py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed">
@@ -1274,6 +1275,65 @@ document.addEventListener('DOMContentLoaded', function() {
             animateOnScroll.observe(card);
         });
     }
+    
+    // Manejar eventos de agregar al carrito
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add_to_cart_button') && e.target.classList.contains('ajax_add_to_cart')) {
+            e.preventDefault();
+            
+            const button = e.target;
+            const productId = button.getAttribute('data-product_id');
+            const quantity = button.getAttribute('data-quantity') || 1;
+            
+            // Mostrar estado de carga
+            const originalText = button.textContent;
+            button.textContent = 'Agregando...';
+            button.disabled = true;
+            
+            // Realizar petición AJAX
+            fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    action: 'woocommerce_add_to_cart',
+                    product_id: productId,
+                    quantity: quantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error al agregar al carrito:', data.error);
+                    button.textContent = originalText;
+                    button.disabled = false;
+                } else {
+                    // Disparar evento personalizado
+                    const event = new CustomEvent('added_to_cart', {
+                        detail: {
+                            product_id: productId,
+                            quantity: quantity,
+                            fragments: data.fragments || {}
+                        }
+                    });
+                    document.body.dispatchEvent(event);
+                    
+                    // Restaurar botón
+                    button.textContent = '¡Agregado!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la petición:', error);
+                button.textContent = originalText;
+                button.disabled = false;
+            });
+        }
+    });
 });
 </script>
 
