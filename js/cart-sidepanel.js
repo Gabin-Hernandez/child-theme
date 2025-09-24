@@ -506,65 +506,99 @@ class NewCartSidepanel {
      * Eliminar un producto del carrito
      */
     async removeItem(key) {
+        console.log('🗑️ removeItem iniciado con key:', key);
+        
+        // Verificar que tenemos los datos necesarios
+        if (!window.itools_cart_ajax) {
+            console.error('❌ itools_cart_ajax no disponible');
+            throw new Error('Configuración AJAX no disponible');
+        }
+        
+        const nonce = window.itools_cart_ajax.nonce;
+        const ajaxUrl = window.itools_cart_ajax.ajax_url;
+        
+        console.log('🔑 Nonce disponible:', !!nonce);
+        console.log('🌐 AJAX URL:', ajaxUrl);
+        
+        // Refresh cart data first to ensure we have current keys
+        console.log('🔄 Refreshing cart data before removal...');
         try {
-            console.log('🗑️ Intentando eliminar producto con key:', key);
-            console.log('🔑 Nonce disponible:', window.itools_cart_ajax?.nonce);
-            console.log('🌐 AJAX URL:', window.itools_cart_ajax?.ajax_url);
+            await this.loadCartData();
+        } catch (refreshError) {
+            console.warn('⚠️ Could not refresh cart data:', refreshError);
+        }
+        
+        // Log current cart data to compare keys
+        console.log('📦 Current cart data:', this.cartData);
+        if (this.cartData && this.cartData.items) {
+            console.log('🔍 Available cart item keys:', this.cartData.items.map(item => item.key));
+            console.log('🎯 Trying to remove key:', key);
             
+            // Check if the key exists in current cart data
+            const itemExists = this.cartData.items.some(item => item.key === key);
+            console.log('✅ Key exists in current cart data:', itemExists);
+            
+            if (!itemExists) {
+                console.error('❌ Key not found in current cart data');
+                this.showNotification('El producto ya no está en el carrito', 'warning');
+                await this.loadCartData(); // Refresh display
+                return;
+            }
+        }
+        
+        try {
             const formData = new FormData();
             formData.append('action', 'itools_remove_cart_item');
             formData.append('key', key);
+            formData.append('nonce', nonce);
             
-            // Verificar si tenemos nonce disponible
-            const nonce = window.itools_cart_ajax?.nonce;
-            if (!nonce) {
-                console.warn('⚠️ No se encontró nonce, intentando sin él');
-            }
-            formData.append('nonce', nonce || '');
-            
-            const ajaxUrl = window.itools_cart_ajax?.ajax_url || '/wp-admin/admin-ajax.php';
-            
-            console.log('📤 Enviando petición a:', ajaxUrl);
+            console.log('📤 Enviando datos:', {
+                action: 'itools_remove_cart_item',
+                key: key,
+                nonce: nonce ? 'presente' : 'ausente'
+            });
             
             const response = await fetch(ajaxUrl, {
                 method: 'POST',
                 body: formData
             });
             
-            console.log('📥 Respuesta recibida:', response.status, response.statusText);
+            console.log('📥 Response status:', response.status);
+            console.log('📥 Response ok:', response.ok);
             
-            const text = await response.text();
-            console.log('📄 Texto de respuesta:', text);
+            const responseText = await response.text();
+            console.log('📄 Response text:', responseText);
             
-            if (!text.trim()) {
-                throw new Error('Respuesta vacía del servidor');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             
             let result;
             try {
-                result = JSON.parse(text);
+                result = JSON.parse(responseText);
+                console.log('✅ Parsed JSON result:', result);
             } catch (parseError) {
-                console.error('❌ Error parseando JSON:', parseError);
-                console.log('📄 Respuesta cruda:', text);
-                throw new Error('Respuesta del servidor no es JSON válido');
+                console.error('❌ Error parsing JSON:', parseError);
+                console.error('📄 Raw response:', responseText);
+                throw new Error('Respuesta inválida del servidor');
             }
-            
-            console.log('✅ Resultado parseado:', result);
             
             if (result.success) {
-                console.log('🎉 Producto eliminado exitosamente');
-                this.loadCartData();
-                this.updateCartCounter();
-                this.showNotification('Producto eliminado del carrito');
+                console.log('✅ Item eliminado exitosamente');
+                this.showNotification('Producto eliminado del carrito', 'success');
+                
+                // Recargar datos del carrito
+                await this.loadCartData();
             } else {
-                const errorMessage = result.data || 'Error al eliminar producto';
-                console.error('❌ Error del servidor:', errorMessage);
-                throw new Error(errorMessage);
+                console.error('❌ Error del servidor:', result.data);
+                throw new Error(result.data || 'Error al eliminar el producto');
             }
+            
         } catch (error) {
             console.error('❌ Error eliminando producto:', error);
-            console.error('❌ Stack trace:', error.stack);
-            this.showNotification('Error al eliminar producto: ' + error.message, 'error');
+            console.error('📊 Stack trace:', error.stack);
+            this.showNotification('Error al eliminar el producto: ' + error.message, 'error');
+            throw error;
         }
     }
     

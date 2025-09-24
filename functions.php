@@ -1992,10 +1992,29 @@ function itools_remove_cart_item() {
     
     $cart = WC()->cart;
     
-    // Verificar que el item existe en el carrito
+    // Log all current cart contents for debugging
     $cart_contents = $cart->get_cart();
+    error_log('📦 Total items in cart: ' . count($cart_contents));
+    error_log('🔍 Available cart keys: ' . print_r(array_keys($cart_contents), true));
+    
+    // Verificar que el item existe en el carrito
     if ( ! isset($cart_contents[$cart_item_key]) ) {
         error_log('❌ Item no encontrado en el carrito');
+        error_log('🎯 Requested key: ' . $cart_item_key);
+        error_log('📋 Available keys: ' . implode(', ', array_keys($cart_contents)));
+        
+        // Try to find if there's a similar key (maybe session issue)
+        $similar_keys = array();
+        foreach (array_keys($cart_contents) as $existing_key) {
+            if (strpos($existing_key, substr($cart_item_key, 0, 10)) !== false) {
+                $similar_keys[] = $existing_key;
+            }
+        }
+        
+        if (!empty($similar_keys)) {
+            error_log('🔍 Found similar keys: ' . implode(', ', $similar_keys));
+        }
+        
         wp_send_json_error( 'Producto no encontrado en el carrito' );
         return;
     }
