@@ -168,7 +168,7 @@ get_header(); ?>
     </section>
 
     <!-- Categorías Populares -->
-    <section id="categorias" class="py-32 bg-slate-900">
+    <section id="categorias" class="!py-32 bg-slate-900">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
