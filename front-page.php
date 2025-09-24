@@ -1095,6 +1095,7 @@ get_header(); ?>
 
 <!-- Hero Swiper ya está configurado en hero-swiper.js -->
 
+<script>
 // Smooth scroll para enlaces internos
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
