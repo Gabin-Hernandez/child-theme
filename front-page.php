@@ -169,7 +169,7 @@ get_header(); ?>
 
     <!-- Categorías Populares -->
     <section id="categorias" class="py-32 bg-slate-900">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
                     Nuestras Especialidades
@@ -258,7 +258,7 @@ get_header(); ?>
 
     <!-- Estadísticas y CTA -->
     <section class="py-32 bg-white">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     ¿Por qué elegirnos?
@@ -304,7 +304,7 @@ get_header(); ?>
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
     <section class="py-32 bg-slate-50">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
                     HERRAMIENTAS PROFESIONALES
@@ -475,7 +475,7 @@ get_header(); ?>
 
     <!-- Marcas Populares -->
     <section class="py-24 bg-slate-50">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">Trabajamos con las mejores marcas del mercado mundial para garantizar la máxima calidad</p>
@@ -616,7 +616,7 @@ get_header(); ?>
 
     <!-- Productos en Oferta -->
     <section id="ofertas" class="py-32 bg-red-50">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
                     OFERTAS ESPECIALES
@@ -750,7 +750,7 @@ get_header(); ?>
     <!-- Productos Destacados -->
     <?php if ( function_exists( 'woocommerce_output_featured_products' ) ) : ?>
     <section class="py-32 bg-white">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
                     PRODUCTOS DESTACADOS
@@ -896,7 +896,7 @@ get_header(); ?>
 
     <!-- Productos Destacados Premium -->
     <section class="py-32 bg-slate-900">
-        <div class="container max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-white/10 text-white px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
