@@ -173,8 +173,11 @@ function itools_add_cart_fragments( $fragments ) {
         $cart_count = WC()->cart->get_cart_contents_count();
         $cart_display = $cart_count > 0 ? ' (' . $cart_count . ')' : '';
         
-        // Fragmento para el contador del carrito
+        // Fragmento para el contador del carrito (formato texto)
         $fragments['span.cart-count'] = '<span class="cart-count">' . $cart_display . '</span>';
+        
+        // Fragmento para el contador del carrito (formato badge numérico)
+        $fragments['.cart-counter'] = '<span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . '">' . $cart_count . '</span>';
     }
     
     return $fragments;
@@ -1721,13 +1724,7 @@ add_action( 'wp_ajax_nopriv_itools_get_cart_count', 'itools_get_cart_count' );
 
 // Actualizar fragmentos del carrito para incluir el contador del sidepanel
 function itools_add_cart_sidepanel_fragments( $fragments ) {
-    if ( class_exists( 'WooCommerce' ) && WC()->cart ) {
-        $cart_count = WC()->cart->get_cart_contents_count();
-        
-        // Fragmento para el contador del carrito en el header con clases completas
-        $fragments['.cart-counter'] = '<span class="cart-counter absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1" style="' . ($cart_count > 0 ? 'display: flex;' : 'display: none;') . '">' . $cart_count . '</span>';
-    }
-    
+    // Esta función ya no es necesaria porque se maneja en itools_add_cart_fragments
     return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'itools_add_cart_sidepanel_fragments' );

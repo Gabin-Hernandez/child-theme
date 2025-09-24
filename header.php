@@ -793,6 +793,17 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
+        console.log('✅ Lucide icons initialized in header');
+    } else {
+        console.error('❌ Lucide library not loaded');
+    }
+});
+
+// Re-initialize icons when cart fragments are updated
+document.body.addEventListener('wc_fragments_refreshed', function() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+        console.log('✅ Lucide icons re-initialized after cart update');
     }
 });
 </script>

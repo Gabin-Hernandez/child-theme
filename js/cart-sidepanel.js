@@ -243,6 +243,9 @@ class NewCartSidepanel {
             this.renderEmptyCart();
         }
         
+        // Actualizar contador del carrito
+        this.updateCartCounter();
+        
         // Initialize Lucide icons after rendering
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
