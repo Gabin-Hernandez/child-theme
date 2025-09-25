@@ -506,7 +506,7 @@ get_header(); ?>
             <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
             
             <div class="empty-cart-actions">
-                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="continue-shopping-btn">
+                <a href="/tienda" class="continue-shopping-btn">
                     Continuar comprando
                 </a>
             </div>

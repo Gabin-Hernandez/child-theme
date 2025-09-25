@@ -212,7 +212,7 @@ $products_query = new WP_Query($args);
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
-                <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="hover:text-blue-600 transition-colors">Tienda</a>
+                <a href="/tienda" class="hover:text-blue-600 transition-colors">Tienda</a>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
@@ -696,7 +696,7 @@ $products_query = new WP_Query($args);
                     
                     <!-- Botones de acción -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <a href="/tienda" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             Ver Todos los Productos
                         </a>
                         <a href="<?php echo home_url(); ?>" class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-2xl hover:border-blue-500 hover:text-blue-600 transition-all duration-300 font-semibold">

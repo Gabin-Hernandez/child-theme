@@ -1785,7 +1785,7 @@ function itools_get_product_url($search_term) {
     }
     
     // Fallback a búsqueda general
-    return esc_url(wc_get_page_permalink('shop')) . '?s=' . urlencode($search_term);
+    return '/tienda?s=' . urlencode($search_term);
 }
 
 // Función para obtener ID de producto por nombre/slug

@@ -504,7 +504,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
                                 </div>
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">Tu carrito está vacío</h3>
                                 <p class="text-gray-600 mb-6">Necesitas agregar productos antes de realizar un pedido.</p>
-                                <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
+                                <a href="/tienda" 
                                    class="inline-flex items-center bg-gray-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7"></path>

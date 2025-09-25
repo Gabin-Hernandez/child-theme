@@ -39,7 +39,7 @@ get_header(); ?>
                                         Más de 19,000 productos especializados para profesionales y técnicos en electrónica
                                     </p>
                                     <div class="flex flex-col sm:flex-row gap-4">
-                                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                                        <a href="/tienda" 
                                            class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
                                             Explorar Catálogo
                                         </a>
@@ -367,7 +367,7 @@ get_header(); ?>
             </div>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                <a href="/tienda" 
                    class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 text-center shadow-lg">
                     Explorar Catálogo
                 </a>
@@ -947,7 +947,7 @@ get_header(); ?>
                     <?php else : ?>
                         <div class="text-center py-12">
                             <p class="text-gray-600 text-lg">No hay productos en oferta disponibles en este momento.</p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                            <a href="/tienda" 
                                class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
                                 Ver Todos los Productos
                             </a>
@@ -960,7 +960,7 @@ get_header(); ?>
                 else : ?>
                     <div class="text-center py-12">
                         <p class="text-gray-600 text-lg">No hay productos en oferta disponibles en este momento.</p>
-                        <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                        <a href="/tienda" 
                            class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
                             Ver Todos los Productos
                         </a>
@@ -968,7 +968,7 @@ get_header(); ?>
                 <?php endif; ?>
             </div>
             <div class="text-center mt-12">
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                <a href="/tienda" 
                    class="bg-red-600 hover:bg-red-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                     Ver Todas las Ofertas
                 </a>
@@ -1103,7 +1103,7 @@ get_header(); ?>
                     <?php else : ?>
                         <div class="text-center py-12">
                             <p class="text-gray-600 text-lg">No hay productos destacados disponibles en este momento.</p>
-                            <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                            <a href="/tienda" 
                                class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
                                 Ver Todos los Productos
                             </a>
@@ -1114,7 +1114,7 @@ get_header(); ?>
             </div>
             
             <div class="text-center mt-12">
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                <a href="/tienda" 
                    class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-10 py-4 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl">
                     Explorar Catálogo Completo
                 </a>
@@ -1286,7 +1286,7 @@ get_header(); ?>
                     Únete a miles de técnicos que ya confían en ITOOLS MX para sus proyectos más importantes.
                 </p>
                 
-                <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'shop' ) ) : '/tienda/'; ?>" 
+                <a href="/tienda" 
                    class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>

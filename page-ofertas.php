@@ -20,7 +20,7 @@ if ( function_exists( 'wc_get_product_ids_on_sale' ) ) {
     $sale_ids = array_filter( array_map( 'absint', wc_get_product_ids_on_sale() ) );
 }
 
-$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/tienda/' );
+$shop_url = '/tienda';
 ?>
 
 <main class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
