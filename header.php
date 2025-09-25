@@ -812,7 +812,7 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
             </div>
             <h3>Tu carrito está vacío</h3>
             <p>Descubre nuestros productos y comienza a comprar</p>
-            <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn-shop">
+            <a href="/tienda" class="btn-shop">
                 Ir a la Tienda
             </a>
         </div>
