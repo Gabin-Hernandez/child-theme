@@ -820,10 +820,11 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         </div>
                     </div>
 
-                    <!-- Paginación al final de los productos -->
+                    <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        do_action( 'woocommerce_after_shop_loop' );
+                        // Usar nuestra función de paginación personalizada
+                        itools_custom_pagination();
                         ?>
                     </div>
 

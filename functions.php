@@ -962,6 +962,74 @@ function itools_custom_styles() {
     </style>
     <?php
 }
+
+// Custom pagination function independent from WooCommerce
+function itools_custom_pagination($query = null) {
+    global $wp_query;
+    
+    // Use provided query or global wp_query
+    $current_query = $query ? $query : $wp_query;
+    
+    if ($current_query->max_num_pages <= 1) {
+        return;
+    }
+    
+    $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
+    $max_pages = $current_query->max_num_pages;
+    
+    echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
+    echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
+    
+    // Previous button
+    if ($paged > 1) {
+        $prev_link = get_pagenum_link($paged - 1);
+        echo '<a href="' . esc_url($prev_link) . '" class="pagination-btn prev-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
+        echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>';
+        echo '<span>Anterior</span>';
+        echo '</a>';
+    }
+    
+    // Page numbers
+    $start_page = max(1, $paged - 2);
+    $end_page = min($max_pages, $paged + 2);
+    
+    // Show first page if we're not starting from it
+    if ($start_page > 1) {
+        echo '<a href="' . esc_url(get_pagenum_link(1)) . '" class="pagination-btn page-btn bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200">1</a>';
+        if ($start_page > 2) {
+            echo '<span class="pagination-dots text-gray-500 px-2">...</span>';
+        }
+    }
+    
+    // Show page numbers
+    for ($i = $start_page; $i <= $end_page; $i++) {
+        if ($i == $paged) {
+            echo '<span class="pagination-btn current-page bg-blue-600 text-white px-3 py-2 rounded-lg font-semibold">' . $i . '</span>';
+        } else {
+            echo '<a href="' . esc_url(get_pagenum_link($i)) . '" class="pagination-btn page-btn bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200">' . $i . '</a>';
+        }
+    }
+    
+    // Show last page if we're not ending with it
+    if ($end_page < $max_pages) {
+        if ($end_page < $max_pages - 1) {
+            echo '<span class="pagination-dots text-gray-500 px-2">...</span>';
+        }
+        echo '<a href="' . esc_url(get_pagenum_link($max_pages)) . '" class="pagination-btn page-btn bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200">' . $max_pages . '</a>';
+    }
+    
+    // Next button
+    if ($paged < $max_pages) {
+        $next_link = get_pagenum_link($paged + 1);
+        echo '<a href="' . esc_url($next_link) . '" class="pagination-btn next-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
+        echo '<span>Siguiente</span>';
+        echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+        echo '</a>';
+    }
+    
+    echo '</nav>';
+    echo '</div>';
+}
 add_action( 'wp_head', 'itools_custom_styles' );
 
 // Agregar JavaScript personalizado para mejoras de UX
