@@ -171,9 +171,9 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                             $rating        = $product->get_average_rating();
                             $rating_html   = wc_get_rating_html( $rating );
                             ?>
-                            <article class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 relative">
+                            <article class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 relative flex flex-col h-full">
                                 <!-- Product Image -->
-                                <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                                <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex-shrink-0">
                                     <a href="<?php the_permalink(); ?>" class="block aspect-square">
                                         <?php
                                         if ( has_post_thumbnail() ) {
@@ -203,7 +203,7 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                                 </div>
                                 
                                 <!-- Product Info -->
-                                <div class="p-6 flex flex-col h-full">
+                                <div class="p-6 flex flex-col flex-grow">
                                     <h3 class="text-lg font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
                                         <a href="<?php the_permalink(); ?>">
                                             <?php the_title(); ?>
