@@ -122,8 +122,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('Elements found:', { qtyInput, minusBtn, plusBtn });
         
+        // Si no hay controles de cantidad (producto con stock = 1), no hacer nada
         if (!qtyInput || !minusBtn || !plusBtn) {
-            console.log('Some elements not found, returning');
+            console.log('Quantity controls not found - likely single stock product');
             return;
         }
         
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 animateButton(this);
             }
         });
-        
+
         // Validar entrada manual
         qtyInput.addEventListener('change', function() {
             const value = parseInt(this.value) || 1;

@@ -182,6 +182,12 @@ get_header(); ?>
                             
                             <!-- Cantidad y botón agregar al carrito -->
                             <div class="flex items-center gap-3 mb-5">
+                                <?php 
+                                $stock_quantity = $product->get_stock_quantity();
+                                $show_quantity_controls = $stock_quantity === null || $stock_quantity > 1;
+                                ?>
+                                
+                                <?php if ( $show_quantity_controls ) : ?>
                                 <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                                     <button type="button" class="qty-btn minus px-3 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm">-</button>
                                     <input type="number" 
@@ -195,6 +201,13 @@ get_header(); ?>
                                            inputmode="numeric">
                                     <button type="button" class="qty-btn plus px-3 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm">+</button>
                                 </div>
+                                <?php else : ?>
+                                <!-- Solo mostrar input oculto cuando hay 1 stock -->
+                                <input type="hidden" name="quantity" value="1">
+                                <div class="text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-lg">
+                                    Cantidad: 1 (último disponible)
+                                </div>
+                                <?php endif; ?>
                                 
                                 <button type="submit" 
                                         name="add-to-cart" 
