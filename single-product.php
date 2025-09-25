@@ -263,7 +263,7 @@ get_header(); ?>
         </div>
 
         <!-- Descripción del producto -->
-        <div class="mt-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
             <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                     <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,7 +317,7 @@ get_header(); ?>
 
 
         <!-- Productos relacionados -->
-        <div class="mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
             <?php
             // Implementación personalizada de productos relacionados
             $related_ids = wc_get_related_products( $product->get_id(), 4 );
