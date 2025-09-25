@@ -68,7 +68,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
-            z-index: 1 !important;
+            z-index: 10000;
             transition: all 0.3s ease;
         }
         
