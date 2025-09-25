@@ -1308,15 +1308,16 @@ get_header(); ?>
             <p class="text-slate-300 mb-8 max-w-xl mx-auto">
                 Suscríbete a nuestro boletín y recibe ofertas exclusivas, nuevos productos y consejos profesionales
             </p>
-            <div class="max-w-md mx-auto flex gap-2">
-                <input type="email" placeholder="Tu correo electrónico" 
+            <form id="newsletter-form" class="max-w-md mx-auto flex gap-2">
+                <input type="email" id="newsletter-email" placeholder="Tu correo electrónico" required
                        class="flex-1 px-4 py-3 rounded-lg border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300">
+                <button type="submit" id="newsletter-submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300">
                     Suscribirse
                 </button>
-            </div>
+            </form>
+            <div id="newsletter-message" class="mt-4 text-sm" style="display: none;"></div>
         </div>
-    </div>
+    </section>
 
 </main>
 

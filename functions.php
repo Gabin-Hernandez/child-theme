@@ -68,6 +68,15 @@ function itools_enqueue_styles() {
         true 
     );
     
+    // Encolar JavaScript del newsletter
+    wp_enqueue_script( 
+        'itools-newsletter', 
+        get_stylesheet_directory_uri() . '/js/newsletter.js', 
+        array(), 
+        '1.0.0', 
+        true 
+    );
+    
     // Encolar scripts de WooCommerce para AJAX add to cart
     if ( function_exists( 'is_woocommerce' ) ) {
         wp_enqueue_script( 'wc-add-to-cart' );
@@ -78,6 +87,12 @@ function itools_enqueue_styles() {
     wp_localize_script( 'itools-cart-sidepanel', 'itools_cart_ajax', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),
         'nonce' => wp_create_nonce( 'itools_cart_nonce' )
+    ));
+    
+    // Localizar script del newsletter con datos AJAX
+    wp_localize_script( 'itools-newsletter', 'newsletter_ajax', array(
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce' => wp_create_nonce( 'newsletter_nonce' )
     ));
     
     // Localizar también el script global del carrito
@@ -2106,4 +2121,189 @@ function itools_remove_cart_item_new() {
 }
 add_action('wp_ajax_remove_cart_item', 'itools_remove_cart_item_new');
 add_action('wp_ajax_nopriv_remove_cart_item', 'itools_remove_cart_item_new');
+
+// Newsletter Subscription Functionality
+function itools_create_newsletter_table() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'newsletter_subscriptions';
+    
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    $sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        email varchar(100) NOT NULL,
+        subscription_date datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        status varchar(20) DEFAULT 'active' NOT NULL,
+        ip_address varchar(45),
+        user_agent text,
+        PRIMARY KEY (id),
+        UNIQUE KEY email (email)
+    ) $charset_collate;";
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+
+// Create table on theme activation
+add_action('after_switch_theme', 'itools_create_newsletter_table');
+
+// Also create table on init if it doesn't exist
+add_action('init', 'itools_check_newsletter_table');
+
+function itools_check_newsletter_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'newsletter_subscriptions';
+    
+    // Check if table exists
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+        itools_create_newsletter_table();
+    }
+}
+
+// AJAX handler for newsletter subscription
+function itools_handle_newsletter_subscription() {
+    // Verify nonce for security
+    if (!wp_verify_nonce($_POST['nonce'], 'newsletter_nonce')) {
+        wp_send_json_error('Security check failed');
+        return;
+    }
+    
+    $email = sanitize_email($_POST['email']);
+    
+    if (!is_email($email)) {
+        wp_send_json_error('Por favor, introduce un email válido');
+        return;
+    }
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'newsletter_subscriptions';
+    
+    // Check if email already exists
+    $existing = $wpdb->get_var($wpdb->prepare(
+        "SELECT COUNT(*) FROM $table_name WHERE email = %s",
+        $email
+    ));
+    
+    if ($existing > 0) {
+        wp_send_json_error('Este email ya está suscrito a nuestro boletín');
+        return;
+    }
+    
+    // Insert new subscription
+    $result = $wpdb->insert(
+        $table_name,
+        array(
+            'email' => $email,
+            'ip_address' => $_SERVER['REMOTE_ADDR'],
+            'user_agent' => $_SERVER['HTTP_USER_AGENT']
+        ),
+        array('%s', '%s', '%s')
+    );
+    
+    if ($result === false) {
+        wp_send_json_error('Error al procesar la suscripción. Inténtalo de nuevo.');
+        return;
+    }
+    
+    wp_send_json_success('¡Gracias por suscribirte! Te mantendremos informado.');
+}
+add_action('wp_ajax_newsletter_subscribe', 'itools_handle_newsletter_subscription');
+add_action('wp_ajax_nopriv_newsletter_subscribe', 'itools_handle_newsletter_subscription');
+
+// Add admin menu for newsletter subscriptions
+function itools_add_newsletter_admin_menu() {
+    add_menu_page(
+        'Newsletter Subscriptions',
+        'Newsletter',
+        'manage_options',
+        'newsletter-subscriptions',
+        'itools_newsletter_admin_page',
+        'dashicons-email-alt',
+        30
+    );
+}
+add_action('admin_menu', 'itools_add_newsletter_admin_menu');
+
+// Admin page for newsletter subscriptions
+function itools_newsletter_admin_page() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'newsletter_subscriptions';
+    
+    // Handle bulk actions
+    if (isset($_POST['action']) && $_POST['action'] === 'delete_selected' && isset($_POST['selected_emails'])) {
+        $selected_emails = array_map('intval', $_POST['selected_emails']);
+        $placeholders = implode(',', array_fill(0, count($selected_emails), '%d'));
+        $wpdb->query($wpdb->prepare("DELETE FROM $table_name WHERE id IN ($placeholders)", $selected_emails));
+        echo '<div class="notice notice-success"><p>Suscripciones eliminadas correctamente.</p></div>';
+    }
+    
+    // Get all subscriptions
+    $subscriptions = $wpdb->get_results("SELECT * FROM $table_name ORDER BY subscription_date DESC");
+    $total_count = count($subscriptions);
+    
+    ?>
+    <div class="wrap">
+        <h1>Suscripciones al Newsletter</h1>
+        <p>Total de suscriptores: <strong><?php echo $total_count; ?></strong></p>
+        
+        <?php if ($subscriptions): ?>
+        <form method="post">
+            <div class="tablenav top">
+                <div class="alignleft actions bulkactions">
+                    <select name="action">
+                        <option value="-1">Acciones en lote</option>
+                        <option value="delete_selected">Eliminar</option>
+                    </select>
+                    <input type="submit" class="button action" value="Aplicar">
+                </div>
+            </div>
+            
+            <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                        <td class="manage-column column-cb check-column">
+                            <input type="checkbox" id="cb-select-all-1">
+                        </td>
+                        <th class="manage-column">Email</th>
+                        <th class="manage-column">Fecha de Suscripción</th>
+                        <th class="manage-column">Estado</th>
+                        <th class="manage-column">IP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($subscriptions as $subscription): ?>
+                    <tr>
+                        <th class="check-column">
+                            <input type="checkbox" name="selected_emails[]" value="<?php echo $subscription->id; ?>">
+                        </th>
+                        <td><strong><?php echo esc_html($subscription->email); ?></strong></td>
+                        <td><?php echo date('d/m/Y H:i', strtotime($subscription->subscription_date)); ?></td>
+                        <td>
+                            <span class="status-<?php echo $subscription->status; ?>">
+                                <?php echo ucfirst($subscription->status); ?>
+                            </span>
+                        </td>
+                        <td><?php echo esc_html($subscription->ip_address); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </form>
+        <?php else: ?>
+        <p>No hay suscripciones aún.</p>
+        <?php endif; ?>
+    </div>
+    
+    <style>
+    .status-active {
+        color: #46b450;
+        font-weight: bold;
+    }
+    .status-inactive {
+        color: #dc3232;
+    }
+    </style>
+    <?php
+}
 
