@@ -513,22 +513,41 @@ get_header(); ?>
             <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
             
             <div class="explore-categories">
-                <a href="<?php echo get_term_link('pantallas', 'product_cat'); ?>" class="category-card">
+                <?php 
+                $pantallas_link = get_term_link('pantallas', 'product_cat');
+                if (!is_wp_error($pantallas_link)) : ?>
+                <a href="<?php echo esc_url($pantallas_link); ?>" class="category-card">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-pantallas.svg" alt="Pantallas">
                     <h3>Pantallas</h3>
                 </a>
-                <a href="<?php echo get_term_link('baterias', 'product_cat'); ?>" class="category-card">
+                <?php endif; ?>
+                
+                <?php 
+                $baterias_link = get_term_link('baterias', 'product_cat');
+                if (!is_wp_error($baterias_link)) : ?>
+                <a href="<?php echo esc_url($baterias_link); ?>" class="category-card">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-baterias.svg" alt="Baterías">
                     <h3>Baterías</h3>
                 </a>
-                <a href="<?php echo get_term_link('cargadores', 'product_cat'); ?>" class="category-card">
+                <?php endif; ?>
+                
+                <?php 
+                $cargadores_link = get_term_link('cargadores', 'product_cat');
+                if (!is_wp_error($cargadores_link)) : ?>
+                <a href="<?php echo esc_url($cargadores_link); ?>" class="category-card">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-cargadores.svg" alt="Cargadores">
                     <h3>Cargadores</h3>
                 </a>
-                <a href="<?php echo get_term_link('herramientas', 'product_cat'); ?>" class="category-card">
+                <?php endif; ?>
+                
+                <?php 
+                $herramientas_link = get_term_link('herramientas', 'product_cat');
+                if (!is_wp_error($herramientas_link)) : ?>
+                <a href="<?php echo esc_url($herramientas_link); ?>" class="category-card">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-herramientas.svg" alt="Herramientas">
                     <h3>Herramientas</h3>
                 </a>
+                <?php endif; ?>
             </div>
         </div>
     <?php else : ?>
