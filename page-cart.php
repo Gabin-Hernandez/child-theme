@@ -610,17 +610,9 @@ get_header(); ?>
                         </div>
                         
                         <div class="item-remove">
-                            <?php
-                            echo apply_filters(
-                                'woocommerce_cart_item_remove_link',
-                                sprintf(
-                                    '<button type="submit" class="remove-item" name="remove_item" value="%s" title="%s"><i data-lucide="trash-2"></i></button>',
-                                    esc_attr($cart_item_key),
-                                    esc_html__('Remove this item', 'woocommerce')
-                                ),
-                                $cart_item_key
-                            );
-                            ?>
+                            <button type="button" class="remove-item" onclick="removeCartItem('<?php echo esc_js($cart_item_key); ?>')" title="<?php esc_attr_e('Remove this item', 'woocommerce'); ?>">
+                                <i data-lucide="trash-2"></i>
+                            </button>
                         </div>
                     </div>
                 <?php endif; endforeach; ?>
