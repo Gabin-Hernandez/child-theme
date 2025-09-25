@@ -235,39 +235,39 @@ $shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 
                                     </div>
                                     
                                     <!-- Actions -->
-                                    <div class="mt-auto space-y-3">
-                                        <a href="<?php the_permalink(); ?>" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl">
-                                            <i data-lucide="eye" class="w-4 h-4"></i>
-                                            Ver Detalles
-                                        </a>
-                                        
-                                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                            <?php
-                                            $button_classes = 'w-full inline-flex items-center justify-center gap-2 bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-600 hover:text-blue-600 px-6 py-3 rounded-xl font-bold transition-all duration-300 add_to_cart_button';
-                                            if ( $product->supports( 'ajax_add_to_cart' ) ) {
-                                                $button_classes .= ' ajax_add_to_cart';
-                                            }
+                    <div class="mt-auto space-y-2">
+                        <a href="<?php the_permalink(); ?>" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                            Ver Detalles
+                        </a>
+                        
+                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                            <?php
+                            $button_classes = 'w-full inline-flex items-center justify-center gap-2 bg-white border-2 border-gray-200 text-gray-700 hover:border-blue-600 hover:text-blue-600 px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 add_to_cart_button';
+                            if ( $product->supports( 'ajax_add_to_cart' ) ) {
+                                $button_classes .= ' ajax_add_to_cart';
+                            }
 
-                                            $attributes = array(
-                                                'href'             => esc_url( $product->add_to_cart_url() ),
-                                                'data-quantity'    => '1',
-                                                'data-product_id'  => esc_attr( $product->get_id() ),
-                                                'data-product_sku' => esc_attr( $product->get_sku() ),
-                                                'class'            => esc_attr( $button_classes ),
-                                                'rel'              => 'nofollow',
-                                            );
-                                            ?>
-                                            <a <?php echo wc_implode_html_attributes( $attributes ); ?>>
-                                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                                                Agregar al Carrito
-                                            </a>
-                                        <?php else : ?>
-                                            <button class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-500 px-6 py-3 rounded-xl font-bold cursor-not-allowed">
-                                                <i data-lucide="x-circle" class="w-4 h-4"></i>
-                                                No Disponible
-                                            </button>
-                                        <?php endif; ?>
-                                    </div>
+                            $attributes = array(
+                                'href'             => esc_url( $product->add_to_cart_url() ),
+                                'data-quantity'    => '1',
+                                'data-product_id'  => esc_attr( $product->get_id() ),
+                                'data-product_sku' => esc_attr( $product->get_sku() ),
+                                'class'            => esc_attr( $button_classes ),
+                                'rel'              => 'nofollow',
+                            );
+                            ?>
+                            <a <?php echo wc_implode_html_attributes( $attributes ); ?>>
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                Agregar al Carrito
+                            </a>
+                        <?php else : ?>
+                            <button class="w-full inline-flex items-center justify-center gap-2 bg-gray-100 text-gray-500 px-4 py-2.5 rounded-lg font-semibold text-sm cursor-not-allowed">
+                                <i data-lucide="x-circle" class="w-4 h-4"></i>
+                                No Disponible
+                            </button>
+                        <?php endif; ?>
+                    </div>
                                 </div>
                             </article>
                             <?php
