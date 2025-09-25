@@ -320,14 +320,23 @@ get_header(); ?>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-12">
             <?php
             // Implementación personalizada de productos relacionados
-            $related_ids = wc_get_related_products( $product->get_id(), 4 );
+            $related_ids = wc_get_related_products( $product->get_id(), 8 ); // Obtenemos más para filtrar
             
             if ( ! empty( $related_ids ) ) :
                 $related_products = wc_get_products( array(
                     'include' => $related_ids,
-                    'limit' => 4,
-                    'status' => 'publish'
+                    'limit' => 8,
+                    'status' => 'publish',
+                    'stock_status' => 'instock' // Solo productos con stock
                 ) );
+                
+                // Filtrar adicionalmente para asegurar que están en stock
+                $related_products = array_filter( $related_products, function( $product ) {
+                    return $product->is_in_stock() && $product->get_stock_status() === 'instock';
+                } );
+                
+                // Limitar a 4 productos después del filtrado
+                $related_products = array_slice( $related_products, 0, 4 );
                 
                 if ( ! empty( $related_products ) ) :
             ?>
