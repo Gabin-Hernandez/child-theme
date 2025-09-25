@@ -3,6 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Single product JS loaded');
     
     // Inicializar pestañas
     initTabs();
@@ -114,14 +115,21 @@ document.addEventListener('DOMContentLoaded', function() {
      * Función para inicializar controles de cantidad
      */
     function initQuantityControls() {
+        console.log('Initializing quantity controls');
         const qtyInput = document.querySelector('.qty');
         const minusBtn = document.querySelector('.qty-btn.minus');
         const plusBtn = document.querySelector('.qty-btn.plus');
         
-        if (!qtyInput || !minusBtn || !plusBtn) return;
+        console.log('Elements found:', { qtyInput, minusBtn, plusBtn });
+        
+        if (!qtyInput || !minusBtn || !plusBtn) {
+            console.log('Some elements not found, returning');
+            return;
+        }
         
         // Botón menos
         minusBtn.addEventListener('click', function() {
+            console.log('Minus button clicked');
             const currentValue = parseInt(qtyInput.value) || 1;
             const minValue = parseInt(qtyInput.getAttribute('min')) || 1;
             
@@ -133,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Botón más
         plusBtn.addEventListener('click', function() {
+            console.log('Plus button clicked');
             const currentValue = parseInt(qtyInput.value) || 1;
             const maxValue = parseInt(qtyInput.getAttribute('max')) || 999;
             
