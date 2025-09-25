@@ -2458,3 +2458,15 @@ function itools_enqueue_price_slider_script() {
 }
 add_action('wp_enqueue_scripts', 'itools_enqueue_price_slider_script');
 
+// Enqueue Lucide icons script
+function itools_enqueue_lucide_icons() {
+    wp_enqueue_script(
+        'itools-lucide-icons',
+        get_stylesheet_directory_uri() . '/js/lucide-icons.js',
+        array(),
+        '1.0.0',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_lucide_icons');
+
