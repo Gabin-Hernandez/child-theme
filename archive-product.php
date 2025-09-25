@@ -512,11 +512,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                         </svg>
                                     </button>
-                                    <button id="list-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500" title="Vista en lista">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                                        </svg>
-                                    </button>
                                     <button id="table-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500" title="Vista de tabla técnica">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0V4a1 1 0 011-1h12a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1z"></path>
@@ -997,14 +992,6 @@ body {
     content: none;
 }
 
-#products-grid.list-layout {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-#products-grid.list-layout > li {
-    width: 100% !important;
-}
-
 /* Responsive básico */
 @media (max-width: 640px) {
     .woocommerce-ordering select {
@@ -1028,13 +1015,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const applyPriceBtn = document.getElementById('apply-price-filter');
     const heroSearch = document.getElementById('hero-search');
     const gridViewBtn = document.getElementById('grid-view');
-    const listViewBtn = document.getElementById('list-view');
     const tableViewBtn = document.getElementById('table-view');
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
     const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12';
-    const listGridClasses = 'grid grid-cols-1 gap-y-10 list-layout';
 
 
 
@@ -1078,14 +1063,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Toggle vista de productos (grid/list/table)
-    if (gridViewBtn && listViewBtn && tableViewBtn) {
+    // Toggle vista de productos (grid/table)
+    if (gridViewBtn && tableViewBtn) {
         gridViewBtn.addEventListener('click', function() {
             setProductView('grid');
-        });
-        
-        listViewBtn.addEventListener('click', function() {
-            setProductView('list');
         });
         
         tableViewBtn.addEventListener('click', function() {
@@ -1098,11 +1079,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (view === 'list') {
-            productsGrid.className = listGridClasses;
-        } else {
-            productsGrid.className = baseGridClasses;
-        }
+        // Solo aplicar clases base para grid
+        productsGrid.className = baseGridClasses;
     }
 
     function setProductView(view, persist = true) {
@@ -1135,12 +1113,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         }
 
-        if (listViewBtn) {
-            listViewBtn.className = view === 'list'
-                ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
-                : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
-        }
-
         if (tableViewBtn) {
             tableViewBtn.className = view === 'table'
                 ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
@@ -1154,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Restaurar vista guardada
     const savedView = localStorage.getItem('productView');
-    if (savedView === 'list' || savedView === 'grid' || savedView === 'table') {
+    if (savedView === 'grid' || savedView === 'table') {
         setProductView(savedView, false);
     } else {
         setProductView('grid', false);
