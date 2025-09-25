@@ -82,6 +82,61 @@ function itools_enqueue_styles() {
         wp_enqueue_script( 'wc-add-to-cart' );
         wp_enqueue_script( 'woocommerce' );
     }
+
+// Function to get dynamic price range from filtered products
+function itools_get_dynamic_price_range($category_id = null) {
+    global $wpdb;
+    
+    // Base query to get product prices
+    $query = "
+        SELECT MIN(CAST(pm.meta_value AS DECIMAL(10,2))) as min_price, 
+               MAX(CAST(pm.meta_value AS DECIMAL(10,2))) as max_price
+        FROM {$wpdb->posts} p
+        INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+        WHERE p.post_type = 'product'
+        AND p.post_status = 'publish'
+        AND pm.meta_key = '_price'
+        AND pm.meta_value != ''
+        AND pm.meta_value > 0
+    ";
+    
+    // Add category filter if specified
+    if ($category_id) {
+        $query .= " AND p.ID IN (
+            SELECT object_id FROM {$wpdb->term_relationships} tr
+            INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+            WHERE tt.term_id = %d AND tt.taxonomy = 'product_cat'
+        )";
+        
+        $result = $wpdb->get_row($wpdb->prepare($query, $category_id));
+    } else {
+        $result = $wpdb->get_row($query);
+    }
+    
+    // Default values if no products found
+    $min_price = $result && $result->min_price ? floatval($result->min_price) : 0;
+    $max_price = $result && $result->max_price ? floatval($result->max_price) : 1000;
+    
+    // Ensure min is not equal to max
+    if ($min_price == $max_price) {
+        $max_price = $min_price + 100;
+    }
+    
+    return array(
+        'min' => $min_price,
+        'max' => $max_price
+    );
+}
+
+// AJAX handler to get dynamic price range
+function itools_ajax_get_price_range() {
+    $category_id = isset($_POST['category_id']) ? intval($_POST['category_id']) : null;
+    $price_range = itools_get_dynamic_price_range($category_id);
+    
+    wp_send_json_success($price_range);
+}
+add_action('wp_ajax_get_price_range', 'itools_ajax_get_price_range');
+add_action('wp_ajax_nopriv_get_price_range', 'itools_ajax_get_price_range');
     
     // Localizar script del carrito con datos AJAX
     wp_localize_script( 'itools-cart-sidepanel', 'itools_cart_ajax', array(
@@ -2388,4 +2443,18 @@ function itools_newsletter_admin_page() {
     </style>
     <?php
 }
+
+// Enqueue price slider JavaScript
+function itools_enqueue_price_slider_script() {
+    if (is_shop() || is_product_category() || is_product_tag()) {
+        wp_enqueue_script(
+            'itools-price-slider',
+            get_stylesheet_directory_uri() . '/js/price-slider.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_price_slider_script');
 

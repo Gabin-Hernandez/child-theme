@@ -298,19 +298,46 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             <div class="space-y-4">
                                 <p class="text-sm text-gray-600 mb-3">Filtrar por precio:</p>
                                 
-                                <input type="number" 
-                                       id="min_price" 
-                                       placeholder="Precio mínimo" 
-                                       value="<?php echo isset($_GET['min_price']) ? $_GET['min_price'] : ''; ?>"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
-                                       min="0">
+                                <?php
+                                // Get dynamic price range
+                                $price_range = itools_get_dynamic_price_range();
+                                $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : $price_range['min'];
+                                $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
+                                ?>
                                 
-                                <input type="number" 
-                                       id="max_price" 
-                                       placeholder="Precio máximo" 
-                                       value="<?php echo isset($_GET['max_price']) ? $_GET['max_price'] : ''; ?>"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
-                                       min="0">
+                                <!-- Price Range Slider -->
+                                <div class="price-slider-container">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-sm font-medium text-gray-700">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
+                                        <span class="text-sm font-medium text-gray-700">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                                    </div>
+                                    
+                                    <div class="relative">
+                                        <div class="price-slider-track bg-gray-200 h-2 rounded-full relative">
+                                            <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+                                        </div>
+                                        
+                                        <input type="range" 
+                                               id="min-price-slider" 
+                                               class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                               min="<?php echo $price_range['min']; ?>" 
+                                               max="<?php echo $price_range['max']; ?>" 
+                                               value="<?php echo $current_min; ?>"
+                                               step="1">
+                                        
+                                        <input type="range" 
+                                               id="max-price-slider" 
+                                               class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                               min="<?php echo $price_range['min']; ?>" 
+                                               max="<?php echo $price_range['max']; ?>" 
+                                               value="<?php echo $current_max; ?>"
+                                               step="1">
+                                    </div>
+                                    
+                                    <!-- Hidden inputs for form submission -->
+                                    <input type="hidden" id="min_price" value="<?php echo $current_min; ?>">
+                                    <input type="hidden" id="max_price" value="<?php echo $current_max; ?>">
+                                </div>
                                 
                                 <button id="apply-price-filter" 
                                         class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
