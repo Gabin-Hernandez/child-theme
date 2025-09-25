@@ -390,7 +390,7 @@ class NewCartSidepanel {
                 </div>
                 <h3>Tu carrito está vacío</h3>
                 <p>Agrega algunos productos para comenzar tu compra</p>
-                <a href="${this.cartData?.shop_url || '/tienda'}" class="btn-shop">
+                <a href="/tienda" class="btn-shop">
                     Continuar Comprando
                 </a>
             </div>
