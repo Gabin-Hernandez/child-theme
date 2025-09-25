@@ -820,6 +820,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         </div>
                     </div>
 
+                    <!-- Paginación al final de los productos -->
+                    <div class="mt-12">
+                        <?php
+                        do_action( 'woocommerce_after_shop_loop' );
+                        ?>
+                    </div>
+
                 </main>
             </div>
 
@@ -888,19 +895,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <?php endif; ?>
-
-<!-- Paginación moderna fuera del contenedor principal -->
-<div class="w-full">
-    <div class="container mx-auto px-4">
-        <div class="mt-12">
-            <?php
-            if ( have_posts() ) {
-                do_action( 'woocommerce_after_shop_loop' );
-            }
-            ?>
-        </div>
-    </div>
-</div>
 
 <!-- Slider debajo del contenedor principal -->
 <div class="w-full">
