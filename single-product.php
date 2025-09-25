@@ -215,12 +215,6 @@ get_header(); ?>
                     
                     <!-- Botones de acción -->
                     <div class="flex flex-col sm:flex-row gap-3 mt-6">
-                        <button class="wishlist-btn flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all duration-300 group">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                        </button>
-                        
                         <button class="share-btn flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-blue-50 hover:text-blue-500 transition-all duration-300 group">
                             <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
@@ -559,42 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     mainImage.style.opacity = '1';
                 }, 150);
             });
-        });
-    }
-    
-    // Funcionalidad de cantidad
-    const qtyInput = document.querySelector('.qty');
-    const minusBtn = document.querySelector('.qty-btn.minus');
-    const plusBtn = document.querySelector('.qty-btn.plus');
-    
-    if (qtyInput && minusBtn && plusBtn) {
-        minusBtn.addEventListener('click', function() {
-            const currentValue = parseInt(qtyInput.value);
-            const minValue = parseInt(qtyInput.getAttribute('min')) || 1;
-            if (currentValue > minValue) {
-                qtyInput.value = currentValue - 1;
-            }
-        });
-        
-        plusBtn.addEventListener('click', function() {
-            const currentValue = parseInt(qtyInput.value);
-            const maxValue = parseInt(qtyInput.getAttribute('max')) || 999;
-            if (currentValue < maxValue) {
-                qtyInput.value = currentValue + 1;
-            }
-        });
-        
-        // Validar entrada manual
-        qtyInput.addEventListener('change', function() {
-            const value = parseInt(this.value);
-            const minValue = parseInt(this.getAttribute('min')) || 1;
-            const maxValue = parseInt(this.getAttribute('max')) || 999;
-            
-            if (value < minValue) {
-                this.value = minValue;
-            } else if (value > maxValue) {
-                this.value = maxValue;
-            }
         });
     }
 });
