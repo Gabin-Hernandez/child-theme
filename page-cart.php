@@ -57,66 +57,59 @@ get_header(); ?>
 /* Empty Cart Styles */
 .empty-cart {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .empty-cart-icon {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #cbd5e0;
     margin-bottom: 20px;
 }
 
 .empty-cart h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #2d3748;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .empty-cart p {
     color: #64748b;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 30px;
+    line-height: 1.5;
 }
 
-.explore-categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 40px;
+.empty-cart-actions {
+    margin-top: 30px;
 }
 
-.category-card {
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 15px;
-    padding: 25px;
-    text-align: center;
-    transition: all 0.3s ease;
+.continue-shopping-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
     text-decoration: none;
-    color: #2d3748;
-}
-
-.category-card:hover {
-    border-color: #f59e0b;
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
-    text-decoration: none;
-    color: #2d3748;
-}
-
-.category-card img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 15px;
-}
-
-.category-card h3 {
-    font-size: 1.1rem;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 1rem;
     font-weight: 600;
-    margin: 0;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.continue-shopping-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+    color: white;
+    text-decoration: none;
 }
 
 /* Cart Totals */
@@ -507,47 +500,15 @@ get_header(); ?>
     if (WC()->cart->is_empty()) : ?>
         <div class="empty-cart">
             <div class="empty-cart-icon">
-                <i data-lucide="shopping-cart" style="width: 80px; height: 80px; color: #64748b;"></i>
+                <i data-lucide="shopping-cart" style="width: 60px; height: 60px; color: #64748b;"></i>
             </div>
             <h2>Tu carrito está vacío</h2>
             <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
             
-            <div class="explore-categories">
-                <?php 
-                $pantallas_link = get_term_link('pantallas', 'product_cat');
-                if (!is_wp_error($pantallas_link)) : ?>
-                <a href="<?php echo esc_url($pantallas_link); ?>" class="category-card">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-pantallas.svg" alt="Pantallas">
-                    <h3>Pantallas</h3>
+            <div class="empty-cart-actions">
+                <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="continue-shopping-btn">
+                    Continuar comprando
                 </a>
-                <?php endif; ?>
-                
-                <?php 
-                $baterias_link = get_term_link('baterias', 'product_cat');
-                if (!is_wp_error($baterias_link)) : ?>
-                <a href="<?php echo esc_url($baterias_link); ?>" class="category-card">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-baterias.svg" alt="Baterías">
-                    <h3>Baterías</h3>
-                </a>
-                <?php endif; ?>
-                
-                <?php 
-                $cargadores_link = get_term_link('cargadores', 'product_cat');
-                if (!is_wp_error($cargadores_link)) : ?>
-                <a href="<?php echo esc_url($cargadores_link); ?>" class="category-card">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-cargadores.svg" alt="Cargadores">
-                    <h3>Cargadores</h3>
-                </a>
-                <?php endif; ?>
-                
-                <?php 
-                $herramientas_link = get_term_link('herramientas', 'product_cat');
-                if (!is_wp_error($herramientas_link)) : ?>
-                <a href="<?php echo esc_url($herramientas_link); ?>" class="category-card">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-herramientas.svg" alt="Herramientas">
-                    <h3>Herramientas</h3>
-                </a>
-                <?php endif; ?>
             </div>
         </div>
     <?php else : ?>
