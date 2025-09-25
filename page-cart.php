@@ -861,9 +861,9 @@ function updateCartQuantity(cartItemKey, quantity) {
 
 function removeCartItem(cartItemKey) {
     const formData = new FormData();
-    formData.append('action', 'remove_cart_item');
-    formData.append('cart_item_key', cartItemKey);
-    formData.append('security', '<?php echo wp_create_nonce("remove_cart_item"); ?>');
+    formData.append('action', 'itools_remove_cart_item');
+    formData.append('key', cartItemKey);
+    formData.append('nonce', '<?php echo wp_create_nonce("itools_cart_nonce"); ?>');
     
     fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
         method: 'POST',
