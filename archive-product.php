@@ -507,14 +507,19 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             <div class="flex items-center gap-3">
                                 <!-- Selector de vista -->
                                 <div class="flex bg-gray-100 rounded-xl p-1">
-                                    <button id="grid-view" class="px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm">
+                                    <button id="grid-view" class="px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm" title="Vista en tarjetas">
                                         <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                         </svg>
                                     </button>
-                                    <button id="list-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500">
+                                    <button id="list-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500" title="Vista en lista">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                        </svg>
+                                    </button>
+                                    <button id="table-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500" title="Vista de tabla técnica">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0V4a1 1 0 011-1h12a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1z"></path>
                                         </svg>
                                     </button>
                                 </div>
@@ -523,6 +528,47 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 <div class="woocommerce-ordering">
                                     <?php woocommerce_catalog_ordering(); ?>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtros para vista de tabla -->
+                    <div id="table-filters" class="hidden mb-6 bg-white rounded-lg border border-gray-200 p-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <!-- Búsqueda -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Buscar producto</label>
+                                <input type="text" id="table-search" placeholder="Buscar por nombre..." 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            
+                            <!-- Filtro por precio -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Rango de precio</label>
+                                <select id="price-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Todos los precios</option>
+                                    <option value="0-100">$0 - $100</option>
+                                    <option value="100-500">$100 - $500</option>
+                                    <option value="500-1000">$500 - $1,000</option>
+                                    <option value="1000+">$1,000+</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Filtro por disponibilidad -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Disponibilidad</label>
+                                <select id="stock-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Todos</option>
+                                    <option value="in-stock">En stock</option>
+                                    <option value="out-of-stock">Agotado</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Botón limpiar -->
+                            <div class="flex items-end">
+                                <button id="clear-table-filters" class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors">
+                                    Limpiar filtros
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -665,6 +711,143 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                         woocommerce_product_loop_end();
                         ?>
+                    </div>
+
+                    <!-- Vista de tabla compacta -->
+                    <div id="products-table" class="hidden">
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50 border-b border-gray-200">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Producto</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valoración</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200" id="table-body">
+                                        <?php
+                                        // Reset query for table view
+                                        $products_query->rewind_posts();
+                                        while ( $products_query->have_posts() ) {
+                                            $products_query->the_post();
+                                            $product = wc_get_product( get_the_ID() );
+                                            ?>
+                                            <tr class="hover:bg-gray-50 transition-colors product-row" 
+                                                data-name="<?php echo esc_attr( strtolower( get_the_title() ) ); ?>"
+                                                data-price="<?php echo esc_attr( $product ? $product->get_price() : 0 ); ?>"
+                                                data-stock="<?php echo esc_attr( $product && $product->is_in_stock() ? 'in-stock' : 'out-of-stock' ); ?>">
+                                                
+                                                <!-- Producto -->
+                                                <td class="px-4 py-4">
+                                                    <div class="flex items-center">
+                                                        <div class="flex-shrink-0 h-12 w-12">
+                                                            <a href="<?php the_permalink(); ?>">
+                                                                <?php if ( has_post_thumbnail() ) : ?>
+                                                                    <?php the_post_thumbnail( 'thumbnail', array(
+                                                                        'class' => 'h-12 w-12 rounded-lg object-cover'
+                                                                    ) ); ?>
+                                                                <?php else : ?>
+                                                                    <div class="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                                                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </div>
+                                                        <div class="ml-4">
+                                                            <div class="text-sm font-medium text-gray-900">
+                                                                <a href="<?php the_permalink(); ?>" class="hover:text-blue-600">
+                                                                    <?php the_title(); ?>
+                                                                </a>
+                                                            </div>
+                                                            <?php if ( $product ) : ?>
+                                                                <div class="text-sm text-gray-500">
+                                                                    SKU: <?php echo $product->get_sku() ? $product->get_sku() : 'N/A'; ?>
+                                                                </div>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                
+                                                <!-- Precio -->
+                                                <td class="px-4 py-4 whitespace-nowrap">
+                                                    <?php if ( $product ) : ?>
+                                                        <div class="text-sm font-semibold text-gray-900">
+                                                            <?php echo $product->get_price_html(); ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </td>
+                                                
+                                                <!-- Stock -->
+                                                <td class="px-4 py-4 whitespace-nowrap">
+                                                    <?php if ( $product ) : ?>
+                                                        <?php if ( $product->is_in_stock() ) : ?>
+                                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                                En stock
+                                                            </span>
+                                                        <?php else : ?>
+                                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                                                Agotado
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </td>
+                                                
+                                                <!-- Valoración -->
+                                                <td class="px-4 py-4 whitespace-nowrap">
+                                                    <?php if ( $product ) : ?>
+                                                        <?php 
+                                                        $rating = $product->get_average_rating();
+                                                        $review_count = $product->get_review_count();
+                                                        if ( $rating > 0 ) :
+                                                        ?>
+                                                            <div class="flex items-center">
+                                                                <div class="flex items-center">
+                                                                    <?php for ( $i = 1; $i <= 5; $i++ ) : ?>
+                                                                        <svg class="w-3 h-3 <?php echo $i <= $rating ? 'text-yellow-400' : 'text-gray-300'; ?>" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                                                        </svg>
+                                                                    <?php endfor; ?>
+                                                                </div>
+                                                                <span class="text-xs text-gray-500 ml-1">(<?php echo $review_count; ?>)</span>
+                                                            </div>
+                                                        <?php else : ?>
+                                                            <span class="text-xs text-gray-400">Sin reseñas</span>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </td>
+                                                
+                                                <!-- Acción -->
+                                                <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                                                    <?php if ( $product ) : ?>
+                                                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                                                            <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" 
+                                                               data-quantity="1" 
+                                                               data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" 
+                                                               data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" 
+                                                               class="add_to_cart_button ajax_add_to_cart product_type_simple bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded text-xs font-medium transition-colors duration-200"
+                                                               rel="nofollow">
+                                                                Agregar
+                                                            </a>
+                                                        <?php else : ?>
+                                                            <button class="bg-gray-300 text-gray-600 px-3 py-1.5 rounded text-xs font-medium cursor-not-allowed">
+                                                                No disponible
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Paginación moderna -->
@@ -846,7 +1029,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const heroSearch = document.getElementById('hero-search');
     const gridViewBtn = document.getElementById('grid-view');
     const listViewBtn = document.getElementById('list-view');
+    const tableViewBtn = document.getElementById('table-view');
     const productsGrid = document.getElementById('products-grid');
+    const productsTable = document.getElementById('products-table');
+    const tableFilters = document.getElementById('table-filters');
     const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12';
     const listGridClasses = 'grid grid-cols-1 gap-y-10 list-layout';
 
@@ -892,14 +1078,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Toggle vista de productos (grid/list)
-    if (gridViewBtn && listViewBtn) {
+    // Toggle vista de productos (grid/list/table)
+    if (gridViewBtn && listViewBtn && tableViewBtn) {
         gridViewBtn.addEventListener('click', function() {
             setProductView('grid');
         });
         
         listViewBtn.addEventListener('click', function() {
             setProductView('list');
+        });
+        
+        tableViewBtn.addEventListener('click', function() {
+            setProductView('table');
         });
     }
     
@@ -916,12 +1106,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setProductView(view, persist = true) {
-        if (!productsGrid) {
+        if (!productsGrid || !productsTable) {
             return;
         }
 
-        applyGridClasses(view);
+        // Hide all views first
+        productsGrid.classList.add('hidden');
+        productsTable.classList.add('hidden');
+        if (tableFilters) {
+            tableFilters.classList.add('hidden');
+        }
 
+        // Show the selected view
+        if (view === 'table') {
+            productsTable.classList.remove('hidden');
+            if (tableFilters) {
+                tableFilters.classList.remove('hidden');
+            }
+        } else {
+            productsGrid.classList.remove('hidden');
+            applyGridClasses(view);
+        }
+
+        // Update button states
         if (gridViewBtn) {
             gridViewBtn.className = view === 'grid'
                 ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
@@ -934,6 +1141,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         }
 
+        if (tableViewBtn) {
+            tableViewBtn.className = view === 'table'
+                ? 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600'
+                : 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
+        }
+
         if (persist) {
             localStorage.setItem('productView', view);
         }
@@ -941,7 +1154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Restaurar vista guardada
     const savedView = localStorage.getItem('productView');
-    if (savedView === 'list' || savedView === 'grid') {
+    if (savedView === 'list' || savedView === 'grid' || savedView === 'table') {
         setProductView(savedView, false);
     } else {
         setProductView('grid', false);
@@ -1184,6 +1397,141 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Cargar filtros al cargar la página
     loadFiltersFromUrl();
+    
+    // Funcionalidad de filtros para la vista de tabla
+    function initTableFilters() {
+        const tableSearchInput = document.getElementById('table-search');
+        const minPriceInput = document.getElementById('table-min-price');
+        const maxPriceInput = document.getElementById('table-max-price');
+        const stockFilter = document.getElementById('table-stock-filter');
+        const clearTableFiltersBtn = document.getElementById('clear-table-filters');
+        
+        if (!tableSearchInput || !productsTable) return;
+        
+        // Función para filtrar productos en la tabla
+        function filterTableProducts() {
+            const searchTerm = tableSearchInput.value.toLowerCase();
+            const minPrice = parseFloat(minPriceInput.value) || 0;
+            const maxPrice = parseFloat(maxPriceInput.value) || Infinity;
+            const stockValue = stockFilter.value;
+            
+            const rows = productsTable.querySelectorAll('tbody tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const productName = row.querySelector('.product-name').textContent.toLowerCase();
+                const priceText = row.querySelector('.product-price').textContent.replace(/[^\d.,]/g, '');
+                const productPrice = parseFloat(priceText.replace(',', '.')) || 0;
+                const stockText = row.querySelector('.product-stock').textContent.toLowerCase();
+                
+                let showRow = true;
+                
+                // Filtro de búsqueda
+                if (searchTerm && !productName.includes(searchTerm)) {
+                    showRow = false;
+                }
+                
+                // Filtro de precio
+                if (productPrice < minPrice || productPrice > maxPrice) {
+                    showRow = false;
+                }
+                
+                // Filtro de stock
+                if (stockValue === 'in-stock' && stockText.includes('agotado')) {
+                    showRow = false;
+                } else if (stockValue === 'out-of-stock' && !stockText.includes('agotado')) {
+                    showRow = false;
+                }
+                
+                row.style.display = showRow ? '' : 'none';
+                if (showRow) visibleCount++;
+            });
+            
+            // Mostrar mensaje si no hay resultados
+            updateTableEmptyState(visibleCount);
+        }
+        
+        // Función para mostrar/ocultar mensaje de tabla vacía
+        function updateTableEmptyState(visibleCount) {
+            let emptyMessage = productsTable.querySelector('.table-empty-message');
+            
+            if (visibleCount === 0) {
+                if (!emptyMessage) {
+                    emptyMessage = document.createElement('tr');
+                    emptyMessage.className = 'table-empty-message';
+                    emptyMessage.innerHTML = `
+                        <td colspan="5" class="text-center py-8 text-gray-500">
+                            <div class="flex flex-col items-center">
+                                <svg class="w-12 h-12 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <p class="text-lg font-medium mb-2">No se encontraron productos</p>
+                                <p class="text-sm">Intenta ajustar los filtros de búsqueda</p>
+                            </div>
+                        </td>
+                    `;
+                    productsTable.querySelector('tbody').appendChild(emptyMessage);
+                }
+                emptyMessage.style.display = '';
+            } else if (emptyMessage) {
+                emptyMessage.style.display = 'none';
+            }
+        }
+        
+        // Event listeners para filtros
+        if (tableSearchInput) {
+            tableSearchInput.addEventListener('input', debounce(filterTableProducts, 300));
+        }
+        
+        if (minPriceInput) {
+            minPriceInput.addEventListener('input', debounce(filterTableProducts, 500));
+        }
+        
+        if (maxPriceInput) {
+            maxPriceInput.addEventListener('input', debounce(filterTableProducts, 500));
+        }
+        
+        if (stockFilter) {
+            stockFilter.addEventListener('change', filterTableProducts);
+        }
+        
+        if (clearTableFiltersBtn) {
+            clearTableFiltersBtn.addEventListener('click', function() {
+                tableSearchInput.value = '';
+                minPriceInput.value = '';
+                maxPriceInput.value = '';
+                stockFilter.value = 'all';
+                filterTableProducts();
+            });
+        }
+    }
+    
+    // Función debounce para optimizar rendimiento
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Inicializar filtros de tabla cuando se cambie a vista de tabla
+    const originalSetProductView = setProductView;
+    setProductView = function(view) {
+        originalSetProductView(view);
+        if (view === 'table') {
+            setTimeout(initTableFilters, 100);
+        }
+    };
+    
+    // Inicializar filtros si ya estamos en vista de tabla
+    if (localStorage.getItem('productView') === 'table') {
+        setTimeout(initTableFilters, 100);
+    }
     
     // Responsive: cerrar filtros al cambiar a desktop y optimizar grid
     window.addEventListener('resize', function() {
