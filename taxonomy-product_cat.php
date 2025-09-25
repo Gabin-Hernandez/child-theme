@@ -687,6 +687,16 @@ $products_query = new WP_Query($args);
     </div>
 </div>
 
+<!-- Slider debajo del contenedor principal -->
+<div class="w-full">
+    <?php
+    // Mostrar el slider fuera del contenedor principal
+    if ( is_active_sidebar( 'sidebar-shop-slider' ) ) {
+        dynamic_sidebar( 'sidebar-shop-slider' );
+    }
+    ?>
+</div>
+
 <!-- Estilos específicos para categorías -->
 <style>
 /* Estilo personalizado para el selector de ordenamiento */

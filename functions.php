@@ -2148,6 +2148,20 @@ function itools_create_newsletter_table() {
 // Create table on theme activation
 add_action('after_switch_theme', 'itools_create_newsletter_table');
 
+// Register sidebar for shop slider
+function itools_register_shop_slider_sidebar() {
+    register_sidebar(array(
+        'name'          => 'Shop Slider',
+        'id'            => 'sidebar-shop-slider',
+        'description'   => 'Sidebar para mostrar slider debajo del listado de productos',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ));
+}
+add_action('widgets_init', 'itools_register_shop_slider_sidebar');
+
 // Also create table on init if it doesn't exist
 add_action('init', 'itools_check_newsletter_table');
 

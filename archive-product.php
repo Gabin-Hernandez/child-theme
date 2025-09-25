@@ -896,6 +896,16 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <?php endif; ?>
 
+<!-- Slider debajo del contenedor principal -->
+<div class="w-full">
+    <?php
+    // Mostrar el slider fuera del contenedor principal
+    if ( is_active_sidebar( 'sidebar-shop-slider' ) ) {
+        dynamic_sidebar( 'sidebar-shop-slider' );
+    }
+    ?>
+</div>
+
 <!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
 <style>
 /* Solo prevenir overflow horizontal sin afectar otras funciones */
