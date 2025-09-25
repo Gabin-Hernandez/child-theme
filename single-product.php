@@ -319,8 +319,90 @@ get_header(); ?>
         <!-- Productos relacionados -->
         <div class="mt-16">
             <?php
-            // Solo mostrar productos relacionados, no duplicar otros elementos
-            woocommerce_output_related_products();
+            // Implementación personalizada de productos relacionados
+            $related_ids = wc_get_related_products( $product->get_id(), 4 );
+            
+            if ( ! empty( $related_ids ) ) :
+                $related_products = wc_get_products( array(
+                    'include' => $related_ids,
+                    'limit' => 4,
+                    'status' => 'publish'
+                ) );
+                
+                if ( ! empty( $related_products ) ) :
+            ?>
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Productos Relacionados</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <?php foreach ( $related_products as $related_product ) : ?>
+                            <div class="group bg-gray-50 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 border border-gray-200 hover:border-blue-300">
+                                <!-- Imagen del producto -->
+                                <div class="relative overflow-hidden bg-white aspect-square">
+                                    <a href="<?php echo get_permalink( $related_product->get_id() ); ?>" class="block h-full">
+                                        <?php
+                                        $image_id = $related_product->get_image_id();
+                                        if ( $image_id ) {
+                                            echo wp_get_attachment_image( $image_id, 'woocommerce_thumbnail', false, array(
+                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                            ) );
+                                        } else {
+                                            echo '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">';
+                                            echo '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
+                                            echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
+                                            echo '</svg>';
+                                            echo '</div>';
+                                        }
+                                        ?>
+                                    </a>
+                                    
+                                    <!-- Badges -->
+                                    <?php if ( $related_product->is_on_sale() ) : ?>
+                                        <div class="absolute top-2 left-2">
+                                            <span class="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold">
+                                                Oferta
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <!-- Información del producto -->
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-gray-900 text-sm mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                        <a href="<?php echo get_permalink( $related_product->get_id() ); ?>">
+                                            <?php echo $related_product->get_name(); ?>
+                                        </a>
+                                    </h3>
+                                    
+                                    <!-- Precio -->
+                                    <div class="mb-3">
+                                        <span class="text-lg font-bold text-gray-900">
+                                            <?php echo $related_product->get_price_html(); ?>
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- Botón de acción -->
+                                    <div class="mt-auto">
+                                        <?php if ( $related_product->is_purchasable() && $related_product->is_in_stock() ) : ?>
+                                            <a href="<?php echo get_permalink( $related_product->get_id() ); ?>" 
+                                               class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200 text-center block">
+                                                Ver Producto
+                                            </a>
+                                        <?php else : ?>
+                                            <a href="<?php echo get_permalink( $related_product->get_id() ); ?>" 
+                                               class="w-full bg-gray-300 text-gray-600 py-2 px-4 rounded-lg text-sm font-medium text-center block">
+                                                Ver Detalles
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php 
+                endif;
+            endif;
             ?>
         </div>
 
