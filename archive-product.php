@@ -247,7 +247,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     </div>
 </div>
 
-<div class="bg-gray-50 min-h-screen pt-0 pb-8">
+<div class="bg-gray-50 min-h-screen py-12">
     <div class="container mx-auto px-4">
 
         <!-- Botón para mostrar filtros en móvil -->
