@@ -317,7 +317,7 @@ get_header(); ?>
 
 
         <!-- Productos relacionados -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-12">
             <?php
             // Implementación personalizada de productos relacionados
             $related_ids = wc_get_related_products( $product->get_id(), 4 );
