@@ -631,24 +631,6 @@ $products_query = new WP_Query($args);
                 ?>
             </div>
 
-            <!-- Paginación moderna -->
-            <div class="mt-12">
-                <?php
-                // Paginación personalizada para la consulta custom
-                $big = 999999999; // need an unlikely integer
-                echo paginate_links( array(
-                    'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-                    'format' => '?paged=%#%',
-                    'current' => max( 1, get_query_var('paged') ),
-                    'total' => $products_query->max_num_pages,
-                    'mid_size' => 2,
-                    'prev_text' => __( 'Anterior', 'textdomain' ),
-                    'next_text' => __( 'Siguiente', 'textdomain' ),
-                ) );
-                wp_reset_postdata();
-                ?>
-            </div>
-
                 </main>
             </div>
 
@@ -684,6 +666,30 @@ $products_query = new WP_Query($args);
 
         <?php endif; ?>
 
+    </div>
+</div>
+
+<!-- Paginación moderna fuera del contenedor principal -->
+<div class="w-full">
+    <div class="container mx-auto px-4">
+        <div class="mt-12">
+            <?php
+            if ( $products_query && $products_query->have_posts() ) {
+                // Paginación personalizada para la consulta custom
+                $big = 999999999; // need an unlikely integer
+                echo paginate_links( array(
+                    'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                    'format' => '?paged=%#%',
+                    'current' => max( 1, get_query_var('paged') ),
+                    'total' => $products_query->max_num_pages,
+                    'mid_size' => 2,
+                    'prev_text' => __( 'Anterior', 'textdomain' ),
+                    'next_text' => __( 'Siguiente', 'textdomain' ),
+                ) );
+                wp_reset_postdata();
+            }
+            ?>
+        </div>
     </div>
 </div>
 
