@@ -23,9 +23,9 @@
     --cart-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --cart-shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --cart-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* High z-index values to ensure cart appears above everything */
-    --cart-z-overlay: 999999;
-    --cart-z-sidepanel: 1000000;
+    /* Ultra-high z-index values to ensure cart appears above everything */
+    --cart-z-overlay: 2147483646;
+    --cart-z-sidepanel: 2147483647;
 }
 
 /* Modal Overlay - Full screen backdrop */
@@ -482,11 +482,11 @@ body.cart-open {
     }
 }
 
-/* Force high z-index on all cart elements */
+/* Force ultra-high z-index on all cart elements */
 .cart-overlay,
 .cart-sidepanel,
 .cart-notification {
-    z-index: 999999 !important;
+    z-index: 2147483647 !important;
 }
 
 .cart-sidepanel * {

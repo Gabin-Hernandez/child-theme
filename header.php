@@ -43,14 +43,14 @@
             color: #2563eb;
         }
         
-        /* Asegurar que los dropdowns estén por encima de otros elementos */
+        /* Asegurar que los dropdowns estén por debajo del cart sidepanel */
         .dropdown-container {
-            z-index: 10000 !important;
+            z-index: 1000 !important;
             position: relative !important;
         }
         
         .dropdown-menu {
-            z-index: 10001 !important;
+            z-index: 1001 !important;
         }
         
         /* Animación suave para los iconos */
