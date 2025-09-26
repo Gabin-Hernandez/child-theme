@@ -761,10 +761,6 @@
             animation: slideDown 0.3s ease-out !important;
         }
 
-        #main-header.sticky-hidden {
-            transform: translateY(-100%) !important;
-        }
-
         /* Animación para el header sticky */
         @keyframes slideDown {
             from {
@@ -828,14 +824,9 @@
                         isSticky = true;
                     }
                     
-                    // Ocultar/mostrar header basado en dirección del scroll
-                    if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
-                        // Scrolling down - hide header
-                        header.classList.add('sticky-hidden');
-                    } else {
-                        // Scrolling up - show header
-                        header.classList.remove('sticky-hidden');
-                    }
+                    // El header siempre debe estar visible cuando está en modo sticky
+                    header.classList.remove('sticky-hidden');
+                    
                 } else {
                     // Remover sticky cuando esté en la parte superior
                     if (isSticky) {
