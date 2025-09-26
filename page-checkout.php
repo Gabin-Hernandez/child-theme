@@ -147,11 +147,29 @@ get_header();
     text-decoration: none !important;
     font-weight: 600 !important;
     transition: color 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
 }
 
 .checkout-content .woocommerce-form-coupon-toggle .showcoupon:hover {
     color: #1d4ed8 !important;
     text-decoration: underline !important;
+}
+
+/* Asegurar que el icono de Font Awesome se muestre */
+.checkout-content .woocommerce-form-coupon-toggle .showcoupon::before {
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    content: "\f02b" !important; /* fa-tag icon */
+    margin-right: 0.5rem !important;
+    font-size: 1rem !important;
+}
+
+/* Fallback para Font Awesome 5 */
+.checkout-content .woocommerce-form-coupon-toggle .showcoupon i {
+    margin-right: 0.5rem !important;
+    font-size: 1rem !important;
 }
 
 /* Estilos para el formulario de cupón cuando se despliega */
