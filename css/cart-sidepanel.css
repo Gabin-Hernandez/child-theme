@@ -24,7 +24,7 @@
     --cart-shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     --cart-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --cart-z-overlay: 9998;
-    --cart-z-sidepanel: 9999;
+    --cart-z-sidepanel: 9999 !important;
 }
 
 /* Overlay */
