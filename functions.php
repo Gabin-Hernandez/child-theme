@@ -38,7 +38,7 @@ function itools_enqueue_styles() {
         'itools-cart-sidepanel', 
         get_stylesheet_directory_uri() . '/css/cart-sidepanel.css', 
         array(), 
-        '1.0.0' 
+        filemtime(get_stylesheet_directory() . '/css/cart-sidepanel.css') 
     );
     
     // Encolar JavaScript para el botón flotante de WhatsApp
@@ -55,7 +55,7 @@ function itools_enqueue_styles() {
         'itools-cart-sidepanel', 
         get_stylesheet_directory_uri() . '/js/cart-sidepanel.js', 
         array('jquery'), 
-        '1.0.0', 
+        filemtime(get_stylesheet_directory() . '/js/cart-sidepanel.js'), 
         true 
     );
     
@@ -64,7 +64,7 @@ function itools_enqueue_styles() {
         'itools-cart-global', 
         get_stylesheet_directory_uri() . '/js/cart-global.js', 
         array('jquery'), 
-        '1.0.0', 
+        filemtime(get_stylesheet_directory() . '/js/cart-global.js'), 
         true 
     );
     
