@@ -1199,10 +1199,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
     const body = document.body;
     let isMenuOpen = false;
+    let isToggling = false; // Flag to prevent rapid toggling
 
     if (mobileMenuBtn && mobileMenu) {
         // Function to open the menu
         function openMobileMenu() {
+            if (isToggling) return;
+            isToggling = true;
+            
             isMenuOpen = true;
             mobileMenu.style.display = 'block';
             mobileMenu.style.transform = 'translateX(0)';
@@ -1216,10 +1220,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                 </svg>
             `;
+            
+            // Reset toggle flag after animation
+            setTimeout(() => {
+                isToggling = false;
+            }, 350);
         }
 
         // Function to close the menu
         function closeMobileMenu() {
+            if (isToggling) return;
+            isToggling = true;
+            
             isMenuOpen = false;
             mobileMenu.style.transform = 'translateX(-100%)';
             mobileMenu.style.opacity = '0';
@@ -1244,12 +1256,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 </svg>
             `;
             
-            // Hide after animation
+            // Hide after animation and reset toggle flag
             setTimeout(() => {
                 if (!isMenuOpen) {
                     mobileMenu.style.display = 'none';
                 }
-            }, 300);
+                isToggling = false;
+            }, 350);
         }
 
         // Toggle mobile menu sections
@@ -1294,9 +1307,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
-            if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                closeMobileMenu();
-            }
+            // Add a small delay to prevent immediate closing after opening
+            setTimeout(() => {
+                if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    // Additional check to make sure the click target is not the close button
+                    const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+                    if (!mobileMenuCloseBtn || !mobileMenuCloseBtn.contains(e.target)) {
+                        closeMobileMenu();
+                    }
+                }
+            }, 100);
         });
 
         // Close menu with Escape key
