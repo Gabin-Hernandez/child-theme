@@ -391,87 +391,8 @@
                 }
             });
             
-            // Funcionalidad del menú móvil mejorada
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            let isMenuOpen = false;
-            
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    isMenuOpen = !isMenuOpen;
-                    
-                    if (isMenuOpen) {
-                        // Abrir menú
-                        mobileMenu.style.display = 'block';
-                        setTimeout(() => {
-                            mobileMenu.classList.add('show');
-                        }, 10);
-                        
-                        // Cambiar icono a X
-                        mobileMenuBtn.innerHTML = `
-                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                            </svg>
-                        `;
-                        
-                        // Prevenir scroll del body
-                        document.body.style.overflow = 'hidden';
-                    } else {
-                        // Cerrar menú
-                        mobileMenu.classList.remove('show');
-                        setTimeout(() => {
-                            mobileMenu.style.display = 'none';
-                        }, 300);
-                        
-                        // Cambiar icono a hamburguesa
-                        mobileMenuBtn.innerHTML = `
-                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        `;
-                        
-                        // Restaurar scroll del body
-                        document.body.style.overflow = '';
-                    }
-                });
-                
-                // Cerrar menú al hacer clic fuera
-                document.addEventListener('click', function(e) {
-                    if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                        isMenuOpen = false;
-                        mobileMenu.classList.remove('show');
-                        setTimeout(() => {
-                            mobileMenu.style.display = 'none';
-                        }, 300);
-                        
-                        mobileMenuBtn.innerHTML = `
-                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        `;
-                        
-                        document.body.style.overflow = '';
-                    }
-                });
-                
-                // Cerrar menú móvil al cambiar tamaño de ventana
-                window.addEventListener('resize', function() {
-                    if (window.innerWidth > 768 && isMenuOpen) {
-                        isMenuOpen = false;
-                        mobileMenu.classList.remove('show');
-                        mobileMenu.style.display = 'none';
-                        mobileMenuBtn.innerHTML = `
-                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        `;
-                        document.body.style.overflow = '';
-                    }
-                });
-            }
+            // Funcionalidad del menú móvil - REMOVIDO (duplicado)
+            // Esta funcionalidad está implementada más abajo en el archivo
         });
         
         // Funcionalidad para el efecto scroll del header sticky
@@ -1305,18 +1226,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Close menu when clicking outside
+        // Close menu when clicking outside - RE-ENABLED with better logic
         document.addEventListener('click', function(e) {
-            // Add a small delay to prevent immediate closing after opening
-            setTimeout(() => {
-                if (isMenuOpen && !mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    // Additional check to make sure the click target is not the close button
-                    const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
-                    if (!mobileMenuCloseBtn || !mobileMenuCloseBtn.contains(e.target)) {
-                        closeMobileMenu();
-                    }
+            if (isMenuOpen && !isToggling) {
+                // Check if click is outside menu and not on menu button or close button
+                const isOutsideMenu = !mobileMenu.contains(e.target);
+                const isNotMenuButton = !mobileMenuBtn.contains(e.target);
+                const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+                const isNotCloseButton = !mobileMenuCloseBtn || !mobileMenuCloseBtn.contains(e.target);
+                
+                if (isOutsideMenu && isNotMenuButton && isNotCloseButton) {
+                    closeMobileMenu();
                 }
-            }, 100);
+            }
         });
 
         // Close menu with Escape key
@@ -1326,13 +1248,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Close menu when clicking on links
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                closeMobileMenu();
-            });
-        });
+        // Close menu when clicking on links - DISABLED temporarily to debug
+        // const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        // mobileMenuLinks.forEach(link => {
+        //     link.addEventListener('click', function() {
+        //         closeMobileMenu();
+        //     });
+        // });
 
         // Handle window resize
         window.addEventListener('resize', function() {
