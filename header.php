@@ -417,7 +417,7 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);">
+    <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); position: relative; z-index: 1000; transition: all 0.3s ease;">
         <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
@@ -743,6 +743,131 @@
             </div>
         </div>
     </header>
+
+    <!-- CSS y JavaScript para Header Sticky -->
+    <style>
+        /* Estilos para el header sticky */
+        #main-header.sticky {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            background: rgba(23, 23, 23, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+            transform: translateY(0) !important;
+            animation: slideDown 0.3s ease-out !important;
+        }
+
+        #main-header.sticky-hidden {
+            transform: translateY(-100%) !important;
+        }
+
+        /* Animación para el header sticky */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Espaciado para compensar el header fijo */
+        body.header-sticky-active {
+            padding-top: 100px;
+        }
+
+        /* Mejoras visuales para el header sticky */
+        #main-header.sticky .header-logo img {
+            height: 60px !important;
+            transition: height 0.3s ease !important;
+        }
+
+        #main-header.sticky .header-row {
+            height: 80px !important;
+            transition: height 0.3s ease !important;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            #main-header.sticky .header-logo img {
+                height: 50px !important;
+            }
+            
+            #main-header.sticky .header-row {
+                height: 70px !important;
+            }
+            
+            body.header-sticky-active {
+                padding-top: 70px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('main-header');
+            const body = document.body;
+            let lastScrollTop = 0;
+            let isSticky = false;
+            
+            function handleScroll() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const headerHeight = header.offsetHeight;
+                
+                // Hacer sticky cuando se haga scroll hacia abajo más de la altura del header
+                if (scrollTop > headerHeight) {
+                    if (!isSticky) {
+                        header.classList.add('sticky');
+                        body.classList.add('header-sticky-active');
+                        isSticky = true;
+                    }
+                    
+                    // Ocultar/mostrar header basado en dirección del scroll
+                    if (scrollTop > lastScrollTop && scrollTop > headerHeight * 2) {
+                        // Scrolling down - hide header
+                        header.classList.add('sticky-hidden');
+                    } else {
+                        // Scrolling up - show header
+                        header.classList.remove('sticky-hidden');
+                    }
+                } else {
+                    // Remover sticky cuando esté en la parte superior
+                    if (isSticky) {
+                        header.classList.remove('sticky', 'sticky-hidden');
+                        body.classList.remove('header-sticky-active');
+                        isSticky = false;
+                    }
+                }
+                
+                lastScrollTop = scrollTop;
+            }
+            
+            // Throttle scroll events para mejor rendimiento
+            let ticking = false;
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(handleScroll);
+                    ticking = true;
+                    setTimeout(() => { ticking = false; }, 16);
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick);
+            
+            // Manejar resize para recalcular posiciones
+            window.addEventListener('resize', function() {
+                if (isSticky) {
+                    handleScroll();
+                }
+            });
+        });
+    </script>
 
     <!-- Menú móvil -->
     <div id="mobile-menu" style="
