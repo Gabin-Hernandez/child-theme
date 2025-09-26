@@ -41,6 +41,16 @@ function itools_enqueue_styles() {
         '1.0.0' 
     );
     
+    // Encolar CSS de mejoras del checkout
+    if ( is_checkout() ) {
+        wp_enqueue_style( 
+            'itools-checkout-improvements', 
+            get_stylesheet_directory_uri() . '/css/checkout-improvements.css', 
+            array(), 
+            '1.0.0' 
+        );
+    }
+    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
