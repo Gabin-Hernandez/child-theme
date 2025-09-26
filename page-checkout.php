@@ -94,15 +94,129 @@ get_header();
 .checkout-content .woocommerce-checkout {
     background: white;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 2.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+}
+
+/* Mejorar espaciado entre secciones del formulario */
+.checkout-content .woocommerce-checkout .col2-set {
+    margin-bottom: 2rem;
+}
+
+.checkout-content .woocommerce-checkout .col-1,
+.checkout-content .woocommerce-checkout .col-2 {
+    margin-bottom: 1.5rem;
+}
+
+/* Espaciado mejorado para campos del formulario */
+.checkout-content .woocommerce-checkout .form-row {
+    margin-bottom: 1.25rem !important;
+}
+
+.checkout-content .woocommerce-checkout .form-row-first,
+.checkout-content .woocommerce-checkout .form-row-last {
+    margin-bottom: 1.25rem !important;
+}
+
+/* Espaciado para labels y campos */
+.checkout-content .woocommerce-checkout label {
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+}
+
+.checkout-content .woocommerce-checkout input[type="text"],
+.checkout-content .woocommerce-checkout input[type="email"],
+.checkout-content .woocommerce-checkout input[type="tel"],
+.checkout-content .woocommerce-checkout select,
+.checkout-content .woocommerce-checkout textarea {
+    width: 100% !important;
+    padding: 0.875rem 1rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    transition: all 0.3s ease !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.checkout-content .woocommerce-checkout input:focus,
+.checkout-content .woocommerce-checkout select:focus,
+.checkout-content .woocommerce-checkout textarea:focus {
+    outline: none !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Espaciado para secciones principales */
+.checkout-content .woocommerce-checkout h3 {
+    margin-bottom: 1.5rem !important;
+    margin-top: 2rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 2px solid #f3f4f6 !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+}
+
+.checkout-content .woocommerce-checkout h3:first-child {
+    margin-top: 0 !important;
+}
+
+/* Espaciado para el área de pedido */
+.checkout-content .woocommerce-checkout #order_review_heading {
+    margin-top: 2.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.checkout-content .woocommerce-checkout #order_review {
+    background: #f9fafb !important;
+    border-radius: 0.75rem !important;
+    padding: 1.5rem !important;
+    margin-top: 1rem !important;
+}
+
+/* Espaciado para métodos de pago */
+.checkout-content .woocommerce-checkout .wc_payment_methods {
+    margin-bottom: 1.5rem !important;
+}
+
+.checkout-content .woocommerce-checkout .wc_payment_method {
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 0.5rem !important;
+}
+
+/* Espaciado para el botón de finalizar compra */
+.checkout-content .woocommerce-checkout #place_order {
+    margin-top: 1.5rem !important;
+    padding: 1rem 2rem !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    background: #059669 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 0.75rem !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.checkout-content .woocommerce-checkout #place_order:hover {
+    background: #047857 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3) !important;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .checkout-content .woocommerce-checkout {
-        padding: 1rem;
+        padding: 1.5rem;
         margin: 0 -1rem;
         border-radius: 0;
         border-left: none;
@@ -117,6 +231,58 @@ get_header();
     .checkout-page-wrapper .container {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+    
+    /* Ajustes móviles para formularios */
+    .checkout-content .woocommerce-checkout .form-row {
+        margin-bottom: 1rem !important;
+    }
+    
+    .checkout-content .woocommerce-checkout h3 {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1rem !important;
+        font-size: 1.125rem !important;
+    }
+    
+    .checkout-content .woocommerce-checkout input[type="text"],
+    .checkout-content .woocommerce-checkout input[type="email"],
+    .checkout-content .woocommerce-checkout input[type="tel"],
+    .checkout-content .woocommerce-checkout select,
+    .checkout-content .woocommerce-checkout textarea {
+        padding: 0.75rem !important;
+        font-size: 16px !important; /* Evita zoom en iOS */
+    }
+    
+    /* Ajustes móviles para cupón */
+    .checkout-content .woocommerce-form-coupon-toggle {
+        padding: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .checkout-content .checkout_coupon {
+        padding: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .checkout-content .checkout_coupon .form-row {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .checkout-content .checkout_coupon .button {
+        width: 100% !important;
+        padding: 0.875rem !important;
+    }
+    
+    /* Ajustes móviles para el área de pedido */
+    .checkout-content .woocommerce-checkout #order_review {
+        padding: 1rem !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    .checkout-content .woocommerce-checkout #place_order {
+        padding: 0.875rem 1.5rem !important;
+        font-size: 1rem !important;
     }
 }
 
@@ -134,37 +300,34 @@ get_header();
 
 /* Estilos específicos para el formulario de cupón */
 .checkout-content .woocommerce-form-coupon-toggle {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 0.875rem !important;
-    padding: 1.25rem 2rem !important;
-    margin: 0 0 2rem 0 !important;
+    background: #f3f4f6 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.75rem !important;
+    padding: 1.25rem 1.75rem !important;
+    margin-bottom: 2rem !important;
     text-align: center !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
     transition: all 0.3s ease !important;
 }
 
 .checkout-content .woocommerce-form-coupon-toggle:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    background: #e5e7eb !important;
+    border-color: #9ca3af !important;
 }
 
 .checkout-content .woocommerce-form-coupon-toggle .showcoupon {
     color: #2563eb !important;
     text-decoration: none !important;
     font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    transition: all 0.3s ease !important;
+    transition: color 0.3s ease !important;
     display: inline-flex !important;
     align-items: center !important;
-    gap: 0.625rem !important;
-    letter-spacing: 0.025em !important;
+    gap: 0.5rem !important;
+    font-size: 1rem !important;
 }
 
 .checkout-content .woocommerce-form-coupon-toggle .showcoupon:hover {
     color: #1d4ed8 !important;
-    text-decoration: none !important;
-    transform: scale(1.02) !important;
+    text-decoration: underline !important;
 }
 
 /* Asegurar que el icono de Font Awesome se muestre */
@@ -172,63 +335,42 @@ get_header();
     font-family: "Font Awesome 6 Free" !important;
     font-weight: 900 !important;
     content: "\f02b" !important; /* fa-tag icon */
-    margin-right: 0.625rem !important;
-    font-size: 1.1rem !important;
-    opacity: 0.9 !important;
-    transition: all 0.3s ease !important;
-}
-
-.checkout-content .woocommerce-form-coupon-toggle .showcoupon:hover::before {
-    opacity: 1 !important;
-    transform: rotate(5deg) !important;
+    margin-right: 0.5rem !important;
+    font-size: 1rem !important;
 }
 
 /* Fallback para Font Awesome 5 */
 .checkout-content .woocommerce-form-coupon-toggle .showcoupon i {
-    margin-right: 0.625rem !important;
-    font-size: 1.1rem !important;
-    opacity: 0.9 !important;
-    transition: all 0.3s ease !important;
-}
-
-.checkout-content .woocommerce-form-coupon-toggle .showcoupon:hover i {
-    opacity: 1 !important;
-    transform: rotate(5deg) !important;
+    margin-right: 0.5rem !important;
+    font-size: 1rem !important;
 }
 
 /* Estilos para el formulario de cupón cuando se despliega */
 .checkout-content .checkout_coupon {
-    background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%) !important;
+    background: white !important;
     border: 1px solid #e5e7eb !important;
-    border-radius: 1rem !important;
+    border-radius: 0.75rem !important;
     padding: 2rem !important;
-    margin: 0 0 2rem 0 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    position: relative !important;
-    overflow: hidden !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    animation: slideDown 0.3s ease-out !important;
 }
 
-.checkout-content .checkout_coupon::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 3px !important;
-    background: linear-gradient(90deg, #2563eb, #3b82f6, #2563eb) !important;
-    background-size: 200% 100% !important;
-    animation: shimmer 2s ease-in-out infinite !important;
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .checkout-content .checkout_coupon p {
-    margin: 0 0 1.5rem 0 !important;
+    margin-bottom: 1.5rem !important;
     color: #4b5563 !important;
-    font-size: 0.95rem !important;
+    font-size: 1rem !important;
     line-height: 1.6 !important;
 }
 
@@ -242,97 +384,55 @@ get_header();
 .checkout-content .checkout_coupon input[type="text"] {
     flex: 1 !important;
     padding: 1rem 1.25rem !important;
-    border: 2px solid #e5e7eb !important;
-    border-radius: 0.75rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
     font-size: 1rem !important;
-    font-weight: 500 !important;
-    background: #fafafa !important;
     transition: all 0.3s ease !important;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    background: #f9fafb !important;
 }
 
 .checkout-content .checkout_coupon input[type="text"]:focus {
     outline: none !important;
     border-color: #2563eb !important;
-    background: #ffffff !important;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1), inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-    transform: translateY(-1px) !important;
-}
-
-.checkout-content .checkout_coupon input[type="text"]::placeholder {
-    color: #9ca3af !important;
-    font-weight: 400 !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+    background: white !important;
 }
 
 .checkout-content .checkout_coupon .button {
-    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%) !important;
+    background: #2563eb !important;
     color: white !important;
     border: none !important;
-    border-radius: 0.75rem !important;
-    padding: 1rem 2rem !important;
+    border-radius: 0.5rem !important;
+    padding: 1rem 1.75rem !important;
     font-weight: 600 !important;
-    font-size: 0.95rem !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     white-space: nowrap !important;
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
-    position: relative !important;
-    overflow: hidden !important;
-}
-
-.checkout-content .checkout_coupon .button::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
-    transition: left 0.5s ease !important;
-}
-
-.checkout-content .checkout_coupon .button:hover::before {
-    left: 100% !important;
+    font-size: 1rem !important;
 }
 
 .checkout-content .checkout_coupon .button:hover {
-    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4) !important;
+    background: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
 }
 
 .checkout-content .checkout_coupon .button:hover {
-    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4) !important;
+    background: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
 }
 
 /* Responsive para el formulario de cupón */
 @media (max-width: 640px) {
-    .checkout-content .woocommerce-form-coupon-toggle {
-        padding: 1rem 1.5rem !important;
-        margin: 0 0 1.5rem 0 !important;
-    }
-    
-    .checkout-content .checkout_coupon {
-        padding: 1.5rem !important;
-        margin: 0 0 1.5rem 0 !important;
-    }
-    
     .checkout-content .checkout_coupon .form-row {
         flex-direction: column !important;
         align-items: stretch !important;
-        gap: 1rem !important;
     }
     
     .checkout-content .checkout_coupon .button {
-        margin-top: 0 !important;
-        padding: 1rem !important;
-        font-size: 1rem !important;
-    }
-    
-    .checkout-content .checkout_coupon input[type="text"] {
-        padding: 1rem !important;
+        margin-top: 0.5rem !important;
     }
 }
 </style>
