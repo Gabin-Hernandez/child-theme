@@ -41,16 +41,6 @@ function itools_enqueue_styles() {
         '1.0.0' 
     );
     
-    // Encolar CSS de mejoras del checkout
-    if ( is_checkout() ) {
-        wp_enqueue_style( 
-            'itools-checkout-improvements', 
-            get_stylesheet_directory_uri() . '/css/checkout-improvements.css', 
-            array(), 
-            '1.0.0' 
-        );
-    }
-    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
@@ -1924,8 +1914,7 @@ add_action('wp_enqueue_scripts', 'itools_localize_scripts');
 
 // === FUNCIONES PARA CHECKOUT PERSONALIZADO === (DESACTIVADAS)
 
-// Forzar el uso de nuestro template para la página de checkout - DESACTIVADO
-/*
+// Forzar el uso de nuestro template para la página de checkout
 function itools_custom_checkout_template( $template ) {
     if ( is_checkout() && ! is_wc_endpoint_url() ) {
         $custom_template = locate_template( array( 'page-checkout.php' ) );
@@ -1936,7 +1925,6 @@ function itools_custom_checkout_template( $template ) {
     return $template;
 }
 add_filter( 'template_include', 'itools_custom_checkout_template', 99 );
-*/
 
 // Cambiar el texto del botón de realizar pedido
 function itools_custom_order_button_text() {
