@@ -1553,13 +1553,13 @@ footer {
     margin-top: 0;
 }
 
-/* Z-index para dropdowns - Lower than cart sidepanel */
+/* Z-index para dropdowns */
 .dropdown-container {
-    z-index: 1000 !important;
+    z-index: 10000 !important;
 }
 
 .dropdown-menu {
-    z-index: 1001 !important;
+    z-index: 10001 !important;
 }
 
 /* ========================================
