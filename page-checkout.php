@@ -131,6 +131,94 @@ get_header();
 .checkout-content .woocommerce-info {
     margin-bottom: 1.5rem;
 }
+
+/* Estilos específicos para el formulario de cupón */
+.checkout-content .woocommerce-form-coupon-toggle {
+    background: #f3f4f6 !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.75rem !important;
+    padding: 1rem 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+}
+
+.checkout-content .woocommerce-form-coupon-toggle .showcoupon {
+    color: #2563eb !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: color 0.3s ease !important;
+}
+
+.checkout-content .woocommerce-form-coupon-toggle .showcoupon:hover {
+    color: #1d4ed8 !important;
+    text-decoration: underline !important;
+}
+
+/* Estilos para el formulario de cupón cuando se despliega */
+.checkout-content .checkout_coupon {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 0.75rem !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.checkout-content .checkout_coupon p {
+    margin-bottom: 1rem !important;
+    color: #4b5563 !important;
+}
+
+.checkout-content .checkout_coupon .form-row {
+    display: flex !important;
+    gap: 0.75rem !important;
+    align-items: end !important;
+}
+
+.checkout-content .checkout_coupon input[type="text"] {
+    flex: 1 !important;
+    padding: 0.75rem 1rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    font-size: 1rem !important;
+    transition: border-color 0.3s ease !important;
+}
+
+.checkout-content .checkout_coupon input[type="text"]:focus {
+    outline: none !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+.checkout-content .checkout_coupon .button {
+    background: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 0.5rem !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+}
+
+.checkout-content .checkout_coupon .button:hover {
+    background: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Responsive para el formulario de cupón */
+@media (max-width: 640px) {
+    .checkout-content .checkout_coupon .form-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    .checkout-content .checkout_coupon .button {
+        margin-top: 0.5rem !important;
+    }
+}
 </style>
 
 <?php get_footer(); ?>
