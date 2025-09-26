@@ -654,7 +654,7 @@ get_header(); ?>
                 <span><strong><?php wc_cart_totals_order_total_html(); ?></strong></span>
             </div>
 
-            <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-btn">
+            <a href="/finalizar-compra/" class="checkout-btn">
                 <i data-lucide="credit-card"></i>
                 Proceder al Checkout
             </a>

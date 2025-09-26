@@ -287,7 +287,7 @@ class NewCartSidepanel {
                     ${this.renderCartSummary()}
                 </div>
                 <div class="cart-actions">
-                    <a href="${this.cartData.checkout_url || '/checkout'}" class="btn-checkout">
+                    <a href="${this.cartData.checkout_url || '/finalizar-compra/'}" class="btn-checkout">
                         Finalizar Compra
                     </a>
                 </div>
