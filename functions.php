@@ -1912,9 +1912,10 @@ function itools_localize_scripts() {
 }
 add_action('wp_enqueue_scripts', 'itools_localize_scripts');
 
-// === FUNCIONES PARA CHECKOUT PERSONALIZADO ===
+// === FUNCIONES PARA CHECKOUT PERSONALIZADO === (DESACTIVADAS)
 
-// Forzar el uso de nuestro template para la página de checkout
+// Forzar el uso de nuestro template para la página de checkout - DESACTIVADO
+/*
 function itools_custom_checkout_template( $template ) {
     if ( is_checkout() && ! is_wc_endpoint_url() ) {
         $custom_template = locate_template( array( 'page-checkout.php' ) );
@@ -1925,6 +1926,7 @@ function itools_custom_checkout_template( $template ) {
     return $template;
 }
 add_filter( 'template_include', 'itools_custom_checkout_template', 99 );
+*/
 
 // Cambiar el texto del botón de realizar pedido
 function itools_custom_order_button_text() {
