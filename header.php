@@ -839,6 +839,39 @@
         overflow-y: auto;
     ">
         <div style="padding: 20px;">
+            <!-- Header del menú móvil con botón de cierre -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid #f3f4f6;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 style="font-size: 18px; font-weight: 700; color: #1f2937; margin: 0;">Menú Principal</h2>
+                        <p style="font-size: 12px; color: #6b7280; margin: 0;">Explora nuestros productos</p>
+                    </div>
+                </div>
+                <button id="mobile-menu-close" style="
+                    width: 44px; 
+                    height: 44px; 
+                    background: #f3f4f6; 
+                    border: none; 
+                    border-radius: 12px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                " onmouseover="this.style.background='#e5e7eb'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#f3f4f6'; this.style.transform='scale(1)'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
             <!-- Mobile Search - Enhanced -->
             <div style="margin-bottom: 24px; position: sticky; top: 0; background: white; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb;">
                 <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative;">
@@ -1248,6 +1281,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 openMobileMenu();
             }
         });
+
+        // Close button functionality
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        if (mobileMenuCloseBtn) {
+            mobileMenuCloseBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMobileMenu();
+            });
+        }
 
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
