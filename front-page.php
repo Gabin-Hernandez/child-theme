@@ -182,7 +182,7 @@ get_header(); ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 <!-- Refacciones -->
-                <div class="group cursor-pointer" onclick="window.location.href='/categoria/refacciones/'">
+                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=refacciones'">
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                              alt="Refacciones de celulares" 
@@ -200,7 +200,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Pantallas -->
-                <div class="group cursor-pointer" onclick="window.location.href='/categoria/lcd-y-touch/'">
+                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=lcd-y-touch'">
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                              alt="Pantallas LCD y Touch" 
@@ -218,7 +218,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Herramientas -->
-                <div class="group cursor-pointer" onclick="window.location.href='/categoria/herramientas/'">
+                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=herramientas'">
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                              alt="Herramientas profesionales" 
@@ -236,7 +236,7 @@ get_header(); ?>
                 </div>
                 
                 <!-- Baterías -->
-                <div class="group cursor-pointer" onclick="window.location.href='/categoria/baterias/'">
+                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=baterias'">
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                              alt="Baterías y accesorios" 
