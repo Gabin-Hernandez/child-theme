@@ -2072,6 +2072,109 @@ function itools_ajax_add_to_cart() {
 add_action('wp_ajax_itools_add_to_cart', 'itools_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_itools_add_to_cart', 'itools_ajax_add_to_cart');
 
+// Función AJAX para filtros rápidos
+function itools_ajax_quick_filter() {
+    // Verificar nonce de seguridad
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_filter_nonce')) {
+        wp_die('Error de seguridad', 'Error', array('response' => 403));
+    }
+    
+    $filter_type = sanitize_text_field($_POST['filter_type']);
+    $paged = intval($_POST['paged']) ?: 1;
+    $posts_per_page = 12;
+    
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $posts_per_page,
+        'paged' => $paged,
+        'meta_query' => array()
+    );
+    
+    // Configurar argumentos según el tipo de filtro
+    switch ($filter_type) {
+        case 'best-sellers':
+            $args['meta_key'] = 'total_sales';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+            
+        case 'top-rated':
+            $args['meta_key'] = '_wc_average_rating';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            $args['meta_query'][] = array(
+                'key' => '_wc_average_rating',
+                'value' => 0,
+                'compare' => '>'
+            );
+            break;
+            
+        case 'on-sale':
+            $sale_ids = wc_get_product_ids_on_sale();
+            if (empty($sale_ids)) {
+                wp_send_json_success(array(
+                    'html' => '<div class="col-span-full text-center py-12"><p class="text-gray-500">No hay productos en oferta en este momento.</p></div>',
+                    'found_products' => 0
+                ));
+                return;
+            }
+            $args['post__in'] = $sale_ids;
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            break;
+            
+        case 'newest':
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            // Productos de los últimos 30 días
+            $args['date_query'] = array(
+                array(
+                    'after' => '30 days ago',
+                    'inclusive' => true,
+                ),
+            );
+            break;
+            
+        default:
+            wp_send_json_error('Tipo de filtro no válido');
+            return;
+    }
+    
+    $products_query = new WP_Query($args);
+    
+    ob_start();
+    
+    if ($products_query->have_posts()) {
+        while ($products_query->have_posts()) {
+            $products_query->the_post();
+            
+            $product = wc_get_product(get_the_ID());
+            if (!$product) {
+                continue;
+            }
+            
+            // Generar HTML del producto similar a la página de ofertas
+            include get_stylesheet_directory() . '/template-parts/product-card-quick.php';
+        }
+        wp_reset_postdata();
+    } else {
+        echo '<div class="col-span-full text-center py-12">';
+        echo '<p class="text-gray-500">No se encontraron productos para este filtro.</p>';
+        echo '</div>';
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+        'found_products' => $products_query->found_posts,
+        'max_pages' => $products_query->max_num_pages
+    ));
+}
+add_action('wp_ajax_itools_quick_filter', 'itools_ajax_quick_filter');
+add_action('wp_ajax_nopriv_itools_quick_filter', 'itools_ajax_quick_filter');
+
 // Agregar variables JavaScript necesarias
 function itools_localize_scripts() {
     if (is_front_page()) {

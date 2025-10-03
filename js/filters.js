@@ -154,6 +154,9 @@
         // Limpiar botones de rango predefinido
         $('.price-preset').removeClass('bg-green-100 text-green-700').addClass('bg-gray-100');
         
+        // Desactivar filtros rápidos
+        $('.quick-filter').removeClass('bg-white border-yellow-300 text-yellow-700').addClass('bg-white/60 border-transparent text-gray-700');
+        
         // Animación de limpieza
         setTimeout(() => {
             elements.searchInput.removeClass('clearing');
@@ -586,6 +589,23 @@
             }
         });
         
+        // Filtros rápidos
+        $(document).on('click', '.quick-filter', function(e) {
+            e.preventDefault();
+            
+            const filterType = $(this).data('filter');
+            const button = $(this);
+            
+            // Remover estado activo de otros botones
+            $('.quick-filter').removeClass('bg-white border-yellow-300 text-yellow-700').addClass('bg-white/60 border-transparent text-gray-700');
+            
+            // Activar botón actual
+            button.removeClass('bg-white/60 border-transparent text-gray-700').addClass('bg-white border-yellow-300 text-yellow-700');
+            
+            // Aplicar filtro rápido
+            applyQuickFilter(filterType, button);
+        });
+        
         // Sincronizar sliders con inputs manuales
         $(document).on('input', '#min-price-slider', function() {
             const value = $(this).val();
@@ -730,6 +750,89 @@
                 $('#apply-sidebar-filters').prop('disabled', false).find('svg').removeClass('animate-spin');
             }
         });
+    }
+    
+    // Aplicar filtro rápido
+    function applyQuickFilter(filterType, button) {
+        const originalContent = button.html();
+        
+        // Mostrar estado de carga en el botón
+        button.html(`
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg">
+                <svg class="animate-spin w-4 h-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </span>
+            <span>Cargando...</span>
+        `);
+        
+        $.ajax({
+            url: itoolsFilters.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'itools_quick_filter',
+                filter_type: filterType,
+                paged: 1,
+                nonce: itoolsFilters.nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Actualizar grid de productos
+                    if (elements.productsGrid.length) {
+                        elements.productsGrid.html(response.data.html);
+                        rebindCartEvents();
+                    }
+                    
+                    // Mostrar notificación
+                    const filterNames = {
+                        'best-sellers': 'Más Vendidos',
+                        'top-rated': 'Mejor Valorados', 
+                        'on-sale': 'Ofertas',
+                        'newest': 'Nuevos'
+                    };
+                    
+                    showNotification(`Filtro "${filterNames[filterType]}" aplicado: ${response.data.found_products} productos encontrados`, 'success');
+                    
+                    // Limpiar otros filtros del sidebar
+                    clearSidebarFilters();
+                    
+                } else {
+                    showError(response.data || 'Error al aplicar filtro');
+                }
+            },
+            error: function() {
+                showError('Error de conexión al aplicar filtro rápido');
+            },
+            complete: function() {
+                // Restaurar contenido original del botón
+                button.html(originalContent);
+            }
+        });
+    }
+    
+    // Limpiar filtros del sidebar sin aplicar
+    function clearSidebarFilters() {
+        $('#sidebar-search').val('');
+        $('#sidebar-min-price').val('');
+        $('#sidebar-max-price').val('');
+        $('#sidebar-stock').val('');
+        
+        // Resetear sliders
+        const minSlider = $('#min-price-slider');
+        const maxSlider = $('#max-price-slider');
+        if (minSlider.length && maxSlider.length) {
+            const minRange = minSlider.attr('min');
+            const maxRange = maxSlider.attr('max');
+            
+            minSlider.val(minRange);
+            maxSlider.val(maxRange);
+            $('#min-price-display').text(new Intl.NumberFormat().format(minRange));
+            $('#max-price-display').text(new Intl.NumberFormat().format(maxRange));
+            updateSliderRange();
+        }
+        
+        $('.price-preset').removeClass('bg-green-100 text-green-700').addClass('bg-gray-100');
     }
 
     // Inicializar sliders de precio
