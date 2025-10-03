@@ -79,7 +79,7 @@ get_header(); ?>
                                     <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                         Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                                     </p>
-                                    <a href="/categoria/refacciones/" 
+                                    <a href="/?post_type=product&s=&product_cat=refacciones" 
                                        class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                                         Ver Refacciones
                                     </a>
@@ -114,7 +114,7 @@ get_header(); ?>
                                     <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                         Pantallas de alta calidad para iPhone, Samsung, Huawei y más marcas. Garantía y soporte técnico incluido
                                     </p>
-                                    <a href="/categoria/lcd-y-touch/" 
+                                    <a href="/?post_type=product&s=&product_cat=lcd-y-touch" 
                                        class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                                         Ver Pantallas
                                     </a>
@@ -149,7 +149,7 @@ get_header(); ?>
                                     <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                         Baterías originales y compatibles para todos los modelos. Larga duración y garantía extendida
                                     </p>
-                                    <a href="/categoria/baterias/" 
+                                    <a href="/?post_type=product&s=&product_cat=baterias" 
                                        class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                                         Ver Baterías
                                     </a>
