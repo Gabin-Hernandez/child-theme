@@ -730,6 +730,169 @@ function itools_enqueue_live_search_scripts() {
 add_action( 'wp_footer', 'itools_search_scripts' );
 add_action( 'wp_enqueue_scripts', 'itools_enqueue_live_search_scripts' );
 
+// ========================================
+// FUNCIONES AJAX PARA FILTROS UNIVERSALES
+// ========================================
+
+// AJAX para filtrar productos en tiempo real
+function itools_ajax_filter_products() {
+    // Verificar nonce para seguridad
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_filters_nonce')) {
+        wp_send_json_error('Security check failed');
+        return;
+    }
+    
+    $search_term = sanitize_text_field($_POST['search_term'] ?? '');
+    $min_price = floatval($_POST['min_price'] ?? 0);
+    $max_price = floatval($_POST['max_price'] ?? 999999);
+    $availability = sanitize_text_field($_POST['availability'] ?? '');
+    $category = sanitize_text_field($_POST['category'] ?? '');
+    
+    // Configurar argumentos de búsqueda
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => 20,
+        'meta_query' => array(),
+        'tax_query' => array()
+    );
+    
+    // Búsqueda por texto
+    if (!empty($search_term)) {
+        $args['s'] = $search_term;
+        
+        // También buscar en SKU
+        $args['meta_query'][] = array(
+            'relation' => 'OR',
+            array(
+                'key' => '_sku',
+                'value' => $search_term,
+                'compare' => 'LIKE'
+            )
+        );
+    }
+    
+    // Filtro de precio
+    if ($min_price > 0 || $max_price < 999999) {
+        $price_query = array('relation' => 'AND');
+        
+        if ($min_price > 0) {
+            $price_query[] = array(
+                'key' => '_price',
+                'value' => $min_price,
+                'compare' => '>=',
+                'type' => 'NUMERIC'
+            );
+        }
+        
+        if ($max_price < 999999) {
+            $price_query[] = array(
+                'key' => '_price',
+                'value' => $max_price,
+                'compare' => '<=',
+                'type' => 'NUMERIC'
+            );
+        }
+        
+        $args['meta_query'][] = $price_query;
+    }
+    
+    // Filtro de disponibilidad
+    if ($availability === 'in-stock') {
+        $args['meta_query'][] = array(
+            'key' => '_stock_status',
+            'value' => 'instock',
+            'compare' => '='
+        );
+    } elseif ($availability === 'out-of-stock') {
+        $args['meta_query'][] = array(
+            'key' => '_stock_status',
+            'value' => 'outofstock',
+            'compare' => '='
+        );
+    }
+    
+    // Filtro de categoría
+    if (!empty($category)) {
+        $args['tax_query'][] = array(
+            'taxonomy' => 'product_cat',
+            'field' => 'slug',
+            'terms' => $category
+        );
+    }
+    
+    // Configurar relaciones de meta_query
+    if (count($args['meta_query']) > 1) {
+        $args['meta_query']['relation'] = 'AND';
+    }
+    
+    // Ejecutar consulta
+    $products_query = new WP_Query($args);
+    $products = array();
+    
+    if ($products_query->have_posts()) {
+        while ($products_query->have_posts()) {
+            $products_query->the_post();
+            global $product;
+            
+            if (!$product || !$product->is_visible()) {
+                continue;
+            }
+            
+            $image_id = $product->get_image_id();
+            $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'woocommerce_thumbnail') : wc_placeholder_img_src('woocommerce_thumbnail');
+            
+            $products[] = array(
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+                'price' => $product->get_price_html(),
+                'url' => get_permalink(),
+                'image' => $image_url,
+                'stock_status' => $product->get_stock_status(),
+                'in_stock' => $product->is_in_stock(),
+                'sku' => $product->get_sku(),
+                'rating' => $product->get_average_rating(),
+                'review_count' => $product->get_review_count()
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    wp_send_json_success(array(
+        'products' => $products,
+        'total_found' => $products_query->found_posts,
+        'query_vars' => $args // Para debug
+    ));
+}
+add_action('wp_ajax_itools_filter_products', 'itools_ajax_filter_products');
+add_action('wp_ajax_nopriv_itools_filter_products', 'itools_ajax_filter_products');
+
+// Enqueue scripts para filtros universales
+function itools_enqueue_filters_scripts() {
+    // Solo cargar en páginas de productos
+    if (is_shop() || is_product_category() || is_product_taxonomy() || 
+        (is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product')) {
+        
+        wp_enqueue_script(
+            'itools-filters',
+            get_stylesheet_directory_uri() . '/js/filters.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+        
+        // Localizar datos AJAX
+        wp_localize_script('itools-filters', 'itoolsFilters', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('itools_filters_nonce'),
+            'loading_text' => 'Filtrando productos...',
+            'no_products_text' => 'No se encontraron productos.',
+            'error_text' => 'Error al filtrar productos.'
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_filters_scripts');
+
 // Agregar estilos personalizados para animaciones
 function itools_custom_styles() {
     ?>

@@ -79,7 +79,7 @@ get_header(); ?>
                                     <p class="text-xl md:text-2xl text-slate-200 leading-relaxed max-w-2xl">
                                         Encuentra las refacciones originales y compatibles que necesitas para mantener tus equipos funcionando perfectamente
                                     </p>
-                                    <a href="/?post_type=product&s=&product_cat=refacciones" 
+                                    <a href="/?post_type=product&s=&product_cat=herramientas" 
                                        class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
                                         Ver Refacciones
                                     </a>
@@ -182,7 +182,7 @@ get_header(); ?>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
                 <!-- Refacciones -->
-                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=refacciones'">
+                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=herramientas'">
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                              alt="Refacciones de celulares" 
