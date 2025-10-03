@@ -186,8 +186,8 @@ get_header(); ?>
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
                              alt="Refacciones de celulares" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        <div class="absolute inset-0 bg-slate-900/70"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-slate-900/30"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-end p-6">
                             <div class="space-y-2">
@@ -204,8 +204,8 @@ get_header(); ?>
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
                              alt="Pantallas LCD y Touch" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        <div class="absolute inset-0 bg-slate-900/70"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-slate-900/30"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-end p-6">
                             <div class="space-y-2">
@@ -222,8 +222,8 @@ get_header(); ?>
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
                              alt="Herramientas profesionales" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        <div class="absolute inset-0 bg-slate-900/70"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-slate-900/30"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-end p-6">
                             <div class="space-y-2">
@@ -240,8 +240,8 @@ get_header(); ?>
                     <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                         <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
                              alt="Baterías y accesorios" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-60">
-                        <div class="absolute inset-0 bg-slate-900/70"></div>
+                             class="absolute inset-0 w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-slate-900/30"></div>
                         
                         <div class="relative z-10 h-full flex flex-col justify-end p-6">
                             <div class="space-y-2">

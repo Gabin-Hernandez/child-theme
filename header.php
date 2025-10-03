@@ -1087,22 +1087,22 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
        position: fixed !important;
        bottom: 30px !important;
        right: 30px !important;
-       width: 80px !important;
-       height: 80px !important;
+       width: 56px !important;
+       height: 56px !important;
        background: #25D366 !important;
        border-radius: 50% !important;
        display: flex !important;
        align-items: center !important;
        justify-content: center !important;
        text-decoration: none !important;
-       box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6) !important;
+       box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5) !important;
        transition: all 0.3s ease !important;
        z-index: 9999 !important;
-       border: 3px solid #ffffff !important;
+       border: 2px solid #ffffff !important;
        cursor: pointer !important;
    ">
     <i class="fab fa-whatsapp" style="
-        font-size: 45px !important;
+        font-size: 32px !important;
         color: #ffffff !important;
         line-height: 1 !important;
     "></i>
@@ -1144,14 +1144,14 @@ $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($what
 /* Responsive para móviles */
 @media (max-width: 768px) {
     #whatsapp-super-button {
-        width: 70px !important;
-        height: 70px !important;
+        width: 50px !important;
+        height: 50px !important;
         bottom: 20px !important;
         right: 20px !important;
     }
     
     #whatsapp-super-button i {
-        font-size: 38px !important;
+        font-size: 28px !important;
     }
 }
 </style>
