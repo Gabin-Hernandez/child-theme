@@ -305,16 +305,46 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
                                 ?>
                                 
+                                <!-- Inputs manuales para precio -->
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Precio mínimo</label>
+                                        <div class="relative">
+                                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                            <input type="number" 
+                                                   id="sidebar-min-price" 
+                                                   class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                                   placeholder="0"
+                                                   min="0"
+                                                   max="<?php echo $price_range['max']; ?>"
+                                                   value="<?php echo $current_min > 0 ? $current_min : ''; ?>">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-gray-700 mb-1">Precio máximo</label>
+                                        <div class="relative">
+                                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                            <input type="number" 
+                                                   id="sidebar-max-price" 
+                                                   class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                                   placeholder="<?php echo number_format($price_range['max'], 0); ?>"
+                                                   min="0"
+                                                   max="<?php echo $price_range['max']; ?>"
+                                                   value="<?php echo $current_max < $price_range['max'] ? $current_max : ''; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <!-- Price Range Slider -->
                                 <div class="price-slider-container">
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-sm font-medium text-gray-700">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                        <span class="text-sm font-medium text-gray-700">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                                    <div class="flex justify-between items-center mb-3">
+                                        <span class="text-xs text-gray-500">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
+                                        <span class="text-xs text-gray-500">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
                                     </div>
                                     
                                     <div class="relative">
                                         <div class="price-slider-track bg-gray-200 h-2 rounded-full relative">
-                                            <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
+                                            <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full"></div>
                                         </div>
                                         
                                         <input type="range" 
@@ -323,7 +353,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                min="<?php echo $price_range['min']; ?>" 
                                                max="<?php echo $price_range['max']; ?>" 
                                                value="<?php echo $current_min; ?>"
-                                               step="1">
+                                               step="100">
                                         
                                         <input type="range" 
                                                id="max-price-slider" 
@@ -331,18 +361,17 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                min="<?php echo $price_range['min']; ?>" 
                                                max="<?php echo $price_range['max']; ?>" 
                                                value="<?php echo $current_max; ?>"
-                                               step="1">
+                                               step="100">
                                     </div>
-                                    
-                                    <!-- Hidden inputs for form submission -->
-                                    <input type="hidden" id="min_price" value="<?php echo $current_min; ?>">
-                                    <input type="hidden" id="max_price" value="<?php echo $current_max; ?>">
                                 </div>
                                 
-                                <button id="apply-price-filter" 
-                                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md">
-                                    Filtrar Precios
-                                </button>
+                                <!-- Rangos predefinidos -->
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="0" data-max="1000">Hasta $1K</button>
+                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="1000" data-max="5000">$1K - $5K</button>
+                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="5000" data-max="10000">$5K - $10K</button>
+                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="10000" data-max="">$10K+</button>
+                                </div>
                             </div>
                         </div>
 
@@ -567,25 +596,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                     <!-- Filtros para vista de tabla -->
                     <div id="table-filters" class="hidden mb-6 bg-white rounded-lg border border-gray-200 p-4">
-                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <!-- Búsqueda -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Buscar producto</label>
                                 <input type="text" id="table-search" placeholder="Buscar por nombre..." 
                                        class="product-search-input w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                            
-                            <!-- Filtro por precio -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Rango de precio</label>
-                                <select id="price-filter" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="">Todos los precios</option>
-                                    <option value="0-100">$0 - $100</option>
-                                    <option value="100-500">$100 - $500</option>
-                                    <option value="500-1000">$500 - $1,000</option>
-                                    <option value="1000-2000">$1,000 - $2,000</option>
-                                    <option value="2000+">$2,000+</option>
-                                </select>
                             </div>
                             
                             <!-- Filtro por disponibilidad -->

@@ -137,6 +137,23 @@
         $('#sidebar-max-price').val('');
         $('#sidebar-stock').val('');
         
+        // Resetear sliders de precio
+        const minSlider = $('#min-price-slider');
+        const maxSlider = $('#max-price-slider');
+        if (minSlider.length && maxSlider.length) {
+            const minRange = minSlider.attr('min');
+            const maxRange = maxSlider.attr('max');
+            
+            minSlider.val(minRange);
+            maxSlider.val(maxRange);
+            $('#min-price-display').text(new Intl.NumberFormat().format(minRange));
+            $('#max-price-display').text(new Intl.NumberFormat().format(maxRange));
+            updateSliderRange();
+        }
+        
+        // Limpiar botones de rango predefinido
+        $('.price-preset').removeClass('bg-green-100 text-green-700').addClass('bg-gray-100');
+        
         // Animación de limpieza
         setTimeout(() => {
             elements.searchInput.removeClass('clearing');
@@ -568,6 +585,104 @@
                 applySidebarFiltersAjax();
             }
         });
+        
+        // Sincronizar sliders con inputs manuales
+        $(document).on('input', '#min-price-slider', function() {
+            const value = $(this).val();
+            $('#sidebar-min-price').val(value);
+            $('#min-price-display').text(new Intl.NumberFormat().format(value));
+            updateSliderRange();
+            
+            if (config.realTimeFiltering) {
+                applySidebarFiltersAjax();
+            }
+        });
+        
+        $(document).on('input', '#max-price-slider', function() {
+            const value = $(this).val();
+            $('#sidebar-max-price').val(value);
+            $('#max-price-display').text(new Intl.NumberFormat().format(value));
+            updateSliderRange();
+            
+            if (config.realTimeFiltering) {
+                applySidebarFiltersAjax();
+            }
+        });
+        
+        // Sincronizar inputs manuales con sliders
+        $(document).on('input change', '#sidebar-min-price', function() {
+            const value = $(this).val();
+            const maxRange = $('#min-price-slider').attr('max');
+            const validValue = Math.min(Math.max(value || 0, 0), maxRange);
+            
+            $('#min-price-slider').val(validValue);
+            $('#min-price-display').text(new Intl.NumberFormat().format(validValue));
+            updateSliderRange();
+        });
+        
+        $(document).on('input change', '#sidebar-max-price', function() {
+            const value = $(this).val();
+            const maxRange = $('#max-price-slider').attr('max');
+            const validValue = value ? Math.min(Math.max(value, 0), maxRange) : maxRange;
+            
+            $('#max-price-slider').val(validValue);
+            $('#max-price-display').text(new Intl.NumberFormat().format(validValue));
+            updateSliderRange();
+        });
+        
+        // Botones de rangos predefinidos
+        $(document).on('click', '.price-preset', function(e) {
+            e.preventDefault();
+            const minPrice = $(this).data('min');
+            const maxPrice = $(this).data('max');
+            const maxRange = $('#max-price-slider').attr('max');
+            
+            // Actualizar inputs
+            $('#sidebar-min-price').val(minPrice);
+            $('#sidebar-max-price').val(maxPrice || '');
+            
+            // Actualizar sliders
+            $('#min-price-slider').val(minPrice);
+            $('#max-price-slider').val(maxPrice || maxRange);
+            
+            // Actualizar displays
+            $('#min-price-display').text(new Intl.NumberFormat().format(minPrice));
+            $('#max-price-display').text(new Intl.NumberFormat().format(maxPrice || maxRange));
+            
+            // Actualizar visual del slider
+            updateSliderRange();
+            
+            // Aplicar filtro si está en tiempo real
+            if (config.realTimeFiltering) {
+                applySidebarFiltersAjax();
+            }
+            
+            // Resaltar botón seleccionado
+            $('.price-preset').removeClass('bg-green-100 text-green-700').addClass('bg-gray-100');
+            $(this).removeClass('bg-gray-100').addClass('bg-green-100 text-green-700');
+        });
+    }
+    
+    // Actualizar el rango visual del slider
+    function updateSliderRange() {
+        const minSlider = $('#min-price-slider');
+        const maxSlider = $('#max-price-slider');
+        const rangeBar = $('#price-slider-range');
+        
+        if (minSlider.length && maxSlider.length && rangeBar.length) {
+            const min = parseInt(minSlider.attr('min'));
+            const max = parseInt(minSlider.attr('max'));
+            const minVal = parseInt(minSlider.val());
+            const maxVal = parseInt(maxSlider.val());
+            
+            const minPercent = ((minVal - min) / (max - min)) * 100;
+            const maxPercent = ((maxVal - min) / (max - min)) * 100;
+            
+            rangeBar.css({
+                'left': minPercent + '%',
+                'width': (maxPercent - minPercent) + '%'
+            });
+        }
     }
     
     // Aplicar filtros del sidebar via AJAX
@@ -617,6 +732,14 @@
         });
     }
 
+    // Inicializar sliders de precio
+    function initializePriceSliders() {
+        // Inicializar el rango visual del slider
+        setTimeout(() => {
+            updateSliderRange();
+        }, 100);
+    }
+
     // Inicializar cuando el DOM esté listo
     $(document).ready(function() {
         // Solo inicializar si estamos en páginas de productos
@@ -626,6 +749,7 @@
             
             initFilters();
             bindSidebarFilterEvents();
+            initializePriceSliders();
         }
     });
     

@@ -41,6 +41,14 @@ function itools_enqueue_styles() {
         filemtime(get_stylesheet_directory() . '/css/cart-sidepanel.css') 
     );
     
+    // Encolar CSS para sliders de precio
+    wp_enqueue_style( 
+        'itools-price-slider', 
+        get_stylesheet_directory_uri() . '/css/price-slider.css', 
+        array(), 
+        filemtime(get_stylesheet_directory() . '/css/price-slider.css') 
+    );
+    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
