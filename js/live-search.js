@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('live-search-input');
     const searchResults = document.getElementById('live-search-results');
+    const SHOP_URL = 'https://lightblue-gull-856657.hostingersite.com/tienda/';
     
     if (!searchInput || !searchResults) {
         return;
@@ -74,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para mostrar los resultados
     function displaySearchResults(results) {
         let html = '';
+        const searchValue = searchInput.value.trim();
+        const searchParam = encodeURIComponent(searchValue);
+        const shopUrlWithQuery = searchValue ? `${SHOP_URL}?s=${searchParam}` : SHOP_URL;
         
         results.forEach(product => {
             const categories = product.categories.length > 0 ? product.categories.join(', ') : '';
@@ -139,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-top: 1px solid #e5e7eb;
                 background: #f9fafb;
             ">
-                <button onclick="window.location.href='https://lightblue-gull-856657.hostingersite.com/tienda/'" style="
+                <button onclick="window.location.href='${shopUrlWithQuery}'" style="
                     background: #2563eb;
                     color: white;
                     border: none;
@@ -184,6 +188,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función para mostrar "sin resultados"
     function showNoResults(searchTerm) {
+        const searchValue = searchTerm.trim();
+        const searchParam = encodeURIComponent(searchValue);
+        const shopUrlWithQuery = searchValue ? `${SHOP_URL}?s=${searchParam}` : SHOP_URL;
+        
         searchResults.innerHTML = `
             <div style="
                 padding: 20px;
@@ -201,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="font-size: 14px; margin-bottom: 8px;">
                     No se encontraron productos para "${searchTerm}"
                 </div>
-                <button onclick="document.querySelector('form').submit()" style="
+                <button onclick="window.location.href='${shopUrlWithQuery}'" style="
                     background: #6b7280;
                     color: white;
                     border: none;
