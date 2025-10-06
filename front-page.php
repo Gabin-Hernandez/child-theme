@@ -437,7 +437,7 @@ get_header(); ?>
                         global $product;
                         if ( ! $product || ! $product->is_visible() ) continue;
                     ?>
-                        <div class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 hover:border-amber-200 transform-gpu">
+                        <div class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 hover:border-amber-200 transform-gpu flex flex-col h-full">
                             <!-- Gradiente de fondo sutil -->
                             <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             
@@ -511,7 +511,7 @@ get_header(); ?>
                             </div>
                             
                             <!-- Información del producto mejorada -->
-                            <div class="relative z-10 p-6 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-amber-50/30 transition-all duration-500">
+                            <div class="relative z-10 p-6 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-amber-50/30 transition-all duration-500 flex flex-col flex-1">
                                 <!-- Categoría del producto -->
                                 <div class="mb-3">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 group-hover:bg-amber-200 transition-colors duration-300">
@@ -563,96 +563,94 @@ get_header(); ?>
                                 </div>
                                 
                                 <!-- Botón de agregar al carrito mejorado -->
-                                <div class="mt-auto">
-                                    <div class="woocommerce-add-to-cart-wrapper gap-4">
-                                        <?php
-                                        // Obtener el botón de agregar al carrito de WooCommerce
-                                        woocommerce_template_loop_add_to_cart();
-                                        ?>
-                                    </div>
-                                    
-                                    <style>
-                                    .woocommerce-add-to-cart-wrapper {
-                                        display: flex !important;
-                                        flex-direction: column !important;
-                                        gap: 12px !important;
-                                    }
-                                    
-                                    .woocommerce-add-to-cart-wrapper .button,
-                                    .woocommerce-add-to-cart-wrapper .added_to_cart {
-                                        width: 100% !important;
-                                        background: linear-gradient(to right, #f59e0b, #d97706) !important;
-                                        color: white !important;
-                                        font-weight: 600 !important;
-                                        padding: 12px 16px !important;
-                                        border-radius: 12px !important;
-                                        border: none !important;
-                                        transition: all 0.3s ease !important;
-                                        transform: scale(1) !important;
-                                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-                                        display: flex !important;
-                                        align-items: center !important;
-                                        justify-content: center !important;
-                                        gap: 8px !important;
-                                        text-decoration: none !important;
-                                        margin: 0 !important;
-                                    }
-                                    
-                                    .woocommerce-add-to-cart-wrapper .button:hover,
-                                    .woocommerce-add-to-cart-wrapper .added_to_cart:hover {
-                                        background: linear-gradient(to right, #d97706, #b45309) !important;
-                                        transform: scale(1.05) !important;
-                                        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
-                                    }
-                                    
-                                    .group:hover .woocommerce-add-to-cart-wrapper .button,
-                                    .group:hover .woocommerce-add-to-cart-wrapper .added_to_cart {
-                                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
-                                    }
-                                    
-                                    .woocommerce-add-to-cart-wrapper .button::before {
-                                        content: "🛒";
-                                        margin-right: 8px;
-                                    }
-                                    
-                                    .woocommerce-add-to-cart-wrapper .added_to_cart::before {
-                                        content: "✓";
-                                        margin-right: 8px;
-                                    }
-                                    </style>
-                                    
-                                    <script>
-                                    // Asegurar que el cart sidepanel se abra en la front page
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        // Escuchar clics en botones de agregar al carrito
-                                        document.addEventListener('click', function(e) {
-                                            if (e.target.matches('.woocommerce-add-to-cart-wrapper .button, .woocommerce-add-to-cart-wrapper .ajax_add_to_cart')) {
-                                                console.log('Botón de agregar al carrito clickeado en front page');
-                                                
-                                                // Esperar a que se complete la acción AJAX
-                                                setTimeout(function() {
-                                                    // Usar la instancia global del sidepanel
-                                                    if (window.cartSidepanel) {
-                                                        console.log('Abriendo cart sidepanel desde front page');
-                                                        window.cartSidepanel.open();
-                                                    }
-                                                }, 1000);
-                                            }
-                                        });
-                                        
-                                        // También escuchar el evento added_to_cart específicamente
-                                        document.body.addEventListener('added_to_cart', function(e) {
-                                            console.log('Evento added_to_cart detectado en front page:', e.detail);
+                                <div class="woocommerce-add-to-cart-wrapper gap-4 mt-auto">
+                                    <?php
+                                    // Obtener el botón de agregar al carrito de WooCommerce
+                                    woocommerce_template_loop_add_to_cart();
+                                    ?>
+                                </div>
+                                
+                                <style>
+                                .woocommerce-add-to-cart-wrapper {
+                                    display: flex !important;
+                                    flex-direction: column !important;
+                                    gap: 12px !important;
+                                }
+                                
+                                .woocommerce-add-to-cart-wrapper .button,
+                                .woocommerce-add-to-cart-wrapper .added_to_cart {
+                                    width: 100% !important;
+                                    background: linear-gradient(to right, #f59e0b, #d97706) !important;
+                                    color: white !important;
+                                    font-weight: 600 !important;
+                                    padding: 12px 16px !important;
+                                    border-radius: 12px !important;
+                                    border: none !important;
+                                    transition: all 0.3s ease !important;
+                                    transform: scale(1) !important;
+                                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    justify-content: center !important;
+                                    gap: 8px !important;
+                                    text-decoration: none !important;
+                                    margin: 0 !important;
+                                }
+                                
+                                .woocommerce-add-to-cart-wrapper .button:hover,
+                                .woocommerce-add-to-cart-wrapper .added_to_cart:hover {
+                                    background: linear-gradient(to right, #d97706, #b45309) !important;
+                                    transform: scale(1.05) !important;
+                                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+                                }
+                                
+                                .group:hover .woocommerce-add-to-cart-wrapper .button,
+                                .group:hover .woocommerce-add-to-cart-wrapper .added_to_cart {
+                                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+                                }
+                                
+                                .woocommerce-add-to-cart-wrapper .button::before {
+                                    content: "🛒";
+                                    margin-right: 8px;
+                                }
+                                
+                                .woocommerce-add-to-cart-wrapper .added_to_cart::before {
+                                    content: "✓";
+                                    margin-right: 8px;
+                                }
+                                </style>
+                                
+                                <script>
+                                // Asegurar que el cart sidepanel se abra en la front page
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Escuchar clics en botones de agregar al carrito
+                                    document.addEventListener('click', function(e) {
+                                        if (e.target.matches('.woocommerce-add-to-cart-wrapper .button, .woocommerce-add-to-cart-wrapper .ajax_add_to_cart')) {
+                                            console.log('Botón de agregar al carrito clickeado en front page');
+                                            
+                                            // Esperar a que se complete la acción AJAX
                                             setTimeout(function() {
+                                                // Usar la instancia global del sidepanel
                                                 if (window.cartSidepanel) {
-                                                    console.log('Abriendo sidepanel por evento added_to_cart');
+                                                    console.log('Abriendo cart sidepanel desde front page');
                                                     window.cartSidepanel.open();
                                                 }
-                                            }, 500);
-                                        });
+                                            }, 1000);
+                                        }
                                     });
-                                    </script>
-                                </div>
+                                    
+                                    // También escuchar el evento added_to_cart específicamente
+                                    document.body.addEventListener('added_to_cart', function(e) {
+                                        console.log('Evento added_to_cart detectado en front page:', e.detail);
+                                        setTimeout(function() {
+                                            if (window.cartSidepanel) {
+                                                console.log('Abriendo sidepanel por evento added_to_cart');
+                                                window.cartSidepanel.open();
+                                            }
+                                        }, 500);
+                                    });
+                                });
+                                </script>
                             </div>
                             
                             <!-- Efecto de brillo en hover -->
