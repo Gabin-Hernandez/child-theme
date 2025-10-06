@@ -892,7 +892,7 @@ get_header(); ?>
                                 $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
                                 $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
                             ?>
-                                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-slate-200">
+                                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-slate-200 flex flex-col h-full">
                                     <div class="relative">
                                         <a href="<?php echo get_permalink(); ?>">
                                             <img src="<?php echo esc_url($image_url); ?>" 
@@ -905,7 +905,7 @@ get_header(); ?>
                                             </div>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="p-4">
+                                    <div class="p-4 flex flex-col flex-1">
                                         <a href="<?php echo get_permalink(); ?>">
                                             <h3 class="font-semibold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
                                                 <?php echo get_the_title(); ?>
@@ -927,7 +927,7 @@ get_header(); ?>
                                                 </span>
                                             <?php endif; ?>
                                         </div>
-                                        <div class="flex gap-2">
+                                        <div class="flex gap-2 mt-auto">
                                             <a href="<?php echo get_permalink(); ?>" 
                                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-md transition-colors text-center text-sm font-medium">
                                                 Ver Producto
@@ -1700,4 +1700,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
