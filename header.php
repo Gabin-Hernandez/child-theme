@@ -615,7 +615,7 @@
                                 </svg>
                                 Motorola
                             </a>
-                            <a href="https://lightblue-gull-856657.hostingersite.com/tienda/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las marcas</a>
+                            <a href="/tienda/" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; transition: background 0.2s;">Ver todas las marcas</a>
                         </div>
                     </div>
 
@@ -728,12 +728,12 @@
                     </div>
 
                     <!-- Link directo Accesorios -->
-                    <a href="https://lightblue-gull-856657.hostingersite.com/categoria/accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                    <a href="/categoria/accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         Accesorios
                     </a>
 
                     <!-- Link directo Ofertas -->
-                    <a href="https://lightblue-gull-856657.hostingersite.com/ofertas/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #fbbf24; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                    <a href="/ofertas/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #fbbf24; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.79 21L3 11.21v2c0 .45.54 1 1.21 1h7.36l2.15 2.15c.31.31.85.31 1.16 0L12.79 21zM11.38 17.41c.39.39.39 1.02 0 1.41-.39.39-1.02.39-1.41 0L8.21 17.06 3 11.85V9c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v2.85l-5.21 5.21-1.76-1.76c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41l1.76 1.76z"/>
                         </svg>
@@ -1050,7 +1050,7 @@
                 
                 <!-- Direct Links -->
                 <div style="padding: 20px 0; border-bottom: 1px solid #f3f4f6;">
-                    <a href="https://lightblue-gull-856657.hostingersite.com/categoria/accesorios/" style="display: flex; align-items: center; gap: 12px; color: #374151; font-weight: 500; text-decoration: none; padding: 12px 0;">
+                    <a href="/categoria/accesorios/" style="display: flex; align-items: center; gap: 12px; color: #374151; font-weight: 500; text-decoration: none; padding: 12px 0;">
                         <div style="width: 40px; height: 40px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="#7c3aed">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -1064,7 +1064,7 @@
                 </div>
                 
                 <div style="padding: 20px 0;">
-                    <a href="https://lightblue-gull-856657.hostingersite.com/ofertas/" style="display: flex; align-items: center; gap: 12px; color: #dc2626; font-weight: 600; text-decoration: none; padding: 12px 0;">
+                    <a href="/ofertas/" style="display: flex; align-items: center; gap: 12px; color: #dc2626; font-weight: 600; text-decoration: none; padding: 12px 0;">
                         <div style="width: 40px; height: 40px; background: #fef2f2; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="#dc2626">
                                 <path d="M12.79 21L3 11.21v2c0 .45.54 1 1.21 1h7.36l2.15 2.15c.31.31.85.31 1.16 0L12.79 21z"/>
