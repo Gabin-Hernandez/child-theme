@@ -717,7 +717,7 @@
                     </div>
 
                     <!-- Link directo Accesorios -->
-                    <a href="/categoria/accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                    <a href="/?post_type=product&s=&product_cat=accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         Accesorios
                     </a>
 
@@ -1039,7 +1039,7 @@
                 
                 <!-- Direct Links -->
                 <div style="padding: 20px 0; border-bottom: 1px solid #f3f4f6;">
-                    <a href="/categoria/accesorios/" style="display: flex; align-items: center; gap: 12px; color: #374151; font-weight: 500; text-decoration: none; padding: 12px 0;">
+                    <a href="/?post_type=product&s=&product_cat=accesorios/" style="display: flex; align-items: center; gap: 12px; color: #374151; font-weight: 500; text-decoration: none; padding: 12px 0;">
                         <div style="width: 40px; height: 40px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="#7c3aed">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
