@@ -165,11 +165,6 @@
                 gap: 8px;
             }
             
-            /* Ocultar texto "Mi Cuenta" en móvil */
-            .account-link {
-                display: none !important;
-            }
-            
             /* Carrito móvil optimizado */
             .cart-wrapper {
                 position: relative;
@@ -486,12 +481,9 @@
                     </div>
                 </div>
 
-                <!-- Enlaces de cuenta -->
+                <!-- Acciones del header -->
                 <div class="header-actions" style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
                     <?php if ( function_exists('wc_get_account_endpoint_url') && class_exists( 'WooCommerce' ) ) : ?>
-                        <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
-                            Mi Cuenta
-                        </a>
                         <!-- Nuevo icono de carrito con contador mejorado -->
                         <div class="cart-wrapper" style="position: relative;">
                             <button id="cart-toggle-new" class="cart-icon-btn cart-trigger" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
@@ -522,9 +514,6 @@
                             </button>
                         </div>
                     <?php else : ?>
-                        <a href="/mi-cuenta/" class="account-link" style="color: rgba(255,255,255,0.9); text-decoration: none; white-space: nowrap; transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.9)'">
-                            Mi Cuenta
-                        </a>
                         <!-- Nuevo icono de carrito con contador mejorado (fallback) -->
                         <div class="cart-wrapper" style="position: relative;">
                             <button id="cart-toggle-fallback-new" class="cart-icon-btn cart-trigger" data-cart-trigger style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative;" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='scale(1)'">
