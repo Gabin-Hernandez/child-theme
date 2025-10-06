@@ -543,7 +543,7 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo esc_url( home_url( '/?s=pantallas+lcd+touch&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/?post_type=product&s=&product_cat=lcd-y-touch' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
                             <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
                             <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
                         </div>
@@ -960,7 +960,7 @@
                     </div>
                     <div id="refacciones-content" style="display: none; padding: 0 0 16px 52px; animation: slideDown 0.3s ease;">
                         <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="<?php echo esc_url( home_url( '/?s=pantallas+lcd+touch&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/?post_type=product&s=&product_cat=lcd-y-touch' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Pantallas LCD & Touch</a>
                             <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Baterías</a>
                             <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Carcasas</a>
                             <a href="<?php echo esc_url( home_url( '/?s=flex&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Flex y Conectores</a>
