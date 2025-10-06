@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-top: 1px solid #e5e7eb;
                 background: #f9fafb;
             ">
-                <button onclick="document.querySelector('form').submit()" style="
+                <button onclick="window.location.href='https://lightblue-gull-856657.hostingersite.com/tienda/'" style="
                     background: #2563eb;
                     color: white;
                     border: none;
