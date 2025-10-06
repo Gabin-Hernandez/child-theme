@@ -2,87 +2,90 @@
  * Live Search Functionality for ITOOLS Child Theme
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('live-search-input');
-    const searchResults = document.getElementById('live-search-results');
-    const SHOP_URL = 'https://lightblue-gull-856657.hostingersite.com/tienda/';
-    
-    if (!searchInput || !searchResults) {
-        return;
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("live-search-input");
+  const searchResults = document.getElementById("live-search-results");
+  const SHOP_URL = "/tienda/";
+
+  if (!searchInput || !searchResults) {
+    return;
+  }
+
+  let searchTimeout;
+  let currentRequest;
+
+  // Debounce function para evitar demasiadas peticiones
+  function debounce(func, wait) {
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(searchTimeout);
+        func(...args);
+      };
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(later, wait);
+    };
+  }
+
+  // Función para realizar la búsqueda AJAX
+  function performLiveSearch(searchTerm) {
+    // Cancelar petición anterior si existe
+    if (currentRequest) {
+      currentRequest.abort();
     }
-    
-    let searchTimeout;
-    let currentRequest;
-    
-    // Debounce function para evitar demasiadas peticiones
-    function debounce(func, wait) {
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(searchTimeout);
-                func(...args);
-            };
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(later, wait);
-        };
+
+    // Si el término es muy corto, ocultar resultados
+    if (searchTerm.length < 2) {
+      hideSearchResults();
+      return;
     }
-    
-    // Función para realizar la búsqueda AJAX
-    function performLiveSearch(searchTerm) {
-        // Cancelar petición anterior si existe
-        if (currentRequest) {
-            currentRequest.abort();
+
+    // Mostrar indicador de carga
+    showLoadingState();
+
+    // Crear FormData para la petición AJAX
+    const formData = new FormData();
+    formData.append("action", "itools_live_search");
+    formData.append("search_term", searchTerm);
+    formData.append("nonce", itoolsAjax.nonce);
+
+    // Realizar petición AJAX
+    currentRequest = fetch(itoolsAjax.ajaxurl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        currentRequest = null;
+
+        if (data.success && data.data.length > 0) {
+          displaySearchResults(data.data);
+        } else {
+          showNoResults(searchTerm);
         }
-        
-        // Si el término es muy corto, ocultar resultados
-        if (searchTerm.length < 2) {
-            hideSearchResults();
-            return;
+      })
+      .catch((error) => {
+        currentRequest = null;
+        if (error.name !== "AbortError") {
+          console.error("Error en búsqueda:", error);
+          hideSearchResults();
         }
-        
-        // Mostrar indicador de carga
-        showLoadingState();
-        
-        // Crear FormData para la petición AJAX
-        const formData = new FormData();
-        formData.append('action', 'itools_live_search');
-        formData.append('search_term', searchTerm);
-        formData.append('nonce', itoolsAjax.nonce);
-        
-        // Realizar petición AJAX
-        currentRequest = fetch(itoolsAjax.ajaxurl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            currentRequest = null;
-            
-            if (data.success && data.data.length > 0) {
-                displaySearchResults(data.data);
-            } else {
-                showNoResults(searchTerm);
-            }
-        })
-        .catch(error => {
-            currentRequest = null;
-            if (error.name !== 'AbortError') {
-                console.error('Error en búsqueda:', error);
-                hideSearchResults();
-            }
-        });
-    }
-    
-    // Función para mostrar los resultados
-    function displaySearchResults(results) {
-        let html = '';
-        const searchValue = searchInput.value.trim();
-        const searchParam = encodeURIComponent(searchValue);
-        const shopUrlWithQuery = searchValue ? `${SHOP_URL}?s=${searchParam}` : SHOP_URL;
-        
-        results.forEach(product => {
-            const categories = product.categories.length > 0 ? product.categories.join(', ') : '';
-            
-            html += `
+      });
+  }
+
+  // Función para mostrar los resultados
+  function displaySearchResults(results) {
+    let html = "";
+    const searchValue = searchInput.value.trim();
+    const searchParam = encodeURIComponent(searchValue);
+    const shopUrlWithQuery = searchValue
+      ? `${SHOP_URL}?s=${searchParam}`
+      : SHOP_URL;
+
+    results.forEach((product) => {
+      const categories =
+        product.categories.length > 0 ? product.categories.join(", ") : "";
+
+      html += `
                 <div class="search-result-item" style="
                     display: flex;
                     align-items: center;
@@ -90,7 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     border-bottom: 1px solid #f3f4f6;
                     cursor: pointer;
                     transition: background-color 0.2s;
-                " onmouseover="this.style.backgroundColor='#f9fafb'" onmouseout="this.style.backgroundColor='white'" onclick="window.location.href='${product.url}'">
+                " onmouseover="this.style.backgroundColor='#f9fafb'" onmouseout="this.style.backgroundColor='white'" onclick="window.location.href='${
+                  product.url
+                }'">
                     <img src="${product.image}" alt="${product.title}" style="
                         width: 50px;
                         height: 50px;
@@ -122,21 +127,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div style="
                         padding: 4px 8px;
-                        background: ${product.stock_status === 'instock' ? '#dcfce7' : '#fef2f2'};
-                        color: ${product.stock_status === 'instock' ? '#166534' : '#dc2626'};
+                        background: ${
+                          product.stock_status === "instock"
+                            ? "#dcfce7"
+                            : "#fef2f2"
+                        };
+                        color: ${
+                          product.stock_status === "instock"
+                            ? "#166534"
+                            : "#dc2626"
+                        };
                         border-radius: 4px;
                         font-size: 11px;
                         font-weight: 500;
                         flex-shrink: 0;
                     ">
-                        ${product.stock_status === 'instock' ? 'En Stock' : 'Agotado'}
+                        ${
+                          product.stock_status === "instock"
+                            ? "En Stock"
+                            : "Agotado"
+                        }
                     </div>
                 </div>
             `;
-        });
-        
-        // Agregar botón "Ver todos los resultados"
-        html += `
+    });
+
+    // Agregar botón "Ver todos los resultados"
+    html += `
             <div style="
                 padding: 12px 16px;
                 text-align: center;
@@ -158,14 +175,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        
-        searchResults.innerHTML = html;
-        showSearchResults();
-    }
-    
-    // Función para mostrar estado de carga
-    function showLoadingState() {
-        searchResults.innerHTML = `
+
+    searchResults.innerHTML = html;
+    showSearchResults();
+  }
+
+  // Función para mostrar estado de carga
+  function showLoadingState() {
+    searchResults.innerHTML = `
             <div style="
                 padding: 20px;
                 text-align: center;
@@ -183,16 +200,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="margin-top: 8px; font-size: 14px;">Buscando...</div>
             </div>
         `;
-        showSearchResults();
-    }
-    
-    // Función para mostrar "sin resultados"
-    function showNoResults(searchTerm) {
-        const searchValue = searchTerm.trim();
-        const searchParam = encodeURIComponent(searchValue);
-        const shopUrlWithQuery = searchValue ? `${SHOP_URL}?s=${searchParam}` : SHOP_URL;
-        
-        searchResults.innerHTML = `
+    showSearchResults();
+  }
+
+  // Función para mostrar "sin resultados"
+  function showNoResults(searchTerm) {
+    const searchValue = searchTerm.trim();
+    const searchParam = encodeURIComponent(searchValue);
+    const shopUrlWithQuery = searchValue
+      ? `${SHOP_URL}?s=${searchParam}`
+      : SHOP_URL;
+
+    searchResults.innerHTML = `
             <div style="
                 padding: 20px;
                 text-align: center;
@@ -222,51 +241,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        showSearchResults();
+    showSearchResults();
+  }
+
+  // Funciones para mostrar/ocultar resultados
+  function showSearchResults() {
+    searchResults.style.display = "block";
+  }
+
+  function hideSearchResults() {
+    searchResults.style.display = "none";
+  }
+
+  // Event listeners
+  const debouncedSearch = debounce(performLiveSearch, 300);
+
+  searchInput.addEventListener("input", function (e) {
+    const searchTerm = e.target.value.trim();
+    debouncedSearch(searchTerm);
+  });
+
+  searchInput.addEventListener("focus", function () {
+    const searchTerm = this.value.trim();
+    if (searchTerm.length >= 2) {
+      showSearchResults();
     }
-    
-    // Funciones para mostrar/ocultar resultados
-    function showSearchResults() {
-        searchResults.style.display = 'block';
+  });
+
+  // Ocultar resultados al hacer clic fuera
+  document.addEventListener("click", function (e) {
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+      hideSearchResults();
     }
-    
-    function hideSearchResults() {
-        searchResults.style.display = 'none';
+  });
+
+  // Manejar teclas de navegación
+  searchInput.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      hideSearchResults();
+      this.blur();
     }
-    
-    // Event listeners
-    const debouncedSearch = debounce(performLiveSearch, 300);
-    
-    searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.trim();
-        debouncedSearch(searchTerm);
-    });
-    
-    searchInput.addEventListener('focus', function() {
-        const searchTerm = this.value.trim();
-        if (searchTerm.length >= 2) {
-            showSearchResults();
-        }
-    });
-    
-    // Ocultar resultados al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-            hideSearchResults();
-        }
-    });
-    
-    // Manejar teclas de navegación
-    searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            hideSearchResults();
-            this.blur();
-        }
-    });
+  });
 });
 
 // Agregar estilos CSS para la animación de carga
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes spin {
         0% { transform: rotate(0deg); }
