@@ -47,11 +47,15 @@
     console.log("Término de búsqueda:", searchTerm);
     console.log("Filtro de stock:", stockFilter);
 
+    // Detectar si hay filtros activos
+    const hasActiveFilters = searchTerm.length > 0 || stockFilter !== "";
+
     // Obtener todas las filas de productos
     const rows = $("#table-body tr.product-row");
     let visibleCount = 0;
+    const totalCount = rows.length;
 
-    console.log("Total de filas:", rows.length);
+    console.log("Total de filas:", totalCount);
 
     // Filtrar cada fila
     rows.each(function () {
@@ -97,10 +101,16 @@
       }
     });
 
-    console.log("✅ Productos visibles:", visibleCount, "de", rows.length);
+    console.log("✅ Productos visibles:", visibleCount, "de", totalCount);
 
     // Mostrar mensaje si no hay resultados
     updateEmptyState(visibleCount);
+    
+    // Actualizar contador de resultados
+    updateResultsCounter(visibleCount, totalCount, hasActiveFilters);
+    
+    // Ocultar/mostrar paginación según filtros activos
+    togglePagination(hasActiveFilters);
   }
 
   // Limpiar filtros
@@ -135,6 +145,62 @@
       emptyRow.show();
     } else {
       emptyRow.hide();
+    }
+  }
+  
+  // Actualizar contador de resultados
+  function updateResultsCounter(visibleCount, totalCount, hasActiveFilters) {
+    // Crear o actualizar el contador si no existe
+    let counter = $("#table-results-counter");
+    
+    if (counter.length === 0) {
+      // Crear el contador después de los filtros de tabla
+      counter = $(`
+        <div id="table-results-counter" class="mb-4 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700 font-medium"></div>
+      `);
+      $("#table-filters").after(counter);
+    }
+    
+    // Actualizar texto del contador
+    if (hasActiveFilters) {
+      if (visibleCount === totalCount) {
+        counter.html(`
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Mostrando todos los <strong>${totalCount}</strong> productos
+          </span>
+        `);
+      } else {
+        counter.html(`
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+            </svg>
+            Mostrando <strong>${visibleCount}</strong> de <strong>${totalCount}</strong> productos
+          </span>
+        `);
+      }
+      counter.show();
+    } else {
+      counter.hide();
+    }
+  }
+  
+  // Ocultar/mostrar paginación
+  function togglePagination(hasActiveFilters) {
+    // Buscar el contenedor de paginación
+    const pagination = $(".woocommerce-pagination, nav.woocommerce-pagination, .pagination");
+    
+    if (hasActiveFilters) {
+      // Ocultar paginación cuando hay filtros activos
+      pagination.hide();
+      console.log("🚫 Paginación oculta (filtros activos)");
+    } else {
+      // Mostrar paginación cuando no hay filtros
+      pagination.show();
+      console.log("✅ Paginación visible (sin filtros)");
     }
   }
 })(jQuery);
