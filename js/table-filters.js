@@ -105,10 +105,10 @@
 
     // Mostrar mensaje si no hay resultados
     updateEmptyState(visibleCount);
-    
+
     // Actualizar contador de resultados
     updateResultsCounter(visibleCount, totalCount, hasActiveFilters);
-    
+
     // Ocultar/mostrar paginación según filtros activos
     togglePagination(hasActiveFilters);
   }
@@ -147,12 +147,12 @@
       emptyRow.hide();
     }
   }
-  
+
   // Actualizar contador de resultados
   function updateResultsCounter(visibleCount, totalCount, hasActiveFilters) {
     // Crear o actualizar el contador si no existe
     let counter = $("#table-results-counter");
-    
+
     if (counter.length === 0) {
       // Crear el contador después de los filtros de tabla
       counter = $(`
@@ -160,7 +160,7 @@
       `);
       $("#table-filters").after(counter);
     }
-    
+
     // Actualizar texto del contador
     if (hasActiveFilters) {
       if (visibleCount === totalCount) {
@@ -187,12 +187,14 @@
       counter.hide();
     }
   }
-  
+
   // Ocultar/mostrar paginación
   function togglePagination(hasActiveFilters) {
     // Buscar el contenedor de paginación
-    const pagination = $(".woocommerce-pagination, nav.woocommerce-pagination, .pagination");
-    
+    const pagination = $(
+      ".woocommerce-pagination, nav.woocommerce-pagination, .pagination"
+    );
+
     if (hasActiveFilters) {
       // Ocultar paginación cuando hay filtros activos
       pagination.hide();
