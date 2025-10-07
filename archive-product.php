@@ -478,56 +478,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </div>
                         </div>
 
-                        <!-- Filtros Rápidos -->
-                        <div class="mt-8 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
-                            <h5 class="font-bold text-gray-900 mb-4 flex items-center">
-                                <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center mr-3">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
-                                </div>
-                                Filtros Rápidos
-                            </h5>
-                            <div class="space-y-2">
-                                <button class="quick-filter w-full flex items-center gap-3 p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700" data-filter="best-sellers">
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-orange-100 to-orange-200 text-orange-600">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.3622 5.21361C18.2427 6.50069 20.25 9.39075 20.25 12.7497C20.25 17.306 16.5563 20.9997 12 20.9997C7.44365 20.9997 3.75 17.306 3.75 12.7497C3.75 10.5376 4.62058 8.52889 6.03781 7.04746C6.8043 8.11787 7.82048 8.99731 9.00121 9.60064C9.04632 6.82497 10.348 4.35478 12.3621 2.73413C13.1255 3.75788 14.1379 4.61821 15.3622 5.21361Z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18C14.0711 18 15.75 16.3211 15.75 14.25C15.75 12.3467 14.3321 10.7746 12.4949 10.5324C11.4866 11.437 10.7862 12.6779 10.5703 14.0787C9.78769 13.8874 9.06529 13.5425 8.43682 13.0779C8.31559 13.4467 8.25 13.8407 8.25 14.25C8.25 16.3211 9.92893 18 12 18Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>Más Vendidos</span>
-                                </button>
-                                <button class="quick-filter w-full flex items-center gap-3 p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700" data-filter="top-rated">
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-amber-100 to-yellow-200 text-yellow-600">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.4806 3.4987C11.6728 3.03673 12.3272 3.03673 12.5193 3.4987L14.6453 8.61016C14.7263 8.80492 14.9095 8.93799 15.1197 8.95485L20.638 9.39724C21.1367 9.43722 21.339 10.0596 20.959 10.3851L16.7546 13.9866C16.5945 14.1238 16.5245 14.3391 16.5734 14.5443L17.8579 19.9292C17.974 20.4159 17.4446 20.8005 17.0176 20.5397L12.2932 17.6541C12.1132 17.5441 11.8868 17.5441 11.7068 17.6541L6.98238 20.5397C6.55539 20.8005 6.02594 20.4159 6.14203 19.9292L7.42652 14.5443C7.47546 14.3391 7.4055 14.1238 7.24531 13.9866L3.04099 10.3851C2.661 10.0596 2.86323 9.43722 3.36197 9.39724L8.88022 8.95485C9.09048 8.93799 9.27363 8.80492 9.35464 8.61016L11.4806 3.4987Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>Mejor Valorados</span>
-                                </button>
-                                <button class="quick-filter w-full flex items-center gap-3 p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700" data-filter="on-sale">
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-rose-100 to-pink-200 text-rose-600">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.56802 3H5.25C4.00736 3 3 4.00736 3 5.25V9.56802C3 10.1648 3.23705 10.7371 3.65901 11.159L13.2401 20.7401C13.9388 21.4388 15.0199 21.6117 15.8465 21.0705C17.9271 19.7084 19.7084 17.9271 21.0705 15.8465C21.6117 15.0199 21.4388 13.9388 20.7401 13.2401L11.159 3.65901C10.7371 3.23705 10.1648 3 9.56802 3Z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 6H6.0075V6.0075H6V6Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>Ofertas</span>
-                                </button>
-                                <button class="quick-filter w-full flex items-center gap-3 p-3 rounded-xl bg-white/60 hover:bg-white transition-all duration-300 border border-transparent hover:border-yellow-300 text-sm font-medium text-gray-700 hover:text-yellow-700" data-filter="newest">
-                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-200 text-indigo-600">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.8132 15.9038L9 18.75L8.1868 15.9038C7.75968 14.4089 6.59112 13.2403 5.09619 12.8132L2.25 12L5.09619 11.1868C6.59113 10.7597 7.75968 9.59112 8.1868 8.09619L9 5.25L9.8132 8.09619C10.2403 9.59113 11.4089 10.7597 12.9038 11.1868L15.75 12L12.9038 12.8132C11.4089 13.2403 10.2403 14.4089 9.8132 15.9038Z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.2589 8.71454L18 9.75L17.7411 8.71454C17.4388 7.50533 16.4947 6.56117 15.2855 6.25887L14.25 6L15.2855 5.74113C16.4947 5.43883 17.4388 4.49467 17.7411 3.28546L18 2.25L18.2589 3.28546C18.5612 4.49467 19.5053 5.43883 20.7145 5.74113L21.75 6L20.7145 6.25887C19.5053 6.56117 18.5612 7.50533 18.2589 8.71454Z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.8942 20.5673L16.5 21.75L16.1058 20.5673C15.8818 19.8954 15.3546 19.3682 14.6827 19.1442L13.5 18.75L14.6827 18.3558C15.3546 18.1318 15.8818 17.6046 16.1058 16.9327L16.5 15.75L16.8942 16.9327C17.1182 17.6046 17.6454 18.1318 18.3173 18.3558L19.5 18.75L18.3173 19.1442C17.6454 19.3682 17.1182 19.8954 16.8942 20.5673Z"></path>
-                                        </svg>
-                                    </span>
-                                    <span>Nuevos</span>
-                                </button>
-                            </div>
-                        </div>
-
                         <!-- Widget sidebar adicional -->
                         <div class="mt-8">
                             <?php
@@ -1228,47 +1178,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
 
-    // Filtros rapidos
-    document.querySelectorAll('.quick-filter').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const filterType = this.getAttribute('data-filter');
-            applyQuickFilter(filterType);
-        });
-    });
-
-    function applyQuickFilter(type) {
-        if (!type) {
-            return;
-        }
-        const currentUrl = new URL(window.location);
-        const searchParams = new URLSearchParams();
-
-        // Mantener busqueda actual
-        if (currentUrl.searchParams.get('s')) {
-            searchParams.set('s', currentUrl.searchParams.get('s'));
-        }
-
-        switch (type) {
-            case 'best-sellers':
-                searchParams.set('orderby', 'popularity');
-                break;
-            case 'top-rated':
-                searchParams.set('orderby', 'rating');
-                break;
-            case 'on-sale':
-                searchParams.set('meta_key', '_sale_price');
-                searchParams.set('meta_compare', 'EXISTS');
-                break;
-            case 'newest':
-                searchParams.set('orderby', 'date');
-                break;
-            default:
-                break;
-        }
-
-        currentUrl.search = searchParams.toString();
-        window.location.href = currentUrl.toString();
-    }
     
     // Aplicar filtros con animación de carga
     if (applyFiltersBtn) {
