@@ -11,44 +11,44 @@
   let itemsPerPage = 12;
   let filteredRows = [];
 
-    // Inicializar cuando el documento esté listo
-    $(document).ready(function () {
-        console.log("🎯 Inicializando filtros de tabla...");
+  // Inicializar cuando el documento esté listo
+  $(document).ready(function () {
+    console.log("🎯 Inicializando filtros de tabla...");
 
-        // Event listeners para filtros de tabla
-        $("#table-search").on("input", function () {
-            console.log("🔍 Búsqueda:", $(this).val());
-            currentPage = 1; // Reset a primera página
-            filterTable();
-        });
+    // Event listeners para filtros de tabla
+    $("#table-search").on("input", function () {
+      console.log("🔍 Búsqueda:", $(this).val());
+      currentPage = 1; // Reset a primera página
+      filterTable();
+    });
 
-        $("#stock-filter").on("change", function () {
-            console.log("📦 Stock:", $(this).val());
-            currentPage = 1; // Reset a primera página
-            filterTable();
-        });
+    $("#stock-filter").on("change", function () {
+      console.log("📦 Stock:", $(this).val());
+      currentPage = 1; // Reset a primera página
+      filterTable();
+    });
 
-        $("#apply-filters-btn").on("click", function (e) {
-            e.preventDefault();
-            console.log("🎯 Aplicar filtros");
-            currentPage = 1; // Reset a primera página
-            filterTable();
-        });
+    $("#apply-filters-btn").on("click", function (e) {
+      e.preventDefault();
+      console.log("🎯 Aplicar filtros");
+      currentPage = 1; // Reset a primera página
+      filterTable();
+    });
 
-        $("#clear-table-filters").on("click", function (e) {
-            e.preventDefault();
-            console.log("🧹 Limpiar filtros");
-            clearTableFilters();
-        });
+    $("#clear-table-filters").on("click", function (e) {
+      e.preventDefault();
+      console.log("🧹 Limpiar filtros");
+      clearTableFilters();
+    });
 
-        // Observar cambios de vista para manejar paginación
-        observeViewChanges();
-        
-        // Manejar paginación inicial
-        managePaginationVisibility();
+    // Observar cambios de vista para manejar paginación
+    observeViewChanges();
 
-        console.log("✅ Filtros de tabla inicializados");
-    });  // Observar cambios de vista (grid/table)
+    // Manejar paginación inicial
+    managePaginationVisibility();
+
+    console.log("✅ Filtros de tabla inicializados");
+  }); // Observar cambios de vista (grid/table)
   function observeViewChanges() {
     // Usar MutationObserver para detectar cuando cambia la vista
     const observer = new MutationObserver(function (mutations) {
