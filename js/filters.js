@@ -49,19 +49,22 @@
     console.log("🎯 Inicializando filtros universales...");
 
     // Event listeners específicos para filtros de tabla
-    $('#table-search').on('input', debounce(function() {
-      console.log('🔍 Búsqueda en tabla:', $(this).val());
-      performFilter();
-    }, config.debounceDelay));
-    
-    $('#stock-filter').on('change', function() {
-      console.log('📦 Filtro de stock en tabla:', $(this).val());
+    $("#table-search").on(
+      "input",
+      debounce(function () {
+        console.log("🔍 Búsqueda en tabla:", $(this).val());
+        performFilter();
+      }, config.debounceDelay)
+    );
+
+    $("#stock-filter").on("change", function () {
+      console.log("📦 Filtro de stock en tabla:", $(this).val());
       performFilter();
     });
-    
-    $('#apply-filters-btn').on('click', function(e) {
+
+    $("#apply-filters-btn").on("click", function (e) {
       e.preventDefault();
-      console.log('🎯 Aplicar filtros de tabla');
+      console.log("🎯 Aplicar filtros de tabla");
       performFilter();
     });
 
@@ -150,8 +153,8 @@
     console.log("🧹 Limpiando filtros...");
 
     // Limpiar campos de tabla
-    $('#table-search').val("");
-    $('#stock-filter').val("");
+    $("#table-search").val("");
+    $("#stock-filter").val("");
 
     // Limpiar campos de vista lista con animación
     elements.searchInput.val("").addClass("clearing");
@@ -229,13 +232,17 @@
 
     // Detectar si estamos en vista de tabla
     const isTableView = detectViewFormat() === "table";
-    
+
     // Recopilar valores de filtros - usar inputs específicos según la vista
     const filters = {
-      search_term: isTableView ? ($('#table-search').val() || "") : (elements.searchInput.val() || ""),
+      search_term: isTableView
+        ? $("#table-search").val() || ""
+        : elements.searchInput.val() || "",
       min_price: getMinPrice(),
       max_price: getMaxPrice(),
-      availability: isTableView ? ($('#stock-filter').val() || "") : (elements.stockFilter.val() || ""),
+      availability: isTableView
+        ? $("#stock-filter").val() || ""
+        : elements.stockFilter.val() || "",
       category: getCurrentCategory(),
       nonce: itoolsFilters.nonce,
     };
@@ -346,7 +353,7 @@
       if (filters.search_term && filters.search_term.trim() !== "") {
         const searchTermLower = filters.search_term.toLowerCase().trim();
         const nameMatch = productData.name.includes(searchTermLower);
-        
+
         if (!nameMatch) {
           showRow = false;
           console.log(
