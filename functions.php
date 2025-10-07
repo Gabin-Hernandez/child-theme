@@ -889,6 +889,15 @@ function itools_enqueue_filters_scripts() {
             true
         );
         
+        // Enqueue script específico para filtros de tabla
+        wp_enqueue_script(
+            'itools-table-filters',
+            get_stylesheet_directory_uri() . '/js/table-filters.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+        
         // Localizar datos AJAX
         wp_localize_script('itools-filters', 'itoolsFilters', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
