@@ -280,35 +280,52 @@
     // Filtrar tabla localmente (para vista de tabla)
     function filterTableLocally(filters) {
         console.log('📊 Filtrando tabla localmente...');
+        console.log('📋 Filtros recibidos:', filters);
         
-        const rows = elements.tableBody.find('tr:not(.no-results-row)');
+        const rows = elements.tableBody.find('tr.product-row');
         let visibleCount = 0;
         
         rows.each(function() {
             const row = $(this);
+            
+            // Obtener datos de los atributos data-* del row
             const productData = {
-                name: row.find('.product-name, td:first-child').text().toLowerCase(),
-                price: parseFloat(row.find('.product-price, td:nth-child(2)').text().replace(/[^\d.,]/g, '').replace(',', '.')) || 0,
-                stock: row.find('.product-stock, td:nth-child(3)').text().toLowerCase()
+                name: row.data('name') ? String(row.data('name')).toLowerCase() : '',
+                price: parseFloat(row.data('price')) || 0,
+                stock: row.data('stock') ? String(row.data('stock')).toLowerCase() : ''
             };
+            
+            console.log('🔍 Producto:', productData);
             
             let showRow = true;
             
             // Filtro de búsqueda
-            if (filters.search_term && !productData.name.includes(filters.search_term.toLowerCase())) {
-                showRow = false;
+            if (filters.search_term && filters.search_term.trim() !== '') {
+                if (!productData.name.includes(filters.search_term.toLowerCase().trim())) {
+                    showRow = false;
+                    console.log('❌ No coincide búsqueda:', productData.name, 'con', filters.search_term);
+                }
             }
             
             // Filtro de precio
-            if (productData.price < filters.min_price || productData.price > filters.max_price) {
+            if (filters.min_price && productData.price < filters.min_price) {
                 showRow = false;
+                console.log('❌ Precio muy bajo:', productData.price, '<', filters.min_price);
+            }
+            if (filters.max_price && filters.max_price < 999999 && productData.price > filters.max_price) {
+                showRow = false;
+                console.log('❌ Precio muy alto:', productData.price, '>', filters.max_price);
             }
             
             // Filtro de disponibilidad
-            if (filters.availability === 'in-stock' && productData.stock.includes('agotado')) {
-                showRow = false;
-            } else if (filters.availability === 'out-of-stock' && !productData.stock.includes('agotado')) {
-                showRow = false;
+            if (filters.availability) {
+                if (filters.availability === 'in-stock' && productData.stock !== 'in-stock') {
+                    showRow = false;
+                    console.log('❌ No está en stock:', productData.stock);
+                } else if (filters.availability === 'out-of-stock' && productData.stock !== 'out-of-stock') {
+                    showRow = false;
+                    console.log('❌ Está en stock:', productData.stock);
+                }
             }
             
             // Aplicar visibilidad con animación
@@ -327,7 +344,7 @@
         isFiltering = false;
         hideLoadingState();
         
-        console.log(`📊 Tabla filtrada: ${visibleCount} productos visibles`);
+        console.log(`📊 Tabla filtrada: ${visibleCount} productos visibles de ${rows.length} totales`);
     }
     
     // Actualizar grid de productos con resultados AJAX
@@ -459,7 +476,9 @@
         
         if (visibleCount === 0) {
             if (emptyRow.length === 0) {
-                const colSpan = elements.tableBody.find('tr:first td').length || 4;
+                // Contar columnas de la primera fila de producto
+                const firstRow = elements.tableBody.find('tr.product-row:first');
+                const colSpan = firstRow.find('td').length || 4;
                 emptyRow = $(`
                     <tr class="no-results-row">
                         <td colspan="${colSpan}" class="text-center py-8 text-gray-500">

@@ -801,14 +801,17 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         while ( $products_query->have_posts() ) {
                                             $products_query->the_post();
                                             $product = wc_get_product( get_the_ID() );
+                                            $product_name = get_the_title();
+                                            $product_price = $product ? $product->get_price() : 0;
+                                            $product_stock_status = $product && $product->is_in_stock() ? 'in-stock' : 'out-of-stock';
                                             ?>
                                             <tr class="hover:bg-gray-50 transition-colors product-row" 
-                                                data-name="<?php echo esc_attr( strtolower( get_the_title() ) ); ?>"
-                                                data-price="<?php echo esc_attr( $product ? $product->get_price() : 0 ); ?>"
-                                                data-stock="<?php echo esc_attr( $product && $product->is_in_stock() ? 'in-stock' : 'out-of-stock' ); ?>">
+                                                data-name="<?php echo esc_attr( strtolower( $product_name ) ); ?>"
+                                                data-price="<?php echo esc_attr( $product_price ); ?>"
+                                                data-stock="<?php echo esc_attr( $product_stock_status ); ?>">
                                                 
                                                 <!-- Producto -->
-                                                <td class="px-4 py-4">
+                                                <td class="px-4 py-4 product-name">
                                                     <div class="flex items-center">
                                                         <div class="flex-shrink-0 h-12 w-12">
                                                             <a href="<?php the_permalink(); ?>">
@@ -841,7 +844,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                 </td>
                                                 
                                                 <!-- Precio -->
-                                                <td class="px-4 py-4 whitespace-nowrap">
+                                                <td class="px-4 py-4 whitespace-nowrap product-price" data-price="<?php echo esc_attr( $product_price ); ?>">
                                                     <?php if ( $product ) : ?>
                                                         <div class="text-sm font-semibold text-gray-900">
                                                             <?php echo $product->get_price_html(); ?>
@@ -850,7 +853,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                 </td>
                                                 
                                                 <!-- Stock -->
-                                                <td class="px-4 py-4 whitespace-nowrap">
+                                                <td class="px-4 py-4 whitespace-nowrap product-stock" data-stock="<?php echo esc_attr( $product_stock_status ); ?>">
                                                     <?php if ( $product ) : ?>
                                                         <?php if ( $product->is_in_stock() ) : ?>
                                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
