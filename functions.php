@@ -2596,6 +2596,207 @@ function itools_ajax_quick_filter() {
 add_action('wp_ajax_itools_quick_filter', 'itools_ajax_quick_filter');
 add_action('wp_ajax_nopriv_itools_quick_filter', 'itools_ajax_quick_filter');
 
+// === SHORTCODE VALORACIONES GLOBALES ===
+
+// Shortcode para mostrar todas las valoraciones de WooCommerce
+function itools_valoraciones_globales_shortcode($atts) {
+    // Parámetros del shortcode
+    $atts = shortcode_atts(array(
+        'numero' => 24,  // Número de reseñas por página
+        'orden' => 'date', // date, rating
+        'direcion' => 'DESC', // ASC, DESC
+        'mostrar_paginacion' => 'true'
+    ), $atts);
+    
+    // Obtener página actual
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    
+    // Argumentos para obtener comentarios (valoraciones)
+    $comments_args = array(
+        'type' => 'review',
+        'status' => 'approve',
+        'post_type' => 'product',
+        'number' => $atts['numero'],
+        'paged' => $paged,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'value' => array(1, 2, 3, 4, 5),
+                'compare' => 'IN'
+            )
+        )
+    );
+    
+    // Ordenamiento
+    if ($atts['orden'] == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $atts['direcion'];
+    
+    // Obtener valoraciones
+    $reviews_query = new WP_Comment_Query();
+    $reviews = $reviews_query->query($comments_args);
+    
+    // Obtener total para paginación
+    $total_reviews = $reviews_query->found_comments;
+    
+    // Iniciar buffer de salida
+    ob_start();
+    
+    // Encolar estilos y scripts específicos para valoraciones
+    wp_enqueue_style('itools-valoraciones', get_stylesheet_directory_uri() . '/css/valoraciones.css', array(), '1.0.0');
+    wp_enqueue_script('itools-valoraciones-js', get_stylesheet_directory_uri() . '/js/valoraciones.js', array('jquery'), '1.0.0', true);
+    
+    // Localizar variables para AJAX
+    wp_localize_script('itools-valoraciones-js', 'valoracionesAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('valoraciones_nonce')
+    ));
+    ?>
+    
+    <div class="valoraciones-globales-container">
+        <!-- Header -->
+        <div class="valoraciones-header text-center mb-12">
+            <div class="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span class="font-bold text-lg">Testimonios de Clientes</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+                Lo que opinan <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">nuestros clientes</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Descubre las experiencias reales de más de <?php echo number_format($total_reviews); ?> clientes satisfechos con nuestros productos
+            </p>
+        </div>
+        
+        <!-- Controles de ordenamiento -->
+        <div class="valoraciones-controls mb-8 flex flex-wrap justify-center gap-4">
+            <button class="control-btn active" data-order="date" data-direction="DESC">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Más Recientes
+            </button>
+            <button class="control-btn" data-order="rating" data-direction="DESC">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Mejor Puntuadas
+            </button>
+        </div>
+        
+        <!-- Grid de valoraciones -->
+        <div class="valoraciones-grid">
+            <?php
+            if ($reviews) {
+                foreach ($reviews as $review) {
+                    $rating = get_comment_meta($review->comment_ID, 'rating', true);
+                    $product_id = $review->comment_post_ID;
+                    $product = wc_get_product($product_id);
+                    
+                    if (!$product) continue;
+                    
+                    // Incluir template parcial
+                    include get_stylesheet_directory() . '/template-parts/review-card.php';
+                }
+            } else {
+                echo '<div class="no-reviews"><p>No hay valoraciones disponibles en este momento.</p></div>';
+            }
+            ?>
+        </div>
+        
+        <!-- Paginación -->
+        <?php if ($atts['mostrar_paginacion'] == 'true' && $total_reviews > $atts['numero']) : ?>
+            <div class="valoraciones-pagination">
+                <?php
+                $total_pages = ceil($total_reviews / $atts['numero']);
+                echo paginate_links(array(
+                    'total' => $total_pages,
+                    'current' => $paged,
+                    'type' => 'list',
+                    'prev_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>',
+                    'next_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>',
+                ));
+                ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('valoraciones_globales', 'itools_valoraciones_globales_shortcode');
+
+// Función AJAX para ordenamiento dinámico de valoraciones
+function itools_ajax_sort_valoraciones() {
+    // Verificar nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'valoraciones_nonce')) {
+        wp_die('Error de seguridad');
+    }
+    
+    $order = sanitize_text_field($_POST['order']);
+    $direction = sanitize_text_field($_POST['direction']);
+    $paged = intval($_POST['paged']) ?: 1;
+    $numero = intval($_POST['numero']) ?: 24;
+    
+    // Reutilizar la lógica del shortcode
+    $comments_args = array(
+        'type' => 'review',
+        'status' => 'approve',
+        'post_type' => 'product',
+        'number' => $numero,
+        'paged' => $paged,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'value' => array(1, 2, 3, 4, 5),
+                'compare' => 'IN'
+            )
+        )
+    );
+    
+    // Aplicar ordenamiento
+    if ($order == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $direction;
+    
+    $reviews_query = new WP_Comment_Query();
+    $reviews = $reviews_query->query($comments_args);
+    
+    ob_start();
+    
+    if ($reviews) {
+        foreach ($reviews as $review) {
+            $rating = get_comment_meta($review->comment_ID, 'rating', true);
+            $product_id = $review->comment_post_ID;
+            $product = wc_get_product($product_id);
+            
+            if (!$product) continue;
+            
+            // Usar el mismo template del shortcode
+            include get_stylesheet_directory() . '/template-parts/review-card.php';
+        }
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+        'found_reviews' => $reviews_query->found_comments
+    ));
+}
+add_action('wp_ajax_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+add_action('wp_ajax_nopriv_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+
 // Agregar variables JavaScript necesarias
 function itools_localize_scripts() {
     if (is_front_page()) {
