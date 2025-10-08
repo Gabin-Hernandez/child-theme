@@ -509,11 +509,33 @@ get_header(); ?>
     .tab-content {
         transition: all 0.3s ease-in-out;
         display: none;
+        min-height: 200px;
     }
     
     .tab-content.active,
     .tab-content:first-child {
-        display: block;
+        display: block !important;
+    }
+    
+    /* Asegurar que el contenido de reseñas sea visible */
+    #reviews.tab-content {
+        display: none;
+    }
+    
+    #reviews.tab-content .woocommerce-Reviews {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Estilos para el formulario de reseñas */
+    .woocommerce-Reviews {
+        width: 100%;
+        padding: 0;
+    }
+    
+    #review_form_wrapper {
+        margin-top: 2rem;
     }
     
     .tab-btn {
@@ -617,8 +639,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetContent = document.getElementById(targetTab);
             if (targetContent) {
                 targetContent.style.display = 'block';
+                targetContent.style.visibility = 'visible';
+                targetContent.style.opacity = '1';
                 console.log('Mostrando:', targetTab);
                 console.log('Contenido HTML:', targetContent.innerHTML.substring(0, 200));
+                console.log('Display:', window.getComputedStyle(targetContent).display);
+                console.log('Visibility:', window.getComputedStyle(targetContent).visibility);
+                
+                // Forzar re-render
+                targetContent.offsetHeight;
             } else {
                 console.error('No se encontró el contenido para:', targetTab);
             }
