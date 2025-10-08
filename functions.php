@@ -1893,6 +1893,29 @@ add_filter('gettext', 'itools_custom_review_text', 20, 3);
 // ========================================
 
 /**
+ * Habilitar reseñas en todos los productos
+ */
+function itools_enable_product_reviews() {
+    // Asegurar que los comentarios estén abiertos para productos
+    add_filter( 'comments_open', 'itools_force_comments_open_for_products', 10, 2 );
+    
+    // Habilitar soporte de reseñas en WooCommerce
+    add_post_type_support( 'product', 'comments' );
+}
+add_action( 'init', 'itools_enable_product_reviews' );
+
+/**
+ * Forzar que los comentarios estén abiertos para productos
+ */
+function itools_force_comments_open_for_products( $open, $post_id ) {
+    $post = get_post( $post_id );
+    if ( $post && $post->post_type === 'product' ) {
+        return true;
+    }
+    return $open;
+}
+
+/**
  * Permitir reseñas sin necesidad de compra previa
  * Elimina la verificación de compra de WooCommerce
  */
