@@ -639,7 +639,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Cargar script de single-product directamente -->
-<script src="js/single-product.js"></script>
-
 <?php get_footer(); ?>
