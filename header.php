@@ -1086,15 +1086,15 @@
                         </div>
                     </a>
 
-                    <a href="/valoraciones/" target="_blank" style="display: flex; align-items: center; gap: 12px; color: #10b981; font-weight: 600; text-decoration: none; padding: 12px 0;">
+                    <a href="/valoraciones/" target="_blank" style="display: flex; align-items: center; gap: 12px; color: #0e42b1ff; font-weight: 600; text-decoration: none; padding: 12px 0;">
                         <div style="width: 40px; height: 40px; background: #f0fdf4; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#10b981">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0e42b1ff">
                                 <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                             </svg>
                         </div>
                         <div>
                             <span style="font-size: 16px;">Valoraciones</span>
-                            <p style="font-size: 12px; color: #0b44c0ff; margin: 0;">Ver todos los productos</p>
+                            <p style="font-size: 12px; color: #0e42b1ff; margin: 0;">Ver todos los productos</p>
                         </div>
                     </a>
                 </div>
