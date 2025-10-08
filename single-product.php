@@ -287,17 +287,29 @@ get_header(); ?>
         <!-- Información detallada del producto -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <!-- Pestañas -->
-                <div class="border-b border-gray-200">
-                    <nav class="flex space-x-6 px-6" aria-label="Tabs">
-                        <button class="tab-btn py-3 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600 whitespace-nowrap" data-tab="specifications">
-                            Especificaciones
+                <!-- Pestañas NUEVAS -->
+                <div class="border-b border-gray-200 bg-gray-50">
+                    <nav class="flex space-x-1 px-4" aria-label="Tabs" role="tablist">
+                        <button class="product-tab active" 
+                                onclick="switchTab(event, 'tab-specifications')"
+                                role="tab"
+                                aria-selected="true"
+                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid #3b82f6; color: #3b82f6; transition: all 0.3s;">
+                            📋 Especificaciones
                         </button>
-                        <button class="tab-btn py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap" data-tab="reviews">
-                            Reseñas (<?php echo $product->get_review_count(); ?>)
+                        <button class="product-tab" 
+                                onclick="switchTab(event, 'tab-reviews')"
+                                role="tab"
+                                aria-selected="false"
+                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s;">
+                            ⭐ Reseñas (<?php echo $product->get_review_count(); ?>)
                         </button>
-                        <button class="tab-btn py-3 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap" data-tab="shipping">
-                            Envío y Devoluciones
+                        <button class="product-tab" 
+                                onclick="switchTab(event, 'tab-shipping')"
+                                role="tab"
+                                aria-selected="false"
+                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s;">
+                            🚚 Envío y Devoluciones
                         </button>
                     </nav>
                 </div>
@@ -305,7 +317,7 @@ get_header(); ?>
                 <!-- Contenido de las pestañas -->
                 <div class="p-6">
                     <!-- Especificaciones -->
-                    <div id="specifications" class="tab-content">
+                    <div id="tab-specifications" class="tab-panel" style="display: block;">
                         <div class="prose prose-sm max-w-none">
                             <?php 
                             $description = $product->get_description();
@@ -319,7 +331,7 @@ get_header(); ?>
                     </div>
                     
                     <!-- Reseñas y formulario -->
-                    <div id="reviews" class="tab-content">
+                    <div id="tab-reviews" class="tab-panel" style="display: none;">
                         <div class="reviews-wrapper" style="padding: 20px;">
                             <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #1f2937;">
                                 Reseñas de Clientes
@@ -460,7 +472,7 @@ get_header(); ?>
                     </div>
                     
                     <!-- Envío y Devoluciones -->
-                    <div id="shipping" class="tab-content">
+                    <div id="tab-shipping" class="tab-panel" style="display: none;">
                         <div class="space-y-6">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
@@ -624,44 +636,34 @@ get_header(); ?>
 
 <!-- JavaScript para las pestañas y galería -->
 <style>
-    .border-b-3 {
-        border-bottom-width: 3px;
+    /* Estilos para las pestañas */
+    .product-tab {
+        position: relative;
     }
     
-    .tab-content {
-        transition: all 0.3s ease-in-out;
-        display: none;
-        min-height: 200px;
+    .product-tab:hover {
+        color: #3b82f6 !important;
+        background: rgba(59, 130, 246, 0.05);
     }
     
-    .tab-content.active,
-    .tab-content:first-child {
-        display: block !important;
+    .product-tab.active {
+        color: #3b82f6 !important;
+        border-bottom-color: #3b82f6 !important;
     }
     
-    /* Asegurar que el contenido de reseñas sea visible */
-    #reviews.tab-content {
-        display: none;
+    .tab-panel {
+        animation: fadeIn 0.3s ease-in;
     }
     
-    #reviews.tab-content .woocommerce-Reviews {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    /* Estilos para el formulario de reseñas */
-    .woocommerce-Reviews {
-        width: 100%;
-        padding: 0;
-    }
-    
-    #review_form_wrapper {
-        margin-top: 2rem;
-    }
-    
-    .tab-btn {
-        transition: all 0.2s ease-in-out;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
@@ -716,65 +718,47 @@ get_header(); ?>
     }
 </style>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Funcionalidad de pestañas
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
+// Nueva función para cambiar pestañas - SIMPLE Y DIRECTA
+function switchTab(event, tabId) {
+    console.log('🔄 Cambiando a pestaña:', tabId);
     
-    console.log('Pestañas encontradas:', tabButtons.length);
-    console.log('Contenidos encontrados:', tabContents.length);
+    // Ocultar todos los paneles
+    const allPanels = document.querySelectorAll('.tab-panel');
+    allPanels.forEach(panel => {
+        panel.style.display = 'none';
+        console.log('❌ Ocultando:', panel.id);
+    });
     
-    // Mostrar primera pestaña por defecto
-    if (tabContents.length > 0) {
-        // Ocultar todas primero
-        tabContents.forEach(content => {
-            content.style.display = 'none';
-        });
-        // Mostrar solo la primera
-        tabContents[0].style.display = 'block';
-        console.log('Primera pestaña mostrada:', tabContents[0].id);
+    // Remover clase active de todos los botones
+    const allTabs = document.querySelectorAll('.product-tab');
+    allTabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.borderBottomColor = 'transparent';
+        tab.style.color = '#6b7280';
+        tab.setAttribute('aria-selected', 'false');
+    });
+    
+    // Mostrar el panel seleccionado
+    const selectedPanel = document.getElementById(tabId);
+    if (selectedPanel) {
+        selectedPanel.style.display = 'block';
+        console.log('✅ Mostrando:', tabId);
+        console.log('📄 Contenido:', selectedPanel.innerHTML.substring(0, 150));
+    } else {
+        console.error('❌ No se encontró el panel:', tabId);
     }
     
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetTab = this.getAttribute('data-tab');
-            console.log('Click en pestaña:', targetTab);
-            
-            // Remover clase active de todos los botones
-            tabButtons.forEach(btn => {
-                btn.classList.remove('border-blue-500', 'text-blue-600');
-                btn.classList.add('border-transparent', 'text-gray-500');
-            });
-            
-            // Agregar clase active al botón clickeado
-            this.classList.remove('border-transparent', 'text-gray-500');
-            this.classList.add('border-blue-500', 'text-blue-600');
-            
-            // Ocultar todos los contenidos
-            tabContents.forEach(content => {
-                content.style.display = 'none';
-                console.log('Ocultando:', content.id);
-            });
-            
-            // Mostrar el contenido correspondiente
-            const targetContent = document.getElementById(targetTab);
-            if (targetContent) {
-                targetContent.style.display = 'block';
-                targetContent.style.visibility = 'visible';
-                targetContent.style.opacity = '1';
-                console.log('Mostrando:', targetTab);
-                console.log('Contenido HTML:', targetContent.innerHTML.substring(0, 200));
-                console.log('Display:', window.getComputedStyle(targetContent).display);
-                console.log('Visibility:', window.getComputedStyle(targetContent).visibility);
-                
-                // Forzar re-render
-                targetContent.offsetHeight;
-            } else {
-                console.error('No se encontró el contenido para:', targetTab);
-            }
-        });
-    });
+    // Activar el botón clickeado
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+        event.currentTarget.style.borderBottomColor = '#3b82f6';
+        event.currentTarget.style.color = '#3b82f6';
+        event.currentTarget.setAttribute('aria-selected', 'true');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ Nuevo sistema de pestañas cargado');
     
     // Funcionalidad de la galería de imágenes
     const thumbnails = document.querySelectorAll('.thumbnail-img');
