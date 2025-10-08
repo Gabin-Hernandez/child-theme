@@ -2020,17 +2020,15 @@ function itools_include_reviews_in_comments_query( $clauses ) {
 
     // Solo en el panel de administración de comentarios
     if ( is_admin() && $pagenow === 'edit-comments.php' ) {
-        // Modificar la cláusula WHERE para incluir reseñas
-        if ( strpos( $clauses['where'], "comment_type" ) !== false ) {
-            // Si ya hay una restricción de comment_type, ampliarla
-            $clauses['where'] = str_replace(
-                "comment_type = ''",
-                "comment_type IN ('', 'comment', 'review')",
-                $clauses['where']
-            );
-            $clauses['where'] = str_replace(
-                "comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
-                "comment_type IN ('', 'comment', 'review') OR comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
+        // Forzar la inclusión de reseñas reemplazando restricciones de comment_type
+        if ( isset( $clauses['where'] ) ) {
+            // Patrón para encontrar restricciones de comment_type
+            $pattern = "/AND\s+\({0,1}\s*{$wpdb->comments}\.comment_type\s*(?:=|!=|NOT IN|IN)\s*[^)]+\){0,1}/i";
+            
+            // Reemplazar con nuestra condición que incluye reseñas
+            $clauses['where'] = preg_replace(
+                $pattern,
+                " AND {$wpdb->comments}.comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
                 $clauses['where']
             );
         }
@@ -2039,6 +2037,23 @@ function itools_include_reviews_in_comments_query( $clauses ) {
     return $clauses;
 }
 add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 );
+
+/**
+ * Desactivar completamente los filtros de WooCommerce en el admin de comentarios
+ */
+function itools_disable_woocommerce_comment_filters() {
+    global $pagenow;
+    
+    if ( is_admin() && $pagenow === 'edit-comments.php' ) {
+        // Remover TODOS los filtros de WooCommerce relacionados con comentarios
+        if ( class_exists( 'WC_Comments' ) ) {
+            remove_all_filters( 'comments_clauses' );
+            // Re-agregar solo nuestro filtro
+            add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 );
+        }
+    }
+}
+add_action( 'admin_init', 'itools_disable_woocommerce_comment_filters', 1 );
 
 /**
  * Mostrar mensaje al usuario después de enviar una reseña
