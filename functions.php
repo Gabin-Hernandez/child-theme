@@ -2611,13 +2611,18 @@ function itools_valoraciones_globales_shortcode($atts) {
     // Obtener página actual
     $paged = get_query_var('paged') ? get_query_var('paged') : 1;
     
-    // Argumentos simplificados para obtener comentarios (valoraciones)
+    // Argumentos para obtener TODOS los comentarios de productos con rating
     $comments_args = array(
-        'type' => 'review',
         'status' => 'approve',
         'number' => $atts['numero'],
         'offset' => ($paged - 1) * $atts['numero'],
-        'post_type' => 'product'
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
     );
     
     // Ordenamiento
@@ -2631,9 +2636,15 @@ function itools_valoraciones_globales_shortcode($atts) {
     
     // Debug: Primero obtener TODAS las reseñas para ver cuántas hay realmente
     $debug_args = array(
-        'type' => 'review',
         'status' => 'approve',
-        'count' => true
+        'post_type' => 'product',
+        'count' => true,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
     );
     $all_reviews_count = get_comments($debug_args);
     
@@ -2875,13 +2886,40 @@ function itools_debug_reviews() {
     
     $output = "<h3>Diagnóstico de Reseñas</h3>";
     
-    // 1. Contar todas las reseñas
-    $all_comments = get_comments(array('type' => 'review', 'count' => true));
-    $output .= "<p><strong>Total reseñas tipo 'review':</strong> $all_comments</p>";
+    // 1. Contar todas las reseñas tipo 'review'
+    $review_type_comments = get_comments(array('type' => 'review', 'count' => true));
+    $output .= "<p><strong>Total reseñas tipo 'review':</strong> $review_type_comments</p>";
     
-    // 2. Contar reseñas aprobadas
-    $approved_comments = get_comments(array('type' => 'review', 'status' => 'approve', 'count' => true));
-    $output .= "<p><strong>Reseñas aprobadas:</strong> $approved_comments</p>";
+    // 2. Contar TODOS los comentarios de productos con rating
+    $all_rated_comments = get_comments(array(
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Total comentarios de productos con rating:</strong> $all_rated_comments</p>";
+    
+    // 3. Contar reseñas aprobadas (solo tipo review)
+    $approved_review_comments = get_comments(array('type' => 'review', 'status' => 'approve', 'count' => true));
+    $output .= "<p><strong>Reseñas tipo 'review' aprobadas:</strong> $approved_review_comments</p>";
+    
+    // 4. Contar comentarios aprobados con rating
+    $approved_rated_comments = get_comments(array(
+        'status' => 'approve',
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Comentarios aprobados de productos con rating:</strong> $approved_rated_comments</p>";
     
     // 3. Obtener reseñas con detalles
     $reviews_detailed = get_comments(array(
