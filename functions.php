@@ -1893,75 +1893,33 @@ add_filter('gettext', 'itools_custom_review_text', 20, 3);
 // ========================================
 
 /**
- * Habilitar reseñas en todos los productos
+ * CONFIGURACIÓN COMPLETA DE RESEÑAS - SOLUCIÓN DEFINITIVA
  */
-function itools_enable_product_reviews() {
-    // Asegurar que los comentarios estén abiertos para productos
-    add_filter( 'comments_open', 'itools_force_comments_open_for_products', 10, 2 );
-    
-    // Habilitar soporte de reseñas en WooCommerce
-    add_post_type_support( 'product', 'comments' );
-}
-add_action( 'init', 'itools_enable_product_reviews' );
 
-/**
- * Forzar que los comentarios estén abiertos para productos
- */
-function itools_force_comments_open_for_products( $open, $post_id ) {
-    $post = get_post( $post_id );
-    if ( $post && $post->post_type === 'product' ) {
+// 1. Permitir reseñas sin verificación de compra
+add_filter( 'woocommerce_product_reviews_verification_required', '__return_false', 999 );
+
+// 2. Forzar que los comentarios estén abiertos para productos
+add_filter( 'comments_open', function( $open, $post_id ) {
+    if ( get_post_type( $post_id ) === 'product' ) {
         return true;
     }
     return $open;
-}
+}, 999, 2 );
 
-/**
- * Forzar comment_status a 'open' para todos los productos
- */
-function itools_force_product_comment_status( $data, $postarr ) {
-    if ( isset( $data['post_type'] ) && $data['post_type'] === 'product' ) {
-        $data['comment_status'] = 'open';
+// 3. Habilitar soporte de comentarios en productos
+add_action( 'init', function() {
+    add_post_type_support( 'product', 'comments' );
+});
+
+// 4. Actualizar productos existentes (ejecutar una sola vez)
+add_action( 'admin_init', function() {
+    if ( ! get_option( 'itools_reviews_enabled_v2' ) ) {
+        global $wpdb;
+        $wpdb->query( "UPDATE {$wpdb->posts} SET comment_status = 'open' WHERE post_type = 'product'" );
+        update_option( 'itools_reviews_enabled_v2', true );
     }
-    return $data;
-}
-add_filter( 'wp_insert_post_data', 'itools_force_product_comment_status', 10, 2 );
-
-/**
- * Actualizar productos existentes para habilitar comentarios
- */
-function itools_enable_comments_on_existing_products() {
-    // Solo ejecutar una vez
-    if ( get_option( 'itools_comments_enabled' ) ) {
-        return;
-    }
-    
-    global $wpdb;
-    
-    // Actualizar todos los productos para habilitar comentarios
-    $wpdb->query( "
-        UPDATE {$wpdb->posts} 
-        SET comment_status = 'open' 
-        WHERE post_type = 'product' 
-        AND comment_status != 'open'
-    " );
-    
-    // Marcar como ejecutado
-    update_option( 'itools_comments_enabled', true );
-}
-add_action( 'admin_init', 'itools_enable_comments_on_existing_products' );
-
-/**
- * Permitir reseñas sin necesidad de compra previa
- * Elimina la verificación de compra de WooCommerce
- */
-function itools_remove_purchase_verification_for_reviews() {
-    // Remover el filtro que verifica si el usuario compró el producto
-    remove_filter( 'woocommerce_product_review_comment_form_args', 'woocommerce_product_review_comment_form_args' );
-    
-    // Permitir que cualquier usuario deje reseñas
-    add_filter( 'woocommerce_product_reviews_verification_required', '__return_false' );
-}
-add_action( 'init', 'itools_remove_purchase_verification_for_reviews' );
+});
 
 /**
  * Todas las reseñas requieren aprobación manual del administrador
