@@ -206,7 +206,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Hero Section Moderno -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
                 Tienda de Herramientas
@@ -248,7 +248,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <div class="bg-gray-50 min-h-screen py-12">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
 
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
@@ -268,7 +268,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <!-- Sidebar con filtros modernos -->
                 <aside 
                     id="filters-sidebar" 
-                    class="xl:w-80 2xl:w-96 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
+                    class="xl:w-96 2xl:w-[420px] fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
                     <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
                         
                         <!-- Header del sidebar -->
@@ -564,7 +564,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                     <!-- Filtros para vista de tabla -->
                     <div id="table-filters" class="hidden mb-6 bg-white rounded-lg border border-gray-200 p-4">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                             <!-- Búsqueda -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Buscar producto</label>
@@ -610,7 +610,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -1049,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
 
 
 

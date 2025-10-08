@@ -166,7 +166,7 @@ $products_query = new WP_Query($args);
 
 <!-- Section Moderno para Categoría -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 capitalize">
                 <?php echo esc_html($category_name); ?>
@@ -203,7 +203,7 @@ $products_query = new WP_Query($args);
 </div>
 
 <div class="bg-gray-50 min-h-screen py-8">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
 
         <!-- Navegación de breadcrumbs -->
         <div class="mb-6">
@@ -238,7 +238,7 @@ $products_query = new WP_Query($args);
                 <!-- Sidebar con filtros modernos -->
                 <aside 
                     id="filters-sidebar" 
-                    class="xl:w-80 2xl:w-96 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
+                    class="xl:w-96 2xl:w-[420px] fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
                     <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
                         
                         <!-- Header del sidebar -->
@@ -566,7 +566,7 @@ $products_query = new WP_Query($args);
             </div>
 
             <!-- Grid de productos moderno -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12" id="products-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 sm:gap-8 lg:gap-10" id="products-grid">
                 <?php
                 while ( $products_query->have_posts() ) {
                     $products_query->the_post();
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function setProductView(view) {
         if (view === 'grid') {
-            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 sm:gap-10 lg:gap-12';
+            productsGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-6 sm:gap-8 lg:gap-10';
             gridViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm text-blue-600';
             listViewBtn.className = 'px-3 py-2 rounded-lg transition-all duration-300 text-gray-500';
         } else {
