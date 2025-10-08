@@ -729,13 +729,7 @@
                         Ofertas
                     </a>
 
-                    <!-- Link Valoraciones -->
-                    <a href="/valoraciones/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #3b82f6; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        Valoraciones
-                    </a>
+                    
 
                     <!-- Link directo Catálogo -->
                     <a href="https://docs.google.com/spreadsheets/d/1mA0EoKXmrSMijNkwOgIlhmoHL4XrSNrC/edit?pli=1&gid=409173927#gid=409173927" target="_blank" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #10b981; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
@@ -743,6 +737,13 @@
                             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
                         </svg>
                         Catálogo
+                    </a>
+                    <!-- Link Valoraciones -->
+                    <a href="/valoraciones/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #3b82f6; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Valoraciones
                     </a>
                 </nav>
             </div>
