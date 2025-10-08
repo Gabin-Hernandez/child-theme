@@ -2076,18 +2076,18 @@ function itools_handle_custom_review_submission() {
     
     error_log('✅ Validation passed');
     
-    // Crear el comentario/reseña - COMPATIBLE CON WOOCOMMERCE
+    // Crear el comentario/reseña - TIPO VACÍO PARA MEJOR COMPATIBILIDAD
     $comment_data = array(
         'comment_post_ID' => $product_id,
         'comment_author' => $author,
         'comment_author_email' => $email,
         'comment_author_url' => '',
         'comment_content' => $comment_content,
-        'comment_type' => 'review', // WooCommerce usa 'review'
+        'comment_type' => '', // Comentario estándar (vacío = comentario normal)
         'comment_parent' => 0,
         'user_id' => get_current_user_id(),
         'comment_approved' => 0, // 0 = Pendiente, 1 = Aprobado
-        'comment_agent' => 'Custom Review Form',
+        'comment_agent' => 'Product Review Form',
     );
     
     error_log('Comment data prepared: ' . print_r($comment_data, true));
