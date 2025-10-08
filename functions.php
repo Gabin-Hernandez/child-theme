@@ -1888,6 +1888,145 @@ function itools_custom_review_text($translated_text, $text, $domain) {
 }
 add_filter('gettext', 'itools_custom_review_text', 20, 3);
 
+// ========================================
+// CONFIGURACIÓN DE RESEÑAS
+// ========================================
+
+/**
+ * Permitir reseñas sin necesidad de compra previa
+ * Elimina la verificación de compra de WooCommerce
+ */
+function itools_remove_purchase_verification_for_reviews() {
+    // Remover el filtro que verifica si el usuario compró el producto
+    remove_filter( 'woocommerce_product_review_comment_form_args', 'woocommerce_product_review_comment_form_args' );
+    
+    // Permitir que cualquier usuario deje reseñas
+    add_filter( 'woocommerce_product_reviews_verification_required', '__return_false' );
+}
+add_action( 'init', 'itools_remove_purchase_verification_for_reviews' );
+
+/**
+ * Todas las reseñas requieren aprobación manual del administrador
+ * Establece el estado inicial de las reseñas como "pendiente"
+ */
+function itools_require_review_approval( $approved, $commentdata ) {
+    // Solo aplicar a reseñas de productos
+    if ( isset( $commentdata['comment_post_ID'] ) ) {
+        $post_id = $commentdata['comment_post_ID'];
+        $post_type = get_post_type( $post_id );
+        
+        if ( $post_type === 'product' ) {
+            // Forzar aprobación manual (0 = pendiente de aprobación)
+            return 0;
+        }
+    }
+    
+    // Para otros tipos de comentarios, mantener el comportamiento por defecto
+    return $approved;
+}
+add_filter( 'pre_comment_approved', 'itools_require_review_approval', 10, 2 );
+
+/**
+ * Mostrar mensaje al usuario después de enviar una reseña
+ * Informar que está pendiente de aprobación
+ */
+function itools_review_pending_message( $comment_id, $comment_approved ) {
+    // Si la reseña está pendiente de aprobación
+    if ( $comment_approved === 0 || $comment_approved === '0' ) {
+        // Obtener el comentario
+        $comment = get_comment( $comment_id );
+        
+        // Verificar si es una reseña de producto
+        if ( $comment && get_post_type( $comment->comment_post_ID ) === 'product' ) {
+            // Agregar un mensaje flash en la sesión
+            if ( ! session_id() ) {
+                session_start();
+            }
+            $_SESSION['review_pending_message'] = true;
+        }
+    }
+}
+add_action( 'comment_post', 'itools_review_pending_message', 10, 2 );
+
+/**
+ * Mostrar mensaje de confirmación en la página del producto
+ */
+function itools_display_review_pending_message() {
+    if ( is_product() && isset( $_SESSION['review_pending_message'] ) ) {
+        ?>
+        <div class="woocommerce-message" style="background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <svg style="width: 24px; height: 24px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <strong>¡Gracias por tu reseña!</strong>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem;">Tu reseña ha sido recibida y está pendiente de aprobación por nuestro equipo. Será publicada pronto.</p>
+                </div>
+            </div>
+        </div>
+        <?php
+        // Limpiar el mensaje después de mostrarlo
+        unset( $_SESSION['review_pending_message'] );
+    }
+}
+add_action( 'woocommerce_before_single_product', 'itools_display_review_pending_message' );
+
+/**
+ * Personalizar el texto del formulario de reseñas
+ */
+function itools_customize_review_form_text( $comment_form ) {
+    // Actualizar el texto de envío
+    $comment_form['label_submit'] = 'Enviar Reseña';
+    
+    // Agregar nota sobre aprobación
+    $comment_form['comment_notes_after'] = '<p class="form-allowed-tags" style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem; padding: 0.75rem; background: #f9fafb; border-radius: 8px; border-left: 3px solid #3b82f6;">
+        <svg style="display: inline-block; width: 16px; height: 16px; margin-right: 0.5rem; vertical-align: middle;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Tu reseña será revisada por nuestro equipo antes de ser publicada. Te notificaremos cuando sea aprobada.
+    </p>';
+    
+    return $comment_form;
+}
+add_filter( 'woocommerce_product_review_comment_form_args', 'itools_customize_review_form_text' );
+
+/**
+ * Notificar al administrador cuando hay una nueva reseña pendiente
+ */
+function itools_notify_admin_new_review( $comment_id, $comment_approved ) {
+    // Solo notificar si está pendiente de aprobación
+    if ( $comment_approved === 0 || $comment_approved === '0' ) {
+        $comment = get_comment( $comment_id );
+        
+        // Verificar si es una reseña de producto
+        if ( $comment && get_post_type( $comment->comment_post_ID ) === 'product' ) {
+            $product = wc_get_product( $comment->comment_post_ID );
+            
+            if ( $product ) {
+                // Obtener email del administrador
+                $admin_email = get_option( 'admin_email' );
+                
+                // Preparar el correo
+                $subject = 'Nueva reseña pendiente de aprobación - ' . $product->get_name();
+                
+                $message = "Hay una nueva reseña pendiente de aprobación:\n\n";
+                $message .= "Producto: " . $product->get_name() . "\n";
+                $message .= "Autor: " . $comment->comment_author . "\n";
+                $message .= "Email: " . $comment->comment_author_email . "\n";
+                $message .= "Calificación: " . get_comment_meta( $comment_id, 'rating', true ) . " estrellas\n";
+                $message .= "Comentario: " . $comment->comment_content . "\n\n";
+                $message .= "Para aprobar o rechazar esta reseña, visita:\n";
+                $message .= admin_url( 'comment.php?action=approve&c=' . $comment_id );
+                
+                // Enviar email
+                wp_mail( $admin_email, $subject, $message );
+            }
+        }
+    }
+}
+add_action( 'comment_post', 'itools_notify_admin_new_review', 10, 2 );
+
 // Mejorar la búsqueda de productos para que sea más flexible
 function itools_improve_product_search( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
