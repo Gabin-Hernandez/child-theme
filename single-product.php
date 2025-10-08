@@ -319,7 +319,7 @@ get_header(); ?>
                     </div>
                     
                     <!-- Reseñas y formulario -->
-                    <div id="reviews" class="tab-content" style="display: none;">
+                    <div id="reviews" class="tab-content">
                         <div class="woocommerce-Reviews">
                             <div id="comments">
                                 <h2 class="woocommerce-Reviews-title">
@@ -437,7 +437,7 @@ get_header(); ?>
                     </div>
                     
                     <!-- Envío y Devoluciones -->
-                    <div id="shipping" class="tab-content" style="display: none;">
+                    <div id="shipping" class="tab-content">
                         <div class="space-y-6">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
@@ -676,38 +676,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
     
+    console.log('Pestañas encontradas:', tabButtons.length);
+    console.log('Contenidos encontrados:', tabContents.length);
+    
     // Mostrar primera pestaña por defecto
     if (tabContents.length > 0) {
+        // Ocultar todas primero
+        tabContents.forEach(content => {
+            content.style.display = 'none';
+        });
+        // Mostrar solo la primera
         tabContents[0].style.display = 'block';
-        // Ocultar las demás pestañas
-        for (let i = 1; i < tabContents.length; i++) {
-            tabContents[i].style.display = 'none';
-        }
+        console.log('Primera pestaña mostrada:', tabContents[0].id);
     }
     
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             const targetTab = this.getAttribute('data-tab');
+            console.log('Click en pestaña:', targetTab);
             
             // Remover clase active de todos los botones
             tabButtons.forEach(btn => {
-                btn.classList.remove('active', 'text-blue-600', 'bg-white', 'border-blue-500', 'border-b-3');
-                btn.classList.add('text-gray-600', 'bg-gray-50', 'hover:bg-gray-100');
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
             });
             
             // Agregar clase active al botón clickeado
-            this.classList.add('active', 'text-blue-600', 'bg-white', 'border-blue-500', 'border-b-3');
-            this.classList.remove('text-gray-600', 'bg-gray-50', 'hover:bg-gray-100');
+            this.classList.remove('border-transparent', 'text-gray-500');
+            this.classList.add('border-blue-500', 'text-blue-600');
             
             // Ocultar todos los contenidos
             tabContents.forEach(content => {
                 content.style.display = 'none';
+                console.log('Ocultando:', content.id);
             });
             
             // Mostrar el contenido correspondiente
             const targetContent = document.getElementById(targetTab);
             if (targetContent) {
                 targetContent.style.display = 'block';
+                console.log('Mostrando:', targetTab);
+                console.log('Contenido HTML:', targetContent.innerHTML.substring(0, 200));
+            } else {
+                console.error('No se encontró el contenido para:', targetTab);
             }
         });
     });
