@@ -1943,6 +1943,104 @@ function itools_require_review_approval( $approved, $commentdata ) {
 add_filter( 'pre_comment_approved', 'itools_require_review_approval', 10, 2 );
 
 /**
+ * Hacer visibles las reseñas de productos en el admin de WordPress
+ * Por defecto WooCommerce las oculta del panel de comentarios estándar
+ */
+function itools_show_product_reviews_in_admin() {
+    // Remover los filtros de WooCommerce que ocultan las reseñas
+    remove_filter( 'comments_clauses', array( 'WC_Comments', 'exclude_order_comments' ), 10 );
+    remove_filter( 'comment_feed_where', array( 'WC_Comments', 'exclude_order_comments_from_feed_where' ) );
+}
+add_action( 'admin_init', 'itools_show_product_reviews_in_admin' );
+
+/**
+ * Incluir reseñas de productos en el conteo de comentarios del admin
+ */
+function itools_include_reviews_in_comment_count( $stats, $post_id ) {
+    global $wpdb;
+
+    if ( $post_id === 0 ) {
+        // Obtener todos los comentarios incluyendo reseñas
+        $count = $wpdb->get_results( "
+            SELECT comment_approved, COUNT(*) AS num_comments 
+            FROM {$wpdb->comments} 
+            WHERE comment_type IN ('', 'comment', 'review')
+            GROUP BY comment_approved
+        ", ARRAY_A );
+
+        $stats = array(
+            'approved'       => 0,
+            'moderated'      => 0,
+            'spam'           => 0,
+            'trash'          => 0,
+            'post-trashed'   => 0,
+            'total_comments' => 0,
+            'all'            => 0,
+        );
+
+        foreach ( (array) $count as $row ) {
+            switch ( $row['comment_approved'] ) {
+                case 'trash':
+                    $stats['trash'] = $row['num_comments'];
+                    break;
+                case 'post-trashed':
+                    $stats['post-trashed'] = $row['num_comments'];
+                    break;
+                case 'spam':
+                    $stats['spam'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    break;
+                case '1':
+                    $stats['approved'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    $stats['all'] += $row['num_comments'];
+                    break;
+                case '0':
+                    $stats['moderated'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    $stats['all'] += $row['num_comments'];
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return (object) $stats;
+    }
+
+    return $stats;
+}
+add_filter( 'wp_count_comments', 'itools_include_reviews_in_comment_count', 10, 2 );
+
+/**
+ * Asegurar que las reseñas aparezcan en las consultas del admin
+ */
+function itools_include_reviews_in_comments_query( $clauses ) {
+    global $pagenow, $wpdb;
+
+    // Solo en el panel de administración de comentarios
+    if ( is_admin() && $pagenow === 'edit-comments.php' ) {
+        // Modificar la cláusula WHERE para incluir reseñas
+        if ( strpos( $clauses['where'], "comment_type" ) !== false ) {
+            // Si ya hay una restricción de comment_type, ampliarla
+            $clauses['where'] = str_replace(
+                "comment_type = ''",
+                "comment_type IN ('', 'comment', 'review')",
+                $clauses['where']
+            );
+            $clauses['where'] = str_replace(
+                "comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
+                "comment_type IN ('', 'comment', 'review') OR comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
+                $clauses['where']
+            );
+        }
+    }
+
+    return $clauses;
+}
+add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 );
+
+/**
  * Mostrar mensaje al usuario después de enviar una reseña
  * Informar que está pendiente de aprobación
  */
