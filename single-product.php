@@ -340,17 +340,25 @@ get_header(); ?>
                             <?php
                             global $product;
                             
-                            // Obtener comentarios/reseñas existentes
+                            // Obtener comentarios/reseñas existentes aprobadas
+                            // Incluir tanto comment_type vacío como 'review'
                             $comments = get_comments(array(
                                 'post_id' => $product->get_id(),
                                 'status' => 'approve',
-                                'type' => 'review'
+                                'type__in' => array('', 'comment', 'review'), // Acepta cualquiera de estos tipos
+                                'orderby' => 'comment_date',
+                                'order' => 'DESC'
                             ));
                             
-                            if ($comments) :
+                            // Filtrar solo los que tienen rating (son reseñas)
+                            $reviews = array_filter($comments, function($comment) {
+                                return get_comment_meta($comment->comment_ID, 'rating', true) !== '';
+                            });
+                            
+                            if ($reviews) :
                                 ?>
                                 <div class="existing-reviews" style="margin-bottom: 30px;">
-                                    <?php foreach ($comments as $comment) : 
+                                    <?php foreach ($reviews as $comment) : 
                                         $rating = get_comment_meta($comment->comment_ID, 'rating', true);
                                     ?>
                                         <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 15px;">

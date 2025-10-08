@@ -2044,7 +2044,7 @@ add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 
 function itools_disable_woocommerce_comment_filters() {
     global $pagenow;
     
-    if ( is_admin() && $pagenow === 'edit-comments.php' ) {
+    if ( is_admin() && ( $pagenow === 'edit-comments.php' || $pagenow === 'index.php' ) ) {
         // Remover TODOS los filtros de WooCommerce relacionados con comentarios
         if ( class_exists( 'WC_Comments' ) ) {
             remove_all_filters( 'comments_clauses' );
@@ -2054,6 +2054,40 @@ function itools_disable_woocommerce_comment_filters() {
     }
 }
 add_action( 'admin_init', 'itools_disable_woocommerce_comment_filters', 1 );
+
+/**
+ * SOLUCIÓN NUCLEAR: Reescribir completamente la consulta de comentarios
+ * para incluir reseñas de productos
+ */
+function itools_force_show_all_reviews( $clauses, $query ) {
+    global $wpdb, $pagenow;
+    
+    // Solo en el admin de comentarios
+    if ( ! is_admin() || $pagenow !== 'edit-comments.php' ) {
+        return $clauses;
+    }
+    
+    // Reemplazar completamente la cláusula WHERE
+    // Excluir solo las notas de pedido y logs, permitir TODO lo demás
+    $clauses['where'] = preg_replace(
+        '/WHERE.*?(?=ORDER BY|GROUP BY|LIMIT|$)/s',
+        "WHERE {$wpdb->comments}.comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log') ",
+        $clauses['where']
+    );
+    
+    // Si estamos en la vista de pendientes, agregar esa condición
+    if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'moderated' ) {
+        $clauses['where'] .= " AND {$wpdb->comments}.comment_approved = '0' ";
+    }
+    
+    // Si estamos en la vista de aprobados
+    if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'approved' ) {
+        $clauses['where'] .= " AND {$wpdb->comments}.comment_approved = '1' ";
+    }
+    
+    return $clauses;
+}
+add_filter( 'comments_clauses', 'itools_force_show_all_reviews', 9999, 2 );
 
 /**
  * Mostrar mensaje al usuario después de enviar una reseña
