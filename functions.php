@@ -2047,10 +2047,17 @@ add_action( 'comment_post', 'itools_notify_admin_new_review', 10, 2 );
  * Handler para procesar el formulario de reseñas personalizado
  */
 function itools_handle_custom_review_submission() {
+    // Log para debug
+    error_log('🔍 REVIEW SUBMISSION STARTED');
+    error_log('POST data: ' . print_r($_POST, true));
+    
     // Verificar nonce
     if ( ! isset( $_POST['review_nonce'] ) || ! wp_verify_nonce( $_POST['review_nonce'], 'product_review_nonce' ) ) {
+        error_log('❌ Nonce verification failed');
         wp_die( 'Error de seguridad. Por favor intenta de nuevo.' );
     }
+    
+    error_log('✅ Nonce verified');
     
     // Obtener datos del formulario
     $product_id = intval( $_POST['product_id'] );
@@ -2059,43 +2066,74 @@ function itools_handle_custom_review_submission() {
     $author = sanitize_text_field( $_POST['author'] );
     $email = sanitize_email( $_POST['email'] );
     
+    error_log("Product ID: $product_id, Rating: $rating, Author: $author");
+    
     // Validar datos
     if ( ! $product_id || ! $rating || ! $comment_content || ! $author || ! $email ) {
+        error_log('❌ Validation failed - missing required fields');
         wp_die( 'Por favor completa todos los campos requeridos.' );
     }
     
-    // Crear el comentario/reseña
+    error_log('✅ Validation passed');
+    
+    // Crear el comentario/reseña - COMPATIBLE CON WOOCOMMERCE
     $comment_data = array(
         'comment_post_ID' => $product_id,
         'comment_author' => $author,
         'comment_author_email' => $email,
+        'comment_author_url' => '',
         'comment_content' => $comment_content,
-        'comment_type' => 'review',
-        'comment_approved' => 0, // Pendiente de aprobación
-        'comment_date' => current_time( 'mysql' ),
-        'comment_date_gmt' => current_time( 'mysql', 1 ),
+        'comment_type' => 'review', // WooCommerce usa 'review'
+        'comment_parent' => 0,
+        'user_id' => get_current_user_id(),
+        'comment_approved' => 0, // 0 = Pendiente, 1 = Aprobado
+        'comment_agent' => 'Custom Review Form',
     );
+    
+    error_log('Comment data prepared: ' . print_r($comment_data, true));
     
     // Insertar comentario
     $comment_id = wp_insert_comment( $comment_data );
     
+    error_log("Comment inserted with ID: $comment_id");
+    
     if ( $comment_id ) {
-        // Guardar la calificación como meta
-        add_comment_meta( $comment_id, 'rating', $rating );
+        // Guardar la calificación como meta (formato WooCommerce)
+        add_comment_meta( $comment_id, 'rating', $rating, true );
+        add_comment_meta( $comment_id, 'verified', 0 ); // No verificado (no compró)
         
-        // Actualizar el rating del producto
+        error_log("✅ Review created successfully! ID: $comment_id, Rating: $rating");
+        
+        // Actualizar estadísticas del producto
         $product = wc_get_product( $product_id );
         if ( $product ) {
-            $product->set_rating_counts( array() );
-            $product->set_average_rating( '' );
-            $product->set_review_count( 0 );
-            $product->save();
+            // Limpiar cache del producto para forzar recálculo
+            delete_transient( 'wc_average_rating_' . $product_id );
+            delete_transient( 'wc_review_count_' . $product_id );
+            
+            error_log("✅ Product transients cleared for ID: $product_id");
         }
+        
+        // Enviar email al administrador
+        $admin_email = get_option( 'admin_email' );
+        $subject = '⭐ Nueva reseña pendiente de aprobación';
+        $message = "Nueva reseña recibida:\n\n";
+        $message .= "Producto ID: $product_id\n";
+        $message .= "Autor: $author\n";
+        $message .= "Email: $email\n";
+        $message .= "Calificación: $rating estrellas\n";
+        $message .= "Comentario: $comment_content\n\n";
+        $message .= "Ver en admin: " . admin_url('edit-comments.php?comment_status=moderated') . "\n";
+        $message .= "Aprobar directamente: " . admin_url('comment.php?action=approve&c=' . $comment_id);
+        
+        wp_mail( $admin_email, $subject, $message );
+        error_log("✅ Admin email sent to: $admin_email");
         
         // Redirigir de vuelta al producto con mensaje de éxito
         wp_redirect( add_query_arg( 'review_submitted', '1', get_permalink( $product_id ) ) );
         exit;
     } else {
+        error_log('❌ Failed to insert comment');
         wp_die( 'Error al enviar la reseña. Por favor intenta de nuevo.' );
     }
 }
