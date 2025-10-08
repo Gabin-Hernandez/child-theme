@@ -320,13 +320,11 @@ get_header(); ?>
                     
                     <!-- Reseñas y formulario -->
                     <div id="reviews" class="tab-content">
-                        <?php
-                        // Usar la plantilla nativa de comentarios de WooCommerce
-                        global $product;
+                        <?php 
+                        global $product, $post;
                         
-                        if ( ! comments_open() ) {
-                            return;
-                        }
+                        // DEBUG: Mostrar información de diagnóstico
+                        include( get_stylesheet_directory() . '/debug-reviews.php' );
                         ?>
                         
                         <div id="reviews" class="woocommerce-Reviews">

@@ -1916,6 +1916,41 @@ function itools_force_comments_open_for_products( $open, $post_id ) {
 }
 
 /**
+ * Forzar comment_status a 'open' para todos los productos
+ */
+function itools_force_product_comment_status( $data, $postarr ) {
+    if ( isset( $data['post_type'] ) && $data['post_type'] === 'product' ) {
+        $data['comment_status'] = 'open';
+    }
+    return $data;
+}
+add_filter( 'wp_insert_post_data', 'itools_force_product_comment_status', 10, 2 );
+
+/**
+ * Actualizar productos existentes para habilitar comentarios
+ */
+function itools_enable_comments_on_existing_products() {
+    // Solo ejecutar una vez
+    if ( get_option( 'itools_comments_enabled' ) ) {
+        return;
+    }
+    
+    global $wpdb;
+    
+    // Actualizar todos los productos para habilitar comentarios
+    $wpdb->query( "
+        UPDATE {$wpdb->posts} 
+        SET comment_status = 'open' 
+        WHERE post_type = 'product' 
+        AND comment_status != 'open'
+    " );
+    
+    // Marcar como ejecutado
+    update_option( 'itools_comments_enabled', true );
+}
+add_action( 'admin_init', 'itools_enable_comments_on_existing_products' );
+
+/**
  * Permitir reseñas sin necesidad de compra previa
  * Elimina la verificación de compra de WooCommerce
  */
