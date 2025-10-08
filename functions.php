@@ -2043,6 +2043,78 @@ function itools_notify_admin_new_review( $comment_id, $comment_approved ) {
 }
 add_action( 'comment_post', 'itools_notify_admin_new_review', 10, 2 );
 
+/**
+ * Handler para procesar el formulario de reseñas personalizado
+ */
+function itools_handle_custom_review_submission() {
+    // Verificar nonce
+    if ( ! isset( $_POST['review_nonce'] ) || ! wp_verify_nonce( $_POST['review_nonce'], 'product_review_nonce' ) ) {
+        wp_die( 'Error de seguridad. Por favor intenta de nuevo.' );
+    }
+    
+    // Obtener datos del formulario
+    $product_id = intval( $_POST['product_id'] );
+    $rating = intval( $_POST['rating'] );
+    $comment_content = sanitize_textarea_field( $_POST['comment'] );
+    $author = sanitize_text_field( $_POST['author'] );
+    $email = sanitize_email( $_POST['email'] );
+    
+    // Validar datos
+    if ( ! $product_id || ! $rating || ! $comment_content || ! $author || ! $email ) {
+        wp_die( 'Por favor completa todos los campos requeridos.' );
+    }
+    
+    // Crear el comentario/reseña
+    $comment_data = array(
+        'comment_post_ID' => $product_id,
+        'comment_author' => $author,
+        'comment_author_email' => $email,
+        'comment_content' => $comment_content,
+        'comment_type' => 'review',
+        'comment_approved' => 0, // Pendiente de aprobación
+        'comment_date' => current_time( 'mysql' ),
+        'comment_date_gmt' => current_time( 'mysql', 1 ),
+    );
+    
+    // Insertar comentario
+    $comment_id = wp_insert_comment( $comment_data );
+    
+    if ( $comment_id ) {
+        // Guardar la calificación como meta
+        add_comment_meta( $comment_id, 'rating', $rating );
+        
+        // Actualizar el rating del producto
+        $product = wc_get_product( $product_id );
+        if ( $product ) {
+            $product->set_rating_counts( array() );
+            $product->set_average_rating( '' );
+            $product->set_review_count( 0 );
+            $product->save();
+        }
+        
+        // Redirigir de vuelta al producto con mensaje de éxito
+        wp_redirect( add_query_arg( 'review_submitted', '1', get_permalink( $product_id ) ) );
+        exit;
+    } else {
+        wp_die( 'Error al enviar la reseña. Por favor intenta de nuevo.' );
+    }
+}
+add_action( 'admin_post_submit_product_review', 'itools_handle_custom_review_submission' );
+add_action( 'admin_post_nopriv_submit_product_review', 'itools_handle_custom_review_submission' );
+
+/**
+ * Mostrar mensaje de éxito después de enviar reseña
+ */
+function itools_show_review_success_message() {
+    if ( is_product() && isset( $_GET['review_submitted'] ) && $_GET['review_submitted'] == '1' ) {
+        echo '<div style="background: #d1fae5; border: 2px solid #10b981; color: #065f46; padding: 20px; border-radius: 12px; margin: 20px auto; max-width: 1200px; text-align: center; font-size: 16px;">
+            <strong>✅ ¡Gracias por tu reseña!</strong><br>
+            Tu reseña ha sido recibida y está pendiente de aprobación por nuestro equipo. Será publicada pronto.
+        </div>';
+    }
+}
+add_action( 'woocommerce_before_single_product', 'itools_show_review_success_message' );
+
 // Mejorar la búsqueda de productos para que sea más flexible
 function itools_improve_product_search( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {

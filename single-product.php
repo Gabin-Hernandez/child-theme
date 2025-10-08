@@ -320,21 +320,143 @@ get_header(); ?>
                     
                     <!-- Reseñas y formulario -->
                     <div id="reviews" class="tab-content">
-                        <?php
-                        // Usar el template nativo de WooCommerce
-                        global $product;
-                        
-                        // Forzar que los comentarios estén abiertos temporalmente
-                        add_filter( 'comments_open', '__return_true', 999 );
-                        
-                        // Cargar el template de reseñas de WooCommerce
-                        if ( function_exists( 'wc_get_template' ) ) {
-                            wc_get_template( 'single-product-reviews.php' );
-                        }
-                        
-                        // Remover el filtro después
-                        remove_filter( 'comments_open', '__return_true', 999 );
-                        ?>
+                        <div class="reviews-wrapper" style="padding: 20px;">
+                            <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #1f2937;">
+                                Reseñas de Clientes
+                            </h2>
+                            
+                            <?php
+                            global $product;
+                            
+                            // Obtener comentarios/reseñas existentes
+                            $comments = get_comments(array(
+                                'post_id' => $product->get_id(),
+                                'status' => 'approve',
+                                'type' => 'review'
+                            ));
+                            
+                            if ($comments) :
+                                ?>
+                                <div class="existing-reviews" style="margin-bottom: 30px;">
+                                    <?php foreach ($comments as $comment) : 
+                                        $rating = get_comment_meta($comment->comment_ID, 'rating', true);
+                                    ?>
+                                        <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 15px;">
+                                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                                <strong style="font-size: 16px; color: #1f2937;"><?php echo esc_html($comment->comment_author); ?></strong>
+                                                <?php if ($rating) : ?>
+                                                    <span style="margin-left: 10px; color: #fbbf24;">
+                                                        <?php echo str_repeat('⭐', $rating); ?>
+                                                    </span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <p style="color: #4b5563; line-height: 1.6; margin: 0;">
+                                                <?php echo esc_html($comment->comment_content); ?>
+                                            </p>
+                                            <span style="font-size: 12px; color: #9ca3af; margin-top: 10px; display: block;">
+                                                <?php echo date_i18n('d/m/Y', strtotime($comment->comment_date)); ?>
+                                            </span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php else : ?>
+                                <p style="color: #6b7280; margin-bottom: 30px;">
+                                    No hay reseñas todavía. ¡Sé el primero en dejar una!
+                                </p>
+                            <?php endif; ?>
+                            
+                            <!-- Formulario de reseña -->
+                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 30px;">
+                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #1f2937;">
+                                    Agregar una Reseña
+                                </h3>
+                                
+                                <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display: block;">
+                                    <input type="hidden" name="action" value="submit_product_review">
+                                    <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
+                                    <?php wp_nonce_field('product_review_nonce', 'review_nonce'); ?>
+                                    
+                                    <!-- Calificación -->
+                                    <div style="margin-bottom: 20px;">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
+                                            Tu Calificación <span style="color: red;">*</span>
+                                        </label>
+                                        <div class="star-rating-input" style="display: flex; gap: 5px; font-size: 30px;">
+                                            <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
+                                            <label for="star1" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(1)">★</label>
+                                            
+                                            <input type="radio" name="rating" value="2" id="star2" style="display: none;">
+                                            <label for="star2" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(2)">★</label>
+                                            
+                                            <input type="radio" name="rating" value="3" id="star3" style="display: none;">
+                                            <label for="star3" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(3)">★</label>
+                                            
+                                            <input type="radio" name="rating" value="4" id="star4" style="display: none;">
+                                            <label for="star4" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(4)">★</label>
+                                            
+                                            <input type="radio" name="rating" value="5" id="star5" style="display: none;">
+                                            <label for="star5" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(5)">★</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Comentario -->
+                                    <div style="margin-bottom: 20px;">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
+                                            Tu Reseña <span style="color: red;">*</span>
+                                        </label>
+                                        <textarea name="comment" rows="6" required 
+                                                  style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; font-family: inherit;"
+                                                  placeholder="Cuéntanos tu experiencia con este producto..."></textarea>
+                                    </div>
+                                    
+                                    <!-- Nombre -->
+                                    <div style="margin-bottom: 20px;">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
+                                            Nombre <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" name="author" required 
+                                               style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;"
+                                               placeholder="Tu nombre">
+                                    </div>
+                                    
+                                    <!-- Email -->
+                                    <div style="margin-bottom: 20px;">
+                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
+                                            Email <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="email" name="email" required 
+                                               style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;"
+                                               placeholder="tu@email.com">
+                                    </div>
+                                    
+                                    <!-- Mensaje informativo -->
+                                    <div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+                                        <p style="margin: 0; color: #1e40af; font-size: 14px;">
+                                            ℹ️ Tu reseña será revisada por nuestro equipo antes de ser publicada. Te notificaremos cuando sea aprobada.
+                                        </p>
+                                    </div>
+                                    
+                                    <!-- Botón -->
+                                    <button type="submit" 
+                                            style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 14px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%;">
+                                        Enviar Reseña
+                                    </button>
+                                </form>
+                                
+                                <script>
+                                function selectStars(rating) {
+                                    const labels = document.querySelectorAll('.star-rating-input label');
+                                    labels.forEach((label, index) => {
+                                        if (index < rating) {
+                                            label.style.color = '#fbbf24';
+                                        } else {
+                                            label.style.color = '#d1d5db';
+                                        }
+                                    });
+                                }
+                                </script>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Envío y Devoluciones -->
