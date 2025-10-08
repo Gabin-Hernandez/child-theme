@@ -317,6 +317,74 @@ get_header(); ?>
                             ?>
                         </div>
                     </div>
+                    
+                    <!-- Reseñas y formulario -->
+                    <div id="reviews" class="tab-content" style="display: none;">
+                        <?php
+                        // Mostrar las reseñas y el formulario de WooCommerce
+                        if ( comments_open() || get_comments_number() ) {
+                            comments_template();
+                        } else {
+                            echo '<div class="text-center py-8">';
+                            echo '<p class="text-gray-500 mb-4">Las reseñas están deshabilitadas para este producto.</p>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
+                    
+                    <!-- Envío y Devoluciones -->
+                    <div id="shipping" class="tab-content" style="display: none;">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                                    </svg>
+                                    Opciones de Envío
+                                </h3>
+                                <ul class="space-y-2 text-gray-700 text-sm">
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span><strong>Envío estándar:</strong> 3-5 días hábiles</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span><strong>Envío express:</strong> 1-2 días hábiles</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span><strong>Recolección en tienda:</strong> Disponible sin costo</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                    <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+                                    </svg>
+                                    Política de Devoluciones
+                                </h3>
+                                <div class="text-gray-700 text-sm space-y-2">
+                                    <p>Aceptamos devoluciones dentro de los <strong>30 días</strong> posteriores a la compra.</p>
+                                    <p>Los productos deben estar en su empaque original y sin usar.</p>
+                                    <p>El reembolso se procesará dentro de 5-7 días hábiles después de recibir el producto.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <p class="text-sm text-blue-800">
+                                    <strong>¿Tienes dudas?</strong> Contacta con nuestro equipo de soporte para más información sobre envíos y devoluciones.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
