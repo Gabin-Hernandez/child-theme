@@ -403,19 +403,19 @@ get_header(); ?>
                                         </label>
                                         <div class="star-rating-input" style="display: flex; gap: 5px; font-size: 30px;">
                                             <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
-                                            <label for="star1" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(1)">★</label>
+                                            <label for="star1" class="star-label" data-value="1" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
                                             
                                             <input type="radio" name="rating" value="2" id="star2" style="display: none;">
-                                            <label for="star2" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(2)">★</label>
+                                            <label for="star2" class="star-label" data-value="2" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
                                             
                                             <input type="radio" name="rating" value="3" id="star3" style="display: none;">
-                                            <label for="star3" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(3)">★</label>
+                                            <label for="star3" class="star-label" data-value="3" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
                                             
                                             <input type="radio" name="rating" value="4" id="star4" style="display: none;">
-                                            <label for="star4" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(4)">★</label>
+                                            <label for="star4" class="star-label" data-value="4" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
                                             
                                             <input type="radio" name="rating" value="5" id="star5" style="display: none;">
-                                            <label for="star5" style="cursor: pointer; color: #d1d5db;" onmouseover="this.style.color='#fbbf24'" onmouseout="this.style.color='#d1d5db'" onclick="selectStars(5)">★</label>
+                                            <label for="star5" class="star-label" data-value="5" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
                                         </div>
                                     </div>
                                     
@@ -464,16 +464,42 @@ get_header(); ?>
                                 </form>
                                 
                                 <script>
-                                function selectStars(rating) {
-                                    const labels = document.querySelectorAll('.star-rating-input label');
-                                    labels.forEach((label, index) => {
-                                        if (index < rating) {
-                                            label.style.color = '#fbbf24';
-                                        } else {
-                                            label.style.color = '#d1d5db';
-                                        }
+                                // Sistema mejorado de calificación por estrellas
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const starLabels = document.querySelectorAll('.star-label');
+                                    let selectedRating = 0;
+                                    
+                                    starLabels.forEach((label, index) => {
+                                        const rating = parseInt(label.getAttribute('data-value'));
+                                        
+                                        // Click: seleccionar rating
+                                        label.addEventListener('click', function() {
+                                            selectedRating = rating;
+                                            updateStars(rating);
+                                        });
+                                        
+                                        // Hover: preview
+                                        label.addEventListener('mouseenter', function() {
+                                            updateStars(rating);
+                                        });
+                                        
+                                        // Mouse sale: volver al seleccionado
+                                        label.addEventListener('mouseleave', function() {
+                                            updateStars(selectedRating);
+                                        });
                                     });
-                                }
+                                    
+                                    function updateStars(rating) {
+                                        starLabels.forEach(label => {
+                                            const labelValue = parseInt(label.getAttribute('data-value'));
+                                            if (labelValue <= rating) {
+                                                label.style.color = '#fbbf24'; // Dorado
+                                            } else {
+                                                label.style.color = '#d1d5db'; // Gris
+                                            }
+                                        });
+                                    }
+                                });
                                 </script>
                             </div>
                         </div>
