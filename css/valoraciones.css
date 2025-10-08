@@ -89,40 +89,37 @@
     border-color: transparent;
 }
 
-/* Tamaños según rating */
+/* Tamaños según rating - solo azul y gris */
 .review-small {
     padding: 1.25rem;
-    opacity: 0.9;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
 }
 
 .review-medium {
     padding: 1.5rem;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border: 1px solid #93c5fd;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
 }
 
 .review-large {
     padding: 2rem;
-    border: 2px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(135deg, #fbbf24, #f59e0b) border-box;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: 2px solid #2563eb;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.25);
 }
 
-/* Prioridades visuales */
-.review-priority-high {
-    background: linear-gradient(135deg, #fef3c7, #fbbf24);
-    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.15);
+/* Texto blanco para cards grandes (azul) */
+.review-large .review-author,
+.review-large .review-text p,
+.review-large .product-name a {
+    color: white;
 }
 
-.review-priority-high:hover {
-    box-shadow: 0 20px 40px rgba(251, 191, 36, 0.25);
-}
-
-.review-priority-medium {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
-}
-
-.review-priority-low {
-    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+.review-large .review-date {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* Contenido de la reseña */
@@ -277,7 +274,7 @@
     color: #059669;
 }
 
-/* Efecto decorativo */
+/* Efecto decorativo - simplificado */
 .review-decoration {
     position: absolute;
     top: 0;
@@ -286,19 +283,18 @@
     height: 60px;
     opacity: 0.1;
     pointer-events: none;
-    background: radial-gradient(circle, #fbbf24, transparent 70%);
+    background: radial-gradient(circle, #3b82f6, transparent 70%);
     border-radius: 50%;
     transform: translate(30px, -30px);
     transition: all 0.4s ease;
 }
 
-.review-priority-high .review-decoration {
-    opacity: 0.2;
-    background: radial-gradient(circle, #f59e0b, transparent 70%);
+.review-large .review-decoration {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
 }
 
 .review-card:hover .review-decoration {
-    opacity: 0.3;
+    opacity: 0.2;
     transform: translate(20px, -20px) scale(1.2);
 }
 

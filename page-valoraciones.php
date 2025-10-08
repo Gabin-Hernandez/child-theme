@@ -89,24 +89,27 @@ $banner_url = get_the_post_thumbnail_url($page_id, 'full');
             <div class="mb-12">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                     <?php
-                    // Obtener estadísticas de reseñas
+                    // Obtener estadísticas de reseñas - usando la nueva consulta que incluye todos los tipos
                     $total_reviews = get_comments(array(
-                        'type' => 'review',
-                        'status' => 'approve',
-                        'post_type' => 'product',
-                        'count' => true
-                    ));
-                    
-                    $avg_rating_query = new WP_Comment_Query();
-                    $all_reviews = $avg_rating_query->query(array(
-                        'type' => 'review',
                         'status' => 'approve',
                         'post_type' => 'product',
                         'meta_query' => array(
                             array(
                                 'key' => 'rating',
-                                'value' => array(1, 2, 3, 4, 5),
-                                'compare' => 'IN'
+                                'compare' => 'EXISTS'
+                            )
+                        ),
+                        'count' => true
+                    ));
+                    
+                    $avg_rating_query = new WP_Comment_Query();
+                    $all_reviews = $avg_rating_query->query(array(
+                        'status' => 'approve',
+                        'post_type' => 'product',
+                        'meta_query' => array(
+                            array(
+                                'key' => 'rating',
+                                'compare' => 'EXISTS'
                             )
                         )
                     ));
@@ -152,7 +155,7 @@ $banner_url = get_the_post_thumbnail_url($page_id, 'full');
             </div>
 
             <!-- Shortcode de valoraciones -->
-            <?php echo do_shortcode('[valoraciones_globales numero="24" orden="date" direccion="DESC" mostrar_paginacion="true"]'); ?>
+            <?php echo do_shortcode('[valoraciones_globales numero="20" orden="date" direccion="DESC" mostrar_paginacion="true"]'); ?>
             
             <!-- Call to action -->
             <div class="mt-16 text-center">

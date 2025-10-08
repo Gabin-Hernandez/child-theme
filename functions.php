@@ -2600,11 +2600,11 @@ add_action('wp_ajax_nopriv_itools_quick_filter', 'itools_ajax_quick_filter');
 
 // Shortcode para mostrar todas las valoraciones de WooCommerce
 function itools_valoraciones_globales_shortcode($atts) {
-    // Parámetros del shortcode
+    // Parámetros del shortcode - simplificado
     $atts = shortcode_atts(array(
-        'numero' => 24,  // Número de reseñas por página
-        'orden' => 'date', // date, rating
-        'direcion' => 'DESC', // ASC, DESC
+        'numero' => 20,  // 20 reseñas por página
+        'orden' => 'date',
+        'direcion' => 'DESC',
         'mostrar_paginacion' => 'true'
     ), $atts);
     
@@ -2698,21 +2698,7 @@ function itools_valoraciones_globales_shortcode($atts) {
             </p>
         </div>
         
-        <!-- Controles de ordenamiento -->
-        <div class="valoraciones-controls mb-8 flex flex-wrap justify-center gap-4">
-            <button class="control-btn active" data-order="date" data-direction="DESC">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Más Recientes
-            </button>
-            <button class="control-btn" data-order="rating" data-direction="DESC">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-                Mejor Puntuadas
-            </button>
-        </div>
+
         
         <!-- Grid de valoraciones -->
         <div class="valoraciones-grid">
