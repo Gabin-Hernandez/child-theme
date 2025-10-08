@@ -2611,20 +2611,13 @@ function itools_valoraciones_globales_shortcode($atts) {
     // Obtener página actual
     $paged = get_query_var('paged') ? get_query_var('paged') : 1;
     
-    // Argumentos para obtener comentarios (valoraciones)
+    // Argumentos simplificados para obtener comentarios (valoraciones)
     $comments_args = array(
         'type' => 'review',
         'status' => 'approve',
-        'post_type' => 'product',
         'number' => $atts['numero'],
-        'paged' => $paged,
-        'meta_query' => array(
-            array(
-                'key' => 'rating',
-                'value' => array(1, 2, 3, 4, 5),
-                'compare' => 'IN'
-            )
-        )
+        'offset' => ($paged - 1) * $atts['numero'],
+        'post_type' => 'product'
     );
     
     // Ordenamiento
@@ -2636,12 +2629,32 @@ function itools_valoraciones_globales_shortcode($atts) {
     }
     $comments_args['order'] = $atts['direcion'];
     
-    // Obtener valoraciones
-    $reviews_query = new WP_Comment_Query();
-    $reviews = $reviews_query->query($comments_args);
+    // Debug: Primero obtener TODAS las reseñas para ver cuántas hay realmente
+    $debug_args = array(
+        'type' => 'review',
+        'status' => 'approve',
+        'count' => true
+    );
+    $all_reviews_count = get_comments($debug_args);
     
-    // Obtener total para paginación
-    $total_reviews = $reviews_query->found_comments;
+    // Obtener valoraciones usando get_comments para mayor compatibilidad
+    $reviews = get_comments($comments_args);
+    
+    // Obtener total para paginación - consulta separada sin límite
+    $total_args = $comments_args;
+    unset($total_args['number']);
+    unset($total_args['paged']);
+    $total_args['count'] = true;
+    $total_reviews = get_comments($total_args);
+    
+    // Debug: Agregar información de depuración (solo para admin)
+    if (current_user_can('manage_options')) {
+        error_log("ITOOLS VALORACIONES DEBUG:");
+        error_log("Total reseñas en BD: " . $all_reviews_count);
+        error_log("Reseñas filtradas: " . $total_reviews);
+        error_log("Reseñas mostradas: " . count($reviews));
+        error_log("Parámetros consulta: " . print_r($comments_args, true));
+    }
     
     // Iniciar buffer de salida
     ob_start();
@@ -2699,7 +2712,8 @@ function itools_valoraciones_globales_shortcode($atts) {
                     $product_id = $review->comment_post_ID;
                     $product = wc_get_product($product_id);
                     
-                    if (!$product) continue;
+                    // Solo mostrar si tiene rating y producto válido
+                    if (!$product || !$rating) continue;
                     
                     // Incluir template parcial
                     include get_stylesheet_directory() . '/template-parts/review-card.php';
@@ -2796,6 +2810,111 @@ function itools_ajax_sort_valoraciones() {
 }
 add_action('wp_ajax_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
 add_action('wp_ajax_nopriv_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+
+// Crear página de valoraciones automáticamente
+function itools_create_valoraciones_page() {
+    // Verificar si la página ya existe
+    $existing_page = get_page_by_path('valoraciones');
+    
+    if (!$existing_page) {
+        // Crear la página
+        $page_data = array(
+            'post_title'    => 'Valoraciones',
+            'post_content'  => '[valoraciones_globales numero="24" orden="date" direccion="DESC" mostrar_paginacion="true"]',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_name'     => 'valoraciones',
+            'page_template' => 'page-valoraciones.php'
+        );
+        
+        $page_id = wp_insert_post($page_data);
+        
+        if ($page_id) {
+            // Configurar template de página
+            update_post_meta($page_id, '_wp_page_template', 'page-valoraciones.php');
+            
+            // Agregar excerpt personalizado
+            wp_update_post(array(
+                'ID' => $page_id,
+                'post_excerpt' => 'Descubre las experiencias reales de nuestros clientes satisfechos. Cada reseña es una historia de confianza y calidad en nuestros productos.'
+            ));
+        }
+    }
+}
+
+// Ejecutar al activar el tema
+add_action('after_switch_theme', 'itools_create_valoraciones_page');
+
+// También ejecutar al cargar el admin (solo una vez)
+add_action('admin_init', function() {
+    if (!get_option('itools_valoraciones_page_created')) {
+        itools_create_valoraciones_page();
+        update_option('itools_valoraciones_page_created', true);
+    }
+});
+
+// Función manual para recrear la página (para debugging)
+function itools_force_create_valoraciones_page() {
+    // Eliminar página existente si existe
+    $existing_page = get_page_by_path('valoraciones');
+    if ($existing_page) {
+        wp_delete_post($existing_page->ID, true);
+    }
+    
+    // Crear nueva página
+    itools_create_valoraciones_page();
+    
+    return "Página de valoraciones creada exitosamente!";
+}
+
+// Función de diagnóstico para reseñas
+function itools_debug_reviews() {
+    if (!current_user_can('manage_options')) {
+        return "No tienes permisos para ejecutar esta función.";
+    }
+    
+    $output = "<h3>Diagnóstico de Reseñas</h3>";
+    
+    // 1. Contar todas las reseñas
+    $all_comments = get_comments(array('type' => 'review', 'count' => true));
+    $output .= "<p><strong>Total reseñas tipo 'review':</strong> $all_comments</p>";
+    
+    // 2. Contar reseñas aprobadas
+    $approved_comments = get_comments(array('type' => 'review', 'status' => 'approve', 'count' => true));
+    $output .= "<p><strong>Reseñas aprobadas:</strong> $approved_comments</p>";
+    
+    // 3. Obtener reseñas con detalles
+    $reviews_detailed = get_comments(array(
+        'type' => 'review',
+        'status' => 'approve',
+        'number' => 20
+    ));
+    
+    $output .= "<p><strong>Reseñas encontradas con detalles:</strong> " . count($reviews_detailed) . "</p>";
+    
+    $output .= "<table border='1'><tr><th>ID</th><th>Autor</th><th>Producto</th><th>Rating</th><th>Fecha</th></tr>";
+    
+    foreach ($reviews_detailed as $review) {
+        $rating = get_comment_meta($review->comment_ID, 'rating', true);
+        $product = get_post($review->comment_post_ID);
+        $product_title = $product ? $product->post_title : 'Producto eliminado';
+        
+        $output .= "<tr>";
+        $output .= "<td>{$review->comment_ID}</td>";
+        $output .= "<td>{$review->comment_author}</td>";
+        $output .= "<td>$product_title</td>";
+        $output .= "<td>$rating</td>";
+        $output .= "<td>{$review->comment_date}</td>";
+        $output .= "</tr>";
+    }
+    
+    $output .= "</table>";
+    
+    return $output;
+}
+
+// Shortcode temporal para diagnóstico
+add_shortcode('debug_reviews', 'itools_debug_reviews');
 
 // Agregar variables JavaScript necesarias
 function itools_localize_scripts() {
