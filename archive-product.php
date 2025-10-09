@@ -610,7 +610,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -1036,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
 
 
 
