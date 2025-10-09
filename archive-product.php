@@ -248,7 +248,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <div class="bg-gray-50 min-h-screen py-12">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
+    <div class="w-11/12 lg:w-10/12 mx-auto px-4 xl:px-6 2xl:px-8">
 
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
@@ -610,7 +610,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
