@@ -78,7 +78,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-4 py-12">
+    <div class="w-11/12 lg:w-10/12 mx-auto px-4 py-12">
         <div class="flex flex-col lg:flex-row gap-8">
             
             <!-- Sidebar -->
