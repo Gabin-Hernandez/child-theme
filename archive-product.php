@@ -248,7 +248,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <div class="bg-gray-50 min-h-screen py-12">
-    <div class="w-11/12 lg:w-10/12 mx-auto px-4 xl:px-6 2xl:px-8">
+    <div class="w-11/12 mx-auto px-4 xl:px-6 2xl:px-8">
 
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
@@ -1049,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10';
 
 
 
