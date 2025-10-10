@@ -5,6 +5,7 @@
 El header ahora se comporta de manera inteligente según el estado de scroll de la página:
 
 ### ✅ Escenario 1: Usuario en la parte superior (Header Normal)
+
 ```
 ┌─────────────────────────────────────┐
 │         HEADER VISIBLE              │  ← Header en posición normal (NO sticky)
@@ -29,6 +30,7 @@ El header ahora se comporta de manera inteligente según el estado de scroll de 
 ```
 
 ### ✅ Escenario 2: Usuario ha scrolleado (Header Sticky)
+
 ```
 [Usuario ha scrolleado hacia abajo]
 
@@ -57,6 +59,7 @@ El header ahora se comporta de manera inteligente según el estado de scroll de 
 ## 🎯 Lógica de Detección
 
 ### CSS
+
 ```css
 /* Solo oculta cuando AMBAS condiciones se cumplen: */
 /* 1. Cart está abierto (body.cart-open) */
@@ -73,12 +76,17 @@ body.cart-open #main-header.scrolled {
 ```
 
 ### JavaScript
+
 ```javascript
 // En el método open() del cart sidepanel:
-const header = document.querySelector("#main-header") || document.querySelector("header");
+const header =
+  document.querySelector("#main-header") || document.querySelector("header");
 
 // Solo oculta si tiene clase 'sticky' o 'scrolled'
-if (header && (header.classList.contains("sticky") || header.classList.contains("scrolled"))) {
+if (
+  header &&
+  (header.classList.contains("sticky") || header.classList.contains("scrolled"))
+) {
   header.style.opacity = "0";
   header.style.visibility = "hidden";
   header.style.transition = "opacity 0.3s ease, visibility 0.3s ease";
@@ -88,20 +96,24 @@ if (header && (header.classList.contains("sticky") || header.classList.contains(
 ## 🔍 Clases del Header Detectadas
 
 El sistema detecta cualquiera de estas clases en el header:
+
 - `.sticky` - Clase agregada cuando el header se vuelve fijo
 - `.scrolled` - Clase agregada cuando el usuario ha scrolleado
 
 Si tu header usa una clase diferente, actualiza:
+
 1. El CSS en `cart-sidepanel.css`
 2. El JavaScript en `cart-sidepanel.js`
 
 ## 📱 Comportamiento Responsive
 
 ### Desktop (> 768px)
+
 - ✅ Header visible al inicio → permanece visible con cart abierto
 - ✅ Header sticky → se oculta con cart abierto
 
 ### Mobile (≤ 768px)
+
 - ✅ Header visible al inicio → permanece visible con cart abierto
 - ✅ Header sticky → se oculta con cart abierto
 
@@ -116,6 +128,7 @@ El comportamiento es consistente en todos los tamaños de pantalla.
 ## 🧪 Testing
 
 ### Test 1: Header en posición normal
+
 1. Ir a la parte superior de la página
 2. Abrir el cart sidepanel
 3. ✅ El header debe permanecer visible
@@ -123,6 +136,7 @@ El comportamiento es consistente en todos los tamaños de pantalla.
 5. ✅ Todo funciona normal
 
 ### Test 2: Header en modo sticky
+
 1. Hacer scroll hacia abajo (activar sticky)
 2. Verificar que el header tiene clase `.sticky` o `.scrolled`
 3. Abrir el cart sidepanel
@@ -131,6 +145,7 @@ El comportamiento es consistente en todos los tamaños de pantalla.
 6. ✅ El header debe reaparecer
 
 ### Test 3: Scroll durante cart abierto
+
 1. Tener el cart abierto en la parte superior
 2. Hacer scroll (activar sticky)
 3. ✅ El header debe ocultarse al volverse sticky
@@ -140,26 +155,35 @@ El comportamiento es consistente en todos los tamaños de pantalla.
 ## 🐛 Troubleshooting
 
 ### Problema: El header no se oculta cuando está sticky
+
 **Solución**: Verificar que el header tenga la clase `.sticky` o `.scrolled`
+
 ```javascript
 // Verifica en la consola:
-const header = document.querySelector('#main-header');
-console.log('Classes:', header.className);
-console.log('Has sticky:', header.classList.contains('sticky'));
-console.log('Has scrolled:', header.classList.contains('scrolled'));
+const header = document.querySelector("#main-header");
+console.log("Classes:", header.className);
+console.log("Has sticky:", header.classList.contains("sticky"));
+console.log("Has scrolled:", header.classList.contains("scrolled"));
 ```
 
 ### Problema: El header se oculta siempre
+
 **Solución**: Revisar que la condición en JavaScript esté presente:
+
 ```javascript
 // Debe tener esta verificación:
-if (header && (header.classList.contains("sticky") || header.classList.contains("scrolled"))) {
+if (
+  header &&
+  (header.classList.contains("sticky") || header.classList.contains("scrolled"))
+) {
   // Solo aquí se oculta
 }
 ```
 
 ### Problema: Transición brusca
+
 **Solución**: Verificar que el CSS tenga las transiciones:
+
 ```css
 transition: opacity 0.3s ease, visibility 0.3s ease;
 ```

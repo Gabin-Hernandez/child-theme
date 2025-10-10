@@ -45,7 +45,10 @@ body.cart-open #main-header.scrolled {
 // Hide header to prevent overlap - ONLY if header is in sticky mode
 const header =
   document.querySelector("#main-header") || document.querySelector("header");
-if (header && (header.classList.contains("sticky") || header.classList.contains("scrolled"))) {
+if (
+  header &&
+  (header.classList.contains("sticky") || header.classList.contains("scrolled"))
+) {
   header.style.opacity = "0";
   header.style.visibility = "hidden";
   header.style.transition = "opacity 0.3s ease, visibility 0.3s ease";
