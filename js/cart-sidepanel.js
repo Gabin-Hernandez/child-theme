@@ -187,35 +187,47 @@ class NewCartSidepanel {
       const headerElement = document.getElementById("main-header");
       const computedStyle = window.getComputedStyle(headerElement);
       console.log("✅ Header z-index después de abrir:", computedStyle.zIndex);
-      console.log("🔍 Header tiene clase cart-is-open:", headerElement.classList.contains("cart-is-open"));
-      
+      console.log(
+        "🔍 Header tiene clase cart-is-open:",
+        headerElement.classList.contains("cart-is-open")
+      );
+
       // Verificar todas las propiedades relacionadas con z-index
       console.log("🔍 Verificando reglas CSS aplicadas...");
       const allRules = Array.from(document.styleSheets)
-        .filter(sheet => {
+        .filter((sheet) => {
           try {
             return sheet.cssRules;
           } catch (e) {
             return false;
           }
         })
-        .flatMap(sheet => Array.from(sheet.cssRules))
-        .filter(rule => rule.selectorText && rule.selectorText.includes("cart-is-open"));
-      
-      console.log("📋 Reglas CSS con cart-is-open:", allRules.map(r => ({
-        selector: r.selectorText,
-        zIndex: r.style.zIndex
-      })));
-      
+        .flatMap((sheet) => Array.from(sheet.cssRules))
+        .filter(
+          (rule) =>
+            rule.selectorText && rule.selectorText.includes("cart-is-open")
+        );
+
+      console.log(
+        "📋 Reglas CSS con cart-is-open:",
+        allRules.map((r) => ({
+          selector: r.selectorText,
+          zIndex: r.style.zIndex,
+        }))
+      );
+
       // Si después de 50ms el z-index sigue siendo 10000, forzar con JavaScript
       if (computedStyle.zIndex === "10000") {
         console.warn("⚠️ CSS no funcionó, forzando z-index con JavaScript...");
         headerElement.style.setProperty("z-index", "9999", "important");
         console.log("✅ Z-index forzado a 9999 con !important");
-        
+
         // Verificar nuevamente
         setTimeout(() => {
-          console.log("🔍 Z-index final:", window.getComputedStyle(headerElement).zIndex);
+          console.log(
+            "🔍 Z-index final:",
+            window.getComputedStyle(headerElement).zIndex
+          );
         }, 10);
       }
     }, 50);
