@@ -3,15 +3,6 @@
  * Tema hijo ITOOLS - Versión limpia y funcional
  */
 
-// Deshabilitar cache de CSS/JS en desarrollo (TEMPORAL - REMOVER EN PRODUCCIÓN)
-add_action('init', function() {
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        header('Cache-Control: no-cache, no-store, must-revalidate');
-        header('Pragma: no-cache');
-        header('Expires: 0');
-    }
-});
-
 // Encolar estilos del tema padre
 function itools_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
@@ -47,7 +38,7 @@ function itools_enqueue_styles() {
         'itools-cart-sidepanel', 
         get_stylesheet_directory_uri() . '/css/cart-sidepanel.css', 
         array(), 
-        '2.0.' . time() // Versión con timestamp para evitar cache
+        filemtime(get_stylesheet_directory() . '/css/cart-sidepanel.css') 
     );
     
     // Encolar CSS para sliders de precio
@@ -72,7 +63,7 @@ function itools_enqueue_styles() {
         'itools-cart-sidepanel', 
         get_stylesheet_directory_uri() . '/js/cart-sidepanel.js', 
         array('jquery'), 
-        '2.0.' . time(), // Versión con timestamp para evitar cache
+        filemtime(get_stylesheet_directory() . '/js/cart-sidepanel.js'), 
         true 
     );
     
