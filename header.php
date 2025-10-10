@@ -412,7 +412,7 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; position: static;">
+    <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; position: static; z-index: 10000;">
         <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
@@ -812,20 +812,22 @@
         
         /* Reducir z-index del header cuando el carrito está abierto */
         body.cart-open #main-header,
-        body.cart-open #main-header.sticky {
+        body.cart-open #main-header.sticky,
+        body.cart-open header#main-header,
+        body.cart-open header#main-header[style] {
             z-index: 9999 !important;
         }
         
         /* Log de verificación de CSS cargado */
         body::before {
-            content: "Header CSS v2.0 loaded";
+            content: "Header CSS v2.1 loaded";
             position: absolute;
             left: -9999px;
         }
     </style>
 
     <script>
-        console.log('🎨 Header CSS cargado - Versión 2.0');
+        console.log('🎨 Header CSS cargado - Versión 2.1 - z-index inline agregado');
         
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.getElementById('main-header');
@@ -835,6 +837,8 @@
             
             console.log('🎯 Header script inicializado');
             console.log('📍 Header z-index inicial:', window.getComputedStyle(header).zIndex);
+            console.log('📍 Header style inline:', header.getAttribute('style'));
+            console.log('📍 Body classes iniciales:', body.className);
             
             // Observer para detectar cambios en la clase cart-open del body
             const observer = new MutationObserver(function(mutations) {
@@ -842,8 +846,18 @@
                     if (mutation.attributeName === 'class') {
                         const hasCartOpen = body.classList.contains('cart-open');
                         const headerZIndex = window.getComputedStyle(header).zIndex;
+                        const headerStyleAttr = header.getAttribute('style');
                         console.log('🔄 Body class cambió. cart-open:', hasCartOpen);
                         console.log('📊 Header z-index actual:', headerZIndex);
+                        console.log('📊 Header style attr:', headerStyleAttr);
+                        
+                        // Verificar si el CSS está aplicándose
+                        const allStyles = window.getComputedStyle(header);
+                        console.log('📊 Todas las propiedades calculadas:', {
+                            position: allStyles.position,
+                            zIndex: allStyles.zIndex,
+                            display: allStyles.display
+                        });
                     }
                 });
             });
