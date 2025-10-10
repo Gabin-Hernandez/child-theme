@@ -180,7 +180,7 @@ class NewCartSidepanel {
       "✅ Clases agregadas al body:",
       document.body.classList.toString()
     );
-    
+
     // Esperar un ciclo para que el CSS se aplique
     setTimeout(() => {
       console.log(
@@ -227,7 +227,7 @@ class NewCartSidepanel {
       "✅ Clases del body después de cerrar:",
       document.body.classList.toString()
     );
-    
+
     setTimeout(() => {
       console.log(
         "✅ Header z-index después de cerrar:",
