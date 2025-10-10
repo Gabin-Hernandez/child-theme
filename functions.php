@@ -2596,6 +2596,350 @@ function itools_ajax_quick_filter() {
 add_action('wp_ajax_itools_quick_filter', 'itools_ajax_quick_filter');
 add_action('wp_ajax_nopriv_itools_quick_filter', 'itools_ajax_quick_filter');
 
+// === SHORTCODE VALORACIONES GLOBALES ===
+
+// Shortcode para mostrar todas las valoraciones de WooCommerce
+function itools_valoraciones_globales_shortcode($atts) {
+    // Parámetros del shortcode - simplificado
+    $atts = shortcode_atts(array(
+        'numero' => 20,  // 20 reseñas por página
+        'orden' => 'date',
+        'direcion' => 'DESC',
+        'mostrar_paginacion' => 'true'
+    ), $atts);
+    
+    // Obtener página actual
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    
+    // Argumentos para obtener TODOS los comentarios de productos con rating
+    $comments_args = array(
+        'status' => 'approve',
+        'number' => $atts['numero'],
+        'offset' => ($paged - 1) * $atts['numero'],
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
+    );
+    
+    // Ordenamiento
+    if ($atts['orden'] == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $atts['direcion'];
+    
+    // Debug: Primero obtener TODAS las reseñas para ver cuántas hay realmente
+    $debug_args = array(
+        'status' => 'approve',
+        'post_type' => 'product',
+        'count' => true,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
+    );
+    $all_reviews_count = get_comments($debug_args);
+    
+    // Obtener valoraciones usando get_comments para mayor compatibilidad
+    $reviews = get_comments($comments_args);
+    
+    // Obtener total para paginación - consulta separada sin límite
+    $total_args = $comments_args;
+    unset($total_args['number']);
+    unset($total_args['paged']);
+    $total_args['count'] = true;
+    $total_reviews = get_comments($total_args);
+    
+    // Debug: Agregar información de depuración (solo para admin)
+    if (current_user_can('manage_options')) {
+        error_log("ITOOLS VALORACIONES DEBUG:");
+        error_log("Total reseñas en BD: " . $all_reviews_count);
+        error_log("Reseñas filtradas: " . $total_reviews);
+        error_log("Reseñas mostradas: " . count($reviews));
+        error_log("Parámetros consulta: " . print_r($comments_args, true));
+    }
+    
+    // Iniciar buffer de salida
+    ob_start();
+    
+    // Encolar estilos y scripts específicos para valoraciones
+    wp_enqueue_style('itools-valoraciones', get_stylesheet_directory_uri() . '/css/valoraciones.css', array(), '1.0.0');
+    wp_enqueue_script('itools-valoraciones-js', get_stylesheet_directory_uri() . '/js/valoraciones.js', array('jquery'), '1.0.0', true);
+    
+    // Localizar variables para AJAX
+    wp_localize_script('itools-valoraciones-js', 'valoracionesAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('valoraciones_nonce')
+    ));
+    ?>
+    
+    <div class="valoraciones-globales-container">
+        <!-- Header -->
+        <div class="valoraciones-header text-center mb-12">
+            <div class="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span class="font-bold text-lg">Testimonios de Clientes</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+                Lo que opinan <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">nuestros clientes</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Descubre las experiencias reales de más de <?php echo number_format($total_reviews); ?> clientes satisfechos con nuestros productos
+            </p>
+        </div>
+        
+
+        
+        <!-- Grid de valoraciones -->
+        <div class="valoraciones-grid">
+            <?php
+            if ($reviews) {
+                foreach ($reviews as $review) {
+                    $rating = get_comment_meta($review->comment_ID, 'rating', true);
+                    $product_id = $review->comment_post_ID;
+                    $product = wc_get_product($product_id);
+                    
+                    // Solo mostrar si tiene rating y producto válido
+                    if (!$product || !$rating) continue;
+                    
+                    // Incluir template parcial
+                    include get_stylesheet_directory() . '/template-parts/review-card.php';
+                }
+            } else {
+                echo '<div class="no-reviews"><p>No hay valoraciones disponibles en este momento.</p></div>';
+            }
+            ?>
+        </div>
+        
+        <!-- Paginación -->
+        <?php if ($atts['mostrar_paginacion'] == 'true' && $total_reviews > $atts['numero']) : ?>
+            <div class="valoraciones-pagination">
+                <?php
+                $total_pages = ceil($total_reviews / $atts['numero']);
+                echo paginate_links(array(
+                    'total' => $total_pages,
+                    'current' => $paged,
+                    'type' => 'list',
+                    'prev_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>',
+                    'next_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>',
+                ));
+                ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('valoraciones_globales', 'itools_valoraciones_globales_shortcode');
+
+// Función AJAX para ordenamiento dinámico de valoraciones
+function itools_ajax_sort_valoraciones() {
+    // Verificar nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'valoraciones_nonce')) {
+        wp_die('Error de seguridad');
+    }
+    
+    $order = sanitize_text_field($_POST['order']);
+    $direction = sanitize_text_field($_POST['direction']);
+    $paged = intval($_POST['paged']) ?: 1;
+    $numero = intval($_POST['numero']) ?: 24;
+    
+    // Reutilizar la lógica del shortcode
+    $comments_args = array(
+        'type' => 'review',
+        'status' => 'approve',
+        'post_type' => 'product',
+        'number' => $numero,
+        'paged' => $paged,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'value' => array(1, 2, 3, 4, 5),
+                'compare' => 'IN'
+            )
+        )
+    );
+    
+    // Aplicar ordenamiento
+    if ($order == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $direction;
+    
+    $reviews_query = new WP_Comment_Query();
+    $reviews = $reviews_query->query($comments_args);
+    
+    ob_start();
+    
+    if ($reviews) {
+        foreach ($reviews as $review) {
+            $rating = get_comment_meta($review->comment_ID, 'rating', true);
+            $product_id = $review->comment_post_ID;
+            $product = wc_get_product($product_id);
+            
+            if (!$product) continue;
+            
+            // Usar el mismo template del shortcode
+            include get_stylesheet_directory() . '/template-parts/review-card.php';
+        }
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+        'found_reviews' => $reviews_query->found_comments
+    ));
+}
+add_action('wp_ajax_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+add_action('wp_ajax_nopriv_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+
+// Crear página de valoraciones automáticamente
+function itools_create_valoraciones_page() {
+    // Verificar si la página ya existe
+    $existing_page = get_page_by_path('valoraciones');
+    
+    if (!$existing_page) {
+        // Crear la página
+        $page_data = array(
+            'post_title'    => 'Valoraciones',
+            'post_content'  => '[valoraciones_globales numero="24" orden="date" direccion="DESC" mostrar_paginacion="true"]',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_name'     => 'valoraciones',
+            'page_template' => 'page-valoraciones.php'
+        );
+        
+        $page_id = wp_insert_post($page_data);
+        
+        if ($page_id) {
+            // Configurar template de página
+            update_post_meta($page_id, '_wp_page_template', 'page-valoraciones.php');
+            
+            // Agregar excerpt personalizado
+            wp_update_post(array(
+                'ID' => $page_id,
+                'post_excerpt' => 'Descubre las experiencias reales de nuestros clientes satisfechos. Cada reseña es una historia de confianza y calidad en nuestros productos.'
+            ));
+        }
+    }
+}
+
+// Ejecutar al activar el tema
+add_action('after_switch_theme', 'itools_create_valoraciones_page');
+
+// También ejecutar al cargar el admin (solo una vez)
+add_action('admin_init', function() {
+    if (!get_option('itools_valoraciones_page_created')) {
+        itools_create_valoraciones_page();
+        update_option('itools_valoraciones_page_created', true);
+    }
+});
+
+// Función manual para recrear la página (para debugging)
+function itools_force_create_valoraciones_page() {
+    // Eliminar página existente si existe
+    $existing_page = get_page_by_path('valoraciones');
+    if ($existing_page) {
+        wp_delete_post($existing_page->ID, true);
+    }
+    
+    // Crear nueva página
+    itools_create_valoraciones_page();
+    
+    return "Página de valoraciones creada exitosamente!";
+}
+
+// Función de diagnóstico para reseñas
+function itools_debug_reviews() {
+    if (!current_user_can('manage_options')) {
+        return "No tienes permisos para ejecutar esta función.";
+    }
+    
+    $output = "<h3>Diagnóstico de Reseñas</h3>";
+    
+    // 1. Contar todas las reseñas tipo 'review'
+    $review_type_comments = get_comments(array('type' => 'review', 'count' => true));
+    $output .= "<p><strong>Total reseñas tipo 'review':</strong> $review_type_comments</p>";
+    
+    // 2. Contar TODOS los comentarios de productos con rating
+    $all_rated_comments = get_comments(array(
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Total comentarios de productos con rating:</strong> $all_rated_comments</p>";
+    
+    // 3. Contar reseñas aprobadas (solo tipo review)
+    $approved_review_comments = get_comments(array('type' => 'review', 'status' => 'approve', 'count' => true));
+    $output .= "<p><strong>Reseñas tipo 'review' aprobadas:</strong> $approved_review_comments</p>";
+    
+    // 4. Contar comentarios aprobados con rating
+    $approved_rated_comments = get_comments(array(
+        'status' => 'approve',
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Comentarios aprobados de productos con rating:</strong> $approved_rated_comments</p>";
+    
+    // 3. Obtener reseñas con detalles
+    $reviews_detailed = get_comments(array(
+        'type' => 'review',
+        'status' => 'approve',
+        'number' => 20
+    ));
+    
+    $output .= "<p><strong>Reseñas encontradas con detalles:</strong> " . count($reviews_detailed) . "</p>";
+    
+    $output .= "<table border='1'><tr><th>ID</th><th>Autor</th><th>Producto</th><th>Rating</th><th>Fecha</th></tr>";
+    
+    foreach ($reviews_detailed as $review) {
+        $rating = get_comment_meta($review->comment_ID, 'rating', true);
+        $product = get_post($review->comment_post_ID);
+        $product_title = $product ? $product->post_title : 'Producto eliminado';
+        
+        $output .= "<tr>";
+        $output .= "<td>{$review->comment_ID}</td>";
+        $output .= "<td>{$review->comment_author}</td>";
+        $output .= "<td>$product_title</td>";
+        $output .= "<td>$rating</td>";
+        $output .= "<td>{$review->comment_date}</td>";
+        $output .= "</tr>";
+    }
+    
+    $output .= "</table>";
+    
+    return $output;
+}
+
+// Shortcode temporal para diagnóstico
+add_shortcode('debug_reviews', 'itools_debug_reviews');
+
 // Agregar variables JavaScript necesarias
 function itools_localize_scripts() {
     if (is_front_page()) {

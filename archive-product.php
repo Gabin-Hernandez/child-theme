@@ -206,7 +206,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Hero Section Moderno -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
-    <div class="container mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
                 Tienda de Herramientas
@@ -248,7 +248,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <div class="bg-gray-50 min-h-screen py-12">
-    <div class="container mx-auto px-4">
+    <div class="w-11/12 mx-auto px-4 xl:px-6 2xl:px-8">
 
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
@@ -268,7 +268,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <!-- Sidebar con filtros modernos -->
                 <aside 
                     id="filters-sidebar" 
-                    class="xl:w-80 2xl:w-96 fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
+                    class="xl:w-96 2xl:w-[320px] fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
                     <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
                         
                         <!-- Header del sidebar -->
@@ -310,10 +310,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     <div>
                                         <label class="block text-xs font-medium text-gray-700 mb-1">Precio mínimo</label>
                                         <div class="relative">
-                                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                            <span class="absolute left-0.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
                                             <input type="number" 
                                                    id="sidebar-min-price" 
-                                                   class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                                                    placeholder="0"
                                                    min="0"
                                                    max="<?php echo $price_range['max']; ?>"
@@ -323,10 +323,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     <div>
                                         <label class="block text-xs font-medium text-gray-700 mb-1">Precio máximo</label>
                                         <div class="relative">
-                                            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
+                                            <span class="absolute left-0.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
                                             <input type="number" 
                                                    id="sidebar-max-price" 
-                                                   class="w-full pl-6 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                                                    placeholder="<?php echo number_format($price_range['max'], 0); ?>"
                                                    min="0"
                                                    max="<?php echo $price_range['max']; ?>"
@@ -425,11 +425,29 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
                                         <div class="relative">
-                                            <div class="w-5 h-5 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                                            <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
                                                 <?php if ($is_current) : ?>
-                                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
+                                                    <div class="absolute inset-0 bg-white rounded-lg flex items-center justify-center">
+                                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                                        </svg>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <?php
+                                                    // Iconos específicos por categoría
+                                                    $category_icons = [
+                                                        'consolas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21.5 2h-19C1.12 2 0 3.12 0 4.5v15C0 20.88 1.12 22 2.5 22h19c1.38 0 2.5-1.12 2.5-2.5v-15C24 3.12 22.88 2 21.5 2zM8 17.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V15c0-.83-.67-1.5-1.5-1.5S4 14.17 4 15v2.5c0 .28-.22.5-.5.5S3 17.78 3 17.5V15c0-1.38 1.12-2.5 2.5-2.5S8 13.62 8 15v2.5zm9.5-2.5c0 1.38-1.12 2.5-2.5 2.5S12.5 16.38 12.5 15v-2.5c0-.28.22-.5.5-.5s.5.22.5.5V15c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-2.5c0-.28.22-.5.5-.5s.5.22.5.5V15z"/></svg>',
+                                                        'baterias' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2c0-1.1-.9-2-2-2s-2 .9-2 2v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM15 20H9V6h2v1h2V6h2v14z"/></svg>',
+                                                        'herramientas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>',
+                                                        'lcd-y-touch' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h6l-2 2v1h8v-1l-2-2h6c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/></svg>',
+                                                        'pantallas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h6l-2 2v1h8v-1l-2-2h6c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/></svg>',
+                                                        'accesorios' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+                                                        'cargadores' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M14.47 15.08L11 13V7h1.5v5.25l2.72 1.68-.75 1.15zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>',
+                                                        'refacciones' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
+                                                    ];
+                                                    
+                                                    echo isset($category_icons[$category->slug]) ? $category_icons[$category->slug] : '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>';
+                                                    ?>
                                                 <?php endif; ?>
                                             </div>
                                             <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
@@ -546,7 +564,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                     <!-- Filtros para vista de tabla -->
                     <div id="table-filters" class="hidden mb-6 bg-white rounded-lg border border-gray-200 p-4">
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                             <!-- Búsqueda -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Buscar producto</label>
@@ -592,7 +610,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -643,20 +661,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <!-- Botones de acción rápida -->
-                                    <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                                        <button class="w-8 h-8 bg-white/95 rounded-full shadow-md flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 wishlist-btn">
-                                            <svg class="w-4 h-4 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                            </svg>
-                                        </button>
-                                        <button class="w-8 h-8 bg-white/95 rounded-full shadow-md flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 quick-view-btn">
-                                            <svg class="w-4 h-4 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
+                                   
                                 </div>
                                 
                                 <!-- Información del producto -->
@@ -1031,7 +1036,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-8 gap-y-12';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
 
 
 
