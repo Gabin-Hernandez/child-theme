@@ -192,10 +192,11 @@ body.cart-open #main-header {
   z-index: 9999 !important;
 }
 
-/* MÁXIMA ESPECIFICIDAD: Clase cart-is-open en el header mismo */
-header#main-header.cart-is-open,
-#main-header.cart-is-open,
-.cart-is-open#main-header {
+/* MÁXIMA ESPECIFICIDAD: Clase cart-is-open en el header mismo - ID DUPLICADO */
+#main-header#main-header.cart-is-open,
+header#main-header#main-header.cart-is-open,
+body #main-header.cart-is-open,
+body.home #main-header.cart-is-open {
   z-index: 9999 !important;
 }
 

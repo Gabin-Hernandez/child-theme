@@ -822,10 +822,11 @@
             /* Forzar con especificidad máxima */
         }
         
-        /* MÁXIMA ESPECIFICIDAD POSIBLE: Clase directa en el header */
-        header#main-header.cart-is-open,
-        #main-header.cart-is-open,
-        .cart-is-open#main-header {
+        /* MÁXIMA ESPECIFICIDAD POSIBLE: Clase directa en el header - ID DUPLICADO */
+        #main-header#main-header.cart-is-open,
+        header#main-header#main-header.cart-is-open,
+        body #main-header.cart-is-open,
+        body.home #main-header.cart-is-open {
             z-index: 9999 !important;
         }
         
