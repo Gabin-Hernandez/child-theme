@@ -192,6 +192,13 @@ body.cart-open #main-header {
   z-index: 9999 !important;
 }
 
+/* MÁXIMA ESPECIFICIDAD: Clase cart-is-open en el header mismo */
+header#main-header.cart-is-open,
+#main-header.cart-is-open,
+.cart-is-open#main-header {
+  z-index: 9999 !important;
+}
+
 /* Hero slider debe estar por encima del contenido pero debajo del header sticky */
 body.home #hero-slider {
   z-index: 5 !important;

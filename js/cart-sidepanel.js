@@ -169,26 +169,25 @@ class NewCartSidepanel {
     this.sidepanel.classList.add("active");
     document.body.classList.add("cart-open");
 
-    // FORZAR cambio de z-index del header directamente en el estilo inline
+    // AGREGAR clase especial al header para reducir z-index
     const header = document.getElementById("main-header");
     if (header) {
-      const currentStyle = header.getAttribute("style");
-      const newStyle = currentStyle.replace(
-        /z-index:\s*10000/g,
-        "z-index: 9999"
-      );
-      header.setAttribute("style", newStyle);
-      console.log("🔧 Header style modificado inline:", newStyle);
+      header.classList.add("cart-is-open");
+      console.log("🔧 Clase 'cart-is-open' agregada al header");
     }
 
     console.log(
       "✅ Clases agregadas al body:",
       document.body.classList.toString()
     );
-    console.log(
-      "✅ Header z-index después de abrir:",
-      window.getComputedStyle(document.getElementById("main-header")).zIndex
-    );
+    
+    // Esperar un ciclo para que el CSS se aplique
+    setTimeout(() => {
+      console.log(
+        "✅ Header z-index después de abrir:",
+        window.getComputedStyle(document.getElementById("main-header")).zIndex
+      );
+    }, 10);
 
     // Cargar datos del carrito
     this.loadCartData();
@@ -216,16 +215,11 @@ class NewCartSidepanel {
     this.sidepanel.classList.remove("active");
     document.body.classList.remove("cart-open");
 
-    // RESTAURAR z-index del header a 10000
+    // REMOVER clase especial del header para restaurar z-index
     const header = document.getElementById("main-header");
     if (header) {
-      const currentStyle = header.getAttribute("style");
-      const newStyle = currentStyle.replace(
-        /z-index:\s*9999/g,
-        "z-index: 10000"
-      );
-      header.setAttribute("style", newStyle);
-      console.log("🔧 Header style restaurado inline:", newStyle);
+      header.classList.remove("cart-is-open");
+      console.log("🔧 Clase 'cart-is-open' removida del header");
     }
 
     console.log("🛒 Sidepanel cerrado");
@@ -233,10 +227,13 @@ class NewCartSidepanel {
       "✅ Clases del body después de cerrar:",
       document.body.classList.toString()
     );
-    console.log(
-      "✅ Header z-index después de cerrar:",
-      window.getComputedStyle(document.getElementById("main-header")).zIndex
-    );
+    
+    setTimeout(() => {
+      console.log(
+        "✅ Header z-index después de cerrar:",
+        window.getComputedStyle(document.getElementById("main-header")).zIndex
+      );
+    }, 10);
   }
 
   /**

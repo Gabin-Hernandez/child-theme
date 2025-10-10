@@ -822,6 +822,13 @@
             /* Forzar con especificidad máxima */
         }
         
+        /* MÁXIMA ESPECIFICIDAD POSIBLE: Clase directa en el header */
+        header#main-header.cart-is-open,
+        #main-header.cart-is-open,
+        .cart-is-open#main-header {
+            z-index: 9999 !important;
+        }
+        
         /* Log de verificación de CSS cargado */
         body::before {
             content: "Header CSS v2.1 loaded";
