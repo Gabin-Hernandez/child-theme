@@ -168,6 +168,15 @@ class NewCartSidepanel {
     this.overlay.classList.add("active");
     this.sidepanel.classList.add("active");
     document.body.classList.add("cart-open");
+    
+    // FORZAR cambio de z-index del header directamente en el estilo inline
+    const header = document.getElementById("main-header");
+    if (header) {
+      const currentStyle = header.getAttribute("style");
+      const newStyle = currentStyle.replace(/z-index:\s*10000/g, "z-index: 9999");
+      header.setAttribute("style", newStyle);
+      console.log("🔧 Header style modificado inline:", newStyle);
+    }
 
     console.log(
       "✅ Clases agregadas al body:",
@@ -203,6 +212,15 @@ class NewCartSidepanel {
     this.overlay.classList.remove("active");
     this.sidepanel.classList.remove("active");
     document.body.classList.remove("cart-open");
+    
+    // RESTAURAR z-index del header a 10000
+    const header = document.getElementById("main-header");
+    if (header) {
+      const currentStyle = header.getAttribute("style");
+      const newStyle = currentStyle.replace(/z-index:\s*9999/g, "z-index: 10000");
+      header.setAttribute("style", newStyle);
+      console.log("🔧 Header style restaurado inline:", newStyle);
+    }
 
     console.log("🛒 Sidepanel cerrado");
     console.log(

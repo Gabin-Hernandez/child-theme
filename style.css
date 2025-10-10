@@ -176,15 +176,19 @@ body.home #hero-slider .slide.active .space-y-8 > * {
 
 /* Asegurar que el header sticky tenga la prioridad correcta */
 body.home header,
-body.home .site-header {
+body.home .site-header,
+header,
+.site-header {
   z-index: 10000 !important;
 }
 
-/* Reducir z-index del header cuando el carrito está abierto */
+/* Reducir z-index del header cuando el carrito está abierto - MAYOR ESPECIFICIDAD */
 body.home.cart-open header,
 body.home.cart-open .site-header,
+body.home.cart-open #main-header,
 body.cart-open header,
-body.cart-open .site-header {
+body.cart-open .site-header,
+body.cart-open #main-header {
   z-index: 9999 !important;
 }
 

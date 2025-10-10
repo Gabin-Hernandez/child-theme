@@ -810,12 +810,16 @@
             }
         }
         
-        /* Reducir z-index del header cuando el carrito está abierto */
+        /* Reducir z-index del header cuando el carrito está abierto - MÁXIMA PRIORIDAD */
         body.cart-open #main-header,
         body.cart-open #main-header.sticky,
         body.cart-open header#main-header,
-        body.cart-open header#main-header[style] {
+        body.cart-open header#main-header[style],
+        body.home.cart-open #main-header,
+        body.home.cart-open header#main-header,
+        body.home.cart-open header#main-header[style] {
             z-index: 9999 !important;
+            /* Forzar con especificidad máxima */
         }
         
         /* Log de verificación de CSS cargado */
