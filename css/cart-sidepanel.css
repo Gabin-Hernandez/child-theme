@@ -74,6 +74,14 @@ body.cart-open {
     overflow: hidden;
 }
 
+/* Hide header when cart sidepanel is open */
+body.cart-open header,
+body.cart-open #main-header {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
 /* Header */
 .cart-header {
     display: flex;

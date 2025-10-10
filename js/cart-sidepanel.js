@@ -163,6 +163,14 @@ class NewCartSidepanel {
         this.sidepanel.classList.add('active');
         document.body.classList.add('cart-open');
         
+        // Hide header to prevent overlap
+        const header = document.querySelector('#main-header') || document.querySelector('header');
+        if (header) {
+            header.style.opacity = '0';
+            header.style.visibility = 'hidden';
+            header.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+        }
+        
         // Cargar datos del carrito
         this.loadCartData();
         
@@ -188,6 +196,13 @@ class NewCartSidepanel {
         this.overlay.classList.remove('active');
         this.sidepanel.classList.remove('active');
         document.body.classList.remove('cart-open');
+        
+        // Show header again
+        const header = document.querySelector('#main-header') || document.querySelector('header');
+        if (header) {
+            header.style.opacity = '';
+            header.style.visibility = '';
+        }
         
         console.log('🛒 Sidepanel cerrado');
     }
