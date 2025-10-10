@@ -809,6 +809,12 @@
                 padding-top: 70px;
             }
         }
+        
+        /* Reducir z-index del header cuando el carrito está abierto */
+        body.cart-open #main-header,
+        body.cart-open #main-header.sticky {
+            z-index: 9999 !important;
+        }
     </style>
 
     <script>
