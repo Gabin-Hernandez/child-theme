@@ -815,14 +815,39 @@
         body.cart-open #main-header.sticky {
             z-index: 9999 !important;
         }
+        
+        /* Log de verificación de CSS cargado */
+        body::before {
+            content: "Header CSS v2.0 loaded";
+            position: absolute;
+            left: -9999px;
+        }
     </style>
 
     <script>
+        console.log('🎨 Header CSS cargado - Versión 2.0');
+        
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.getElementById('main-header');
             const body = document.body;
             let lastScrollTop = 0;
             let isSticky = false;
+            
+            console.log('🎯 Header script inicializado');
+            console.log('📍 Header z-index inicial:', window.getComputedStyle(header).zIndex);
+            
+            // Observer para detectar cambios en la clase cart-open del body
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.attributeName === 'class') {
+                        const hasCartOpen = body.classList.contains('cart-open');
+                        const headerZIndex = window.getComputedStyle(header).zIndex;
+                        console.log('🔄 Body class cambió. cart-open:', hasCartOpen);
+                        console.log('📊 Header z-index actual:', headerZIndex);
+                    }
+                });
+            });
+            observer.observe(body, { attributes: true });
             
             function handleScroll() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;

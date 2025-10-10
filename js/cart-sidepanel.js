@@ -153,7 +153,7 @@ class NewCartSidepanel {
      * Abrir el sidepanel
      */
     open() {
-        console.log('Método open() llamado, isOpen:', this.isOpen);
+        console.log('🛒 Método open() llamado, isOpen:', this.isOpen);
         if (this.isOpen) return;
         
         this.isOpen = true;
@@ -162,6 +162,9 @@ class NewCartSidepanel {
         this.overlay.classList.add('active');
         this.sidepanel.classList.add('active');
         document.body.classList.add('cart-open');
+        
+        console.log('✅ Clases agregadas al body:', document.body.classList.toString());
+        console.log('✅ Header z-index después de abrir:', window.getComputedStyle(document.getElementById('main-header')).zIndex);
         
         // Cargar datos del carrito
         this.loadCartData();
@@ -190,6 +193,8 @@ class NewCartSidepanel {
         document.body.classList.remove('cart-open');
         
         console.log('🛒 Sidepanel cerrado');
+        console.log('✅ Clases del body después de cerrar:', document.body.classList.toString());
+        console.log('✅ Header z-index después de cerrar:', window.getComputedStyle(document.getElementById('main-header')).zIndex);
     }
     
     /**
