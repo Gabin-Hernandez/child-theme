@@ -45,12 +45,24 @@
         
         /* Asegurar que los dropdowns estén por encima de otros elementos */
         .dropdown-container {
-            z-index: 10000 !important;
             position: relative !important;
+            z-index: 10010 !important;
         }
         
         .dropdown-menu {
-            z-index: 10001 !important;
+            position: absolute !important;
+            z-index: 10011 !important;
+        }
+        
+        /* Incrementar z-index cuando el dropdown está activo/hover */
+        .dropdown-container:hover,
+        .dropdown-container.active {
+            z-index: 10020 !important;
+        }
+        
+        .dropdown-container:hover .dropdown-menu,
+        .dropdown-container.active .dropdown-menu {
+            z-index: 10021 !important;
         }
         
         /* Animación suave para los iconos */
@@ -66,10 +78,27 @@
         header {
             background: #171717;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            position: sticky;
+            position: sticky !important;
             top: 0;
-            z-index: 10000;
+            z-index: 10000 !important;
             transition: all 0.3s ease;
+        }
+        
+        /* Asegurar que el header mantenga z-index incluso con position: static inline */
+        #main-header {
+            position: relative !important;
+            z-index: 10000 !important;
+        }
+        
+        /* Cuando el header se vuelve sticky después de scroll */
+        header.sticky,
+        #main-header.sticky {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 10000 !important;
         }
         
         /* Efecto adicional cuando se hace scroll */
@@ -412,7 +441,7 @@
 
 <div id="page" class="site">
     <!-- Header Simple -->
-    <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; position: static;">
+    <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
         <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
