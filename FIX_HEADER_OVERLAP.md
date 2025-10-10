@@ -13,18 +13,20 @@ When the user scrolled and the navbar became sticky (fixed position), opening th
 
 ## Solution Implemented
 
-The solution hides the header when the cart sidepanel is open, providing a cleaner user experience without z-index conflicts.
+The solution hides the header ONLY when it's in sticky mode (after scrolling) and the cart sidepanel is open, providing a cleaner user experience without z-index conflicts. When at the top of the page (header not sticky), the header remains visible.
 
 ### Changes Made
 
 #### 1. CSS Changes (`css/cart-sidepanel.css`)
 
-Added styles to hide the header when the cart is open:
+Added styles to hide the header when the cart is open - ONLY when header is in sticky mode:
 
 ```css
-/* Hide header when cart sidepanel is open */
-body.cart-open header,
-body.cart-open #main-header {
+/* Hide header when cart sidepanel is open - ONLY when header is in sticky mode */
+body.cart-open header.sticky,
+body.cart-open header.scrolled,
+body.cart-open #main-header.sticky,
+body.cart-open #main-header.scrolled {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -36,13 +38,14 @@ body.cart-open #main-header {
 **In the `open()` method:**
 
 - Added code to explicitly hide the header with smooth transition
+- **ONLY hides if header has 'sticky' or 'scrolled' class**
 - Sets `opacity: 0` and `visibility: hidden` on the header element
 
 ```javascript
-// Hide header to prevent overlap
+// Hide header to prevent overlap - ONLY if header is in sticky mode
 const header =
   document.querySelector("#main-header") || document.querySelector("header");
-if (header) {
+if (header && (header.classList.contains("sticky") || header.classList.contains("scrolled"))) {
   header.style.opacity = "0";
   header.style.visibility = "hidden";
   header.style.transition = "opacity 0.3s ease, visibility 0.3s ease";
@@ -66,22 +69,25 @@ if (header) {
 
 ## Benefits of This Approach
 
-1. **Clean UX**: No visual conflicts between header and sidepanel
-2. **Smooth Transitions**: The header fades out/in smoothly when the cart opens/closes
-3. **No z-index Wars**: Avoids complicated z-index stacking contexts
-4. **Focus on Cart**: Users can focus entirely on their cart without header distractions
-5. **Responsive**: Works across all screen sizes
-6. **Accessibility**: Maintains proper focus management
+1. **Smart Behavior**: Only hides header when it's in sticky mode (after scrolling)
+2. **Normal Position Preserved**: When at the top of the page, header remains visible
+3. **Clean UX**: No visual conflicts between sticky header and sidepanel
+4. **Smooth Transitions**: The header fades out/in smoothly when needed
+5. **No z-index Wars**: Avoids complicated z-index stacking contexts
+6. **Responsive**: Works across all screen sizes
+7. **Accessibility**: Maintains proper focus management
 
 ## Testing Checklist
 
-- [x] Header hides when cart sidepanel opens
+- [x] Header hides when cart sidepanel opens AND header is in sticky mode
+- [x] Header remains visible when cart opens at top of page (no sticky)
 - [x] Header reappears when cart sidepanel closes
 - [x] Smooth fade transition (0.3s)
 - [x] Works on desktop
 - [x] Works on mobile
 - [x] No console errors
 - [x] Proper focus management maintained
+- [x] Sticky detection works with both 'sticky' and 'scrolled' classes
 
 ## Alternative Solutions Considered
 
@@ -99,5 +105,7 @@ The chosen solution of hiding the header is the cleanest and most maintainable a
 ## Maintenance Notes
 
 - The header is identified by the selector `#main-header` or `header`
-- If the header element ID changes in the future, update the JavaScript selectors
+- The solution checks for both `sticky` and `scrolled` classes on the header
+- If the header uses a different class name for sticky state, update both CSS and JavaScript
 - The transition duration is 0.3s, matching the cart sidepanel animation
+- Header at top of page (no sticky class) will remain visible when cart is open

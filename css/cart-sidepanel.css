@@ -75,9 +75,11 @@ body.cart-open {
   overflow: hidden;
 }
 
-/* Hide header when cart sidepanel is open */
-body.cart-open header,
-body.cart-open #main-header {
+/* Hide header when cart sidepanel is open - ONLY when header is in sticky mode */
+body.cart-open header.sticky,
+body.cart-open header.scrolled,
+body.cart-open #main-header.sticky,
+body.cart-open #main-header.scrolled {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
