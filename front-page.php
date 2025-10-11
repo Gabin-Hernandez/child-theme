@@ -167,94 +167,122 @@ get_header(); ?>
         </div>
     </section>
 
-    <!-- Categorías Populares -->
-    <div id="categorias" class="!py-32 bg-slate-900">
-        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-                    Nuestras Especialidades
+    <!-- Herramientas Destacadas -->
+    <section id="herramientas-destacadas" class="relative bg-gradient-to-r from-blue-950 to-blue-700 text-white py-16 md:py-20 lg:py-28">
+        <div class="container mx-auto px-6 text-center">
+            <!-- Encabezado de la sección -->
+            <div class="mb-12 lg:mb-16">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">
+                    Herramientas Profesionales
                 </h2>
-                <p class="text-xl text-slate-300 max-w-2xl mx-auto">
-                    Productos de la más alta calidad para profesionales exigentes
+                <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
+                    Equipos de precisión para técnicos expertos
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Card principal con glassmorphism -->
+            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 lg:p-12 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group border border-white/20">
                 
-                <!-- Refacciones -->
-                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=herramientas'">
-                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
-                             alt="Refacciones de celulares" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-90">
-                        <div class="absolute inset-0 bg-slate-900/30"></div>
-                        
-                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                            <div class="space-y-2">
-                                <h3 class="text-xl font-bold text-white">REFACCIONES</h3>
-                                <p class="text-slate-300 text-sm">Más de 19,000 productos</p>
-                                <p class="text-slate-400 text-xs">Componentes originales y compatibles</p>
+                <!-- Imagen/Iconografía -->
+                <div class="mb-8 relative">
+                    <!-- SVG Iconografía Técnica -->
+                    <div class="flex justify-center mb-6">
+                        <div class="relative">
+                            <!-- Icono principal de herramientas -->
+                            <svg class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 text-white/90 group-hover:text-white transition-colors duration-300" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                      d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655-5.653a2.548 2.548 0 010-3.586l.837-.836c.415-.415.865-.617 1.344-.617.477 0 .927.202 1.344.617l.836.836a2.548 2.548 0 010 3.586l-3.586 4.655z"/>
+                            </svg>
+                            
+                            <!-- Elementos decorativos (circuitos/PCB) -->
+                            <div class="absolute -top-4 -right-4 opacity-40 group-hover:opacity-60 transition-opacity duration-300">
+                                <svg class="w-16 h-16 text-blue-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="absolute -bottom-2 -left-6 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+                                <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- Imagen alternativa (comentada para usar SVG) -->
+                    <!-- 
+                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
+                         alt="Herramientas de precisión" 
+                         class="mx-auto w-40 md:w-48 lg:w-56 rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300" />
+                    -->
+                </div>
+                
+                <!-- Contenido descriptivo -->
+                <div class="space-y-6 md:space-y-8">
+                    <p class="text-base md:text-lg lg:text-xl text-blue-50 leading-relaxed max-w-3xl mx-auto">
+                        Microscopios, estaciones de soldadura, multímetros y más, diseñados para brindar un servicio técnico integral.
+                    </p>
+                    
+                    <!-- Lista de características (opcional, añadiendo valor) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-sm md:text-base text-blue-100">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Precisión profesional</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Tecnología avanzada</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707"/>
+                            </svg>
+                            <span>Garantía extendida</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón de acción -->
+                    <div class="pt-2">
+                        <a href="/categoria/herramientas" 
+                           class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 md:px-8 py-3 md:py-4 text-base md:text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group/btn">
+                            <svg class="w-5 h-5 mr-2 group-hover/btn:rotate-12 transition-transform duration-300" 
+                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                            Explorar herramientas
+                        </a>
                     </div>
                 </div>
                 
-                <!-- Pantallas -->
-                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=lcd-y-touch'">
-                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
-                             alt="Pantallas LCD y Touch" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-90">
-                        <div class="absolute inset-0 bg-slate-900/30"></div>
-                        
-                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                            <div class="space-y-2">
-                                <h3 class="text-xl font-bold text-white">PANTALLAS</h3>
-                                <p class="text-slate-300 text-sm">Calidad es nuestra prioridad</p>
-                                <p class="text-slate-400 text-xs">LCD, OLED y tecnologías premium</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Herramientas -->
-                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=herramientas'">
-                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                             alt="Herramientas profesionales" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-90">
-                        <div class="absolute inset-0 bg-slate-900/30"></div>
-                        
-                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                            <div class="space-y-2">
-                                <h3 class="text-xl font-bold text-white">HERRAMIENTAS</h3>
-                                <p class="text-slate-300 text-sm">Servicio integral</p>
-                                <p class="text-slate-400 text-xs">Microscopios, estaciones de soldadura</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Baterías -->
-                <div class="group cursor-pointer" onclick="window.location.href='/?post_type=product&s=&product_cat=baterias'">
-                    <div class="relative bg-slate-800 rounded-xl overflow-hidden h-72 hover:bg-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                        <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
-                             alt="Baterías y accesorios" 
-                             class="absolute inset-0 w-full h-full object-cover opacity-90">
-                        <div class="absolute inset-0 bg-slate-900/30"></div>
-                        
-                        <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                            <div class="space-y-2">
-                                <h3 class="text-xl font-bold text-white">BATERÍAS</h3>
-                                <p class="text-slate-300 text-sm">Energía completa</p>
-                                <p class="text-slate-400 text-xs">Originales y compatibles con garantía</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Efecto de brillo en hover -->
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
                 </div>
             </div>
+            
+            <!-- Información adicional -->
+            <div class="mt-8 md:mt-12 text-center">
+                <p class="text-sm md:text-base text-blue-200 opacity-80">
+                    Más de <strong class="text-white">19,000 productos especializados</strong> disponibles
+                </p>
+            </div>
         </div>
-    </div>
+        
+        <!-- Elementos decorativos de fondo -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <!-- Círculos decorativos -->
+            <div class="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-24 h-24 bg-white/5 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white/5 rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+    </section>
 
     <!-- Estadísticas y CTA -->
     <div class="py-32 bg-gradient-to-br from-slate-50 to-blue-50">
