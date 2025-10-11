@@ -172,7 +172,7 @@ get_header(); ?>
         <div class="container mx-auto px-6 text-center">
             <!-- Encabezado de la sección -->
             <div class="mb-12 lg:mb-16">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6">
+                <h2 class="text-3xl md:text-4xl text-white lg:text-5xl font-bold mb-4 lg:mb-6">
                     Herramientas Profesionales
                 </h2>
                 <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
@@ -264,6 +264,183 @@ get_header(); ?>
                 <!-- Efecto de brillo en hover -->
                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl overflow-hidden">
                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+                </div>
+            </div>
+            
+            <!-- Carrusel de productos destacados -->
+            <div class="mt-12 md:mt-16">
+                <h3 class="text-xl md:text-2xl font-bold text-center text-white mb-8">
+                    Productos Destacados
+                </h3>
+                
+                <!-- Carrusel con Swiper -->
+                <div class="herramientas-carousel-container relative max-w-6xl mx-auto">
+                    <div class="herramientas-swiper overflow-hidden rounded-lg">
+                        <div class="swiper-wrapper">
+                            
+                            <!-- Producto 1 - Flex Dot Matriz Face ID -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <img src="https://via.placeholder.com/200x200/f3f4f6/6b7280?text=Flex+Dot" 
+                                             alt="Flex Dot Matriz Face ID Tag On JCID" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            Flex Dot Matriz Face ID Tag On JCID...
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="text-2xl font-bold text-blue-600">$300</span>
+                                                <button class="w-10 h-10 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition-colors">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Producto 2 - Tablilla Adaptador True Tone -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <img src="https://via.placeholder.com/200x200/f3f4f6/22c55e?text=True+Tone" 
+                                             alt="Tablilla Adaptador True Tone JCID V1" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            Tablilla Adaptador True Tone JCID V1...
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="text-2xl font-bold text-blue-600">$730</span>
+                                                <button class="w-10 h-10 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition-colors">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Producto 3 - Flex FPC Infrarojo -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <div class="bg-yellow-500 text-white font-bold text-lg px-4 py-2 rounded-lg">
+                                            Llegan pronto
+                                        </div>
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            Flex FPC Infrarojo Face Id Iphone 13P...
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="text-xl font-medium text-gray-600">Próximamente</span>
+                                                <button class="w-10 h-10 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center" disabled>
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Producto 4 - Programador JCID -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <img src="https://via.placeholder.com/200x200/f3f4f6/3b82f6?text=JCID+110" 
+                                             alt="Programador JCID Bga 110 Iphone 8" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            Programador JCID Bga 110 Iphone 8-...
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="text-2xl font-bold text-blue-600">$2,210</span>
+                                                <button class="w-10 h-10 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition-colors">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 0 01-2-2v-5m7.5 0H9"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Producto 5 - Chip Wifi JCID -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <img src="https://via.placeholder.com/200x200/f3f4f6/8b5cf6?text=WIFI+JCID" 
+                                             alt="Chip Wifi JCID Iphone 14 Series" 
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            Chip Wifi JCID Iphone 14 Series
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <span class="text-2xl font-bold text-blue-600">$1,350</span>
+                                                <button class="w-10 h-10 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition-colors">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide final - Ver más -->
+                            <div class="swiper-slide">
+                                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-center items-center text-center">
+                                    <div class="mb-4">
+                                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
+                                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                            </svg>
+                                        </div>
+                                        <h4 class="text-lg font-bold text-white mb-2">Ver más</h4>
+                                        <p class="text-blue-100 text-sm mb-4">Explorar todo el catálogo</p>
+                                        <a href="/categoria/herramientas" 
+                                           class="inline-block bg-white text-blue-600 font-semibold px-6 py-2 rounded-lg hover:bg-blue-50 transition-colors text-sm">
+                                            Explorar
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <!-- Navegación del carrusel -->
+                    <div class="herramientas-swiper-button-prev absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </div>
+                    <div class="herramientas-swiper-button-next absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
             
@@ -1715,12 +1892,142 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .animate-fade-in-up {
         animation: fadeInUp 0.6s ease-out;
     }
+    
+    /* Estilos del carrusel de herramientas */
+    .herramientas-carousel-container {
+        position: relative;
+    }
+    
+    .herramientas-swiper {
+        padding: 0 50px; /* Espacio para los botones de navegación */
+    }
+    
+    .herramientas-swiper .swiper-slide {
+        height: auto;
+        display: flex;
+    }
+    
+    .herramientas-swiper .swiper-slide > div {
+        width: 100%;
+        min-height: 320px;
+    }
+    
+    /* Ocultar botones en móvil */
+    @media (max-width: 640px) {
+        .herramientas-swiper {
+            padding: 0 20px;
+        }
+        
+        .herramientas-swiper-button-prev,
+        .herramientas-swiper-button-next {
+            display: none;
+        }
+    }
+    
+    /* Hover effects para las cards del carrusel */
+    .herramientas-swiper .swiper-slide .bg-white:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Línea de recorte para títulos largos */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    /* Botones de navegación del carrusel con mejor diseño */
+    .herramientas-swiper-button-prev,
+    .herramientas-swiper-button-next {
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .herramientas-swiper-button-prev:hover,
+    .herramientas-swiper-button-next:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
+    
+    /* Mejora visual para el estado "próximamente" */
+    .herramientas-swiper .swiper-slide:has(.bg-yellow-500) .bg-white {
+        opacity: 0.9;
+        position: relative;
+    }
+    
+    .herramientas-swiper .swiper-slide:has(.bg-yellow-500) .bg-white::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255,193,7,0.1) 50%, transparent 70%);
+        border-radius: 0.75rem;
+        pointer-events: none;
+    }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // JavaScript para funcionalidad del carrito ya implementado arriba
     console.log('Front-page cargada correctamente');
+    
+    // Inicializar carrusel de herramientas
+    if (typeof Swiper !== 'undefined') {
+        const herramientasSwiper = new Swiper('.herramientas-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 16,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.herramientas-swiper-button-next',
+                prevEl: '.herramientas-swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 24,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                },
+                1280: {
+                    slidesPerView: 5,
+                    spaceBetween: 24,
+                }
+            }
+        });
+        
+        console.log('🎠 Carrusel de herramientas inicializado:', herramientasSwiper);
+    } else {
+        console.warn('⚠️ Swiper no está disponible, usando fallback CSS');
+        
+        // Fallback simple con CSS scroll
+        const carousel = document.querySelector('.herramientas-swiper .swiper-wrapper');
+        if (carousel) {
+            carousel.style.display = 'flex';
+            carousel.style.overflowX = 'auto';
+            carousel.style.scrollSnapType = 'x mandatory';
+            carousel.style.gap = '1rem';
+            carousel.style.paddingBottom = '1rem';
+            
+            const slides = carousel.querySelectorAll('.swiper-slide');
+            slides.forEach(slide => {
+                slide.style.minWidth = '280px';
+                slide.style.scrollSnapAlign = 'start';
+            });
+        }
+    }
 });
 </script>
 
