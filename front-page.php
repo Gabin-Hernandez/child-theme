@@ -172,7 +172,7 @@ get_header(); ?>
         <div class="container mx-auto px-6 text-center">
             <!-- Encabezado de la sección -->
             <div class="mb-12 lg:mb-16">
-                <h2 class="text-3xl md:text-4xl text-white lg:text-5xl font-bold mb-4 lg:mb-6">
+                <h2 class="text-3xl md:text-4xl pt-8 text-white lg:text-5xl font-bold mb-4 lg:mb-6">
                     Herramientas Profesionales
                 </h2>
                 <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
@@ -181,7 +181,15 @@ get_header(); ?>
             </div>
             
             <!-- Card principal con glassmorphism -->
-            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 lg:p-12 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group border border-white/20">
+            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 lg:p-12 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group border border-white/20 relative overflow-hidden">
+                
+                <!-- Imagen de fondo con blur -->
+                <div class="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
+                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
+                         alt="Herramientas de fondo" 
+                         class="w-full h-full object-cover blur-sm scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/40 to-blue-700/60"></div>
+                </div>
                 
                 <!-- Imagen/Iconografía -->
                 <div class="mb-8 relative">
@@ -269,7 +277,7 @@ get_header(); ?>
             
             <!-- Carrusel de productos destacados -->
             <div class="mt-12 md:mt-16">
-                <h3 class="text-xl md:text-2xl font-bold text-center text-white mb-8">
+                <h3 class="text-xl md:text-2xl pb-4 font-bold text-center text-white mb-8">
                     Productos Destacados
                 </h3>
                 
@@ -277,6 +285,138 @@ get_header(); ?>
                 <div class="herramientas-carousel-container relative max-w-6xl mx-auto">
                     <div class="herramientas-swiper overflow-hidden rounded-lg">
                         <div class="swiper-wrapper">
+                            
+                            <?php
+                            // Query para obtener productos de la categoría 'herramientas' para el carrusel
+                            $carousel_herramientas_term = get_term_by('slug', 'herramientas', 'product_cat');
+                            
+                            if (!$carousel_herramientas_term) {
+                                // Si no existe con slug 'herramientas', intentamos buscar por nombre
+                                $carousel_herramientas_term = get_term_by('name', 'Herramientas', 'product_cat');
+                            }
+                            
+                            $carousel_args = array(
+                                'post_type' => 'product',
+                                'posts_per_page' => 6, // Solo 6 productos para el carrusel
+                                'post_status' => 'publish',
+                                'orderby' => 'rand', // Orden aleatorio para variedad
+                                'meta_query' => array(
+                                    array(
+                                        'key' => '_stock_status',
+                                        'value' => 'instock',
+                                        'compare' => '='
+                                    )
+                                )
+                            );
+                            
+                            // Solo agregamos tax_query si encontramos la categoría
+                            if ($carousel_herramientas_term) {
+                                $carousel_args['tax_query'] = array(
+                                    array(
+                                        'taxonomy' => 'product_cat',
+                                        'field' => 'term_id',
+                                        'terms' => $carousel_herramientas_term->term_id,
+                                    )
+                                );
+                            }
+                            
+                            $carousel_query = new WP_Query( $carousel_args );
+                            
+                            if ( $carousel_query->have_posts() ) : 
+                                while ( $carousel_query->have_posts() ) : $carousel_query->the_post(); 
+                                    global $product;
+                                    if ( ! $product || ! $product->is_visible() ) continue;
+                                    
+                                    $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                            ?>
+                            
+                            <!-- Producto: <?php the_title(); ?> -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
+                                    <div class="aspect-square bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <img src="<?php echo esc_url($image_url); ?>" 
+                                                 alt="<?php echo esc_attr(get_the_title()); ?>" 
+                                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                                        </a>
+                                    </div>
+                                    <div class="flex-1 flex flex-col">
+                                        <h4 class="font-bold text-gray-900 text-sm mb-2 line-clamp-2">
+                                            <a href="<?php the_permalink(); ?>" class="hover:text-blue-600 transition-colors">
+                                                <?php the_title(); ?>
+                                            </a>
+                                        </h4>
+                                        <div class="mt-auto">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <div class="text-2xl font-bold text-blue-600">
+                                                    <?php echo $product->get_price_html(); ?>
+                                                </div>
+                                                <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                                                    <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
+                                                            class="w-10 h-10 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center transition-colors carousel-add-to-cart"
+                                                            data-product-id="<?php echo $product->get_id(); ?>">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
+                                                        </svg>
+                                                    </button>
+                                                <?php else : ?>
+                                                    <button class="w-10 h-10 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center" disabled>
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                                        </svg>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <?php 
+                                endwhile;
+                                wp_reset_postdata();
+                            else : ?>
+                            
+                            <!-- Fallback: No hay productos disponibles -->
+                            <div class="swiper-slide">
+                                <div class="bg-white rounded-xl p-4 md:p-6 shadow-lg h-full flex flex-col justify-center items-center text-center">
+                                    <div class="mb-4">
+                                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                            </svg>
+                                        </div>
+                                        <h4 class="text-lg font-bold text-gray-900 mb-2">Próximamente</h4>
+                                        <p class="text-gray-600 text-sm mb-4">Nuevos productos en camino</p>
+                                        <a href="/tienda" 
+                                           class="inline-block bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                                            Ver Catálogo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <?php endif; ?>
+                            
+                            <!-- Slide final - Ver más (siempre presente) -->
+                            <div class="swiper-slide">
+                                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-center items-center text-center">
+                                    <div class="mb-4">
+                                        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
+                                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                            </svg>
+                                        </div>
+                                        <h4 class="text-lg font-bold text-white mb-2">Ver más</h4>
+                                        <p class="text-blue-100 text-sm mb-4">Explorar todo el catálogo</p>
+                                        <a href="/categoria/herramientas" 
+                                           class="inline-block bg-white text-blue-600 font-semibold px-6 py-2 rounded-lg hover:bg-blue-50 transition-colors text-sm">
+                                            Explorar
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                             
                             <!-- Producto 1 - Flex Dot Matriz Face ID -->
                             <div class="swiper-slide">
@@ -446,7 +586,7 @@ get_header(); ?>
             
             <!-- Información adicional -->
             <div class="mt-8 md:mt-12 text-center">
-                <p class="text-sm md:text-base text-blue-200 opacity-80">
+                <p class="text-sm md:text-base pb-8 text-blue-200 opacity-80">
                     Más de <strong class="text-white">19,000 productos especializados</strong> disponibles
                 </p>
             </div>
@@ -1838,6 +1978,70 @@ function showCartNotification(message, type = 'success') {
         }, 300);
     }, 3000);
 }
+
+// Función específica para agregar al carrito desde el carrusel de herramientas
+window.addToCartFromCarousel = function(productId, productName) {
+    console.log('addToCartFromCarousel llamado con ID:', productId, 'Nombre:', productName);
+    
+    const button = event.target;
+    const originalContent = button.innerHTML;
+    
+    // Mostrar estado de carga
+    button.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v4m0 12v4m8-8h-4M6 12H2m10.5-6.5L15 5m-3 3L9.5 5.5M15 19l-2.5-2.5M9.5 19.5L12 17"></path></svg>';
+    button.disabled = true;
+    
+    // Si jQuery y AJAX están disponibles, usar WooCommerce real
+    if (typeof jQuery !== 'undefined' && typeof itools_ajax !== 'undefined') {
+        console.log('Agregando producto del carrusel con AJAX...');
+        jQuery.ajax({
+            url: itools_ajax.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'itools_add_to_cart',
+                product_id: productId,
+                quantity: 1
+            },
+            success: function(response) {
+                console.log('Respuesta carrusel:', response);
+                if (response.success) {
+                    console.log('Producto del carrusel agregado exitosamente');
+                    showSuccessState(button, originalContent);
+                    showCartNotification('✅ ' + productName + ' agregado al carrito');
+                    
+                    // Actualizar contador del carrito
+                    if (response.data.cart_count !== undefined) {
+                        console.log('Actualizando contador desde carrusel:', response.data.cart_count);
+                        updateCartCount(response.data.cart_count);
+                    }
+                    
+                    // Abrir sidepanel del carrito
+                    setTimeout(function() {
+                        if (window.cartSidepanel) {
+                            console.log('Abriendo sidepanel desde carrusel');
+                            window.cartSidepanel.open();
+                        }
+                    }, 800);
+                } else {
+                    console.log('Error en respuesta del carrusel:', response.data);
+                    showErrorState(button, originalContent);
+                    showCartNotification('❌ Error: ' + (response.data.message || 'No se pudo agregar al carrito'));
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error AJAX carrusel:', error);
+                showErrorState(button, originalContent);
+                showCartNotification('❌ Error de conexión', 'error');
+            }
+        });
+    } else {
+        // Fallback sin jQuery
+        setTimeout(() => {
+            showSuccessState(button, originalContent);
+            showCartNotification('✅ ' + productName + ' agregado al carrito');
+            updateCartCount(getRandomCartCount());
+        }, 800);
+    }
+};
 
 // Inicialización específica cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
