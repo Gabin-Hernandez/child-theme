@@ -19,5 +19,5 @@ jobs:
           server: 195.35.33.109
           username: u947001429.gaboitools	
           password: ItoolsMx1&
-          server-dir: /domains/itoolsmx.com/public_html/wp-content/themes/storefront-child/ # Ruta de tu tema en WordPress
+          server-dir: /public_html/wp-content/themes/storefront-child/ # Ruta de tu tema en WordPress
           local-dir: ./ # Carpeta local en GitHub (la raíz del repo)
