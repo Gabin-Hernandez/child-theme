@@ -1,0 +1,162 @@
+/* Hero Swiper Styles */
+.hero-swiper {
+    width: 100vw;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    border-radius: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.hero-swiper .swiper-slide {
+    width: 100vw;
+    height: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform;
+}
+
+/* Animaciones para el contenido de los slides */
+.slide-content {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.swiper-slide-active .slide-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+/* Personalización de la paginación */
+.hero-swiper .swiper-pagination {
+    bottom: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 12px 24px !important;
+    border-radius: 50px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+    width: 12px !important;
+    height: 12px !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    opacity: 1 !important;
+    margin: 0 6px !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+    background: #3b82f6 !important;
+    transform: scale(1.2) !important;
+}
+
+/* Personalización de los botones de navegación */
+.hero-swiper .swiper-button-next,
+.hero-swiper .swiper-button-prev {
+    color: white !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-swiper .swiper-button-next:hover,
+.hero-swiper .swiper-button-prev:hover {
+    background: rgba(0, 0, 0, 0.7) !important;
+    transform: scale(1.1) !important;
+}
+
+.hero-swiper .swiper-button-next::after,
+.hero-swiper .swiper-button-prev::after {
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+/* Ocultar botones en móvil */
+@media (max-width: 768px) {
+    .hero-swiper .swiper-button-next,
+    .hero-swiper .swiper-button-prev {
+        display: none !important;
+    }
+    
+    .hero-swiper .swiper-pagination {
+        bottom: 20px !important;
+        padding: 8px 16px !important;
+    }
+    
+    .hero-swiper .swiper-pagination-bullet {
+        width: 10px !important;
+        height: 10px !important;
+        margin: 0 4px !important;
+    }
+}
+
+/* Efectos de parallax para las imágenes de fondo */
+.hero-swiper .swiper-slide img {
+    transition: transform 8s ease-out;
+}
+
+.hero-swiper .swiper-slide-active img {
+    transform: scale(1.05);
+}
+
+/* Animación de entrada para elementos individuales */
+.slide-content > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.swiper-slide-active .slide-content > *:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.4s;
+}
+
+.swiper-slide-active .slide-content > *:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s;
+}
+
+.swiper-slide-active .slide-content > *:nth-child(3) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.8s;
+}
+
+.swiper-slide-active .slide-content > *:nth-child(4) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1s;
+}
+
+/* Efecto de desvanecimiento suave entre slides */
+.hero-swiper .swiper-slide {
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* Mejoras de rendimiento */
+.hero-swiper {
+    will-change: transform;
+}
+
+.hero-swiper .swiper-slide {
+    will-change: transform, opacity;
+}

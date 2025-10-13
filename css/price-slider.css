@@ -1,0 +1,71 @@
+/* Estilos para los sliders de precio */
+.price-slider-input {
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: none;
+}
+
+.price-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    position: relative;
+}
+
+.price-slider-input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    position: relative;
+}
+
+.price-slider-input:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.price-slider-input:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.price-slider-track {
+    position: relative;
+}
+
+#price-slider-range {
+    transition: all 0.2s ease;
+}
+
+/* Estilos para botones de rango predefinido */
+.price-preset {
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.price-preset:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.price-preset.bg-green-100 {
+    border-color: #10B981;
+}
+
+/* Animación para inputs de precio */
+.price-input-container input:focus {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}

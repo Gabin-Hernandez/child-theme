@@ -1,0 +1,1703 @@
+/* Permitir overflow visible en secciones clave de la home */
+body.home #hero-slider,
+body.home #newsletter-cta,
+body.home #stats-cta,
+body.home #productos-destacados {
+  overflow: visible !important;
+}
+/* Fondo azulado para main en la home, para cubrir espacios blancos entre secciones */
+body.home main#main.site-main {
+  background: #1e2a47 !important; /* Usa el azul oscuro del sitio, ajusta si es necesario */
+}
+/* Eliminar padding vertical entre secciones solo en la home */
+body.home main#main.site-main > section {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+/* Espaciado uniforme y reset de márgenes para la home */
+body.home main#main.site-main section h1,
+body.home main#main.site-main section h2,
+body.home main#main.site-main section h3,
+body.home main#main.site-main section h4,
+body.home main#main.site-main section h5,
+body.home main#main.site-main section h6,
+body.home main#main.site-main section p,
+body.home main#main.site-main section form {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+body.home main#main.site-main section h2 {
+  margin-bottom: 8px;
+}
+
+body.home main#main.site-main section p {
+  margin-bottom: 12px;
+}
+
+body.home main#main.site-main section form {
+  margin-top: 12px;
+}
+/*
+Theme Name:     Child Theme ITOOLS
+Theme URI:      https://tusitio.com
+Description:    Tema hijo básico para ITOOLS - Fixed sticky header and scrollbars 2025-09-20
+Author:         Gabo Hernandez
+Author URI:     https://tusitio.com
+Template:       storefront
+Version:        1.0.1
+Text Domain:    child-theme
+*/
+
+/* Import parent theme styles */
+@import url("../storefront/style.css");
+
+/* ========================================
+   ESTILOS LIMPIOS PARA FRONT-PAGE
+   Compatible con Tailwind CSS
+   ======================================== */
+
+/* Reset mínimo SOLO para contenedores principales del front-page */
+body.home {
+  overflow-x: hidden; /* Solo ocultar scroll horizontal, no vertical */
+  min-height: 100vh; /* Asegurar altura mínima */
+}
+
+/* EMERGENCIA: Asegurar que el contenido sea visible */
+body,
+html {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+#page {
+  min-height: 100vh !important;
+  display: block !important;
+  position: relative !important;
+}
+
+#content {
+  display: block !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: white !important;
+}
+
+/* Permitir que los contenedores principales tengan margin/padding de Tailwind */
+body.home main,
+body.home .site-main,
+body.home #main {
+  width: 100%;
+  display: block !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: white !important;
+  /* NO forzar margin: 0 ni padding: 0 - permitir que Tailwind funcione */
+}
+
+/* Permitir que Tailwind funcione normalmente en secciones */
+body.home section {
+  /* Permitir espaciado natural de Tailwind */
+  width: 100%;
+  display: block; /* Asegurar que sean elementos de bloque normales */
+}
+
+/* Contenedores con Tailwind classes funcionando */
+body.home .container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive containers - compatible con Tailwind */
+
+/* Hero slider para front-page - Diseño profesional */
+body.home #hero-slider {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #1a1a1a; /* Fondo sólido elegante */
+}
+
+/* Transiciones suaves para slides */
+body.home #hero-slider .slide {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Slide activo */
+body.home #hero-slider .slide.active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  position: relative !important;
+}
+
+/* Slide que sale */
+body.home #hero-slider .slide.slide-out {
+  opacity: 0 !important;
+  transform: translateX(-100%) !important;
+}
+
+/* Slide que entra */
+body.home #hero-slider .slide.slide-in {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Animación de contenido dentro del slide */
+body.home #hero-slider .slide.active .space-y-8 > * {
+  animation: slideContentIn 1s ease-out forwards;
+}
+
+@keyframes slideContentIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Asegurar que el header sticky tenga la prioridad correcta */
+body.home header,
+body.home .site-header {
+  z-index: 1000 !important;
+}
+
+/* Hero slider debe estar por encima del contenido pero debajo del header sticky */
+body.home #hero-slider {
+  z-index: 5 !important;
+}
+
+body.home #hero-slider .slide {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Evitar que las imágenes se salgan */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Eliminar cualquier espacio después del hero slider */
+body.home #hero-slider + section,
+body.home #hero-slider ~ section:first-of-type {
+  margin-top: 0 !important;
+  padding-top: 2rem !important; /* Solo padding interno de la sección */
+}
+
+/* ELIMINAR ESPACIO BLANCO ESPECÍFICAMENTE EN FRONT-PAGE */
+body.home #hero-slider {
+  margin-bottom: 0 !important;
+}
+
+body.home #hero-slider + #categorias,
+body.home #hero-slider + section#categorias {
+  margin-top: 0 !important;
+  padding-top: 2rem !important;
+  transform: translateY(0) !important;
+}
+
+/* Forzar que no haya elementos entre hero slider y categorías */
+body.home #hero-slider + * + #categorias {
+  margin-top: -50px !important;
+}
+
+/* Eliminar cualquier barra blanca o elemento después del slider */
+body.home #hero-slider::after,
+body.home #hero-slider + * {
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+/* Forzar que no haya elementos blancos flotantes */
+body.home #hero-slider ~ div:empty,
+body.home #hero-slider + div:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Corregir las imágenes de fondo del slider */
+body.home #hero-slider .slide .absolute.inset-0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* NO usar inset-0 global que puede extenderse fuera del contenedor */
+}
+
+/* Controles del Hero Slider - Diseño profesional */
+body.home #hero-slider .slider-dot {
+  position: relative !important;
+  z-index: 10 !important;
+  width: 12px !important; /* Tamaño más discreto */
+  height: 12px !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important; /* Transición más rápida */
+  display: inline-block !important;
+}
+
+body.home #hero-slider .slider-dot:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  transform: scale(1.2) !important; /* Menos exagerado */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6) !important; /* Sombra más sutil */
+}
+
+/* Estado activo del dot - MÁS VISIBLE */
+body.home #hero-slider .slider-dot.bg-opacity-100,
+body.home #hero-slider .slider-dot.active {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Flechas de navegación del slider - Diseño profesional */
+body.home #hero-slider button[onclick*="Slide"] {
+  position: absolute !important;
+  z-index: 999 !important;
+  background-color: rgba(0, 0, 0, 0.6) !important; /* Fondo más sutil */
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Borde más sutil */
+  color: white !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important; /* Transición más rápida */
+  width: 48px !important; /* Tamaño más discreto */
+  height: 48px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+body.home #hero-slider button[onclick*="Slide"]:hover {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.05) !important; /* Menos exagerado */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3) !important; /* Sombra más sutil */
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Contenedor de los dots - Diseño profesional */
+body.home #hero-slider .absolute.bottom-8 {
+  z-index: 999 !important;
+  display: flex !important;
+  gap: 8px !important; /* Espaciado más compacto */
+  background: rgba(0, 0, 0, 0.6) !important; /* Fondo más sutil */
+  padding: 8px 16px !important; /* Padding más compacto */
+  border-radius: 20px !important; /* Menos redondeado */
+  backdrop-filter: blur(8px) !important;
+  position: absolute !important;
+  bottom: 24px !important; /* Más cerca del borde */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Dots del slider - MÁXIMA VISIBILIDAD */
+body.home #hero-slider .slider-dot {
+  position: relative !important;
+  z-index: 1000 !important;
+  width: 18px !important;
+  height: 18px !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 3px solid rgba(255, 255, 255, 1) !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Barra de progreso del slider - Diseño elegante */
+body.home #hero-slider #progress-bar {
+  z-index: 5 !important;
+  background: #2563eb !important; /* Azul sólido profesional */
+  transition: width 0.3s ease !important;
+}
+
+/* === CSS DE EMERGENCIA PARA CONTROLES DEL SLIDER === */
+.home #hero-slider button,
+.home #hero-slider .slider-dot,
+#hero-slider button,
+#hero-slider .slider-dot {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+/* Forzar contenedor de controles visible */
+.home #hero-slider div[class*="bottom-8"],
+#hero-slider div[class*="bottom-8"],
+.home #hero-slider .absolute.bottom-8,
+#hero-slider .absolute.bottom-8 {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  padding: 15px 25px !important;
+  border-radius: 30px !important;
+  gap: 15px !important;
+}
+
+/* FRONT-PAGE: Eliminar espaciado de WooCommerce/Storefront */
+body.home .site-main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+body.home #main {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Eliminar espaciado entre main y hero slider */
+body.home #main #hero-slider:first-child {
+  margin-top: 0 !important;
+}
+
+/* Eliminar margin/padding del contenedor principal solo en front-page */
+body.home .hfeed,
+body.home .site-content,
+body.home .content-area {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Fix específico para newsletter y otras secciones */
+body.home #newsletter-cta {
+  position: static !important; /* Asegurar que no esté posicionado absolutamente */
+  z-index: auto !important;
+}
+
+/* ELIMINAR LÍNEAS/BORDES ENTRE SECCIONES EN FRONT-PAGE */
+body.home section::before,
+body.home section::after,
+body.home #hero-slider::before,
+body.home #hero-slider::after,
+body.home #categorias::before,
+body.home #categorias::after {
+  display: none !important;
+  content: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+}
+
+/* Eliminar cualquier línea azul o elemento decorativo */
+body.home *::before,
+body.home *::after {
+  border-top: none !important;
+  border-bottom: none !important;
+  background-image: none !important;
+}
+
+/* Forzar elementos contiguos sin espacio */
+body.home #hero-slider,
+body.home #categorias {
+  display: block !important;
+  position: relative !important;
+}
+
+/* Permitir que las clases de Tailwind funcionen correctamente */
+body.home .py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+body.home .py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+body.home .px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+body.home .px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* === SOBRESCRIBIR STOREFRONT/WOOCOMMERCE SPACING EN FRONT-PAGE === */
+body.home.woocommerce .site-main,
+body.home.woocommerce-page .site-main,
+body.home .storefront-full-width-content .site-main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Eliminar padding del tema Storefront específicamente en front-page */
+body.home .col-full {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Storefront container fixes solo para front-page */
+body.home .site-content .col-full {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Eliminar espaciado de elementos WooCommerce en front-page */
+body.home .woocommerce-notices-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: none !important; /* Ocultar si está vacío */
+}
+
+/* === SOLUCIÓN DEFINITIVA: RESET DE MÁRGENES/PADDINGS ENTRE SECCIONES === */
+/* Quitar espacios verticales innecesarios en la Home */
+body.home main#main.site-main section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Respetar las clases de Tailwind que ya ajustamos */
+body.home main#main.site-main section.py-8 {
+  padding-top: 2rem !important; /* py-8 equivalente */
+  padding-bottom: 2rem !important;
+}
+
+body.home main#main.site-main section.py-6 {
+  padding-top: 1.5rem !important; /* py-6 equivalente */
+  padding-bottom: 1.5rem !important;
+}
+
+/* Evitar doble espacio si una sección viene seguida de otra */
+body.home main#main.site-main section + section {
+  margin-top: 0 !important;
+}
+
+/* Excepción especial: Hero slider no necesita padding */
+body.home main#main.site-main section:first-child {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+}
+
+/* === SOBRESCRIBIR ESPECÍFICAMENTE STOREFRONT === */
+/* Reset de márgenes que Storefront pueda aplicar */
+body.home .site-main section,
+body.home .col-full section,
+body.home .storefront-full-width-content section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Reset específico para elementos de WordPress */
+body.home .hfeed section,
+body.home .content-area section,
+body.home .site-content section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* === CSS AGRESIVO PARA ELIMINAR ESPACIO BLANCO === */
+body.home section {
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* === OCULTAR SECCIONES VACÍAS QUE CAUSAN EL ESPACIO BLANCO === */
+/* Solo en la home (body.home) */
+body.home section.relative.overflow-hidden:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Ocultar secciones que solo tienen espacios en blanco */
+body.home section.relative.overflow-hidden:not([id]):not([class*="py-"]) {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Forzar que cualquier section.relative.overflow-hidden sin contenido visible se oculte */
+body.home section.relative.overflow-hidden:not(#hero-slider):not(#categorias) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Forzar que hero slider y categorías estén pegados */
+body.home #hero-slider + #categorias {
+  margin-top: -1px !important;
+  border-top: none !important;
+}
+
+/* Eliminar line-height o espacios de elementos invisibles */
+body.home #hero-slider ~ *:empty,
+body.home #hero-slider + *:empty {
+  display: none !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+}
+
+/* === ADICIONAL: OCULTAR ELEMENTOS PROBLEMÁTICOS === */
+/* Cualquier div o section vacío entre hero slider y categorías */
+body.home #main > section:empty,
+body.home #main > div:empty,
+body.home .site-main > section:empty,
+body.home .site-main > div:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* === FORZAR ELIMINACIÓN DE ELEMENTOS WORDPRESS/WOOCOMMERCE === */
+/* Elementos que WordPress o WooCommerce puedan insertar automáticamente */
+body.home .woocommerce-notices-wrapper:empty,
+body.home .wc-block-components-notices:empty,
+body.home .site-main > *:empty,
+body.home #main > *:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Grid y flex utilities - asegurar compatibilidad */
+body.home .grid {
+  display: grid;
+}
+
+body.home .flex {
+  display: flex;
+}
+
+/* Cards de productos - permitir que Tailwind funcione */
+body.home .bg-white {
+  background-color: #ffffff;
+}
+
+body.home .rounded-xl {
+  border-radius: 0.75rem;
+}
+
+body.home .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.home .px-4 {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+body.home .px-6 {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+/* Grid y flex utilities - asegurar compatibilidad */
+body.home .grid {
+  display: grid !important;
+}
+
+body.home .flex {
+  display: flex !important;
+}
+
+/* Cards de productos - permitir que Tailwind funcione */
+body.home .bg-white {
+  background-color: #ffffff !important;
+}
+
+body.home .rounded-xl {
+  border-radius: 0.75rem !important;
+}
+
+body.home .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Cards de productos MEJORADAS - altura mínima y flex */
+body.home .grid .bg-white.rounded-xl {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.home .grid .bg-white.rounded-xl .relative:first-child {
+  height: 192px !important;
+  flex-shrink: 0 !important;
+}
+
+.home .grid .bg-white.rounded-xl .relative:first-child img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.home .grid .bg-white.rounded-xl .p-4 {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 1rem !important;
+}
+
+.home .grid .bg-white.rounded-xl h3 {
+  height: 3.5rem !important;
+  line-height: 1.75rem !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  margin-bottom: 1rem !important;
+}
+
+.home .grid .bg-white.rounded-xl .p-4 > div:last-child {
+  margin-top: auto !important;
+}
+
+.home .grid .bg-white.rounded-xl:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-8px) !important;
+}
+
+/* Responsive para front-page */
+@media (max-width: 768px) {
+  .home .grid .bg-white.rounded-xl {
+    min-height: 380px !important;
+  }
+
+  .home #hero-slider .slide {
+    height: 500px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .home .grid .bg-white.rounded-xl {
+    min-height: 360px !important;
+  }
+
+  .home .grid .bg-white.rounded-xl .relative:first-child {
+    height: 160px !important;
+  }
+
+  .home .grid .bg-white.rounded-xl h3 {
+    height: 3rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+
+  .home #hero-slider .slide {
+    height: 400px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home .grid .bg-white.rounded-xl {
+    min-height: 450px !important;
+  }
+}
+
+/* Container para front-page */
+.home .container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+/* Animación del carrusel de marcas */
+@keyframes scrollBrands {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.home .brands-carousel {
+  animation: scrollBrands 25s linear infinite !important;
+  width: calc(200%) !important;
+  will-change: transform !important;
+}
+
+.home .brands-container:hover .brands-carousel {
+  animation-play-state: paused !important;
+}
+
+/* ========================================
+   ESTILOS ESENCIALES DE WOOCOMMERCE
+   ======================================== */
+
+/* Utilidad para limitar líneas de texto */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Precios de WooCommerce */
+.woocommerce .price {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+}
+
+.woocommerce .price del {
+  color: #9ca3af !important;
+  text-decoration: line-through !important;
+  font-weight: 400 !important;
+}
+
+.woocommerce .price ins {
+  color: #dc2626 !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+}
+
+/* Botones de WooCommerce */
+.woocommerce .button.add_to_cart_button,
+.woocommerce .button.product_type_simple {
+  width: 100% !important;
+  background-color: #2563eb !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 12px 24px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.woocommerce .button.add_to_cart_button:hover,
+.woocommerce .button.product_type_simple:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Página de producto individual */
+.single-product .single_add_to_cart_button {
+  background: #2563eb !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  color: white !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  text-transform: none !important;
+  font-size: 1rem !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Estrellas de rating */
+.woocommerce .star-rating {
+  font-size: 12px !important;
+  color: #fbbf24 !important;
+}
+
+.woocommerce .star-rating::before {
+  color: #e5e7eb !important;
+}
+
+.woocommerce .star-rating span::before {
+  color: #fbbf24 !important;
+}
+
+/* ========================================
+   BOTÓN WHATSAPP
+   ======================================== */
+
+.whatsapp-float {
+  position: fixed !important;
+  width: 70px;
+  height: 70px;
+  bottom: 25px !important;
+  right: 25px !important;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 36px;
+  z-index: 2147483647 !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  border: none;
+  outline: none;
+}
+
+.whatsapp-float:hover {
+  background: #20ba5a !important;
+  color: white !important;
+  text-decoration: none !important;
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: whatsapp-pulse 2.5s infinite;
+  opacity: 0;
+  z-index: -1;
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.whatsapp-float i {
+  font-size: 38px !important;
+  line-height: 1 !important;
+  color: white !important;
+}
+
+@media screen and (max-width: 768px) {
+  .whatsapp-float {
+    width: 65px !important;
+    height: 65px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 32px !important;
+  }
+
+  .whatsapp-float i {
+    font-size: 34px !important;
+  }
+}
+
+/* Mejoras para los precios de WooCommerce */
+.woocommerce .price {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+}
+
+.woocommerce .price del {
+  color: #9ca3af !important;
+  text-decoration: line-through !important;
+  font-weight: 400 !important;
+}
+
+.woocommerce .price ins {
+  color: #dc2626 !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+}
+
+/* Botones de agregar al carrito mejorados */
+.woocommerce .button.add_to_cart_button,
+.woocommerce .button.product_type_simple {
+  width: 100% !important;
+  background-color: #2563eb !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 12px 24px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.woocommerce .button.add_to_cart_button:hover,
+.woocommerce .button.product_type_simple:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Estilos específicos para la página de producto individual */
+.single-product .single_add_to_cart_button {
+  background: #2563eb !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+  text-transform: none !important;
+  font-size: 1rem !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Mejoras para las pestañas de producto */
+.tab-content {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.border-b-3 {
+  border-bottom-width: 3px !important;
+}
+
+/* Estilos para las reseñas de WooCommerce */
+.woocommerce #reviews #comments ol.commentlist li {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 1rem !important;
+  padding: 1.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.woocommerce .star-rating {
+  color: #fbbf24 !important;
+}
+
+.woocommerce .star-rating::before {
+  color: #e5e7eb !important;
+}
+
+/* Ocultar elementos duplicados de WooCommerce */
+.single-product .woocommerce-product-details__short-description {
+  display: none !important;
+}
+
+/* Mejoras para el selector de cantidad */
+.qty {
+  text-align: center !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+.qty:focus {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .single-product .grid.grid-cols-1.lg\\:grid-cols-2 {
+    gap: 2rem !important;
+  }
+
+  .single-product .flex.items-center.gap-4 {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .single-product .flex.items-center.gap-4 > div:first-child {
+    justify-content: center !important;
+  }
+
+  /* Mejoras responsive para cards de productos */
+  .grid .bg-white.rounded-xl {
+    min-height: 380px !important;
+  }
+
+  /* Hero slider responsive */
+  #hero-slider .slide {
+    height: 500px !important;
+  }
+
+  /* Botones más grandes en móvil */
+  .grid .bg-white.rounded-xl .flex.gap-2 a,
+  .grid .bg-white.rounded-xl .flex.gap-2 button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Cards de productos en móvil - más compactas */
+  .grid .bg-white.rounded-xl {
+    min-height: 360px !important;
+  }
+
+  .grid .bg-white.rounded-xl .relative:first-child {
+    height: 160px !important;
+  }
+
+  .grid .bg-white.rounded-xl h3 {
+    height: 3rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+
+  /* Hero slider más pequeño en móvil */
+  #hero-slider .slide {
+    height: 400px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* En pantallas grandes, asegurar altura consistente */
+  .grid .bg-white.rounded-xl {
+    min-height: 450px !important;
+  }
+}
+
+/* Botones de WooCommerce - hover states */
+.woocommerce .button.add_to_cart_button:hover,
+.woocommerce .button.product_type_simple:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Estilos para las estrellas de rating */
+.woocommerce .star-rating {
+  font-size: 12px !important;
+  color: #fbbf24 !important;
+}
+
+.woocommerce .star-rating::before {
+  color: #e5e7eb !important;
+}
+
+.woocommerce .star-rating span::before {
+  color: #fbbf24 !important;
+}
+
+/* Estilos para cards de productos - tamaño uniforme */
+.woocommerce .products .product,
+.grid .bg-white.rounded-xl {
+  height: auto !important;
+  min-height: 420px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Contenedor de imagen de producto - altura fija */
+.grid .bg-white.rounded-xl .relative:first-child {
+  height: 192px !important; /* h-48 = 192px */
+  flex-shrink: 0 !important;
+}
+
+.grid .bg-white.rounded-xl .relative:first-child img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Contenido de la card - ocupa el resto del espacio */
+.grid .bg-white.rounded-xl .p-4 {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 1rem !important;
+}
+
+/* Título del producto - altura fija con line-clamp */
+.grid .bg-white.rounded-xl h3 {
+  height: 3.5rem !important; /* aprox 2 líneas */
+  line-height: 1.75rem !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Contenedor de precio y botones - en la parte inferior */
+.grid .bg-white.rounded-xl .p-4 > div:last-child {
+  margin-top: auto !important;
+}
+
+/* Mejoras adicionales para el layout */
+.container {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+/* Mejorar la transición de hover en las cards */
+.grid .bg-white.rounded-xl:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  transform: translateY(-8px) !important;
+}
+
+/* Asegurar que los botones tengan el tamaño correcto */
+.grid .bg-white.rounded-xl .flex.gap-2 {
+  margin-top: 0.75rem !important;
+}
+
+/* Mejoras para los widgets de filtros - Slider de precio visible y bonito */
+.woocommerce .widget_price_filter .price_slider_wrapper .price_slider {
+  height: 8px !important;
+  background: #e5e7eb !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  position: relative !important;
+}
+.woocommerce .widget_price_filter .ui-slider-range {
+  height: 8px !important;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6) !important;
+  border-radius: 9999px !important;
+}
+.woocommerce .widget_price_filter .ui-slider .ui-slider-handle {
+  width: 18px !important;
+  height: 18px !important;
+  top: -5px !important; /* centra el handle respecto al track */
+  background: #fff !important;
+  border: 3px solid #3b82f6 !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+  cursor: pointer !important;
+}
+.woocommerce .widget_price_filter .ui-slider .ui-slider-handle:hover {
+  border-color: #8b5cf6 !important;
+}
+.woocommerce .widget_price_filter .price_slider_amount {
+  margin-top: 12px !important;
+}
+.woocommerce .widget_price_filter .price_slider_amount .button {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+}
+
+/* Personalizar la paginación */
+.woocommerce nav.woocommerce-pagination {
+  text-align: center !important;
+  margin: 2rem 0 !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul {
+  display: inline-flex !important;
+  gap: 8px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li {
+  margin: 0 !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  color: #4b5563 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+  background: white !important;
+}
+
+.woocommerce nav.woocommerce-pagination ul li a:hover,
+.woocommerce nav.woocommerce-pagination ul li span.current {
+  background: #2563eb !important;
+  color: white !important;
+  border-color: #2563eb !important;
+}
+
+/* Mejoras para el ordenamiento */
+.woocommerce .woocommerce-ordering select {
+  padding: 8px 12px !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  background: white !important;
+  font-size: 14px !important;
+}
+
+/* Mejoras para los breadcrumbs */
+.woocommerce .woocommerce-breadcrumb {
+  font-size: 14px !important;
+  color: #6b7280 !important;
+}
+
+.woocommerce .woocommerce-breadcrumb a {
+  color: #2563eb !important;
+  text-decoration: none !important;
+}
+
+.woocommerce .woocommerce-breadcrumb a:hover {
+  text-decoration: underline !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .woocommerce .products .product {
+    width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Grid de productos personalizado */
+.woocommerce ul.products {
+  display: grid !important;
+  grid-template-columns: repeat(1, 1fr) !important;
+  gap: 1.5rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .woocommerce ul.products {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .woocommerce ul.products {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+.woocommerce ul.products li.product {
+  width: 100% !important;
+  margin: 0 !important;
+  float: none !important;
+}
+
+/* Mejoras para widgets de filtros */
+.widget-area {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.widget-area:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.woocommerce .widget_product_categories ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.woocommerce .widget_product_categories ul li {
+  margin-bottom: 0.5rem !important;
+  padding: 0.5rem 0 !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.woocommerce .widget_product_categories ul li:last-child {
+  border-bottom: none !important;
+}
+
+.woocommerce .widget_product_categories ul li a {
+  color: #4b5563 !important;
+  text-decoration: none !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  transition: color 0.3s ease !important;
+}
+
+.woocommerce .widget_product_categories ul li a:hover {
+  color: #2563eb !important;
+}
+
+.woocommerce .widget_product_categories ul li .count {
+  background: #e5e7eb !important;
+  color: #6b7280 !important;
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Widget de filtros por atributos */
+.woocommerce .widget_layered_nav ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.woocommerce .widget_layered_nav ul li {
+  margin-bottom: 0.5rem !important;
+}
+
+.woocommerce .widget_layered_nav ul li a {
+  color: #4b5563 !important;
+  text-decoration: none !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.5rem 0 !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+  transition: color 0.3s ease !important;
+}
+
+.woocommerce .widget_layered_nav ul li a:hover {
+  color: #2563eb !important;
+}
+
+.woocommerce .widget_layered_nav ul li .count {
+  background: #e5e7eb !important;
+  color: #6b7280 !important;
+  padding: 2px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Animación para el carrusel de marcas */
+@keyframes scrollBrands {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brands-carousel {
+  animation: scrollBrands 25s linear infinite !important;
+  width: calc(200%) !important;
+  will-change: transform !important;
+}
+
+/* Para pausar la animación al hacer hover sobre el contenedor */
+.brands-container:hover .brands-carousel {
+  animation-play-state: paused !important;
+}
+
+/* ====== ESTILOS ESPECÍFICOS SOLO PARA FRONT-PAGE ====== */
+/* Estas reglas SOLO se aplican en la página de inicio */
+
+/* Cards de productos uniformes SOLO en front-page */
+.home .woocommerce .products .product,
+.home .grid .bg-white.rounded-xl {
+  height: auto !important;
+  min-height: 420px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* ====================================
+   ESTILOS GENERALES PARA WOOCOMMERCE
+   ==================================== */
+
+/* Mejoras generales para mensajes de WooCommerce */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  border-radius: 0.75rem !important;
+  padding: 1rem 1.5rem !important;
+  margin: 1rem 0 !important;
+  border-left: 4px solid !important;
+}
+
+.woocommerce-message {
+  background-color: #ecfdf5 !important;
+  color: #065f46 !important;
+  border-left-color: #10b981 !important;
+}
+
+.woocommerce-info {
+  background-color: #eff6ff !important;
+  color: #1e40af !important;
+  border-left-color: #3b82f6 !important;
+}
+
+.woocommerce-error {
+  background-color: #fef2f2 !important;
+  color: #991b1b !important;
+  border-left-color: #ef4444 !important;
+}
+
+/* Estilos específicos para página de producto individual */
+.single-product .single_add_to_cart_button {
+  background: #2563eb !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+  background: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4) !important;
+}
+
+.single-product .qty-btn {
+  transition: all 0.2s ease !important;
+}
+
+.single-product .qty-btn:hover {
+  background-color: #e5e7eb !important;
+}
+
+.single-product .border-b-3 {
+  border-bottom-width: 3px !important;
+}
+
+.single-product .tab-content {
+  transition: all 0.3s ease-in-out !important;
+  display: none !important;
+}
+
+.single-product .tab-content.active,
+.single-product .tab-content:first-child {
+  display: block !important;
+}
+
+.single-product .thumbnail-img {
+  transition: all 0.2s ease !important;
+}
+
+.single-product .thumbnail-img:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Mejorar el diseño de las pestañas */
+.single-product .tab-btn {
+  transition: all 0.2s ease-in-out !important;
+  position: relative !important;
+}
+
+.single-product .tab-btn.active::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -1px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background-color: #3b82f6 !important;
+  border-radius: 1px 1px 0 0 !important;
+}
+
+/* ===== SOLUCIÓN ESPECÍFICA PARA FRONT-PAGE ===== */
+
+/* Estilos SOLO para front-page - no afectar otras páginas */
+.home main,
+.home .site-main,
+.home #main {
+  /* Restaurar espaciado natural solo en front-page */
+  margin: 0;
+  padding: 0;
+}
+
+/* Asegurar que solo front-page tenga overflow controlado */
+.home {
+  overflow-x: hidden;
+}
+
+/* ========================================
+   FOOTER SIMPLE FIX - Sin afectar espaciados
+   ======================================== */
+
+/* Solo asegurar que el footer no tenga margin-top excesivo */
+#colophon,
+.site-footer,
+footer {
+  margin-top: 0;
+}
+
+/* Z-index para dropdowns */
+.dropdown-container {
+  z-index: 10000 !important;
+}
+
+.dropdown-menu {
+  z-index: 10001 !important;
+}
+
+/* ========================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   ======================================== */
+
+/* Contenedor del botón flotante */
+.whatsapp-float {
+  position: fixed !important;
+  width: 70px;
+  height: 70px;
+  bottom: 25px !important;
+  right: 25px !important;
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 36px;
+  z-index: 2147483647 !important; /* Valor máximo de z-index */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  border: none;
+  outline: none;
+  /* Asegurar que se posicione respecto al viewport */
+  top: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+/* Efecto hover */
+.whatsapp-float:hover {
+  background: #20ba5a !important;
+  color: white !important;
+  text-decoration: none !important;
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+/* Animación de pulso */
+.whatsapp-float::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: whatsapp-pulse 2.5s infinite;
+  opacity: 0;
+  z-index: -1;
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Icono de WhatsApp */
+.whatsapp-float i {
+  font-size: 38px !important;
+  line-height: 1 !important;
+  color: white !important;
+}
+
+/* Responsive - móviles */
+@media screen and (max-width: 768px) {
+  .whatsapp-float {
+    width: 65px !important;
+    height: 65px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 32px !important;
+    position: fixed !important;
+  }
+
+  .whatsapp-float i {
+    font-size: 34px !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media screen and (max-width: 480px) {
+  .whatsapp-float {
+    width: 60px !important;
+    height: 60px !important;
+    bottom: 15px !important;
+    right: 15px !important;
+    font-size: 28px !important;
+    position: fixed !important;
+  }
+
+  .whatsapp-float i {
+    font-size: 30px !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Correcciones adicionales para eliminar espacios en blanco */
+.site-footer,
+#colophon,
+footer {
+  overflow: hidden !important;
+}
+
+/* Eliminar cualquier margen o padding extra que pueda causar espacios */
+.site-footer::after,
+#colophon::after,
+footer::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Asegurar que el botón de WhatsApp esté siempre accesible */
+.whatsapp-float {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Evita que los pseudo-elementos del grid creen un hueco inicial en la lista de productos */
+.woocommerce ul.products::before,
+.woocommerce ul.products::after {
+  content: none !important;
+  display: none !important;
+}

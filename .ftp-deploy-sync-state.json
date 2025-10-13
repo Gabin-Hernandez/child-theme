@@ -1,0 +1,341 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1760217814881,
+    "data": [
+        {
+            "type": "file",
+            "name": ".htaccess",
+            "size": 1215,
+            "hash": "46f31b4fa0ab94e933b1c713a8a7decfeb2dab829ee350730a0e15dcf2ae9416"
+        },
+        {
+            "type": "file",
+            "name": "FIX_HEADER_OVERLAP.md",
+            "size": 4352,
+            "hash": "4c660f8f892d24a191cdfa3091b76b2dcf397d852077f1d9a87a2c926ff31e40"
+        },
+        {
+            "type": "file",
+            "name": "HEADER_BEHAVIOR_EXPLAINED.md",
+            "size": 7159,
+            "hash": "e7fe6f654718da35f32262074277d68c62f5baa60f3699bcd408bd4891b26a87"
+        },
+        {
+            "type": "file",
+            "name": "archive-product.php",
+            "size": 82641,
+            "hash": "8cebc79408876c8aa0162b83acab3f706ee20543078ce0f3315d28daa577f468"
+        },
+        {
+            "type": "file",
+            "name": "categoria-herramientas-electricas.php",
+            "size": 22435,
+            "hash": "651db90be323f6f162e45f4d81a583865293850e0a9b3d66c72d965392c80cb0"
+        },
+        {
+            "type": "file",
+            "name": "check-reviews.php",
+            "size": 7200,
+            "hash": "fa6656c04523d05b64d25cc33621b12b70632377b65dfff29429cfd69ba99b03"
+        },
+        {
+            "type": "folder",
+            "name": "css"
+        },
+        {
+            "type": "file",
+            "name": "debug-reviews.php",
+            "size": 1453,
+            "hash": "2e4cc07daebf8b2b5055870d67b5dd4e82e069c2c65ef13365bd4463fb550919"
+        },
+        {
+            "type": "file",
+            "name": "fix_links.ps1",
+            "size": 1274,
+            "hash": "fdb6f7fa6500d158fd9729d879343c371ddc0783403a7c5367496b1b462b9b04"
+        },
+        {
+            "type": "file",
+            "name": "footer.php",
+            "size": 13756,
+            "hash": "d51c21be4225e3d00d842a0d5ff3796b587cec48679a75e4df5bc783a1da956d"
+        },
+        {
+            "type": "file",
+            "name": "front-page.php",
+            "size": 137880,
+            "hash": "74cbec9af502c58761ef7a5ab763b14986ff2da1bd26a332788cde92b21afd7c"
+        },
+        {
+            "type": "file",
+            "name": "functions.php",
+            "size": 124198,
+            "hash": "2e6d958bb437ffc0f0e61c97071e8b186fa8bc2c5dca339e61c394b64c34d638"
+        },
+        {
+            "type": "file",
+            "name": "header.php",
+            "size": 96002,
+            "hash": "532d8571f52afc9276d59f74bce3f43a0f389ced0fab2b40f1d203876fee59ee"
+        },
+        {
+            "type": "folder",
+            "name": "images"
+        },
+        {
+            "type": "file",
+            "name": "index.php",
+            "size": 5626,
+            "hash": "13bc09d47581d417f20209efd9534c83a56d827d59fce1076173043c67e27b62"
+        },
+        {
+            "type": "file",
+            "name": "itools-frontpage-clean.css",
+            "size": 9363,
+            "hash": "5649daebcb9e391a32d59d11b8412093ebae3017d08b4eaaf75d71c384fbb7dc"
+        },
+        {
+            "type": "file",
+            "name": "package-lock.json",
+            "size": 1406,
+            "hash": "7737156b79f33e44a7e0866cf90c91b2bb65ef7d3b5bc2aba060daffaf60ad48"
+        },
+        {
+            "type": "folder",
+            "name": "js"
+        },
+        {
+            "type": "file",
+            "name": "package.json",
+            "size": 338,
+            "hash": "507ed952a31e8e25f0e7c56c00a9370f20310ca6e7805e37d82a095a47d4ad81"
+        },
+        {
+            "type": "file",
+            "name": "page-cart.php",
+            "size": 27525,
+            "hash": "1d2f33d233412f18d29b2e1888667da7b0864d71e06f8e3c339c5b778743a12c"
+        },
+        {
+            "type": "file",
+            "name": "page-checkout.php",
+            "size": 14260,
+            "hash": "acb5805481f97121906b99137ece69b9ad66428ebd70f388cca81999adf586a5"
+        },
+        {
+            "type": "file",
+            "name": "page-ofertas.php",
+            "size": 20878,
+            "hash": "4ee517076e288e03add77d3aaa5fd752ee57955cb2d87864d20cba147c16b3af"
+        },
+        {
+            "type": "file",
+            "name": "page-valoraciones.php",
+            "size": 10512,
+            "hash": "2f5de7067a4bf7a21d4c7ab605074ec7ae148ee8ae4a6a8f976f27096d884e80"
+        },
+        {
+            "type": "file",
+            "name": "single-product.php",
+            "size": 50633,
+            "hash": "72afd7e15491682e50ecd74fcf3c749bee58043e0a21ff26f21fb349325c828c"
+        },
+        {
+            "type": "file",
+            "name": "style.css",
+            "size": 43402,
+            "hash": "48cc18dcf0e62811245343479b47e78ed6d930f70f1c0c5b09e3e65755363420"
+        },
+        {
+            "type": "file",
+            "name": "taxonomy-product_cat.php",
+            "size": 60782,
+            "hash": "63a6675a7c4d76bb281088b59d38f9ee0329a33a150c9ee861ef74654123c3eb"
+        },
+        {
+            "type": "folder",
+            "name": "template-parts"
+        },
+        {
+            "type": "file",
+            "name": "test-review-handler.php",
+            "size": 2683,
+            "hash": "82269966dab19cb32dae6c8c568f2de7aa601d3c1407a4653a34349d872bb260"
+        },
+        {
+            "type": "file",
+            "name": "tienda.php",
+            "size": 18274,
+            "hash": "af798f8b6cd651c9731c303e3a4c2107a770f6a9ca80bc7d7a4db07db5f5caa2"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce.php",
+            "size": 878,
+            "hash": "940a00a9333b5b743029ec682aab1d88b39d565a708339ddbe15f1003114de65"
+        },
+        {
+            "type": "file",
+            "name": "css/hero-swiper.css",
+            "size": 4013,
+            "hash": "280c41297bf59cf980fae6cf4892d44b58d7aea87a6eb51358041ffaaab7683b"
+        },
+        {
+            "type": "file",
+            "name": "css/cart-sidepanel.css",
+            "size": 11176,
+            "hash": "f34d26f2fbaa6c14f400fc6e9b41b6a8b29e4c603c36a4b18fcd330518292144"
+        },
+        {
+            "type": "file",
+            "name": "css/price-slider.css",
+            "size": 1595,
+            "hash": "6ea59999bbae638774ac7f76262c3e867787aec6c26f341697433878c21b13af"
+        },
+        {
+            "type": "file",
+            "name": "css/tailwind.css",
+            "size": 17442,
+            "hash": "16c622c0deb308fff69f73eda961de6202e1cec6643a9f466bade8285120a113"
+        },
+        {
+            "type": "file",
+            "name": "css/valoraciones.css",
+            "size": 8659,
+            "hash": "54915ed25fe7a314b5627e375fa945c018744a895037f62d1899188e4a4d142f"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-accesorios.svg",
+            "size": 540,
+            "hash": "0e4cdd38adaeaea571a39cef992350ab1c629fd1c5396b5a985964a5d4bec54f"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-baterias.svg",
+            "size": 475,
+            "hash": "1906a5c7c45668089d6f3af25f56654b2e4281b9172167fece2a3b621e542203"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-cargadores.svg",
+            "size": 599,
+            "hash": "5878fa3c4b46b42cc4a78d481d076f825165bd3e1c63bbb31c1f3bee9e456d6a"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-herramientas.svg",
+            "size": 504,
+            "hash": "dae7f0b4fdb0797ff809995a416236891b3e451e3535bab0716a9cc843caf63f"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-pantallas.svg",
+            "size": 545,
+            "hash": "f5c15805f755c597ea280d67cc75932ed07ce6f1113f08b1b49207408ae1d2f1"
+        },
+        {
+            "type": "file",
+            "name": "images/categoria-refacciones.svg",
+            "size": 505,
+            "hash": "6685264ecd82aa3ef196bbb3683ec72ce559b2faa71bd14150d53dbbbb4dd3a1"
+        },
+        {
+            "type": "file",
+            "name": "js/cart-debug.js",
+            "size": 1174,
+            "hash": "2a796bd55cdc1ae7a3813fff77e3dbd32d561135090281ae132c43e8ef4b1f6d"
+        },
+        {
+            "type": "file",
+            "name": "js/cart-sidepanel.js",
+            "size": 21893,
+            "hash": "d52384d392d49e67249fc49b5964ef0a38e1264c14862d4b28a1729764e8d9f7"
+        },
+        {
+            "type": "file",
+            "name": "js/cart-global.js",
+            "size": 5444,
+            "hash": "04780982a20ae0b61204a05ea3fb2f4c1dcf946d1b093fb16c80844afd320183"
+        },
+        {
+            "type": "file",
+            "name": "js/filters.js",
+            "size": 32771,
+            "hash": "1fd8384f6394bf61a4c272a27df9a714da25d4b9738026d5cb39cbffb627fb9b"
+        },
+        {
+            "type": "file",
+            "name": "js/header.js",
+            "size": 6509,
+            "hash": "e55c1b6bd2c6e2cbb60be12c6715730150c108785723361a5743c8e0ba4cb7b8"
+        },
+        {
+            "type": "file",
+            "name": "js/hero-swiper.js",
+            "size": 5701,
+            "hash": "d1f952a85e5bfd5358ff4f1829662781e8ee0c01bc215d27544f33ad7b57e748"
+        },
+        {
+            "type": "file",
+            "name": "js/live-search.js",
+            "size": 9697,
+            "hash": "8a8b4c90c4e10e734e3c097c9bcb2c7ad0c1faab980a7b95f0155f0159d99abc"
+        },
+        {
+            "type": "file",
+            "name": "js/lucide-icons.js",
+            "size": 5795,
+            "hash": "879b7bfdbf365cd64597ed0c815f17b57218062c1ed2e06e5781e54d2aac7e8d"
+        },
+        {
+            "type": "file",
+            "name": "js/newsletter.js",
+            "size": 2485,
+            "hash": "53f6633caa4dbaebd2e87a6c66575e75188770a3f44f92a2d58a0fa18669580a"
+        },
+        {
+            "type": "file",
+            "name": "js/price-slider.js",
+            "size": 4904,
+            "hash": "709c654e31d100f1e8d4f9910358c038017f4ac6a5e69e563fdde2e2e9e76f19"
+        },
+        {
+            "type": "file",
+            "name": "js/single-product.js",
+            "size": 13015,
+            "hash": "8058121f9314b9e3ad6c629ca18aac0df00de93ba0227be87781607f3ae37690"
+        },
+        {
+            "type": "file",
+            "name": "js/table-filters.js",
+            "size": 11025,
+            "hash": "d3653a2601cc82cf4d2d6f12b96d3bac523163c2809c478c52f368dd440d1af6"
+        },
+        {
+            "type": "file",
+            "name": "js/valoraciones.js",
+            "size": 1224,
+            "hash": "0a68396418439ea9ae312df6a93d6b03c410f16e453941174d94f3235dea0274"
+        },
+        {
+            "type": "file",
+            "name": "js/whatsapp-float.js",
+            "size": 1554,
+            "hash": "5aa955adc2dad827f9e9c9c78b4d0c6a156bf4b9c9a1a7d69b141726d7b9f17a"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/product-card-quick.php",
+            "size": 6851,
+            "hash": "53a000315c2bfa6546ea24b2ca79886445e8ea08bb6d0d0e8523efb05274d61f"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/review-card.php",
+            "size": 3415,
+            "hash": "184f28035a3616baa4143bf946809258ce4bb6ad37713381c788e87a94a3dec9"
+        }
+    ]
+}

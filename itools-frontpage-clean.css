@@ -1,0 +1,302 @@
+/* ========================================
+   ESTILOS DE DISEÑO PARA FRONT-PAGE
+   Tema hijo ITOOLS - Diseño profesional y elegante
+   ======================================== */
+
+/* RESET COMPLETO Y AGRESIVO PARA FRONT-PAGE */
+body.home,
+body.home *,
+body.home main,
+body.home .site-main,
+body.home #main,
+body.home .site-content,
+body.home #content,
+body.home section,
+body.home div,
+body.home .container {
+    all: revert !important;
+    box-sizing: border-box !important;
+}
+
+/* Estructura principal del front-page */
+body.home main,
+body.home .site-main,
+body.home #main,
+body.home .site-content,
+body.home #content {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+/* Secciones */
+body.home section {
+    margin: 0 !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+/* Containers */
+body.home .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+}
+
+@media (min-width: 640px) {
+    body.home .container { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+}
+
+@media (min-width: 1024px) {
+    body.home .container { padding-left: 2rem !important; padding-right: 2rem !important; }
+}
+
+/* ========================================
+   HERO SLIDER - DISEÑO PROFESIONAL
+   ======================================== */
+
+body.home #hero-slider {
+    position: relative !important;
+    z-index: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+body.home #hero-slider .slide {
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: #1a1a1a !important; /* Fondo sólido elegante */
+}
+
+/* Hero content styling - Tipografía profesional */
+body.home #hero-slider .slide h1 {
+    font-size: 2.5rem !important; /* Tamaño más moderado */
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 1.25rem !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Sombra más sutil */
+    letter-spacing: -0.025em !important;
+}
+
+@media (min-width: 768px) {
+    body.home #hero-slider .slide h1 {
+        font-size: 3.5rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home #hero-slider .slide h1 {
+        font-size: 4.5rem !important; /* Menos exagerado */
+    }
+}
+
+body.home #hero-slider .slide h1 span {
+    display: block !important;
+    font-size: 0.65em !important;
+    font-weight: 400 !important;
+    color: #cbd5e1 !important; /* Color más sutil */
+    margin-top: 0.5rem !important;
+}
+
+body.home #hero-slider .slide p {
+    font-size: 1.125rem !important; /* Tamaño más moderado */
+    line-height: 1.6 !important;
+    color: #e2e8f0 !important; /* Color más sutil */
+    margin-bottom: 1.75rem !important;
+}
+
+@media (min-width: 768px) {
+    body.home #hero-slider .slide p {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Hero buttons - Diseño profesional */
+body.home #hero-slider .slide a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.875rem 2rem !important; /* Padding más compacto */
+    font-size: 1.125rem !important; /* Tamaño más moderado */
+    font-weight: 600 !important; /* Peso más sutil */
+    border-radius: 0.5rem !important; /* Bordes menos redondeados */
+    transition: all 0.2s ease !important; /* Transición más rápida */
+    text-decoration: none !important;
+    transform: translateY(0) !important;
+}
+
+body.home #hero-slider .slide a:hover {
+    transform: translateY(-1px) scale(1.02) !important; /* Efecto más sutil */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important; /* Sombra más sutil */
+}
+
+/* ========================================
+   SECCIONES PRINCIPALES
+   ======================================== */
+
+/* Background colors - Diseño profesional */
+body.home .bg-gray-900 {
+    background: #111827 !important; /* Gris oscuro sólido */
+}
+
+body.home .bg-gray-50 {
+    background: #f8fafc !important; /* Gris claro sólido */
+}
+
+body.home .bg-white {
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important; /* Sombra sutil */
+}
+
+/* Titles and typography - Diseño profesional */
+body.home h2 {
+    font-size: 2.25rem !important; /* Tamaño más moderado */
+    line-height: 1.3 !important; /* Mejor legibilidad */
+    font-weight: 600 !important; /* Peso más sutil */
+    margin-bottom: 1.25rem !important;
+    letter-spacing: -0.025em !important; /* Espaciado de letras profesional */
+}
+
+@media (min-width: 768px) {
+    body.home h2 {
+        font-size: 2.75rem !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home h2 {
+        font-size: 3.25rem !important; /* Menos exagerado */
+    }
+}
+
+body.home h3 {
+    font-size: 1.375rem !important; /* Tamaño más equilibrado */
+    line-height: 1.4 !important;
+    font-weight: 500 !important; /* Peso más sutil */
+    margin-bottom: 0.875rem !important;
+    letter-spacing: -0.015em !important;
+}
+
+body.home h4 {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.625rem !important;
+}
+
+/* ========================================
+   GRID LAYOUTS Y CARDS
+   ======================================== */
+
+/* Grid layouts - Espaciado optimizado */
+body.home .grid {
+    display: grid !important;
+    gap: 1.5rem !important; /* Espaciado más moderado */
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body.home .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+body.home .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+body.home .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+body.home .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+@media (min-width: 768px) {
+    body.home .md\\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    body.home .md\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    
+    body.home .grid {
+        gap: 1.75rem !important; /* Espaciado equilibrado */
+    }
+}
+
+@media (min-width: 1024px) {
+    body.home .lg\\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    body.home .lg\\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    
+    body.home .grid {
+        gap: 2rem !important; /* Espaciado final más controlado */
+    }
+}
+
+/* Cards modernas con diseño profesional */
+body.home .grid .bg-white.rounded-xl,
+body.home .grid .bg-black.rounded-2xl {
+    background: #ffffff !important;
+    border-radius: 0.75rem !important; /* Bordes menos redondeados */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important; /* Sombra más sutil */
+    overflow: hidden !important;
+    transition: all 0.3s ease !important; /* Transición más suave */
+    border: 1px solid rgba(0, 0, 0, 0.06) !important; /* Borde más sutil */
+    position: relative !important;
+}
+
+/* Category cards specific styling */
+body.home .grid .bg-black.rounded-2xl {
+    background: #1f2937 !important; /* Fondo sólido elegante */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Hover effects más sutiles */
+body.home .grid .bg-white.rounded-xl:hover,
+body.home .grid .bg-black.rounded-2xl:hover {
+    transform: translateY(-2px) !important; /* Efecto más sutil */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Botones profesionales */
+body.home .btn,
+body.home button,
+body.home input[type="submit"] {
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 500 !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+body.home .btn:hover,
+body.home button:hover,
+body.home input[type="submit"]:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Formularios profesionales */
+body.home input[type="text"],
+body.home input[type="email"],
+body.home textarea,
+body.home select {
+    padding: 0.75rem !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease !important;
+    background: #ffffff !important;
+}
+
+body.home input[type="text"]:focus,
+body.home input[type="email"]:focus,
+body.home textarea:focus,
+body.home select:focus {
+    outline: none !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
