@@ -26,6 +26,7 @@ if ($has_advanced_filters) {
     );
 
     // Filtro por categorías
+    //esto es una prueba
     if (!empty($_GET['product_categories'])) {
     $selected_categories = $_GET['product_categories'];
     if (is_array($selected_categories)) {
