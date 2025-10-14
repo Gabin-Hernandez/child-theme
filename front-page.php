@@ -3168,7 +3168,7 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .vendidos-swiper .swiper-slide > div,
     .recomendados-swiper .swiper-slide > div {
         width: 100%;
-        min-height: 480px;
+        min-height: 420px;
     }
     
     /* Ocultar botones en móvil para todos los carruseles */
@@ -3376,19 +3376,19 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             breakpoints: {
                 640: {
-                    slidesPerView: 2,
+                    slidesPerView: 1.5,
                     spaceBetween: 20,
                 },
                 768: {
-                    slidesPerView: 3,
+                    slidesPerView: 2.5,
                     spaceBetween: 24,
                 },
                 1024: {
-                    slidesPerView: 4,
+                    slidesPerView: 3.5,
                     spaceBetween: 24,
                 },
                 1280: {
-                    slidesPerView: 5,
+                    slidesPerView: 4,
                     spaceBetween: 24,
                 }
             }
@@ -3496,7 +3496,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 const slides = carousel.querySelectorAll('.swiper-slide');
                 slides.forEach(slide => {
-                    slide.style.minWidth = '280px';
+                    slide.style.minWidth = '320px';
                     slide.style.scrollSnapAlign = 'start';
                 });
             }
