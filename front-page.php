@@ -616,21 +616,22 @@ get_header(); ?>
                                     </div>
                                     
                                     <!-- Botones de acción -->
-<div class="flex items-center justify-between gap-4 mt-6 px-1">
-    <a href="<?php the_permalink(); ?>" 
-       class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-        Ver Producto
-    </a>
-    <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-        <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                class="min-w-[48px] h-[48px] bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 rounded-lg transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg">
-            <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
-            </svg>
-        </button>
-    <?php endif; ?>
-</div>
-
+                                    <div class="flex gap-3 mt-6">
+                                        <a href="<?php the_permalink(); ?>" 
+                                           class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                                            Ver Oferta
+                                        </a>
+                                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                                            <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
+                                                    class="bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    data-product-id="<?php echo $product->get_id(); ?>">
+                                                <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
+                                                </svg>
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                                 
                                 <!-- Efecto de brillo en hover -->
                                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl overflow-hidden">
