@@ -281,9 +281,9 @@ $shop_url = '/tienda';
                     $total_pages = $sale_query->max_num_pages;
                     if ( $total_pages > 1 ) :
                         ?>
-                        <nav class="mt-16">
+                        <nav class="woocommerce-pagination mt-16">
                             <div class="flex justify-center">
-                                <div class="bg-white rounded-2xl shadow-lg p-2 border border-gray-100">
+                                <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
                                     <?php
                                     echo paginate_links( array(
                                         'total'     => $total_pages,
@@ -291,8 +291,6 @@ $shop_url = '/tienda';
                                         'type'      => 'list',
                                         'prev_text' => '<i data-lucide="chevron-left" class="w-5 h-5"></i>',
                                         'next_text' => '<i data-lucide="chevron-right" class="w-5 h-5"></i>',
-                                        'before_page_number' => '<span class="inline-flex items-center justify-center w-12 h-12 rounded-xl font-bold transition-all duration-200 hover:bg-blue-600 hover:text-white">',
-                                        'after_page_number' => '</span>',
                                     ) );
                                     ?>
                                 </div>
