@@ -171,7 +171,7 @@ get_header(); ?>
     <section id="herramientas-destacadas" class="relative bg-gradient-to-r from-blue-950 to-blue-700 text-white py-16 md:py-20 lg:py-28">    
             <!-- Carrusel de productos destacados -->
             <div class="mt-12 md:mt-16">
-                <h3 class="text-xl md:text-2xl pb-4 font-bold text-center text-white mb-8">
+                <h3 class="text-xl md:text-2xl pb-4 font-bold text-center text-white pt-8 mb-8">
                     Productos Destacados
                 </h3>
                 
@@ -1367,7 +1367,7 @@ get_header(); ?>
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-purple-50 text-purple-600 border-2 border-purple-200 hover:border-purple-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white hover:bg-purple-50 text-purple-600 border-2 border-purple-200 hover:border-purple-300 px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[48px]"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -1871,7 +1871,7 @@ get_header(); ?>
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-200 hover:border-emerald-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-200 hover:border-emerald-300 px-4 py-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[48px]"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -1966,20 +1966,20 @@ get_header(); ?>
 
     <!-- RF4 Productos Carousel -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section id="productos-rf4" class="py-16 bg-gradient-to-r from-teal-900 to-cyan-700 text-white overflow-hidden">
+    <section id="productos-rf4" class="py-16 bg-white overflow-hidden">
         <div class="container mx-auto px-6">
             <!-- Header -->
             <div class="text-center mt-4 mb-12">
-                <div class="inline-flex items-center bg-white/10 text-white px-6 py-2 rounded-full font-semibold mb-6">
+                <div class="inline-flex items-center bg-teal-100 text-teal-800 px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
                     </svg>
                     INSUMOS PROFESIONALES
                 </div>
-                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
                     Consumibles de Calidad
                 </h2>
-                <p class="text-lg text-teal-100 max-w-2xl mx-auto">
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
                     Insumos y consumibles esenciales para técnicos que buscan resultados profesionales en cada reparación
                 </p>
             </div>
@@ -1987,7 +1987,7 @@ get_header(); ?>
             <!-- Carousel Container with Fixed Card -->
             <div class="relative flex gap-6 carousel-container">
                 <!-- Fixed Brand Card -->
-                <div class="flex-shrink-0 w-[280px] lg:w-[300px] bg-gradient-to-br from-teal-800 to-teal-600 rounded-2xl mb-6 p-6 lg:p-8 flex flex-col justify-center items-center shadow-xl min-h-[350px] lg:min-h-[400px] fixed-brand-card">
+                <div class="flex-shrink-0 w-[280px] lg:w-[300px] bg-gradient-to-br from-teal-600 to-teal-700 rounded-2xl mb-6 p-6 lg:p-8 flex flex-col justify-center items-center shadow-xl min-h-[350px] lg:min-h-[400px] fixed-brand-card">
                     <div class="text-center flex-1 flex flex-col justify-center">
                         <!-- Insumos Consumibles Icon - Centered -->
                         <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/20 rounded-full flex items-center justify-center mb-6 mx-auto">
@@ -2011,13 +2011,13 @@ get_header(); ?>
                 <!-- Products Carousel Container -->
                 <div class="flex-1 relative overflow-hidden">
                     <!-- Navigation Buttons -->
-                    <button id="scroll-left" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm hidden lg:block">
+                    <button id="scroll-left" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-teal-50 text-teal-600 p-3 rounded-full transition-all duration-300 shadow-lg border border-teal-100 hidden lg:block">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </button>
                     
-                    <button id="scroll-right" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm hidden lg:block">
+                    <button id="scroll-right" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-teal-50 text-teal-600 p-3 rounded-full transition-all duration-300 shadow-lg border border-teal-100 hidden lg:block">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -2381,7 +2381,7 @@ get_header(); ?>
                     <div class="swiper-wrapper py-6">
                         
                         <?php
-                        // Query para obtener productos recomendados (aleatorios de diferentes categorías)
+                        // Query para obtener productos recomendados (simplificada para debugging)
                         $recomendados_args = array(
                             'post_type' => 'product',
                             'posts_per_page' => 8,
@@ -2392,38 +2392,42 @@ get_header(); ?>
                                     'key' => '_stock_status',
                                     'value' => 'instock',
                                     'compare' => '='
-                                ),
-                                array(
-                                    'key' => '_visibility',
-                                    'value' => array('catalog', 'visible'),
-                                    'compare' => 'IN'
                                 )
                             )
                         );
                         
-                        // Agregar diversidad de categorías para las recomendaciones
-                        $main_categories = array('herramientas', 'refacciones', 'pantallas', 'baterias', 'insumos-consumibles');
-                        $random_categories = array_rand(array_flip($main_categories), min(3, count($main_categories)));
-                        if (!is_array($random_categories)) {
-                            $random_categories = array($random_categories);
+                        $recomendados_query = new WP_Query( $recomendados_args );
+                        
+                        // Debug info - mostrar solo si es admin
+                        $debug_info_rec = '';
+                        if (current_user_can('administrator')) {
+                            $debug_info_rec = '<div class="text-xs text-blue-600 mb-4 p-2 bg-blue-50 rounded max-w-md mx-auto">';
+                            $debug_info_rec .= '<strong>Debug Recomendados:</strong><br>';
+                            $debug_info_rec .= 'Productos encontrados: ' . $recomendados_query->found_posts . '<br>';
+                            $debug_info_rec .= 'Argumentos: ' . json_encode($recomendados_args);
+                            $debug_info_rec .= '</div>';
                         }
                         
-                        $recomendados_args['tax_query'] = array(
-                            'relation' => 'OR',
-                            array(
-                                'taxonomy' => 'product_cat',
-                                'field'    => 'slug',
-                                'terms'    => $random_categories,
-                            ),
-                            // También incluir productos destacados
-                            array(
-                                'taxonomy' => 'product_visibility',
-                                'field'    => 'name',
-                                'terms'    => 'featured',
-                            )
-                        );
+                        // Mostrar debug info si es admin
+                        if (current_user_can('administrator')) {
+                            echo $debug_info_rec;
+                        }
                         
-                        $recomendados_query = new WP_Query( $recomendados_args );
+                        // Fallback si no hay productos con el query principal
+                        if (!$recomendados_query->have_posts()) {
+                            $fallback_args = array(
+                                'post_type' => 'product',
+                                'posts_per_page' => 8,
+                                'post_status' => 'publish',
+                                'orderby' => 'date',
+                                'order' => 'DESC'
+                            );
+                            $recomendados_query = new WP_Query($fallback_args);
+                            
+                            if (current_user_can('administrator')) {
+                                echo '<div class="text-xs text-orange-600 mb-2 p-1 bg-orange-50 rounded max-w-md mx-auto">Usando fallback - productos recientes: ' . $recomendados_query->found_posts . '</div>';
+                            }
+                        }
                         
                         if ( $recomendados_query->have_posts() ) : 
                             $recommendation_reasons = array(
