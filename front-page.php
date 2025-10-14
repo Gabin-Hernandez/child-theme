@@ -596,7 +596,7 @@ get_header(); ?>
 
     <!-- Carrusel de Ofertas de la Semana -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-gradient-to-r from-red-50 to-pink-50">
+    <section class="py-16 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -672,7 +672,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-red-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-red-100 group relative overflow-hidden">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
                                 <!-- Badge de descuento -->
                                 <?php if ( $discount > 0 ) : ?>
                                     <div class="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
@@ -753,7 +753,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay ofertas disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-red-50 rounded-xl p-8 shadow-md mx-3 border border-red-100 text-center">
+                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -804,13 +804,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="ofertas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="ofertas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="ofertas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="ofertas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -1286,7 +1286,7 @@ get_header(); ?>
 
     <!-- Carrusel de Más Vendidos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-gradient-to-r from-purple-50 to-indigo-50">
+    <section class="py-16 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-purple-100 text-purple-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -1370,7 +1370,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-purple-100 group relative overflow-hidden">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
                                 <!-- Badge de ranking -->
                                 <div class="absolute top-4 left-4 z-10">
                                     <?php if ( $rank <= 3 ) : ?>
@@ -1498,7 +1498,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos más vendidos disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-8 shadow-md mx-3 border border-purple-100 text-center">
+                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1549,13 +1549,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="vendidos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-purple-100">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="vendidos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="vendidos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-purple-100">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="vendidos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -1849,7 +1849,7 @@ get_header(); ?>
 
     <!-- Carrusel de Nuevos Ingresos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-gradient-to-r from-emerald-50 to-green-50">
+    <section class="py-16 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-emerald-100 text-emerald-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -1872,7 +1872,7 @@ get_header(); ?>
                     <div class="swiper-wrapper py-6">
                         
                         <?php
-                        // Query para obtener productos más recientes
+                        // Query para obtener productos más recientes (corregido)
                         $nuevos_args = array(
                             'post_type' => 'product',
                             'posts_per_page' => 8,
@@ -1884,11 +1884,6 @@ get_header(); ?>
                                     'key' => '_stock_status',
                                     'value' => 'instock',
                                     'compare' => '='
-                                ),
-                                array(
-                                    'key' => '_visibility',
-                                    'value' => array('catalog', 'visible'),
-                                    'compare' => 'IN'
                                 )
                             )
                         );
@@ -1911,7 +1906,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-emerald-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-emerald-100 group relative overflow-hidden">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
                                 <!-- Badge de nuevo -->
                                 <?php if ( $is_new ) : ?>
                                     <div class="absolute top-4 right-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10 animate-pulse">
@@ -2006,7 +2001,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos nuevos disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-emerald-50 rounded-xl p-8 shadow-md mx-3 border border-emerald-100 text-center">
+                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2057,13 +2052,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="nuevos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-emerald-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-emerald-100">
-                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="nuevos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="nuevos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-emerald-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-emerald-100">
-                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="nuevos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -2469,7 +2464,7 @@ get_header(); ?>
 
     <!-- Carrusel de Recomendados para Ti -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-gradient-to-r from-slate-50 to-blue-50">
+    <section class="py-16 bg-white">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -2565,7 +2560,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-blue-100 group relative overflow-hidden">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
                                 <!-- Badge de recomendación -->
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
                                     💡 Recomendado
@@ -2683,7 +2678,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos recomendados disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-8 shadow-md mx-3 border border-blue-100 text-center">
+                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2734,13 +2729,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="recomendados-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="recomendados-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="recomendados-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="recomendados-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -3304,25 +3299,13 @@ console.log('📦 Funciones auxiliares disponibles:', {
         transform: scale(1.2);
     }
     
-    /* Color de paginación por carrusel */
-    .ofertas-swiper-pagination .swiper-pagination-bullet-active {
-        background: #dc2626 !important;
-    }
-    
-    .nuevos-swiper-pagination .swiper-pagination-bullet-active {
-        background: #059669 !important;
-    }
-    
-    .vendidos-swiper-pagination .swiper-pagination-bullet-active {
-        background: #7c3aed !important;
-    }
-    
-    .recomendados-swiper-pagination .swiper-pagination-bullet-active {
-        background: #2563eb !important;
-    }
-    
+    /* Color de paginación unificado */
+    .ofertas-swiper-pagination .swiper-pagination-bullet-active,
+    .nuevos-swiper-pagination .swiper-pagination-bullet-active,
+    .vendidos-swiper-pagination .swiper-pagination-bullet-active,
+    .recomendados-swiper-pagination .swiper-pagination-bullet-active,
     .herramientas-swiper-pagination .swiper-pagination-bullet-active {
-        background: #f59e0b !important;
+        background: #374151 !important;
     }
     
     /* Animaciones de badges */
@@ -3345,21 +3328,11 @@ console.log('📦 Funciones auxiliares disponibles:', {
         box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.3);
     }
     
-    /* Gradientes consistentes para las secciones */
-    .bg-gradient-to-r.from-red-50.to-pink-50 {
-        background: linear-gradient(135deg, #fef2f2 0%, #fdf2f8 100%);
-    }
-    
-    .bg-gradient-to-r.from-emerald-50.to-green-50 {
-        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
-    }
-    
-    .bg-gradient-to-r.from-purple-50.to-indigo-50 {
-        background: linear-gradient(135deg, #faf5ff 0%, #eef2ff 100%);
-    }
-    
-    .bg-gradient-to-r.from-slate-50.to-blue-50 {
-        background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+    /* Fondo blanco consistente para todas las secciones de carrusel */
+    .py-16.bg-white {
+        background: #ffffff;
+        border-top: 1px solid #f3f4f6;
+        border-bottom: 1px solid #f3f4f6;
     }
     
     /* Mejora visual para el estado "próximamente" */
