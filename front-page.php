@@ -1264,7 +1264,18 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-purple-100 group relative overflow-hidden">
+                            <style>
+                                .vendidos-card {
+                                    --accent-from: #3b82f6;
+                                    --accent-to: #2563eb;
+                                    --accent-to-dark: #1d4ed8;
+                                    --accent-color: #2563eb;
+                                    --accent-light: #dbeafe;
+                                    --accent-border: #bfdbfe;
+                                    --accent-border-hover: #93c5fd;
+                                }
+                            </style>
+                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-blue-100 group relative overflow-hidden vendidos-card">
                                 <!-- Badge de ranking -->
                                 <div class="absolute top-4 left-4 z-10">
                                     <?php if ( $rank <= 3 ) : ?>
@@ -1361,13 +1372,16 @@ get_header(); ?>
                                     
                                     <!-- Botones de acción -->
                                     <div class="flex gap-3 mt-6">
+                                        <?php $cta_text = 'Ver Producto'; ?>
                                         <a href="<?php the_permalink(); ?>" 
-                                           class="flex-1 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-                                            Ver Producto
+                                           class="flex-1 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                                           style="background: linear-gradient(to right, var(--accent-from), var(--accent-to)); &:hover { background: linear-gradient(to right, var(--accent-to), var(--accent-to-dark)); }">
+                                            <?php echo $cta_text; ?>
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-purple-50 text-purple-600 border-2 border-purple-200 hover:border-purple-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart border-2"
+                                                    style="color: var(--accent-color); border-color: var(--accent-border); &:hover { background-color: var(--accent-light); border-color: var(--accent-border-hover); }"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -1800,7 +1814,17 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
+                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden"
+                                 style="
+                                     --accent-from: #a855f7;
+                                     --accent-to: #9333ea;
+                                     --accent-hover-from: #9333ea;
+                                     --accent-hover-to: #7c3aed;
+                                     --accent-border: #a855f7;
+                                     --accent-border-hover: #9333ea;
+                                     --accent-text: #a855f7;
+                                     --accent-bg-light: #faf5ff;
+                                 ">
                                 <!-- Badge de nuevo -->
                                 <?php if ( $is_new ) : ?>
                                     <div class="absolute top-4 right-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10 animate-pulse">
@@ -1866,12 +1890,14 @@ get_header(); ?>
                                     <!-- Botones de acción -->
                                     <div class="flex gap-3 mt-6">
                                         <a href="<?php the_permalink(); ?>" 
-                                           class="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                                           class="flex-1 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                                           style="background: linear-gradient(to right, var(--accent-from), var(--accent-to)); &:hover { background: linear-gradient(to right, var(--accent-hover-from), var(--accent-hover-to)); }">
                                             Ver Producto
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-200 hover:border-emerald-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white border-2 py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[52px] font-medium"
+                                                    style="color: var(--accent-text); border-color: var(--accent-border); &:hover { background-color: var(--accent-bg-light); border-color: var(--accent-border-hover); }"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -2458,7 +2484,17 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-blue-100 group relative overflow-hidden">
+                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-blue-100 group relative overflow-hidden"
+                                 style="
+                                     --accent-from: #ec4899;
+                                     --accent-to: #db2777;
+                                     --accent-hover-from: #db2777;
+                                     --accent-hover-to: #be185d;
+                                     --accent-border: #ec4899;
+                                     --accent-border-hover: #db2777;
+                                     --accent-text: #ec4899;
+                                     --accent-bg-light: #fdf2f8;
+                                 ">
                                 <!-- Badge de recomendación -->
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
                                     💡 Recomendado
@@ -2547,12 +2583,14 @@ get_header(); ?>
                                     <!-- Botones de acción -->
                                     <div class="flex gap-3 mt-6">
                                         <a href="<?php the_permalink(); ?>" 
-                                           class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                                           class="flex-1 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                                           style="background: linear-gradient(to right, var(--accent-from), var(--accent-to)); &:hover { background: linear-gradient(to right, var(--accent-hover-from), var(--accent-hover-to)); }">
                                             Ver Producto
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-blue-50 text-blue-600 border-2 border-blue-200 hover:border-blue-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white border-2 py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[52px] font-medium"
+                                                    style="color: var(--accent-text); border-color: var(--accent-border); &:hover { background-color: var(--accent-bg-light); border-color: var(--accent-border-hover); }"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -3157,6 +3195,16 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .recomendados-swiper .swiper-slide > div:hover {
         transform: translateY(-6px);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Estilos de botones con variables CSS */
+    .swiper-slide a[style*="--accent-from"]:hover {
+        background: linear-gradient(to right, var(--accent-hover-from), var(--accent-hover-to)) !important;
+    }
+    
+    .swiper-slide button[style*="--accent-text"]:hover {
+        background-color: var(--accent-bg-light) !important;
+        border-color: var(--accent-border-hover) !important;
     }
     
     /* Línea de recorte para títulos largos */
