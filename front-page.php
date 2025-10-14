@@ -623,7 +623,7 @@ get_header(); ?>
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[52px]"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
@@ -1380,7 +1380,7 @@ get_header(); ?>
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart border-2"
+                                                    class="bg-white py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center group/cart border-2 min-w-[52px]"
                                                     style="color: var(--accent-color); border-color: var(--accent-border); &:hover { background-color: var(--accent-light); border-color: var(--accent-border-hover); }"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3168,7 +3168,7 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .vendidos-swiper .swiper-slide > div,
     .recomendados-swiper .swiper-slide > div {
         width: 100%;
-        min-height: 420px;
+        min-height: 480px;
     }
     
     /* Ocultar botones en móvil para todos los carruseles */
@@ -3205,6 +3205,21 @@ console.log('📦 Funciones auxiliares disponibles:', {
     .swiper-slide button[style*="--accent-text"]:hover {
         background-color: var(--accent-bg-light) !important;
         border-color: var(--accent-border-hover) !important;
+    }
+    
+    /* Mejorar el espaciado de botones en carruseles */
+    .swiper-slide .flex.gap-3 {
+        gap: 12px;
+    }
+    
+    .swiper-slide .flex.gap-3 button {
+        flex-shrink: 0;
+    }
+    
+    .swiper-slide .flex.gap-3 a {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
     }
     
     /* Línea de recorte para títulos largos */
