@@ -168,113 +168,7 @@ get_header(); ?>
     </section>
 
     <!-- Herramientas Destacadas -->
-    <section id="herramientas-destacadas" class="relative bg-gradient-to-r from-blue-950 to-blue-700 text-white py-16 md:py-20 lg:py-28">
-        <div class="container mx-auto px-6 text-center">
-            <!-- Encabezado de la sección -->
-            <div class="mb-12 lg:mb-16">
-                <h2 class="text-3xl md:text-4xl pt-8 text-white lg:text-5xl font-bold mb-4 lg:mb-6">
-                    Herramientas Profesionales
-                </h2>
-                <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
-                    Equipos de precisión para técnicos expertos
-                </p>
-            </div>
-            
-            <!-- Card principal con glassmorphism -->
-            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10 lg:p-12 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group border border-white/20 relative overflow-hidden">
-                
-                <!-- Imagen de fondo con blur -->
-                <div class="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                         alt="Herramientas de fondo" 
-                         class="w-full h-full object-cover blur-sm scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/60 via-blue-800/40 to-blue-700/60"></div>
-                </div>
-                
-                <!-- Imagen/Iconografía -->
-                <div class="mb-8 relative">
-                    <!-- SVG Iconografía Técnica -->
-                    <div class="flex justify-center mb-6">
-                        <div class="relative">
-                            <!-- Icono principal de herramientas -->
-                            <svg class="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 text-white/90 group-hover:text-white transition-colors duration-300" 
-                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
-                                      d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655-5.653a2.548 2.548 0 010-3.586l.837-.836c.415-.415.865-.617 1.344-.617.477 0 .927.202 1.344.617l.836.836a2.548 2.548 0 010 3.586l-3.586 4.655z"/>
-                            </svg>
-                            
-                            <!-- Elementos decorativos (circuitos/PCB) -->
-                            <div class="absolute -top-4 -right-4 opacity-40 group-hover:opacity-60 transition-opacity duration-300">
-                                <svg class="w-16 h-16 text-blue-300" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                            </div>
-                            
-                            <div class="absolute -bottom-2 -left-6 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
-                                <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                          d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Imagen alternativa (comentada para usar SVG) -->
-                    <!-- 
-                    <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-12.webp" 
-                         alt="Herramientas de precisión" 
-                         class="mx-auto w-40 md:w-48 lg:w-56 rounded-lg shadow-lg group-hover:scale-105 transition-transform duration-300" />
-                    -->
-                </div>
-                
-                <!-- Contenido descriptivo -->
-                <div class="space-y-6 md:space-y-8">
-                    <p class="text-base md:text-lg lg:text-xl text-blue-50 leading-relaxed max-w-3xl mx-auto">
-                        Microscopios, estaciones de soldadura, multímetros y más, diseñados para brindar un servicio técnico integral.
-                    </p>
-                    
-                    <!-- Lista de características (opcional, añadiendo valor) -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-sm md:text-base text-blue-100">
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Precisión profesional</span>
-                        </div>
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                            <span>Tecnología avanzada</span>
-                        </div>
-                        <div class="flex items-center justify-center space-x-2">
-                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707"/>
-                            </svg>
-                            <span>Garantía extendida</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Botón de acción -->
-                    <div class="pt-2">
-                        <a href="/categoria/herramientas" 
-                           class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 md:px-8 py-3 md:py-4 text-base md:text-lg rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group/btn">
-                            <svg class="w-5 h-5 mr-2 group-hover/btn:rotate-12 transition-transform duration-300" 
-                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                            </svg>
-                            Explorar herramientas
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Efecto de brillo en hover -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
-                </div>
-            </div>
-            
+    <section id="herramientas-destacadas" class="relative bg-gradient-to-r from-blue-950 to-blue-700 text-white py-16 md:py-20 lg:py-28">    
             <!-- Carrusel de productos destacados -->
             <div class="mt-12 md:mt-16">
                 <h3 class="text-xl md:text-2xl pb-4 font-bold text-center text-white mb-8">
@@ -804,13 +698,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="ofertas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="ofertas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="ofertas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="ofertas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -1370,7 +1264,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
+                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-purple-100 group relative overflow-hidden">
                                 <!-- Badge de ranking -->
                                 <div class="absolute top-4 left-4 z-10">
                                     <?php if ( $rank <= 3 ) : ?>
@@ -1498,7 +1392,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos más vendidos disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
+                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-8 shadow-md mx-3 border border-purple-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1549,13 +1443,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="vendidos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="vendidos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-purple-100">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="vendidos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="vendidos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-purple-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-purple-100">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -2001,7 +1895,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos nuevos disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
+                            <div class="bg-gradient-to-br from-white to-emerald-50 rounded-xl p-8 shadow-md mx-3 border border-emerald-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2052,13 +1946,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="nuevos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="nuevos-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-emerald-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-emerald-100">
+                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="nuevos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="nuevos-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-emerald-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-emerald-100">
+                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -2560,7 +2454,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
+                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-blue-100 group relative overflow-hidden">
                                 <!-- Badge de recomendación -->
                                 <div class="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
                                     💡 Recomendado
@@ -2678,7 +2572,7 @@ get_header(); ?>
                         
                         <!-- Fallback: No hay productos recomendados disponibles -->
                         <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
+                            <div class="bg-gradient-to-br from-white to-blue-50 rounded-xl p-8 shadow-md mx-3 border border-blue-100 text-center">
                                 <div class="mb-6">
                                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto">
                                         <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2729,13 +2623,13 @@ get_header(); ?>
                 </div>
                 
                 <!-- Navegación del carrusel -->
-                <div class="recomendados-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="recomendados-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </div>
-                <div class="recomendados-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-gray-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-gray-100">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="recomendados-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                     </svg>
                 </div>
@@ -3299,13 +3193,25 @@ console.log('📦 Funciones auxiliares disponibles:', {
         transform: scale(1.2);
     }
     
-    /* Color de paginación unificado */
-    .ofertas-swiper-pagination .swiper-pagination-bullet-active,
-    .nuevos-swiper-pagination .swiper-pagination-bullet-active,
-    .vendidos-swiper-pagination .swiper-pagination-bullet-active,
-    .recomendados-swiper-pagination .swiper-pagination-bullet-active,
+    /* Color de paginación por carrusel */
+    .ofertas-swiper-pagination .swiper-pagination-bullet-active {
+        background: #dc2626 !important;
+    }
+    
+    .nuevos-swiper-pagination .swiper-pagination-bullet-active {
+        background: #059669 !important;
+    }
+    
+    .vendidos-swiper-pagination .swiper-pagination-bullet-active {
+        background: #7c3aed !important;
+    }
+    
+    .recomendados-swiper-pagination .swiper-pagination-bullet-active {
+        background: #2563eb !important;
+    }
+    
     .herramientas-swiper-pagination .swiper-pagination-bullet-active {
-        background: #374151 !important;
+        background: #f59e0b !important;
     }
     
     /* Animaciones de badges */
@@ -3328,11 +3234,21 @@ console.log('📦 Funciones auxiliares disponibles:', {
         box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.3);
     }
     
-    /* Fondo blanco consistente para todas las secciones de carrusel */
-    .py-16.bg-white {
-        background: #ffffff;
-        border-top: 1px solid #f3f4f6;
-        border-bottom: 1px solid #f3f4f6;
+    /* Gradientes consistentes para las secciones */
+    .bg-gradient-to-r.from-red-50.to-pink-50 {
+        background: linear-gradient(135deg, #fef2f2 0%, #fdf2f8 100%);
+    }
+    
+    .bg-gradient-to-r.from-emerald-50.to-green-50 {
+        background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+    }
+    
+    .bg-gradient-to-r.from-purple-50.to-indigo-50 {
+        background: linear-gradient(135deg, #faf5ff 0%, #eef2ff 100%);
+    }
+    
+    .bg-gradient-to-r.from-slate-50.to-blue-50 {
+        background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
     }
     
     /* Mejora visual para el estado "próximamente" */
