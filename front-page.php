@@ -1264,7 +1264,7 @@ get_header(); ?>
                         
                         <!-- Producto: <?php the_title(); ?> -->
                         <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-purple-100 group relative overflow-hidden">
+                            <div class="bg-gradient-to-br from-white to-purple-50 rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-purple-100 group relative overflow-hidden">
                                 <!-- Badge de ranking -->
                                 <div class="absolute top-4 left-4 z-10">
                                     <?php if ( $rank <= 3 ) : ?>
@@ -1290,7 +1290,7 @@ get_header(); ?>
                                 <?php endif; ?>
                                 
                                 <!-- Imagen del producto -->
-                                <div class="aspect-square bg-white rounded-lg mb-6 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-inner mt-2">
+                                <div class="aspect-square bg-white rounded-lg mb-6 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-inner mt-6">
                                     <a href="<?php the_permalink(); ?>">
                                         <img src="<?php echo esc_url($image_url); ?>" 
                                              alt="<?php echo esc_attr(get_the_title()); ?>" 
@@ -1360,14 +1360,14 @@ get_header(); ?>
                                     </div>
                                     
                                     <!-- Botones de acción -->
-                                    <div class="flex gap-3 mt-6">
+                                    <div class="flex gap-4 mt-6">
                                         <a href="<?php the_permalink(); ?>" 
                                            class="flex-1 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
                                             Ver Producto
                                         </a>
                                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
                                             <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 p-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart"
+                                                    class="bg-white hover:bg-purple-50 text-purple-600 border-2 border-purple-200 hover:border-purple-300 px-6 py-3 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[60px]"
                                                     data-product-id="<?php echo $product->get_id(); ?>">
                                                 <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
