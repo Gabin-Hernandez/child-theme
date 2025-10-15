@@ -262,27 +262,27 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Header profesional y limpio -->
 <div class="bg-white border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8 py-12">
-        <div class="max-w-3xl">
-            <h1 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight">
+    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8 py-12">
+        <div class="max-w-4xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Microscopios para Reparación de Celulares
             </h1>
-            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                Equipos de precisión para técnicos especializados en reparación de dispositivos móviles y soldadura SMD.
+            <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+                Equipos de precisión profesionales para técnicos especializados en reparación de dispositivos móviles y soldadura SMD.
             </p>
             
             <!-- Barra de búsqueda integrada -->
-            <div class="bg-gray-50 rounded-lg p-4">
-                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row gap-3">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col lg:flex-row gap-4">
                     <input type="hidden" name="post_type" value="product">
                     <div class="flex-1">
                         <input type="text" 
                                name="s" 
                                value="<?php echo get_search_query(); ?>"
                                placeholder="Buscar por modelo o características..."
-                               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-sm">
+                               class="w-full px-6 py-4 text-lg border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50">
                     </div>
-                    <select name="product_cat" class="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-sm min-w-[160px]">
+                    <select name="product_cat" class="px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 lg:min-w-[200px]">
                         <option value="">Todas las categorías</option>
                         <?php
                         $categories = get_terms( array(
@@ -294,8 +294,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         }
                         ?>
                     </select>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors text-sm whitespace-nowrap">
-                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         Buscar
@@ -308,7 +308,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Breadcrumb limpio -->
 <div class="bg-gray-50 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8 py-3">
+    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8 py-3">
         <nav class="flex items-center space-x-1 text-sm text-gray-500">
             <a href="<?php echo home_url(); ?>" class="hover:text-gray-700 transition-colors">Inicio</a>
             <span>/</span>
@@ -319,8 +319,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     </div>
 </div>
 
-<div class="bg-white min-h-screen py-8">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
         <!-- Botón para filtros en móvil - más limpio -->
         <div class="lg:hidden mb-6">
             <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
@@ -582,7 +582,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -923,11 +923,28 @@ body {
     max-width: 100vw;
 }
 
+/* Breakpoint personalizado para pantallas extra grandes */
+@media (min-width: 1920px) {
+    .grid-cols-6 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}
+
 /* El problema principal era el ancho del main en desktop */
 @media (min-width: 1280px) {
     main.flex-1 {
         width: auto;
         max-width: none;
+    }
+}
+
+/* Clases utilitarias para 3xl */
+@media (min-width: 1920px) {
+    .\\33xl\\:grid-cols-6 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .\\33xl\\:grid-cols-7 {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
     }
 }
 
@@ -1009,7 +1026,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6';
 
 
 
