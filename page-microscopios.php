@@ -362,7 +362,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Products Content -->
 <div class="bg-gray-50 min-h-screen py-8">
-    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
+    <div class="w-11/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
         <!-- Botón para filtros en móvil - más limpio -->
         <div class="lg:hidden mb-6">
             <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
