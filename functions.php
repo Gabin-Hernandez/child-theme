@@ -506,6 +506,9 @@ function itools_modify_search_query( $query ) {
             $query->set( 'post_type', 'product' );
             $query->set( 'post_status', 'publish' );
             
+            // Configurar 15 productos por página en búsquedas
+            $query->set( 'posts_per_page', 15 );
+            
             // Debug: registrar qué se está buscando
             if (defined('WP_DEBUG') && WP_DEBUG) {
                 error_log('Búsqueda de productos - Término: ' . $query->get('s'));
@@ -616,7 +619,7 @@ add_action( 'pre_get_posts', 'itools_filter_products_by_price' );
 
 // Personalizar el número de productos por página y columnas
 function itools_products_per_page() {
-    return 12; // Múltiplo de 3 para el grid
+    return 15; // Múltiplo de 3 y 5 para el grid
 }
 add_filter( 'loop_shop_per_page', 'itools_products_per_page', 20 );
 
@@ -2500,7 +2503,7 @@ function itools_ajax_quick_filter() {
     
     $filter_type = sanitize_text_field($_POST['filter_type']);
     $paged = intval($_POST['paged']) ?: 1;
-    $posts_per_page = 12;
+    $posts_per_page = 15;
     
     $args = array(
         'post_type' => 'product',
