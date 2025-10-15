@@ -502,7 +502,7 @@ function itools_modify_search_query( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
         // Solo para búsquedas de productos
         if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
-            // Usar la misma configuración que funciona en el live search
+            // Forzar que SOLO busque productos
             $query->set( 'post_type', 'product' );
             $query->set( 'post_status', 'publish' );
             
@@ -2290,7 +2290,8 @@ function itools_show_review_success_message() {
 }
 add_action( 'woocommerce_before_single_product', 'itools_show_review_success_message' );
 
-// Mejorar la búsqueda de productos para que sea más flexible
+// Comentada temporalmente - esta función estaba interfiriendo con la búsqueda simple
+/*
 function itools_improve_product_search( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
         // Solo aplicar a búsquedas de productos
@@ -2325,7 +2326,8 @@ function itools_improve_product_search( $query ) {
         }
     }
 }
-add_action( 'pre_get_posts', 'itools_improve_product_search' );
+*/
+// add_action( 'pre_get_posts', 'itools_improve_product_search' );
 
 // Asegurar que WooCommerce maneje correctamente las búsquedas
 function itools_woocommerce_search_modification( $query ) {
