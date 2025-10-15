@@ -65,12 +65,18 @@ add_action('wp_head', function() {
     echo '</script>' . "\n";
 });
 
-// Crear consulta para productos de microscopios usando la misma lógica que el buscador normal
+// Simular exactamente lo que hace el buscador normal
+// Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
+$original_get = $_GET;
+$_GET['post_type'] = 'product';
+$_GET['s'] = 'microscopio';
+
+// Usar la función estándar de WordPress para búsquedas
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'microscopio', // Usar búsqueda simple como el buscador normal
+    's' => 'microscopio',
     'tax_query' => array(),
     'meta_query' => array()
 );
@@ -251,8 +257,8 @@ if (empty($args['meta_query'])) {
 // Crear la consulta
 $products_query = new WP_Query($args);
 
-// Limpiar el filtro personalizado para que no afecte otras consultas
-remove_all_filters('posts_where');
+// Restaurar $_GET original
+$_GET = $original_get;
 
 // Debug: Mostrar información de la consulta si estamos en modo debug
 if (defined('WP_DEBUG') && WP_DEBUG) {
