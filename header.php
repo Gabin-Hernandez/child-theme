@@ -108,6 +108,47 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
         
+        /* Estilos responsivos para navegación */
+        @media (max-width: 1024px) {
+            /* Reducir gap del menú en tablets */
+            nav {
+                gap: 20px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Ocultar Valoraciones y Accesorios en móviles */
+            .nav-item-valoraciones,
+            .nav-item-accesorios {
+                display: none !important;
+            }
+            
+            /* Reducir aún más el gap en móviles */
+            nav {
+                gap: 12px !important;
+            }
+            
+            /* Reducir padding de los botones */
+            .dropdown-trigger,
+            nav a {
+                padding: 6px 8px !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            /* Para pantallas muy pequeñas */
+            nav {
+                gap: 8px !important;
+            }
+            
+            .dropdown-trigger,
+            nav a {
+                padding: 4px 6px !important;
+                font-size: 13px !important;
+            }
+        }
+        
         /* Estilos específicos para mega-menu */
         @media (min-width: 1200px) {
             .mega-menu-grid {
@@ -746,7 +787,7 @@
                     </div>
 
                     <!-- Link directo Accesorios -->
-                    <a href="/?post_type=product&s=&product_cat=accesorios/" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                    <a href="/?post_type=product&s=&product_cat=accesorios/" class="nav-item-accesorios" style="padding: 8px 12px; color: white; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         Accesorios
                     </a>
 
@@ -768,7 +809,7 @@
                         Catálogo
                     </a>
                     <!-- Link Valoraciones -->
-                    <a href="/valoraciones/" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #3b82f6; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
+                    <a href="/valoraciones/" class="nav-item-valoraciones" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; color: #3b82f6; font-weight: 600; text-decoration: none; border-radius: 6px; transition: all 0.2s;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.15)'" onmouseout="this.style.backgroundColor='transparent'">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
