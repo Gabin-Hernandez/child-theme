@@ -260,185 +260,105 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
+<?php
+// Configurar argumentos para Hero Section
+$hero_args = array(
+    'title' => 'Microscopios para',
+    'subtitle' => 'Reparación de Celulares',
+    'description' => 'Herramientas de alta precisión para técnicos especializados en reparación de dispositivos móviles, soldadura SMD y microelectrónica',
+    'search_placeholder' => 'Buscar microscopios por modelo, marca o características...',
+    'show_category_selector' => true,
+    'background_gradient' => 'from-blue-50 via-indigo-50 to-white',
+    'border_color' => 'border-blue-100',
+    'gradient_colors' => 'from-blue-600 to-indigo-600'
+);
+?>
+
 <!-- Hero Section -->
-<div class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-white border-b border-blue-100">
-    <!-- Patrón sutil -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
-    
-    <!-- Contenido -->
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="text-center">
-           
-            
-            <!-- Título principal -->
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Microscopios para
-                <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                    Reparación de Celulares
-                </span>
-            </h1>
-            
-            <!-- Descripción -->
-            <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Herramientas de alta precisión para técnicos especializados en reparación de dispositivos móviles, soldadura SMD y microelectrónica
-            </p>
-            
-            <!-- Barra de búsqueda -->
-            <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
-                    <div method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
-                        <input type="hidden" name="post_type" value="product">
-                        
-                        <!-- Input de búsqueda -->
-                        <div class="flex-1 relative ">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                            <input type="text" 
-                                   id="hero-search"
-                                   name="s" 
-                                   value="<?php echo get_search_query(); ?>"
-                                   placeholder="Buscar microscopios por modelo, marca o características..."
-                                   class="w-full h-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
-                        </div>
-                        
-                        <!-- Separador -->
-                        <div class="hidden sm:block w-px bg-gray-200"></div>
-                        
-                        <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[200px]">
-                            <select name="product_cat" class="w-full px-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
-                                <option value="">Todas las categorías</option>
-                                <?php
-                                $categories = get_terms( array(
-                                    'taxonomy' => 'product_cat',
-                                    'hide_empty' => true,
-                                ) );
-                                foreach ( $categories as $category ) {
-                                    echo '<option value="' . esc_attr( $category->slug ) . '" ' . selected( get_query_var( 'product_cat' ), $category->slug, false ) . '>' . esc_html( $category->name ) . '</option>';
-                                }
-                                ?>
-                            </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        
-                        <!-- Botón de búsqueda -->
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold text-base transition-colors duration-200 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            <span>Buscar</span>
-                        </button>
-                            </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<?php include(get_template_directory() . '/includes/hero-section.php'); ?>
+
+<?php
+// Configurar breadcrumbs personalizados
+$breadcrumb_args = array(
+    'breadcrumbs' => array(
+        array(
+            'url' => home_url(),
+            'title' => 'Inicio',
+            'active' => false
+        ),
+        array(
+            'url' => wc_get_page_permalink('shop'),
+            'title' => 'Tienda',
+            'active' => false
+        ),
+        array(
+            'url' => '',
+            'title' => 'Microscopios',
+            'active' => true
+        )
+    )
+);
+?>
 
 <!-- Breadcrumb -->
-<div class="bg-white border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <nav class="flex items-center space-x-2 text-sm">
-            <a href="<?php echo home_url(); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Inicio</a>
-            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Tienda</a>
-            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-            <span class="text-gray-900 font-semibold">Microscopios</span>
-        </nav>
-    </div>
+<?php include(get_template_directory() . '/includes/breadcrumb.php'); ?>
+
+<?php
+// Configurar argumentos para Products Content
+$products_args = array(
+    'products_query' => $products_query,
+    'show_filters' => true,
+    'show_view_toggle' => true,
+    'show_table_filters' => true,
+    'search_term' => 'microscopios',
+    'no_products_title' => 'No encontramos microscopios',
+    'no_products_description' => 'Lo sentimos, no hay microscopios que coincidan con tus criterios de búsqueda. Prueba ajustando los filtros o explorando nuestras categorías.',
+    'suggested_searches' => array(
+        'Microscopio soldadura',
+        'Lupa binocular', 
+        'Microscopio digital',
+        'Microscopio SMD',
+        'Microscopio PCB'
+    ),
+    'container_classes' => 'bg-gray-50 min-h-screen py-8'
+);
+?>
+
+<!-- Products Content -->
+<?php include(get_template_directory() . '/includes/products-content.php'); ?>
+
+<!-- Slider debajo del contenedor principal -->
+<div class="w-full">
+    <?php
+    // Mostrar el slider fuera del contenedor principal
+    if ( is_active_sidebar( 'sidebar-shop-slider' ) ) {
+        dynamic_sidebar( 'sidebar-shop-slider' );
+    }
+    ?>
 </div>
 
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
-        <!-- Botón para filtros en móvil - más limpio -->
-        <div class="lg:hidden mb-6">
-            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                </svg>
-                Filtros
-            </button>
-        </div>
+<!-- JavaScript mejorado para los filtros y funcionalidades modernas -->
+<style>
+/* Solo prevenir overflow horizontal sin afectar otras funciones */
+html {
+    overflow-x: hidden;
+}
 
-        <?php if ( woocommerce_product_loop() ) : ?>
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
 
-            <div class="flex flex-col lg:flex-row gap-6">
-                
-                <!-- Sidebar de filtros elegante y sticky -->
-                <aside 
-                    id="filters-sidebar" 
-                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
-                    <div class="bg-white h-full lg:h-auto p-6 rounded-none lg:rounded-2xl shadow-2xl lg:shadow-lg overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border border-gray-200/50 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
-                        
-                        <!-- Header del sidebar -->
-                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900">
-                                    Filtros
-                                </h3>
-                            </div>
-                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-xl transition-all duration-200">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                        </div>
+/* Fix para algunos temas que pueden causar problemas de layout */
+.woocommerce .woocommerce-ordering {
+    margin-bottom: 0 !important;
+}
 
-                        <!-- Filtro por Precio -->
-                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
-                                Rango de Precio
-                            </h4>
-                            
-                            <?php
-                            // Get dynamic price range
-                            $price_range = itools_get_dynamic_price_range();
-                            $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : $price_range['min'];
-                            $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
-                            ?>
-                            
-                            <!-- Price Range Slider -->
-                            <div class="price-slider-container">
-                                <div class="flex justify-between items-center mb-4">
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
-                                </div>
-                                
-                                <div class="relative">
-                                    <div class="price-slider-track bg-gray-300 h-2 rounded-full relative">
-                                        <div id="price-slider-range" class="absolute h-2 bg-gray-800 rounded-full"></div>
-                                    </div>
-                                    
-                                    <input type="range" 
-                                           id="min-price-slider" 
-                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
-                                           min="<?php echo $price_range['min']; ?>" 
-                                           max="<?php echo $price_range['max']; ?>" 
-                                           value="<?php echo $current_min; ?>"
-                                           step="100">
-                                    
+/* El problema principal era el ancho del main en desktop */
+@media (min-width: 1280px) {
+    main.flex-1 {
+        width: auto;
+        max-width: none;
                                     <input type="range" 
                                            id="max-price-slider" 
                                            class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
@@ -694,7 +614,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
