@@ -7,14 +7,27 @@
 
 get_header();
 
-// Agregar metadata SEO específica para microscopios
+// Agregar metadata SEO específica para microscopios de reparación electrónica
 add_action('wp_head', function() {
-    echo '<meta name="description" content="Microscopios profesionales de alta calidad. Amplia selección de microscopios ópticos, digitales y estereoscópicos para laboratorios, educación e investigación científica.">' . "\n";
-    echo '<meta name="keywords" content="microscopios, microscopio óptico, microscopio digital, microscopio estereoscópico, laboratorio, investigación, educación">' . "\n";
-    echo '<meta property="og:title" content="Microscopios Profesionales - ITOOLS">' . "\n";
-    echo '<meta property="og:description" content="Descubre nuestra amplia selección de microscopios de alta calidad para laboratorios, educación e investigación">' . "\n";
+    echo '<meta name="description" content="Microscopios profesionales para reparación de celulares y dispositivos electrónicos. Microscopios estereoscópicos digitales con cámara, lupas binoculares y equipos especializados para técnicos en reparación móvil.">' . "\n";
+    echo '<meta name="keywords" content="microscopio reparacion celulares, microscopio electronica, microscopio soldadura, lupa binocular reparacion, microscopio estereoscopico digital, microscopio SMD, reparacion moviles, microscopio PCB">' . "\n";
+    echo '<meta property="og:title" content="Microscopios para Reparación de Celulares y Electrónicos - ITOOLS">' . "\n";
+    echo '<meta property="og:description" content="Microscopios especializados para reparación de celulares, soldadura SMD y trabajo de precisión en dispositivos electrónicos">' . "\n";
     echo '<meta property="og:type" content="website">' . "\n";
     echo '<meta property="og:url" content="' . get_permalink() . '">' . "\n";
+    
+    // Agregar imagen destacada como og:image
+    if (has_post_thumbnail()) {
+        $thumbnail_id = get_post_thumbnail_id();
+        $thumbnail_url = wp_get_attachment_image_src($thumbnail_id, 'large');
+        if ($thumbnail_url) {
+            echo '<meta property="og:image" content="' . esc_url($thumbnail_url[0]) . '">' . "\n";
+            echo '<meta property="og:image:width" content="' . $thumbnail_url[1] . '">' . "\n";
+            echo '<meta property="og:image:height" content="' . $thumbnail_url[2] . '">' . "\n";
+            echo '<meta property="og:image:alt" content="Microscopios para Reparación de Celulares - ITOOLS">' . "\n";
+        }
+    }
+    
     echo '<link rel="canonical" href="' . get_permalink() . '">' . "\n";
     
     // Datos estructurados JSON-LD
@@ -22,9 +35,10 @@ add_action('wp_head', function() {
     echo json_encode(array(
         "@context" => "https://schema.org",
         "@type" => "CollectionPage",
-        "name" => "Microscopios Profesionales",
-        "description" => "Amplia selección de microscopios de alta calidad para laboratorios, educación e investigación científica",
+        "name" => "Microscopios para Reparación de Celulares y Electrónicos",
+        "description" => "Microscopios especializados para reparación de celulares, soldadura SMD, PCB y dispositivos electrónicos. Equipos profesionales para técnicos en reparación móvil.",
         "url" => get_permalink(),
+
         "breadcrumb" => array(
             "@type" => "BreadcrumbList",
             "itemListElement" => array(
@@ -43,7 +57,7 @@ add_action('wp_head', function() {
                 array(
                     "@type" => "ListItem",
                     "position" => 3,
-                    "name" => "Microscopios"
+                    "name" => "Microscopios para Reparación Electrónica"
                 )
             )
         )
@@ -51,12 +65,12 @@ add_action('wp_head', function() {
     echo '</script>' . "\n";
 });
 
-// Crear consulta para productos de microscopios
+// Crear consulta para productos de microscopios de reparación
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 12,
     'post_status' => 'publish',
-    's' => 'microscopios', // Búsqueda directa de microscopios
+    's' => 'microscopios reparacion celulares soldadura', // Búsqueda específica para reparación
     'tax_query' => array(),
     'meta_query' => array()
 );
@@ -251,10 +265,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                Microscopios Profesionales
+                Microscopios para Reparación de Celulares
             </h1>
             <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Descubre nuestra amplia selección de microscopios de alta calidad para laboratorios, educación e investigación
+                Equipos profesionales para reparación de dispositivos móviles, soldadura SMD y trabajo de precisión en electrónicos
             </p>
             
             <!-- Formulario de búsqueda funcional -->
@@ -265,7 +279,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         <input type="text" 
                                name="s" 
                                value="<?php echo get_search_query(); ?>"
-                               placeholder="Buscar microscopios..."
+                               placeholder="Buscar microscopios para reparación..."
                                class="w-full px-6 py-4 text-lg rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg">
                     </div>
                     <select name="product_cat" class="px-4 py-4 rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg bg-white">
@@ -305,22 +319,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
-            <span class="text-gray-700 font-medium">Microscopios</span>
+            <span class="text-gray-700 font-medium">Microscopios Reparación Celulares</span>
         </nav>
     </div>
 </div>
 
 <div class="bg-gray-50 min-h-screen py-12">
     <div class="w-11/12 mx-auto px-4 xl:px-6 2xl:px-8">
-
-        <!-- Título descriptivo para SEO -->
-        <div class="mb-8 text-center">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Catálogo de Microscopios Profesionales</h2>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                Explora nuestra completa colección de microscopios de precisión, desde modelos básicos para educación hasta equipos avanzados para investigación profesional y laboratorios especializados.
-            </p>
-        </div>
-
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
             <button id="toggle-filters" class="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center">
@@ -965,10 +970,11 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <div class="mt-12 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
                         <h3 class="font-bold text-gray-900 mb-4">Sugerencias de búsqueda:</h3>
                         <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Taladros</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Martillos</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Destornilladores</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Llaves</span>
+                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Microscopio soldadura</span>
+                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Lupa binocular</span>
+                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Microscopio digital</span>
+                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Microscopio SMD</span>
+                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Microscopio PCB</span>
                         </div>
                     </div>
                 </div>
