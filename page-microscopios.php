@@ -287,7 +287,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             <!-- Barra de búsqueda -->
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
-                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
+                    <div method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
@@ -336,7 +336,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </svg>
                             <span>Buscar</span>
                         </button>
-                    </form>
+                            </div>
                 </div>
             </div>
         </div>
