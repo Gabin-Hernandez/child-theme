@@ -497,13 +497,13 @@ function itools_remove_woocommerce_single_product_hooks() {
 }
 add_action( 'wp', 'itools_remove_woocommerce_single_product_hooks' );
 
-// Mejorar la búsqueda de productos básica
+// Mejorar la búsqueda de productos básica - usar la misma lógica del live search
 function itools_modify_search_query( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
         // Solo para búsquedas de productos
         if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
-            // Forzar que solo busque productos, excluyendo páginas y posts
-            $query->set( 'post_type', array('product') );
+            // Usar la misma configuración que funciona en el live search
+            $query->set( 'post_type', 'product' );
             $query->set( 'post_status', 'publish' );
             
             // Si se seleccionó una categoría específica
@@ -516,81 +516,10 @@ function itools_modify_search_query( $query ) {
                     )
                 ));
             }
-            
-            // Construir meta_query para incluir SKU y excluir productos no visibles
-            $meta_query = array('relation' => 'AND');
-            
-            // Excluir productos ocultos del catálogo
-            $meta_query[] = array(
-                'key'     => '_visibility',
-                'value'   => array('hidden', 'search'),
-                'compare' => 'NOT IN'
-            );
-            
-            // Mejorar la búsqueda para incluir SKU si WooCommerce está activo
-            if ( class_exists( 'WooCommerce' ) ) {
-                $search_term = $query->get('s');
-                if (!empty($search_term)) {
-                    // Buscar en SKU también
-                    $meta_query[] = array(
-                        'relation' => 'OR',
-                        array(
-                            'key'     => '_sku',
-                            'value'   => $search_term,
-                            'compare' => 'LIKE'
-                        ),
-                        // Permitir que la búsqueda normal también funcione en título y contenido
-                        array(
-                            'key'     => '_sku',
-                            'compare' => 'NOT EXISTS'
-                        )
-                    );
-                }
-            }
-            
-            $query->set( 'meta_query', $meta_query );
         }
     }
 }
 add_action( 'pre_get_posts', 'itools_modify_search_query' );
-
-// Función adicional para asegurar que solo se muestren productos WooCommerce válidos
-function itools_ensure_products_only_in_search( $query ) {
-    // Solo aplicar en búsquedas de productos en el frontend
-    if ( !is_admin() && $query->is_main_query() && $query->is_search() 
-         && isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
-        
-        // Asegurar que solo se busquen productos
-        $query->set( 'post_type', 'product' );
-        $query->set( 'post_status', 'publish' );
-        
-        // Agregar meta_query para asegurar que son productos WooCommerce válidos
-        $existing_meta_query = $query->get( 'meta_query' );
-        if ( !is_array( $existing_meta_query ) ) {
-            $existing_meta_query = array();
-        }
-        
-        // Asegurar que tienen precio (productos válidos de WooCommerce)
-        $existing_meta_query[] = array(
-            'relation' => 'OR',
-            array(
-                'key'     => '_price',
-                'compare' => 'EXISTS'
-            ),
-            array(
-                'key'     => '_regular_price',
-                'compare' => 'EXISTS'
-            )
-        );
-        
-        $query->set( 'meta_query', $existing_meta_query );
-        
-        // Excluir cualquier página que no sea producto
-        $query->set( 'meta_key', '_wc_product_id' );
-        $query->set( 'meta_compare', 'NOT EXISTS' );
-    }
-}
-add_action( 'pre_get_posts', 'itools_ensure_products_only_in_search', 15 );
 
 // Filtro de precio personalizado para tienda
 function itools_filter_products_by_price( $query ) {
