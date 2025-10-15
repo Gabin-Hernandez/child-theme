@@ -1073,10 +1073,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function performSearch(query) {
         if (query.trim()) {
-            const currentUrl = new URL(window.location);
-            currentUrl.searchParams.set('s', query.trim());
-            currentUrl.searchParams.set('post_type', 'product');
-            window.location.href = currentUrl.toString();
+            // Usar la URL raíz del sitio en lugar de la URL actual
+            const baseUrl = new URL(window.location.origin);
+            baseUrl.searchParams.set('s', query.trim());
+            baseUrl.searchParams.set('post_type', 'product');
+            window.location.href = baseUrl.toString();
         }
     }
     
