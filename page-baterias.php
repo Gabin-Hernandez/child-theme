@@ -1255,10 +1255,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function performSearch(query) {
         if (query.trim()) {
-            const currentUrl = new URL(window.location);
-            currentUrl.searchParams.set('s', query.trim());
-            currentUrl.searchParams.set('post_type', 'product');
-            window.location.href = currentUrl.toString();
+            const homeUrl = new URL(window.location.origin);
+            homeUrl.searchParams.set('s', query.trim());
+            homeUrl.searchParams.set('post_type', 'product');
+            window.location.href = homeUrl.toString();
         }
     }
     
