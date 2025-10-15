@@ -500,7 +500,7 @@ add_action( 'wp', 'itools_remove_woocommerce_single_product_hooks' );
 // Mejorar la búsqueda de productos básica
 function itools_modify_search_query( $query ) {
     if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
-        // Para búsquedas específicas de productos
+        // Solo para búsquedas de productos
         if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
             $query->set( 'post_type', 'product' );
             
@@ -525,12 +525,6 @@ function itools_modify_search_query( $query ) {
                         'compare' => 'LIKE'
                     )
                 ));
-            }
-        } else {
-            // Para búsquedas generales (sin post_type especificado), solo mostrar productos
-            // Esto evita que aparezcan páginas en los resultados de búsqueda
-            if ( !isset($_GET['post_type']) ) {
-                $query->set( 'post_type', 'product' );
             }
         }
     }
@@ -662,13 +656,7 @@ function itools_live_search() {
                 'value' => 'instock',
                 'compare' => '='
             )
-        ),
-        // Excluir páginas explícitamente
-        'post__not_in' => get_posts(array(
-            'post_type' => 'page',
-            'posts_per_page' => -1,
-            'fields' => 'ids'
-        ))
+        )
     );
     
     $search_query = new WP_Query($args);
@@ -705,35 +693,6 @@ function itools_live_search() {
 // Registrar endpoints AJAX
 add_action('wp_ajax_itools_live_search', 'itools_live_search');
 add_action('wp_ajax_nopriv_itools_live_search', 'itools_live_search');
-
-// Modificar formulario de búsqueda para incluir post_type=product por defecto
-function itools_search_form_modify($form) {
-    // Añadir campo oculto para post_type=product
-    $form = str_replace(
-        '</form>',
-        '<input type="hidden" name="post_type" value="product" /></form>',
-        $form
-    );
-    return $form;
-}
-add_filter('get_search_form', 'itools_search_form_modify');
-
-// Interceptar búsquedas sin post_type y redirigir a búsquedas de productos
-function itools_redirect_search_to_products() {
-    if (is_search() && !is_admin() && !isset($_GET['post_type'])) {
-        $search_query = get_search_query();
-        if (!empty($search_query)) {
-            $redirect_url = add_query_arg(array(
-                's' => $search_query,
-                'post_type' => 'product'
-            ), home_url('/'));
-            
-            wp_redirect($redirect_url, 301);
-            exit;
-        }
-    }
-}
-add_action('template_redirect', 'itools_redirect_search_to_products');
 
 // Agregar JavaScript básico para mejorar la experiencia de búsqueda
 function itools_search_scripts() {
@@ -2349,10 +2308,10 @@ function itools_improve_product_search( $query ) {
             $search_term = $query->get('s');
             
             if ( !empty($search_term) ) {
-                // Asegurar que solo busque productos
-                $query->set('post_type', 'product');
+                // Remover el parámetro de búsqueda por defecto para personalizar
+                $query->set('s', '');
                 
-                // Mejorar la búsqueda para incluir SKU y otros campos
+                // Buscar en título y contenido del producto
                 $query->set('meta_query', array(
                     'relation' => 'OR',
                     array(
@@ -2361,11 +2320,17 @@ function itools_improve_product_search( $query ) {
                         'compare' => 'LIKE'
                     )
                 ));
-            }
-        } else {
-            // Para búsquedas generales (sin post_type), excluir páginas y solo mostrar productos
-            if ( !isset($_GET['post_type']) ) {
-                $query->set('post_type', 'product');
+                
+                // Buscar en título del post
+                add_filter('posts_where', function($where) use ($search_term) {
+                    global $wpdb;
+                    if ( !empty($search_term) ) {
+                        $where .= " OR {$wpdb->posts}.post_title LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_content LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_excerpt LIKE '%" . esc_sql($search_term) . "%'";
+                    }
+                    return $where;
+                });
             }
         }
     }
@@ -2378,12 +2343,6 @@ function itools_woocommerce_search_modification( $query ) {
         if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
             $query->set( 'post_type', 'product' );
             $query->set( 'post_status', 'publish' );
-        } else {
-            // Para búsquedas generales, solo mostrar productos publicados
-            if ( !isset($_GET['post_type']) ) {
-                $query->set( 'post_type', 'product' );
-                $query->set( 'post_status', 'publish' );
-            }
         }
     }
 }
