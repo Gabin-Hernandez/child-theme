@@ -442,7 +442,7 @@
 <div id="page" class="site">
     <!-- Header Simple -->
     <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-        <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
+        <div style="margin: 0 auto; padding: 0 20px;" >
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
                 
