@@ -506,6 +506,12 @@ function itools_modify_search_query( $query ) {
             $query->set( 'post_type', 'product' );
             $query->set( 'post_status', 'publish' );
             
+            // Debug: registrar qué se está buscando
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('Búsqueda de productos - Término: ' . $query->get('s'));
+                error_log('Post type configurado: ' . print_r($query->get('post_type'), true));
+            }
+            
             // Si se seleccionó una categoría específica
             if ( !empty($_GET['product_cat']) && taxonomy_exists('product_cat') ) {
                 $query->set( 'tax_query', array(
