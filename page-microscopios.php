@@ -1,21 +1,72 @@
 <?php
 /**
- * Template Name: Página de microscopios
+ * Template Name: Página de Microscopios
+ * 
+ * Template para mostrar productos de microscopios
  */
 
 get_header();
 
-// Solo crear consulta personalizada si hay filtros avanzados activos
-// NO crear consulta personalizada para product_cat o s ya que WooCommerce los maneja mejor
-$has_advanced_filters = !empty($_GET['product_categories']) || 
-                       !empty($_GET['min_price']) || !empty($_GET['max_price']) || !empty($_GET['orderby']);
+// Agregar metadata SEO específica para microscopios
+add_action('wp_head', function() {
+    echo '<meta name="description" content="Microscopios profesionales de alta calidad. Amplia selección de microscopios ópticos, digitales y estereoscópicos para laboratorios, educación e investigación científica.">' . "\n";
+    echo '<meta name="keywords" content="microscopios, microscopio óptico, microscopio digital, microscopio estereoscópico, laboratorio, investigación, educación">' . "\n";
+    echo '<meta property="og:title" content="Microscopios Profesionales - ITOOLS">' . "\n";
+    echo '<meta property="og:description" content="Descubre nuestra amplia selección de microscopios de alta calidad para laboratorios, educación e investigación">' . "\n";
+    echo '<meta property="og:type" content="website">' . "\n";
+    echo '<meta property="og:url" content="' . get_permalink() . '">' . "\n";
+    echo '<link rel="canonical" href="' . get_permalink() . '">' . "\n";
+    
+    // Datos estructurados JSON-LD
+    echo '<script type="application/ld+json">' . "\n";
+    echo json_encode(array(
+        "@context" => "https://schema.org",
+        "@type" => "CollectionPage",
+        "name" => "Microscopios Profesionales",
+        "description" => "Amplia selección de microscopios de alta calidad para laboratorios, educación e investigación científica",
+        "url" => get_permalink(),
+        "breadcrumb" => array(
+            "@type" => "BreadcrumbList",
+            "itemListElement" => array(
+                array(
+                    "@type" => "ListItem",
+                    "position" => 1,
+                    "name" => "Inicio",
+                    "item" => home_url()
+                ),
+                array(
+                    "@type" => "ListItem", 
+                    "position" => 2,
+                    "name" => "Tienda",
+                    "item" => wc_get_page_permalink('shop')
+                ),
+                array(
+                    "@type" => "ListItem",
+                    "position" => 3,
+                    "name" => "Microscopios"
+                )
+            )
+        )
+    ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    echo '</script>' . "\n";
+});
 
-// Establecer búsqueda por defecto para "microscopios" si no hay búsqueda específica
-$default_search = 'microscopios';
-$current_search = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '';
-$search_term = !empty($current_search) ? $current_search : $default_search;
+// Crear consulta para productos de microscopios
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 12,
+    'post_status' => 'publish',
+    's' => 'microscopios', // Búsqueda directa de microscopios
+    'tax_query' => array(),
+    'meta_query' => array()
+);
 
-if ($has_advanced_filters) {
+// Procesar filtros adicionales si existen
+$has_additional_filters = !empty($_GET['product_categories']) || 
+                         !empty($_GET['min_price']) || !empty($_GET['max_price']) || 
+                         !empty($_GET['orderby']) || !empty($_GET['product_cat']);
+
+if ($has_additional_filters) {
     // Procesar filtros de URL
     $args = array(
         'post_type' => 'product',
@@ -26,7 +77,6 @@ if ($has_advanced_filters) {
     );
 
     // Filtro por categorías
-    //esto es una prueba
     if (!empty($_GET['product_categories'])) {
     $selected_categories = $_GET['product_categories'];
     if (is_array($selected_categories)) {
@@ -165,55 +215,33 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     error_log('URL Parameters: ' . print_r($_GET, true));
 }
 
-    } else {
-        // Usar la consulta principal de WordPress cuando no hay filtros avanzados
-        // Esto incluye búsquedas (s) y filtros de categoría (product_cat) que WooCommerce maneja mejor
-        global $wp_query;
-        $products_query = $wp_query;
-        
-        // Asegurar que la consulta principal esté configurada correctamente para WooCommerce
-        if (!$products_query->is_main_query()) {
-            // Si por alguna razón no es la consulta principal, crear una nueva
-            $args = array(
-                'post_type' => 'product',
-                'posts_per_page' => 12,
-                'post_status' => 'publish'
-            );
-            
-            // Agregar parámetros de búsqueda si existen, o usar búsqueda por defecto
-            if (!empty($current_search)) {
-                $args['s'] = $current_search;
-            } else {
-                $args['s'] = $default_search;
-            }
-            
-            // Agregar filtro de categoría si existe
-            if (!empty($_GET['product_cat'])) {
-                $args['tax_query'] = array(
-                    array(
-                        'taxonomy' => 'product_cat',
-                        'field' => 'slug',
-                        'terms' => sanitize_text_field($_GET['product_cat'])
-                    )
-                );
-            }
-            
-            $products_query = new WP_Query($args);
-        } else {
-            // Si es la consulta principal, modificar los parámetros si es necesario
-            if (empty($current_search) && !isset($_GET['s'])) {
-                // Forzar búsqueda por defecto si no hay búsqueda específica
-                $wp_query->query_vars['s'] = $default_search;
-                $wp_query->query_vars['post_type'] = 'product';
-                $products_query = $wp_query;
-            }
-        }    // Debug: Mostrar información de la consulta principal
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        error_log('Using main query - Found Posts: ' . $products_query->found_posts);
-        error_log('Main Query Vars: ' . print_r($products_query->query_vars, true));
-        error_log('Is Main Query: ' . ($products_query->is_main_query() ? 'Yes' : 'No'));
-        error_log('URL Parameters: ' . print_r($_GET, true));
-    }
+}
+
+// Paginación
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$args['paged'] = $paged;
+
+// Configurar relación de tax_query si hay múltiples filtros de taxonomía
+if (!empty($args['tax_query']) && count($args['tax_query']) > 1) {
+    $args['tax_query']['relation'] = 'AND';
+}
+
+// Limpiar arrays vacíos
+if (empty($args['tax_query'])) {
+    unset($args['tax_query']);
+}
+if (empty($args['meta_query'])) {
+    unset($args['meta_query']);
+}
+
+// Crear la consulta
+$products_query = new WP_Query($args);
+
+// Debug: Mostrar información de la consulta si estamos en modo debug
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    error_log('Microscopios Query Args: ' . print_r($args, true));
+    error_log('Found Posts: ' . $products_query->found_posts);
+    error_log('URL Parameters: ' . print_r($_GET, true));
 }
 
 ?>
@@ -223,10 +251,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                Microscopios
+                Microscopios Profesionales
             </h1>
             <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Encuentra los mejores microscopios profesionales para tus necesidades científicas y de laboratorio
+                Descubre nuestra amplia selección de microscopios de alta calidad para laboratorios, educación e investigación
             </p>
             
             <!-- Formulario de búsqueda funcional -->
@@ -236,7 +264,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <div class="flex-1 relative">
                         <input type="text" 
                                name="s" 
-                               value="<?php echo esc_attr($search_term); ?>"
+                               value="<?php echo get_search_query(); ?>"
                                placeholder="Buscar microscopios..."
                                class="w-full px-6 py-4 text-lg rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg">
                     </div>
@@ -261,8 +289,37 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     </div>
 </div>
 
+<!-- Breadcrumb específico para microscopios -->
+<div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8 py-4">
+        <nav class="flex items-center space-x-2 text-sm">
+            <a href="<?php echo home_url(); ?>" class="text-blue-600 hover:text-blue-800 transition-colors">
+                Inicio
+            </a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-blue-600 hover:text-blue-800 transition-colors">
+                Tienda
+            </a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-700 font-medium">Microscopios</span>
+        </nav>
+    </div>
+</div>
+
 <div class="bg-gray-50 min-h-screen py-12">
     <div class="w-11/12 mx-auto px-4 xl:px-6 2xl:px-8">
+
+        <!-- Título descriptivo para SEO -->
+        <div class="mb-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Catálogo de Microscopios Profesionales</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Explora nuestra completa colección de microscopios de precisión, desde modelos básicos para educación hasta equipos avanzados para investigación profesional y laboratorios especializados.
+            </p>
+        </div>
 
         <!-- Botón para mostrar filtros en móvil -->
         <div class="xl:hidden mb-6">
@@ -403,7 +460,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
                                 <!-- Enlace para todas las categorías -->
                                 <?php 
-                                $all_categories_url = home_url('/?post_type=product&s=' . urlencode($search_term));
+                                $all_categories_url = home_url('/?post_type=product&s=');
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
                                 <a href="<?php echo esc_url($all_categories_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_all_categories ? 'bg-blue-50 border-blue-300' : ''; ?>">
@@ -433,8 +490,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
                                 if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
                                     foreach ( $product_categories as $category ) :
-                                        // Create correct URL format: ?post_type=product&s=search_term&product_cat=slug
-                                        $category_url = home_url('/?post_type=product&s=' . urlencode($search_term) . '&product_cat=' . $category->slug);
+                                        // Create correct URL format: ?post_type=product&s=&product_cat=slug
+                                        $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
@@ -1090,14 +1147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentUrl = new URL(window.location);
             currentUrl.searchParams.set('s', query.trim());
             currentUrl.searchParams.set('post_type', 'product');
-            // Mantener categoría si existe
-            if (currentUrl.searchParams.get('product_cat')) {
-                // La categoría se mantiene automáticamente
-            }
             window.location.href = currentUrl.toString();
-        } else {
-            // Si no hay búsqueda, redirigir a la búsqueda por defecto
-            window.location.href = window.location.origin + '/?post_type=product&s=microscopios';
         }
     }
     
@@ -1262,15 +1312,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Asegurar que siempre incluya post_type=product para búsquedas de productos
         searchParams.set('post_type', 'product');
-        
-        // Mantener el término de búsqueda actual o usar el por defecto
-        const currentSearch = new URLSearchParams(window.location.search).get('s') || 'microscopios';
-        searchParams.set('s', currentSearch);
+        searchParams.set('s', '');
         
         // Mantener parámetros básicos
         const currentUrl = new URL(window.location);
-        if (currentUrl.searchParams.get('product_cat')) {
-            searchParams.set('product_cat', currentUrl.searchParams.get('product_cat'));
+        if (currentUrl.searchParams.get('s')) {
+            searchParams.set('s', currentUrl.searchParams.get('s'));
         }
         
         // Filtro de precio
@@ -1288,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Asegurar que siempre incluya post_type=product para búsquedas de productos
         searchParams.set('post_type', 'product');
-        searchParams.set('s', currentSearch);
+        searchParams.set('s', '');
         
         // Redirigir con los nuevos parámetros
         baseUrl.search = searchParams.toString();
@@ -1313,9 +1360,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Redirigir después de la animación - ir a la tienda con búsqueda por defecto
+        // Redirigir después de la animación - ir a la tienda sin filtros
         setTimeout(() => {
-            const baseUrl = window.location.origin + '/?post_type=product&s=microscopios';
+            const baseUrl = window.location.origin + '/?post_type=product&s=';
             window.location.href = baseUrl;
         }, 400);
     }
