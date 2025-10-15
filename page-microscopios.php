@@ -70,7 +70,7 @@ $args = array(
     'post_type' => 'product',
     'posts_per_page' => 12,
     'post_status' => 'publish',
-    's' => 'microscopios reparacion celulares soldadura', // Búsqueda específica para reparación
+    's' => 'microscopios', // Búsqueda específica para reparación
     'tax_query' => array(),
     'meta_query' => array()
 );
