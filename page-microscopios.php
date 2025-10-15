@@ -68,7 +68,7 @@ add_action('wp_head', function() {
 // Crear consulta para productos de microscopios de reparación
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 12,
+    'posts_per_page' => 15, // Actualizado a 15 para mantener consistencia
     'post_status' => 'publish',
     's' => 'microscopios', // Búsqueda específica para reparación
     'tax_query' => array(),
@@ -84,7 +84,7 @@ if ($has_additional_filters) {
     // Procesar filtros de URL
     $args = array(
         'post_type' => 'product',
-        'posts_per_page' => 12,
+        'posts_per_page' => 15, // Actualizado a 15 para mantener consistencia
         'post_status' => 'publish',
         'tax_query' => array(),
         'meta_query' => array()
