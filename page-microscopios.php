@@ -71,8 +71,14 @@ $original_get = $_GET;
 $_GET['post_type'] = 'product';
 $_GET['s'] = 'microscopio';
 
-// Configurar paginación
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+// Configurar paginación - verificar tanto query_var como $_GET
+$paged = 1;
+if (get_query_var('paged')) {
+    $paged = get_query_var('paged');
+} elseif (isset($_GET['paged'])) {
+    $paged = intval($_GET['paged']);
+}
+$paged = max(1, $paged);
 
 // Usar la función estándar de WordPress para búsquedas
 $args = array(
@@ -958,14 +964,20 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
                             $max_pages = $query->max_num_pages;
-                            $base_url = get_permalink();
+                            
+                            // URL base fija para la página de microscopios
+                            $base_url = home_url('/microscopios/');
                             
                             echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
                             echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
                             
                             // Botón anterior
                             if ($paged > 1) {
-                                $prev_url = ($paged == 2) ? $base_url : $base_url . 'page/' . ($paged - 1) . '/';
+                                if ($paged == 2) {
+                                    $prev_url = $base_url;
+                                } else {
+                                    $prev_url = add_query_arg('paged', $paged - 1, $base_url);
+                                }
                                 echo '<a href="' . esc_url($prev_url) . '" class="pagination-btn prev-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
                                 echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>';
                                 echo '<span>Anterior</span>';
@@ -977,7 +989,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             $end_page = min($max_pages, $paged + 2);
                             
                             for ($i = $start_page; $i <= $end_page; $i++) {
-                                $page_url = ($i == 1) ? $base_url : $base_url . 'page/' . $i . '/';
+                                if ($i == 1) {
+                                    $page_url = $base_url;
+                                } else {
+                                    $page_url = add_query_arg('paged', $i, $base_url);
+                                }
+                                
                                 if ($i == $paged) {
                                     echo '<span class="pagination-btn current-page bg-blue-600 text-white px-3 py-2 rounded-lg font-medium">' . $i . '</span>';
                                 } else {
@@ -987,7 +1004,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             // Botón siguiente
                             if ($paged < $max_pages) {
-                                $next_url = $base_url . 'page/' . ($paged + 1) . '/';
+                                $next_url = add_query_arg('paged', $paged + 1, $base_url);
                                 echo '<a href="' . esc_url($next_url) . '" class="pagination-btn next-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
                                 echo '<span>Siguiente</span>';
                                 echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';

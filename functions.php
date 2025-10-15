@@ -3512,12 +3512,11 @@ add_action('wp_enqueue_scripts', 'itools_enqueue_lucide_icons');
 
 // Agregar soporte para paginación en páginas personalizadas
 function itools_add_custom_page_pagination() {
-    // Agregar regla de reescritura para página de microscopios
-    add_rewrite_rule(
-        '^microscopios/page/([0-9]+)/?$',
-        'index.php?pagename=microscopios&paged=$matches[1]',
-        'top'
-    );
+    // Permitir el parámetro 'paged' en query vars
+    add_filter('query_vars', function($vars) {
+        $vars[] = 'paged';
+        return $vars;
+    });
 }
 add_action('init', 'itools_add_custom_page_pagination');
 
