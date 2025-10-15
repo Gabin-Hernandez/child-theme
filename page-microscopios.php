@@ -1139,7 +1139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-6';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6';
 
 
 
