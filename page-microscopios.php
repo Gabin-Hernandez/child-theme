@@ -674,7 +674,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
