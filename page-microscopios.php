@@ -291,7 +291,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
-                        <div class="flex-1 relative pl-5 bg-gray-200">
+                        <div class="flex-1 relative ">
                             <div class="absolute inset-y-0 right-0 flex items-center pr-4">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
