@@ -257,7 +257,16 @@ $hero_args = array(
 ?>
 
 <!-- Hero Section -->
-<?php include(get_template_directory() . '/includes/hero-section.php'); ?>
+<?php 
+// Debug: Verificar que los archivos existen
+$hero_file = get_stylesheet_directory() . '/includes/hero-section.php';
+if (!file_exists($hero_file)) {
+    echo '<!-- Error: No se encuentra hero-section.php en: ' . $hero_file . ' -->';
+    echo '<div style="background: red; color: white; padding: 20px;">ERROR: No se encuentra hero-section.php</div>';
+} else {
+    include($hero_file);
+}
+?>
 
 <?php
 // Configurar breadcrumbs personalizados
@@ -283,7 +292,15 @@ $breadcrumb_args = array(
 ?>
 
 <!-- Breadcrumb -->
-<?php include(get_template_directory() . '/includes/breadcrumb.php'); ?>
+<?php 
+$breadcrumb_file = get_stylesheet_directory() . '/includes/breadcrumb.php';
+if (!file_exists($breadcrumb_file)) {
+    echo '<!-- Error: No se encuentra breadcrumb.php en: ' . $breadcrumb_file . ' -->';
+    echo '<div style="background: red; color: white; padding: 20px;">ERROR: No se encuentra breadcrumb.php</div>';
+} else {
+    include($breadcrumb_file);
+}
+?>
 
 <?php
 // Configurar argumentos para Products Content
@@ -307,7 +324,16 @@ $products_args = array(
 ?>
 
 <!-- Products Content -->
-<?php include(get_template_directory() . '/includes/products-content.php'); ?>
+<?php 
+$products_file = get_stylesheet_directory() . '/includes/products-content.php';
+if (!file_exists($products_file)) {
+    echo '<!-- Error: No se encuentra products-content.php en: ' . $products_file . ' -->';
+    echo '<div style="background: red; color: white; padding: 20px;">ERROR: No se encuentra products-content.php</div>';
+} else {
+    echo '<!-- Cargando products-content.php -->';
+    include($products_file);
+}
+?>
 
 <!-- Slider debajo del contenedor principal -->
 <div class="w-full">

@@ -61,7 +61,7 @@ $products_query = $args['products_query'];
                 
                 <?php if ($args['show_filters']) : ?>
                 <!-- Sidebar de filtros -->
-                <?php include(get_template_directory() . '/includes/product-filters.php'); ?>
+                <?php include(get_stylesheet_directory() . '/includes/product-filters.php'); ?>
                 <?php endif; ?>
 
                 <!-- Contenido principal -->
@@ -107,14 +107,14 @@ $products_query = $args['products_query'];
 
                     <?php if ($args['show_table_filters']) : ?>
                     <!-- Filtros para vista de tabla -->
-                    <?php include(get_template_directory() . '/includes/table-filters.php'); ?>
+                    <?php include(get_stylesheet_directory() . '/includes/table-filters.php'); ?>
                     <?php endif; ?>
 
                     <!-- Grid de productos -->
-                    <?php include(get_template_directory() . '/includes/products-grid.php'); ?>
+                    <?php include(get_stylesheet_directory() . '/includes/products-grid.php'); ?>
 
                     <!-- Vista de tabla -->
-                    <?php include(get_template_directory() . '/includes/products-table.php'); ?>
+                    <?php include(get_stylesheet_directory() . '/includes/products-table.php'); ?>
 
                     <!-- Paginación -->
                     <div class="mt-12">
