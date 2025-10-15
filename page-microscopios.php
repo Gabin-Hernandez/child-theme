@@ -65,12 +65,12 @@ add_action('wp_head', function() {
     echo '</script>' . "\n";
 });
 
-// Crear consulta para productos de microscopios de reparación
+// Crear consulta para productos de microscopios usando la misma lógica que el buscador normal
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 15, // Actualizado a 15 para mantener consistencia
+    'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'microscopios', // Búsqueda específica para reparación
+    's' => 'microscopio', // Usar búsqueda simple como el buscador normal
     'tax_query' => array(),
     'meta_query' => array()
 );
@@ -250,6 +250,9 @@ if (empty($args['meta_query'])) {
 
 // Crear la consulta
 $products_query = new WP_Query($args);
+
+// Limpiar el filtro personalizado para que no afecte otras consultas
+remove_all_filters('posts_where');
 
 // Debug: Mostrar información de la consulta si estamos en modo debug
 if (defined('WP_DEBUG') && WP_DEBUG) {
