@@ -268,13 +268,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <!-- Contenido -->
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                </svg>
-                Equipos Profesionales de Precisión
-            </div>
+           
             
             <!-- Título principal -->
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
@@ -292,15 +286,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             
             <!-- Barra de búsqueda -->
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
                         <div class="flex-1 relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                                <svg class="h-6 w-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                             </div>
                             <input type="text" 
@@ -308,15 +302,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
                                    placeholder="Buscar microscopios por modelo, marca o características..."
-                                   class="w-full pl-12 pr-4 py-4 border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500 bg-white">
+                                   class="w-full pl-16 pr-6 py-6 text-lg border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500 bg-transparent transition-all duration-200">
                         </div>
                         
-                        <!-- Separador -->
-                        <div class="hidden sm:block w-px bg-gray-200"></div>
+                        <!-- Separador elegante -->
+                        <div class="hidden sm:block w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent my-4"></div>
                         
                         <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[200px]">
-                            <select name="product_cat" class="w-full px-4 py-4 border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
+                        <div class="relative sm:min-w-[220px]">
+                            <select name="product_cat" class="w-full px-6 py-6 text-lg border-0 focus:outline-none focus:ring-0 text-gray-700 bg-transparent appearance-none cursor-pointer transition-all duration-200">
                                 <option value="">Todas las categorías</option>
                                 <?php
                                 $categories = get_terms( array(
@@ -328,19 +322,19 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 }
                                 ?>
                             </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
                         </div>
                         
-                        <!-- Botón de búsqueda -->
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold transition-colors duration-200 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        <!-- Botón de búsqueda mejorado -->
+                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <span>Buscar</span>
+                            <span class="font-semibold">Buscar</span>
                         </button>
                     </form>
                 </div>
@@ -1760,21 +1754,62 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1.2);
     }
     
-    /* Hero section styles */
+    /* Hero search bar styles */
     #hero-search:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        background-color: rgba(59, 130, 246, 0.02);
+        box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.1);
     }
     
-    /* Mobile responsive adjustments */
+    #hero-search::placeholder {
+        color: #9ca3af;
+        font-weight: 400;
+    }
+    
+    /* Select styling */
+    select[name="product_cat"]:focus {
+        outline: none;
+        background-color: rgba(59, 130, 246, 0.02);
+    }
+    
+    /* Search button enhancements */
+    button[type="submit"]:active {
+        transform: scale(0.98);
+    }
+    
+    /* Mobile responsive */
     @media (max-width: 640px) {
-        .hero-search form {
-            flex-direction: column;
+        #hero-search {
+            padding-left: 3.5rem;
+            padding-right: 1.5rem;
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+            font-size: 1rem;
         }
         
-        .hero-search .separator {
-            display: none;
+        select[name="product_cat"] {
+            padding: 1.25rem 1.5rem;
+            font-size: 1rem;
         }
+        
+        button[type="submit"] {
+            padding: 1.25rem 2rem;
+            font-size: 1rem;
+        }
+        
+        .absolute.inset-y-0.left-0.pl-6 {
+            padding-left: 1rem;
+        }
+        
+        .absolute.inset-y-0.left-0.pl-6 svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    }
+    
+    /* Hover effects */
+    .bg-white:hover {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
     
     /* Grid responsive improvements */
