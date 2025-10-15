@@ -292,8 +292,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         
                         <!-- Input de búsqueda -->
                         <div class="flex-1 relative">
-                            <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
-                                <svg class="h-6 w-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                             </div>
@@ -302,15 +302,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
                                    placeholder="Buscar microscopios por modelo, marca o características..."
-                                   class="w-full pl-16 pr-6 py-6 text-lg border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500 bg-transparent transition-all duration-200">
+                                   class="w-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
                         </div>
                         
-                        <!-- Separador elegante -->
-                        <div class="hidden sm:block w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent my-4"></div>
+                        <!-- Separador -->
+                        <div class="hidden sm:block w-px bg-gray-200"></div>
                         
                         <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[220px]">
-                            <select name="product_cat" class="w-full px-6 py-6 text-lg border-0 focus:outline-none focus:ring-0 text-gray-700 bg-transparent appearance-none cursor-pointer transition-all duration-200">
+                        <div class="relative sm:min-w-[200px]">
+                            <select name="product_cat" class="w-full px-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
                                 <option value="">Todas las categorías</option>
                                 <?php
                                 $categories = get_terms( array(
@@ -322,19 +322,19 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 }
                                 ?>
                             </select>
-                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
                         </div>
                         
-                        <!-- Botón de búsqueda mejorado -->
-                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <!-- Botón de búsqueda -->
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold text-base transition-colors duration-200 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <span class="font-semibold">Buscar</span>
+                            <span>Buscar</span>
                         </button>
                     </form>
                 </div>
@@ -1757,59 +1757,28 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Hero search bar styles */
     #hero-search:focus {
         outline: none;
-        background-color: rgba(59, 130, 246, 0.02);
-        box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.1);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     }
     
     #hero-search::placeholder {
         color: #9ca3af;
-        font-weight: 400;
     }
     
     /* Select styling */
     select[name="product_cat"]:focus {
         outline: none;
-        background-color: rgba(59, 130, 246, 0.02);
-    }
-    
-    /* Search button enhancements */
-    button[type="submit"]:active {
-        transform: scale(0.98);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     }
     
     /* Mobile responsive */
     @media (max-width: 640px) {
-        #hero-search {
-            padding-left: 3.5rem;
-            padding-right: 1.5rem;
-            padding-top: 1.25rem;
-            padding-bottom: 1.25rem;
-            font-size: 1rem;
+        .flex.flex-col.sm\\:flex-row form {
+            flex-direction: column;
         }
         
-        select[name="product_cat"] {
-            padding: 1.25rem 1.5rem;
-            font-size: 1rem;
+        .hidden.sm\\:block {
+            display: none;
         }
-        
-        button[type="submit"] {
-            padding: 1.25rem 2rem;
-            font-size: 1rem;
-        }
-        
-        .absolute.inset-y-0.left-0.pl-6 {
-            padding-left: 1rem;
-        }
-        
-        .absolute.inset-y-0.left-0.pl-6 svg {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-    }
-    
-    /* Hover effects */
-    .bg-white:hover {
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
     
     /* Grid responsive improvements */
