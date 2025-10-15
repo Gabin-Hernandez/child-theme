@@ -3510,3 +3510,21 @@ function itools_enqueue_lucide_icons() {
 }
 add_action('wp_enqueue_scripts', 'itools_enqueue_lucide_icons');
 
+// Agregar soporte para paginación en páginas personalizadas
+function itools_add_custom_page_pagination() {
+    // Agregar regla de reescritura para página de microscopios
+    add_rewrite_rule(
+        '^microscopios/page/([0-9]+)/?$',
+        'index.php?pagename=microscopios&paged=$matches[1]',
+        'top'
+    );
+}
+add_action('init', 'itools_add_custom_page_pagination');
+
+// Flush rewrite rules al activar el tema
+function itools_flush_rewrite_rules() {
+    itools_add_custom_page_pagination();
+    flush_rewrite_rules();
+}
+add_action('after_switch_theme', 'itools_flush_rewrite_rules');
+

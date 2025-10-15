@@ -71,12 +71,16 @@ $original_get = $_GET;
 $_GET['post_type'] = 'product';
 $_GET['s'] = 'microscopio';
 
+// Configurar paginación
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
 // Usar la función estándar de WordPress para búsquedas
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
     's' => 'microscopio',
+    'paged' => $paged,
     'tax_query' => array(),
     'meta_query' => array()
 );
@@ -948,8 +952,57 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        // Usar nuestra función de paginación personalizada
-                        itools_custom_pagination();
+                        // Función de paginación específica para página de microscopios
+                        function microscopios_custom_pagination($query) {
+                            if ($query->max_num_pages <= 1) return;
+                            
+                            $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
+                            $max_pages = $query->max_num_pages;
+                            $base_url = get_permalink();
+                            
+                            echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
+                            echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
+                            
+                            // Botón anterior
+                            if ($paged > 1) {
+                                $prev_url = ($paged == 2) ? $base_url : $base_url . 'page/' . ($paged - 1) . '/';
+                                echo '<a href="' . esc_url($prev_url) . '" class="pagination-btn prev-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
+                                echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>';
+                                echo '<span>Anterior</span>';
+                                echo '</a>';
+                            }
+                            
+                            // Números de página
+                            $start_page = max(1, $paged - 2);
+                            $end_page = min($max_pages, $paged + 2);
+                            
+                            for ($i = $start_page; $i <= $end_page; $i++) {
+                                $page_url = ($i == 1) ? $base_url : $base_url . 'page/' . $i . '/';
+                                if ($i == $paged) {
+                                    echo '<span class="pagination-btn current-page bg-blue-600 text-white px-3 py-2 rounded-lg font-medium">' . $i . '</span>';
+                                } else {
+                                    echo '<a href="' . esc_url($page_url) . '" class="pagination-btn page-btn bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200">' . $i . '</a>';
+                                }
+                            }
+                            
+                            // Botón siguiente
+                            if ($paged < $max_pages) {
+                                $next_url = $base_url . 'page/' . ($paged + 1) . '/';
+                                echo '<a href="' . esc_url($next_url) . '" class="pagination-btn next-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
+                                echo '<span>Siguiente</span>';
+                                echo '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+                                echo '</a>';
+                            }
+                            
+                            echo '</nav>';
+                            echo '<div class="pagination-info text-center text-sm text-gray-600 mt-4">';
+                            echo 'Página ' . $paged . ' de ' . $max_pages . ' (' . $query->found_posts . ' productos en total)';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        
+                        // Usar la función personalizada
+                        microscopios_custom_pagination($products_query);
                         ?>
                     </div>
 
