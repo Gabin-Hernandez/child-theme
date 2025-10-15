@@ -354,7 +354,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Breadcrumb -->
 <div class="bg-white border-b border-gray-100">
-    <div class="py-4">
+    <div class="w-11/12 py-4 mx-auto 2xl:max-w-[1920px]">
         <nav class="flex items-center space-x-2 text-sm">
             <a href="<?php echo home_url(); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Inicio</a>
             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
