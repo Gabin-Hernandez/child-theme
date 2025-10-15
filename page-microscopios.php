@@ -260,82 +260,126 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Header distintivo y profesional -->
-<div class="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 border-b border-gray-200">
-    <!-- Patrón sutil de fondo -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23f1f5f9" fill-opacity="0.4"%3E%3Ccircle cx="3" cy="3" r="0.5"/%3E%3Ccircle cx="13" cy="13" r="0.5"/%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+<!-- Hero Section -->
+<div class="relative bg-gradient-to-br from-slate-50 via-gray-50 to-white overflow-hidden">
+    <!-- Patrón geométrico sutil -->
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23e2e8f0" fill-opacity="0.3"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3Ccircle cx="10" cy="10" r="1"/%3E%3Ccircle cx="50" cy="50" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
     
-    <div class="relative w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8 py-16">
-        <div class="max-w-4xl">
-            <!-- Badge distintivo -->
-            <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Contenido centrado -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div class="text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-gray-200/50 text-gray-800 px-6 py-3 rounded-full text-sm font-medium mb-8 shadow-sm">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
-                Equipos Especializados
+                Equipos Profesionales de Precisión
             </div>
             
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Microscopios para 
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+            <!-- Título principal -->
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight tracking-tight">
+                Microscopios para
+                <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-700 to-gray-900">
                     Reparación de Celulares
                 </span>
             </h1>
-            <p class="text-xl text-gray-700 mb-10 leading-relaxed">
-                Equipos de precisión profesionales para técnicos especializados en reparación de dispositivos móviles y soldadura SMD.
+            
+            <!-- Descripción -->
+            <p class="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                Herramientas de alta precisión para técnicos especializados en reparación de dispositivos móviles, soldadura SMD y microelectrónica
             </p>
             
-            <!-- Barra de búsqueda elegante -->
-            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 hover:shadow-2xl transition-all duration-300">
-                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col lg:flex-row gap-4">
-                    <input type="hidden" name="post_type" value="product">
-                    <div class="flex-1 relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+            <!-- Barra de búsqueda centrada -->
+            <div class="max-w-4xl mx-auto">
+                <div class="hero-search-container bg-white rounded-2xl shadow-2xl border border-gray-200/50 p-2 hover:shadow-3xl transition-all duration-300">
+                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row gap-2">
+                        <input type="hidden" name="post_type" value="product">
+                        
+                        <!-- Input de búsqueda -->
+                        <div class="flex-1 relative">
+                            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                                <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                            <input type="text" 
+                                   id="hero-search"
+                                   name="s" 
+                                   value="<?php echo get_search_query(); ?>"
+                                   placeholder="Buscar microscopios por modelo, marca o características..."
+                                   class="w-full pl-14 pr-6 py-5 text-lg bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500">
                         </div>
-                        <input type="text" 
-                               name="s" 
-                               value="<?php echo get_search_query(); ?>"
-                               placeholder="Buscar por modelo o características..."
-                               class="w-full pl-12 pr-6 py-4 text-lg border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 transition-all duration-200">
-                    </div>
-                    <select name="product_cat" class="px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 lg:min-w-[200px] transition-all duration-200">
-                        <option value="">Todas las categorías</option>
-                        <?php
-                        $categories = get_terms( array(
-                            'taxonomy' => 'product_cat',
-                            'hide_empty' => true,
-                        ) );
-                        foreach ( $categories as $category ) {
-                            echo '<option value="' . esc_attr( $category->slug ) . '" ' . selected( get_query_var( 'product_cat' ), $category->slug, false ) . '>' . esc_html( $category->name ) . '</option>';
-                        }
-                        ?>
-                    </select>
-                    <button type="submit" class="group relative bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <span class="flex items-center">
-                            <svg class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            Buscar
-                        </span>
-                    </button>
-                </form>
+                        
+                        <!-- Separador vertical -->
+                        <div class="hidden sm:block w-px bg-gray-200 my-3"></div>
+                        
+                        <!-- Selector de categoría -->
+                        <div class="relative sm:min-w-[220px]">
+                            <select name="product_cat" class="w-full px-5 py-5 text-lg bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-700 appearance-none cursor-pointer">
+                                <option value="">Todas las categorías</option>
+                                <?php
+                                $categories = get_terms( array(
+                                    'taxonomy' => 'product_cat',
+                                    'hide_empty' => true,
+                                ) );
+                                foreach ( $categories as $category ) {
+                                    echo '<option value="' . esc_attr( $category->slug ) . '" ' . selected( get_query_var( 'product_cat' ), $category->slug, false ) . '>' . esc_html( $category->name ) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón de búsqueda -->
+                        <button type="submit" class="hero-search-btn group bg-gray-900 hover:bg-gray-800 text-white px-8 py-5 rounded-xl font-semibold transition-all duration-200 shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-300">
+                            <span class="flex items-center justify-center">
+                                <svg class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <span class="hidden sm:inline ml-2">Buscar</span>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Stats o características destacadas -->
+            <div class="hero-stats mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900 mb-2">100+</div>
+                    <div class="text-gray-600">Modelos Disponibles</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900 mb-2">24/7</div>
+                    <div class="text-gray-600">Soporte Técnico</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-gray-900 mb-2">Pro</div>
+                    <div class="text-gray-600">Calidad Premium</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Breadcrumb limpio -->
-<div class="bg-gray-50 border-b border-gray-200">
-    <div class="w-11/12 2xl:w-10/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8 py-3">
-        <nav class="flex items-center space-x-1 text-sm text-gray-500">
-            <a href="<?php echo home_url(); ?>" class="hover:text-gray-700 transition-colors">Inicio</a>
-            <span>/</span>
-            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="hover:text-gray-700 transition-colors">Tienda</a>
-            <span>/</span>
-            <span class="text-gray-900">Microscopios</span>
+<!-- Breadcrumb -->
+<div class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav class="flex items-center space-x-2 text-sm">
+            <a href="<?php echo home_url(); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Inicio</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Tienda</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-semibold">Microscopios</span>
         </nav>
     </div>
 </div>
@@ -1734,13 +1778,37 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1.2);
     }
     
-    /* Hero section responsive adjustments */
-    @media (max-width: 768px) {
-        .hero-content h1 {
-            font-size: 2rem;
+    /* Hero section styles */
+    .hero-search-container {
+        background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Custom focus states */
+    #hero-search:focus {
+        outline: none;
+        background: rgba(255,255,255,0.1);
+    }
+    
+    /* Search button hover effect */
+    .hero-search-btn:hover {
+        transform: scale(1.02) translateY(-1px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Stats animation on scroll */
+    .hero-stats {
+        animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
-        .hero-content p {
-            font-size: 1rem;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
     
