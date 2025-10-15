@@ -382,9 +382,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         </div>
 
                         <!-- Filtro por Precio -->
-                        <div class="mb-8 p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100/50">
+                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
                             <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                     </svg>
@@ -399,46 +399,16 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
                             ?>
                             
-                            <!-- Inputs de precio -->
-                            <div class="grid grid-cols-2 gap-3 mb-6">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-2">Precio mínimo</label>
-                                    <div class="relative">
-                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
-                                        <input type="number" 
-                                               id="sidebar-min-price" 
-                                               class="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-sm"
-                                               placeholder="0"
-                                               min="0"
-                                               max="<?php echo $price_range['max']; ?>"
-                                               value="<?php echo $current_min > 0 ? $current_min : ''; ?>">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-700 mb-2">Precio máximo</label>
-                                    <div class="relative">
-                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
-                                        <input type="number" 
-                                               id="sidebar-max-price" 
-                                               class="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-sm"
-                                               placeholder="<?php echo number_format($price_range['max'], 0); ?>"
-                                               min="0"
-                                               max="<?php echo $price_range['max']; ?>"
-                                               value="<?php echo $current_max < $price_range['max'] ? $current_max : ''; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <!-- Price Range Slider -->
-                            <div class="price-slider-container mb-4">
-                                <div class="flex justify-between items-center mb-3">
-                                    <span class="text-xs text-gray-600 font-medium">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                    <span class="text-xs text-gray-600 font-medium">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                            <div class="price-slider-container">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-sm text-gray-800 font-semibold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
+                                    <span class="text-sm text-gray-800 font-semibold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
                                 </div>
                                 
                                 <div class="relative">
                                     <div class="price-slider-track bg-gray-300 h-2 rounded-full relative">
-                                        <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
+                                        <div id="price-slider-range" class="absolute h-2 bg-gray-800 rounded-full"></div>
                                     </div>
                                     
                                     <input type="range" 
@@ -456,21 +426,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                            max="<?php echo $price_range['max']; ?>" 
                                            value="<?php echo $current_max; ?>"
                                            step="100">
+                                    
+                                    <!-- Inputs ocultos para mantener funcionalidad -->
+                                    <input type="hidden" id="sidebar-min-price" value="<?php echo $current_min; ?>">
+                                    <input type="hidden" id="sidebar-max-price" value="<?php echo $current_max; ?>">
                                 </div>
-                            </div>
-                            
-                            <!-- Rangos rápidos -->
-                            <div class="flex flex-wrap gap-2">
-                                <button type="button" class="price-preset text-xs px-3 py-2 bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-lg transition-all duration-200 border border-gray-200 hover:border-blue-300" data-min="0" data-max="1000">Hasta $1K</button>
-                                <button type="button" class="price-preset text-xs px-3 py-2 bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-lg transition-all duration-200 border border-gray-200 hover:border-blue-300" data-min="1000" data-max="5000">$1K - $5K</button>
-                                <button type="button" class="price-preset text-xs px-3 py-2 bg-white hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-lg transition-all duration-200 border border-gray-200 hover:border-blue-300" data-min="5000" data-max="">$5K+</button>
                             </div>
                         </div>
 
                         <!-- Filtro por Categorías -->
-                        <div class="mb-8 p-5 bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl border border-amber-100/50">
+                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
                             <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                                     </svg>
@@ -485,7 +452,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
                                 <a href="<?php echo esc_url($all_categories_url); ?>" 
-                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 <?php echo $is_all_categories ? 'bg-gradient-to-r from-amber-100 to-orange-100 border-amber-300 text-amber-800 font-semibold shadow-sm' : 'bg-white/70 hover:bg-white border-transparent hover:border-amber-200 text-gray-700 hover:text-amber-700'; ?> border">
+                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 <?php echo $is_all_categories ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
                                     <span class="text-sm font-medium">Todas las categorías</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -513,12 +480,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" 
-                                       class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gradient-to-r from-amber-100 to-orange-100 border-amber-300 text-amber-800 font-semibold shadow-sm' : 'bg-white/70 hover:bg-white border-transparent hover:border-amber-200 text-gray-700 hover:text-amber-700'; ?> border">
+                                       class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
                                         <div class="flex items-center gap-3">
                                             <span class="text-sm font-medium"><?php echo esc_html( $category->name ); ?></span>
                                         </div>
                                         <div class="flex items-center gap-2">
-                                            <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-amber-200 text-amber-800' : 'bg-gray-200 text-gray-600 group-hover:bg-amber-200 group-hover:text-amber-700'; ?>"><?php echo $category->count; ?></span>
+                                            <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-gray-200 text-gray-800' : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 group-hover:text-gray-700'; ?>"><?php echo $category->count; ?></span>
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                             </svg>
@@ -535,12 +502,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                 $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                             ?>
                                                 <a href="<?php echo esc_url($category_url); ?>" 
-                                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gradient-to-r from-amber-100 to-orange-100 border-amber-300 text-amber-800 font-semibold shadow-sm' : 'bg-white/70 hover:bg-white border-transparent hover:border-amber-200 text-gray-700 hover:text-amber-700'; ?> border">
+                                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
                                                     <div class="flex items-center gap-3">
                                                         <span class="text-sm font-medium"><?php echo esc_html( $category->name ); ?></span>
                                                     </div>
                                                     <div class="flex items-center gap-2">
-                                                        <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-amber-200 text-amber-800' : 'bg-gray-200 text-gray-600 group-hover:bg-amber-200 group-hover:text-amber-700'; ?>"><?php echo $category->count; ?></span>
+                                                        <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-gray-200 text-gray-800' : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 group-hover:text-gray-700'; ?>"><?php echo $category->count; ?></span>
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                                         </svg>
@@ -551,7 +518,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         
                                         <!-- Botón para expandir/contraer -->
                                         <button id="toggle-categories" 
-                                                class="w-full mt-3 p-3 bg-white/50 hover:bg-white border border-amber-200 hover:border-amber-300 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-amber-700 hover:text-amber-800 font-medium text-sm group">
+                                                class="w-full mt-3 p-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-gray-700 hover:text-gray-800 font-medium text-sm group">
                                             <span id="toggle-text">Ver más categorías</span>
                                             <svg id="toggle-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -1626,9 +1593,9 @@ document.addEventListener('DOMContentLoaded', function() {
         minDisplay.textContent = currentMin.toLocaleString();
         maxDisplay.textContent = currentMax.toLocaleString();
         
-        // Actualizar inputs
-        minInput.value = currentMin;
-        maxInput.value = currentMax;
+        // Actualizar inputs ocultos
+        if (minInput) minInput.value = currentMin;
+        if (maxInput) maxInput.value = currentMax;
         
         // Actualizar barra visual
         const percentMin = ((currentMin - minPrice) / (maxPrice - minPrice)) * 100;
@@ -1641,35 +1608,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners para sliders
     minSlider.addEventListener('input', updateSliderUI);
     maxSlider.addEventListener('input', updateSliderUI);
-    
-    // Event listeners para inputs
-    minInput.addEventListener('input', function() {
-        const value = parseInt(this.value) || minPrice;
-        minSlider.value = Math.max(minPrice, Math.min(value, maxPrice));
-        updateSliderUI();
-    });
-    
-    maxInput.addEventListener('input', function() {
-        const value = parseInt(this.value) || maxPrice;
-        maxSlider.value = Math.max(minPrice, Math.min(value, maxPrice));
-        updateSliderUI();
-    });
-    
-    // Botones de presets
-    document.querySelectorAll('.price-preset').forEach(button => {
-        button.addEventListener('click', function() {
-            const min = this.dataset.min;
-            const max = this.dataset.max || maxPrice;
-            
-            minSlider.value = min;
-            maxSlider.value = max;
-            updateSliderUI();
-            
-            // Trigger filter update
-            const event = new Event('change');
-            minInput.dispatchEvent(event);
-        });
-    });
     
     // Inicializar
     updateSliderUI();
@@ -1748,44 +1686,42 @@ document.addEventListener('DOMContentLoaded', function() {
         z-index: 2;
     }
     
-    .price-slider-input::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        pointer-events: all;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 3px solid #3b82f6;
-        background: #ffffff;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
-        transition: all 0.2s ease;
-    }
-    
-    .price-slider-input::-webkit-slider-thumb:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
-    }
-    
-    .price-slider-input::-moz-range-thumb {
-        pointer-events: all;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 3px solid #3b82f6;
-        background: #ffffff;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
-        transition: all 0.2s ease;
-        -moz-appearance: none;
-    }
-    
-    .price-slider-input::-moz-range-thumb:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
-    }
-    
-    .price-slider-input::-moz-range-track {
+        .price-slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            pointer-events: all;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid #1f2937;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .price-slider-input::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+        }
+        
+        .price-slider-input::-moz-range-thumb {
+            pointer-events: all;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid #1f2937;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+            transition: all 0.2s ease;
+            -moz-appearance: none;
+        }
+        
+        .price-slider-input::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+        }    .price-slider-input::-moz-range-track {
         background: transparent;
         border: none;
     }
