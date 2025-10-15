@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchValue = searchInput.value.trim();
     const searchParam = encodeURIComponent(searchValue);
     const shopUrlWithQuery = searchValue
-      ? `/?s=${searchParam}&post_type=product`
-      : `/?post_type=product`;
+      ? `${SHOP_URL}?s=${searchParam}`
+      : SHOP_URL;
 
     results.forEach((product) => {
       const categories =
