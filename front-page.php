@@ -295,16 +295,16 @@ get_header(); ?>
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <div class="py-24 bg-slate-50">
+    <div class="py-32 bg-slate-50">
         <div class="w-full px-4 lg:px-6">
-            <div class="text-center mb-16">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
                     HERRAMIENTAS PROFESIONALES
                 </div>
-                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                     Herramientas de Precisión
                 </h2>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Descubre nuestra selección de herramientas especializadas para técnicos profesionales
                 </p>
             </div>
@@ -321,7 +321,7 @@ get_header(); ?>
             
             $herramientas_args = array(
                 'post_type' => 'product',
-                'posts_per_page' => 12,
+                'posts_per_page' => 16,
                 'post_status' => 'publish',
                 'meta_query' => array(
                     array(
@@ -350,99 +350,121 @@ get_header(); ?>
             $herramientas_query = new WP_Query( $herramientas_args );
             
             if ( $herramientas_query->have_posts() ) : ?>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4 lg:gap-6">
-                    <?php while ( $herramientas_query->have_posts() ) : $herramientas_query->the_post(); 
-                        global $product;
-                        if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
-                    ?>
-                        <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full">
-                            <!-- Imagen del producto -->
-                            <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                                <a href="<?php the_permalink(); ?>" class="block h-full">
-                                    <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                        'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                    )); ?>
-                                </a>
-                                
-                                <!-- Badge de descuento -->
-                                <?php if ( $product->is_on_sale() ) : ?>
-                                    <div class="absolute top-2 left-2 z-20">
-                                        <div class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
-                                            <?php
-                                            $regular_price = $product->get_regular_price();
-                                            $sale_price = $product->get_sale_price();
-                                            if ( $regular_price && $sale_price ) {
-                                                $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                                echo '-' . $discount . '%';
-                                            } else {
-                                                echo 'OFERTA';
-                                            }
-                                            ?>
+                <!-- Carrusel Container -->
+                <div class="herramientas-carousel-container relative w-full mx-auto">
+                    <div class="herramientas-swiper overflow-hidden rounded-xl bg-white shadow-lg">
+                        <div class="swiper-wrapper py-6">
+                            <?php while ( $herramientas_query->have_posts() ) : $herramientas_query->the_post(); 
+                                global $product;
+                                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
+                            ?>
+                            <div class="swiper-slide">
+                                <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-3">
+                                    <!-- Imagen del producto -->
+                                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                                        <a href="<?php the_permalink(); ?>" class="block h-full">
+                                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                            )); ?>
+                                        </a>
+                                        
+                                        <!-- Badge de descuento -->
+                                        <?php if ( $product->is_on_sale() ) : ?>
+                                            <div class="absolute top-2 left-2 z-20">
+                                                <div class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
+                                                    <?php
+                                                    $regular_price = $product->get_regular_price();
+                                                    $sale_price = $product->get_sale_price();
+                                                    if ( $regular_price && $sale_price ) {
+                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                        echo '-' . $discount . '%';
+                                                    } else {
+                                                        echo 'OFERTA';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <!-- Badge de stock -->
+                                        <div class="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div class="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-medium">
+                                                Stock
+                                            </div>
                                         </div>
                                     </div>
-                                <?php endif; ?>
-                                
-                                <!-- Badge de stock -->
-                                <div class="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <div class="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-medium">
-                                        Stock
+                                    
+                                    <!-- Información del producto -->
+                                    <div class="p-3 flex flex-col flex-1">
+                                        <!-- Categoría -->
+                                        <div class="mb-2">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800">
+                                                Herramienta
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Título -->
+                                        <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
+                                        </h3>
+                                        
+                                        <!-- Rating -->
+                                        <?php if ( $product->get_average_rating() ) : ?>
+                                            <div class="flex items-center mb-2">
+                                                <div class="flex text-yellow-400 mr-1">
+                                                    <?php
+                                                    $rating = $product->get_average_rating();
+                                                    for ( $i = 1; $i <= 5; $i++ ) {
+                                                        if ( $i <= $rating ) {
+                                                            echo '<svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+                                                        } else {
+                                                            echo '<svg class="w-3 h-3 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <span class="text-xs text-gray-600">(<?php echo $product->get_review_count(); ?>)</span>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <!-- Precio -->
+                                        <div class="mb-3">
+                                            <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                                <?php echo $product->get_price_html(); ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Botón de agregar al carrito -->
+                                        <div class="woocommerce-add-to-cart-wrapper-compact mt-auto">
+                                            <?php woocommerce_template_loop_add_to_cart(); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Información del producto -->
-                            <div class="p-3 flex flex-col flex-1">
-                                <!-- Categoría -->
-                                <div class="mb-2">
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800">
-                                        Herramienta
-                                    </span>
-                                </div>
-                                
-                                <!-- Título -->
-                                <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
-                                    <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
-                                </h3>
-                                
-                                <!-- Rating -->
-                                <?php if ( $product->get_average_rating() ) : ?>
-                                    <div class="flex items-center mb-2">
-                                        <div class="flex text-yellow-400 mr-1">
-                                            <?php
-                                            $rating = $product->get_average_rating();
-                                            for ( $i = 1; $i <= 5; $i++ ) {
-                                                if ( $i <= $rating ) {
-                                                    echo '<svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                } else {
-                                                    echo '<svg class="w-3 h-3 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                }
-                                            }
-                                            ?>
-                                        </div>
-                                        <span class="text-xs text-gray-600">(<?php echo $product->get_review_count(); ?>)</span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <!-- Precio -->
-                                <div class="mb-3">
-                                    <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
-                                        <?php echo $product->get_price_html(); ?>
-                                    </div>
-                                </div>
-                                
-                                <!-- Botón de agregar al carrito -->
-                                <div class="woocommerce-add-to-cart-wrapper-compact mt-auto">
-                                    <?php woocommerce_template_loop_add_to_cart(); ?>
-                                </div>
-                            </div>
+                            <?php endwhile; ?>
                         </div>
-                    <?php endwhile; ?>
+                    </div>
+                    
+                    <!-- Navegación del carrusel -->
+                    <div class="herramientas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-amber-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="herramientas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-amber-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Paginación -->
+                    <div class="herramientas-swiper-pagination mt-8"></div>
                 </div>
                 
                 <!-- Botón para ver más herramientas -->
                 <div class="text-center mt-12">
                     <a href="/categoria/herramientas/" 
-                       class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-base font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+                       class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
                         Ver Todas las Herramientas
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -450,8 +472,18 @@ get_header(); ?>
                     </a>
                 </div>
                 
-                <!-- Estilos CSS para las cards compactas -->
+                <!-- Estilos CSS y JavaScript para el carrusel de herramientas -->
                 <style>
+                /* Carrusel específico para herramientas */
+                .herramientas-swiper {
+                    padding: 0 60px;
+                }
+                
+                .herramientas-swiper .swiper-slide {
+                    width: 220px;
+                    flex-shrink: 0;
+                }
+                
                 .woocommerce-add-to-cart-wrapper-compact {
                     display: flex !important;
                     flex-direction: column !important;
@@ -504,67 +536,102 @@ get_header(); ?>
                     overflow: hidden;
                 }
                 
-                /* Responsive adjustments */
+                /* Paginación personalizada */
+                .herramientas-swiper-pagination .swiper-pagination-bullet {
+                    background: #d1d5db;
+                    opacity: 1;
+                    width: 12px;
+                    height: 12px;
+                    margin: 0 6px;
+                }
+                
+                .herramientas-swiper-pagination .swiper-pagination-bullet-active {
+                    background: #f59e0b;
+                    transform: scale(1.2);
+                }
+                
+                /* Responsive */
                 @media (max-width: 640px) {
-                    .grid {
-                        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                        gap: 12px !important;
+                    .herramientas-swiper {
+                        padding: 0 20px;
                     }
-                }
-                
-                @media (min-width: 641px) and (max-width: 768px) {
-                    .grid {
-                        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-                    }
-                }
-                
-                @media (min-width: 769px) and (max-width: 1024px) {
-                    .grid {
-                        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-                    }
-                }
-                
-                @media (min-width: 1025px) and (max-width: 1280px) {
-                    .grid {
-                        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-                    }
-                }
-                
-                @media (min-width: 1281px) and (max-width: 1536px) {
-                    .grid {
-                        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-                    }
-                }
-                
-                @media (min-width: 1537px) {
-                    .grid {
-                        grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+                    .herramientas-swiper .swiper-slide {
+                        width: 180px;
                     }
                 }
                 </style>
                 
-                <!-- JavaScript para funcionalidad del carrito -->
+                <!-- JavaScript para inicializar el carrusel de herramientas -->
                 <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Escuchar clics en botones de agregar al carrito
+                    // Inicializar Swiper para herramientas
+                    const herramientasSwiper = new Swiper('.herramientas-swiper', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 20,
+                        centeredSlides: false,
+                        loop: true,
+                        autoplay: {
+                            delay: 4000,
+                            disableOnInteraction: false,
+                        },
+                        pagination: {
+                            el: '.herramientas-swiper-pagination',
+                            clickable: true,
+                            dynamicBullets: true,
+                        },
+                        navigation: {
+                            nextEl: '.herramientas-swiper-button-next',
+                            prevEl: '.herramientas-swiper-button-prev',
+                        },
+                        breakpoints: {
+                            320: {
+                                slidesPerView: 1.2,
+                                spaceBetween: 15,
+                            },
+                            480: {
+                                slidesPerView: 1.8,
+                                spaceBetween: 15,
+                            },
+                            640: {
+                                slidesPerView: 2.5,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 3.2,
+                                spaceBetween: 20,
+                            },
+                            1024: {
+                                slidesPerView: 4.2,
+                                spaceBetween: 20,
+                            },
+                            1280: {
+                                slidesPerView: 5.2,
+                                spaceBetween: 20,
+                            },
+                            1536: {
+                                slidesPerView: 6.2,
+                                spaceBetween: 20,
+                            }
+                        }
+                    });
+
+                    // Funcionalidad del carrito
                     document.addEventListener('click', function(e) {
                         if (e.target.closest('.woocommerce-add-to-cart-wrapper-compact .button') || 
                             e.target.closest('.woocommerce-add-to-cart-wrapper-compact .ajax_add_to_cart')) {
-                            console.log('Botón de agregar al carrito clickeado en sección herramientas');
+                            console.log('Botón de agregar al carrito clickeado en carrusel herramientas');
                             
-                            // Esperar a que se complete la acción AJAX
                             setTimeout(function() {
                                 if (window.cartSidepanel) {
-                                    console.log('Abriendo cart sidepanel desde herramientas');
+                                    console.log('Abriendo cart sidepanel desde carrusel herramientas');
                                     window.cartSidepanel.open();
                                 }
                             }, 800);
                         }
                     });
                     
-                    // Escuchar el evento added_to_cart específicamente
                     document.body.addEventListener('added_to_cart', function(e) {
-                        console.log('Evento added_to_cart detectado en herramientas:', e.detail);
+                        console.log('Evento added_to_cart detectado en carrusel herramientas:', e.detail);
                         setTimeout(function() {
                             if (window.cartSidepanel) {
                                 console.log('Abriendo sidepanel por evento added_to_cart');
