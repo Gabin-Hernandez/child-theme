@@ -2099,7 +2099,7 @@ get_header(); ?>
                 
                 $pantallas_args = array(
                     'post_type' => 'product',
-                    'posts_per_page' => 16,
+                    'posts_per_page' => 24,
                     'post_status' => 'publish',
                     's' => 'pantalla',
                     'tax_query' => array(),
@@ -2333,7 +2333,7 @@ get_header(); ?>
             
             <!-- Botón Ver Más Productos -->
             <div class="text-center mt-12">
-                <a href="/tienda?s=pantalla&post_type=product" 
+                <a href="/pantallas-lcd/" 
                    class="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-lg px-10 py-5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                     <span>Ver Más Pantallas</span>
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
