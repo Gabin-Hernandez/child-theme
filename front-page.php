@@ -757,7 +757,7 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Marcas Populares -->
-    <div class="pb-24 pt-10 bg-slate-50">
+    <div class="pb-24 pt-20 bg-slate-50">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
