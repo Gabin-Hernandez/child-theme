@@ -1584,15 +1584,10 @@ get_header(); ?>
                 // Query simple y directo para microscopios
                 $microscopios_args = array(
                     'post_type' => 'product',
-                    'posts_per_page' => 20,
+                    'posts_per_page' => 24,
                     'post_status' => 'publish',
                     's' => 'microscopio', // Búsqueda directa que sabemos funciona
                     'meta_query' => array(
-                        array(
-                            'key' => '_stock_status',
-                            'value' => 'instock',
-                            'compare' => '='
-                        ),
                         array(
                             'key' => '_visibility',
                             'value' => array('catalog', 'visible'),
