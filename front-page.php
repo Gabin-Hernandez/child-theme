@@ -1030,7 +1030,7 @@ get_header(); ?>
                                 
                                 <!-- Información del producto -->
                                 <div class="space-y-4">
-                                    <h4 class="font-bold text-gray-900 text-xl mb-4 line-clamp-2 group-hover:text-purple-600 transition-colors">
+                                    <h4 class="font-bold text-gray-900 text-xl mb-4 line-clamp-2 group-hover:text-purple-600 transition-colors" style="min-height: 3rem; height: 3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                         <a href="<?php the_permalink(); ?>" class="hover:underline">
                                             <?php the_title(); ?>
                                         </a>
