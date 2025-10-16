@@ -578,7 +578,7 @@ get_header(); ?>
                 }
                 
                 .woocommerce-add-to-cart-wrapper-mini .button::before {
-                    content: "🛒";
+                    content: "";
                     font-size: 10px;
                 }
                 
@@ -1918,8 +1918,8 @@ get_header(); ?>
                 </a>
             </div>
             
-            <p class="text-slate-400 text-sm mt-6">
-                🔒 Compra 100% segura con garantía de satisfacción
+            <p class="text-slate-400 text-lg mt-6">
+                Compra 100% segura con garantía de satisfacción
             </p>
         </div>
     </div>
