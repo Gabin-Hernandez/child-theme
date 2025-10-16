@@ -53,84 +53,13 @@ $shop_url = '/tienda';
                 <div class="absolute top-1/2 right-1/4 w-3 h-3 bg-red-400/30 rounded-full"></div>
                 <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-orange-400/40 rounded-full"></div>
                 
-                <div class="relative z-10">
-                    <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-8 lg:gap-12">
-                        <div class="flex-1 max-w-4xl">
-                            <!-- Badge mejorado -->
-                            <div class="inline-flex items-center gap-3 bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 rounded-full mb-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
-                                </svg>
-                                <span class="font-bold text-sm uppercase tracking-wider">Ofertas Especiales</span>
-                                <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                            </div>
-                            
-                            <!-- Título mejorado -->
-                            <h1 class="text-4xl md:text-5xl xl:text-6xl font-black text-gray-900 mb-6 leading-tight">
-                                <?php echo esc_html( $page_title ); ?>
-                                <span class="block text-3xl md:text-4xl xl:text-5xl bg-gradient-to-r from-red-500 via-orange-500 to-red-600 bg-clip-text text-transparent mt-2">
-                                    Increíbles
-                                </span>
-                            </h1>
-                            
-                            <!-- Descripción mejorada -->
-                            <?php if ( $page_excerpt ) : ?>
-                                <p class="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed mb-8">
-                                    <?php echo wp_kses_post( $page_excerpt ); ?>
-                                </p>
-                            <?php else : ?>
-                                <p class="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed mb-8">
-                                    Descubre las mejores ofertas en herramientas profesionales. Descuentos exclusivos por tiempo limitado en productos de alta calidad para profesionales y aficionados.
-                                </p>
-                            <?php endif; ?>
-                            
-                            <!-- Botones mejorados -->
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="<?php echo esc_url( $shop_url ); ?>" class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                                    </svg>
-                                    Explorar Tienda
-                                </a>
-                                <div class="inline-flex items-center justify-center gap-3 bg-white border-2 border-gray-200 hover:border-red-300 text-gray-700 hover:text-red-600 px-6 py-4 rounded-2xl font-semibold transition-all duration-300">
-                                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    <span>Tiempo Limitado</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Card de descuento mejorada -->
-                        <div class="xl:w-80 flex justify-center">
-                            <div class="bg-gradient-to-br from-red-500 via-orange-500 to-red-600 rounded-3xl p-8 text-white shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden">
-                                <!-- Patrón decorativo -->
-                                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
-                                
-                                <div class="text-center relative z-10">
-                                    <div class="w-20 h-20 mx-auto mb-6 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M12.79 21L3 11.21v2c0 .45.54.67.85.35l6.79-6.79c.78-.78 2.05-.78 2.83 0l6.79 6.79c.31.32.85.1.85-.35v-2L12.79 21z"/>
-                                            <path d="M11.38 17.41l.62.63.62-.63L18.21 12H16.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h3.5c.28 0 .5.22.5.5v3.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13.79l-5.59 5.59c-.39.39-1.02.39-1.41 0l-5.59-5.59V15.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V12c0-.28.22-.5.5-.5H7.5c.28 0 .5.22.5.5s-.22.5-.5.5H5.79l5.59 5.91z"/>
-                                        </svg>
-                                    </div>
-                                    <h3 class="text-2xl font-bold mb-2">Hasta</h3>
-                                    <div class="text-6xl font-black mb-2 leading-none">50<span class="text-3xl">%</span></div>
-                                    <p class="text-lg opacity-90 font-medium">de descuento</p>
-                                    <div class="mt-4 text-sm opacity-75">
-                                        ¡Solo por tiempo limitado!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+           
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="py-20">
+    <section class="pb-20 pt-10">
         <div class="container mx-auto px-4">
             <?php
             if ( empty( $sale_ids ) ) :
