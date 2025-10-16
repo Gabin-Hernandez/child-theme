@@ -922,7 +922,7 @@ get_header(); ?>
                 // Query para obtener productos más vendidos
                 $vendidos_args = array(
                     'post_type' => 'product',
-                    'posts_per_page' => 16, // Incrementamos para llenar 2 carruseles
+                    'posts_per_page' => 24, // Incrementamos a 24 productos para llenar mejor 2 carruseles (12 cada uno)
                     'post_status' => 'publish',
                     'orderby' => 'meta_value_num',
                     'meta_key' => 'total_sales',
@@ -947,7 +947,7 @@ get_header(); ?>
                 if ( !$vendidos_query->have_posts() ) {
                     $vendidos_args = array(
                         'post_type' => 'product',
-                        'posts_per_page' => 16,
+                        'posts_per_page' => 24, // También incrementamos el fallback
                         'post_status' => 'publish',
                         'orderby' => 'popularity', // Fallback a popularidad
                         'order' => 'DESC',
@@ -969,7 +969,7 @@ get_header(); ?>
                             <div class="swiper-wrapper py-4">
                                 <?php 
                                 $product_count = 0;
-                                $max_first_carousel = 8; // Primeros 8 productos para el primer carrusel
+                                $max_first_carousel = 12; // Primeros 12 productos para el primer carrusel
                                 $rank = 1;
                                 while ( $vendidos_query->have_posts() && $product_count < $max_first_carousel ) : 
                                     $vendidos_query->the_post(); 
