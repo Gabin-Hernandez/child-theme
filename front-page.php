@@ -555,7 +555,7 @@ get_header(); ?>
                     background: linear-gradient(to right, #f59e0b, #d97706) !important;
                     color: white !important;
                     font-weight: 600 !important;
-                    padding: 6px 8px !important;
+                    padding: 8px 10px !important;
                     border-radius: 6px !important;
                     border: none !important;
                     transition: all 0.3s ease !important;
@@ -566,8 +566,8 @@ get_header(); ?>
                     gap: 4px !important;
                     text-decoration: none !important;
                     margin: 0 !important;
-                    font-size: 10px !important;
-                    line-height: 1.2 !important;
+                    font-size: 13px !important;
+                    line-height: 1.3 !important;
                 }
                 
                 .woocommerce-add-to-cart-wrapper-mini .button:hover,
@@ -579,12 +579,12 @@ get_header(); ?>
                 
                 .woocommerce-add-to-cart-wrapper-mini .button::before {
                     content: "";
-                    font-size: 10px;
+                    font-size: 12px;
                 }
                 
                 .woocommerce-add-to-cart-wrapper-mini .added_to_cart::before {
                     content: "✓";
-                    font-size: 10px;
+                    font-size: 12px;
                 }
                 
                 /* Line clamp para títulos */
