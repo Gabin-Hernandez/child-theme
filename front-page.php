@@ -375,8 +375,8 @@ get_header(); ?>
                                         
                                         <!-- Badge de descuento -->
                                         <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="absolute top-1 left-1 z-20">
-                                                <div class="bg-red-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
+                                            <div class="absolute top-2 left-2 z-20">
+                                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
                                                     <?php
                                                     $regular_price = $product->get_regular_price();
                                                     $sale_price = $product->get_sale_price();
@@ -393,15 +393,15 @@ get_header(); ?>
                                     </div>
                                     
                                     <!-- Información del producto -->
-                                    <div class="p-2 flex flex-col flex-1">
+                                    <div class="p-3 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-xs leading-tight mb-1 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Precio -->
-                                        <div class="mb-2">
-                                            <div class="text-sm font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                        <div class="mb-3">
+                                            <div class="text-base font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         </div>
@@ -463,8 +463,8 @@ get_header(); ?>
                                         
                                         <!-- Badge de descuento -->
                                         <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="absolute top-1 left-1 z-20">
-                                                <div class="bg-red-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
+                                            <div class="absolute top-2 left-2 z-20">
+                                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
                                                     <?php
                                                     $regular_price = $product->get_regular_price();
                                                     $sale_price = $product->get_sale_price();
@@ -481,15 +481,15 @@ get_header(); ?>
                                     </div>
                                     
                                     <!-- Información del producto -->
-                                    <div class="p-2 flex flex-col flex-1">
+                                    <div class="p-3 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-xs leading-tight mb-1 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Precio -->
-                                        <div class="mb-2">
-                                            <div class="text-sm font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                        <div class="mb-3">
+                                            <div class="text-base font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         </div>
@@ -539,7 +539,7 @@ get_header(); ?>
                 
                 .herramientas-swiper-1 .swiper-slide,
                 .herramientas-swiper-2 .swiper-slide {
-                    width: 140px;
+                    width: 220px;
                     flex-shrink: 0;
                 }
                 
@@ -614,7 +614,7 @@ get_header(); ?>
                     // Inicializar Swiper para primer carrusel de herramientas
                     const herramientasSwiper1 = new Swiper('.herramientas-swiper-1', {
                         slidesPerView: 'auto',
-                        spaceBetween: 12,
+                        spaceBetween: 16,
                         centeredSlides: false,
                         loop: true,
                         autoplay: {
@@ -627,32 +627,32 @@ get_header(); ?>
                         },
                         breakpoints: {
                             320: {
-                                slidesPerView: 2.5,
-                                spaceBetween: 10,
+                                slidesPerView: 1.5,
+                                spaceBetween: 12,
                             },
                             480: {
-                                slidesPerView: 3.5,
-                                spaceBetween: 12,
+                                slidesPerView: 2,
+                                spaceBetween: 14,
                             },
                             640: {
-                                slidesPerView: 4.5,
-                                spaceBetween: 12,
+                                slidesPerView: 2.5,
+                                spaceBetween: 16,
                             },
                             768: {
-                                slidesPerView: 5.5,
-                                spaceBetween: 12,
+                                slidesPerView: 3,
+                                spaceBetween: 16,
                             },
                             1024: {
-                                slidesPerView: 7,
-                                spaceBetween: 12,
+                                slidesPerView: 4,
+                                spaceBetween: 16,
                             },
                             1280: {
-                                slidesPerView: 8,
-                                spaceBetween: 12,
+                                slidesPerView: 5,
+                                spaceBetween: 16,
                             },
                             1536: {
-                                slidesPerView: 9,
-                                spaceBetween: 12,
+                                slidesPerView: 6,
+                                spaceBetween: 16,
                             }
                         }
                     });
@@ -660,7 +660,7 @@ get_header(); ?>
                     // Inicializar Swiper para segundo carrusel de herramientas
                     const herramientasSwiper2 = new Swiper('.herramientas-swiper-2', {
                         slidesPerView: 'auto',
-                        spaceBetween: 12,
+                        spaceBetween: 16,
                         centeredSlides: false,
                         loop: true,
                         autoplay: {
@@ -673,32 +673,32 @@ get_header(); ?>
                         },
                         breakpoints: {
                             320: {
-                                slidesPerView: 2.5,
-                                spaceBetween: 10,
+                                slidesPerView: 1.5,
+                                spaceBetween: 12,
                             },
                             480: {
-                                slidesPerView: 3.5,
-                                spaceBetween: 12,
+                                slidesPerView: 2,
+                                spaceBetween: 14,
                             },
                             640: {
-                                slidesPerView: 4.5,
-                                spaceBetween: 12,
+                                slidesPerView: 2.5,
+                                spaceBetween: 16,
                             },
                             768: {
-                                slidesPerView: 5.5,
-                                spaceBetween: 12,
+                                slidesPerView: 3,
+                                spaceBetween: 16,
                             },
                             1024: {
-                                slidesPerView: 7,
-                                spaceBetween: 12,
+                                slidesPerView: 4,
+                                spaceBetween: 16,
                             },
                             1280: {
-                                slidesPerView: 8,
-                                spaceBetween: 12,
+                                slidesPerView: 5,
+                                spaceBetween: 16,
                             },
                             1536: {
-                                slidesPerView: 9,
-                                spaceBetween: 12,
+                                slidesPerView: 6,
+                                spaceBetween: 16,
                             }
                         }
                     });
