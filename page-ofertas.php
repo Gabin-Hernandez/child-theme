@@ -113,7 +113,7 @@ $shop_url = '/tienda';
                             $rating        = $product->get_average_rating();
                             $rating_html   = wc_get_rating_html( $rating );
                             ?>
-                            <article class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 relative flex flex-col h-full">
+                            <article class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 relative flex flex-col h-96">
                                 <!-- Product Image -->
                                 <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex-shrink-0">
                                     <a href="<?php the_permalink(); ?>" class="block aspect-square">
