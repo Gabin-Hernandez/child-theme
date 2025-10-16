@@ -1,18 +1,18 @@
 <?php
 /**
- * Template Name: Página de Pantallas LCD Touch
+ * Template Name: Página de Soldadura
  * 
- * Template para mostrar productos de pantallas-lcd-touch
+ * Template para mostrar productos de soldadura (cautines y estaciones)
  */
 
 get_header();
 
-// Agregar metadata SEO específica para pantallas-lcd-touch
+// Agregar metadata SEO específica para soldadura
 add_action('wp_head', function() {
-    echo '<meta name="description" content="Pantallas LCD y Touch para celulares de todas las marcas. Pantallas originales y compatibles, LCD OLED, touch screen, displays completos para reparación de smartphones. Envío rápido y garantía.">' . "\n";
-    echo '<meta name="keywords" content="pantalla lcd celular, touch screen, pantalla oled, display celular, pantalla iphone, pantalla samsung, pantalla xiaomi, pantalla huawei, cambio pantalla, reparacion pantalla movil">' . "\n";
-    echo '<meta property="og:title" content="Pantallas LCD y Touch para Celulares - Todas las Marcas - ITOOLS">' . "\n";
-    echo '<meta property="og:description" content="Encuentra pantallas LCD y touch screen para tu celular. Calidad original, compatibles con todas las marcas, envío rápido y garantía">' . "\n";
+    echo '<meta name="description" content="Equipos de soldadura profesionales: cautines, estaciones de soldadura, aire caliente y accesorios para reparación de celulares y electrónica. Control de temperatura digital y herramientas especializadas.">' . "\n";
+    echo '<meta name="keywords" content="soldadura, cautin, estacion soldadura, aire caliente, soldadura electronica, cautin precision, estacion desoldadura, rework station, soldadura SMD, herramientas soldadura">' . "\n";
+    echo '<meta property="og:title" content="Equipos de Soldadura Profesionales - Cautines y Estaciones - ITOOLS">' . "\n";
+    echo '<meta property="og:description" content="Cautines, estaciones de soldadura y equipos profesionales para reparación de celulares. Control de temperatura, aire caliente y accesorios especializados">' . "\n";
     echo '<meta property="og:type" content="website">' . "\n";
     echo '<meta property="og:url" content="' . get_permalink() . '">' . "\n";
     
@@ -24,7 +24,7 @@ add_action('wp_head', function() {
             echo '<meta property="og:image" content="' . esc_url($thumbnail_url[0]) . '">' . "\n";
             echo '<meta property="og:image:width" content="' . $thumbnail_url[1] . '">' . "\n";
             echo '<meta property="og:image:height" content="' . $thumbnail_url[2] . '">' . "\n";
-            echo '<meta property="og:image:alt" content="Pantallas LCD y Touch para Celulares - ITOOLS">' . "\n";
+            echo '<meta property="og:image:alt" content="Equipos de Soldadura - ITOOLS">' . "\n";
         }
     }
     
@@ -35,8 +35,8 @@ add_action('wp_head', function() {
     echo json_encode(array(
         "@context" => "https://schema.org",
         "@type" => "CollectionPage",
-        "name" => "Pantallas LCD y Touch para Celulares",
-        "description" => "Catálogo completo de pantallas LCD y touch screen para smartphones. Pantallas originales y compatibles para iPhone, Samsung, Xiaomi, Huawei y todas las marcas.",
+        "name" => "Equipos de Soldadura Profesionales",
+        "description" => "Cautines y estaciones de soldadura profesionales para reparación de celulares y electrónica. Equipos con control de temperatura, aire caliente y accesorios especializados.",
         "url" => get_permalink(),
 
         "breadcrumb" => array(
@@ -57,7 +57,7 @@ add_action('wp_head', function() {
                 array(
                     "@type" => "ListItem",
                     "position" => 3,
-                    "name" => "Pantallas LCD y Touch"
+                    "name" => "Soldadura"
                 )
             )
         )
@@ -69,7 +69,7 @@ add_action('wp_head', function() {
 // Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
 $original_get = $_GET;
 $_GET['post_type'] = 'product';
-$_GET['s'] = 'pantalla';
+$_GET['s'] = 'soldadura';
 
 // Configurar paginación - verificar tanto query_var como $_GET
 $paged = 1;
@@ -85,7 +85,7 @@ $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'pantalla',
+    's' => 'soldadura',
     'paged' => $paged,
     'tax_query' => array(),
     'meta_query' => array()
@@ -272,7 +272,7 @@ $_GET = $original_get;
 
 // Debug: Mostrar información de la consulta si estamos en modo debug
 if (defined('WP_DEBUG') && WP_DEBUG) {
-    error_log('Pantallas LCD Touch Query Args: ' . print_r($args, true));
+    error_log('Soldadura Query Args: ' . print_r($args, true));
     error_log('Found Posts: ' . $products_query->found_posts);
     error_log('URL Parameters: ' . print_r($_GET, true));
 }
@@ -280,9 +280,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 ?>
 
 
-<div class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-white border-b border-blue-100">
+<div class="relative bg-gradient-to-br from-orange-50 via-red-50 to-white border-b border-orange-100">
     <!-- Patrón sutil -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ff8c42" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
     
     <!-- Contenido -->
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -291,16 +291,16 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             
             <!-- Título principal -->
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Pantallas LCD y Touch
+                Equipos de Soldadura
                 <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                    para Celulares
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600">
+                    Cautines y Estaciones Profesionales
                 </span>
             </h1>
             
             <!-- Descripción -->
             <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Encuentra las mejores pantallas LCD y touch screen para todas las marcas de smartphones. Calidad original y compatible, con garantía
+                Encuentra cautines de precisión y estaciones de soldadura profesionales con control de temperatura digital. Todo para reparación de celulares y electrónica
             </p>
             
             <!-- Barra de búsqueda -->
@@ -320,7 +320,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    id="hero-search"
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
-                                   placeholder="Buscar pantallas por modelo, marca o características..."
+                                   placeholder="Buscar cautines, estaciones, puntas..."
                                    class="w-full h-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
                         </div>
                         
@@ -374,7 +374,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
-            <span class="text-gray-900 font-semibold">Pantallas LCD y Touch</span>
+            <span class="text-gray-900 font-semibold">Soldadura</span>
         </nav>
     </div>
 </div>
@@ -574,7 +574,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         <!-- Botones de acción -->
                         <div class="space-y-4">
                             <button id="apply-sidebar-filters" 
-                                    class="apply-filters w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                                    class="apply-filters w-full bg-gradient-to-r from-orange-600 to-red-600 text-white py-4 rounded-2xl font-bold hover:from-orange-700 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
@@ -591,7 +591,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         
                         <!-- Estado de carga para sidebar -->
                         <div class="filters-loading hidden mt-6 text-center">
-                            <div class="inline-flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
+                            <div class="inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 rounded-xl border border-orange-200">
                                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -622,7 +622,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             <!-- Información de resultados -->
                             <div class="flex items-center gap-3">
-                                <div class="w-2 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                                <div class="w-2 h-6 bg-gradient-to-b from-orange-500 to-red-600 rounded-full"></div>
                                 <div>
                                     <?php
                                     $total_products = $products_query->found_posts;
@@ -958,15 +958,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        // Función de paginación específica para página de microscopios
-                        function pantallas_lcd_touch_custom_pagination($query) {
+                        // Función de paginación específica para página de soldadura
+                        function soldadura_custom_pagination($query) {
                             if ($query->max_num_pages <= 1) return;
                             
                             $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
                             $max_pages = $query->max_num_pages;
                             
-                            // URL base fija para la página de pantallas-lcd-touch
-                            $base_url = home_url('/pantallas-lcd-touch/');
+                            // URL base fija para la página de soldadura
+                            $base_url = home_url('/soldadura/');
                             
                             echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
                             echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
@@ -1019,7 +1019,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         }
                         
                         // Usar la función personalizada
-                        pantallas_lcd_touch_custom_pagination($products_query);
+                        soldadura_custom_pagination($products_query);
                         ?>
                     </div>
 

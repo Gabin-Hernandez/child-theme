@@ -1,18 +1,50 @@
 <?php
 /**
- * Template Name: Página de Pantallas LCD Touch
+ * Template Name: Productos Dinámicos (Modelos)
  * 
- * Template para mostrar productos de pantallas-lcd-touch
+ * Template dinámico y reutilizable que detecta el slug de la página para mostrar productos específicos
+ * 
+ * CÓMO USAR:
+ * 1. Crea una nueva página en WordPress (ej: "iPhone 12", "Samsung S22", "Huawei P40")
+ * 2. El slug se generará automáticamente (ej: "iphone-12", "samsung-s22", "huawei-p40")
+ * 3. Asigna esta plantilla "Productos Dinámicos (Modelos)" a la página
+ * 4. Publica la página
+ * 
+ * El template automáticamente:
+ * - Buscará productos con el nombre del modelo
+ * - Generará meta tags SEO optimizadas
+ * - Mostrará breadcrumbs correctos
+ * - Creará URLs de paginación específicas
+ * 
+ * Ejemplos de uso:
+ * - /iphone-12/ → muestra productos de "iphone 12"
+ * - /samsung-galaxy-s22/ → muestra productos de "samsung galaxy s22"
+ * - /pantalla-iphone-13/ → muestra productos de "pantalla iphone 13"
  */
 
 get_header();
 
-// Agregar metadata SEO específica para pantallas-lcd-touch
-add_action('wp_head', function() {
-    echo '<meta name="description" content="Pantallas LCD y Touch para celulares de todas las marcas. Pantallas originales y compatibles, LCD OLED, touch screen, displays completos para reparación de smartphones. Envío rápido y garantía.">' . "\n";
-    echo '<meta name="keywords" content="pantalla lcd celular, touch screen, pantalla oled, display celular, pantalla iphone, pantalla samsung, pantalla xiaomi, pantalla huawei, cambio pantalla, reparacion pantalla movil">' . "\n";
-    echo '<meta property="og:title" content="Pantallas LCD y Touch para Celulares - Todas las Marcas - ITOOLS">' . "\n";
-    echo '<meta property="og:description" content="Encuentra pantallas LCD y touch screen para tu celular. Calidad original, compatibles con todas las marcas, envío rápido y garantía">' . "\n";
+// Obtener el slug actual de la página para búsqueda dinámica
+global $post;
+$page_slug = $post->post_name;
+$page_title = get_the_title();
+
+// Convertir el slug a formato legible (reemplazar guiones por espacios)
+$search_term = str_replace('-', ' ', $page_slug);
+
+// Generar título formateado para mostrar
+$display_title = ucwords($search_term);
+
+// Agregar metadata SEO dinámica basada en el slug de la página
+add_action('wp_head', function() use ($search_term, $display_title, $page_title) {
+    // Generar descripción dinámica optimizada para SEO
+    $meta_description = "Encuentra repuestos, refacciones y accesorios originales para {$display_title}. Pantallas, baterías, carcasas y más. Calidad garantizada y envío rápido a toda la república.";
+    $meta_keywords = "{$search_term}, repuestos {$search_term}, refacciones {$search_term}, pantallas {$search_term}, baterias {$search_term}, accesorios {$search_term}, reparacion {$search_term}";
+    
+    echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
+    echo '<meta name="keywords" content="' . esc_attr($meta_keywords) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($page_title . ' - Repuestos y Accesorios | ITOOLS') . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($meta_description) . '">' . "\n";
     echo '<meta property="og:type" content="website">' . "\n";
     echo '<meta property="og:url" content="' . get_permalink() . '">' . "\n";
     
@@ -24,19 +56,19 @@ add_action('wp_head', function() {
             echo '<meta property="og:image" content="' . esc_url($thumbnail_url[0]) . '">' . "\n";
             echo '<meta property="og:image:width" content="' . $thumbnail_url[1] . '">' . "\n";
             echo '<meta property="og:image:height" content="' . $thumbnail_url[2] . '">' . "\n";
-            echo '<meta property="og:image:alt" content="Pantallas LCD y Touch para Celulares - ITOOLS">' . "\n";
+            echo '<meta property="og:image:alt" content="' . esc_attr($display_title . ' - ITOOLS') . '">' . "\n";
         }
     }
     
     echo '<link rel="canonical" href="' . get_permalink() . '">' . "\n";
     
-    // Datos estructurados JSON-LD
+    // Datos estructurados JSON-LD dinámicos
     echo '<script type="application/ld+json">' . "\n";
     echo json_encode(array(
         "@context" => "https://schema.org",
         "@type" => "CollectionPage",
-        "name" => "Pantallas LCD y Touch para Celulares",
-        "description" => "Catálogo completo de pantallas LCD y touch screen para smartphones. Pantallas originales y compatibles para iPhone, Samsung, Xiaomi, Huawei y todas las marcas.",
+        "name" => $page_title . " - Repuestos y Refacciones",
+        "description" => "Encuentra repuestos, refacciones y accesorios originales para {$display_title}. Pantallas LCD, baterías de alta calidad, carcasas y componentes para reparación profesional.",
         "url" => get_permalink(),
 
         "breadcrumb" => array(
@@ -57,7 +89,7 @@ add_action('wp_head', function() {
                 array(
                     "@type" => "ListItem",
                     "position" => 3,
-                    "name" => "Pantallas LCD y Touch"
+                    "name" => $display_title
                 )
             )
         )
@@ -65,11 +97,11 @@ add_action('wp_head', function() {
     echo '</script>' . "\n";
 });
 
-// Simular exactamente lo que hace el buscador normal
+// Simular búsqueda dinámica basada en el slug de la página
 // Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
 $original_get = $_GET;
 $_GET['post_type'] = 'product';
-$_GET['s'] = 'pantalla';
+$_GET['s'] = $search_term;
 
 // Configurar paginación - verificar tanto query_var como $_GET
 $paged = 1;
@@ -80,12 +112,12 @@ if (get_query_var('paged')) {
 }
 $paged = max(1, $paged);
 
-// Usar la función estándar de WordPress para búsquedas
+// Usar la función estándar de WordPress para búsquedas dinámicas
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'pantalla',
+    's' => $search_term,
     'paged' => $paged,
     'tax_query' => array(),
     'meta_query' => array()
@@ -272,7 +304,9 @@ $_GET = $original_get;
 
 // Debug: Mostrar información de la consulta si estamos en modo debug
 if (defined('WP_DEBUG') && WP_DEBUG) {
-    error_log('Pantallas LCD Touch Query Args: ' . print_r($args, true));
+    error_log('Dynamic Model Page Query Args: ' . print_r($args, true));
+    error_log('Search Term: ' . $search_term);
+    error_log('Page Slug: ' . $page_slug);
     error_log('Found Posts: ' . $products_query->found_posts);
     error_log('URL Parameters: ' . print_r($_GET, true));
 }
@@ -289,18 +323,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
         <div class="text-center">
            
             
-            <!-- Título principal -->
+            <!-- Título principal dinámico -->
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Pantallas LCD y Touch
+                Repuestos y Accesorios para
                 <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                    para Celulares
+                    <?php echo esc_html($display_title); ?>
                 </span>
             </h1>
             
-            <!-- Descripción -->
+            <!-- Descripción dinámica -->
             <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Encuentra las mejores pantallas LCD y touch screen para todas las marcas de smartphones. Calidad original y compatible, con garantía
+                Encuentra refacciones originales y de alta calidad para <?php echo esc_html($display_title); ?>. Pantallas, baterías, carcasas y componentes para reparación profesional
             </p>
             
             <!-- Barra de búsqueda -->
@@ -320,7 +354,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    id="hero-search"
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
-                                   placeholder="Buscar pantallas por modelo, marca o características..."
+                                   placeholder="Buscar repuestos para <?php echo esc_attr($display_title); ?>..."
                                    class="w-full h-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
                         </div>
                         
@@ -374,7 +408,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
-            <span class="text-gray-900 font-semibold">Pantallas LCD y Touch</span>
+            <span class="text-gray-900 font-semibold"><?php echo esc_html($display_title); ?></span>
         </nav>
     </div>
 </div>
@@ -958,15 +992,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        // Función de paginación específica para página de microscopios
-                        function pantallas_lcd_touch_custom_pagination($query) {
+                        // Función de paginación dinámica basada en el slug actual
+                        function dynamic_model_pagination($query, $page_slug) {
                             if ($query->max_num_pages <= 1) return;
                             
                             $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
                             $max_pages = $query->max_num_pages;
                             
-                            // URL base fija para la página de pantallas-lcd-touch
-                            $base_url = home_url('/pantallas-lcd-touch/');
+                            // URL base dinámica según el slug de la página
+                            $base_url = home_url('/' . $page_slug . '/');
                             
                             echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
                             echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
@@ -1018,8 +1052,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             echo '</div>';
                         }
                         
-                        // Usar la función personalizada
-                        pantallas_lcd_touch_custom_pagination($products_query);
+                        // Usar la función personalizada con el slug dinámico
+                        dynamic_model_pagination($products_query, $page_slug);
                         ?>
                     </div>
 
