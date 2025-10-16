@@ -757,7 +757,7 @@ get_header(); ?>
     <?php endif; ?>
 
     <!-- Marcas Populares -->
-    <div class="py-24 bg-slate-50">
+    <div class="pb-24 pt-10 bg-slate-50">
         <div class="container max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Marcas de Confianza</h3>
@@ -962,19 +962,37 @@ get_header(); ?>
                     $vendidos_query = new WP_Query( $vendidos_args );
                 }
                 
-                if ( $vendidos_query->have_posts() ) : ?>
+                if ( $vendidos_query->have_posts() ) : 
+                    // Primero recolectemos todos los productos válidos
+                    $valid_products = array();
+                    while ( $vendidos_query->have_posts() ) : 
+                        $vendidos_query->the_post(); 
+                        global $product;
+                        if ( $product && $product->is_visible() && has_post_thumbnail() ) {
+                            $valid_products[] = array(
+                                'post' => get_post(),
+                                'product' => $product
+                            );
+                        }
+                    endwhile;
+                    wp_reset_postdata();
+                    
+                    // Dividir productos en dos grupos
+                    $total_valid = count($valid_products);
+                    $first_carousel_count = min(12, ceil($total_valid / 2));
+                    $first_carousel_products = array_slice($valid_products, 0, $first_carousel_count);
+                    $second_carousel_products = array_slice($valid_products, $first_carousel_count);
+                ?>
                     <!-- Primer Carrusel de Más Vendidos -->
                     <div class="vendidos-carousel-container-1 relative w-full mx-auto mb-8">
                         <div class="vendidos-swiper-1 overflow-hidden rounded-xl bg-white shadow-lg">
                             <div class="swiper-wrapper py-4">
                                 <?php 
-                                $product_count = 0;
-                                $max_first_carousel = 12; // Primeros 12 productos para el primer carrusel
                                 $rank = 1;
-                                while ( $vendidos_query->have_posts() && $product_count < $max_first_carousel ) : 
-                                    $vendidos_query->the_post(); 
-                                    global $product;
-                                    if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
+                                foreach ( $first_carousel_products as $product_data ) :
+                                    $product = $product_data['product'];
+                                    $post = $product_data['post'];
+                                    setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
                                     $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
@@ -984,8 +1002,6 @@ get_header(); ?>
                                     if ( !$sales_count || $sales_count <= 0 ) {
                                         $sales_count = get_post_meta( $product->get_id(), '_total_sales', true );
                                     }
-                                    
-                                    $product_count++;
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-purple-200 flex flex-col h-full mx-2">
@@ -1052,7 +1068,7 @@ get_header(); ?>
                                 </div>
                                 <?php 
                                 $rank++;
-                                endwhile;
+                                endforeach;
                                 ?>
                             </div>
                         </div>
@@ -1075,21 +1091,12 @@ get_header(); ?>
                         <div class="vendidos-swiper-2 overflow-hidden rounded-xl bg-white shadow-lg">
                             <div class="swiper-wrapper py-4">
                                 <?php 
-                                // Reset query para obtener los productos restantes
-                                $vendidos_query->rewind_posts();
-                                $product_count = 0;
-                                $skip_count = 0;
-                                $current_rank = $max_first_carousel + 1; // Empezar el ranking desde donde terminó el primer carrusel
-                                while ( $vendidos_query->have_posts() ) : 
-                                    $vendidos_query->the_post(); 
-                                    global $product;
-                                    if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
-                                    
-                                    // Saltar los primeros 12 productos que ya se mostraron
-                                    if ( $skip_count < $max_first_carousel ) {
-                                        $skip_count++;
-                                        continue;
-                                    }
+                                // Mostrar productos del segundo carrusel
+                                $current_rank = $first_carousel_count + 1; // Continuar el ranking
+                                foreach ( $second_carousel_products as $product_data ) :
+                                    $product = $product_data['product'];
+                                    $post = $product_data['post'];
+                                    setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
                                     $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
@@ -1099,8 +1106,6 @@ get_header(); ?>
                                     if ( !$sales_count || $sales_count <= 0 ) {
                                         $sales_count = get_post_meta( $product->get_id(), '_total_sales', true );
                                     }
-                                    
-                                    $product_count++;
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-purple-200 flex flex-col h-full mx-2">
@@ -1165,7 +1170,7 @@ get_header(); ?>
                                 </div>
                                 <?php 
                                 $current_rank++;
-                                endwhile;
+                                endforeach;
                                 ?>
                             </div>
                         </div>
