@@ -502,7 +502,7 @@
                         <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/09/logo-itoolsmx-Photoroom.png" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
                     </a>
                 </div>
-            <div class="flex">
+          
                 <div class="header-search flex-1 min-w-[300px] xl:min-w-[500px] " style="margin: 20px 40px 0 40px; position: relative;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         <!-- Campo de búsqueda -->
@@ -596,8 +596,7 @@
                         </div>
                     <?php endif; ?>
                 </div>
-              </div>
-                
+             
             </div>
 
             <!-- Segunda fila: Menú de navegación dropdown -->
