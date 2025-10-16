@@ -204,7 +204,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Hero Section Elegante con estilo de Baterías -->
+<!-- Hero Section con estilo de Microscopios -->
 <div class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-white border-b border-blue-100">
     <!-- Patrón sutil -->
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
@@ -229,12 +229,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             <!-- Barra de búsqueda -->
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
-                    <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
+                    <div method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
-                        <div class="flex-1 relative">
-                            <div class="absolute inset-y-0 left-4 flex items-center">
+                        <div class="flex-1 relative ">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -278,44 +278,68 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </svg>
                             <span>Buscar</span>
                         </button>
-                    </form>
+                            </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="bg-gray-50 min-h-screen py-12">
-    <div class="w-11/12 mx-auto px-4 xl:px-6 2xl:px-8">
+<!-- Breadcrumb -->
+<div class="bg-white border-b border-gray-100">
+    <div class="w-11/12 py-4 mx-auto 2xl:max-w-[1920px] px-6">
+        <nav class="flex items-center space-x-2 text-sm">
+            <a href="<?php echo home_url(); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Inicio</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Tienda</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-semibold">Productos</span>
+        </nav>
+    </div>
+</div>
 
-        <!-- Botón para mostrar filtros en móvil -->
-        <div class="xl:hidden mb-6">
-            <button id="toggle-filters" class="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<!-- Products Content -->
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="w-11/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
+        <!-- Botón para filtros en móvil - más limpio -->
+        <div class="lg:hidden mb-6">
+            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
                 </svg>
-                Filtros y Ordenar
-                <div class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                Filtros
             </button>
         </div>
 
+
+
         <?php if ( woocommerce_product_loop() ) : ?>
 
-            <div class="flex flex-col xl:flex-row gap-8">
+            <div class="flex flex-col lg:flex-row gap-6">
                 
-                <!-- Sidebar con filtros modernos -->
+                <!-- Sidebar de filtros elegante y sticky -->
                 <aside 
                     id="filters-sidebar" 
-                    class="xl:w-96 2xl:w-[320px] fixed xl:relative inset-0 xl:inset-auto bg-black/50 xl:bg-transparent z-50 xl:z-auto hidden xl:block backdrop-blur-sm xl:backdrop-blur-none">
-                    <div class="bg-white h-full xl:h-auto p-4 lg:p-6 rounded-none xl:rounded-3xl shadow-2xl xl:shadow-lg overflow-y-auto ml-auto xl:ml-0 w-80 xl:w-full border-0 xl:border border-gray-100 sticky xl:top-4">
+                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
+                    <div class="bg-white h-full lg:h-auto p-6 rounded-none lg:rounded-2xl shadow-2xl lg:shadow-lg overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border border-gray-200/50 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
                         
                         <!-- Header del sidebar -->
-                        <div class="flex justify-between items-center mb-8">
-                            <h3 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
-                                <div class="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
-                                Filtros
-                            </h3>
-                            <button id="close-filters" class="xl:hidden text-gray-500 hover:text-gray-700 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900">
+                                    Filtros
+                                </h3>
+                            </div>
+                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-xl transition-all duration-200">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
@@ -323,129 +347,81 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         </div>
 
                         <!-- Filtro por Precio -->
-                        <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
-                                <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mr-3">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                     </svg>
                                 </div>
                                 Rango de Precio
                             </h4>
                             
-                            <div class="space-y-4">
-                                <p class="text-sm text-gray-600 mb-3">Filtrar por precio:</p>
-                                
-                                <?php
-                                // Get dynamic price range
-                                $price_range = itools_get_dynamic_price_range();
-                                $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : $price_range['min'];
-                                $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
-                                ?>
-                                
-                                <!-- Inputs manuales para precio -->
-                                <div class="grid grid-cols-2 gap-3 mb-4">
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-700 mb-1">Precio mínimo</label>
-                                        <div class="relative">
-                                            <span class="absolute left-0.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
-                                            <input type="number" 
-                                                   id="sidebar-min-price" 
-                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                                                   placeholder="0"
-                                                   min="0"
-                                                   max="<?php echo $price_range['max']; ?>"
-                                                   value="<?php echo $current_min > 0 ? $current_min : ''; ?>">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-medium text-gray-700 mb-1">Precio máximo</label>
-                                        <div class="relative">
-                                            <span class="absolute left-0.5 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
-                                            <input type="number" 
-                                                   id="sidebar-max-price" 
-                                                   class="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                                                   placeholder="<?php echo number_format($price_range['max'], 0); ?>"
-                                                   min="0"
-                                                   max="<?php echo $price_range['max']; ?>"
-                                                   value="<?php echo $current_max < $price_range['max'] ? $current_max : ''; ?>">
-                                        </div>
-                                    </div>
+                            <?php
+                            // Get dynamic price range
+                            $price_range = itools_get_dynamic_price_range();
+                            $current_min = isset($_GET['min_price']) ? $_GET['min_price'] : $price_range['min'];
+                            $current_max = isset($_GET['max_price']) ? $_GET['max_price'] : $price_range['max'];
+                            ?>
+                            
+                            <!-- Price Range Slider -->
+                            <div class="price-slider-container">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-sm text-gray-800 font-semibold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
+                                    <span class="text-sm text-gray-800 font-semibold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
                                 </div>
                                 
-                                <!-- Price Range Slider -->
-                                <div class="price-slider-container">
-                                    <div class="flex justify-between items-center mb-3">
-                                        <span class="text-xs text-gray-500">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                        <span class="text-xs text-gray-500">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                                <div class="relative">
+                                    <div class="price-slider-track bg-gray-300 h-2 rounded-full relative">
+                                        <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
                                     </div>
                                     
-                                    <div class="relative">
-                                        <div class="price-slider-track bg-gray-200 h-2 rounded-full relative">
-                                            <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full"></div>
-                                        </div>
-                                        
-                                        <input type="range" 
-                                               id="min-price-slider" 
-                                               class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
-                                               min="<?php echo $price_range['min']; ?>" 
-                                               max="<?php echo $price_range['max']; ?>" 
-                                               value="<?php echo $current_min; ?>"
-                                               step="100">
-                                        
-                                        <input type="range" 
-                                               id="max-price-slider" 
-                                               class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
-                                               min="<?php echo $price_range['min']; ?>" 
-                                               max="<?php echo $price_range['max']; ?>" 
-                                               value="<?php echo $current_max; ?>"
-                                               step="100">
-                                    </div>
-                                </div>
-                                
-                                <!-- Rangos predefinidos -->
-                                <div class="flex flex-wrap gap-2 mt-3">
-                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="0" data-max="1000">Hasta $1K</button>
-                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="1000" data-max="5000">$1K - $5K</button>
-                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="5000" data-max="10000">$5K - $10K</button>
-                                    <button type="button" class="price-preset text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" data-min="10000" data-max="">$10K+</button>
+                                    <input type="range" 
+                                           id="min-price-slider" 
+                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           min="<?php echo $price_range['min']; ?>" 
+                                           max="<?php echo $price_range['max']; ?>" 
+                                           value="<?php echo $current_min; ?>"
+                                           step="100">
+                                    
+                                    <input type="range" 
+                                           id="max-price-slider" 
+                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           min="<?php echo $price_range['min']; ?>" 
+                                           max="<?php echo $price_range['max']; ?>" 
+                                           value="<?php echo $current_max; ?>"
+                                           step="100">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Filtro por Categorías -->
-                        <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center text-lg">
-                                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mr-3">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
+                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                                     </svg>
                                 </div>
-                                Categorías
+                                Categorías de Producto
                             </h4>
                             
-                            <div class="space-y-3 max-h-64 overflow-y-auto custom-scrollbar">
+                            <div class="space-y-2">
                                 <!-- Enlace para todas las categorías -->
                                 <?php 
                                 $all_categories_url = home_url('/?post_type=product&s=');
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
-                                <a href="<?php echo esc_url($all_categories_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_all_categories ? 'bg-blue-50 border-blue-300' : ''; ?>">
-                                    <div class="relative">
-                                        <div class="w-5 h-5 bg-gradient-to-br from-gray-400 to-gray-600 rounded-lg flex items-center justify-center">
-                                            <?php if ($is_all_categories) : ?>
-                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                                                </svg>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <span class="text-gray-700 font-medium group-hover:text-blue-700 transition-colors <?php echo $is_all_categories ? 'text-blue-700 font-semibold' : ''; ?>">
-                                            Todas las categorías
-                                        </span>
-                                        <div class="text-sm text-gray-500">Ver todos los productos</div>
-                                    </div>
+                                <a href="<?php echo esc_url($all_categories_url); ?>" 
+                                   class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group <?php echo $is_all_categories ? 'bg-blue-50 border border-blue-200' : ''; ?>">
+                                    <span class="text-gray-700 font-medium <?php echo $is_all_categories ? 'text-blue-700' : ''; ?>">
+                                        Todas las categorías
+                                    </span>
+                                    <?php if ($is_all_categories) : ?>
+                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    <?php endif; ?>
                                 </a>
                                 
                                 <?php
@@ -453,52 +429,55 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     'taxonomy' => 'product_cat',
                                     'hide_empty' => true,
                                     'parent' => 0,
+                                    'meta_key' => 'product_count_product_cat',
+                                    'orderby' => 'count',
+                                    'order' => 'DESC'
                                 ) );
 
                                 if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
-                                    foreach ( $product_categories as $category ) :
+                                ?>
+                                <?php 
+                                    foreach ( $product_categories as $index => $category ) :
                                         // Create correct URL format: ?post_type=product&s=&product_cat=slug
                                         $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
+                                        
+                                        // Mostrar solo las primeras 6 categorías, el resto en "más categorías"
+                                        $hidden_class = $index >= 6 ? 'hidden more-category' : '';
                                 ?>
-                                    <a href="<?php echo esc_url($category_url); ?>" class="group flex items-center space-x-4 hover:bg-white/80 p-3 rounded-xl transition-all duration-300 border border-transparent hover:border-blue-200 <?php echo $is_current ? 'bg-blue-50 border-blue-300' : ''; ?>">
-                                        <div class="relative">
-                                            <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                                                <?php if ($is_current) : ?>
-                                                    <div class="absolute inset-0 bg-white rounded-lg flex items-center justify-center">
-                                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                                                        </svg>
-                                                    </div>
-                                                <?php else: ?>
-                                                    <?php
-                                                    // Iconos específicos por categoría
-                                                    $category_icons = [
-                                                        'consolas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21.5 2h-19C1.12 2 0 3.12 0 4.5v15C0 20.88 1.12 22 2.5 22h19c1.38 0 2.5-1.12 2.5-2.5v-15C24 3.12 22.88 2 21.5 2zM8 17.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V15c0-.83-.67-1.5-1.5-1.5S4 14.17 4 15v2.5c0 .28-.22.5-.5.5S3 17.78 3 17.5V15c0-1.38 1.12-2.5 2.5-2.5S8 13.62 8 15v2.5zm9.5-2.5c0 1.38-1.12 2.5-2.5 2.5S12.5 16.38 12.5 15v-2.5c0-.28.22-.5.5-.5s.5.22.5.5V15c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-2.5c0-.28.22-.5.5-.5s.5.22.5.5V15z"/></svg>',
-                                                        'baterias' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2c0-1.1-.9-2-2-2s-2 .9-2 2v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM15 20H9V6h2v1h2V6h2v14z"/></svg>',
-                                                        'herramientas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>',
-                                                        'lcd-y-touch' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h6l-2 2v1h8v-1l-2-2h6c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/></svg>',
-                                                        'pantallas' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h6l-2 2v1h8v-1l-2-2h6c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/></svg>',
-                                                        'accesorios' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
-                                                        'cargadores' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M14.47 15.08L11 13V7h1.5v5.25l2.72 1.68-.75 1.15zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>',
-                                                        'refacciones' => '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>'
-                                                    ];
-                                                    
-                                                    echo isset($category_icons[$category->slug]) ? $category_icons[$category->slug] : '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>';
-                                                    ?>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                                        </div>
-                                        <div class="flex-1">
-                                            <span class="text-gray-700 font-medium group-hover:text-blue-700 transition-colors <?php echo $is_current ? 'text-blue-700 font-semibold' : ''; ?>">
+                                    <a href="<?php echo esc_url($category_url); ?>" 
+                                       class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group <?php echo $is_current ? 'bg-blue-50 border border-blue-200' : ''; ?> <?php echo $hidden_class; ?>">
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-gray-700 font-medium <?php echo $is_current ? 'text-blue-700' : ''; ?>">
                                                 <?php echo esc_html( $category->name ); ?>
                                             </span>
-                                            <div class="text-sm text-gray-500"><?php echo $category->count; ?> productos</div>
+                                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                                                <?php echo $category->count; ?>
+                                            </span>
                                         </div>
+                                        <?php if ($is_current) : ?>
+                                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        <?php endif; ?>
                                     </a>
                                 <?php 
                                     endforeach;
+                                    
+                                    // Si hay más de 6 categorías, mostrar botón "Ver más"
+                                    if (count($product_categories) > 6) :
+                                ?>
+                                    <div id="more-categories" class="hidden">
+                                        <!-- Las categorías adicionales ya están marcadas con more-category -->
+                                    </div>
+                                    <button id="toggle-categories" class="w-full p-3 text-center text-blue-600 hover:text-blue-700 font-medium flex items-center justify-center gap-2 hover:bg-blue-50 rounded-lg transition-colors">
+                                        <span id="toggle-text">Ver más categorías</span>
+                                        <svg id="toggle-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+                                <?php 
+                                    endif;
                                 endif;
                                 ?>
                             </div>
@@ -648,7 +627,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </div>
 
                     <!-- Grid de productos moderno -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10" id="products-grid">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
                         <?php
                         woocommerce_product_loop_start();
 
@@ -664,7 +643,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[380px]">
+                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[420px]">
                                 <!-- Imagen del producto -->
                                 <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -699,7 +678,20 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         <?php endif; ?>
                                     </div>
                                     
-                                   
+                                    <!-- Botones de acción flotantes -->
+                                    <div class="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <button class="wishlist-btn w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200">
+                                            <svg class="w-4 h-4 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                            </svg>
+                                        </button>
+                                        <button class="quick-view-btn w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-200">
+                                            <svg class="w-4 h-4 text-gray-600 hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                                 
                                 <!-- Información del producto -->
@@ -732,6 +724,14 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                                 <?php endif; ?>
                                             </div>
                                         <?php endif; ?>
+                                        
+                                        <!-- Descripción corta -->
+                                        <div class="text-xs text-gray-600 mb-3 line-clamp-2">
+                                            <?php 
+                                            $excerpt = get_the_excerpt();
+                                            echo $excerpt ? wp_trim_words($excerpt, 15, '...') : 'Producto de alta calidad para uso profesional';
+                                            ?>
+                                        </div>
                                     </div>
                                     
                                     <!-- Contenido inferior fijo -->
@@ -1074,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-x-6 gap-y-10';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
 
 
 
@@ -1514,7 +1514,212 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Price Slider Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const minSlider = document.getElementById('min-price-slider');
+    const maxSlider = document.getElementById('max-price-slider');
+    const minInput = document.getElementById('sidebar-min-price');
+    const maxInput = document.getElementById('sidebar-max-price');
+    const minDisplay = document.getElementById('min-price-display');
+    const maxDisplay = document.getElementById('max-price-display');
+    const sliderRange = document.getElementById('price-slider-range');
+    
+    if (!minSlider || !maxSlider) return;
+    
+    const minPrice = parseInt(minSlider.min);
+    const maxPrice = parseInt(minSlider.max);
+    
+    function updateSliderUI() {
+        const minVal = parseInt(minSlider.value);
+        const maxVal = parseInt(maxSlider.value);
+        
+        // Asegurar que min no sea mayor que max
+        if (minVal >= maxVal) {
+            minSlider.value = maxVal - 100;
+        }
+        if (maxVal <= minVal) {
+            maxSlider.value = minVal + 100;
+        }
+        
+        const currentMin = parseInt(minSlider.value);
+        const currentMax = parseInt(maxSlider.value);
+        
+        // Actualizar displays
+        minDisplay.textContent = currentMin.toLocaleString();
+        maxDisplay.textContent = currentMax.toLocaleString();
+        
+        // Actualizar inputs ocultos
+        if (minInput) minInput.value = currentMin;
+        if (maxInput) maxInput.value = currentMax;
+        
+        // Actualizar barra visual
+        const percentMin = ((currentMin - minPrice) / (maxPrice - minPrice)) * 100;
+        const percentMax = ((currentMax - minPrice) / (maxPrice - minPrice)) * 100;
+        
+        sliderRange.style.left = percentMin + '%';
+        sliderRange.style.width = (percentMax - percentMin) + '%';
+    }
+    
+    // Event listeners para sliders
+    minSlider.addEventListener('input', updateSliderUI);
+    maxSlider.addEventListener('input', updateSliderUI);
+    
+    // Inicializar
+    updateSliderUI();
+});
+
+// Toggle Categories Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggle-categories');
+    const moreCategories = document.querySelectorAll('.more-category');
+    const toggleText = document.getElementById('toggle-text');
+    const toggleIcon = document.getElementById('toggle-icon');
+    
+    if (toggleButton && moreCategories.length > 0) {
+        let isExpanded = false;
+        
+        toggleButton.addEventListener('click', function() {
+            isExpanded = !isExpanded;
+            
+            if (isExpanded) {
+                // Mostrar categorías adicionales
+                moreCategories.forEach(category => {
+                    category.classList.remove('hidden');
+                });
+                toggleText.textContent = 'Ver menos categorías';
+                toggleIcon.style.transform = 'rotate(180deg)';
+                
+            } else {
+                // Ocultar categorías adicionales
+                moreCategories.forEach(category => {
+                    category.classList.add('hidden');
+                });
+                toggleText.textContent = 'Ver más categorías';
+                toggleIcon.style.transform = 'rotate(0deg)';
+            }
+        });
+    }
+});
 </script>
+
+<style>
+    /* Price Slider Styles */
+    .price-slider-container {
+        position: relative;
+        margin: 0.5rem 0;
+    }
+    
+    .price-slider-track {
+        position: relative;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 999px;
+    }
+    
+    .price-slider-input {
+        position: absolute;
+        width: 100%;
+        height: 8px;
+        background: transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+        pointer-events: none;
+        z-index: 2;
+    }
+    
+    .price-slider-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid #1f2937;
+        background: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+        transition: all 0.2s ease;
+    }
+    
+    .price-slider-input::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+    }
+    
+    .price-slider-input::-moz-range-thumb {
+        pointer-events: all;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid #1f2937;
+        background: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+        transition: all 0.2s ease;
+        -moz-appearance: none;
+    }
+    
+    .price-slider-input::-moz-range-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+    }
+    
+    .price-slider-input::-moz-range-track {
+        background: transparent;
+        border: none;
+    }
+    
+    .price-slider-input:active::-webkit-slider-thumb {
+        transform: scale(1.2);
+    }
+    
+    .price-slider-input:active::-moz-range-thumb {
+        transform: scale(1.2);
+    }
+    
+    /* Hero search bar styles */
+    #hero-search:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+    
+    #hero-search::placeholder {
+        color: #9ca3af;
+    }
+    
+    /* Select styling */
+    select[name="product_cat"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+        .flex.flex-col.sm\\:flex-row form {
+            flex-direction: column;
+        }
+        
+        .hidden.sm\\:block {
+            display: none;
+        }
+    }
+    
+    /* Grid responsive improvements */
+    @media (min-width: 1600px) {
+        .microscopios-grid {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+    }
+    
+    @media (min-width: 2000px) {
+        .microscopios-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+    }
+</style>
 
 <?php get_footer( 'shop' ); ?>
 
