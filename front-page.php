@@ -356,50 +356,48 @@ get_header(); ?>
                         <div class="swiper-wrapper py-4">
                             <?php 
                             $product_count = 0;
-                            $max_first_carousel = 8; // Primeros 8 productos para el primer carrusel
-                            while ( $herramientas_query->have_posts() && $product_count < $max_first_carousel ) : 
-                                $herramientas_query->the_post(); 
-                                global $product;
-                                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
-                                $product_count++;
-                            ?>
-                            <div class="swiper-slide">
-                                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
-                                    <!-- Imagen del producto -->
-                                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                                        <a href="<?php the_permalink(); ?>" class="block h-full">
-                                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                            )); ?>
-                                        </a>
-                                        
-                                        <!-- Badge de descuento -->
-                                        <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="absolute top-2 left-2 z-20">
-                                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
-                                                    <?php
-                                                    $regular_price = $product->get_regular_price();
-                                                    $sale_price = $product->get_sale_price();
-                                                    if ( $regular_price && $sale_price ) {
-                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                                        echo '-' . $discount . '%';
-                                                    } else {
-                                                        echo 'OFERTA';
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    
-                                    <!-- Información del producto -->
-                                    <div class="p-3 flex flex-col flex-1">
-                                        <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
-                                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
-                                        </h3>
-                                        
-                                        <!-- Precio -->
+            $max_first_carousel = 8; // Primeros 8 productos para el primer carrusel
+            while ( $herramientas_query->have_posts() && $product_count < $max_first_carousel ) : 
+                $herramientas_query->the_post(); 
+                global $product;
+                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
+                $product_count++;
+            ?>
+            <div class="swiper-slide">
+                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
+                    <!-- Imagen del producto -->
+                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                        <a href="<?php the_permalink(); ?>" class="block h-full">
+                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                            )); ?>
+                        </a>
+                        
+                        <!-- Badge de descuento -->
+                        <?php if ( $product->is_on_sale() ) : ?>
+                            <div class="absolute top-2 left-2 z-20">
+                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
+                                    <?php
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+                                    if ( $regular_price && $sale_price ) {
+                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                        echo '-' . $discount . '%';
+                                    } else {
+                                        echo 'OFERTA';
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <!-- Información del producto -->
+                    <div class="p-3 flex flex-col flex-1">
+                        <!-- Título -->
+                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1" style="min-height: 2.5rem; height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
+                        </h3>                                        <!-- Precio -->
                                         <div class="mb-3">
                                             <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
@@ -483,7 +481,7 @@ get_header(); ?>
                                     <!-- Información del producto -->
                                     <div class="p-3 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1" style="min-height: 2.5rem; height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
