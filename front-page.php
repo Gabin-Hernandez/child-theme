@@ -291,233 +291,7 @@ get_header(); ?>
         </div>
     </div>
 
-    <!-- Carrusel de Ofertas de la Semana -->
-    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-white">
-        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center bg-red-100 text-red-800 px-6 py-2 rounded-full font-semibold mb-6">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
-                    </svg>
-                    OFERTAS ESPECIALES
-                </div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                    Ofertas de la Semana
-                </h2>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-                    Aprovecha descuentos increíbles en productos seleccionados por tiempo limitado
-                </p>
-            </div>
-            
-            <!-- Carrusel Container -->
-            <div class="ofertas-carousel-container relative max-w-6xl mx-auto">
-                <div class="ofertas-swiper overflow-hidden rounded-xl bg-white shadow-lg">
-                    <div class="swiper-wrapper py-6">
-                        
-                        <?php
-                        // Query para obtener productos en oferta
-                        $sale_product_ids = array();
-                        if ( function_exists( 'wc_get_product_ids_on_sale' ) ) {
-                            $sale_product_ids = array_filter( array_map( 'absint', wc_get_product_ids_on_sale() ) );
-                        }
-                        
-                        $ofertas_args = array(
-                            'post_type' => 'product',
-                            'posts_per_page' => 8,
-                            'post_status' => 'publish',
-                            'orderby' => 'date',
-                            'order' => 'DESC',
-                            'meta_query' => array(
-                                array(
-                                    'key' => '_stock_status',
-                                    'value' => 'instock',
-                                    'compare' => '='
-                                )
-                            )
-                        );
-                        
-                        if ( !empty($sale_product_ids) ) {
-                            $ofertas_args['post__in'] = $sale_product_ids;
-                        } else {
-                            // Si no hay productos en oferta, usar los más recientes con precio
-                            $ofertas_args['meta_query'][] = array(
-                                'key' => '_price',
-                                'value' => 0,
-                                'compare' => '>'
-                            );
-                        }
-                        
-                        $ofertas_query = new WP_Query( $ofertas_args );
-                        
-                        if ( $ofertas_query->have_posts() ) : 
-                            while ( $ofertas_query->have_posts() ) : $ofertas_query->the_post(); 
-                                global $product;
-                                if ( ! $product || ! $product->is_visible() ) continue;
-                                
-                                $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-                                $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
-                                
-                                // Calcular descuento
-                                $regular_price = $product->get_regular_price();
-                                $sale_price = $product->get_sale_price();
-                                $discount = 0;
-                                if ( $regular_price && $sale_price && $product->is_on_sale() ) {
-                                    $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                }
-                        ?>
-                        
-                        <!-- Producto: <?php the_title(); ?> -->
-                        <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mx-3 border border-gray-100 group relative overflow-hidden">
-                                <!-- Badge de descuento -->
-                                <?php if ( $discount > 0 ) : ?>
-                                    <div class="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
-                                        -<?php echo $discount; ?>%
-                                    </div>
-                                <?php elseif ( !empty($sale_product_ids) && !in_array($product->get_id(), $sale_product_ids) ) : ?>
-                                    <div class="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg z-10">
-                                        NUEVO
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <!-- Imagen del producto -->
-                                <div class="aspect-square bg-white rounded-lg mb-6 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-inner">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <img src="<?php echo esc_url($image_url); ?>" 
-                                             alt="<?php echo esc_attr(get_the_title()); ?>" 
-                                             class="w-full h-full object-cover">
-                                    </a>
-                                </div>
-                                
-                                <!-- Información del producto -->
-                                <div class="space-y-4">
-                                    <h4 class="font-bold text-gray-900 text-lg mb-3 line-clamp-2 group-hover:text-red-600 transition-colors">
-                                        <a href="<?php the_permalink(); ?>" class="hover:underline">
-                                            <?php the_title(); ?>
-                                        </a>
-                                    </h4>
-                                    
-                                    <!-- Precio -->
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="space-y-1">
-                                            <?php if ( $product->is_on_sale() && $sale_price ) : ?>
-                                                <div class="text-2xl font-bold text-red-600">
-                                                    <?php echo wc_price($sale_price); ?>
-                                                </div>
-                                                <?php if ( $regular_price && $regular_price != $sale_price ) : ?>
-                                                    <div class="text-sm text-gray-500 line-through">
-                                                        <?php echo wc_price($regular_price); ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                            <?php else : ?>
-                                                <div class="text-2xl font-bold text-gray-900">
-                                                    <?php echo $product->get_price_html(); ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Botones de acción -->
-                                    <div class="flex gap-3 mt-6">
-                                        <a href="<?php the_permalink(); ?>" 
-                                           class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 px-4 text-center rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-                                            Ver Oferta
-                                        </a>
-                                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                                            <button onclick="addToCartFromCarousel(<?php echo $product->get_id(); ?>, '<?php echo esc_js(get_the_title()); ?>')" 
-                                                    class="bg-white hover:bg-red-50 text-red-600 border-2 border-red-200 hover:border-red-300 py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center group/cart min-w-[52px]"
-                                                    data-product-id="<?php echo $product->get_id(); ?>">
-                                                <svg class="w-5 h-5 group-hover/cart:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m7.5-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m7.5 0H9"/>
-                                                </svg>
-                                            </button>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                
-                                <!-- Efecto de brillo en hover -->
-                                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <?php 
-                            endwhile;
-                            wp_reset_postdata();
-                        else : ?>
-                        
-                        <!-- Fallback: No hay ofertas disponibles -->
-                        <div class="swiper-slide">
-                            <div class="bg-white rounded-xl p-8 shadow-md mx-3 border border-gray-100 text-center">
-                                <div class="mb-6">
-                                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-                                        <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
-                                        </svg>
-                                    </div>
-                                    <h4 class="text-xl font-bold text-gray-900 mb-3">¡Ofertas en camino!</h4>
-                                    <p class="text-gray-600 mb-6">Muy pronto tendremos increíbles descuentos disponibles</p>
-                                    <a href="/tienda" 
-                                       class="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold px-8 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg">
-                                        Ver Productos
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <?php endif; ?>
-                        
-                        <!-- Slide final - Ver todas las ofertas -->
-                        <div class="swiper-slide">
-                            <div class="bg-gradient-to-br from-red-500 to-red-700 rounded-xl p-8 shadow-xl mx-3 text-center text-white flex flex-col justify-center h-full min-h-[400px] relative overflow-hidden">
-                                <!-- Patrón decorativo de fondo -->
-                                <div class="absolute inset-0 opacity-20">
-                                    <div class="absolute top-10 left-10 w-20 h-20 border border-white/30 rounded-full"></div>
-                                    <div class="absolute bottom-10 right-10 w-16 h-16 border border-white/30 rounded-full"></div>
-                                    <div class="absolute top-1/2 right-1/4 w-12 h-12 border border-white/30 rounded-full"></div>
-                                </div>
-                                
-                                <div class="relative z-10">
-                                    <div class="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mb-8 mx-auto backdrop-blur-sm">
-                                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                        </svg>
-                                    </div>
-                                    <h4 class="text-2xl font-bold text-white mb-4">Ver Todas</h4>
-                                    <p class="text-red-100 mb-8 max-w-xs mx-auto">
-                                        Descubre todas nuestras ofertas y promociones especiales
-                                    </p>
-                                    <a href="/categoria/ofertas" 
-                                       class="inline-block bg-white text-red-600 font-bold px-8 py-4 rounded-lg hover:bg-red-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                        Explorar Ofertas
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                <!-- Navegación del carrusel -->
-                <div class="ofertas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                </div>
-                <div class="ofertas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-red-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-red-100">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-                
-                <!-- Paginación -->
-                <div class="ofertas-swiper-pagination mt-8"></div>
-            </div>
-        </div>
-    </section>
-    <?php endif; ?>
+  
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
@@ -983,8 +757,8 @@ get_header(); ?>
 
     <!-- Carrusel de Más Vendidos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-32 bg-white">
-        <div class="container w-full mx-auto px-4 lg:px-6">
+    <section class="bg-white">
+        <div class="container w-full mx-auto px-4 lg:px-6 py-16">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-purple-100 text-purple-800 px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1398,8 +1172,8 @@ get_header(); ?>
 
     <!-- Carrusel de Nuevos Ingresos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-white">
-        <div class="container w-full mx-auto px-4 lg:px-6">
+    <section class="bg-white">
+        <div class="container w-full mx-auto px-4 lg:px-6 py-16 ">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-emerald-100 text-emerald-800 px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1616,8 +1390,8 @@ get_header(); ?>
 
     <!-- RF4 Productos Carousel -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section id="productos-rf4" class="py-16 bg-white overflow-hidden">
-        <div class="container mx-auto px-6">
+    <section id="productos-rf4" class="bg-white overflow-hidden">
+        <div class="container mx-auto px-6 py-16 ">
             <!-- Header -->
             <div class="text-center mt-4 mb-12">
                 <div class="inline-flex items-center bg-teal-100 text-teal-800 px-6 py-2 rounded-full font-semibold mb-6">
@@ -2008,8 +1782,8 @@ get_header(); ?>
 
     <!-- Carrusel de Recomendados para Ti -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-white">
-        <div class="container w-full mx-auto px-4 lg:px-6">
+    <section class="bg-white">
+        <div class="container w-full mx-auto px-4 lg:px-6 py-16 ">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
