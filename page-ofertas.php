@@ -32,8 +32,9 @@ $shop_url = '/tienda';
         <?php if ( $banner_url ) : ?>
             <div class="h-64 md:h-80 lg:h-96 relative">
                 <img src="<?php echo esc_url( $banner_url ); ?>" alt="<?php echo esc_attr( $page_title ); ?>" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-r from-red-900/70 via-orange-900/50 to-red-800/60"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+               <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-sm"></div>
+                <div class="absolute bottom-20 right-20 w-32 h-32 bg-orange-300/20 rounded-full blur-lg"></div>
+                <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-red-300/15 rounded-full blur-md"></div>
             </div>
         <?php else : ?>
             <div class="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-red-600 via-orange-600 to-red-700 relative">
