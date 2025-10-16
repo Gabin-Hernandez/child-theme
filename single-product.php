@@ -140,11 +140,19 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
                     
-                    <!-- SKU -->
+                    <!-- SKU con botón compartir -->
                     <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-                        <div class="text-sm text-gray-600">
-                            <span class="font-medium">SKU:</span> 
-                            <span class="font-mono"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span>
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">SKU:</span> 
+                                <span class="font-mono"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span>
+                            </div>
+                            <!-- Botón compartir -->
+                            <button class="share-btn flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-50 hover:text-blue-500 transition-all duration-300 group">
+                                <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                                </svg>
+                            </button>
                         </div>
                     <?php endif; ?>
                     
@@ -225,15 +233,6 @@ get_header(); ?>
                             <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
                         </form>
                     <?php endif; ?>
-                    
-                    <!-- Botones de acción -->
-                    <div class="flex flex-col sm:flex-row gap-3 mt-6">
-                        <button class="share-btn flex-shrink-0 w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center hover:bg-blue-50 hover:text-blue-500 transition-all duration-300 group">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-                            </svg>
-                        </button>
-                    </div>
                     
                     <!-- Información de stock y disponibilidad -->
                     <div class="mt-6 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200">
