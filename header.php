@@ -485,7 +485,7 @@
     <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
         <div>
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
-                <div class="header-row flex w-11/12 px-4 items-center justify-between">
+                <div class="header-row flex container px-4 items-center justify-between">
                 
                 <!-- Botón menú móvil -->
                 <div class="mobile-menu-container">
