@@ -1581,11 +1581,12 @@ get_header(); ?>
             <!-- Carrusel Container -->
             <div class="microscopios-carousel-container relative w-full mx-auto">
                 <?php
-                // Query para obtener productos de microscopios con múltiples enfoques
+                // Query simple y directo para microscopios
                 $microscopios_args = array(
                     'post_type' => 'product',
                     'posts_per_page' => 20,
                     'post_status' => 'publish',
+                    's' => 'microscopio', // Búsqueda directa que sabemos funciona
                     'meta_query' => array(
                         array(
                             'key' => '_stock_status',
@@ -1599,59 +1600,6 @@ get_header(); ?>
                         )
                     )
                 );
-                
-                // Primero intentamos buscar por categoría
-                $microscopios_term = get_term_by('slug', 'microscopios', 'product_cat');
-                if (!$microscopios_term) {
-                    $microscopios_term = get_term_by('name', 'Microscopios', 'product_cat');
-                }
-                if (!$microscopios_term) {
-                    $microscopios_term = get_term_by('name', 'microscopio', 'product_cat');
-                }
-                
-                // Si encontramos la categoría, la usamos
-                if ($microscopios_term) {
-                    $microscopios_args['tax_query'] = array(
-                        array(
-                            'taxonomy' => 'product_cat',
-                            'field'    => 'term_id',
-                            'terms'    => $microscopios_term->term_id
-                        )
-                    );
-                } else {
-                    // Si no hay categoría específica, buscamos por título
-                    $microscopios_args['meta_query'][] = array(
-                        'relation' => 'OR',
-                        array(
-                            'key' => '_sku',
-                            'value' => 'microscopio',
-                            'compare' => 'LIKE'
-                        )
-                    );
-                    
-                    // También agregamos búsqueda en el título usando post__in con una consulta personalizada
-                    global $wpdb;
-                    $search_terms = array('microscopio', 'microscope', 'lupa', 'zoom', 'precision');
-                    $search_query = "SELECT DISTINCT p.ID FROM {$wpdb->posts} p 
-                                   WHERE p.post_type = 'product' 
-                                   AND p.post_status = 'publish' 
-                                   AND (";
-                    
-                    $conditions = array();
-                    foreach ($search_terms as $term) {
-                        $conditions[] = "p.post_title LIKE '%" . esc_sql($term) . "%'";
-                        $conditions[] = "p.post_content LIKE '%" . esc_sql($term) . "%'";
-                        $conditions[] = "p.post_excerpt LIKE '%" . esc_sql($term) . "%'";
-                    }
-                    
-                    $search_query .= implode(' OR ', $conditions) . ")";
-                    $product_ids = $wpdb->get_col($search_query);
-                    
-                    if (!empty($product_ids)) {
-                        $microscopios_args['post__in'] = $product_ids;
-                        $microscopios_args['orderby'] = 'post__in';
-                    }
-                }
                 
                 $microscopios_query = new WP_Query( $microscopios_args );
                 
@@ -1853,36 +1801,13 @@ get_header(); ?>
                         <p class="text-gray-600">Pronto agregaremos más productos de precisión a esta categoría.</p>
                         
                         <?php 
-                        // Debug info - solo mostrar si es admin
+                        // Debug info simplificado - solo mostrar si es admin
                         if (current_user_can('administrator')) {
-                            echo '<div class="text-xs text-gray-500 mt-4 p-4 bg-yellow-50 rounded max-w-2xl mx-auto text-left">';
-                            echo '<strong>🔍 Debug Info para Microscopios:</strong><br>';
+                            echo '<div class="text-xs text-gray-500 mt-4 p-4 bg-yellow-50 rounded max-w-xl mx-auto text-left">';
+                            echo '<strong>🔍 Debug Info:</strong><br>';
                             echo 'Total productos encontrados: ' . $microscopios_query->found_posts . '<br>';
-                            echo 'Categoría encontrada: ' . ($microscopios_term ? 'Sí (ID: ' . $microscopios_term->term_id . ', Slug: ' . $microscopios_term->slug . ')' : 'No') . '<br>';
-                            
-                            // Mostrar los argumentos de la consulta
-                            echo '<strong>Argumentos de consulta:</strong><br>';
-                            echo '<pre style="font-size: 10px; background: white; padding: 8px; border-radius: 4px; margin: 4px 0;">';
-                            print_r($microscopios_args);
-                            echo '</pre>';
-                            
-                            // Test directo con búsqueda simple
-                            $test_search = new WP_Query(array(
-                                'post_type' => 'product',
-                                'posts_per_page' => 5,
-                                's' => 'microscopio'
-                            ));
-                            echo 'Test búsqueda simple "microscopio": ' . $test_search->found_posts . ' productos<br>';
-                            
-                            // Mostrar todas las categorías de productos
-                            $product_cats = get_terms(array('taxonomy' => 'product_cat', 'hide_empty' => false));
-                            echo '<strong>Categorías disponibles:</strong> ';
-                            foreach($product_cats as $cat) {
-                                echo $cat->name . ' (' . $cat->slug . '), ';
-                            }
-                            echo '<br>';
-                            
-                            echo '<a href="/tienda?s=microscopio&post_type=product" target="_blank" style="color: blue; text-decoration: underline;">Test búsqueda frontend</a>';
+                            echo 'Búsqueda realizada: "microscopio"<br>';
+                            echo '<a href="/tienda?s=microscopio&post_type=product" target="_blank" style="color: blue;">Ver búsqueda completa</a>';
                             echo '</div>';
                         }
                         ?>
