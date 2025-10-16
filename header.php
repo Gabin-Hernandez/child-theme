@@ -483,7 +483,7 @@
 <div id="page" class="site">
     <!-- Header Simple -->
     <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-        <div style="margin: 0 auto; padding: 0 20px; max-width: 1200px;">
+        <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
                 <div class="header-row" style="display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 4px;">
                 
@@ -603,7 +603,7 @@
 
             <!-- Segunda fila: Menú de navegación dropdown -->
             <div class="nav-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 0;">
-                <div style="margin: 0 auto; max-width: 1200px; padding: 0 20px;">
+                <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                     <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
                     <!-- Dropdown Refacciones -->
                     <div class="dropdown-container" style="position: relative;">
