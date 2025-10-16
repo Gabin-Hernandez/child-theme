@@ -442,8 +442,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                         
-                                        // Mostrar solo las primeras 6 categorías, el resto en "más categorías"
-                                        $hidden_class = $index >= 6 ? 'hidden more-category' : '';
+                                        // Mostrar solo las primeras 3 categorías, el resto en "más categorías"
+                                        $hidden_class = $index >= 3 ? 'hidden more-category' : '';
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" 
                                        class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group <?php echo $is_current ? 'bg-blue-50 border border-blue-200' : ''; ?> <?php echo $hidden_class; ?>">
@@ -464,8 +464,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 <?php 
                                     endforeach;
                                     
-                                    // Si hay más de 6 categorías, mostrar botón "Ver más"
-                                    if (count($product_categories) > 6) :
+                                    // Si hay más de 3 categorías, mostrar botón "Ver más"
+                                    if (count($product_categories) > 3) :
                                 ?>
                                     <div id="more-categories" class="hidden">
                                         <!-- Las categorías adicionales ya están marcadas con more-category -->
