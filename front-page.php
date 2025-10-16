@@ -1581,22 +1581,24 @@ get_header(); ?>
             <!-- Carrusel Container -->
             <div class="microscopios-carousel-container relative w-full mx-auto">
                 <?php
-                // Query simple y directo para microscopios
+                // Usar exactamente la misma lógica que page-microscopios.php
+                $original_get = $_GET;
+                $_GET['post_type'] = 'product';
+                $_GET['s'] = 'microscopio';
+                
                 $microscopios_args = array(
                     'post_type' => 'product',
                     'posts_per_page' => 24,
                     'post_status' => 'publish',
-                    's' => 'microscopio', // Búsqueda directa que sabemos funciona
-                    'meta_query' => array(
-                        array(
-                            'key' => '_visibility',
-                            'value' => array('catalog', 'visible'),
-                            'compare' => 'IN'
-                        )
-                    )
+                    's' => 'microscopio',
+                    'tax_query' => array(),
+                    'meta_query' => array()
                 );
                 
                 $microscopios_query = new WP_Query( $microscopios_args );
+                
+                // Restaurar $_GET original
+                $_GET = $original_get;
                 
                 if ( $microscopios_query->have_posts() ) : 
                     // Primero recolectemos todos los productos válidos
