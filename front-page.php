@@ -395,13 +395,13 @@ get_header(); ?>
                                     <!-- Información del producto -->
                                     <div class="p-3 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Precio -->
                                         <div class="mb-3">
-                                            <div class="text-base font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                            <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         </div>
@@ -483,13 +483,13 @@ get_header(); ?>
                                     <!-- Información del producto -->
                                     <div class="p-3 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
                                         <!-- Precio -->
                                         <div class="mb-3">
-                                            <div class="text-base font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                            <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         </div>
