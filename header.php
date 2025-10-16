@@ -485,7 +485,7 @@
     <header id="main-header" style="background: #171717; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
         <div>
                 <!-- Primera fila: Logo, Buscador, Mi Cuenta y Carrito -->
-                <div class="header-row flex container px-8 items-center justify-between">
+                <div class="header-row flex w-10/12 2xl:w-8/12 px-4 items-center justify-between">
                 
                 <!-- Botón menú móvil -->
                 <div class="mobile-menu-container">
@@ -502,7 +502,7 @@
                         <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/09/logo-itoolsmx-Photoroom.png" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
                     </a>
                 </div>
-            <div class="flex items-center flex-1 justify-end">
+            <div class="flex">
                 <div class="header-search" style="flex: 1; max-width: 400px; margin: 20px 40px 0 40px; position: relative;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         <!-- Campo de búsqueda -->
