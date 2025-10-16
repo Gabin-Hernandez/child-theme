@@ -983,7 +983,7 @@ get_header(); ?>
 
     <!-- Carrusel de Más Vendidos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="py-16 bg-white">
+    <section class="py-32 bg-white">
         <div class="container w-full mx-auto px-4 lg:px-6">
             <div class="text-center mb-12">
                 <div class="inline-flex items-center bg-purple-100 text-purple-800 px-6 py-2 rounded-full font-semibold mb-6">
