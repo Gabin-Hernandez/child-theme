@@ -1581,19 +1581,12 @@ get_header(); ?>
             <!-- Carrusel Container -->
             <div class="microscopios-carousel-container relative w-full mx-auto">
                 <?php
-                // Query para obtener productos de microscopios
-                // Primero verificamos si la categoría existe
-                $microscopios_term = get_term_by('slug', 'microscopios', 'product_cat');
-                
-                if (!$microscopios_term) {
-                    // Si no existe con slug 'microscopios', intentamos buscar por nombre
-                    $microscopios_term = get_term_by('name', 'Microscopios', 'product_cat');
-                }
-                
+                // Query para obtener productos de microscopios con búsqueda más amplia
                 $microscopios_args = array(
                     'post_type' => 'product',
                     'posts_per_page' => 16,
                     'post_status' => 'publish',
+                    's' => 'microscopio', // Búsqueda por texto en título y contenido
                     'meta_query' => array(
                         array(
                             'key' => '_stock_status',
@@ -1608,7 +1601,16 @@ get_header(); ?>
                     )
                 );
                 
-                // Solo agregamos tax_query si encontramos la categoría
+                // Primero intentamos buscar por categoría
+                $microscopios_term = get_term_by('slug', 'microscopios', 'product_cat');
+                if (!$microscopios_term) {
+                    $microscopios_term = get_term_by('name', 'Microscopios', 'product_cat');
+                }
+                if (!$microscopios_term) {
+                    $microscopios_term = get_term_by('name', 'microscopio', 'product_cat');
+                }
+                
+                // Si encontramos la categoría, la usamos; si no, usamos búsqueda por texto
                 if ($microscopios_term) {
                     $microscopios_args['tax_query'] = array(
                         array(
@@ -1617,6 +1619,8 @@ get_header(); ?>
                             'terms'    => $microscopios_term->term_id
                         )
                     );
+                    // Removemos la búsqueda por texto si tenemos categoría
+                    unset($microscopios_args['s']);
                 }
                 
                 $microscopios_query = new WP_Query( $microscopios_args );
@@ -1812,11 +1816,11 @@ get_header(); ?>
                     <div class="text-center py-12">
                         <div class="text-gray-500 mb-4">
                             <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">No hay microscopios disponibles</h3>
-                        <p class="text-gray-600">Pronto agregaremos más productos a esta categoría.</p>
+                        <p class="text-gray-600">Pronto agregaremos más productos de precisión a esta categoría.</p>
                         <div class="mt-6">
                             <a href="/tienda" 
                                class="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg">
