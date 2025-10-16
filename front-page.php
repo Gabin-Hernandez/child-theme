@@ -350,16 +350,21 @@ get_header(); ?>
             $herramientas_query = new WP_Query( $herramientas_args );
             
             if ( $herramientas_query->have_posts() ) : ?>
-                <!-- Carrusel Container -->
-                <div class="herramientas-carousel-container relative w-full mx-auto">
-                    <div class="herramientas-swiper overflow-hidden rounded-xl bg-white shadow-lg">
-                        <div class="swiper-wrapper py-6">
-                            <?php while ( $herramientas_query->have_posts() ) : $herramientas_query->the_post(); 
+                <!-- Primer Carrusel de Herramientas -->
+                <div class="herramientas-carousel-container-1 relative w-full mx-auto mb-8">
+                    <div class="herramientas-swiper-1 overflow-hidden rounded-xl bg-white shadow-lg">
+                        <div class="swiper-wrapper py-4">
+                            <?php 
+                            $product_count = 0;
+                            $max_first_carousel = 8; // Primeros 8 productos para el primer carrusel
+                            while ( $herramientas_query->have_posts() && $product_count < $max_first_carousel ) : 
+                                $herramientas_query->the_post(); 
                                 global $product;
                                 if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
+                                $product_count++;
                             ?>
                             <div class="swiper-slide">
-                                <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-3">
+                                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
                                     <!-- Imagen del producto -->
                                     <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                         <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -370,8 +375,8 @@ get_header(); ?>
                                         
                                         <!-- Badge de descuento -->
                                         <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="absolute top-2 left-2 z-20">
-                                                <div class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
+                                            <div class="absolute top-1 left-1 z-20">
+                                                <div class="bg-red-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
                                                     <?php
                                                     $regular_price = $product->get_regular_price();
                                                     $sale_price = $product->get_sale_price();
@@ -385,57 +390,24 @@ get_header(); ?>
                                                 </div>
                                             </div>
                                         <?php endif; ?>
-                                        
-                                        <!-- Badge de stock -->
-                                        <div class="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <div class="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-medium">
-                                                Stock
-                                            </div>
-                                        </div>
                                     </div>
                                     
                                     <!-- Información del producto -->
-                                    <div class="p-3 flex flex-col flex-1">
-                                        <!-- Categoría -->
-                                        <div class="mb-2">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800">
-                                                Herramienta
-                                            </span>
-                                        </div>
-                                        
+                                    <div class="p-2 flex flex-col flex-1">
                                         <!-- Título -->
-                                        <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                        <h3 class="font-medium text-gray-900 text-xs leading-tight mb-1 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                             <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                         </h3>
                                         
-                                        <!-- Rating -->
-                                        <?php if ( $product->get_average_rating() ) : ?>
-                                            <div class="flex items-center mb-2">
-                                                <div class="flex text-yellow-400 mr-1">
-                                                    <?php
-                                                    $rating = $product->get_average_rating();
-                                                    for ( $i = 1; $i <= 5; $i++ ) {
-                                                        if ( $i <= $rating ) {
-                                                            echo '<svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                        } else {
-                                                            echo '<svg class="w-3 h-3 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </div>
-                                                <span class="text-xs text-gray-600">(<?php echo $product->get_review_count(); ?>)</span>
-                                            </div>
-                                        <?php endif; ?>
-                                        
                                         <!-- Precio -->
-                                        <div class="mb-3">
-                                            <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                        <div class="mb-2">
+                                            <div class="text-sm font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
                                                 <?php echo $product->get_price_html(); ?>
                                             </div>
                                         </div>
                                         
                                         <!-- Botón de agregar al carrito -->
-                                        <div class="woocommerce-add-to-cart-wrapper-compact mt-auto">
+                                        <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
                                             <?php woocommerce_template_loop_add_to_cart(); ?>
                                         </div>
                                     </div>
@@ -445,20 +417,105 @@ get_header(); ?>
                         </div>
                     </div>
                     
-                    <!-- Navegación del carrusel -->
-                    <div class="herramientas-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-amber-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
-                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Navegación del primer carrusel -->
+                    <div class="herramientas-swiper-button-prev-1 absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </div>
-                    <div class="herramientas-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white hover:bg-amber-50 rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
-                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="herramientas-swiper-button-next-1 absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </div>
+                </div>
+
+                <!-- Segundo Carrusel de Herramientas -->
+                <div class="herramientas-carousel-container-2 relative w-full mx-auto">
+                    <div class="herramientas-swiper-2 overflow-hidden rounded-xl bg-white shadow-lg">
+                        <div class="swiper-wrapper py-4">
+                            <?php 
+                            // Reset query para obtener los productos restantes
+                            $herramientas_query->rewind_posts();
+                            $product_count = 0;
+                            $skip_count = 0;
+                            while ( $herramientas_query->have_posts() ) : 
+                                $herramientas_query->the_post(); 
+                                global $product;
+                                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
+                                
+                                // Saltar los primeros 8 productos que ya se mostraron
+                                if ( $skip_count < $max_first_carousel ) {
+                                    $skip_count++;
+                                    continue;
+                                }
+                                $product_count++;
+                            ?>
+                            <div class="swiper-slide">
+                                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
+                                    <!-- Imagen del producto -->
+                                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                                        <a href="<?php the_permalink(); ?>" class="block h-full">
+                                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                            )); ?>
+                                        </a>
+                                        
+                                        <!-- Badge de descuento -->
+                                        <?php if ( $product->is_on_sale() ) : ?>
+                                            <div class="absolute top-1 left-1 z-20">
+                                                <div class="bg-red-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
+                                                    <?php
+                                                    $regular_price = $product->get_regular_price();
+                                                    $sale_price = $product->get_sale_price();
+                                                    if ( $regular_price && $sale_price ) {
+                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                        echo '-' . $discount . '%';
+                                                    } else {
+                                                        echo 'OFERTA';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <!-- Información del producto -->
+                                    <div class="p-2 flex flex-col flex-1">
+                                        <!-- Título -->
+                                        <h3 class="font-medium text-gray-900 text-xs leading-tight mb-1 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
+                                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
+                                        </h3>
+                                        
+                                        <!-- Precio -->
+                                        <div class="mb-2">
+                                            <div class="text-sm font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                                <?php echo $product->get_price_html(); ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Botón de agregar al carrito -->
+                                        <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
+                                            <?php woocommerce_template_loop_add_to_cart(); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endwhile; ?>
+                        </div>
+                    </div>
                     
-                    <!-- Paginación -->
-                    <div class="herramientas-swiper-pagination mt-8"></div>
+                    <!-- Navegación del segundo carrusel -->
+                    <div class="herramientas-swiper-button-prev-2 absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="herramientas-swiper-button-next-2 absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
                 </div>
                 
                 <!-- Botón para ver más herramientas -->
@@ -472,60 +529,62 @@ get_header(); ?>
                     </a>
                 </div>
                 
-                <!-- Estilos CSS y JavaScript para el carrusel de herramientas -->
+                <!-- Estilos CSS y JavaScript para los carruseles de herramientas -->
                 <style>
-                /* Carrusel específico para herramientas */
-                .herramientas-swiper {
-                    padding: 0 60px;
+                /* Carruseles específicos para herramientas */
+                .herramientas-swiper-1,
+                .herramientas-swiper-2 {
+                    padding: 0 40px;
                 }
                 
-                .herramientas-swiper .swiper-slide {
-                    width: 220px;
+                .herramientas-swiper-1 .swiper-slide,
+                .herramientas-swiper-2 .swiper-slide {
+                    width: 140px;
                     flex-shrink: 0;
                 }
                 
-                .woocommerce-add-to-cart-wrapper-compact {
+                .woocommerce-add-to-cart-wrapper-mini {
                     display: flex !important;
                     flex-direction: column !important;
-                    gap: 8px !important;
+                    gap: 4px !important;
                 }
                 
-                .woocommerce-add-to-cart-wrapper-compact .button,
-                .woocommerce-add-to-cart-wrapper-compact .added_to_cart {
+                .woocommerce-add-to-cart-wrapper-mini .button,
+                .woocommerce-add-to-cart-wrapper-mini .added_to_cart {
                     width: 100% !important;
                     background: linear-gradient(to right, #f59e0b, #d97706) !important;
                     color: white !important;
                     font-weight: 600 !important;
-                    padding: 8px 12px !important;
-                    border-radius: 8px !important;
+                    padding: 6px 8px !important;
+                    border-radius: 6px !important;
                     border: none !important;
                     transition: all 0.3s ease !important;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
                     display: flex !important;
                     align-items: center !important;
                     justify-content: center !important;
-                    gap: 6px !important;
+                    gap: 4px !important;
                     text-decoration: none !important;
                     margin: 0 !important;
-                    font-size: 12px !important;
+                    font-size: 10px !important;
                     line-height: 1.2 !important;
                 }
                 
-                .woocommerce-add-to-cart-wrapper-compact .button:hover,
-                .woocommerce-add-to-cart-wrapper-compact .added_to_cart:hover {
+                .woocommerce-add-to-cart-wrapper-mini .button:hover,
+                .woocommerce-add-to-cart-wrapper-mini .added_to_cart:hover {
                     background: linear-gradient(to right, #d97706, #b45309) !important;
                     transform: translateY(-1px) !important;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
                 }
                 
-                .woocommerce-add-to-cart-wrapper-compact .button::before {
+                .woocommerce-add-to-cart-wrapper-mini .button::before {
                     content: "🛒";
-                    font-size: 12px;
+                    font-size: 10px;
                 }
                 
-                .woocommerce-add-to-cart-wrapper-compact .added_to_cart::before {
+                .woocommerce-add-to-cart-wrapper-mini .added_to_cart::before {
                     content: "✓";
-                    font-size: 12px;
+                    font-size: 10px;
                 }
                 
                 /* Line clamp para títulos */
@@ -536,94 +595,123 @@ get_header(); ?>
                     overflow: hidden;
                 }
                 
-                /* Paginación personalizada */
-                .herramientas-swiper-pagination .swiper-pagination-bullet {
-                    background: #d1d5db;
-                    opacity: 1;
-                    width: 12px;
-                    height: 12px;
-                    margin: 0 6px;
-                }
-                
-                .herramientas-swiper-pagination .swiper-pagination-bullet-active {
-                    background: #f59e0b;
-                    transform: scale(1.2);
-                }
-                
                 /* Responsive */
                 @media (max-width: 640px) {
-                    .herramientas-swiper {
+                    .herramientas-swiper-1,
+                    .herramientas-swiper-2 {
                         padding: 0 20px;
                     }
-                    .herramientas-swiper .swiper-slide {
-                        width: 180px;
+                    .herramientas-swiper-1 .swiper-slide,
+                    .herramientas-swiper-2 .swiper-slide {
+                        width: 120px;
                     }
                 }
                 </style>
                 
-                <!-- JavaScript para inicializar el carrusel de herramientas -->
+                <!-- JavaScript para inicializar los carruseles de herramientas -->
                 <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Inicializar Swiper para herramientas
-                    const herramientasSwiper = new Swiper('.herramientas-swiper', {
+                    // Inicializar Swiper para primer carrusel de herramientas
+                    const herramientasSwiper1 = new Swiper('.herramientas-swiper-1', {
                         slidesPerView: 'auto',
-                        spaceBetween: 20,
+                        spaceBetween: 12,
+                        centeredSlides: false,
+                        loop: true,
+                        autoplay: {
+                            delay: 3000,
+                            disableOnInteraction: false,
+                        },
+                        navigation: {
+                            nextEl: '.herramientas-swiper-button-next-1',
+                            prevEl: '.herramientas-swiper-button-prev-1',
+                        },
+                        breakpoints: {
+                            320: {
+                                slidesPerView: 2.5,
+                                spaceBetween: 10,
+                            },
+                            480: {
+                                slidesPerView: 3.5,
+                                spaceBetween: 12,
+                            },
+                            640: {
+                                slidesPerView: 4.5,
+                                spaceBetween: 12,
+                            },
+                            768: {
+                                slidesPerView: 5.5,
+                                spaceBetween: 12,
+                            },
+                            1024: {
+                                slidesPerView: 7,
+                                spaceBetween: 12,
+                            },
+                            1280: {
+                                slidesPerView: 8,
+                                spaceBetween: 12,
+                            },
+                            1536: {
+                                slidesPerView: 9,
+                                spaceBetween: 12,
+                            }
+                        }
+                    });
+
+                    // Inicializar Swiper para segundo carrusel de herramientas
+                    const herramientasSwiper2 = new Swiper('.herramientas-swiper-2', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 12,
                         centeredSlides: false,
                         loop: true,
                         autoplay: {
                             delay: 4000,
                             disableOnInteraction: false,
                         },
-                        pagination: {
-                            el: '.herramientas-swiper-pagination',
-                            clickable: true,
-                            dynamicBullets: true,
-                        },
                         navigation: {
-                            nextEl: '.herramientas-swiper-button-next',
-                            prevEl: '.herramientas-swiper-button-prev',
+                            nextEl: '.herramientas-swiper-button-next-2',
+                            prevEl: '.herramientas-swiper-button-prev-2',
                         },
                         breakpoints: {
                             320: {
-                                slidesPerView: 1.2,
-                                spaceBetween: 15,
+                                slidesPerView: 2.5,
+                                spaceBetween: 10,
                             },
                             480: {
-                                slidesPerView: 1.8,
-                                spaceBetween: 15,
+                                slidesPerView: 3.5,
+                                spaceBetween: 12,
                             },
                             640: {
-                                slidesPerView: 2.5,
-                                spaceBetween: 20,
+                                slidesPerView: 4.5,
+                                spaceBetween: 12,
                             },
                             768: {
-                                slidesPerView: 3.2,
-                                spaceBetween: 20,
+                                slidesPerView: 5.5,
+                                spaceBetween: 12,
                             },
                             1024: {
-                                slidesPerView: 4.2,
-                                spaceBetween: 20,
+                                slidesPerView: 7,
+                                spaceBetween: 12,
                             },
                             1280: {
-                                slidesPerView: 5.2,
-                                spaceBetween: 20,
+                                slidesPerView: 8,
+                                spaceBetween: 12,
                             },
                             1536: {
-                                slidesPerView: 6.2,
-                                spaceBetween: 20,
+                                slidesPerView: 9,
+                                spaceBetween: 12,
                             }
                         }
                     });
 
-                    // Funcionalidad del carrito
+                    // Funcionalidad del carrito para ambos carruseles
                     document.addEventListener('click', function(e) {
-                        if (e.target.closest('.woocommerce-add-to-cart-wrapper-compact .button') || 
-                            e.target.closest('.woocommerce-add-to-cart-wrapper-compact .ajax_add_to_cart')) {
-                            console.log('Botón de agregar al carrito clickeado en carrusel herramientas');
+                        if (e.target.closest('.woocommerce-add-to-cart-wrapper-mini .button') || 
+                            e.target.closest('.woocommerce-add-to-cart-wrapper-mini .ajax_add_to_cart')) {
+                            console.log('Botón de agregar al carrito clickeado en carruseles herramientas');
                             
                             setTimeout(function() {
                                 if (window.cartSidepanel) {
-                                    console.log('Abriendo cart sidepanel desde carrusel herramientas');
+                                    console.log('Abriendo cart sidepanel desde carruseles herramientas');
                                     window.cartSidepanel.open();
                                 }
                             }, 800);
@@ -631,7 +719,7 @@ get_header(); ?>
                     });
                     
                     document.body.addEventListener('added_to_cart', function(e) {
-                        console.log('Evento added_to_cart detectado en carrusel herramientas:', e.detail);
+                        console.log('Evento added_to_cart detectado en carruseles herramientas:', e.detail);
                         setTimeout(function() {
                             if (window.cartSidepanel) {
                                 console.log('Abriendo sidepanel por evento added_to_cart');
