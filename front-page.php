@@ -899,9 +899,9 @@ get_header(); ?>
 
     <!-- Carrusel de Más Vendidos -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <section class="bg-white">
-        <div class="container w-full mx-auto px-4 lg:px-6 py-16">
-            <div class="text-center mb-12">
+    <div class="py-32 bg-white">
+        <div class="w-full px-4 lg:px-6">
+            <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-purple-100 text-purple-800 px-6 py-2 rounded-full font-semibold mb-6">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -1070,7 +1070,7 @@ get_header(); ?>
                         </div>
                     </div>
 
-                    <!-- Segundo Carrusel de Más Vendidos -->
+                                    <!-- Segundo Carrusel de Más Vendidos -->
                     <div class="vendidos-carousel-container-2 relative w-full mx-auto">
                         <div class="vendidos-swiper-2 overflow-hidden rounded-xl bg-white shadow-lg">
                             <div class="swiper-wrapper py-4">
@@ -1079,15 +1079,15 @@ get_header(); ?>
                                 $vendidos_query->rewind_posts();
                                 $product_count = 0;
                                 $skip_count = 0;
+                                $current_rank = $max_first_carousel + 1; // Empezar el ranking desde donde terminó el primer carrusel
                                 while ( $vendidos_query->have_posts() ) : 
                                     $vendidos_query->the_post(); 
                                     global $product;
                                     if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
                                     
-                                    // Saltar los primeros 8 productos que ya se mostraron
+                                    // Saltar los primeros 12 productos que ya se mostraron
                                     if ( $skip_count < $max_first_carousel ) {
                                         $skip_count++;
-                                        $rank++; // Mantener el contador de ranking
                                         continue;
                                     }
                                     
@@ -1114,18 +1114,16 @@ get_header(); ?>
                                             
                                             <!-- Badge de ranking -->
                                             <div class="absolute top-2 left-2 z-20">
-                                                <?php if ( $rank <= 3 ) : ?>
-                                                    <div class="bg-gradient-to-r <?php echo $rank === 1 ? 'from-yellow-400 to-yellow-500' : ($rank === 2 ? 'from-gray-300 to-gray-400' : 'from-amber-600 to-amber-700'); ?> text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
-                                                        #<?php echo $rank; ?>
+                                                <?php if ( $current_rank <= 3 ) : ?>
+                                                    <div class="bg-gradient-to-r <?php echo $current_rank === 1 ? 'from-yellow-400 to-yellow-500' : ($current_rank === 2 ? 'from-gray-300 to-gray-400' : 'from-amber-600 to-amber-700'); ?> text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
+                                                        #<?php echo $current_rank; ?>
                                                     </div>
                                                 <?php else : ?>
                                                     <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                                                        TOP <?php echo $rank; ?>
+                                                        TOP <?php echo $current_rank; ?>
                                                     </div>
                                                 <?php endif; ?>
-                                            </div>
-                                            
-                                            <!-- Badge de descuento -->
+                                            </div>                                            <!-- Badge de descuento -->
                                             <?php if ( $product->is_on_sale() ) : ?>
                                                 <div class="absolute top-2 right-2 z-20">
                                                     <div class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
@@ -1166,7 +1164,7 @@ get_header(); ?>
                                     </div>
                                 </div>
                                 <?php 
-                                $rank++;
+                                $current_rank++;
                                 endwhile;
                                 ?>
                             </div>
@@ -1418,7 +1416,7 @@ get_header(); ?>
             });
             </script>
         </div>
-    </section>
+    </div>
     <?php endif; ?>
 
     <!-- Productos en Oferta -->
