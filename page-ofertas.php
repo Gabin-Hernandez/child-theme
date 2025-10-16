@@ -32,9 +32,7 @@ $shop_url = '/tienda';
         <?php if ( $banner_url ) : ?>
             <div class="h-64 md:h-80 lg:h-96 relative">
                 <img src="<?php echo esc_url( $banner_url ); ?>" alt="<?php echo esc_attr( $page_title ); ?>" class="w-full h-full object-cover">
-               <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-sm"></div>
-                <div class="absolute bottom-20 right-20 w-32 h-32 bg-orange-300/20 rounded-full blur-lg"></div>
-                <div class="absolute top-1/2 left-1/3 w-16 h-16 bg-red-300/15 rounded-full blur-md"></div>
+              
             </div>
         <?php else : ?>
             <div class="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-red-600 via-orange-600 to-red-700 relative">
@@ -46,17 +44,7 @@ $shop_url = '/tienda';
             </div>
         <?php endif; ?>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10 pb-16">
-            <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-10 lg:p-12 border border-white/30 relative overflow-hidden">
-                <!-- Elementos decorativos mejorados -->
-                <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-red-500/8 to-orange-500/8 rounded-full -translate-y-20 translate-x-20"></div>
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-blue-500/8 to-indigo-500/8 rounded-full translate-y-16 -translate-x-16"></div>
-                <div class="absolute top-1/2 right-1/4 w-3 h-3 bg-red-400/30 rounded-full"></div>
-                <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-orange-400/40 rounded-full"></div>
-                
-           
-            </div>
-        </div>
+       
     </section>
 
     <!-- Products Section -->
