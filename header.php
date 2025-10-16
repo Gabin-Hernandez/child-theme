@@ -614,9 +614,9 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo esc_url( home_url( '/?post_type=product&s=&product_cat=lcd-y-touch' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
+                            <a href="<?php echo esc_url( home_url( '/pantallas-lcd/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/baterias/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
+                            <a href="<?php echo esc_url( home_url( '/carcasas/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
                         </div>
                     </div>
 
@@ -629,10 +629,10 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo esc_url( home_url( '/?s=microscopios&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Microscopios</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=estaciones+de+soldadura&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Estaciones de Soldadura</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=cautines&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cautines</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=destornilladores&post_type=product' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Destornilladores</a>
+                            <a href="<?php echo esc_url( home_url( '/microscopios/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Microscopios</a>
+                            <a href="<?php echo esc_url( home_url( '/estaciones-de-soldadura/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Estaciones de Soldadura</a>
+                            <a href="<?php echo esc_url( home_url( '/cautines/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cautines</a>
+                            <a href="<?php echo esc_url( home_url( '/destornilladores/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Destornilladores</a>
                         </div>
                     </div>
 
@@ -645,31 +645,31 @@
                             </svg>
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo esc_url( home_url( '/?s=apple&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
+                            <a href="<?php echo esc_url( home_url( '/apple/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                                 </svg>
                                 Apple
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=samsung&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
+                            <a href="<?php echo esc_url( home_url( '/samsung/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M22.86 5.82v12.36c0 3.21-2.61 5.82-5.82 5.82H6.96c-3.21 0-5.82-2.61-5.82-5.82V5.82C1.14 2.61 3.75 0 6.96 0h10.08c3.21 0 5.82 2.61 5.82 5.82zM12 21.15c5.05 0 9.15-4.1 9.15-9.15S17.05 2.85 12 2.85 2.85 6.95 2.85 12s4.1 9.15 9.15 9.15zm0-16.8c4.22 0 7.65 3.43 7.65 7.65S16.22 19.65 12 19.65 4.35 16.22 4.35 12 7.78 4.35 12 4.35z"/>
                                 </svg>
                                 Samsung
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=huawei&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
+                            <a href="<?php echo esc_url( home_url( '/huawei/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                 </svg>
                                 Huawei
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=xiaomi&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
+                            <a href="<?php echo esc_url( home_url( '/xiaomi/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M19.15 5c.28 0 .85.11.85.4v13.2c0 .29-.57.4-.85.4h-2.4c-.28 0-.75-.11-.75-.4V5.4c0-.29.47-.4.75-.4h2.4zm-4.8 6c.28 0 .65.11.65.4v7.2c0 .29-.37.4-.65.4h-2.8c-.28 0-.65-.11-.65-.4v-7.2c0-.29.37-.4.65-.4h2.8zm-5 3c.28 0 .65.11.65.4v4.2c0 .29-.37.4-.65.4H6.5c-.28 0-.65-.11-.65-.4v-4.2c0-.29.37-.4.65-.4h2.85zm-5-11c.28 0 .65.11.65.4v10.8c0 .29-.37.4-.65.4H1.65c-.28 0-.65-.11-.65-.4V3.4c0-.29.37-.4.65-.4h2.7z"/>
                                 </svg>
                                 Xiaomi
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=motorola&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
+                            <a href="<?php echo esc_url( home_url( '/motorola/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z"/>
                                 </svg>
@@ -1041,10 +1041,10 @@
                     </div>
                     <div id="refacciones-content" style="display: none; padding: 0 0 16px 52px; animation: slideDown 0.3s ease;">
                         <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="<?php echo esc_url( home_url( '/?post_type=product&s=&product_cat=lcd-y-touch' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Pantallas LCD & Touch</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=baterias&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Baterías</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=carcasas&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Carcasas</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=flex&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Flex y Conectores</a>
+                            <a href="<?php echo esc_url( home_url( '/pantallas-lcd/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/baterias/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Baterías</a>
+                            <a href="<?php echo esc_url( home_url( '/carcasas/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Carcasas</a>
+                            <a href="<?php echo esc_url( home_url( '/flex/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Flex y Conectores</a>
                         </div>
                     </div>
                 </div>
@@ -1069,9 +1069,9 @@
                     </div>
                     <div id="herramientas-content" style="display: none; padding: 0 0 16px 52px;">
                         <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="<?php echo esc_url( home_url( '/?s=microscopios&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Microscopios</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=estaciones+de+soldadura&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Estaciones de Soldadura</a>
-                            <a href="<?php echo esc_url( home_url( '/?s=cautines&post_type=product' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Cautines</a>
+                            <a href="<?php echo esc_url( home_url( '/microscopios/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Microscopios</a>
+                            <a href="<?php echo esc_url( home_url( '/estaciones-de-soldadura/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Estaciones de Soldadura</a>
+                            <a href="<?php echo esc_url( home_url( '/cautines/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Cautines</a>
                         </div>
                     </div>
                 </div>
@@ -1096,19 +1096,19 @@
                     </div>
                     <div id="marcas-content" style="display: none; padding: 0 0 16px 52px;">
                         <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <a href="<?php echo esc_url( home_url( '/?s=apple&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">
+                            <a href="<?php echo esc_url( home_url( '/apple/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                                 </svg>
                                 Apple
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=samsung&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">
+                            <a href="<?php echo esc_url( home_url( '/samsung/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M22.86 5.82v12.36c0 3.21-2.61 5.82-5.82 5.82H6.96c-3.21 0-5.82-2.61-5.82-5.82V5.82C1.14 2.61 3.75 0 6.96 0h10.08c3.21 0 5.82 2.61 5.82 5.82z"/>
                                 </svg>
                                 Samsung
                             </a>
-                            <a href="<?php echo esc_url( home_url( '/?s=huawei&post_type=product' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">
+                            <a href="<?php echo esc_url( home_url( '/huawei/' ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                 </svg>
