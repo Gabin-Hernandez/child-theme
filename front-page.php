@@ -295,16 +295,16 @@ get_header(); ?>
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <div class="py-32 bg-slate-50">
-        <div class="container max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-20">
+    <div class="py-24 bg-slate-50">
+        <div class="w-full px-4 lg:px-6">
+            <div class="text-center mb-16">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
                     HERRAMIENTAS PROFESIONALES
                 </div>
-                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
                     Herramientas de Precisión
                 </h2>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
                     Descubre nuestra selección de herramientas especializadas para técnicos profesionales
                 </p>
             </div>
@@ -321,13 +321,17 @@ get_header(); ?>
             
             $herramientas_args = array(
                 'post_type' => 'product',
-                'posts_per_page' => 8,
+                'posts_per_page' => 12,
                 'post_status' => 'publish',
                 'meta_query' => array(
                     array(
                         'key' => '_stock_status',
                         'value' => 'instock',
                         'compare' => '='
+                    ),
+                    array(
+                        'key' => '_thumbnail_id',
+                        'compare' => 'EXISTS'
                     )
                 )
             );
@@ -346,230 +350,90 @@ get_header(); ?>
             $herramientas_query = new WP_Query( $herramientas_args );
             
             if ( $herramientas_query->have_posts() ) : ?>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4 lg:gap-6">
                     <?php while ( $herramientas_query->have_posts() ) : $herramientas_query->the_post(); 
                         global $product;
-                        if ( ! $product || ! $product->is_visible() ) continue;
+                        if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
                     ?>
-                        <div class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 hover:border-amber-200 transform-gpu flex flex-col h-full">
-                            <!-- Gradiente de fondo sutil -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            
+                        <div class="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full">
                             <!-- Imagen del producto -->
-                            <div class="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 aspect-square">
-                                <a href="<?php the_permalink(); ?>" class="block h-full relative z-10">
-                                    <?php if ( has_post_thumbnail() ) : ?>
-                                        <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                            'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out'
-                                        )); ?>
-                                    <?php else : ?>
-                                         <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                                             <div class="p-8 bg-white rounded-full shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                                                 <svg class="w-12 h-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655-5.653a2.548 2.548 0 010-3.586l.837-.836c.415-.415.865-.617 1.344-.617.477 0 .927.202 1.344.617l.836.836a2.548 2.548 0 010 3.586l-3.586 4.655z"></path>
-                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4"></path>
-                                                 </svg>
-                                             </div>
-                                         </div>
-                                     <?php endif; ?>
+                            <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                                <a href="<?php the_permalink(); ?>" class="block h-full">
+                                    <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                        'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                    )); ?>
                                 </a>
                                 
-                                <!-- Overlay con efectos -->
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                
-                                <!-- Badge de descuento mejorado -->
+                                <!-- Badge de descuento -->
                                 <?php if ( $product->is_on_sale() ) : ?>
-                                    <div class="absolute top-4 left-4 z-20">
-                                        <div class="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-2 rounded-xl text-sm font-bold shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                                            <div class="flex items-center space-x-1">
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span>
-                                                    <?php
-                                                    $regular_price = $product->get_regular_price();
-                                                    $sale_price = $product->get_sale_price();
-                                                    if ( $regular_price && $sale_price ) {
-                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                                        echo '-' . $discount . '%';
-                                                    } else {
-                                                        echo 'OFERTA';
-                                                    }
-                                                    ?>
-                                                </span>
-                                            </div>
+                                    <div class="absolute top-2 left-2 z-20">
+                                        <div class="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
+                                            <?php
+                                            $regular_price = $product->get_regular_price();
+                                            $sale_price = $product->get_sale_price();
+                                            if ( $regular_price && $sale_price ) {
+                                                $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                echo '-' . $discount . '%';
+                                            } else {
+                                                echo 'OFERTA';
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 <?php endif; ?>
                                 
                                 <!-- Badge de stock -->
-                                <div class="absolute top-4 right-4 z-20">
-                                    <div class="bg-green-500 text-white px-2 py-1 rounded-lg text-xs font-semibold shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <div class="flex items-center space-x-1">
-                                            <div class="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
-                                            <span>En Stock</span>
-                                        </div>
+                                <div class="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-medium">
+                                        Stock
                                     </div>
                                 </div>
-                                
-                                <!-- Botones de acción rápida -->
-                                 <div class="absolute bottom-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                     <div class="flex space-x-2">
-                                         <button class="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-amber-600 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110">
-                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                             </svg>
-                                         </button>
-                                     </div>
-                                 </div>
                             </div>
                             
-                            <!-- Información del producto mejorada -->
-                            <div class="relative z-10 p-6 bg-white group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-amber-50/30 transition-all duration-500 flex flex-col flex-1">
-                                <!-- Categoría del producto -->
-                                <div class="mb-3">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 group-hover:bg-amber-200 transition-colors duration-300">
-                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
-                                        </svg>
+                            <!-- Información del producto -->
+                            <div class="p-3 flex flex-col flex-1">
+                                <!-- Categoría -->
+                                <div class="mb-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800">
                                         Herramienta
                                     </span>
                                 </div>
                                 
-                                <h3 class="font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-amber-700 transition-colors duration-300 text-lg leading-tight">
+                                <!-- Título -->
+                                <h3 class="font-semibold text-gray-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1">
                                     <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
                                 </h3>
                                 
-                                <!-- Rating mejorado -->
+                                <!-- Rating -->
                                 <?php if ( $product->get_average_rating() ) : ?>
-                                    <div class="flex items-center justify-between mb-4">
-                                        <div class="flex items-center">
-                                            <div class="flex text-yellow-400 mr-2">
-                                                <?php
-                                                $rating = $product->get_average_rating();
-                                                for ( $i = 1; $i <= 5; $i++ ) {
-                                                    if ( $i <= $rating ) {
-                                                        echo '<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                    } else {
-                                                        echo '<svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
-                                                    }
+                                    <div class="flex items-center mb-2">
+                                        <div class="flex text-yellow-400 mr-1">
+                                            <?php
+                                            $rating = $product->get_average_rating();
+                                            for ( $i = 1; $i <= 5; $i++ ) {
+                                                if ( $i <= $rating ) {
+                                                    echo '<svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
+                                                } else {
+                                                    echo '<svg class="w-3 h-3 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
                                                 }
-                                                ?>
-                                            </div>
-                                            <span class="text-sm font-medium text-gray-700"><?php echo number_format($rating, 1); ?></span>
+                                            }
+                                            ?>
                                         </div>
-                                        <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full"><?php echo $product->get_review_count(); ?> reseñas</span>
+                                        <span class="text-xs text-gray-600">(<?php echo $product->get_review_count(); ?>)</span>
                                     </div>
                                 <?php endif; ?>
                                 
-                                <!-- Precio mejorado -->
-                                <div class="mb-6">
-                                    <div class="flex items-center justify-between">
-                                        <div class="text-2xl font-bold text-gray-900 group-hover:text-amber-600 transition-colors duration-300">
-                                            <?php echo $product->get_price_html(); ?>
-                                        </div>
-                                        <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="text-sm text-gray-500 line-through">
-                                                <?php echo wc_price( $product->get_regular_price() ); ?>
-                                            </div>
-                                        <?php endif; ?>
+                                <!-- Precio -->
+                                <div class="mb-3">
+                                    <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
+                                        <?php echo $product->get_price_html(); ?>
                                     </div>
                                 </div>
                                 
-                                <!-- Botón de agregar al carrito mejorado -->
-                                <div class="woocommerce-add-to-cart-wrapper gap-4 mt-auto">
-                                    <?php
-                                    // Obtener el botón de agregar al carrito de WooCommerce
-                                    woocommerce_template_loop_add_to_cart();
-                                    ?>
+                                <!-- Botón de agregar al carrito -->
+                                <div class="woocommerce-add-to-cart-wrapper-compact mt-auto">
+                                    <?php woocommerce_template_loop_add_to_cart(); ?>
                                 </div>
-                                
-                                <style>
-                                .woocommerce-add-to-cart-wrapper {
-                                    display: flex !important;
-                                    flex-direction: column !important;
-                                    gap: 12px !important;
-                                }
-                                
-                                .woocommerce-add-to-cart-wrapper .button,
-                                .woocommerce-add-to-cart-wrapper .added_to_cart {
-                                    width: 100% !important;
-                                    background: linear-gradient(to right, #f59e0b, #d97706) !important;
-                                    color: white !important;
-                                    font-weight: 600 !important;
-                                    padding: 12px 16px !important;
-                                    border-radius: 12px !important;
-                                    border: none !important;
-                                    transition: all 0.3s ease !important;
-                                    transform: scale(1) !important;
-                                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-                                    display: flex !important;
-                                    align-items: center !important;
-                                    justify-content: center !important;
-                                    gap: 8px !important;
-                                    text-decoration: none !important;
-                                    margin: 0 !important;
-                                }
-                                
-                                .woocommerce-add-to-cart-wrapper .button:hover,
-                                .woocommerce-add-to-cart-wrapper .added_to_cart:hover {
-                                    background: linear-gradient(to right, #d97706, #b45309) !important;
-                                    transform: scale(1.05) !important;
-                                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
-                                }
-                                
-                                .group:hover .woocommerce-add-to-cart-wrapper .button,
-                                .group:hover .woocommerce-add-to-cart-wrapper .added_to_cart {
-                                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
-                                }
-                                
-                                .woocommerce-add-to-cart-wrapper .button::before {
-                                    content: "🛒";
-                                    margin-right: 8px;
-                                }
-                                
-                                .woocommerce-add-to-cart-wrapper .added_to_cart::before {
-                                    content: "✓";
-                                    margin-right: 8px;
-                                }
-                                </style>
-                                
-                                <script>
-                                // Asegurar que el cart sidepanel se abra en la front page
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    // Escuchar clics en botones de agregar al carrito
-                                    document.addEventListener('click', function(e) {
-                                        if (e.target.matches('.woocommerce-add-to-cart-wrapper .button, .woocommerce-add-to-cart-wrapper .ajax_add_to_cart')) {
-                                            console.log('Botón de agregar al carrito clickeado en front page');
-                                            
-                                            // Esperar a que se complete la acción AJAX
-                                            setTimeout(function() {
-                                                // Usar la instancia global del sidepanel
-                                                if (window.cartSidepanel) {
-                                                    console.log('Abriendo cart sidepanel desde front page');
-                                                    window.cartSidepanel.open();
-                                                }
-                                            }, 1000);
-                                        }
-                                    });
-                                    
-                                    // También escuchar el evento added_to_cart específicamente
-                                    document.body.addEventListener('added_to_cart', function(e) {
-                                        console.log('Evento added_to_cart detectado en front page:', e.detail);
-                                        setTimeout(function() {
-                                            if (window.cartSidepanel) {
-                                                console.log('Abriendo sidepanel por evento added_to_cart');
-                                                window.cartSidepanel.open();
-                                            }
-                                        }, 500);
-                                    });
-                                });
-                                </script>
-                            </div>
-                            
-                            <!-- Efecto de brillo en hover -->
-                            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -578,13 +442,138 @@ get_header(); ?>
                 <!-- Botón para ver más herramientas -->
                 <div class="text-center mt-12">
                     <a href="/categoria/herramientas/" 
-                       class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg">
+                       class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-base font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
                         Ver Todas las Herramientas
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
                     </a>
                 </div>
+                
+                <!-- Estilos CSS para las cards compactas -->
+                <style>
+                .woocommerce-add-to-cart-wrapper-compact {
+                    display: flex !important;
+                    flex-direction: column !important;
+                    gap: 8px !important;
+                }
+                
+                .woocommerce-add-to-cart-wrapper-compact .button,
+                .woocommerce-add-to-cart-wrapper-compact .added_to_cart {
+                    width: 100% !important;
+                    background: linear-gradient(to right, #f59e0b, #d97706) !important;
+                    color: white !important;
+                    font-weight: 600 !important;
+                    padding: 8px 12px !important;
+                    border-radius: 8px !important;
+                    border: none !important;
+                    transition: all 0.3s ease !important;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    gap: 6px !important;
+                    text-decoration: none !important;
+                    margin: 0 !important;
+                    font-size: 12px !important;
+                    line-height: 1.2 !important;
+                }
+                
+                .woocommerce-add-to-cart-wrapper-compact .button:hover,
+                .woocommerce-add-to-cart-wrapper-compact .added_to_cart:hover {
+                    background: linear-gradient(to right, #d97706, #b45309) !important;
+                    transform: translateY(-1px) !important;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+                }
+                
+                .woocommerce-add-to-cart-wrapper-compact .button::before {
+                    content: "🛒";
+                    font-size: 12px;
+                }
+                
+                .woocommerce-add-to-cart-wrapper-compact .added_to_cart::before {
+                    content: "✓";
+                    font-size: 12px;
+                }
+                
+                /* Line clamp para títulos */
+                .line-clamp-2 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                
+                /* Responsive adjustments */
+                @media (max-width: 640px) {
+                    .grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                        gap: 12px !important;
+                    }
+                }
+                
+                @media (min-width: 641px) and (max-width: 768px) {
+                    .grid {
+                        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                    }
+                }
+                
+                @media (min-width: 769px) and (max-width: 1024px) {
+                    .grid {
+                        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+                    }
+                }
+                
+                @media (min-width: 1025px) and (max-width: 1280px) {
+                    .grid {
+                        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                    }
+                }
+                
+                @media (min-width: 1281px) and (max-width: 1536px) {
+                    .grid {
+                        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+                    }
+                }
+                
+                @media (min-width: 1537px) {
+                    .grid {
+                        grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+                    }
+                }
+                </style>
+                
+                <!-- JavaScript para funcionalidad del carrito -->
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Escuchar clics en botones de agregar al carrito
+                    document.addEventListener('click', function(e) {
+                        if (e.target.closest('.woocommerce-add-to-cart-wrapper-compact .button') || 
+                            e.target.closest('.woocommerce-add-to-cart-wrapper-compact .ajax_add_to_cart')) {
+                            console.log('Botón de agregar al carrito clickeado en sección herramientas');
+                            
+                            // Esperar a que se complete la acción AJAX
+                            setTimeout(function() {
+                                if (window.cartSidepanel) {
+                                    console.log('Abriendo cart sidepanel desde herramientas');
+                                    window.cartSidepanel.open();
+                                }
+                            }, 800);
+                        }
+                    });
+                    
+                    // Escuchar el evento added_to_cart específicamente
+                    document.body.addEventListener('added_to_cart', function(e) {
+                        console.log('Evento added_to_cart detectado en herramientas:', e.detail);
+                        setTimeout(function() {
+                            if (window.cartSidepanel) {
+                                console.log('Abriendo sidepanel por evento added_to_cart');
+                                window.cartSidepanel.open();
+                            }
+                        }, 500);
+                    });
+                });
+                </script>
                 
             <?php else : ?>
                 <div class="text-center py-12">
