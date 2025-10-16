@@ -502,8 +502,7 @@
                         <img src="https://lightblue-gull-856657.hostingersite.com/wp-content/uploads/2025/09/logo-itoolsmx-Photoroom.png" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
                     </a>
                 </div>
-
-                <!-- Búsqueda simplificada (centrado) -->
+            <div class="flex items-center flex-1 justify-end">
                 <div class="header-search" style="flex: 1; max-width: 400px; margin: 20px 40px 0 40px; position: relative;"> 
                     <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" style="position: relative; display: flex; background: white; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden;">
                         <!-- Campo de búsqueda -->
@@ -550,8 +549,6 @@
                         <!-- Los resultados se cargarán aquí dinámicamente -->
                     </div>
                 </div>
-
-                <!-- Acciones del header -->
                 <div class="header-actions" style="display: flex; align-items: center; gap: 16px; flex-shrink: 0;">
                     <?php if ( function_exists('wc_get_account_endpoint_url') && class_exists( 'WooCommerce' ) ) : ?>
                         <!-- Nuevo icono de carrito con contador mejorado -->
@@ -599,6 +596,8 @@
                         </div>
                     <?php endif; ?>
                 </div>
+              </div>
+                
             </div>
 
             <!-- Segunda fila: Menú de navegación dropdown -->
