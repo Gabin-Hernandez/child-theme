@@ -69,7 +69,7 @@ add_action('wp_head', function() {
 // Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
 $original_get = $_GET;
 $_GET['post_type'] = 'product';
-$_GET['s'] = 'pantallas-lcd-touch';
+$_GET['s'] = 'pantalla';
 
 // Configurar paginación - verificar tanto query_var como $_GET
 $paged = 1;
@@ -85,7 +85,7 @@ $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'pantallas-lcd-touch',
+    's' => 'pantalla',
     'paged' => $paged,
     'tax_query' => array(),
     'meta_query' => array()

@@ -628,8 +628,7 @@
                         </button>
                         <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
                             <a href="<?php echo esc_url( home_url( '/microscopios/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Microscopios</a>
-                            <a href="<?php echo esc_url( home_url( '/estaciones-de-soldadura/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Estaciones de Soldadura</a>
-                            <a href="<?php echo esc_url( home_url( '/cautines/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Cautines</a>
+                            <a href="<?php echo esc_url( home_url( '/soldadura/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Soldadura</a>
                             <a href="<?php echo esc_url( home_url( '/destornilladores/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Destornilladores</a>
                         </div>
                     </div>
@@ -1068,8 +1067,8 @@
                     <div id="herramientas-content" style="display: none; padding: 0 0 16px 52px;">
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <a href="<?php echo esc_url( home_url( '/microscopios/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Microscopios</a>
-                            <a href="<?php echo esc_url( home_url( '/estaciones-de-soldadura/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Estaciones de Soldadura</a>
-                            <a href="<?php echo esc_url( home_url( '/cautines/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Cautines</a>
+                            <a href="<?php echo esc_url( home_url( '/soldadura/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #f9fafb;">Soldadura</a>
+                            <a href="<?php echo esc_url( home_url( '/destornilladores/' ) ); ?>" style="color: #4b5563; text-decoration: none; font-size: 14px; padding: 8px 0;">Destornilladores</a>
                         </div>
                     </div>
                 </div>
