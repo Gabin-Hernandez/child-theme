@@ -2147,33 +2147,49 @@ get_header(); ?>
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-green-200 flex flex-col h-full mx-2">
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                                            <a href="<?php echo get_permalink($post->ID); ?>">
+                                            <a href="<?php echo get_permalink($post->ID); ?>" class="block h-full">
                                                 <img src="<?php echo esc_url($image_url); ?>" 
                                                      alt="<?php echo esc_attr($post->post_title); ?>" 
                                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                             </a>
+                                            
+                                            <!-- Badge de descuento -->
                                             <?php if ( $product->is_on_sale() ) : ?>
-                                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                                                    ¡Oferta!
+                                                <div class="absolute top-2 right-2 z-20">
+                                                    <div class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                                                        <?php
+                                                        $regular_price = $product->get_regular_price();
+                                                        $sale_price = $product->get_sale_price();
+                                                        if ( $regular_price && $sale_price ) {
+                                                            $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                            echo '-' . $discount . '%';
+                                                        } else {
+                                                            echo 'OFERTA';
+                                                        }
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
                                         
                                         <!-- Información del producto -->
                                         <div class="p-3 flex flex-col flex-1">
+                                            <!-- Título -->
                                             <h3 class="font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-green-600 transition-colors" style="height: 2.5rem;">
                                                 <a href="<?php echo get_permalink($post->ID); ?>" class="hover:underline">
                                                     <?php echo $post->post_title; ?>
                                                 </a>
                                             </h3>
                                             
-                                            <div class="flex items-center justify-between mt-auto">
-                                                <div class="text-lg font-bold text-slate-900">
+                                            <!-- Precio -->
+                                            <div class="mb-3">
+                                                <div class="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors">
                                                     <?php echo $product->get_price_html(); ?>
                                                 </div>
                                             </div>
                                             
-                                            <div class="mt-2">
+                                            <!-- Botón de agregar al carrito -->
+                                            <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
                                                 <?php woocommerce_template_loop_add_to_cart(); ?>
                                             </div>
                                         </div>
@@ -2213,33 +2229,49 @@ get_header(); ?>
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-green-200 flex flex-col h-full mx-2">
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                                            <a href="<?php echo get_permalink($post->ID); ?>">
+                                            <a href="<?php echo get_permalink($post->ID); ?>" class="block h-full">
                                                 <img src="<?php echo esc_url($image_url); ?>" 
                                                      alt="<?php echo esc_attr($post->post_title); ?>" 
                                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                             </a>
+                                            
+                                            <!-- Badge de descuento -->
                                             <?php if ( $product->is_on_sale() ) : ?>
-                                                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                                                    ¡Oferta!
+                                                <div class="absolute top-2 right-2 z-20">
+                                                    <div class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                                                        <?php
+                                                        $regular_price = $product->get_regular_price();
+                                                        $sale_price = $product->get_sale_price();
+                                                        if ( $regular_price && $sale_price ) {
+                                                            $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                            echo '-' . $discount . '%';
+                                                        } else {
+                                                            echo 'OFERTA';
+                                                        }
+                                                        ?>
+                                                    </div>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
                                         
                                         <!-- Información del producto -->
                                         <div class="p-3 flex flex-col flex-1">
+                                            <!-- Título -->
                                             <h3 class="font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-green-600 transition-colors" style="height: 2.5rem;">
                                                 <a href="<?php echo get_permalink($post->ID); ?>" class="hover:underline">
                                                     <?php echo $post->post_title; ?>
                                                 </a>
                                             </h3>
                                             
-                                            <div class="flex items-center justify-between mt-auto">
-                                                <div class="text-lg font-bold text-slate-900">
+                                            <!-- Precio -->
+                                            <div class="mb-3">
+                                                <div class="text-lg font-bold text-gray-900 group-hover:text-green-600 transition-colors">
                                                     <?php echo $product->get_price_html(); ?>
                                                 </div>
                                             </div>
                                             
-                                            <div class="mt-2">
+                                            <!-- Botón de agregar al carrito -->
+                                            <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
                                                 <?php woocommerce_template_loop_add_to_cart(); ?>
                                             </div>
                                         </div>
