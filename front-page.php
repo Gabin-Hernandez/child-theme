@@ -295,7 +295,7 @@ get_header(); ?>
 
     <!-- Productos de Herramientas -->
     <?php if ( class_exists( 'WooCommerce' ) ) : ?>
-    <div class="py-32 bg-slate-50">
+    <div class="pt-32 bg-slate-50">
         <div class="w-full px-4 lg:px-6">
             <div class="text-center mb-20">
                 <div class="inline-flex items-center bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-semibold mb-6">
