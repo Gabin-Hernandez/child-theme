@@ -968,7 +968,7 @@ get_header(); ?>
                     while ( $vendidos_query->have_posts() ) : 
                         $vendidos_query->the_post(); 
                         global $product;
-                        if ( $product && $product->is_visible() && has_post_thumbnail() ) {
+                        if ( $product && $product->is_visible() ) {
                             $valid_products[] = array(
                                 'post' => get_post(),
                                 'product' => $product
