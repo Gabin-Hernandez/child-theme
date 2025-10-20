@@ -49,6 +49,14 @@ function itools_enqueue_styles() {
         filemtime(get_stylesheet_directory() . '/css/price-slider.css') 
     );
     
+    // Encolar CSS para el sistema de reseñas mejorado
+    wp_enqueue_style( 
+        'itools-reviews', 
+        get_stylesheet_directory_uri() . '/css/reviews.css', 
+        array(), 
+        filemtime(get_stylesheet_directory() . '/css/reviews.css') 
+    );
+    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
@@ -90,6 +98,52 @@ function itools_enqueue_styles() {
         wp_enqueue_script( 'wc-add-to-cart' );
         wp_enqueue_script( 'woocommerce' );
     }
+
+/**
+ * Configuración de Google reCAPTCHA v2
+ * IMPORTANTE: Reemplaza estas claves con las tuyas desde https://www.google.com/recaptcha/admin
+ */
+define('ITOOLS_RECAPTCHA_SITE_KEY', '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); // Clave del sitio (pública)
+define('ITOOLS_RECAPTCHA_SECRET_KEY', '6Ld3MfErAAAAANuE6bwPuthUdRr7Z-hVW1fSnlcg'); // Clave secreta (privada)
+
+/**
+ * Función para verificar token de reCAPTCHA
+ */
+function itools_verify_recaptcha($token) {
+    if (empty($token)) {
+        return false;
+    }
+    
+    $secret_key = ITOOLS_RECAPTCHA_SECRET_KEY;
+    $verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+    
+    $data = array(
+        'secret' => $secret_key,
+        'response' => $token,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    );
+    
+    $response = wp_remote_post($verify_url, array(
+        'body' => $data,
+        'timeout' => 10
+    ));
+    
+    if (is_wp_error($response)) {
+        error_log('reCAPTCHA verification error: ' . $response->get_error_message());
+        return false;
+    }
+    
+    $response_body = wp_remote_retrieve_body($response);
+    $result = json_decode($response_body, true);
+    
+    if (isset($result['success']) && $result['success'] === true) {
+        error_log('✅ reCAPTCHA verification successful');
+        return true;
+    }
+    
+    error_log('❌ reCAPTCHA verification failed: ' . print_r($result, true));
+    return false;
+}
 
 // Function to get dynamic price range from filtered products
 function itools_get_dynamic_price_range($category_id = null) {
@@ -2204,6 +2258,35 @@ function itools_handle_custom_review_submission() {
     }
     
     error_log('✅ Nonce verified');
+    
+    // Verificar reCAPTCHA
+    if ( ! isset( $_POST['g-recaptcha-response'] ) || empty( $_POST['g-recaptcha-response'] ) ) {
+        error_log('❌ reCAPTCHA token missing');
+        wp_die( '<div style="text-align: center; padding: 40px; font-family: Arial, sans-serif;">
+                    <div style="background: #fef2f2; border: 2px solid #fca5a5; border-radius: 12px; padding: 30px; max-width: 500px; margin: 0 auto;">
+                        <div style="color: #dc2626; font-size: 48px; margin-bottom: 16px;">🚫</div>
+                        <h2 style="color: #991b1b; margin-bottom: 16px;">Verificación de Seguridad Requerida</h2>
+                        <p style="color: #7f1d1d; margin-bottom: 20px;">Por favor completa la verificación reCAPTCHA antes de enviar tu reseña.</p>
+                        <a href="javascript:history.back()" style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">← Volver al Formulario</a>
+                    </div>
+                </div>' );
+    }
+    
+    // Validar token de reCAPTCHA
+    $recaptcha_token = sanitize_text_field( $_POST['g-recaptcha-response'] );
+    if ( ! itools_verify_recaptcha( $recaptcha_token ) ) {
+        error_log('❌ reCAPTCHA verification failed');
+        wp_die( '<div style="text-align: center; padding: 40px; font-family: Arial, sans-serif;">
+                    <div style="background: #fef2f2; border: 2px solid #fca5a5; border-radius: 12px; padding: 30px; max-width: 500px; margin: 0 auto;">
+                        <div style="color: #dc2626; font-size: 48px; margin-bottom: 16px;">🤖</div>
+                        <h2 style="color: #991b1b; margin-bottom: 16px;">Verificación de Seguridad Fallida</h2>
+                        <p style="color: #7f1d1d; margin-bottom: 20px;">La verificación reCAPTCHA no pudo ser validada. Por favor intenta nuevamente.</p>
+                        <a href="javascript:history.back()" style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">← Intentar de Nuevo</a>
+                    </div>
+                </div>' );
+    }
+    
+    error_log('✅ reCAPTCHA verified successfully');
     
     // Obtener datos del formulario
     $product_id = intval( $_POST['product_id'] );

@@ -371,150 +371,442 @@ get_header(); ?>
                             
                             if ($reviews) :
                                 ?>
-                                <div class="existing-reviews" style="margin-bottom: 30px;">
-                                    <?php foreach ($reviews as $comment) : 
+                                <div class="existing-reviews" style="margin-bottom: 40px;">
+                                    <?php foreach ($reviews as $index => $comment) : 
                                         $rating = get_comment_meta($comment->comment_ID, 'rating', true);
+                                        $is_verified = get_comment_meta($comment->comment_ID, 'verified', true);
+                                        
+                                        // Colores alternativos para variedad visual
+                                        $gradients = [
+                                            'background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); border: 2px solid #e2e8f0;',
+                                            'background: linear-gradient(135deg, #fefce8 0%, #ffffff 100%); border: 2px solid #fde047;',
+                                            'background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); border: 2px solid #38bdf8;',
+                                            'background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%); border: 2px solid #4ade80;'
+                                        ];
+                                        $currentGradient = $gradients[$index % count($gradients)];
                                     ?>
-                                        <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 15px;">
-                                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                                <strong style="font-size: 16px; color: #1f2937;"><?php echo esc_html($comment->comment_author); ?></strong>
-                                                <?php if ($rating) : ?>
-                                                    <span style="margin-left: 10px; color: #fbbf24;">
-                                                        <?php echo str_repeat('⭐', $rating); ?>
-                                                    </span>
-                                                <?php endif; ?>
+                                        <div class="review-card" style="<?php echo $currentGradient; ?> border-radius: 16px; padding: 24px; margin-bottom: 20px; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);" 
+                                             onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0, 0, 0, 0.12)'" 
+                                             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.06)'">
+                                            
+                                            <!-- Elemento decorativo -->
+                                            <div style="position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); border-radius: 50%;"></div>
+                                            
+                                            <!-- Header de la reseña -->
+                                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; position: relative; z-index: 1;">
+                                                <div style="display: flex; align-items: center; gap: 12px;">
+                                                    <!-- Avatar generado con iniciales -->
+                                                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+                                                        <?php echo strtoupper(substr($comment->comment_author, 0, 1)); ?>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                                            <strong style="font-size: 18px; color: #1e293b; font-weight: 700;">
+                                                                <?php echo esc_html($comment->comment_author); ?>
+                                                            </strong>
+                                                            <?php if ($is_verified) : ?>
+                                                                <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                                                                    <svg style="width: 12px; height: 12px;" fill="currentColor" viewBox="0 0 20 20">
+                                                                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                                    </svg>
+                                                                    Verificado
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        
+                                                        <!-- Calificación con estrellas mejoradas -->
+                                                        <?php if ($rating) : ?>
+                                                            <div style="display: flex; align-items: center; gap: 4px; margin-top: 4px;">
+                                                                <?php for ($i = 1; $i <= 5; $i++) : ?>
+                                                                    <span style="color: <?php echo $i <= $rating ? '#f59e0b' : '#d1d5db'; ?>; font-size: 16px; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">★</span>
+                                                                <?php endfor; ?>
+                                                                <span style="margin-left: 8px; font-size: 14px; color: #64748b; font-weight: 500;">
+                                                                    (<?php echo $rating; ?>/5)
+                                                                </span>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Fecha con mejor formato -->
+                                                <div style="text-align: right;">
+                                                    <time style="font-size: 13px; color: #64748b; font-weight: 500; background: rgba(148, 163, 184, 0.1); padding: 4px 8px; border-radius: 6px;">
+                                                        <?php echo date_i18n('d M Y', strtotime($comment->comment_date)); ?>
+                                                    </time>
+                                                </div>
                                             </div>
-                                            <p style="color: #4b5563; line-height: 1.6; margin: 0;">
-                                                <?php echo esc_html($comment->comment_content); ?>
-                                            </p>
-                                            <span style="font-size: 12px; color: #9ca3af; margin-top: 10px; display: block;">
-                                                <?php echo date_i18n('d/m/Y', strtotime($comment->comment_date)); ?>
-                                            </span>
+                                            
+                                            <!-- Contenido de la reseña -->
+                                            <div style="position: relative; z-index: 1;">
+                                                <p style="color: #374151; line-height: 1.7; margin: 0; font-size: 15px; text-align: justify; background: rgba(255, 255, 255, 0.5); padding: 16px; border-radius: 12px; border-left: 4px solid #3b82f6;">
+                                                    "<?php echo esc_html($comment->comment_content); ?>"
+                                                </p>
+                                            </div>
+                                            
+                                            <!-- Footer de la reseña -->
+                                            <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.2);">
+                                                <div style="display: flex; align-items: center; gap: 16px;">
+                                                    <button onclick="this.style.color='#ef4444'; this.querySelector('span').textContent = parseInt(this.querySelector('span').textContent) + 1" 
+                                                            style="background: none; border: none; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                                                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                                        </svg>
+                                                        <span>0</span>
+                                                    </button>
+                                                    
+                                                    <span style="font-size: 12px; color: #94a3b8; font-weight: 500;">
+                                                        ¿Te resultó útil?
+                                                    </span>
+                                                </div>
+                                                
+                                                <div style="font-size: 12px; color: #94a3b8;">
+                                                    #<?php echo str_pad($comment->comment_ID, 4, '0', STR_PAD_LEFT); ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                             <?php else : ?>
-                                <p style="color: #6b7280; margin-bottom: 30px;">
-                                    No hay reseñas todavía. ¡Sé el primero en dejar una!
-                                </p>
+                                <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); border: 2px dashed #cbd5e1; border-radius: 16px; margin-bottom: 40px;">
+                                    <div style="font-size: 48px; margin-bottom: 16px; opacity: 0.6;">⭐</div>
+                                    <h3 style="color: #475569; margin-bottom: 8px; font-size: 18px; font-weight: 600;">
+                                        No hay reseñas todavía
+                                    </h3>
+                                    <p style="color: #64748b; margin: 0; font-size: 14px;">
+                                        ¡Sé el primero en compartir tu experiencia con este producto!
+                                    </p>
+                                </div>
                             <?php endif; ?>
                             
                             <!-- Formulario de reseña -->
-                            <div style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 30px;">
-                                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #1f2937;">
-                                    Agregar una Reseña
-                                </h3>
+                            <div class="review-form-container" style="background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); border: 2px solid #e2e8f0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); position: relative; overflow: hidden;">
+                                <!-- Decorative background -->
+                                <div style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
                                 
-                                <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display: block;">
-                                    <input type="hidden" name="action" value="submit_product_review">
-                                    <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
-                                    <?php wp_nonce_field('product_review_nonce', 'review_nonce'); ?>
-                                    
-                                    <!-- Calificación -->
-                                    <div style="margin-bottom: 20px;">
-                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
-                                            Tu Calificación <span style="color: red;">*</span>
-                                        </label>
-                                        <div class="star-rating-input" style="display: flex; gap: 5px; font-size: 30px;">
-                                            <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
-                                            <label for="star1" class="star-label" data-value="1" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
-                                            
-                                            <input type="radio" name="rating" value="2" id="star2" style="display: none;">
-                                            <label for="star2" class="star-label" data-value="2" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
-                                            
-                                            <input type="radio" name="rating" value="3" id="star3" style="display: none;">
-                                            <label for="star3" class="star-label" data-value="3" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
-                                            
-                                            <input type="radio" name="rating" value="4" id="star4" style="display: none;">
-                                            <label for="star4" class="star-label" data-value="4" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
-                                            
-                                            <input type="radio" name="rating" value="5" id="star5" style="display: none;">
-                                            <label for="star5" class="star-label" data-value="5" style="cursor: pointer; color: #d1d5db; transition: color 0.2s;">★</label>
+                                <div style="position: relative; z-index: 1;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 24px;">
+                                        <div style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 16px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">
+                                            <svg style="width: 24px; height: 24px; color: white;" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 style="font-size: 24px; font-weight: 700; margin: 0; color: #1e293b; background: linear-gradient(135deg, #1e293b, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                                Comparte tu Experiencia
+                                            </h3>
+                                            <p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 500;">
+                                                Tu opinión nos ayuda a mejorar nuestros productos
+                                            </p>
                                         </div>
                                     </div>
                                     
-                                    <!-- Comentario -->
-                                    <div style="margin-bottom: 20px;">
-                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
-                                            Tu Reseña <span style="color: red;">*</span>
-                                        </label>
-                                        <textarea name="comment" rows="6" required 
-                                                  style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; font-family: inherit;"
-                                                  placeholder="Cuéntanos tu experiencia con este producto..."></textarea>
-                                    </div>
+                                    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="modern-review-form" style="display: block;">
+                                        <input type="hidden" name="action" value="submit_product_review">
+                                        <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
+                                        <?php wp_nonce_field('product_review_nonce', 'review_nonce'); ?>
+                                        
+                                        <!-- reCAPTCHA Script -->
+                                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
                                     
-                                    <!-- Nombre -->
-                                    <div style="margin-bottom: 20px;">
-                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
-                                            Nombre <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="text" name="author" required 
-                                               style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;"
-                                               placeholder="Tu nombre">
-                                    </div>
+                                        <!-- Calificación -->
+                                        <div class="form-group" style="margin-bottom: 28px;">
+                                            <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                                <span style="display: flex; align-items: center; gap: 8px;">
+                                                    <svg style="width: 20px; height: 20px; color: #f59e0b;" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                                    </svg>
+                                                    Tu Calificación <span style="color: #ef4444;">*</span>
+                                                </span>
+                                            </label>
+                                            <div class="star-rating-container" style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                                                <div class="star-rating-input" style="display: flex; gap: 8px; font-size: 36px; justify-content: center;">
+                                                    <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
+                                                    <label for="star1" class="star-label" data-value="1" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                    
+                                                    <input type="radio" name="rating" value="2" id="star2" style="display: none;">
+                                                    <label for="star2" class="star-label" data-value="2" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                    
+                                                    <input type="radio" name="rating" value="3" id="star3" style="display: none;">
+                                                    <label for="star3" class="star-label" data-value="3" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                    
+                                                    <input type="radio" name="rating" value="4" id="star4" style="display: none;">
+                                                    <label for="star4" class="star-label" data-value="4" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                    
+                                                    <input type="radio" name="rating" value="5" id="star5" style="display: none;">
+                                                    <label for="star5" class="star-label" data-value="5" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                </div>
+                                                <div id="rating-text" style="text-align: center; margin-top: 12px; font-size: 14px; color: #64748b; font-weight: 500; min-height: 20px;"></div>
+                                            </div>
+                                        </div>
                                     
-                                    <!-- Email -->
-                                    <div style="margin-bottom: 20px;">
-                                        <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #374151;">
-                                            Email <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="email" name="email" required 
-                                               style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;"
-                                               placeholder="tu@email.com">
-                                    </div>
+                                        <!-- Comentario -->
+                                        <div class="form-group" style="margin-bottom: 28px;">
+                                            <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                                <span style="display: flex; align-items: center; gap: 8px;">
+                                                    <svg style="width: 20px; height: 20px; color: #3b82f6;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                                    </svg>
+                                                    Tu Reseña <span style="color: #ef4444;">*</span>
+                                                </span>
+                                            </label>
+                                            <div style="position: relative;">
+                                                <textarea name="comment" rows="6" required 
+                                                          style="width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; transition: all 0.3s ease; background: white; line-height: 1.6;"
+                                                          placeholder="Comparte tu experiencia con este producto... ¿Qué te gustó más? ¿Lo recomendarías?"
+                                                          onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'"
+                                                          onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'"></textarea>
+                                                <div style="position: absolute; bottom: 12px; right: 12px; font-size: 12px; color: #94a3b8; pointer-events: none;">
+                                                    <span id="char-count">0</span>/500
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Campos de información personal -->
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px;">
+                                            <!-- Nombre -->
+                                            <div class="form-group">
+                                                <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                                    <span style="display: flex; align-items: center; gap: 8px;">
+                                                        <svg style="width: 20px; height: 20px; color: #8b5cf6;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                                        </svg>
+                                                        Nombre <span style="color: #ef4444;">*</span>
+                                                    </span>
+                                                </label>
+                                                <input type="text" name="author" required 
+                                                       style="width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; transition: all 0.3s ease; background: white;"
+                                                       placeholder="Tu nombre completo"
+                                                       onfocus="this.style.borderColor='#8b5cf6'; this.style.boxShadow='0 0 0 3px rgba(139, 92, 246, 0.1)'"
+                                                       onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                                            </div>
+                                            
+                                            <!-- Email -->
+                                            <div class="form-group">
+                                                <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                                    <span style="display: flex; align-items: center; gap: 8px;">
+                                                        <svg style="width: 20px; height: 20px; color: #06b6d4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                                        </svg>
+                                                        Email <span style="color: #ef4444;">*</span>
+                                                    </span>
+                                                </label>
+                                                <input type="email" name="email" required 
+                                                       style="width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 14px; transition: all 0.3s ease; background: white;"
+                                                       placeholder="tu@email.com"
+                                                       onfocus="this.style.borderColor='#06b6d4'; this.style.boxShadow='0 0 0 3px rgba(6, 182, 212, 0.1)'"
+                                                       onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
+                                            </div>
+                                        </div>
                                     
-                                    <!-- Mensaje informativo -->
-                                    <div style="background: #f0f9ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
-                                        <p style="margin: 0; color: #1e40af; font-size: 14px;">
-                                            ℹ️ Tu reseña será revisada por nuestro equipo antes de ser publicada. Te notificaremos cuando sea aprobada.
-                                        </p>
-                                    </div>
-                                    
-                                    <!-- Botón -->
-                                    <button type="submit" 
-                                            style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 14px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%;">
-                                        Enviar Reseña
-                                    </button>
+                                        <!-- Google reCAPTCHA -->
+                                        <div class="form-group" style="margin-bottom: 28px;">
+                                            <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                                <span style="display: flex; align-items: center; gap: 8px;">
+                                                    <svg style="width: 20px; height: 20px; color: #10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                                    </svg>
+                                                    Verificación de Seguridad <span style="color: #ef4444;">*</span>
+                                                </span>
+                                            </label>
+                                            <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: center;">
+                                                <div class="g-recaptcha" data-sitekey="<?php echo esc_attr(defined('ITOOLS_RECAPTCHA_SITE_KEY') ? ITOOLS_RECAPTCHA_SITE_KEY : '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'); ?>"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Mensaje informativo -->
+                                        <div style="background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); border: 2px solid #3b82f6; padding: 20px; margin-bottom: 28px; border-radius: 16px; position: relative;">
+                                            <div style="position: absolute; top: -8px; left: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;">
+                                                INFORMACIÓN IMPORTANTE
+                                            </div>
+                                            <div style="display: flex; align-items: start; gap: 12px; margin-top: 8px;">
+                                                <div style="background: #3b82f6; border-radius: 50%; padding: 6px; flex-shrink: 0;">
+                                                    <svg style="width: 16px; height: 16px; color: white;" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <p style="margin: 0; color: #1e40af; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                                                        <strong>Tu reseña será revisada por nuestro equipo</strong> antes de ser publicada para mantener la calidad y autenticidad de nuestras valoraciones. 
+                                                        <br><span style="color: #3730a3;">Te notificaremos por email cuando sea aprobada. ¡Gracias por tu tiempo!</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Botón de envío -->
+                                        <button type="submit" class="submit-review-btn" 
+                                                style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%); 
+                                                       color: white; 
+                                                       padding: 18px 32px; 
+                                                       border: none; 
+                                                       border-radius: 16px; 
+                                                       font-size: 18px; 
+                                                       font-weight: 700; 
+                                                       cursor: pointer; 
+                                                       width: 100%; 
+                                                       transition: all 0.3s ease; 
+                                                       box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+                                                       position: relative;
+                                                       overflow: hidden;">
+                                            <span style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                                                <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                                </svg>
+                                                Publicar Mi Reseña
+                                            </span>
+                                        </button>
                                 </form>
                                 
-                                <script>
-                                // Sistema mejorado de calificación por estrellas
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    const starLabels = document.querySelectorAll('.star-label');
-                                    let selectedRating = 0;
-                                    
-                                    starLabels.forEach((label, index) => {
-                                        const rating = parseInt(label.getAttribute('data-value'));
+                                        <style>
+                                        /* Animaciones y efectos adicionales para el formulario de reseñas */
+                                        .star-rating-container:hover {
+                                            border-color: #f59e0b !important;
+                                            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
+                                        }
                                         
-                                        // Click: seleccionar rating
-                                        label.addEventListener('click', function() {
-                                            selectedRating = rating;
-                                            updateStars(rating);
-                                        });
+                                        .star-label:hover {
+                                            transform: scale(1.1) !important;
+                                        }
                                         
-                                        // Hover: preview
-                                        label.addEventListener('mouseenter', function() {
-                                            updateStars(rating);
-                                        });
+                                        .submit-review-btn:hover {
+                                            transform: translateY(-2px) !important;
+                                            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
+                                        }
                                         
-                                        // Mouse sale: volver al seleccionado
-                                        label.addEventListener('mouseleave', function() {
-                                            updateStars(selectedRating);
-                                        });
-                                    });
-                                    
-                                    function updateStars(rating) {
-                                        starLabels.forEach(label => {
-                                            const labelValue = parseInt(label.getAttribute('data-value'));
-                                            if (labelValue <= rating) {
-                                                label.style.color = '#fbbf24'; // Dorado
-                                            } else {
-                                                label.style.color = '#d1d5db'; // Gris
+                                        .submit-review-btn:active {
+                                            transform: translateY(0) !important;
+                                        }
+                                        
+                                        .form-group input:focus,
+                                        .form-group textarea:focus {
+                                            transform: translateY(-1px);
+                                        }
+                                        
+                                        @media (max-width: 768px) {
+                                            .form-group[style*="grid-template-columns"] {
+                                                grid-template-columns: 1fr !important;
+                                            }
+                                        }
+                                        </style>
+                                        
+                                        <script>
+                                        // Sistema mejorado de calificación por estrellas y UX
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const starLabels = document.querySelectorAll('.star-label');
+                                            const ratingText = document.getElementById('rating-text');
+                                            const commentTextarea = document.querySelector('textarea[name="comment"]');
+                                            const charCounter = document.getElementById('char-count');
+                                            let selectedRating = 0;
+                                            
+                                            // Textos descriptivos para las calificaciones
+                                            const ratingTexts = {
+                                                1: '⭐ Muy decepcionante',
+                                                2: '⭐⭐ No me gustó',
+                                                3: '⭐⭐⭐ Está bien',
+                                                4: '⭐⭐⭐⭐ Me gustó mucho',
+                                                5: '⭐⭐⭐⭐⭐ ¡Excelente!'
+                                            };
+                                            
+                                            // Contador de caracteres para textarea
+                                            if (commentTextarea && charCounter) {
+                                                commentTextarea.addEventListener('input', function() {
+                                                    const length = this.value.length;
+                                                    charCounter.textContent = length;
+                                                    
+                                                    if (length > 450) {
+                                                        charCounter.style.color = '#ef4444';
+                                                    } else if (length > 300) {
+                                                        charCounter.style.color = '#f59e0b';
+                                                    } else {
+                                                        charCounter.style.color = '#94a3b8';
+                                                    }
+                                                    
+                                                    // Limitar a 500 caracteres
+                                                    if (length > 500) {
+                                                        this.value = this.value.substring(0, 500);
+                                                        charCounter.textContent = '500';
+                                                        charCounter.style.color = '#ef4444';
+                                                    }
+                                                });
+                                            }
+                                            
+                                            starLabels.forEach((label, index) => {
+                                                const rating = parseInt(label.getAttribute('data-value'));
+                                                
+                                                // Click: seleccionar rating
+                                                label.addEventListener('click', function() {
+                                                    selectedRating = rating;
+                                                    updateStars(rating);
+                                                    if (ratingText) {
+                                                        ratingText.textContent = ratingTexts[rating] || '';
+                                                        ratingText.style.color = '#059669';
+                                                        ratingText.style.fontWeight = '600';
+                                                    }
+                                                });
+                                                
+                                                // Hover: preview
+                                                label.addEventListener('mouseenter', function() {
+                                                    updateStars(rating);
+                                                    if (ratingText && !selectedRating) {
+                                                        ratingText.textContent = ratingTexts[rating] || '';
+                                                        ratingText.style.color = '#64748b';
+                                                    }
+                                                });
+                                                
+                                                // Mouse sale: volver al seleccionado
+                                                label.addEventListener('mouseleave', function() {
+                                                    updateStars(selectedRating);
+                                                    if (ratingText && !selectedRating) {
+                                                        ratingText.textContent = '';
+                                                    }
+                                                });
+                                            });
+                                            
+                                            function updateStars(rating) {
+                                                starLabels.forEach(label => {
+                                                    const labelValue = parseInt(label.getAttribute('data-value'));
+                                                    if (labelValue <= rating) {
+                                                        label.style.color = '#f59e0b'; // Dorado mejorado
+                                                        label.style.filter = 'drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4))';
+                                                    } else {
+                                                        label.style.color = '#d1d5db'; // Gris
+                                                        label.style.filter = 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))';
+                                                    }
+                                                });
+                                            }
+                                            
+                                            // Validación del formulario antes del envío
+                                            const form = document.querySelector('.modern-review-form');
+                                            if (form) {
+                                                form.addEventListener('submit', function(e) {
+                                                    if (!selectedRating) {
+                                                        e.preventDefault();
+                                                        alert('Por favor selecciona una calificación antes de enviar tu reseña.');
+                                                        return false;
+                                                    }
+                                                    
+                                                    // Verificar que el reCAPTCHA esté completado
+                                                    if (typeof grecaptcha !== 'undefined') {
+                                                        const response = grecaptcha.getResponse();
+                                                        if (!response) {
+                                                            e.preventDefault();
+                                                            alert('Por favor completa la verificación de seguridad (reCAPTCHA).');
+                                                            return false;
+                                                        }
+                                                    }
+                                                    
+                                                    // Mostrar indicador de carga
+                                                    const submitBtn = this.querySelector('.submit-review-btn');
+                                                    if (submitBtn) {
+                                                        submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px; animation: spin 1s linear infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Enviando Reseña...</span>';
+                                                        submitBtn.disabled = true;
+                                                        submitBtn.style.opacity = '0.7';
+                                                    }
+                                                });
                                             }
                                         });
-                                    }
-                                });
-                                </script>
+                                        </script>
                             </div>
                         </div>
                     </div>

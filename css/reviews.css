@@ -1,0 +1,523 @@
+/**
+ * Estilos para el sistema de reseñas mejorado con reCAPTCHA
+ * ITOOLS - Sistema de Reseñas Moderno
+ */
+
+/* ============================================
+   ANIMACIONES Y KEYFRAMES
+   ============================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   CONTENEDOR GENERAL DE RESEÑAS
+   ============================================ */
+
+.reviews-wrapper {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.reviews-wrapper h2 {
+    position: relative;
+    display: inline-block;
+}
+
+.reviews-wrapper h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 2px;
+}
+
+/* ============================================
+   TARJETAS DE RESEÑAS EXISTENTES
+   ============================================ */
+
+.existing-reviews {
+    display: grid;
+    gap: 20px;
+}
+
+.review-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+}
+
+.review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.review-card:hover .review-author-avatar {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.review-author-avatar {
+    transition: all 0.3s ease;
+}
+
+.review-rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.review-rating-star {
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.review-rating-star:hover {
+    transform: scale(1.2);
+}
+
+.review-helpful-btn {
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.review-helpful-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+}
+
+.review-helpful-btn:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.review-helpful-btn:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   FORMULARIO DE RESEÑAS
+   ============================================ */
+
+.review-form-container {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    position: relative;
+}
+
+.modern-review-form {
+    display: grid;
+    gap: 28px;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.form-group label:hover {
+    color: #3b82f6;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   SISTEMA DE CALIFICACIÓN CON ESTRELLAS
+   ============================================ */
+
+.star-rating-container {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.star-rating-container:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.star-rating-input {
+    display: flex;
+    gap: 8px;
+    font-size: 36px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.star-label {
+    cursor: pointer;
+    color: #d1d5db;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    user-select: none;
+}
+
+.star-label:hover {
+    transform: scale(1.2) rotate(5deg);
+    color: #f59e0b;
+}
+
+.star-label:active {
+    transform: scale(1.1);
+}
+
+.star-label.filled {
+    color: #f59e0b;
+    filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.4));
+}
+
+#rating-text {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+
+/* ============================================
+   CONTADOR DE CARACTERES
+   ============================================ */
+
+.char-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    font-size: 12px;
+    color: #94a3b8;
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.char-counter.warning {
+    color: #f59e0b;
+}
+
+.char-counter.danger {
+    color: #ef4444;
+    animation: pulse 1s infinite;
+}
+
+/* ============================================
+   reCAPTCHA PERSONALIZADO
+   ============================================ */
+
+.recaptcha-container {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.recaptcha-container:hover {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* ============================================
+   BOTÓN DE ENVÍO
+   ============================================ */
+
+.submit-review-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+    color: white;
+    padding: 18px 32px;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-review-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.submit-review-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.submit-review-btn:hover::before {
+    left: 100%;
+}
+
+.submit-review-btn:active {
+    transform: translateY(-1px);
+}
+
+.submit-review-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-review-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* ============================================
+   MENSAJE INFORMATIVO
+   ============================================ */
+
+.info-message {
+    background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+    border: 2px solid #3b82f6;
+    padding: 20px;
+    border-radius: 16px;
+    position: relative;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.info-message::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-message:hover::before {
+    opacity: 0.1;
+}
+
+.info-badge {
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+/* ============================================
+   ESTADO VACÍO DE RESEÑAS
+   ============================================ */
+
+.empty-reviews {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.empty-reviews-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    animation: pulse 3s infinite;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .form-group[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+    
+    .star-rating-input {
+        font-size: 28px;
+        gap: 6px;
+    }
+    
+    .review-form-container {
+        padding: 24px;
+        margin: 16px;
+    }
+    
+    .review-card {
+        margin: 0 8px 16px 8px;
+        padding: 20px;
+    }
+    
+    .submit-review-btn {
+        font-size: 16px;
+        padding: 16px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .star-rating-input {
+        font-size: 24px;
+        gap: 4px;
+    }
+    
+    .review-form-container {
+        padding: 20px;
+        margin: 12px;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 14px;
+        font-size: 16px; /* Previene zoom en iOS */
+    }
+}
+
+/* ============================================
+   MODO OSCURO (OPCIONAL)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    .review-card {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border-color: #475569;
+        color: #e2e8f0;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        background: #1e293b;
+        border-color: #475569;
+        color: #e2e8f0;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #3b82f6;
+        background: #334155;
+    }
+    
+    .star-rating-container {
+        background: #1e293b;
+        border-color: #475569;
+    }
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+.scale-on-hover {
+    transition: transform 0.2s ease;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.05);
+}
