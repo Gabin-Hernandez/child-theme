@@ -2092,24 +2092,28 @@ get_header(); ?>
             <!-- Carrusel Container -->
             <div class="pantallas-carousel-container relative w-full mx-auto">
                 <?php
-                // Usar exactamente la misma lógica que page-microscopios.php para pantallas
-                $original_get = $_GET;
-                $_GET['post_type'] = 'product';
-                $_GET['s'] = 'pantalla';
-                
+                // Usar la categoría específica lcd-y-touch para pantallas
                 $pantallas_args = array(
                     'post_type' => 'product',
                     'posts_per_page' => 24,
                     'post_status' => 'publish',
-                    's' => 'pantalla',
-                    'tax_query' => array(),
-                    'meta_query' => array()
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'product_cat',
+                            'field'    => 'slug',
+                            'terms'    => 'lcd-y-touch',
+                        ),
+                    ),
+                    'meta_query' => array(
+                        array(
+                            'key' => '_stock_status',
+                            'value' => 'instock',
+                            'compare' => '='
+                        )
+                    )
                 );
                 
                 $pantallas_query = new WP_Query( $pantallas_args );
-                
-                // Restaurar $_GET original
-                $_GET = $original_get;
                 
                 if ( $pantallas_query->have_posts() ) : 
                     // Primero recolectemos todos los productos válidos
@@ -2313,16 +2317,16 @@ get_header(); ?>
                             echo '<div class="text-xs text-gray-500 mt-4 p-4 bg-yellow-50 rounded max-w-xl mx-auto text-left">';
                             echo '<strong>🔍 Debug Info:</strong><br>';
                             echo 'Total productos encontrados: ' . $pantallas_query->found_posts . '<br>';
-                            echo 'Búsqueda realizada: "pantalla"<br>';
-                            echo '<a href="/tienda?s=pantalla&post_type=product" target="_blank" style="color: blue;">Ver búsqueda completa</a>';
+                            echo 'Categoría consultada: "lcd-y-touch"<br>';
+                            echo '<a href="/categoria/lcd-y-touch/" target="_blank" style="color: blue;">Ver categoría completa</a>';
                             echo '</div>';
                         }
                         ?>
                         
                         <div class="mt-6">
-                            <a href="/tienda?s=pantalla&post_type=product" 
+                            <a href="/categoria/lcd-y-touch/" 
                                class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold px-8 py-3 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-lg">
-                                Buscar Pantallas
+                                Ver Pantallas LCD
                             </a>
                         </div>
                     </div>
