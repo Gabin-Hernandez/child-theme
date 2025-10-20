@@ -201,26 +201,12 @@
    SISTEMA DE CALIFICACIÓN CON ESTRELLAS
    ============================================ */
 
-.star-rating-container {
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 20px;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.star-rating-container:hover {
-    border-color: #f59e0b;
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
-}
-
 .star-rating-input {
     display: flex;
     gap: 8px;
-    font-size: 36px;
-    justify-content: center;
-    margin-bottom: 12px;
+    font-size: 40px;
+    justify-content: flex-start;
+    margin-bottom: 8px;
 }
 
 .star-label {
@@ -279,23 +265,10 @@
 }
 
 /* ============================================
-   reCAPTCHA PERSONALIZADO
+   reCAPTCHA v3 (INVISIBLE)
    ============================================ */
 
-.recaptcha-container {
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.recaptcha-container:hover {
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
+/* reCAPTCHA v3 es invisible, no necesita estilos específicos */
 
 /* ============================================
    BOTÓN DE ENVÍO

@@ -511,7 +511,7 @@ get_header(); ?>
                                     
                                         <!-- Calificación -->
                                         <div class="form-group" style="margin-bottom: 28px;">
-                                            <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
+                                            <label style="display: block; font-weight: 700; margin-bottom: 16px; color: #1e293b; font-size: 16px;">
                                                 <span style="display: flex; align-items: center; gap: 8px;">
                                                     <svg style="width: 20px; height: 20px; color: #f59e0b;" fill="currentColor" viewBox="0 0 20 20">
                                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -519,25 +519,23 @@ get_header(); ?>
                                                     Tu Calificación <span style="color: #ef4444;">*</span>
                                                 </span>
                                             </label>
-                                            <div class="star-rating-container" style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
-                                                <div class="star-rating-input" style="display: flex; gap: 8px; font-size: 36px; justify-content: center;">
-                                                    <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
-                                                    <label for="star1" class="star-label" data-value="1" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
-                                                    
-                                                    <input type="radio" name="rating" value="2" id="star2" style="display: none;">
-                                                    <label for="star2" class="star-label" data-value="2" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
-                                                    
-                                                    <input type="radio" name="rating" value="3" id="star3" style="display: none;">
-                                                    <label for="star3" class="star-label" data-value="3" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
-                                                    
-                                                    <input type="radio" name="rating" value="4" id="star4" style="display: none;">
-                                                    <label for="star4" class="star-label" data-value="4" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
-                                                    
-                                                    <input type="radio" name="rating" value="5" id="star5" style="display: none;">
-                                                    <label for="star5" class="star-label" data-value="5" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
-                                                </div>
-                                                <div id="rating-text" style="text-align: center; margin-top: 12px; font-size: 14px; color: #64748b; font-weight: 500; min-height: 20px;"></div>
+                                            <div class="star-rating-input" style="display: flex; gap: 8px; font-size: 40px; justify-content: flex-start; margin-bottom: 8px;">
+                                                <input type="radio" name="rating" value="1" id="star1" required style="display: none;">
+                                                <label for="star1" class="star-label" data-value="1" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                
+                                                <input type="radio" name="rating" value="2" id="star2" style="display: none;">
+                                                <label for="star2" class="star-label" data-value="2" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                
+                                                <input type="radio" name="rating" value="3" id="star3" style="display: none;">
+                                                <label for="star3" class="star-label" data-value="3" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                
+                                                <input type="radio" name="rating" value="4" id="star4" style="display: none;">
+                                                <label for="star4" class="star-label" data-value="4" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
+                                                
+                                                <input type="radio" name="rating" value="5" id="star5" style="display: none;">
+                                                <label for="star5" class="star-label" data-value="5" style="cursor: pointer; color: #d1d5db; transition: all 0.3s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">★</label>
                                             </div>
+                                            <div id="rating-text" style="font-size: 14px; color: #64748b; font-weight: 500; min-height: 20px; margin-left: 4px;"></div>
                                         </div>
                                     
                                         <!-- Comentario -->
@@ -599,26 +597,8 @@ get_header(); ?>
                                             </div>
                                         </div>
                                     
-                                        <!-- Google reCAPTCHA v3 (Invisible) -->
-                                        <div class="form-group" style="margin-bottom: 28px;">
-                                            <div style="background: linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%); border: 2px solid #10b981; border-radius: 12px; padding: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;">
-                                                <div style="background: #10b981; border-radius: 50%; padding: 8px; flex-shrink: 0;">
-                                                    <svg style="width: 20px; height: 20px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                                    </svg>
-                                                </div>
-                                                <div>
-                                                    <p style="margin: 0; color: #065f46; font-size: 14px; font-weight: 600;">
-                                                        🛡️ <strong>Protección Automática Activada</strong>
-                                                    </p>
-                                                    <p style="margin: 4px 0 0 0; color: #047857; font-size: 12px;">
-                                                        reCAPTCHA v3 protege este formulario automáticamente
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <!-- Campo oculto para el token de reCAPTCHA v3 -->
-                                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-                                        </div>
+                                        <!-- Campo oculto para el token de reCAPTCHA v3 -->
+                                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                                         
                                         <!-- Mensaje informativo -->
                                         <div style="background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%); border: 2px solid #3b82f6; padding: 20px; margin-bottom: 28px; border-radius: 16px; position: relative;">
@@ -632,10 +612,16 @@ get_header(); ?>
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <p style="margin: 0; color: #1e40af; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                                                    <p style="margin: 0 0 12px 0; color: #1e40af; font-size: 14px; line-height: 1.6; font-weight: 500;">
                                                         <strong>Tu reseña será revisada por nuestro equipo</strong> antes de ser publicada para mantener la calidad y autenticidad de nuestras valoraciones. 
                                                         <br><span style="color: #3730a3;">Te notificaremos por email cuando sea aprobada. ¡Gracias por tu tiempo!</span>
                                                     </p>
+                                                    <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border-left: 3px solid #3b82f6;">
+                                                        <svg style="width: 14px; height: 14px; color: #1e40af;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                                        </svg>
+                                                        <span style="color: #1e40af; font-size: 12px; font-weight: 600;">Protegido por reCAPTCHA</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -666,10 +652,6 @@ get_header(); ?>
                                 
                                         <style>
                                         /* Animaciones y efectos adicionales para el formulario de reseñas */
-                                        .star-rating-container:hover {
-                                            border-color: #f59e0b !important;
-                                            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
-                                        }
                                         
                                         .star-label:hover {
                                             transform: scale(1.1) !important;
