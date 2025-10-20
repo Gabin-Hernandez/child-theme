@@ -995,7 +995,16 @@ get_header(); ?>
                                     setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $product->get_name();
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                     
                                     // Obtener número de ventas (si está disponible)
                                     $sales_count = get_post_meta( $product->get_id(), 'total_sales', true );
@@ -1008,9 +1017,7 @@ get_header(); ?>
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php the_permalink(); ?>" class="block h-full">
-                                                <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                                )); ?>
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de ranking -->
@@ -1099,7 +1106,16 @@ get_header(); ?>
                                     setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $product->get_name();
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                     
                                     // Obtener número de ventas (si está disponible)
                                     $sales_count = get_post_meta( $product->get_id(), 'total_sales', true );
@@ -1112,9 +1128,7 @@ get_header(); ?>
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php the_permalink(); ?>" class="block h-full">
-                                                <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                                )); ?>
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de ranking -->
@@ -2145,7 +2159,16 @@ get_header(); ?>
                                     $post = $product_data['post'];
                                     $product = $product_data['product'];
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($post->post_title) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $post->post_title;
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-green-200 flex flex-col h-full mx-2">
@@ -2227,7 +2250,16 @@ get_header(); ?>
                                     $post = $product_data['post'];
                                     $product = $product_data['product'];
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($post->post_title) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $post->post_title;
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-green-200 flex flex-col h-full mx-2">
