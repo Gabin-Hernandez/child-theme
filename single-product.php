@@ -506,8 +506,8 @@ get_header(); ?>
                                         <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
                                         <?php wp_nonce_field('product_review_nonce', 'review_nonce'); ?>
                                         
-                                        <!-- reCAPTCHA Script -->
-                                        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                                        <!-- reCAPTCHA v3 Script -->
+                                        <script src="https://www.google.com/recaptcha/api.js?render=<?php echo esc_attr(defined('ITOOLS_RECAPTCHA_SITE_KEY') ? ITOOLS_RECAPTCHA_SITE_KEY : '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); ?>" async defer></script>
                                     
                                         <!-- Calificación -->
                                         <div class="form-group" style="margin-bottom: 28px;">
@@ -599,19 +599,25 @@ get_header(); ?>
                                             </div>
                                         </div>
                                     
-                                        <!-- Google reCAPTCHA -->
+                                        <!-- Google reCAPTCHA v3 (Invisible) -->
                                         <div class="form-group" style="margin-bottom: 28px;">
-                                            <label style="display: block; font-weight: 700; margin-bottom: 12px; color: #1e293b; font-size: 16px;">
-                                                <span style="display: flex; align-items: center; gap: 8px;">
-                                                    <svg style="width: 20px; height: 20px; color: #10b981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div style="background: linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%); border: 2px solid #10b981; border-radius: 12px; padding: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                                                <div style="background: #10b981; border-radius: 50%; padding: 8px; flex-shrink: 0;">
+                                                    <svg style="width: 20px; height: 20px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                                     </svg>
-                                                    Verificación de Seguridad <span style="color: #ef4444;">*</span>
-                                                </span>
-                                            </label>
-                                            <div style="background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: center;">
-                                                <div class="g-recaptcha" data-sitekey="<?php echo esc_attr(defined('ITOOLS_RECAPTCHA_SITE_KEY') ? ITOOLS_RECAPTCHA_SITE_KEY : '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'); ?>"></div>
+                                                </div>
+                                                <div>
+                                                    <p style="margin: 0; color: #065f46; font-size: 14px; font-weight: 600;">
+                                                        🛡️ <strong>Protección Automática Activada</strong>
+                                                    </p>
+                                                    <p style="margin: 4px 0 0 0; color: #047857; font-size: 12px;">
+                                                        reCAPTCHA v3 protege este formulario automáticamente
+                                                    </p>
+                                                </div>
                                             </div>
+                                            <!-- Campo oculto para el token de reCAPTCHA v3 -->
+                                            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                                         </div>
                                         
                                         <!-- Mensaje informativo -->
@@ -776,32 +782,60 @@ get_header(); ?>
                                                 });
                                             }
                                             
-                                            // Validación del formulario antes del envío
+                                            // Validación del formulario antes del envío con reCAPTCHA v3
                                             const form = document.querySelector('.modern-review-form');
                                             if (form) {
                                                 form.addEventListener('submit', function(e) {
+                                                    e.preventDefault(); // Prevenir envío inmediato
+                                                    
                                                     if (!selectedRating) {
-                                                        e.preventDefault();
                                                         alert('Por favor selecciona una calificación antes de enviar tu reseña.');
                                                         return false;
-                                                    }
-                                                    
-                                                    // Verificar que el reCAPTCHA esté completado
-                                                    if (typeof grecaptcha !== 'undefined') {
-                                                        const response = grecaptcha.getResponse();
-                                                        if (!response) {
-                                                            e.preventDefault();
-                                                            alert('Por favor completa la verificación de seguridad (reCAPTCHA).');
-                                                            return false;
-                                                        }
                                                     }
                                                     
                                                     // Mostrar indicador de carga
                                                     const submitBtn = this.querySelector('.submit-review-btn');
                                                     if (submitBtn) {
-                                                        submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px; animation: spin 1s linear infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Enviando Reseña...</span>';
+                                                        submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px; animation: spin 1s linear infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Verificando Seguridad...</span>';
                                                         submitBtn.disabled = true;
                                                         submitBtn.style.opacity = '0.7';
+                                                    }
+                                                    
+                                                    // Ejecutar reCAPTCHA v3
+                                                    if (typeof grecaptcha !== 'undefined') {
+                                                        grecaptcha.ready(() => {
+                                                            grecaptcha.execute('<?php echo esc_js(defined('ITOOLS_RECAPTCHA_SITE_KEY') ? ITOOLS_RECAPTCHA_SITE_KEY : '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); ?>', {action: 'submit_review'}).then((token) => {
+                                                                // Insertar el token en el campo oculto
+                                                                document.getElementById('g-recaptcha-response').value = token;
+                                                                
+                                                                // Cambiar mensaje de carga
+                                                                if (submitBtn) {
+                                                                    submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px; animation: spin 1s linear infinite;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Enviando Reseña...</span>';
+                                                                }
+                                                                
+                                                                // Enviar el formulario
+                                                                form.submit();
+                                                            }).catch((error) => {
+                                                                console.error('Error con reCAPTCHA:', error);
+                                                                alert('Error en la verificación de seguridad. Por favor intenta de nuevo.');
+                                                                
+                                                                // Restaurar botón
+                                                                if (submitBtn) {
+                                                                    submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>Publicar Mi Reseña</span>';
+                                                                    submitBtn.disabled = false;
+                                                                    submitBtn.style.opacity = '1';
+                                                                }
+                                                            });
+                                                        });
+                                                    } else {
+                                                        alert('reCAPTCHA no está disponible. Por favor recarga la página e intenta de nuevo.');
+                                                        
+                                                        // Restaurar botón
+                                                        if (submitBtn) {
+                                                            submitBtn.innerHTML = '<span style="display: flex; align-items: center; justify-content: center; gap: 12px;"><svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>Publicar Mi Reseña</span>';
+                                                            submitBtn.disabled = false;
+                                                            submitBtn.style.opacity = '1';
+                                                        }
                                                     }
                                                 });
                                             }

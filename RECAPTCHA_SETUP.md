@@ -1,20 +1,25 @@
-# 🔐 Configuración de Google reCAPTCHA para Reseñas
+# 🔐 Configuración de Google reCAPTCHA v3 para Reseñas
 
-## 📋 Pasos para Configurar reCAPTCHA
+## 📋 Pasos para Configurar reCAPTCHA v3
 
-### 1. Obtener las Claves de reCAPTCHA
+### 1. Obtener las Claves de reCAPTCHA v3
 
 1. Ve a [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin)
 2. Haz clic en "**+**" para crear un nuevo sitio
 3. Completa el formulario:
-   - **Etiqueta**: `ITOOLS - Sistema de Reseñas`
-   - **Tipo de reCAPTCHA**: Selecciona **reCAPTCHA v2** → "No soy un robot"
+   - **Etiqueta**: `ITOOLS - Sistema de Reseñas v3`
+   - **Tipo de reCAPTCHA**: Selecciona **reCAPTCHA v3** (la opción más moderna)
    - **Dominios**: Agrega tu dominio (ej: `tutienda.com`, `www.tutienda.com`)
    - **Propietarios**: Tu email
 4. Acepta los términos de servicio
 5. Copia las claves generadas:
    - **Clave del sitio** (Site Key)
    - **Clave secreta** (Secret Key)
+
+### ⚠️ IMPORTANTE: Diferencias entre v2 y v3
+- **reCAPTCHA v2**: Muestra el checkbox "No soy un robot"
+- **reCAPTCHA v3**: Es invisible y analiza el comportamiento del usuario automáticamente
+- **Tu sitio usa v3**: No hay checkbox visible, la protección es automática
 
 ### 2. Configurar las Claves en WordPress
 
@@ -41,7 +46,7 @@ define('ITOOLS_RECAPTCHA_SECRET_KEY', 'TU_CLAVE_SECRETA_AQUI');
 
 ### ✨ Nuevas Funcionalidades
 
-- **🔒 Protección reCAPTCHA**: Previene spam y bots
+- **🔒 Protección reCAPTCHA v3**: Protección invisible automática contra spam y bots
 - **🎨 Diseño Moderno**: Interface limpia y atractiva
 - **📱 Responsive**: Se adapta a móviles y tablets
 - **⭐ Estrellas Interactivas**: Feedback visual al seleccionar calificación
@@ -51,6 +56,7 @@ define('ITOOLS_RECAPTCHA_SECRET_KEY', 'TU_CLAVE_SECRETA_AQUI');
 - **🎯 Mensajes Claros**: Feedback informativo para usuarios
 - **🏷️ Avatares Automáticos**: Iniciales generadas dinámicamente
 - **💖 Botones de Utilidad**: "¿Te resultó útil?" para cada reseña
+- **🛡️ Protección Invisible**: reCAPTCHA v3 funciona sin interrumpir al usuario
 
 ### 🎯 Mejoras en la Experiencia de Usuario
 
@@ -65,11 +71,13 @@ define('ITOOLS_RECAPTCHA_SECRET_KEY', 'TU_CLAVE_SECRETA_AQUI');
    - Indicadores de reseñas verificadas
    - Animaciones al hacer hover
 
-3. **Seguridad Mejorada**:
-   - Validación de reCAPTCHA obligatoria
+3. **Seguridad Mejorada con reCAPTCHA v3**:
+   - Protección invisible automática (sin checkbox)
+   - Sistema de puntuación por comportamiento del usuario
    - Sanitización de todos los datos
    - Verificación de nonce
    - Mensajes de error personalizados
+   - Detección avanzada de bots
 
 ## 🔧 Archivos Modificados
 
@@ -93,11 +101,34 @@ define('ITOOLS_RECAPTCHA_SECRET_KEY', 'TU_CLAVE_SECRETA_AQUI');
 
 ## 🚀 Próximos Pasos Recomendados
 
-1. **Configurar las claves de reCAPTCHA** (paso 2 arriba)
+1. **Configurar las claves de reCAPTCHA v3** (paso 2 arriba)
 2. **Probar el sistema** enviando una reseña de prueba
-3. **Personalizar colores** en `css/reviews.css` si es necesario
-4. **Configurar notificaciones por email** para nuevas reseñas
-5. **Revisar y aprobar** reseñas desde el panel de WordPress
+3. **Ajustar el score mínimo** si es necesario (ver sección personalización)
+4. **Personalizar colores** en `css/reviews.css` si es necesario
+5. **Configurar notificaciones por email** para nuevas reseñas
+6. **Revisar y aprobar** reseñas desde el panel de WordPress
+7. **Monitorear logs** para verificar scores de reCAPTCHA
+
+## 🎛️ Configuración Avanzada de reCAPTCHA v3
+
+### Ajustar Score Mínimo
+reCAPTCHA v3 asigna un score de 0.0 (bot) a 1.0 (humano). Puedes ajustar el score mínimo en `functions.php`:
+
+```php
+// En la función itools_verify_recaptcha, cambia el score mínimo:
+function itools_verify_recaptcha($token, $action = 'submit_review', $min_score = 0.5) {
+    // 0.5 es el valor por defecto (recomendado)
+    // 0.3 = Más permisivo (menos falsos positivos)
+    // 0.7 = Más estricto (más protección)
+}
+```
+
+### Scores Recomendados:
+- **0.9-1.0**: Muy probablemente humano
+- **0.7-0.8**: Probablemente humano  
+- **0.5-0.6**: Neutral (valor por defecto recomendado)
+- **0.3-0.4**: Sospechoso
+- **0.0-0.2**: Muy probablemente bot
 
 ## 🎨 Personalización Adicional
 
@@ -130,10 +161,12 @@ const ratingTexts = {
 
 ## 🆘 Solución de Problemas
 
-### reCAPTCHA no aparece
-- Verifica que las claves estén correctamente configuradas
+### reCAPTCHA v3 no funciona
+- **Recuerda**: reCAPTCHA v3 es INVISIBLE, no verás ningún checkbox
+- Verifica que las claves estén correctamente configuradas para v3
 - Asegúrate de que el dominio esté registrado en Google reCAPTCHA
 - Revisa la consola del navegador para errores de JavaScript
+- Verifica que el token se esté generando correctamente
 
 ### Reseñas no se envían
 - Verifica que el formulario tenga el método POST correcto

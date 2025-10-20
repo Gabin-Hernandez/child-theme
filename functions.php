@@ -100,17 +100,18 @@ function itools_enqueue_styles() {
     }
 
 /**
- * Configuración de Google reCAPTCHA v2
- * IMPORTANTE: Reemplaza estas claves con las tuyas desde https://www.google.com/recaptcha/admin
+ * Configuración de Google reCAPTCHA v3
+ * IMPORTANTE: Estas son tus claves de reCAPTCHA v3
  */
 define('ITOOLS_RECAPTCHA_SITE_KEY', '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); // Clave del sitio (pública)
 define('ITOOLS_RECAPTCHA_SECRET_KEY', '6Ld3MfErAAAAANuE6bwPuthUdRr7Z-hVW1fSnlcg'); // Clave secreta (privada)
 
 /**
- * Función para verificar token de reCAPTCHA
+ * Función para verificar token de reCAPTCHA v3
  */
-function itools_verify_recaptcha($token) {
+function itools_verify_recaptcha($token, $action = 'submit_review', $min_score = 0.5) {
     if (empty($token)) {
+        error_log('❌ reCAPTCHA token is empty');
         return false;
     }
     
@@ -136,9 +137,31 @@ function itools_verify_recaptcha($token) {
     $response_body = wp_remote_retrieve_body($response);
     $result = json_decode($response_body, true);
     
+    error_log('reCAPTCHA v3 response: ' . print_r($result, true));
+    
     if (isset($result['success']) && $result['success'] === true) {
-        error_log('✅ reCAPTCHA verification successful');
-        return true;
+        // Verificar la acción (opcional para v3)
+        if (isset($result['action']) && $result['action'] !== $action) {
+            error_log('❌ reCAPTCHA action mismatch. Expected: ' . $action . ', Got: ' . $result['action']);
+            return false;
+        }
+        
+        // Verificar el score (reCAPTCHA v3 usa scores de 0.0 a 1.0)
+        if (isset($result['score'])) {
+            $score = floatval($result['score']);
+            error_log('✅ reCAPTCHA v3 score: ' . $score);
+            
+            if ($score >= $min_score) {
+                error_log('✅ reCAPTCHA verification successful with score: ' . $score);
+                return true;
+            } else {
+                error_log('❌ reCAPTCHA score too low: ' . $score . ' (minimum: ' . $min_score . ')');
+                return false;
+            }
+        } else {
+            error_log('✅ reCAPTCHA verification successful (no score provided)');
+            return true;
+        }
     }
     
     error_log('❌ reCAPTCHA verification failed: ' . print_r($result, true));
