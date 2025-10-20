@@ -47,17 +47,20 @@ get_header(); ?>
                                  src="<?php echo esc_url( $main_image[0] ); ?>" 
                                  alt="<?php echo esc_attr( $product->get_name() ); ?>"
                                  class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
-                        <?php else : ?>
-                            <div class="w-full h-full flex items-center justify-center bg-gray-100">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
+                        <?php else : 
+                            // Crear imagen dummy con el nombre del producto
+                            $product_name = $product->get_name();
+                            $dummy_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
+                        ?>
+                            <img id="main-product-image" 
+                                 src="<?php echo esc_url( $dummy_url ); ?>" 
+                                 alt="<?php echo esc_attr( $product_name ); ?>"
+                                 class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
                         <?php endif; ?>
                     </div>
                     
                     <!-- Miniaturas -->
-                    <?php if ( $attachment_ids ) : ?>
+                    <?php if ( $attachment_ids || !$main_image ) : ?>
                         <div class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2">
                             <!-- Imagen principal como miniatura -->
                             <?php if ( $main_image ) : ?>
@@ -65,6 +68,18 @@ get_header(); ?>
                                         data-image="<?php echo esc_url( $main_image[0] ); ?>">
                                     <img src="<?php echo esc_url( wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail' )[0] ); ?>" 
                                          alt="<?php echo esc_attr( $product->get_name() ); ?>"
+                                         class="w-full h-full object-cover">
+                                </button>
+                            <?php else : 
+                                // Crear miniatura dummy con el nombre del producto
+                                $product_name = $product->get_name();
+                                $dummy_thumb_url = 'https://dummyimage.com/150x150/4f46e5/ffffff&text=' . urlencode($product_name);
+                                $dummy_full_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
+                            ?>
+                                <button class="thumbnail-btn aspect-square bg-white rounded-lg shadow-sm border-2 border-blue-500 overflow-hidden" 
+                                        data-image="<?php echo esc_url( $dummy_full_url ); ?>">
+                                    <img src="<?php echo esc_url( $dummy_thumb_url ); ?>" 
+                                         alt="<?php echo esc_attr( $product_name ); ?>"
                                          class="w-full h-full object-cover">
                                 </button>
                             <?php endif; ?>
