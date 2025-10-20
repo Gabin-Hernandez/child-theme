@@ -1001,8 +1001,7 @@ get_header(); ?>
                                     } else {
                                         // Crear imagen dummy con el nombre del producto
                                         $product_name = $product->get_name();
-                                        $first_letter = strtoupper(substr($product_name, 0, 1));
-                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($first_letter);
+                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($product_name);
                                         $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     }
                                     
@@ -1112,8 +1111,7 @@ get_header(); ?>
                                     } else {
                                         // Crear imagen dummy con el nombre del producto
                                         $product_name = $product->get_name();
-                                        $first_letter = strtoupper(substr($product_name, 0, 1));
-                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($first_letter);
+                                        $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($product_name);
                                         $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     }
                                     
@@ -1620,7 +1618,7 @@ get_header(); ?>
                     while ( $microscopios_query->have_posts() ) : 
                         $microscopios_query->the_post(); 
                         global $product;
-                        if ( $product && $product->is_visible() && has_post_thumbnail() ) {
+                        if ( $product && $product->is_visible() ) {
                             $valid_products[] = array(
                                 'post' => get_post(),
                                 'product' => $product
@@ -1646,16 +1644,23 @@ get_header(); ?>
                                     setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $product->get_name();
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/3b82f6/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 flex flex-col h-full mx-2">
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php the_permalink(); ?>" class="block h-full">
-                                                <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                                )); ?>
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de descuento -->
@@ -1729,16 +1734,23 @@ get_header(); ?>
                                     setup_postdata($post);
                                     
                                     $product_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-                                    $image_url = $product_image ? $product_image[0] : wc_placeholder_img_src();
+                                    if ( $product_image ) {
+                                        $image_url = $product_image[0];
+                                        $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    } else {
+                                        // Crear imagen dummy con el nombre del producto
+                                        $product_name = $product->get_name();
+                                        $first_letter = strtoupper(substr($product_name, 0, 1));
+                                        $dummy_url = 'https://dummyimage.com/600x600/3b82f6/ffffff&text=' . urlencode($first_letter);
+                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                    }
                                 ?>
                                 <div class="swiper-slide">
                                     <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 flex flex-col h-full mx-2">
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php the_permalink(); ?>" class="block h-full">
-                                                <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                                )); ?>
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de descuento -->
@@ -2096,10 +2108,10 @@ get_header(); ?>
                     COMPONENTES ESENCIALES
                 </div>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                    Pantallas
+                    Pantallas LCD y Touch
                 </h2>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-                    Pantallas de alta calidad para reparación de dispositivos móviles y electrónicos
+                    Pantallas originales y compatibles para iPhone, Samsung, Huawei y más marcas
                 </p>
             </div>
             
@@ -2165,8 +2177,7 @@ get_header(); ?>
                                     } else {
                                         // Crear imagen dummy con el nombre del producto
                                         $product_name = $post->post_title;
-                                        $first_letter = strtoupper(substr($product_name, 0, 1));
-                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($first_letter);
+                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($product_name);
                                         $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     }
                                 ?>
@@ -2175,9 +2186,7 @@ get_header(); ?>
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php echo get_permalink($post->ID); ?>" class="block h-full">
-                                                <img src="<?php echo esc_url($image_url); ?>" 
-                                                     alt="<?php echo esc_attr($post->post_title); ?>" 
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de descuento -->
@@ -2256,8 +2265,7 @@ get_header(); ?>
                                     } else {
                                         // Crear imagen dummy con el nombre del producto
                                         $product_name = $post->post_title;
-                                        $first_letter = strtoupper(substr($product_name, 0, 1));
-                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($first_letter);
+                                        $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($product_name);
                                         $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     }
                                 ?>
@@ -2266,9 +2274,7 @@ get_header(); ?>
                                         <!-- Imagen del producto -->
                                         <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                             <a href="<?php echo get_permalink($post->ID); ?>" class="block h-full">
-                                                <img src="<?php echo esc_url($image_url); ?>" 
-                                                     alt="<?php echo esc_attr($post->post_title); ?>" 
-                                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                                <?php echo $image_element; ?>
                                             </a>
                                             
                                             <!-- Badge de descuento -->
