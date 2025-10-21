@@ -2192,11 +2192,9 @@ get_header(); ?>
                                         // Crear imagen dummy con el nombre del producto y logo
                                         $product_name = $post->post_title;
                                         $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($product_name);
-                                        $logo_url = get_site_icon_url(128); // Usar el favicon del sitio
+                                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
                                         $image_element = '<div class="relative w-full h-full"><img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
-                                        if ($logo_url) {
-                                            $image_element .= '<img src="' . esc_url($logo_url) . '" alt="Logo" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90 z-10" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">';
-                                        }
+                                        $image_element .= '<img src="' . esc_url($logo_url) . '" alt="Logo iParts Móvil" class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-auto object-contain opacity-95 z-10" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); max-width: 70%;">';
                                         $image_element .= '</div>';
                                     }
                                 ?>
@@ -2285,11 +2283,9 @@ get_header(); ?>
                                         // Crear imagen dummy con el nombre del producto y logo
                                         $product_name = $post->post_title;
                                         $dummy_url = 'https://dummyimage.com/600x600/10b981/ffffff&text=' . urlencode($product_name);
-                                        $logo_url = get_site_icon_url(128); // Usar el favicon del sitio
+                                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
                                         $image_element = '<div class="relative w-full h-full"><img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
-                                        if ($logo_url) {
-                                            $image_element .= '<img src="' . esc_url($logo_url) . '" alt="Logo" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90 z-10" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">';
-                                        }
+                                        $image_element .= '<img src="' . esc_url($logo_url) . '" alt="Logo iParts Móvil" class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-auto object-contain opacity-95 z-10" style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); max-width: 70%;">';
                                         $image_element .= '</div>';
                                     }
                                 ?>
