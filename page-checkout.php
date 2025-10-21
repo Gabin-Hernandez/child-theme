@@ -1,12 +1,12 @@
 <?php
 /**
- * Template Name: Plantilla para Checkout 2
+ * Template Name: Plantilla para Checkout 
  * Template Post Type: page
  */
 get_header(); 
 ?>
 
-<div id="primary" class="content-area" >
+<div class="w-11/12 lg:w-10/12 mx-auto max-w-[1920px]" >
     <main id="main" class="site-main" role="main">
         <?php
         while ( have_posts() ) : the_post();
