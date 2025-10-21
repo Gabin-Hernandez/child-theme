@@ -37,7 +37,7 @@ get_header(); ?>
                 
                 <!-- Galería de imágenes -->
                 <div class="space-y-4">
-                    <div class="aspect-square bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="aspect-square bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative">
                         <?php
                         $attachment_ids = $product->get_gallery_image_ids();
                         $main_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
@@ -53,18 +53,16 @@ get_header(); ?>
                             $dummy_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
                             $logo_url = get_site_icon_url(256); // Usar el favicon del sitio en mayor resolución para imagen grande
                         ?>
-                            <div class="relative w-full h-full">
-                                <img id="main-product-image" 
-                                     src="<?php echo esc_url( $dummy_url ); ?>" 
-                                     alt="<?php echo esc_attr( $product_name ); ?>"
-                                     class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
-                                <?php if ($logo_url) : ?>
-                                    <img src="<?php echo esc_url($logo_url); ?>" 
-                                         alt="Logo" 
-                                         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-90 z-10 pointer-events-none" 
-                                         style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
-                                <?php endif; ?>
-                            </div>
+                            <img id="main-product-image" 
+                                 src="<?php echo esc_url( $dummy_url ); ?>" 
+                                 alt="<?php echo esc_attr( $product_name ); ?>"
+                                 class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
+                            <?php if ($logo_url) : ?>
+                                <img src="<?php echo esc_url($logo_url); ?>" 
+                                     alt="Logo" 
+                                     class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-90 z-10 pointer-events-none" 
+                                     style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                     
