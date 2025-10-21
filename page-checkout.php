@@ -19,56 +19,48 @@ get_header();
 
 <main class="checkout-page-wrapper">
     
-    <!-- Hero Section - Compacto y elegante -->
-    <section class="bg-gradient-to-br from-blue-50 via-white to-blue-50 border-b border-gray-200 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-blue-600 text-white p-3 rounded-xl shadow-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="flex items-center space-x-2 mb-1">
-                            <span class="inline-flex items-center bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-                                PASO FINAL
-                            </span>
-                        </div>
-                        <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
-                            Finalizar Compra
-                        </h1>
-                    </div>
-                </div>
-                <div class="hidden md:flex items-center space-x-2 text-sm text-gray-600">
-                    <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+    <!-- Hero Section -->
+    <section class="bg-white border-b border-gray-200 py-12">
+        <div class="w-10/12 max-w-[1920px] mx-auto">
+            <div class="flex items-center space-x-4">
+                <div class="bg-blue-600 text-white p-4 rounded-xl shadow-lg">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
                     </svg>
-                    <span class="font-medium">Compra Segura</span>
+                </div>
+                <div>
+                    <div class="mb-2">
+                        <span class="inline-flex items-center bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-semibold">
+                            PASO FINAL
+                        </span>
+                    </div>
+                    <h1 class="text-3xl lg:text-4xl font-bold text-gray-900">
+                        Finalizar Compra
+                    </h1>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contenido del Checkout - Layout mejorado -->
-    <section class="py-8 lg:py-12 bg-gray-50 min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Contenido del Checkout -->
+    <section class="py-16 bg-gray-50 min-h-screen">
+        <div class="w-10/12 max-w-[1920px] mx-auto">
             
                 <?php if ( WC()->cart->is_empty() ) : ?>
                     
-                    <!-- Carrito vacío - Mejorado -->
+                    <!-- Carrito vacío -->
                     <div class="max-w-2xl mx-auto">
-                        <div class="bg-white rounded-2xl p-8 lg:p-12 text-center border border-gray-200 shadow-lg">
-                            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="bg-white rounded-2xl p-12 lg:p-16 text-center border border-gray-200 shadow-lg">
+                            <div class="w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v5a2 2 0 01-2 2H9a2 2 0 01-2-2v-5m6-5V6a2 2 0 00-2-2H9a2 2 0 00-2 2v2"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-3">Tu carrito está vacío</h3>
-                            <p class="text-gray-600 mb-8 text-lg">Necesitas agregar productos antes de realizar un pedido.</p>
+                            <h3 class="text-3xl font-bold text-gray-900 mb-4">Tu carrito está vacío</h3>
+                            <p class="text-gray-600 mb-10 text-xl">Necesitas agregar productos antes de realizar un pedido.</p>
                             <a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" 
-                               class="inline-flex items-center bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 hover:shadow-xl">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                               class="inline-flex items-center bg-blue-600 text-white px-10 py-5 rounded-xl text-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 hover:shadow-xl">
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                 </svg>
                                 Ir a la tienda
@@ -78,76 +70,9 @@ get_header();
                     
                 <?php else : ?>
                     
-                    <!-- Checkout Form usando shortcode - Grid mejorado -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        
-                        <!-- Columna Principal - Formulario -->
-                        <div class="lg:col-span-7 xl:col-span-8">
-                            <div class="checkout-content">
-                                <?php echo do_shortcode('[woocommerce_checkout]'); ?>
-                            </div>
-                        </div>
-                        
-                        <!-- Columna Lateral - Resumen (se mostrará dentro del checkout) -->
-                        <div class="lg:col-span-5 xl:col-span-4">
-                            <!-- El resumen del pedido se muestra dentro del shortcode de WooCommerce -->
-                            <div class="sticky top-24 space-y-6">
-                                
-                                <!-- Características de Seguridad -->
-                                <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-                                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                                        <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        Compra Segura
-                                    </h3>
-                                    <ul class="space-y-3 text-sm text-gray-600">
-                                        <li class="flex items-start">
-                                            <svg class="w-5 h-5 mr-2 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span>Encriptación SSL de 256 bits</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <svg class="w-5 h-5 mr-2 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span>Protección de datos personales</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <svg class="w-5 h-5 mr-2 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span>Procesamiento seguro de pagos</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <!-- Ayuda y Soporte -->
-                                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
-                                    <div class="flex items-start space-x-3">
-                                        <div class="bg-blue-600 text-white p-2 rounded-lg flex-shrink-0">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-bold text-gray-900 mb-1">¿Necesitas ayuda?</h4>
-                                            <p class="text-sm text-gray-700 mb-3">Estamos aquí para asistirte</p>
-                                            <a href="https://wa.me/525512345678" target="_blank" 
-                                               class="inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800 transition-colors">
-                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                                                </svg>
-                                                Contactar por WhatsApp
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        
+                    <!-- Checkout Form usando shortcode -->
+                    <div class="checkout-content">
+                        <?php echo do_shortcode('[woocommerce_checkout]'); ?>
                     </div>
                     
                 <?php endif; ?>
@@ -164,7 +89,7 @@ get_header();
 
 /* Layout General */
 .checkout-page-wrapper {
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    background: #f9fafb;
 }
 
 /* Contenedor del formulario de checkout */
@@ -178,10 +103,10 @@ get_header();
 .checkout-content .woocommerce-checkout {
     background: white;
     border-radius: 1.5rem;
-    padding: 2.5rem;
+    padding: 3rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     border: 1px solid #e5e7eb;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     transition: all 0.3s ease;
 }
 
@@ -193,8 +118,8 @@ get_header();
 .checkout-content .woocommerce-checkout .col2-set {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 2.5rem;
+    gap: 3rem;
+    margin-bottom: 3rem;
 }
 
 @media (min-width: 768px) {
@@ -212,11 +137,11 @@ get_header();
    TÍTULOS Y ENCABEZADOS
    ========================================== */
 .checkout-content .woocommerce-checkout h3 {
-    margin-bottom: 1.75rem !important;
+    margin-bottom: 2rem !important;
     margin-top: 0 !important;
-    padding-bottom: 1rem !important;
+    padding-bottom: 1.25rem !important;
     border-bottom: 3px solid #f3f4f6 !important;
-    font-size: 1.375rem !important;
+    font-size: 1.5rem !important;
     font-weight: 700 !important;
     color: #111827 !important;
     display: flex !important;
@@ -229,7 +154,7 @@ get_header();
     position: absolute;
     bottom: -3px;
     left: 0;
-    width: 60px;
+    width: 80px;
     height: 3px;
     background: linear-gradient(90deg, #2563eb, #3b82f6);
     border-radius: 2px;
@@ -239,12 +164,12 @@ get_header();
    CAMPOS DEL FORMULARIO
    ========================================== */
 .checkout-content .woocommerce-checkout .form-row {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 2rem !important;
 }
 
 .checkout-content .woocommerce-checkout .form-row-first,
 .checkout-content .woocommerce-checkout .form-row-last {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 2rem !important;
     width: 100% !important;
 }
 
@@ -264,10 +189,10 @@ get_header();
 /* Labels mejorados */
 .checkout-content .woocommerce-checkout label {
     display: block !important;
-    margin-bottom: 0.625rem !important;
+    margin-bottom: 0.75rem !important;
     font-weight: 600 !important;
     color: #374151 !important;
-    font-size: 0.9375rem !important;
+    font-size: 1rem !important;
     letter-spacing: 0.01em !important;
 }
 
@@ -284,10 +209,10 @@ get_header();
 .checkout-content .woocommerce-checkout select,
 .checkout-content .woocommerce-checkout textarea {
     width: 100% !important;
-    padding: 0.875rem 1.125rem !important;
+    padding: 1rem 1.25rem !important;
     border: 2px solid #e5e7eb !important;
     border-radius: 0.75rem !important;
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
     line-height: 1.5 !important;
     transition: all 0.2s ease !important;
     background: #fafafa !important;
@@ -312,15 +237,15 @@ get_header();
    ÁREA DE REVISIÓN DEL PEDIDO
    ========================================== */
 .checkout-content .woocommerce-checkout #order_review_heading {
-    margin-top: 3rem !important;
-    margin-bottom: 2rem !important;
+    margin-top: 4rem !important;
+    margin-bottom: 2.5rem !important;
 }
 
 .checkout-content .woocommerce-checkout #order_review {
-    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%) !important;
+    background: #f9fafb !important;
     border-radius: 1rem !important;
-    padding: 2rem !important;
-    margin-top: 1.5rem !important;
+    padding: 2.5rem !important;
+    margin-top: 2rem !important;
     border: 2px solid #e5e7eb !important;
 }
 
@@ -333,7 +258,7 @@ get_header();
 
 .checkout-content .woocommerce-checkout .woocommerce-checkout-review-order-table th,
 .checkout-content .woocommerce-checkout .woocommerce-checkout-review-order-table td {
-    padding: 1rem 1.25rem !important;
+    padding: 1.25rem 1.5rem !important;
     border-bottom: 1px solid #f3f4f6 !important;
 }
 
@@ -346,14 +271,14 @@ get_header();
    MÉTODOS DE PAGO
    ========================================== */
 .checkout-content .woocommerce-checkout .wc_payment_methods {
-    margin-bottom: 2rem !important;
+    margin-bottom: 2.5rem !important;
     list-style: none !important;
     padding: 0 !important;
 }
 
 .checkout-content .woocommerce-checkout .wc_payment_method {
-    margin-bottom: 1rem !important;
-    padding: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+    padding: 1.5rem !important;
     background: white !important;
     border: 2px solid #e5e7eb !important;
     border-radius: 0.75rem !important;
@@ -386,9 +311,9 @@ get_header();
    BOTÓN DE FINALIZAR COMPRA
    ========================================== */
 .checkout-content .woocommerce-checkout #place_order {
-    margin-top: 2rem !important;
-    padding: 1.25rem 2.5rem !important;
-    font-size: 1.125rem !important;
+    margin-top: 2.5rem !important;
+    padding: 1.5rem 3rem !important;
+    font-size: 1.25rem !important;
     font-weight: 700 !important;
     background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
     color: white !important;
@@ -416,17 +341,17 @@ get_header();
    FORMULARIO DE CUPÓN
    ========================================== */
 .checkout-content .woocommerce-form-coupon-toggle {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    background: #eff6ff !important;
     border: 2px solid #bfdbfe !important;
     border-radius: 1rem !important;
-    padding: 1.5rem 2rem !important;
-    margin-bottom: 2.5rem !important;
+    padding: 1.75rem 2.5rem !important;
+    margin-bottom: 3rem !important;
     text-align: center !important;
     transition: all 0.3s ease !important;
 }
 
 .checkout-content .woocommerce-form-coupon-toggle:hover {
-    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    background: #dbeafe !important;
     border-color: #93c5fd !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
@@ -436,7 +361,7 @@ get_header();
     color: #2563eb !important;
     text-decoration: none !important;
     font-weight: 700 !important;
-    font-size: 1.0625rem !important;
+    font-size: 1.125rem !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 0.625rem !important;
@@ -451,8 +376,8 @@ get_header();
     background: white !important;
     border: 2px solid #e5e7eb !important;
     border-radius: 1rem !important;
-    padding: 2.5rem !important;
-    margin-bottom: 2.5rem !important;
+    padding: 3rem !important;
+    margin-bottom: 3rem !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
     animation: slideDown 0.4s ease-out !important;
 }
@@ -469,25 +394,25 @@ get_header();
 }
 
 .checkout-content .checkout_coupon p {
-    margin-bottom: 1.75rem !important;
+    margin-bottom: 2rem !important;
     color: #4b5563 !important;
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
     line-height: 1.7 !important;
 }
 
 .checkout-content .checkout_coupon .form-row {
     display: flex !important;
-    gap: 1rem !important;
+    gap: 1.25rem !important;
     align-items: end !important;
     margin-bottom: 0 !important;
 }
 
 .checkout-content .checkout_coupon input[type="text"] {
     flex: 1 !important;
-    padding: 1.125rem 1.5rem !important;
+    padding: 1.25rem 1.75rem !important;
     border: 2px solid #d1d5db !important;
     border-radius: 0.75rem !important;
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
     transition: all 0.3s ease !important;
     background: #fafafa !important;
 }
@@ -504,12 +429,12 @@ get_header();
     color: white !important;
     border: none !important;
     border-radius: 0.75rem !important;
-    padding: 1.125rem 2rem !important;
+    padding: 1.25rem 2.5rem !important;
     font-weight: 700 !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     white-space: nowrap !important;
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
 }
 
@@ -525,10 +450,10 @@ get_header();
 .checkout-content .woocommerce-message,
 .checkout-content .woocommerce-error,
 .checkout-content .woocommerce-info {
-    margin-bottom: 2rem !important;
-    padding: 1.25rem 1.5rem !important;
+    margin-bottom: 2.5rem !important;
+    padding: 1.5rem 2rem !important;
     border-radius: 0.75rem !important;
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
 }
 
 .checkout-content .woocommerce-message {
@@ -561,23 +486,23 @@ get_header();
    ========================================== */
 @media (max-width: 1024px) {
     .checkout-content .woocommerce-checkout {
-        padding: 2rem;
+        padding: 2.5rem;
     }
 }
 
 @media (max-width: 768px) {
     .checkout-content .woocommerce-checkout {
-        padding: 1.5rem;
+        padding: 2rem;
         border-radius: 1rem;
     }
     
     .checkout-content .woocommerce-checkout h3 {
-        font-size: 1.25rem !important;
-        margin-bottom: 1.5rem !important;
+        font-size: 1.375rem !important;
+        margin-bottom: 1.75rem !important;
     }
     
     .checkout-content .woocommerce-checkout .form-row {
-        margin-bottom: 1.25rem !important;
+        margin-bottom: 1.5rem !important;
     }
     
     .checkout-content .woocommerce-checkout input[type="text"],
@@ -586,12 +511,12 @@ get_header();
     .checkout-content .woocommerce-checkout input[type="number"],
     .checkout-content .woocommerce-checkout select,
     .checkout-content .woocommerce-checkout textarea {
-        padding: 0.75rem 1rem !important;
+        padding: 0.875rem 1.125rem !important;
         font-size: 16px !important; /* Evita zoom en iOS */
     }
     
     .checkout-content .checkout_coupon {
-        padding: 1.75rem !important;
+        padding: 2rem !important;
     }
     
     .checkout-content .checkout_coupon .form-row {
@@ -601,23 +526,23 @@ get_header();
     
     .checkout-content .checkout_coupon .button {
         width: 100% !important;
-        margin-top: 0.5rem !important;
+        margin-top: 0.75rem !important;
     }
     
     .checkout-content .woocommerce-checkout #order_review {
-        padding: 1.5rem !important;
+        padding: 2rem !important;
     }
     
     .checkout-content .woocommerce-checkout #place_order {
-        padding: 1rem 1.5rem !important;
-        font-size: 1rem !important;
+        padding: 1.25rem 2rem !important;
+        font-size: 1.125rem !important;
     }
 }
 
 @media (max-width: 640px) {
-    .checkout-page-wrapper section.py-8 {
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important;
+    .checkout-page-wrapper section.py-16 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
     }
 }
 
