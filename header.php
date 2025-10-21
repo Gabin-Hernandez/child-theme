@@ -1173,7 +1173,7 @@
 
 <?php 
 // Botón flotante de WhatsApp - VERSIÓN HEADER
-$whatsapp_number = '1234567890'; // Cambia este número por el número de WhatsApp de la empresa
+$whatsapp_number = '5218994178810'; // Cambia este número por el número de WhatsApp de la empresa
 $whatsapp_message = '¡Hola! Me interesa obtener más información sobre sus productos.'; // Mensaje predeterminado
 $whatsapp_url = 'https://wa.me/' . $whatsapp_number . '?text=' . urlencode($whatsapp_message);
 ?>

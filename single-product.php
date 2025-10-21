@@ -51,18 +51,16 @@ get_header(); ?>
                             // Crear imagen dummy con el nombre del producto y logo
                             $product_name = $product->get_name();
                             $dummy_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
-                            $logo_url = get_site_icon_url(256); // Usar el favicon del sitio en mayor resolución para imagen grande
+                            $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
                         ?>
                             <img id="main-product-image" 
                                  src="<?php echo esc_url( $dummy_url ); ?>" 
                                  alt="<?php echo esc_attr( $product_name ); ?>"
                                  class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
-                            <?php if ($logo_url) : ?>
-                                <img src="<?php echo esc_url($logo_url); ?>" 
-                                     alt="Logo" 
-                                     class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-90 z-10 pointer-events-none" 
-                                     style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
-                            <?php endif; ?>
+                            <img src="<?php echo esc_url($logo_url); ?>" 
+                                 alt="Logo iParts Móvil" 
+                                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 object-contain opacity-90 z-10 pointer-events-none" 
+                                 style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">
                         <?php endif; ?>
                     </div>
                     
@@ -82,19 +80,17 @@ get_header(); ?>
                                 $product_name = $product->get_name();
                                 $dummy_thumb_url = 'https://dummyimage.com/150x150/4f46e5/ffffff&text=' . urlencode($product_name);
                                 $dummy_full_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
-                                $logo_url = get_site_icon_url(256);
+                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
                             ?>
                                 <button class="thumbnail-btn aspect-square bg-white rounded-lg shadow-sm border-2 border-blue-500 overflow-hidden relative" 
                                         data-image="<?php echo esc_url( $dummy_full_url ); ?>">
                                     <img src="<?php echo esc_url( $dummy_thumb_url ); ?>" 
                                          alt="<?php echo esc_attr( $product_name ); ?>"
                                          class="w-full h-full object-cover">
-                                    <?php if ($logo_url) : ?>
-                                        <img src="<?php echo esc_url($logo_url); ?>" 
-                                             alt="Logo" 
-                                             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 object-contain opacity-90 z-10 pointer-events-none" 
-                                             style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
-                                    <?php endif; ?>
+                                    <img src="<?php echo esc_url($logo_url); ?>" 
+                                         alt="Logo iParts Móvil" 
+                                         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 object-contain opacity-90 z-10 pointer-events-none" 
+                                         style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
                                 </button>
                             <?php endif; ?>
                             
