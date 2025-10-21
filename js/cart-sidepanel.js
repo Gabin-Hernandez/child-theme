@@ -169,18 +169,14 @@ class NewCartSidepanel {
     this.sidepanel.classList.add("active");
     document.body.classList.add("cart-open");
 
-    // Hide header to prevent overlap - ONLY if header is in sticky mode
+    // Hide header cuando el carrito se abre
     const header =
       document.querySelector("#main-header") ||
       document.querySelector("header");
-    if (
-      header &&
-      (header.classList.contains("sticky") ||
-        header.classList.contains("scrolled"))
-    ) {
+    if (header) {
       header.style.opacity = "0";
-      header.style.visibility = "hidden";
-      header.style.transition = "opacity 0.3s ease, visibility 0.3s ease";
+      header.style.pointerEvents = "none";
+      header.style.transition = "opacity 0.3s ease";
     }
 
     // Cargar datos del carrito
@@ -209,13 +205,13 @@ class NewCartSidepanel {
     this.sidepanel.classList.remove("active");
     document.body.classList.remove("cart-open");
 
-    // Show header again
+    // Restaurar header a la normalidad
     const header =
       document.querySelector("#main-header") ||
       document.querySelector("header");
     if (header) {
       header.style.opacity = "";
-      header.style.visibility = "";
+      header.style.pointerEvents = "";
     }
 
     console.log("🛒 Sidepanel cerrado");
