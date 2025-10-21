@@ -999,10 +999,15 @@ get_header(); ?>
                                         $image_url = $product_image[0];
                                         $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     } else {
-                                        // Crear imagen dummy con el nombre del producto
+                                        // Crear imagen dummy con el nombre del producto y logo
                                         $product_name = $product->get_name();
                                         $dummy_url = 'https://dummyimage.com/600x600/6d28d9/ffffff&text=' . urlencode($product_name);
-                                        $image_element = '<img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                        $logo_url = get_site_icon_url(128); // Usar el favicon del sitio
+                                        $image_element = '<div class="relative w-full h-full"><img src="' . esc_url($dummy_url) . '" alt="' . esc_attr($product_name) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
+                                        if ($logo_url) {
+                                            $image_element .= '<img src="' . esc_url($logo_url) . '" alt="Logo" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 object-contain opacity-90 z-10" style="filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));">';
+                                        }
+                                        $image_element .= '</div>';
                                     }
                                     
                                     // Obtener número de ventas (si está disponible)
