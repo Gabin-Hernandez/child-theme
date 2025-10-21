@@ -6,16 +6,13 @@
 get_header(); 
 ?>
 
-<div class="w-11/12 lg:w-10/12 mx-auto max-w-[1920px]" >
-    <main id="main" class="site-main" role="main">
+    <main id="main" class="w-11/12 lg:w-10/12 mx-auto max-w-[1920px] relative" role="main">
         <?php
         while ( have_posts() ) : the_post();
             the_content();
         endwhile; // End of the loop.
         ?>
-    </main><!-- #main -->
-</div>
-
+    </main>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var observer = new MutationObserver(function(mutations) {
