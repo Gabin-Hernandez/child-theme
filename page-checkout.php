@@ -52,7 +52,7 @@ get_header();
 
     <!-- Contenido del Checkout - Layout mejorado -->
     <section class="py-8 lg:py-12 bg-gray-50 min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-10/12 max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
             
                 <?php if ( WC()->cart->is_empty() ) : ?>
                     
@@ -495,6 +495,41 @@ get_header();
    ========================================== */
 .checkout-content .woocommerce-breadcrumb {
     display: none;
+}
+
+/* Ocultar la opción de "Enviar a una dirección diferente" */
+.checkout-content .woocommerce-checkout .woocommerce-shipping-fields {
+    display: none !important;
+}
+
+.checkout-content .woocommerce-checkout #ship-to-different-address {
+    display: none !important;
+}
+
+/* Cambiar "Detalles de facturación" por "Detalles de envío" */
+.checkout-content .woocommerce-checkout #customer_details h3:first-child::after {
+    content: 'Detalles de envío';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.checkout-content .woocommerce-checkout .woocommerce-billing-fields h3 {
+    visibility: hidden;
+    position: relative;
+}
+
+.checkout-content .woocommerce-checkout .woocommerce-billing-fields h3::after {
+    content: 'Detalles de envío';
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 /* ==========================================
