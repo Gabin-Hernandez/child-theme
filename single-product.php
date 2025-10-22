@@ -1291,7 +1291,7 @@ function switchTab(event, tabId) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ Nuevo sistema de pestañas cargado');
+    console.log('✅ Sistema de producto cargado - iniciando configuración AJAX');
     
     // Funcionalidad de la galería de imágenes
     const thumbnails = document.querySelectorAll('.thumbnail-img');
@@ -1327,10 +1327,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form.cart');
         const addToCartButton = document.querySelector('.single_add_to_cart_button');
         
-        if (!form || !addToCartButton) return;
+        if (!form || !addToCartButton) {
+            console.warn('⚠️ Formulario o botón del carrito no encontrados');
+            return;
+        }
+        
+        console.log('✅ Elementos encontrados:', { form: !!form, button: !!addToCartButton });
         
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            console.log('🛒 Formulario interceptado - usando AJAX');
             
             // Cambiar estado del botón
             const originalText = addToCartButton.innerHTML;
@@ -1417,6 +1426,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 showErrorMessage('Error de conexión. Por favor, intenta de nuevo.');
             });
         });
+        
+        // Evento adicional en el botón como respaldo
+        addToCartButton.addEventListener('click', function(e) {
+            console.log('🔄 Botón clickeado directamente');
+            
+            // Si el botón no está dentro de un formulario o el formulario no se está manejando
+            const parentForm = this.closest('form');
+            if (parentForm && parentForm.classList.contains('cart')) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🛒 Previniendo envío normal del formulario desde click del botón');
+            }
+        });
+        
+        console.log('✅ Eventos AJAX configurados correctamente');
     }
     
     // Función para mostrar mensaje de éxito
@@ -1477,8 +1501,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Inicializar la funcionalidad AJAX
-    setupAjaxAddToCart();
+    // Inicializar la funcionalidad AJAX con un pequeño delay
+    setTimeout(() => {
+        setupAjaxAddToCart();
+        console.log('🛒 AJAX Add to Cart inicializado');
+    }, 100);
 
     // Funcionalidad de controles de cantidad
     document.querySelectorAll('.qty-btn').forEach(button => {
