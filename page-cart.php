@@ -24,380 +24,374 @@ get_header(); ?>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
 <style>
-/* Cart Page Styles */
+/* Amazon-inspired Minimal Cart Styles */
 .cart-page-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Amazon Ember", Arial, sans-serif;
+    background-color: #f5f5f5;
 }
 
-.cart-hero {
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    padding: 60px 20px;
-    text-align: center;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+.cart-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
-.cart-hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 10px;
-}
-
-.cart-hero p {
-    font-size: 1.1rem;
-    color: #64748b;
+.cart-header h1 {
+    font-size: 28px;
+    font-weight: 400;
+    color: #0F1111;
     margin: 0;
+    line-height: 1.3;
+}
+
+/* Main Layout */
+.cart-main {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Empty Cart Styles */
 .empty-cart {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 40px 20px;
     text-align: center;
-    padding: 60px 20px;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    max-width: 500px;
+    border-radius: 8px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .empty-cart-icon {
-    font-size: 3rem;
-    color: #cbd5e0;
+    color: #565959;
     margin-bottom: 20px;
 }
 
 .empty-cart h2 {
-    font-size: 1.6rem;
-    color: #2d3748;
+    font-size: 24px;
+    color: #0F1111;
     margin-bottom: 15px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .empty-cart p {
-    color: #64748b;
-    font-size: 1rem;
+    color: #565959;
+    font-size: 14px;
     margin-bottom: 30px;
-    line-height: 1.5;
-}
-
-.empty-cart-actions {
-    margin-top: 30px;
+    line-height: 1.4;
 }
 
 .continue-shopping-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
+    background: #ff9900;
+    color: #0F1111;
     text-decoration: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #ff9900;
+    display: inline-block;
+    transition: background-color 0.15s ease;
 }
 
 .continue-shopping-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-    color: white;
+    background: #e68900;
+    color: #0F1111;
     text-decoration: none;
 }
 
-/* Cart Totals */
-.cart-totals {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.6s ease-out 0.2s both;
+/* Cart Items Container */
+.cart-items-container {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .cart-items-header {
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .cart-items-header h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1a202c;
+    font-size: 18px;
+    font-weight: 400;
+    color: #0F1111;
     margin: 0;
 }
 
 .cart-item {
     display: grid;
-    grid-template-columns: 100px 1fr auto auto auto;
-    gap: 20px;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #f1f5f9;
+    grid-template-columns: 120px 1fr 100px 120px 40px;
+    gap: 15px;
+    align-items: start;
+    padding: 15px 0;
+    border-bottom: 1px solid #e7e7e7;
 }
 
 .cart-item:last-child {
     border-bottom: none;
 }
 
-.item-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
+/* Cart Sidebar */
+.cart-sidebar {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.cart-totals {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.item-image-container img {
+    width: 100px;
+    height: 100px;
     object-fit: cover;
-    border: 2px solid #e2e8f0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
 }
 
 .item-details h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #007185;
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.item-details h3 a {
+    color: #007185;
+    text-decoration: none;
+}
+
+.item-details h3 a:hover {
+    color: #c7511f;
+    text-decoration: underline;
 }
 
 .item-details .item-price {
-    font-size: 1rem;
-    color: #f59e0b;
-    font-weight: 600;
+    font-size: 18px;
+    color: #B12704;
+    font-weight: 400;
+    margin: 5px 0;
 }
 
 .quantity-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: #f8fafc;
-    border-radius: 10px;
-    padding: 5px;
+    gap: 8px;
+    background: #f0f2f2;
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid #d5d9d9;
 }
 
 .quantity-btn {
-    width: 35px;
-    height: 35px;
-    border: 2px solid #e2e8f0;
-    background: #f8fafc;
-    border-radius: 8px;
+    width: 29px;
+    height: 29px;
+    border: 1px solid #d5d9d9;
+    background: #fff;
+    border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    color: #64748b;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #565959;
+    transition: all 0.1s ease;
 }
 
 .quantity-btn:hover {
-    background: #f59e0b;
-    color: white;
-    transform: scale(1.05);
-    border-color: #f59e0b;
+    background: #e3e6e6;
+    border-color: #a6a6a6;
 }
 
 .quantity-btn:active {
-    transform: scale(0.95);
-}
-
-.quantity-btn i {
-    width: 16px;
-    height: 16px;
+    background: #d5dbdb;
 }
 
 .quantity-input {
-    width: 50px;
+    width: 40px;
+    height: 29px;
+    border: 1px solid #d5d9d9;
+    border-radius: 4px;
     text-align: center;
-    border: none;
-    background: transparent;
-    font-weight: 600;
-    color: #1a202c;
+    background: #fff;
+    font-size: 14px;
+    color: #0F1111;
 }
 
 .item-subtotal {
-    font-size: 1.2rem;
+    font-size: 18px;
     font-weight: 700;
-    color: #1a202c;
+    color: #B12704;
+    text-align: right;
 }
 
 .remove-item {
-    background: #fee2e2;
-    color: #dc2626;
+    background: none;
+    color: #007185;
     border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 12px;
+    text-decoration: underline;
+    padding: 4px;
 }
 
 .remove-item:hover {
-    background: #dc2626;
-    color: white;
-    transform: scale(1.05);
-}
-
-.remove-item:active {
-    transform: scale(0.95);
-}
-
-.remove-item i {
-    width: 14px;
-    height: 14px;
-}
-
-/* Cart Items */
-.cart-items {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    color: #c7511f;
 }
 
 .cart-totals h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #0F1111;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7e7e7;
 }
 
 .totals-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #565959;
 }
 
 .totals-row:last-child {
-    border-bottom: none;
+    border-top: 1px solid #e7e7e7;
+    padding-top: 15px;
+    margin-top: 10px;
     font-weight: 700;
-    font-size: 1.2rem;
-    color: #1a202c;
-    padding-top: 20px;
-    border-top: 2px solid #e2e8f0;
+    font-size: 18px;
+    color: #B12704;
 }
 
 .checkout-btn {
     width: 100%;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    background: #ff9900;
+    color: #0F1111;
+    border: 1px solid #ff9900;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 400;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+    transition: background-color 0.15s ease;
+    margin-top: 15px;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: block;
     text-align: center;
+    line-height: 1.4;
 }
 
 .checkout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-    color: white;
+    background: #e68900;
+    color: #0F1111;
     text-decoration: none;
 }
 
-.checkout-btn i {
-    width: 20px;
-    height: 20px;
+.continue-shopping {
+    margin-top: 15px;
 }
 
-/* Suggested Products */
-.suggested-products {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
-    margin-top: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.suggested-products h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-}
-
-.product-card {
-    background: #f8fafc;
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    border-color: #f59e0b;
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
-}
-
-.product-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-}
-
-.product-card h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a202c;
-    margin-bottom: 10px;
-}
-
-.product-card .price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #f59e0b;
-    margin-bottom: 15px;
-}
-
-.add-to-cart-btn {
-    background: #f59e0b;
-    color: white;
+.continue-shopping-btn {
+    background: none;
+    color: #007185;
     border: none;
-    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
+
+.continue-shopping-btn:hover {
+    color: #c7511f;
+}
+
+/* Additional Amazon-like styling */
+.cart-sidebar .continue-shopping {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e7e7e7;
+}
+
+.totals-amount {
+    color: #B12704;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cart-main {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 10px;
+    }
+    
+    .quantity-controls,
+    .item-subtotal {
+        grid-column: 1 / -1;
+        justify-self: start;
+        margin-top: 10px;
+    }
+    
+    .item-subtotal {
+        text-align: left;
+        font-size: 16px;
+    }
+    
+    .remove-item {
+        grid-column: 1 / -1;
+        justify-self: start;
+        margin-top: 5px;
+    }
+    
+    .cart-header h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-page-container {
+        padding: 10px;
+    }
+    
+    .cart-items-container,
+    .cart-totals {
+        padding: 15px;
+    }
+    
+    .item-image-container img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .item-details h3 {
+        font-size: 14px;
+    }
+    
+    .item-details .item-price {
+        font-size: 16px;
+    }
+}
     padding: 10px 20px;
     font-weight: 600;
     cursor: pointer;
@@ -486,10 +480,9 @@ get_header(); ?>
 </style>
 
 <div class="cart-page-container">
-    <!-- Hero Section -->
-    <div class="cart-hero">
-        <h1>Tu Carrito de Compras</h1>
-        <p>Revisa tus productos seleccionados y procede al checkout</p>
+    <!-- Header -->
+    <div class="cart-header">
+        <h1>Carrito de compras</h1>
     </div>
 
     <?php
@@ -500,10 +493,10 @@ get_header(); ?>
     if (WC()->cart->is_empty()) : ?>
         <div class="empty-cart">
             <div class="empty-cart-icon">
-                <i data-lucide="shopping-cart" style="width: 60px; height: 60px; color: #64748b;"></i>
+                <i data-lucide="shopping-cart" style="width: 48px; height: 48px; color: #565959;"></i>
             </div>
-            <h2>Tu carrito está vacío</h2>
-            <p>¡Explora nuestros productos y encuentra lo que necesitas!</p>
+            <h2>Tu carrito de Amazon está vacío</h2>
+            <p>Ver recomendaciones | Iniciar sesión en tu lista de deseos | <a href="/tienda">Continuar comprando</a></p>
             
             <div class="empty-cart-actions">
                 <a href="/tienda" class="continue-shopping-btn">
@@ -512,11 +505,12 @@ get_header(); ?>
             </div>
         </div>
     <?php else : ?>
-        <!-- Cart Items -->
-        <div class="cart-items-container">
-            <div class="cart-items-header">
-                <h2>Productos en tu carrito</h2>
-            </div>
+        <div class="cart-main">
+            <!-- Cart Items -->
+            <div class="cart-items-container">
+                <div class="cart-items-header">
+                    <h2>Carrito de compras</h2>
+                </div>
             
             <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
                 <?php foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) :
@@ -600,141 +594,27 @@ get_header(); ?>
                 <input type="submit" class="button" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>" style="display: none;">
                 <?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
             </form>
-        </div>
-
-        <!-- Cart Totals -->
-        <div class="cart-totals">
-            <h3>Resumen del pedido</h3>
-            
-            <!-- Subtotal -->
-            <div class="totals-row">
-                <span><?php esc_html_e('Subtotal', 'woocommerce'); ?></span>
-                <span class="cart-subtotal-amount"><?php wc_cart_totals_subtotal_html(); ?></span>
             </div>
             
-            <?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
-                <div class="totals-row">
-                    <span><?php wc_cart_totals_coupon_label($coupon); ?></span>
-                    <span><?php wc_cart_totals_coupon_html($coupon); ?></span>
-                </div>
-            <?php endforeach; ?>
-
-            <?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
-                <div class="totals-row">
-                    <span><?php esc_html_e('Shipping', 'woocommerce'); ?></span>
-                    <span><?php wc_cart_totals_shipping_html(); ?></span>
-                </div>
-            <?php endif; ?>
-
-            <?php foreach (WC()->cart->get_fees() as $fee) : ?>
-                <div class="totals-row">
-                    <span><?php echo esc_html($fee->name); ?></span>
-                    <span><?php wc_cart_totals_fee_html($fee); ?></span>
-                </div>
-            <?php endforeach; ?>
-
-            <?php if (wc_tax_enabled() && !WC()->cart->display_prices_including_tax()) : ?>
-                <?php if ('itemized' === get_option('woocommerce_tax_total_display')) : ?>
-                    <?php foreach (WC()->cart->get_tax_totals() as $code => $tax) : ?>
-                        <div class="totals-row">
-                            <span><?php echo esc_html($tax->label); ?></span>
-                            <span><?php echo wp_kses_post($tax->formatted_amount); ?></span>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <div class="totals-row">
-                        <span><?php echo esc_html(WC()->countries->tax_or_vat()); ?></span>
-                        <span><?php wc_cart_totals_taxes_total_html(); ?></span>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
-
-            <div class="totals-row">
-                <span><strong><?php esc_html_e('Total', 'woocommerce'); ?></strong></span>
-                <span><strong><?php wc_cart_totals_order_total_html(); ?></strong></span>
-            </div>
-
-            <a href="/finalizar-compra/" class="checkout-btn">
-                <i data-lucide="credit-card"></i>
-                Proceder al Checkout
-            </a>
-        </div>
-
-        <!-- Continue Shopping -->
-        <div class="continue-shopping">
-            <a href="<?php echo esc_url(wc_get_page_permalink('tienda')); ?>" class="continue-shopping-btn">
-                <i data-lucide="arrow-left"></i>
-                Continuar Comprando
-            </a>
-        </div>
-
-        <!-- Suggested Products -->
-        <div class="suggested-products">
-            <h3>Productos Sugeridos</h3>
-            <div class="products-grid">
-                <?php
-                // Get suggested products (related to cart items or popular products)
-                $suggested_products = array();
-                
-                // Get categories from cart items
-                $cart_categories = array();
-                foreach (WC()->cart->get_cart() as $cart_item) {
-                    $product_cats = wp_get_post_terms($cart_item['product_id'], 'product_cat', array('fields' => 'ids'));
-                    $cart_categories = array_merge($cart_categories, $product_cats);
-                }
-                $cart_categories = array_unique($cart_categories);
-                
-                if (!empty($cart_categories)) {
-                    // Get products from same categories
-                    $args = array(
-                        'post_type' => 'product',
-                        'posts_per_page' => 4,
-                        'post_status' => 'publish',
-                        'tax_query' => array(
-                            array(
-                                'taxonomy' => 'product_cat',
-                                'field' => 'term_id',
-                                'terms' => $cart_categories,
-                                'operator' => 'IN'
-                            )
-                        ),
-                        'orderby' => 'rand'
-                    );
-                } else {
-                    // Get any published products if no cart categories
-                    $args = array(
-                        'post_type' => 'product',
-                        'posts_per_page' => 4,
-                        'post_status' => 'publish',
-                        'orderby' => 'rand'
-                    );
-                }
-                
-                $suggested_query = new WP_Query($args);
-                
-                if ($suggested_query->have_posts()) :
-                    while ($suggested_query->have_posts()) : $suggested_query->the_post();
-                        global $product;
-                        if ($product && $product->is_visible()) :
-                ?>
-                    <div class="product-card">
-                        <a href="<?php echo get_permalink(); ?>">
-                            <?php echo woocommerce_get_product_thumbnail(); ?>
+            <!-- Cart Sidebar -->
+            <div class="cart-sidebar">
+                <div class="cart-totals">
+                    <h3>Subtotal (<?php echo WC()->cart->get_cart_contents_count(); ?> productos): <span class="totals-amount"><?php wc_cart_totals_order_total_html(); ?></span></h3>
+                    
+                    <a href="/finalizar-compra/" class="checkout-btn">
+                        Proceder al pago
+                    </a>
+                    
+                    <div class="continue-shopping">
+                        <a href="<?php echo esc_url(wc_get_page_permalink('tienda')); ?>" class="continue-shopping-btn">
+                            Continuar Comprando
                         </a>
-                        <h4><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h4>
-                        <div class="price"><?php echo $product->get_price_html(); ?></div>
-                        <button class="add-to-cart-btn" onclick="addToCart(<?php echo get_the_ID(); ?>)">
-                            Agregar al Carrito
-                        </button>
                     </div>
-                <?php
-                        endif;
-                    endwhile;
-                    wp_reset_postdata();
-                endif;
-                ?>
+                </div>
             </div>
         </div>
+
+
     <?php endif; ?>
 </div>
 
@@ -855,35 +735,7 @@ function removeCartItem(cartItemKey) {
     });
 }
 
-function addToCart(productId) {
-    // Add AJAX functionality to add products to cart
-    const data = {
-        action: 'woocommerce_add_to_cart',
-        product_id: productId,
-        quantity: 1
-    };
-    
-    fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert('Error al agregar el producto al carrito');
-        } else {
-            // Refresh page to show updated cart
-            location.reload();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error al agregar el producto al carrito');
-    });
-}
+
 
 // Initialize Lucide icons
 document.addEventListener('DOMContentLoaded', function() {
