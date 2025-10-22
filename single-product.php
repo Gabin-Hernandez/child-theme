@@ -1322,29 +1322,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Funcionalidad AJAX para agregar al carrito y abrir el panel
+    // Funcionalidad SIMPLE para agregar al carrito
     function setupAjaxAddToCart() {
-        const form = document.querySelector('form.cart');
         const addToCartButton = document.querySelector('.single_add_to_cart_button');
         
-        if (!form || !addToCartButton) {
-            console.warn('⚠️ Formulario o botón del carrito no encontrados');
+        if (!addToCartButton) {
+            console.warn('⚠️ Botón del carrito no encontrado');
             return;
         }
         
-        console.log('✅ Elementos encontrados:', { form: !!form, button: !!addToCartButton });
+        console.log('✅ Botón encontrado, configurando evento directo');
         
-        form.addEventListener('submit', function(e) {
+        // Remover cualquier evento existente y agregar el nuestro
+        addToCartButton.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation();
             
-            console.log('🛒 Formulario interceptado - usando AJAX');
+            console.log('🛒 CLICK - Agregando al carrito con AJAX');
+            
+            // Obtener datos del producto
+            const productId = this.value || this.getAttribute('value');
+            const quantityInput = document.querySelector('input[name="quantity"]');
+            const quantity = quantityInput ? quantityInput.value : 1;
+            
+            console.log('� Datos:', { productId, quantity });
             
             // Cambiar estado del botón
-            const originalText = addToCartButton.innerHTML;
-            addToCartButton.disabled = true;
-            addToCartButton.innerHTML = `
+            const originalText = this.innerHTML;
+            this.disabled = true;
+            this.innerHTML = `
                 <span class="flex items-center justify-center gap-2">
                     <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -1354,93 +1360,63 @@ document.addEventListener('DOMContentLoaded', function() {
                 </span>
             `;
             
-            // Obtener datos del formulario
-            const formData = new FormData(form);
+            // Usar el método más simple - URL GET como WooCommerce lo hace por defecto
+            const addToCartUrl = `${window.location.origin}${window.location.pathname}?add-to-cart=${productId}&quantity=${quantity}`;
             
-            // Usar la acción directa de WooCommerce AJAX
-            const ajaxUrl = wc_add_to_cart_params?.ajax_url || '/wp-admin/admin-ajax.php';
-            
-            // Agregar acción de AJAX
-            formData.append('action', 'woocommerce_add_to_cart');
-            
-            // Enviar solicitud AJAX usando el endpoint correcto de WooCommerce
-            fetch(ajaxUrl, {
-                method: 'POST',
-                body: formData,
+            fetch(addToCartUrl, {
+                method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                // Restaurar botón
-                addToCartButton.disabled = false;
-                addToCartButton.innerHTML = originalText;
+            .then(response => {
+                console.log('📡 Respuesta recibida:', response.status);
                 
-                if (data && !data.error) {
+                // Restaurar botón
+                this.disabled = false;
+                this.innerHTML = originalText;
+                
+                if (response.ok) {
+                    console.log('✅ Producto agregado exitosamente');
+                    
                     // Mostrar mensaje de éxito
                     showSuccessMessage('¡Producto agregado al carrito!');
                     
-                    // Actualizar fragmentos de WooCommerce si están disponibles
-                    if (data.fragments) {
-                        Object.keys(data.fragments).forEach(key => {
-                            const elements = document.querySelectorAll(key);
-                            elements.forEach(element => {
-                                element.outerHTML = data.fragments[key];
-                            });
-                        });
-                    }
-                    
-                    // Abrir el panel del carrito usando la instancia global
+                    // Forzar actualización del carrito - método más directo
                     setTimeout(() => {
-                        if (window.cartSidepanel && typeof window.cartSidepanel.open === 'function') {
-                            console.log('✅ Abriendo panel del carrito');
+                        // Trigger evento de WooCommerce
+                        document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+                        
+                        // Intentar abrir el panel
+                        if (window.cartSidepanel && window.cartSidepanel.open) {
+                            console.log('🔓 Abriendo panel del carrito');
                             window.cartSidepanel.open();
                         } else {
-                            console.log('❌ Panel del carrito no disponible aún, reintentando...');
-                            // Reintentar después de un breve delay
+                            console.log('❌ Panel no disponible - reintentando en 1s');
                             setTimeout(() => {
-                                if (window.cartSidepanel && typeof window.cartSidepanel.open === 'function') {
+                                if (window.cartSidepanel && window.cartSidepanel.open) {
                                     window.cartSidepanel.open();
                                 } else {
-                                    console.log('❌ Panel del carrito definitivamente no disponible');
+                                    console.log('❌ Panel definitivamente no disponible');
                                 }
                             }, 1000);
                         }
-                    }, 500);
-                    
-                    // Trigger evento personalizado
-                    document.body.dispatchEvent(new CustomEvent('product_added_to_cart', {
-                        detail: { productId: formData.get('add-to-cart'), quantity: formData.get('quantity') }
-                    }));
+                    }, 300);
                     
                 } else {
-                    showErrorMessage(data?.data || 'Error al agregar el producto al carrito');
+                    console.error('❌ Error en la respuesta:', response.status);
+                    showErrorMessage('Error al agregar el producto');
                 }
             })
             .catch(error => {
-                console.error('Error al agregar al carrito:', error);
-                // Restaurar botón
-                addToCartButton.disabled = false;
-                addToCartButton.innerHTML = originalText;
-                showErrorMessage('Error de conexión. Por favor, intenta de nuevo.');
+                console.error('❌ Error de conexión:', error);
+                this.disabled = false;
+                this.innerHTML = originalText;
+                showErrorMessage('Error de conexión');
             });
         });
         
-        // Evento adicional en el botón como respaldo
-        addToCartButton.addEventListener('click', function(e) {
-            console.log('🔄 Botón clickeado directamente');
-            
-            // Si el botón no está dentro de un formulario o el formulario no se está manejando
-            const parentForm = this.closest('form');
-            if (parentForm && parentForm.classList.contains('cart')) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('🛒 Previniendo envío normal del formulario desde click del botón');
-            }
-        });
-        
-        console.log('✅ Eventos AJAX configurados correctamente');
+        console.log('✅ Evento click configurado en el botón');
     }
     
     // Función para mostrar mensaje de éxito
