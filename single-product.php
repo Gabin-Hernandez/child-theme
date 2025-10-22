@@ -1325,13 +1325,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                // Redirigir inmediatamente al checkout
-                window.location.href = wc_checkout_params?.checkout_url || '/checkout/';
+                // Redirigir al carrito después de agregar el producto
+                window.location.href = '/carrito/';
             })
             .catch(error => {
                 console.error('Error:', error);
                 // Fallback: redirigir al carrito
-                window.location.href = '/cart/';
+                window.location.href = '/carrito/';
             });
         }
     };
