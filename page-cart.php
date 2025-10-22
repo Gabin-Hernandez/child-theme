@@ -33,6 +33,14 @@ get_header(); ?>
     background-color: #f5f5f5;
 }
 
+/* Hide WooCommerce notices */
+.woocommerce-notices-wrapper,
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+    display: none !important;
+}
+
 .cart-header {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
@@ -486,9 +494,6 @@ get_header(); ?>
     </div>
 
     <?php
-    // Display WooCommerce notices
-    woocommerce_output_all_notices();
-    
     // Check if cart is empty
     if (WC()->cart->is_empty()) : ?>
         <div class="empty-cart">
