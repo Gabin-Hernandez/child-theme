@@ -1347,50 +1347,74 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Obtener datos del formulario
             const formData = new FormData(form);
-            const productId = formData.get('add-to-cart');
-            const quantity = formData.get('quantity') || 1;
             
-            // Construir URL para agregar al carrito
-            const addToCartUrl = window.location.origin + window.location.pathname + '?add-to-cart=' + productId + '&quantity=' + quantity;
+            // Usar la acción directa de WooCommerce AJAX
+            const ajaxUrl = wc_add_to_cart_params?.ajax_url || '/wp-admin/admin-ajax.php';
             
-            // Enviar solicitud AJAX
-            fetch(addToCartUrl, {
-                method: 'GET',
+            // Agregar acción de AJAX
+            formData.append('action', 'woocommerce_add_to_cart');
+            
+            // Enviar solicitud AJAX usando el endpoint correcto de WooCommerce
+            fetch(ajaxUrl, {
+                method: 'POST',
+                body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => {
+            .then(response => response.json())
+            .then(data => {
                 // Restaurar botón
                 addToCartButton.disabled = false;
                 addToCartButton.innerHTML = originalText;
                 
-                if (response.ok) {
+                if (data && !data.error) {
                     // Mostrar mensaje de éxito
                     showSuccessMessage('¡Producto agregado al carrito!');
                     
-                    // Abrir el panel del carrito
-                    if (typeof openCartPanel === 'function') {
-                        setTimeout(() => {
-                            openCartPanel();
-                        }, 500);
-                    } else {
-                        console.log('Función openCartPanel no encontrada');
+                    // Actualizar fragmentos de WooCommerce si están disponibles
+                    if (data.fragments) {
+                        Object.keys(data.fragments).forEach(key => {
+                            const elements = document.querySelectorAll(key);
+                            elements.forEach(element => {
+                                element.outerHTML = data.fragments[key];
+                            });
+                        });
                     }
                     
-                    // Trigger evento de WooCommerce para actualizar el carrito
-                    document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+                    // Abrir el panel del carrito usando la instancia global
+                    setTimeout(() => {
+                        if (window.cartSidepanel && typeof window.cartSidepanel.open === 'function') {
+                            console.log('✅ Abriendo panel del carrito');
+                            window.cartSidepanel.open();
+                        } else {
+                            console.log('❌ Panel del carrito no disponible aún, reintentando...');
+                            // Reintentar después de un breve delay
+                            setTimeout(() => {
+                                if (window.cartSidepanel && typeof window.cartSidepanel.open === 'function') {
+                                    window.cartSidepanel.open();
+                                } else {
+                                    console.log('❌ Panel del carrito definitivamente no disponible');
+                                }
+                            }, 1000);
+                        }
+                    }, 500);
+                    
+                    // Trigger evento personalizado
+                    document.body.dispatchEvent(new CustomEvent('product_added_to_cart', {
+                        detail: { productId: formData.get('add-to-cart'), quantity: formData.get('quantity') }
+                    }));
                     
                 } else {
-                    showErrorMessage('Error al agregar el producto al carrito');
+                    showErrorMessage(data?.data || 'Error al agregar el producto al carrito');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error al agregar al carrito:', error);
                 // Restaurar botón
                 addToCartButton.disabled = false;
                 addToCartButton.innerHTML = originalText;
-                showErrorMessage('Error al agregar el producto al carrito');
+                showErrorMessage('Error de conexión. Por favor, intenta de nuevo.');
             });
         });
     }
