@@ -35,8 +35,7 @@ get_header(); ?>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 
-                <!-- Galería de imágenes -->
-                <div class="space-y-4">
+               
                 
                 <!-- Galería de imágenes -->
                 <div class="space-y-4">
