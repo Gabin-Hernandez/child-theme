@@ -289,24 +289,18 @@ get_header(); ?>
                                     <?php endif; ?>
                                 </div>
                                 
-                                <!-- Botones de acción -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <!-- Botón de agregar al carrito -->
+                                <div class="w-full">
                                     <button type="submit" 
                                             name="add-to-cart" 
                                             value="<?php echo esc_attr( $product->get_id() ); ?>" 
-                                            class="single_add_to_cart_button bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-3 px-6 rounded-lg font-semibold transition-all duration-200 border-0 outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                                            class="single_add_to_cart_button w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-4 px-6 rounded-lg font-semibold transition-all duration-200 border-0 outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 text-lg">
                                         <span class="flex items-center justify-center gap-2">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8 9.2M7 13l2.6-7.4M16 6l2 2-2 2m2-2H4"></path>
                                             </svg>
                                             Agregar al carrito
                                         </span>
-                                    </button>
-                                    
-                                    <button type="button" 
-                                            onclick="buyNow(<?php echo $product->get_id(); ?>)"
-                                            class="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 border-0 outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                                        Comprar ahora
                                     </button>
                                 </div>
                                 
@@ -1240,6 +1234,23 @@ get_header(); ?>
     .thumbnail-img:hover {
         transform: scale(1.05);
     }
+    
+    /* Animación de carga para el botón */
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+    
+    /* Estilos para botón deshabilitado */
+    .single_add_to_cart_button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
 </style>
 <script>
 // Función para cambiar pestañas estilo Amazon
@@ -1311,32 +1322,139 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Funcionalidad "Comprar ahora" estilo Amazon
-    window.buyNow = function(productId) {
-        const form = document.querySelector('.cart');
-        const quantityInput = document.querySelector('input[name="quantity"]');
-        const quantity = quantityInput ? quantityInput.value : 1;
+    // Funcionalidad AJAX para agregar al carrito y abrir el panel
+    function setupAjaxAddToCart() {
+        const form = document.querySelector('form.cart');
+        const addToCartButton = document.querySelector('.single_add_to_cart_button');
         
-        // Agregar al carrito usando la URL de WooCommerce y redirigir al carrito
-        const addToCartUrl = window.location.origin + window.location.pathname + '?add-to-cart=' + productId + '&quantity=' + quantity;
+        if (!form || !addToCartButton) return;
         
-        // Hacer la solicitud para agregar al carrito
-        fetch(addToCartUrl, {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-        .then(response => {
-            // Redirigir al carrito independientemente de la respuesta
-            window.location.href = '/carrito/';
-        })
-        .catch(error => {
-            console.error('Error agregando al carrito:', error);
-            // En caso de error, usar método alternativo
-            window.location.href = addToCartUrl + '&redirect_to=/carrito/';
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Cambiar estado del botón
+            const originalText = addToCartButton.innerHTML;
+            addToCartButton.disabled = true;
+            addToCartButton.innerHTML = `
+                <span class="flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="m12 2a10 10 0 0 1 10 10h-4a6 6 0 0 0-6-6z"></path>
+                    </svg>
+                    Agregando...
+                </span>
+            `;
+            
+            // Obtener datos del formulario
+            const formData = new FormData(form);
+            const productId = formData.get('add-to-cart');
+            const quantity = formData.get('quantity') || 1;
+            
+            // Construir URL para agregar al carrito
+            const addToCartUrl = window.location.origin + window.location.pathname + '?add-to-cart=' + productId + '&quantity=' + quantity;
+            
+            // Enviar solicitud AJAX
+            fetch(addToCartUrl, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                // Restaurar botón
+                addToCartButton.disabled = false;
+                addToCartButton.innerHTML = originalText;
+                
+                if (response.ok) {
+                    // Mostrar mensaje de éxito
+                    showSuccessMessage('¡Producto agregado al carrito!');
+                    
+                    // Abrir el panel del carrito
+                    if (typeof openCartPanel === 'function') {
+                        setTimeout(() => {
+                            openCartPanel();
+                        }, 500);
+                    } else {
+                        console.log('Función openCartPanel no encontrada');
+                    }
+                    
+                    // Trigger evento de WooCommerce para actualizar el carrito
+                    document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+                    
+                } else {
+                    showErrorMessage('Error al agregar el producto al carrito');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Restaurar botón
+                addToCartButton.disabled = false;
+                addToCartButton.innerHTML = originalText;
+                showErrorMessage('Error al agregar el producto al carrito');
+            });
         });
-    };
+    }
+    
+    // Función para mostrar mensaje de éxito
+    function showSuccessMessage(message) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+        notification.innerHTML = `
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animar entrada
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        // Remover después de 3 segundos
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Función para mostrar mensaje de error
+    function showErrorMessage(message) {
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+        notification.innerHTML = `
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animar entrada
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        // Remover después de 3 segundos
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Inicializar la funcionalidad AJAX
+    setupAjaxAddToCart();
 
     // Funcionalidad de controles de cantidad
     document.querySelectorAll('.qty-btn').forEach(button => {
