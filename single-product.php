@@ -175,24 +175,7 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
                     
-                    <!-- Precio -->
-                    <div class="flex items-baseline gap-3 flex-wrap">
-                        <span class="text-2xl sm:text-3xl font-bold text-gray-900">
-                            <?php echo $product->get_price_html(); ?>
-                        </span>
-                        <?php if ( $product->is_on_sale() ) : ?>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-red-100 text-red-800">
-                                <?php
-                                $regular_price = $product->get_regular_price();
-                                $sale_price = $product->get_sale_price();
-                                if ( $regular_price && $sale_price ) {
-                                    $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                    echo "Ahorra {$discount}%";
-                                }
-                                ?>
-                            </span>
-                        <?php endif; ?>
-                    </div>
+                   
                     
                     <!-- Descripción corta -->
                     <?php if ( $product->get_short_description() ) : ?>
@@ -1331,21 +1314,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        console.log('✅ Botón encontrado, configurando evento directo');
         
         // Remover cualquier evento existente y agregar el nuestro
         addToCartButton.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            console.log('🛒 CLICK - Agregando al carrito con AJAX');
             
             // Obtener datos del producto
             const productId = this.value || this.getAttribute('value');
             const quantityInput = document.querySelector('input[name="quantity"]');
             const quantity = quantityInput ? quantityInput.value : 1;
             
-            console.log('� Datos:', { productId, quantity });
             
             // Cambiar estado del botón
             const originalText = this.innerHTML;
@@ -1370,14 +1350,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(response => {
-                console.log('📡 Respuesta recibida:', response.status);
                 
                 // Restaurar botón
                 this.disabled = false;
                 this.innerHTML = originalText;
                 
                 if (response.ok) {
-                    console.log('✅ Producto agregado exitosamente');
                     
                     // Mostrar mensaje de éxito
                     showSuccessMessage('¡Producto agregado al carrito!');
@@ -1389,7 +1367,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Intentar abrir el panel
                         if (window.cartSidepanel && window.cartSidepanel.open) {
-                            console.log('🔓 Abriendo panel del carrito');
                             window.cartSidepanel.open();
                         } else {
                             console.log('❌ Panel no disponible - reintentando en 1s');
@@ -1416,7 +1393,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        console.log('✅ Evento click configurado en el botón');
     }
     
     // Función para mostrar mensaje de éxito
