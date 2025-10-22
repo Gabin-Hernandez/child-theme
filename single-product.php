@@ -31,12 +31,12 @@ get_header(); ?>
         </div>
     </div>
 
-    <!-- Contenido principal del producto - Estilo Amazon -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+    <!-- Contenido principal del producto -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
                 
-                <!-- Galería de imágenes - Columna izquierda (5 columnas) -->
-                <div class="lg:col-span-5">
+                <!-- Galería de imágenes -->
+                <div class="space-y-4">
                 
                 <!-- Galería de imágenes -->
                 <div class="space-y-4">
@@ -113,8 +113,8 @@ get_header(); ?>
                     <?php endif; ?>
                 </div>
                 
-                <!-- Información del producto - Columna central (4 columnas) -->
-                <div class="lg:col-span-4 space-y-3">
+                <!-- Información del producto -->
+                <div class="space-y-4 lg:space-y-6">
                     <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <?php if ( $product->is_on_sale() ) : ?>
@@ -202,239 +202,314 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
 
-                    <!-- Características destacadas estilo Amazon -->
-                    <div class="mt-4 space-y-2">
-                        <h3 class="text-sm font-semibold text-gray-900">Características principales:</h3>
-                        <ul class="text-sm text-gray-700 space-y-1">
-                            <?php if ( $product->is_in_stock() ) : ?>
-                                <li class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    Producto disponible en stock
-                                </li>
-                            <?php endif; ?>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                Garantía de calidad incluida
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                Soporte técnico especializado
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                Instalación disponible
-                            </li>
-                        </ul>
-                    </div>
-                    
-                </div>
-                
-                <!-- Panel de compra estilo Amazon - Columna derecha (3 columnas) -->
-                <div class="lg:col-span-3">
-                    <div class="bg-white border border-gray-200 rounded-lg p-4 sticky top-4">
+                    <!-- Panel de compra integrado estilo Amazon -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-6">
                         <!-- Precio destacado -->
                         <div class="mb-4">
                             <div class="flex items-baseline gap-3 flex-wrap mb-2">
-                                <span class="text-2xl font-bold text-red-600">
+                                <span class="text-3xl font-bold text-red-600">
                                     <?php echo $product->get_price_html(); ?>
                                 </span>
                                 <?php if ( $product->is_on_sale() ) : ?>
-                                    <span class="text-sm text-gray-500 line-through">
+                                    <span class="text-lg text-gray-500 line-through">
                                         <?php echo wc_price( $product->get_regular_price() ); ?>
+                                    </span>
+                                    <span class="inline-flex items-center px-2 py-1 rounded-md text-sm font-medium bg-red-100 text-red-800">
+                                        <?php
+                                        $regular_price = $product->get_regular_price();
+                                        $sale_price = $product->get_sale_price();
+                                        if ( $regular_price && $sale_price ) {
+                                            $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                            echo "-{$discount}%";
+                                        }
+                                        ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
-                            
-                            <?php if ( $product->is_on_sale() ) : ?>
-                                <div class="text-sm text-red-600 font-medium">
-                                    <?php
-                                    $regular_price = $product->get_regular_price();
-                                    $sale_price = $product->get_sale_price();
-                                    if ( $regular_price && $sale_price ) {
-                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                        echo "Ahorra {$discount}% - Oferta por tiempo limitado";
-                                    }
-                                    ?>
-                                </div>
-                            <?php endif; ?>
                         </div>
 
-                        <!-- Estado de stock -->
+                        <!-- Estado de stock y disponibilidad -->
                         <div class="mb-4">
                             <?php if ( $product->is_in_stock() ) : ?>
-                                <div class="flex items-center gap-2 text-green-700">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <div class="flex items-center gap-2 text-green-700 mb-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                     </svg>
-                                    <span class="font-medium text-sm">En stock</span>
+                                    <span class="font-semibold">En stock - Listo para enviar</span>
                                 </div>
                                 <?php if ( $product->get_stock_quantity() && $product->get_stock_quantity() < 10 ) : ?>
-                                    <div class="text-xs text-orange-600 mt-1">
-                                        Solo quedan <?php echo $product->get_stock_quantity(); ?> disponibles
+                                    <div class="text-sm text-orange-600 mb-2 ml-7">
+                                        Solo quedan <?php echo $product->get_stock_quantity(); ?> disponibles - ¡Ordena pronto!
                                     </div>
                                 <?php endif; ?>
                             <?php else : ?>
-                                <div class="flex items-center gap-2 text-red-600">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <div class="flex items-center gap-2 text-red-600 mb-2">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
-                                    <span class="font-medium text-sm">Agotado</span>
+                                    <span class="font-semibold">Agotado</span>
                                 </div>
                             <?php endif; ?>
                         </div>
 
                         <!-- Formulario de compra -->
                         <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                            <form class="cart space-y-4" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+                            <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
                                 
                                 <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
                                 
-                                <!-- Selector de cantidad -->
-                                <?php 
-                                $stock_quantity = $product->get_stock_quantity();
-                                $show_quantity_controls = $stock_quantity === null || $stock_quantity > 1;
-                                ?>
-                                
-                                <?php if ( $show_quantity_controls ) : ?>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">Cantidad:</label>
-                                        <div class="flex items-center border border-gray-300 rounded-md overflow-hidden w-24">
-                                            <button type="button" class="qty-btn minus px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm">-</button>
-                                            <input type="number" 
-                                                   id="quantity_<?php echo esc_attr( $product->get_id() ); ?>" 
-                                                   class="qty text-center border-0 outline-none flex-1 py-1 text-sm" 
-                                                   name="quantity" 
-                                                   value="1" 
-                                                   min="1" 
-                                                   max="<?php echo $product->get_max_purchase_quantity(); ?>"
-                                                   step="1" 
-                                                   inputmode="numeric">
-                                            <button type="button" class="qty-btn plus px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm">+</button>
+                                <div class="flex items-center gap-4 mb-4">
+                                    <!-- Selector de cantidad -->
+                                    <?php 
+                                    $stock_quantity = $product->get_stock_quantity();
+                                    $show_quantity_controls = $stock_quantity === null || $stock_quantity > 1;
+                                    ?>
+                                    
+                                    <?php if ( $show_quantity_controls ) : ?>
+                                        <div class="flex items-center">
+                                            <label class="text-sm font-medium text-gray-700 mr-3">Cantidad:</label>
+                                            <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                                                <button type="button" class="qty-btn minus px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold">−</button>
+                                                <input type="number" 
+                                                       id="quantity_<?php echo esc_attr( $product->get_id() ); ?>" 
+                                                       class="qty text-center border-0 outline-none w-16 py-2" 
+                                                       name="quantity" 
+                                                       value="1" 
+                                                       min="1" 
+                                                       max="<?php echo $product->get_max_purchase_quantity(); ?>"
+                                                       step="1" 
+                                                       inputmode="numeric">
+                                                <button type="button" class="qty-btn plus px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold">+</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php else : ?>
-                                    <input type="hidden" name="quantity" value="1">
-                                <?php endif; ?>
+                                    <?php else : ?>
+                                        <input type="hidden" name="quantity" value="1">
+                                        <div class="text-sm text-gray-600">
+                                            <span class="font-medium">Cantidad:</span> 1 (último disponible)
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
                                 
-                                <!-- Botón agregar al carrito -->
-                                <button type="submit" 
-                                        name="add-to-cart" 
-                                        value="<?php echo esc_attr( $product->get_id() ); ?>" 
-                                        class="single_add_to_cart_button w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-2 px-4 rounded-md font-medium transition-colors duration-200 border-0 outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
-                                    <span class="flex items-center justify-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8 9.2M7 13l2.6-7.4M16 6l2 2-2 2m2-2H4"></path>
-                                        </svg>
-                                        Agregar al carrito
-                                    </span>
-                                </button>
-                                
-                                <!-- Botón comprar ahora -->
-                                <button type="button" 
-                                        onclick="buyNow(<?php echo $product->get_id(); ?>)"
-                                        class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-medium transition-colors duration-200 border-0 outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                                    Comprar ahora
-                                </button>
+                                <!-- Botones de acción -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <button type="submit" 
+                                            name="add-to-cart" 
+                                            value="<?php echo esc_attr( $product->get_id() ); ?>" 
+                                            class="single_add_to_cart_button bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-3 px-6 rounded-lg font-semibold transition-all duration-200 border-0 outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                                        <span class="flex items-center justify-center gap-2">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8 9.2M7 13l2.6-7.4M16 6l2 2-2 2m2-2H4"></path>
+                                            </svg>
+                                            Agregar al carrito
+                                        </span>
+                                    </button>
+                                    
+                                    <button type="button" 
+                                            onclick="buyNow(<?php echo $product->get_id(); ?>)"
+                                            class="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold transition-all duration-200 border-0 outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                                        Comprar ahora
+                                    </button>
+                                </div>
                                 
                                 <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
                             </form>
                         <?php endif; ?>
 
-                        <!-- Información de envío -->
-                        <div class="mt-4 pt-4 border-t border-gray-200">
-                            <div class="space-y-2 text-sm">
+                        <!-- Beneficios adicionales -->
+                        <div class="mt-6 pt-4 border-t border-gray-300">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                                 <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                     </svg>
-                                    <span>Envío GRATIS en pedidos +$500</span>
+                                    <span><strong>Envío gratis</strong><br>En pedidos +$500</span>
                                 </div>
                                 <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    <span>Garantía de satisfacción</span>
+                                    <span><strong>Garantía</strong><br>30 días de devolución</span>
                                 </div>
                                 <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
                                     </svg>
-                                    <span>Soporte técnico incluido</span>
+                                    <span><strong>Soporte</strong><br>Técnico incluido</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 
             </div>
         </div>
 
-        <!-- Descripción del producto -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-            <div class="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-                    <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    Descripción del Producto
-                </h2>
-                <div class="prose prose-lg max-w-none text-gray-700">
-                    <?php echo $product->get_description(); ?>
+        <!-- Información del producto estilo Amazon -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+            
+            <!-- Sección de descripción del producto -->
+            <div class="bg-white border border-gray-200 rounded-lg mb-6">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900">Acerca de este artículo</h2>
+                </div>
+                <div class="p-6">
+                    <div class="prose prose-gray max-w-none">
+                        <?php 
+                        $short_description = $product->get_short_description();
+                        if ( $short_description ) {
+                            echo apply_filters( 'woocommerce_short_description', $short_description );
+                        } else {
+                            echo '<p class="text-gray-600">Este producto está diseñado para ofrecer la máxima calidad y rendimiento en reparaciones móviles profesionales.</p>';
+                        }
+                        ?>
+                    </div>
+                    
+                    <!-- Características clave estilo Amazon -->
+                    <div class="mt-6">
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3">
+                                <span class="inline-block w-1.5 h-1.5 bg-gray-800 rounded-full mt-2 flex-shrink-0"></span>
+                                <span class="text-gray-700">Producto de alta calidad para reparaciones profesionales</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="inline-block w-1.5 h-1.5 bg-gray-800 rounded-full mt-2 flex-shrink-0"></span>
+                                <span class="text-gray-700">Compatible con múltiples modelos de dispositivos</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="inline-block w-1.5 h-1.5 bg-gray-800 rounded-full mt-2 flex-shrink-0"></span>
+                                <span class="text-gray-700">Incluye soporte técnico especializado</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="inline-block w-1.5 h-1.5 bg-gray-800 rounded-full mt-2 flex-shrink-0"></span>
+                                <span class="text-gray-700">Garantía de calidad y satisfacción</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Información detallada del producto -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <!-- Pestañas NUEVAS -->
-                <div class="border-b border-gray-200 bg-gray-50">
-                    <nav class="flex space-x-1 px-4" aria-label="Tabs" role="tablist">
-                        <button class="product-tab active" 
+
+            <!-- Tabs de información detallada -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <!-- Navegación de pestañas estilo Amazon -->
+                <div class="border-b border-gray-200">
+                    <nav class="flex" aria-label="Tabs">
+                        <button class="product-tab active px-6 py-4 text-sm font-medium border-b-2 border-orange-500 text-orange-600" 
+                                onclick="switchTab(event, 'tab-description')"
+                                role="tab"
+                                aria-selected="true">
+                            Descripción
+                        </button>
+                        <button class="product-tab px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" 
                                 onclick="switchTab(event, 'tab-specifications')"
                                 role="tab"
-                                aria-selected="true"
-                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid #3b82f6; color: #3b82f6; transition: all 0.3s;">
-                            📋 Especificaciones
+                                aria-selected="false">
+                            Especificaciones
                         </button>
-                        <button class="product-tab" 
+                        <button class="product-tab px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" 
                                 onclick="switchTab(event, 'tab-reviews')"
                                 role="tab"
-                                aria-selected="false"
-                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s;">
-                            ⭐ Reseñas (<?php echo $product->get_review_count(); ?>)
+                                aria-selected="false">
+                            Opiniones de clientes (<?php echo $product->get_review_count(); ?>)
                         </button>
-                        <button class="product-tab" 
+                        <button class="product-tab px-6 py-4 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" 
                                 onclick="switchTab(event, 'tab-shipping')"
                                 role="tab"
-                                aria-selected="false"
-                                style="padding: 16px 24px; font-weight: 600; font-size: 15px; border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; color: #6b7280; transition: all 0.3s;">
-                            🚚 Envío y Devoluciones
+                                aria-selected="false">
+                            Envío y devoluciones
                         </button>
                     </nav>
                 </div>
                 
                 <!-- Contenido de las pestañas -->
                 <div class="p-6">
-                    <!-- Especificaciones -->
-                    <div id="tab-specifications" class="tab-panel" style="display: block;">
-                        <div class="prose prose-sm max-w-none">
+                    <!-- Descripción completa -->
+                    <div id="tab-description" class="tab-panel" style="display: block;">
+                        <div class="prose prose-gray max-w-none">
+                            <h3 class="text-lg font-semibold mb-4">Descripción del producto</h3>
                             <?php 
                             $description = $product->get_description();
                             if ( $description ) {
                                 echo apply_filters( 'the_content', $description );
                             } else {
-                                echo '<p class="text-gray-500 text-sm">No hay especificaciones disponibles para este producto.</p>';
+                                echo '<div class="space-y-4">';
+                                echo '<p class="text-gray-700">Este producto ha sido diseñado específicamente para profesionales en reparación de dispositivos móviles, ofreciendo la más alta calidad y precisión en cada uso.</p>';
+                                echo '<p class="text-gray-700">Fabricado con materiales de primera calidad y sometido a rigurosos controles de calidad para garantizar un rendimiento óptimo y duradero.</p>';
+                                echo '<p class="text-gray-700">Ideal para talleres profesionales y técnicos especializados que buscan herramientas confiables y eficientes para sus reparaciones.</p>';
+                                echo '</div>';
                             }
                             ?>
+                        </div>
+                    </div>
+
+                    <!-- Especificaciones técnicas -->
+                    <div id="tab-specifications" class="tab-panel" style="display: none;">
+                        <div class="space-y-6">
+                            <h3 class="text-lg font-semibold">Especificaciones técnicas</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <h4 class="font-medium text-gray-900 pb-2 border-b border-gray-200">Información general</h4>
+                                    <div class="space-y-3">
+                                        <?php if ( $product->get_sku() ) : ?>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">SKU:</span>
+                                            <span class="font-medium"><?php echo $product->get_sku(); ?></span>
+                                        </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ( $product->get_weight() ) : ?>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Peso:</span>
+                                            <span class="font-medium"><?php echo $product->get_weight() . ' ' . get_option('woocommerce_weight_unit'); ?></span>
+                                        </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ( $product->get_dimensions() ) : ?>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Dimensiones:</span>
+                                            <span class="font-medium"><?php echo $product->get_dimensions(); ?></span>
+                                        </div>
+                                        <?php endif; ?>
+                                        
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Categoría:</span>
+                                            <span class="font-medium">
+                                                <?php 
+                                                $categories = get_the_terms( $product->get_id(), 'product_cat' );
+                                                if ( $categories && ! is_wp_error( $categories ) ) {
+                                                    echo $categories[0]->name;
+                                                } else {
+                                                    echo 'Herramientas';
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <h4 class="font-medium text-gray-900 pb-2 border-b border-gray-200">Características</h4>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Material:</span>
+                                            <span class="font-medium">Alta calidad</span>
+                                        </div>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Garantía:</span>
+                                            <span class="font-medium">30 días</span>
+                                        </div>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Uso:</span>
+                                            <span class="font-medium">Profesional</span>
+                                        </div>
+                                        <div class="flex justify-between py-2">
+                                            <span class="text-gray-600">Compatibilidad:</span>
+                                            <span class="font-medium">Universal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -1168,7 +1243,7 @@ get_header(); ?>
     }
 </style>
 <script>
-// Nueva función para cambiar pestañas - SIMPLE Y DIRECTA
+// Función para cambiar pestañas estilo Amazon
 function switchTab(event, tabId) {
     console.log('🔄 Cambiando a pestaña:', tabId);
     
@@ -1176,15 +1251,14 @@ function switchTab(event, tabId) {
     const allPanels = document.querySelectorAll('.tab-panel');
     allPanels.forEach(panel => {
         panel.style.display = 'none';
-        console.log('❌ Ocultando:', panel.id);
     });
     
-    // Remover clase active de todos los botones
+    // Remover clase active de todos los botones y reset estilos
     const allTabs = document.querySelectorAll('.product-tab');
     allTabs.forEach(tab => {
         tab.classList.remove('active');
-        tab.style.borderBottomColor = 'transparent';
-        tab.style.color = '#6b7280';
+        tab.classList.remove('border-orange-500', 'text-orange-600');
+        tab.classList.add('border-transparent', 'text-gray-500');
         tab.setAttribute('aria-selected', 'false');
     });
     
@@ -1193,16 +1267,15 @@ function switchTab(event, tabId) {
     if (selectedPanel) {
         selectedPanel.style.display = 'block';
         console.log('✅ Mostrando:', tabId);
-        console.log('📄 Contenido:', selectedPanel.innerHTML.substring(0, 150));
     } else {
         console.error('❌ No se encontró el panel:', tabId);
     }
     
-    // Activar el botón clickeado
+    // Activar el botón clickeado con estilo Amazon
     if (event && event.currentTarget) {
         event.currentTarget.classList.add('active');
-        event.currentTarget.style.borderBottomColor = '#3b82f6';
-        event.currentTarget.style.color = '#3b82f6';
+        event.currentTarget.classList.remove('border-transparent', 'text-gray-500');
+        event.currentTarget.classList.add('border-orange-500', 'text-orange-600');
         event.currentTarget.setAttribute('aria-selected', 'true');
     }
 }
