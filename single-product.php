@@ -1313,27 +1313,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funcionalidad "Comprar ahora" estilo Amazon
     window.buyNow = function(productId) {
-        // Agregar al carrito primero
         const form = document.querySelector('.cart');
-        if (form) {
-            const formData = new FormData(form);
-            
-            // Enviar solicitud AJAX para agregar al carrito
-            fetch(wc_add_to_cart_params.ajax_url || '/wp-admin/admin-ajax.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Redirigir al carrito después de agregar el producto
-                window.location.href = '/carrito/';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Fallback: redirigir al carrito
-                window.location.href = '/carrito/';
-            });
-        }
+        const quantityInput = document.querySelector('input[name="quantity"]');
+        const quantity = quantityInput ? quantityInput.value : 1;
+        
+        // Agregar al carrito usando la URL de WooCommerce y redirigir al carrito
+        const addToCartUrl = window.location.origin + window.location.pathname + '?add-to-cart=' + productId + '&quantity=' + quantity;
+        
+        // Hacer la solicitud para agregar al carrito
+        fetch(addToCartUrl, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            // Redirigir al carrito independientemente de la respuesta
+            window.location.href = '/carrito/';
+        })
+        .catch(error => {
+            console.error('Error agregando al carrito:', error);
+            // En caso de error, usar método alternativo
+            window.location.href = addToCartUrl + '&redirect_to=/carrito/';
+        });
     };
 
     // Funcionalidad de controles de cantidad
