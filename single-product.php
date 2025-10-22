@@ -31,9 +31,12 @@ get_header(); ?>
         </div>
     </div>
 
-    <!-- Contenido principal del producto -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+    <!-- Contenido principal del producto - Estilo Amazon -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+                
+                <!-- Galería de imágenes - Columna izquierda (5 columnas) -->
+                <div class="lg:col-span-5">
                 
                 <!-- Galería de imágenes -->
                 <div class="space-y-4">
@@ -110,8 +113,8 @@ get_header(); ?>
                     <?php endif; ?>
                 </div>
                 
-                <!-- Información del producto -->
-                <div class="space-y-4 lg:space-y-6">
+                <!-- Información del producto - Columna central (4 columnas) -->
+                <div class="lg:col-span-4 space-y-3">
                     <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <?php if ( $product->is_on_sale() ) : ?>
@@ -165,19 +168,11 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
                     
-                    <!-- SKU con botón compartir -->
+                    <!-- SKU -->
                     <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-                        <div class="flex items-center justify-between">
-                            <div class="text-sm text-gray-600">
-                                <span class="font-medium">SKU:</span> 
-                                <span class="font-mono"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span>
-                            </div>
-                            <!-- Botón compartir -->
-                            <button class="share-btn flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-50 hover:text-blue-500 transition-all duration-300 group">
-                                <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-                                </svg>
-                            </button>
+                        <div class="text-sm text-gray-600">
+                            <span class="font-medium">SKU:</span> 
+                            <span class="font-mono text-gray-800"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span>
                         </div>
                     <?php endif; ?>
                     
@@ -207,89 +202,178 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
 
-                    <!-- Formulario de agregar al carrito personalizado -->
-                    <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
-                        <form class="cart" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+                    <!-- Características destacadas estilo Amazon -->
+                    <div class="mt-4 space-y-2">
+                        <h3 class="text-sm font-semibold text-gray-900">Características principales:</h3>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <?php if ( $product->is_in_stock() ) : ?>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Producto disponible en stock
+                                </li>
+                            <?php endif; ?>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                Garantía de calidad incluida
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                Soporte técnico especializado
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                Instalación disponible
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                
+                <!-- Panel de compra estilo Amazon - Columna derecha (3 columnas) -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4 sticky top-4">
+                        <!-- Precio destacado -->
+                        <div class="mb-4">
+                            <div class="flex items-baseline gap-3 flex-wrap mb-2">
+                                <span class="text-2xl font-bold text-red-600">
+                                    <?php echo $product->get_price_html(); ?>
+                                </span>
+                                <?php if ( $product->is_on_sale() ) : ?>
+                                    <span class="text-sm text-gray-500 line-through">
+                                        <?php echo wc_price( $product->get_regular_price() ); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
                             
-                            <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
-                            
-                            <!-- Cantidad y botón agregar al carrito -->
-                            <div class="flex items-center gap-3 mb-5">
+                            <?php if ( $product->is_on_sale() ) : ?>
+                                <div class="text-sm text-red-600 font-medium">
+                                    <?php
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+                                    if ( $regular_price && $sale_price ) {
+                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                        echo "Ahorra {$discount}% - Oferta por tiempo limitado";
+                                    }
+                                    ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Estado de stock -->
+                        <div class="mb-4">
+                            <?php if ( $product->is_in_stock() ) : ?>
+                                <div class="flex items-center gap-2 text-green-700">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="font-medium text-sm">En stock</span>
+                                </div>
+                                <?php if ( $product->get_stock_quantity() && $product->get_stock_quantity() < 10 ) : ?>
+                                    <div class="text-xs text-orange-600 mt-1">
+                                        Solo quedan <?php echo $product->get_stock_quantity(); ?> disponibles
+                                    </div>
+                                <?php endif; ?>
+                            <?php else : ?>
+                                <div class="flex items-center gap-2 text-red-600">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="font-medium text-sm">Agotado</span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Formulario de compra -->
+                        <?php if ( $product->is_purchasable() && $product->is_in_stock() ) : ?>
+                            <form class="cart space-y-4" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype='multipart/form-data'>
+                                
+                                <?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+                                
+                                <!-- Selector de cantidad -->
                                 <?php 
                                 $stock_quantity = $product->get_stock_quantity();
                                 $show_quantity_controls = $stock_quantity === null || $stock_quantity > 1;
                                 ?>
                                 
                                 <?php if ( $show_quantity_controls ) : ?>
-                                <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                                    <button type="button" class="qty-btn minus px-3 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm">-</button>
-                                    <input type="number" 
-                                           id="quantity_<?php echo esc_attr( $product->get_id() ); ?>" 
-                                           class="qty text-center border-0 outline-none w-14 py-2.5 text-sm" 
-                                           name="quantity" 
-                                           value="1" 
-                                           min="1" 
-                                           max="<?php echo $product->get_max_purchase_quantity(); ?>"
-                                           step="1" 
-                                           inputmode="numeric">
-                                    <button type="button" class="qty-btn plus px-3 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold text-sm">+</button>
-                                </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Cantidad:</label>
+                                        <div class="flex items-center border border-gray-300 rounded-md overflow-hidden w-24">
+                                            <button type="button" class="qty-btn minus px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm">-</button>
+                                            <input type="number" 
+                                                   id="quantity_<?php echo esc_attr( $product->get_id() ); ?>" 
+                                                   class="qty text-center border-0 outline-none flex-1 py-1 text-sm" 
+                                                   name="quantity" 
+                                                   value="1" 
+                                                   min="1" 
+                                                   max="<?php echo $product->get_max_purchase_quantity(); ?>"
+                                                   step="1" 
+                                                   inputmode="numeric">
+                                            <button type="button" class="qty-btn plus px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm">+</button>
+                                        </div>
+                                    </div>
                                 <?php else : ?>
-                                <!-- Solo mostrar input oculto cuando hay 1 stock -->
-                                <input type="hidden" name="quantity" value="1">
-                                <div class="text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-lg">
-                                    Cantidad: 1 (último disponible)
-                                </div>
+                                    <input type="hidden" name="quantity" value="1">
                                 <?php endif; ?>
                                 
+                                <!-- Botón agregar al carrito -->
                                 <button type="submit" 
                                         name="add-to-cart" 
                                         value="<?php echo esc_attr( $product->get_id() ); ?>" 
-                                        class="single_add_to_cart_button button alt flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg border-0 outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-sm">
+                                        class="single_add_to_cart_button w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-2 px-4 rounded-md font-medium transition-colors duration-200 border-0 outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
                                     <span class="flex items-center justify-center gap-2">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.8 9.2M7 13l2.6-7.4M16 6l2 2-2 2m2-2H4"></path>
                                         </svg>
-                                        <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+                                        Agregar al carrito
                                     </span>
                                 </button>
-                            </div>
-                            
-                            <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
-                        </form>
-                    <?php endif; ?>
-                    
-                    <!-- Información de stock y disponibilidad -->
-                    <div class="mt-6 p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200">
-                        <?php if ( $product->is_in_stock() ) : ?>
-                            <div class="flex items-center gap-2 mb-2">
-                                <div class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
-                                <span class="font-semibold text-green-800 text-sm">En Stock</span>
-                            </div>
-                            
-                            <?php if ( $product->get_stock_quantity() ) : ?>
-                                <div class="text-xs text-green-700 mb-2">
-                                    Disponible: <?php echo $product->get_stock_quantity(); ?> unidades
-                                </div>
-                            <?php endif; ?>
-                            
-                            <div class="text-xs text-green-600">
-                                ✓ Envío rápido disponible<br>
-                                ✓ Instalación disponible<br>
-                                ✓ Soporte técnico incluido
-                            </div>
-                        <?php else : ?>
-                            <div class="flex items-center gap-2">
-                                <div class="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
-                                <span class="font-semibold text-red-800 text-sm">Agotado</span>
-                            </div>
-                            <div class="text-xs text-red-600 mt-2">
-                                Notificaremos cuando esté disponible
-                            </div>
+                                
+                                <!-- Botón comprar ahora -->
+                                <button type="button" 
+                                        onclick="buyNow(<?php echo $product->get_id(); ?>)"
+                                        class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-medium transition-colors duration-200 border-0 outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                                    Comprar ahora
+                                </button>
+                                
+                                <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+                            </form>
                         <?php endif; ?>
+
+                        <!-- Información de envío -->
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                    </svg>
+                                    <span>Envío GRATIS en pedidos +$500</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>Garantía de satisfacción</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-gray-700">
+                                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
+                                    </svg>
+                                    <span>Soporte técnico incluido</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
+                
             </div>
         </div>
 
@@ -1154,6 +1238,51 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Funcionalidad "Comprar ahora" estilo Amazon
+    window.buyNow = function(productId) {
+        // Agregar al carrito primero
+        const form = document.querySelector('.cart');
+        if (form) {
+            const formData = new FormData(form);
+            
+            // Enviar solicitud AJAX para agregar al carrito
+            fetch(wc_add_to_cart_params.ajax_url || '/wp-admin/admin-ajax.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirigir inmediatamente al checkout
+                window.location.href = wc_checkout_params?.checkout_url || '/checkout/';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Fallback: redirigir al carrito
+                window.location.href = '/cart/';
+            });
+        }
+    };
+
+    // Funcionalidad de controles de cantidad
+    document.querySelectorAll('.qty-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.qty');
+            const isPlus = this.classList.contains('plus');
+            const isMinus = this.classList.contains('minus');
+            let currentValue = parseInt(input.value) || 1;
+            const max = parseInt(input.getAttribute('max')) || 999;
+            const min = parseInt(input.getAttribute('min')) || 1;
+            
+            if (isPlus && currentValue < max) {
+                input.value = currentValue + 1;
+            }
+            
+            if (isMinus && currentValue > min) {
+                input.value = currentValue - 1;
+            }
+        });
+    });
 });
 </script>
 
