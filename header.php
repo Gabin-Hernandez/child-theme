@@ -499,7 +499,7 @@
                 <!-- Logo -->
                 <div class="header-logo" style="flex-shrink: 0;">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display: block; text-decoration: none;">
-                        <img src="http://itoolsmx.com/wp-content/uploads/2025/01/logo-itoolsmx.webp" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
+                        <img src="http://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" alt="iTOOLS MX" style="height: 80px; width: auto; max-width: 320px; object-fit: contain;">    
                     </a>
                 </div>
           
