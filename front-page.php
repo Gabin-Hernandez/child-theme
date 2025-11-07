@@ -514,7 +514,7 @@ get_header(); ?>
                 
                 <!-- Botón para ver más herramientas -->
                 <div class="text-center mt-12">
-                    <a href="/categoria/herramientas/" 
+                    <a href="/?post_type=product&s=&product_cat=herramientas" 
                        class="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
                         Ver Todas las Herramientas
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
