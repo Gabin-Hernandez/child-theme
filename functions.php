@@ -117,6 +117,84 @@ define('ITOOLS_RECAPTCHA_SITE_KEY', '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1');
 define('ITOOLS_RECAPTCHA_SECRET_KEY', '6Ld3MfErAAAAANuE6bwPuthUdRr7Z-hVW1fSnlcg'); // Clave secreta (privada)
 
 /**
+ * Cargar reCAPTCHA v3 en páginas de producto
+ */
+function itools_enqueue_recaptcha_v3() {
+    // Solo cargar en páginas de producto individual
+    if ( is_product() ) {
+        // Script de Google reCAPTCHA v3
+        wp_enqueue_script(
+            'google-recaptcha-v3',
+            'https://www.google.com/recaptcha/api.js?render=' . ITOOLS_RECAPTCHA_SITE_KEY,
+            array(),
+            null,
+            true
+        );
+        
+        // Script inline para generar token cuando se envíe el formulario
+        wp_add_inline_script(
+            'google-recaptcha-v3',
+            "
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('✅ reCAPTCHA v3 cargado');
+                
+                // Buscar el formulario de reseñas
+                const reviewForm = document.querySelector('form[action*=\"admin-post.php\"]');
+                
+                if (reviewForm) {
+                    console.log('✅ Formulario de reseñas encontrado');
+                    
+                    reviewForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        console.log('📝 Formulario enviado - generando token reCAPTCHA');
+                        
+                        const form = this;
+                        const submitButton = form.querySelector('button[type=\"submit\"]');
+                        const originalButtonText = submitButton.innerHTML;
+                        
+                        // Deshabilitar botón
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = 'Verificando seguridad...';
+                        
+                        // Generar token de reCAPTCHA v3
+                        grecaptcha.ready(function() {
+                            grecaptcha.execute('" . ITOOLS_RECAPTCHA_SITE_KEY . "', {action: 'submit_review'})
+                                .then(function(token) {
+                                    console.log('✅ Token reCAPTCHA generado:', token.substring(0, 20) + '...');
+                                    
+                                    // Agregar token al formulario
+                                    let tokenInput = form.querySelector('input[name=\"g-recaptcha-response\"]');
+                                    if (!tokenInput) {
+                                        tokenInput = document.createElement('input');
+                                        tokenInput.type = 'hidden';
+                                        tokenInput.name = 'g-recaptcha-response';
+                                        form.appendChild(tokenInput);
+                                    }
+                                    tokenInput.value = token;
+                                    
+                                    console.log('📤 Enviando formulario con token');
+                                    // Enviar el formulario
+                                    form.submit();
+                                })
+                                .catch(function(error) {
+                                    console.error('❌ Error generando token reCAPTCHA:', error);
+                                    submitButton.disabled = false;
+                                    submitButton.innerHTML = originalButtonText;
+                                    alert('Error de verificación de seguridad. Por favor recarga la página.');
+                                });
+                        });
+                    });
+                } else {
+                    console.warn('⚠️ Formulario de reseñas no encontrado');
+                }
+            });
+            "
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_recaptcha_v3');
+
+/**
  * Función para verificar token de reCAPTCHA v3
  */
 function itools_verify_recaptcha($token, $action = 'submit_review', $min_score = 0.5) {
