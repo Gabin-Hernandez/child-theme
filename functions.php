@@ -110,15 +110,16 @@ function itools_enqueue_styles() {
     }
 
 /**
- * Configuración de Google reCAPTCHA v3
+ * Configuración de Google reCAPTCHA v3 - DESACTIVADO
  * IMPORTANTE: Estas son tus claves de reCAPTCHA v3
  */
-define('ITOOLS_RECAPTCHA_SITE_KEY', '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); // Clave del sitio (pública)
-define('ITOOLS_RECAPTCHA_SECRET_KEY', '6Ld3MfErAAAAANuE6bwPuthUdRr7Z-hVW1fSnlcg'); // Clave secreta (privada)
+// define('ITOOLS_RECAPTCHA_SITE_KEY', '6Ld3MfErAAAAAAtzBN7Nhi44eKDn6ihEW4407AZ1'); // Clave del sitio (pública)
+// define('ITOOLS_RECAPTCHA_SECRET_KEY', '6Ld3MfErAAAAANuE6bwPuthUdRr7Z-hVW1fSnlcg'); // Clave secreta (privada)
 
 /**
- * Cargar reCAPTCHA v3 en páginas de producto
+ * Cargar reCAPTCHA v3 en páginas de producto - DESACTIVADO
  */
+/*
 function itools_enqueue_recaptcha_v3() {
     // Solo cargar en páginas de producto individual
     if ( is_product() ) {
@@ -193,10 +194,12 @@ function itools_enqueue_recaptcha_v3() {
     }
 }
 add_action('wp_enqueue_scripts', 'itools_enqueue_recaptcha_v3');
+*/
 
 /**
- * Función para verificar token de reCAPTCHA v3
+ * Función para verificar token de reCAPTCHA v3 - DESACTIVADO
  */
+/*
 function itools_verify_recaptcha($token, $action = 'submit_review', $min_score = 0.5) {
     if (empty($token)) {
         error_log('❌ reCAPTCHA token is empty');
@@ -255,6 +258,7 @@ function itools_verify_recaptcha($token, $action = 'submit_review', $min_score =
     error_log('❌ reCAPTCHA verification failed: ' . print_r($result, true));
     return false;
 }
+*/
 
 // Function to get dynamic price range from filtered products
 function itools_get_dynamic_price_range($category_id = null) {
@@ -2369,35 +2373,6 @@ function itools_handle_custom_review_submission() {
     }
     
     error_log('✅ Nonce verified');
-    
-    // Verificar reCAPTCHA
-    if ( ! isset( $_POST['g-recaptcha-response'] ) || empty( $_POST['g-recaptcha-response'] ) ) {
-        error_log('❌ reCAPTCHA token missing');
-        wp_die( '<div style="text-align: center; padding: 40px; font-family: Arial, sans-serif;">
-                    <div style="background: #fef2f2; border: 2px solid #fca5a5; border-radius: 12px; padding: 30px; max-width: 500px; margin: 0 auto;">
-                        <div style="color: #dc2626; font-size: 48px; margin-bottom: 16px;">🚫</div>
-                        <h2 style="color: #991b1b; margin-bottom: 16px;">Verificación de Seguridad Requerida</h2>
-                        <p style="color: #7f1d1d; margin-bottom: 20px;">Por favor completa la verificación reCAPTCHA antes de enviar tu reseña.</p>
-                        <a href="javascript:history.back()" style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">← Volver al Formulario</a>
-                    </div>
-                </div>' );
-    }
-    
-    // Validar token de reCAPTCHA
-    $recaptcha_token = sanitize_text_field( $_POST['g-recaptcha-response'] );
-    if ( ! itools_verify_recaptcha( $recaptcha_token ) ) {
-        error_log('❌ reCAPTCHA verification failed');
-        wp_die( '<div style="text-align: center; padding: 40px; font-family: Arial, sans-serif;">
-                    <div style="background: #fef2f2; border: 2px solid #fca5a5; border-radius: 12px; padding: 30px; max-width: 500px; margin: 0 auto;">
-                        <div style="color: #dc2626; font-size: 48px; margin-bottom: 16px;">🤖</div>
-                        <h2 style="color: #991b1b; margin-bottom: 16px;">Verificación de Seguridad Fallida</h2>
-                        <p style="color: #7f1d1d; margin-bottom: 20px;">La verificación reCAPTCHA no pudo ser validada. Por favor intenta nuevamente.</p>
-                        <a href="javascript:history.back()" style="background: #dc2626; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">← Intentar de Nuevo</a>
-                    </div>
-                </div>' );
-    }
-    
-    error_log('✅ reCAPTCHA verified successfully');
     
     // Obtener datos del formulario
     $product_id = intval( $_POST['product_id'] );
