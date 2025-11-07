@@ -280,8 +280,11 @@ get_header(); ?>
                     Explorar Catálogo
                 </a>
                 <a href="<?php echo function_exists('wc_get_page_permalink') ? esc_url( wc_get_page_permalink( 'myaccount' ) ) : '/mi-cuenta/'; ?>" 
-                   class="border-2 border-slate-300 text-slate-700 hover:border-slate-400 hover:text-slate-900 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center">
-                    Crear Cuenta
+                   class="border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 px-10 py-4 text-lg font-semibold rounded-lg transition-all duration-300 text-center flex items-center justify-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                    </svg>
+                    Registrarse / Iniciar Sesión
                 </a>
             </div>
         </div>

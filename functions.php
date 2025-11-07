@@ -3664,3 +3664,22 @@ function itools_flush_rewrite_rules() {
 }
 add_action('after_switch_theme', 'itools_flush_rewrite_rules');
 
+/**
+ * Habilitar registro de clientes en WooCommerce
+ */
+function itools_enable_myaccount_registration() {
+    // Habilitar registro en la página de Mi Cuenta
+    update_option('woocommerce_enable_myaccount_registration', 'yes');
+    
+    // Permitir que los clientes creen una cuenta durante el checkout
+    update_option('woocommerce_enable_guest_checkout', 'yes');
+    update_option('woocommerce_enable_signup_and_login_from_checkout', 'yes');
+    
+    // No generar automáticamente el nombre de usuario (permitir que el usuario lo elija)
+    update_option('woocommerce_registration_generate_username', 'no');
+    
+    // No generar automáticamente la contraseña (el usuario la introduce)
+    update_option('woocommerce_registration_generate_password', 'no');
+}
+add_action('after_setup_theme', 'itools_enable_myaccount_registration');
+
