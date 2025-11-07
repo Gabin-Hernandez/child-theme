@@ -3627,14 +3627,27 @@ function itools_add_custom_page_pagination() {
     
     // Agregar rewrite rules para páginas específicas con paginación
     add_action('init', function() {
-        // Pantallas LCD Touch
+        // Pantallas LCD (usando el slug correcto según la página de WordPress)
+        add_rewrite_rule(
+            '^pantallas-lcd/page/?([0-9]{1,})/?$',
+            'index.php?pagename=pantallas-lcd&paged=$matches[1]',
+            'top'
+        );
+        
+        // También soportar pantallas-lcd-touch si existe con ese slug
         add_rewrite_rule(
             '^pantallas-lcd-touch/page/?([0-9]{1,})/?$',
             'index.php?pagename=pantallas-lcd-touch&paged=$matches[1]',
             'top'
         );
         
-        // Patrón alternativo con ?paged=
+        // Patrón base
+        add_rewrite_rule(
+            '^pantallas-lcd/?$',
+            'index.php?pagename=pantallas-lcd',
+            'top'
+        );
+        
         add_rewrite_rule(
             '^pantallas-lcd-touch/?$',
             'index.php?pagename=pantallas-lcd-touch',

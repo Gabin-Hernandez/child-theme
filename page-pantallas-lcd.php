@@ -970,8 +970,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        // Función de paginación específica para página de pantallas-lcd-touch
-                        function pantallas_lcd_touch_custom_pagination($query) {
+                        // Función de paginación específica para página de pantallas-lcd
+                        function pantallas_lcd_custom_pagination($query) {
                             if ($query->max_num_pages <= 1) return;
                             
                             $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
@@ -985,8 +985,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             $max_pages = $query->max_num_pages;
                             
-                            // URL base para la página de pantallas-lcd-touch
-                            $base_url = home_url('/pantallas-lcd-touch/');
+                            // URL base para la página - usar el slug correcto de WordPress
+                            // IMPORTANTE: Este slug debe coincidir exactamente con el slug de la página en WordPress
+                            // El slug correcto es: pantallas-lcd
+                            $base_url = home_url('/pantallas-lcd/');
                             
                             echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
                             echo '<nav class="custom-pagination flex justify-center items-center space-x-2" role="navigation" aria-label="Navegación de páginas">';
@@ -996,7 +998,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 if ($paged == 2) {
                                     $prev_url = $base_url;
                                 } else {
-                                    // Usar formato /page/N/ o ?paged=N
                                     $prev_url = add_query_arg('paged', $paged - 1, $base_url);
                                 }
                                 echo '<a href="' . esc_url($prev_url) . '" class="pagination-btn prev-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
@@ -1013,7 +1014,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 if ($i == 1) {
                                     $page_url = $base_url;
                                 } else {
-                                    // Usar formato ?paged=N para mejor compatibilidad
                                     $page_url = add_query_arg('paged', $i, $base_url);
                                 }
                                 
@@ -1041,7 +1041,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         }
                         
                         // Usar la función personalizada
-                        pantallas_lcd_touch_custom_pagination($products_query);
+                        pantallas_lcd_custom_pagination($products_query);
                         ?>
                     </div>
 
