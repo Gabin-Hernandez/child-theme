@@ -57,6 +57,16 @@ function itools_enqueue_styles() {
         filemtime(get_stylesheet_directory() . '/css/reviews.css') 
     );
     
+    // Encolar CSS para Mi Cuenta (Dashboard)
+    if ( is_account_page() ) {
+        wp_enqueue_style( 
+            'itools-my-account', 
+            get_stylesheet_directory_uri() . '/css/my-account.css', 
+            array(), 
+            filemtime(get_stylesheet_directory() . '/css/my-account.css') 
+        );
+    }
+    
     // Encolar JavaScript para el botón flotante de WhatsApp
     wp_enqueue_script( 
         'itools-whatsapp-float', 
