@@ -3621,7 +3621,25 @@ function itools_add_custom_page_pagination() {
     // Permitir el parámetro 'paged' en query vars
     add_filter('query_vars', function($vars) {
         $vars[] = 'paged';
+        $vars[] = 'page';
         return $vars;
+    });
+    
+    // Agregar rewrite rules para páginas específicas con paginación
+    add_action('init', function() {
+        // Pantallas LCD Touch
+        add_rewrite_rule(
+            '^pantallas-lcd-touch/page/?([0-9]{1,})/?$',
+            'index.php?pagename=pantallas-lcd-touch&paged=$matches[1]',
+            'top'
+        );
+        
+        // Patrón alternativo con ?paged=
+        add_rewrite_rule(
+            '^pantallas-lcd-touch/?$',
+            'index.php?pagename=pantallas-lcd-touch',
+            'top'
+        );
     });
 }
 add_action('init', 'itools_add_custom_page_pagination');

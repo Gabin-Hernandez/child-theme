@@ -69,26 +69,38 @@ add_action('wp_head', function() {
 // Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
 $original_get = $_GET;
 $_GET['post_type'] = 'product';
-$_GET['s'] = 'pantalla';
+$_GET['s'] = 'pantalla lcd touch';
 
 // Configurar paginación - verificar tanto query_var como $_GET
 $paged = 1;
 if (get_query_var('paged')) {
     $paged = get_query_var('paged');
+} elseif (get_query_var('page')) {
+    $paged = get_query_var('page');
 } elseif (isset($_GET['paged'])) {
     $paged = intval($_GET['paged']);
 }
 $paged = max(1, $paged);
 
-// Usar la función estándar de WordPress para búsquedas
+// Debug para paginación
+if (defined('WP_DEBUG') && WP_DEBUG) {
+    error_log('Pantallas LCD - Página solicitada: ' . $paged);
+    error_log('Query var paged: ' . get_query_var('paged'));
+    error_log('Query var page: ' . get_query_var('page'));
+    error_log('GET paged: ' . (isset($_GET['paged']) ? $_GET['paged'] : 'no set'));
+}
+
+// Usar la función estándar de WordPress para búsquedas con relevancia mejorada
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'pantalla',
+    's' => 'pantalla lcd touch',
     'paged' => $paged,
     'tax_query' => array(),
-    'meta_query' => array()
+    'meta_query' => array(),
+    'orderby' => 'relevance',
+    'order' => 'DESC'
 );
 
 // Procesar filtros adicionales si existen
@@ -958,14 +970,22 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     <!-- Paginación personalizada al final de los productos -->
                     <div class="mt-12">
                         <?php
-                        // Función de paginación específica para página de microscopios
+                        // Función de paginación específica para página de pantallas-lcd-touch
                         function pantallas_lcd_touch_custom_pagination($query) {
                             if ($query->max_num_pages <= 1) return;
                             
                             $paged = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
+                            if (!$paged) {
+                                $paged = get_query_var('page') ? absint(get_query_var('page')) : 1;
+                            }
+                            if (!$paged && isset($_GET['paged'])) {
+                                $paged = absint($_GET['paged']);
+                            }
+                            $paged = max(1, $paged);
+                            
                             $max_pages = $query->max_num_pages;
                             
-                            // URL base fija para la página de pantallas-lcd-touch
+                            // URL base para la página de pantallas-lcd-touch
                             $base_url = home_url('/pantallas-lcd-touch/');
                             
                             echo '<div class="custom-pagination-wrapper mt-8 mb-4">';
@@ -976,6 +996,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 if ($paged == 2) {
                                     $prev_url = $base_url;
                                 } else {
+                                    // Usar formato /page/N/ o ?paged=N
                                     $prev_url = add_query_arg('paged', $paged - 1, $base_url);
                                 }
                                 echo '<a href="' . esc_url($prev_url) . '" class="pagination-btn prev-btn bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 hover:border-blue-500 transition-all duration-200 flex items-center space-x-2">';
@@ -992,6 +1013,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 if ($i == 1) {
                                     $page_url = $base_url;
                                 } else {
+                                    // Usar formato ?paged=N para mejor compatibilidad
                                     $page_url = add_query_arg('paged', $i, $base_url);
                                 }
                                 
