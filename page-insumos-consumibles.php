@@ -69,7 +69,7 @@ add_action('wp_head', function() {
 // Establecer $_GET temporalmente para que las funciones de búsqueda funcionen
 $original_get = $_GET;
 $_GET['post_type'] = 'product';
-$_GET['s'] = 'insumo consumible cinta adhesivo alcohol';
+$_GET['s'] = '';
 
 // Configurar paginación - verificar tanto query_var como $_GET
 $paged = 1;
@@ -80,16 +80,25 @@ if (get_query_var('paged')) {
 }
 $paged = max(1, $paged);
 
-// Usar la función estándar de WordPress para búsquedas
+// Buscar por categoría de insumos-consumibles si existe, si no, mostrar todos los productos
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 15,
     'post_status' => 'publish',
-    's' => 'insumo consumible cinta adhesivo alcohol',
     'paged' => $paged,
     'tax_query' => array(),
     'meta_query' => array()
 );
+
+// Intentar filtrar por categoría insumos-consumibles si existe
+$insumos_category = get_term_by('slug', 'insumos-consumibles', 'product_cat');
+if ($insumos_category) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'product_cat',
+        'field' => 'term_id',
+        'terms' => $insumos_category->term_id,
+    );
+}
 
 // Procesar filtros adicionales si existen
 $has_additional_filters = !empty($_GET['product_categories']) || 
