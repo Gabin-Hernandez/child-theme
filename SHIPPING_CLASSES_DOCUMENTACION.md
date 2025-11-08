@@ -1,59 +1,116 @@
-# Sistema de Clases de Envío por Categoría
+# Sistema de Clases de Envío por Categoría - Panel de Administración
 
 ## Descripción
 
-Este sistema permite aplicar automáticamente clases de envío a los productos basándose en sus categorías. Elimina la necesidad de asignar manualmente las clases de envío a cada producto individual.
+Este sistema permite aplicar automáticamente clases de envío a los productos basándose en sus categorías y gestionar la configuración desde un panel administrativo intuitivo en WordPress.
 
-## Archivos Creados
+## Archivos del Sistema
 
-- `/includes/shipping-classes.php` - Contiene todas las funciones del sistema
+- `/includes/shipping-classes.php` - Funciones del sistema
+- `/includes/shipping-classes-admin.php` - Panel de administración
 - Integración en `functions.php` - Hooks y configuración automática
 
-## Configuración
+## 🎛️ Panel de Administración
 
-### 1. Mapeo de Categorías a Clases de Envío
+### Acceso
+Ve a **WooCommerce > Envío por Categoría** en el menú de administración de WordPress.
 
-El mapeo se define en la función `itools_get_shipping_class_mapping()` en `/includes/shipping-classes.php`:
+### Funcionalidades del Panel
 
-```php
-function itools_get_shipping_class_mapping() {
-    return apply_filters('itools_shipping_class_mapping', array(
-        'herramientas-electricas' => 1,
-        'pantallas-lcd' => 2,
-        'baterias' => 3,
-        'soldadura' => 4,
-        'microscopios' => 5,
-        'carcasas' => 1,
-        'cautines' => 4,
-        'destornilladores' => 1,
-        'estaciones-de-soldadura' => 4,
-        'insumos-consumibles' => 3,
-    ));
-}
+#### 1. ⚙️ Configuración General
+- **Sistema Habilitado**: Activar/desactivar todo el sistema
+- **Aplicación Automática**: Aplicar automáticamente al guardar productos
+
+#### 2. 💰 Modo de Facturación
+Selecciona cómo calcular el costo cuando hay múltiples clases de envío en el carrito:
+
+- **Cobrar la Clase Más Alta**: Se cobra solo el envío más caro del carrito (recomendado)
+- **Cobrar Cada Clase Individualmente**: Se suma el costo de envío de cada clase
+
+#### 3. 🗂️ Mapeo de Categorías
+- **Interfaz Drag & Drop**: Arrastra filas para cambiar prioridad
+- **Selección Visual**: Dropdowns para categorías y clases de envío
+- **Vista Previa de Costos**: Muestra costos estimados por configuración
+- **Agregar/Eliminar**: Botones para gestionar mapeos dinámicamente
+
+#### 4. 📊 Vista Previa de Costos
+- **Simulación en Tiempo Real**: Prueba cómo se calcularían los costos
+- **Información Detallada**: Costos por método de envío y clase
+
+#### 5. 🔄 Aplicación en Lotes
+- **Aplicar a Productos Existentes**: Botón para aplicar configuración actual
+- **Progreso en Tiempo Real**: Feedback del procesamiento
+
+#### 6. 🌍 Configuración de Envío Global
+- **Clase Global**: Selecciona una clase para aplicar a todos los productos
+- **Modo de Aplicación**: 
+  - Sin sobrescribir: Solo productos sin clase asignada
+  - Con sobrescribir: TODOS los productos (incluso los que ya tienen clase)
+- **Aplicación Masiva**: Cambio global con un solo clic
+
+### Casos de Uso del Envío Global
+
+#### 📋 **Caso 1: Configuración Inicial**
+```
+Situación: Tienda nueva con 500 productos sin clases de envío
+Solución: 
+1. Crear "Envío Estándar" como clase por defecto
+2. Usar envío global SIN sobrescribir
+3. Resultado: Todos los productos tienen envío estándar
+4. Configurar mapeo por categorías para excepciones
 ```
 
-### 2. Cómo Encontrar los IDs de las Clases de Envío
+#### 📋 **Caso 2: Cambio de Política**
+```
+Situación: Cambio en costos, todos los productos deben usar "Envío Express"
+Solución:
+1. Crear nueva clase "Envío Express 2024"
+2. Usar envío global CON sobrescribir
+3. Resultado: Todos los productos actualizados inmediatamente
+```
 
-1. Ve a **WooCommerce > Configuración > Envío**
-2. Haz clic en **Clases de envío**
-3. Los IDs aparecen en la URL al editar una clase (ej: `term_id=1`)
+#### 📋 **Caso 3: Reset del Sistema**
+```
+Situación: Configuración inconsistente, necesitas empezar de cero
+Solución:
+1. Usar envío global CON sobrescribir → clase temporal
+2. Configurar mapeo por categorías
+3. Usar "Aplicar a Productos Existentes"
+4. Resultado: Sistema limpio y consistente
+```
 
-### 3. Personalizar el Mapeo
+### Ejemplo de Configuración en el Panel
 
-Puedes personalizar el mapeo de dos formas:
+1. **Activar Sistema**: ✅ Sistema Habilitado
+2. **Modo de Facturación**: 🔘 Cobrar la Clase Más Alta
+3. **Mapeos**:
+   ```
+   Prioridad 1: herramientas-electricas → Envío Estándar (₡2,500)
+   Prioridad 2: soldadura → Envío Especializado (₡5,000)
+   Prioridad 3: baterias → Envío Express (₡3,000)
+   ```
 
-#### Opción A: Modificar directamente el archivo
-Edita el array en `itools_get_shipping_class_mapping()`.
+## 🔧 Configuración Técnica
 
-#### Opción B: Usar el filtro (recomendado)
-Agrega esto a tu `functions.php`:
+### Mapeo Dinámico
+El sistema ahora lee la configuración desde la base de datos:
 
 ```php
-function mi_mapeo_personalizado($mapping) {
-    $mapping['mi-categoria'] = 6; // ID de clase de envío
-    return $mapping;
-}
-add_filter('itools_shipping_class_mapping', 'mi_mapeo_personalizado');
+// La configuración se guarda automáticamente desde el panel
+$config = get_option('itools_shipping_classes_config');
+```
+
+### Estructura de Datos
+```php
+array(
+    'mapping' => array(
+        array('category' => 'soldadura', 'shipping_class' => 4, 'priority' => 1),
+        array('category' => 'baterias', 'shipping_class' => 3, 'priority' => 2)
+    ),
+    'billing_mode' => 'highest', // o 'individual'
+    'enabled' => true,
+    'auto_apply' => true
+)
 ```
 
 ## Funcionalidades

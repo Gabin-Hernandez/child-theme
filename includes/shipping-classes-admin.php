@@ -23,6 +23,7 @@ class ITools_Shipping_Classes_Admin {
         add_action('wp_ajax_itools_save_shipping_mapping', array($this, 'save_shipping_mapping'));
         add_action('wp_ajax_itools_bulk_apply_shipping', array($this, 'bulk_apply_shipping'));
         add_action('wp_ajax_itools_test_shipping_costs', array($this, 'test_shipping_costs'));
+        add_action('wp_ajax_itools_apply_global_shipping', array($this, 'apply_global_shipping'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
     }
     
@@ -178,6 +179,57 @@ class ITools_Shipping_Classes_Admin {
                         if (response.success) {
                             $('#cost-info').html(response.data).show();
                         }
+                    }
+                });
+            });
+            
+            // Aplicar clase global
+            $('#apply-global').click(function() {
+                var globalClass = $('#global_shipping_class').val();
+                var overrideExisting = $('#override_existing').is(':checked');
+                
+                if (!globalClass) {
+                    alert('Por favor selecciona una clase de envío global.');
+                    return;
+                }
+                
+                var confirmMessage = 'estás seguro de aplicar la clase \"' + $('#global_shipping_class option:selected').text() + '\" a ';
+                if (overrideExisting) {
+                    confirmMessage += 'TODOS los productos (incluyendo los que ya tienen clase asignada)?';
+                } else {
+                    confirmMessage += 'todos los productos que NO tienen clase de envío asignada?';
+                }
+                
+                if (!confirm('¿' + confirmMessage)) {
+                    return;
+                }
+                
+                var button = $(this);
+                button.prop('disabled', true).text('Aplicando...');
+                
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'itools_apply_global_shipping',
+                        shipping_class: globalClass,
+                        override_existing: overrideExisting,
+                        nonce: $('#shipping_nonce').val()
+                    },
+                    success: function(response) {
+                        button.prop('disabled', false).text('🌍 Aplicar Clase Global');
+                        if (response.success) {
+                            $('#global-message').html('<div class=\"notice notice-success\"><p>' + response.data + '</p></div>').show();
+                            setTimeout(function() {
+                                $('#global-message').hide();
+                            }, 5000);
+                        } else {
+                            $('#global-message').html('<div class=\"notice notice-error\"><p>Error: ' + response.data + '</p></div>').show();
+                        }
+                    },
+                    error: function() {
+                        button.prop('disabled', false).text('🌍 Aplicar Clase Global');
+                        $('#global-message').html('<div class=\"notice notice-error\"><p>Error de conexión. Intenta nuevamente.</p></div>').show();
                     }
                 });
             });
@@ -399,10 +451,69 @@ class ITools_Shipping_Classes_Admin {
                 <p><em>Haz clic en "Probar Costos" para ver una simulación de los costos de envío.</em></p>
             </div>
             
+            <!-- Envío Global -->
+            <div class="shipping-config-section">
+                <h3>🌍 Configuración de Envío Global</h3>
+                <p>Aplica una clase de envío específica a todos los productos del sistema de una vez.</p>
+                
+                <div id="global-message" style="display:none;"></div>
+                
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Clase de Envío Global</th>
+                        <td>
+                            <select id="global_shipping_class" style="width: 300px;">
+                                <option value="">Seleccionar clase de envío...</option>
+                                <?php foreach ($shipping_classes as $class): ?>
+                                    <option value="<?php echo esc_attr($class->term_id); ?>">
+                                        <?php echo esc_html($class->name); ?>
+                                        <?php 
+                                        $cost_info = $this->get_estimated_cost($class->term_id, $shipping_methods);
+                                        if ($cost_info !== '<em>Sin costo específico</em>' && $cost_info !== '<em>No configurado</em>') {
+                                            echo ' - ' . strip_tags($cost_info);
+                                        }
+                                        ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Modo de Aplicación</th>
+                        <td>
+                            <label>
+                                <input type="checkbox" id="override_existing">
+                                <strong>Sobrescribir productos que ya tienen clase asignada</strong>
+                            </label>
+                            <p class="description">
+                                Si no está marcado, solo se aplicará a productos sin clase de envío. 
+                                Si está marcado, se aplicará a TODOS los productos.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div class="button-group">
+                    <button type="button" class="button button-secondary" id="apply-global">
+                        🌍 Aplicar Clase Global
+                    </button>
+                </div>
+                
+                <div class="global-info-box" style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                    <h4>ℹ️ Información sobre Envío Global</h4>
+                    <ul>
+                        <li><strong>Sin sobrescribir:</strong> Solo productos sin clase → Ideal para aplicar un estándar inicial</li>
+                        <li><strong>Con sobrescribir:</strong> Todos los productos → Útil para cambios masivos o reset</li>
+                        <li><strong>Prioridad:</strong> El sistema de categorías seguirá funcionando para nuevos productos</li>
+                        <li><strong>Reversible:</strong> Puedes usar "Aplicar a Productos Existentes" para restaurar mapeo por categorías</li>
+                    </ul>
+                </div>
+            </div>
+            
             <!-- Aplicación en Lotes -->
             <div class="shipping-config-section">
-                <h3>🔄 Aplicar a Productos Existentes</h3>
-                <p>Aplica las configuraciones actuales a todos los productos existentes en la tienda.</p>
+                <h3>🔄 Aplicar Mapeo por Categorías</h3>
+                <p>Aplica las configuraciones de mapeo actuales a todos los productos existentes en la tienda.</p>
                 <button type="button" class="button button-secondary" id="bulk-apply">🚀 Aplicar a Productos Existentes</button>
                 <p><small><strong>Nota:</strong> Esta operación puede tomar varios minutos dependiendo del número de productos.</small></p>
             </div>
@@ -637,6 +748,43 @@ class ITools_Shipping_Classes_Admin {
         $html .= '</div>';
         
         wp_send_json_success($html);
+    }
+    
+    /**
+     * Aplicar clase de envío global via AJAX
+     */
+    public function apply_global_shipping() {
+        if (!wp_verify_nonce($_POST['nonce'], 'itools_shipping_nonce') || !current_user_can('manage_woocommerce')) {
+            wp_die('Sin permisos');
+        }
+        
+        $shipping_class_id = intval($_POST['shipping_class']);
+        $override_existing = isset($_POST['override_existing']) && $_POST['override_existing'] === 'true';
+        
+        if (!$shipping_class_id) {
+            wp_send_json_error('Clase de envío no válida.');
+        }
+        
+        // Obtener la clase de envío para mostrar el nombre
+        $shipping_class = get_term($shipping_class_id, 'product_shipping_class');
+        if (!$shipping_class || is_wp_error($shipping_class)) {
+            wp_send_json_error('Clase de envío no encontrada.');
+        }
+        
+        $results = itools_apply_global_shipping_class($shipping_class_id, $override_existing);
+        
+        $message = sprintf(
+            'Clase "%s" aplicada correctamente: %d productos procesados, %d actualizados.',
+            $shipping_class->name,
+            $results['processed'],
+            $results['updated']
+        );
+        
+        if (!empty($results['errors'])) {
+            $message .= sprintf(' %d errores encontrados.', count($results['errors']));
+        }
+        
+        wp_send_json_success($message);
     }
 }
 
