@@ -22,8 +22,8 @@ class ITools_Shipping_Classes_Admin {
         add_action('admin_init', array($this, 'init_settings'));
         add_action('wp_ajax_itools_save_shipping_mapping', array($this, 'save_shipping_mapping'));
         add_action('wp_ajax_itools_bulk_apply_shipping', array($this, 'bulk_apply_shipping'));
-        add_action('wp_ajax_itools_test_shipping_costs', array($this, 'test_shipping_costs'));
         add_action('wp_ajax_itools_apply_global_shipping', array($this, 'apply_global_shipping'));
+        add_action('wp_ajax_itools_get_shipping_cost', array($this, 'get_shipping_cost_ajax'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
     }
     
@@ -81,11 +81,72 @@ class ITools_Shipping_Classes_Admin {
                 placeholder: 'ui-state-highlight'
             });
             
+            // Funciones auxiliares para generar opciones
+            function getCategoryOptions() {
+                var options = '';
+                $('#shipping-mapping-table select.category-select:first option').each(function() {
+                    if ($(this).val() !== '') {
+                        options += '<option value=\"' + $(this).val() + '\">' + $(this).text() + '</option>';
+                    }
+                });
+                return options;
+            }
+            
+            function getShippingClassOptions() {
+                var options = '';
+                $('#shipping-mapping-table select.shipping-class-select:first option').each(function() {
+                    if ($(this).val() !== '') {
+                        options += '<option value=\"' + $(this).val() + '\">' + $(this).text() + '</option>';
+                    }
+                });
+                return options;
+            }
+            
             // Agregar nueva fila
             $('#add-mapping-row').click(function() {
-                var newRow = $('#mapping-row-template').html();
-                $('#shipping-mapping-table tbody').append(newRow);
+                var rowCount = $('#shipping-mapping-table tbody tr').length + 1;
+                var newRowHtml = '<tr>' +
+                    '<td><span class=\"sort-handle\">⋮⋮</span> <span class=\"row-number\">' + rowCount + '</span></td>' +
+                    '<td><select class=\"category-select\" style=\"width: 100%;\"><option value=\"\">Seleccionar categoría...</option>' + getCategoryOptions() + '</select></td>' +
+                    '<td><select class=\"shipping-class-select\" style=\"width: 100%;\"><option value=\"\">Seleccionar clase...</option>' + getShippingClassOptions() + '</select></td>' +
+                    '<td class=\"cost-estimate\"><em>Selecciona una clase</em></td>' +
+                    '<td><span class=\"remove-row\" style=\"cursor: pointer; color: #dc3232;\">❌ Eliminar</span></td>' +
+                '</tr>';
+                $('#shipping-mapping-table tbody').append(newRowHtml);
                 updateRowNumbers();
+            });
+            
+            // Actualizar costo estimado cuando cambia la clase de envío
+            $(document).on('change', '.shipping-class-select', function() {
+                var row = $(this).closest('tr');
+                var shippingClassId = $(this).val();
+                var costCell = row.find('.cost-estimate');
+                
+                if (shippingClassId) {
+                    costCell.html('<em>Cargando...</em>');
+                    // Obtener costo estimado via AJAX
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'itools_get_shipping_cost',
+                            shipping_class_id: shippingClassId,
+                            nonce: $('#shipping_nonce').val()
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                costCell.html(response.data);
+                            } else {
+                                costCell.html('<em>Sin costo configurado</em>');
+                            }
+                        },
+                        error: function() {
+                            costCell.html('<em>Error de conexión</em>');
+                        }
+                    });
+                } else {
+                    costCell.html('<em>Selecciona una clase</em>');
+                }
             });
             
             // Eliminar fila
@@ -161,23 +222,6 @@ class ITools_Shipping_Classes_Admin {
                             $('#bulk-message').html('<div class=\"notice notice-success\"><p>' + response.data + '</p></div>').show();
                         } else {
                             $('#bulk-message').html('<div class=\"notice notice-error\"><p>Error: ' + response.data + '</p></div>').show();
-                        }
-                    }
-                });
-            });
-            
-            // Probar costos de envío
-            $('#test-costs').click(function() {
-                $.ajax({
-                    url: ajaxurl,
-                    type: 'POST',
-                    data: {
-                        action: 'itools_test_shipping_costs',
-                        nonce: $('#shipping_nonce').val()
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $('#cost-info').html(response.data).show();
                         }
                     }
                 });
@@ -290,10 +334,23 @@ class ITools_Shipping_Classes_Admin {
             color: #dc3232;
             cursor: pointer;
             font-weight: bold;
+            padding: 5px;
+            border-radius: 3px;
+            transition: all 0.3s;
         }
         
         .remove-row:hover {
-            color: #a00;
+            background-color: #dc3232;
+            color: white;
+        }
+        
+        .shipping-class-select, .category-select {
+            min-width: 200px;
+        }
+        
+        .cost-estimate {
+            font-size: 0.9em;
+            color: #666;
         }
         
         .ui-state-highlight {
@@ -425,11 +482,11 @@ class ITools_Shipping_Classes_Admin {
                 <table id="shipping-mapping-table">
                     <thead>
                         <tr>
-                            <th width="50">Orden</th>
-                            <th width="200">Categoría</th>
-                            <th width="200">Clase de Envío</th>
-                            <th width="150">Costo Estimado</th>
-                            <th width="100">Acciones</th>
+                            <th width="80">Orden</th>
+                            <th width="250">Categoría</th>
+                            <th width="250">Clase de Envío</th>
+                            <th width="200">Costo Estimado</th>
+                            <th width="120">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -440,15 +497,7 @@ class ITools_Shipping_Classes_Admin {
                 <div class="button-group">
                     <button type="button" class="button" id="add-mapping-row">➕ Agregar Mapeo</button>
                     <button type="button" class="button button-primary" id="save-mapping">💾 Guardar Configuración</button>
-                    <button type="button" class="button" id="test-costs">🧮 Probar Costos</button>
                 </div>
-            </div>
-            
-            <!-- Vista Previa de Costos -->
-            <div class="shipping-config-section">
-                <h3>📊 Vista Previa de Costos</h3>
-                <div id="cost-info" style="display:none;"></div>
-                <p><em>Haz clic en "Probar Costos" para ver una simulación de los costos de envío.</em></p>
             </div>
             
             <!-- Envío Global -->
@@ -587,7 +636,7 @@ class ITools_Shipping_Classes_Admin {
                 <?php echo $estimated_cost; ?>
             </td>
             <td>
-                <span class="remove-row">❌</span>
+                <span class="remove-row" style="cursor: pointer; color: #dc3232; text-decoration: none;">❌</span>
             </td>
         </tr>
         <?php
@@ -713,44 +762,6 @@ class ITools_Shipping_Classes_Admin {
     }
     
     /**
-     * Probar costos via AJAX
-     */
-    public function test_shipping_costs() {
-        if (!wp_verify_nonce($_POST['nonce'], 'itools_shipping_nonce') || !current_user_can('manage_woocommerce')) {
-            wp_die('Sin permisos');
-        }
-        
-        $config = $this->get_config();
-        $shipping_methods = $this->get_shipping_methods();
-        
-        $html = '<div class="cost-preview">';
-        $html .= '<h4>Simulación de Costos por Clase de Envío</h4>';
-        
-        foreach ($config['mapping'] as $map) {
-            $category = get_term_by('slug', $map['category'], 'product_cat');
-            $shipping_class = get_term($map['shipping_class'], 'product_shipping_class');
-            
-            if ($category && $shipping_class) {
-                $cost = $this->get_estimated_cost($map['shipping_class'], $shipping_methods);
-                
-                $html .= '<div class="cost-item">';
-                $html .= '<span><strong>' . $category->name . '</strong> → ' . $shipping_class->name . '</span>';
-                $html .= '<span>' . $cost . '</span>';
-                $html .= '</div>';
-            }
-        }
-        
-        $html .= '<div class="cost-item">';
-        $html .= '<span><strong>Modo de Facturación:</strong></span>';
-        $html .= '<span>' . ($config['billing_mode'] === 'highest' ? 'Cobrar la más alta' : 'Cobrar individualmente') . '</span>';
-        $html .= '</div>';
-        
-        $html .= '</div>';
-        
-        wp_send_json_success($html);
-    }
-    
-    /**
      * Aplicar clase de envío global via AJAX
      */
     public function apply_global_shipping() {
@@ -785,6 +796,22 @@ class ITools_Shipping_Classes_Admin {
         }
         
         wp_send_json_success($message);
+    }
+    
+    /**
+     * Obtener costo de envío via AJAX
+     */
+    public function get_shipping_cost_ajax() {
+        if (!wp_verify_nonce($_POST['nonce'], 'itools_shipping_nonce') || !current_user_can('manage_woocommerce')) {
+            wp_die('Sin permisos');
+        }
+        
+        $shipping_class_id = intval($_POST['shipping_class_id']);
+        $shipping_methods = $this->get_shipping_methods();
+        
+        $cost_info = $this->get_estimated_cost($shipping_class_id, $shipping_methods);
+        
+        wp_send_json_success($cost_info);
     }
 }
 
