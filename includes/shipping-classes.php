@@ -12,23 +12,33 @@ if (!defined('ABSPATH')) {
 
 /**
  * Configuración de clases de envío por categoría
- * Mapea slugs de categorías con IDs de clases de envío
+ * Obtiene el mapeo desde la configuración guardada en el panel de administración
  */
 function itools_get_shipping_class_mapping() {
-    return apply_filters('itools_shipping_class_mapping', array(
-        // Ejemplo de mapeo: 'slug-categoria' => id_clase_envio
-        'herramientas-electricas' => 1,
-        'pantallas-lcd' => 2,
-        'baterias' => 3,
-        'soldadura' => 4,
-        'microscopios' => 5,
-        'carcasas' => 1,
-        'cautines' => 4,
-        'destornilladores' => 1,
-        'estaciones-de-soldadura' => 4,
-        'insumos-consumibles' => 3,
-        // Agregar más categorías según sea necesario
-    ));
+    $config = get_option('itools_shipping_classes_config', array());
+    $mapping = array();
+    
+    if (!empty($config['mapping'])) {
+        foreach ($config['mapping'] as $map) {
+            $mapping[$map['category']] = intval($map['shipping_class']);
+        }
+    } else {
+        // Mapeo por defecto si no hay configuración
+        $mapping = array(
+            'herramientas-electricas' => 1,
+            'pantallas-lcd' => 2,
+            'baterias' => 3,
+            'soldadura' => 4,
+            'microscopios' => 5,
+            'carcasas' => 1,
+            'cautines' => 4,
+            'destornilladores' => 1,
+            'estaciones-de-soldadura' => 4,
+            'insumos-consumibles' => 3,
+        );
+    }
+    
+    return apply_filters('itools_shipping_class_mapping', $mapping);
 }
 
 /**
@@ -193,4 +203,115 @@ function itools_debug_shipping_class_info($product_id) {
         'suggested_shipping_class_id' => itools_get_shipping_class_by_category($product_id),
         'mapping' => itools_get_shipping_class_mapping()
     );
+}
+
+/**
+ * Verificar si el sistema está habilitado
+ */
+function itools_is_shipping_system_enabled() {
+    $config = get_option('itools_shipping_classes_config', array());
+    return isset($config['enabled']) ? $config['enabled'] : true;
+}
+
+/**
+ * Verificar si la aplicación automática está habilitada
+ */
+function itools_is_auto_apply_enabled() {
+    $config = get_option('itools_shipping_classes_config', array());
+    return isset($config['auto_apply']) ? $config['auto_apply'] : true;
+}
+
+/**
+ * Obtener el modo de facturación configurado
+ */
+function itools_get_billing_mode() {
+    $config = get_option('itools_shipping_classes_config', array());
+    return isset($config['billing_mode']) ? $config['billing_mode'] : 'highest';
+}
+
+/**
+ * Calcular el costo de envío según el modo de facturación
+ * 
+ * @param array $cart_items Items del carrito con sus clases de envío
+ * @return float Costo total de envío
+ */
+function itools_calculate_shipping_cost($cart_items) {
+    $billing_mode = itools_get_billing_mode();
+    $shipping_costs = array();
+    
+    // Obtener costos por clase de envío
+    foreach ($cart_items as $item) {
+        $product = wc_get_product($item['product_id']);
+        if (!$product) continue;
+        
+        $shipping_class_id = $product->get_shipping_class_id();
+        if ($shipping_class_id) {
+            $cost = itools_get_shipping_class_cost($shipping_class_id);
+            if ($cost > 0) {
+                $shipping_costs[$shipping_class_id] = $cost;
+            }
+        }
+    }
+    
+    if (empty($shipping_costs)) {
+        return 0;
+    }
+    
+    // Aplicar modo de facturación
+    if ($billing_mode === 'highest') {
+        return max($shipping_costs);
+    } else {
+        return array_sum($shipping_costs);
+    }
+}
+
+/**
+ * Obtener el costo de una clase de envío específica
+ * 
+ * @param int $shipping_class_id ID de la clase de envío
+ * @return float Costo de la clase de envío
+ */
+function itools_get_shipping_class_cost($shipping_class_id) {
+    $shipping_zones = WC_Shipping_Zones::get_zones();
+    $cost = 0;
+    
+    foreach ($shipping_zones as $zone) {
+        foreach ($zone['shipping_methods'] as $method) {
+            if ($method->enabled === 'yes' && method_exists($method, 'get_option')) {
+                $class_cost = $method->get_option('class_cost_' . $shipping_class_id);
+                if (!empty($class_cost) && is_numeric($class_cost)) {
+                    $cost = max($cost, floatval($class_cost));
+                }
+            }
+        }
+    }
+    
+    return $cost;
+}
+
+/**
+ * Hook para modificar el cálculo de envío en WooCommerce
+ * 
+ * @param array $rates Tarifas de envío disponibles
+ * @param array $package Paquete de productos
+ * @return array Tarifas modificadas
+ */
+function itools_modify_shipping_rates($rates, $package) {
+    if (!itools_is_shipping_system_enabled()) {
+        return $rates;
+    }
+    
+    $billing_mode = itools_get_billing_mode();
+    
+    if ($billing_mode === 'individual') {
+        // En modo individual, modificar cada tarifa según las clases
+        foreach ($rates as $rate_id => $rate) {
+            $custom_cost = itools_calculate_shipping_cost($package['contents']);
+            if ($custom_cost > 0) {
+                $rates[$rate_id]->cost = $custom_cost;
+            }
+        }
+    }
+    
+    return $rates;
 }

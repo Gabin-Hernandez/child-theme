@@ -3753,18 +3753,27 @@ add_action('after_setup_theme', 'itools_enable_myaccount_registration');
 // Importar funciones de clases de envío por categoría
 require_once get_stylesheet_directory() . '/includes/shipping-classes.php';
 
+// Importar panel de administración de clases de envío
+require_once get_stylesheet_directory() . '/includes/shipping-classes-admin.php';
+
 /**
  * Activar el sistema automático de clases de envío por categoría
  */
 function itools_init_shipping_class_system() {
+    // Solo activar si el sistema está habilitado
+    if (!itools_is_shipping_system_enabled()) {
+        return;
+    }
+    
     // Hook para aplicar clase de envío automáticamente al guardar producto
-    add_action('woocommerce_process_product_meta', 'itools_auto_assign_shipping_class', 20);
+    if (itools_is_auto_apply_enabled()) {
+        add_action('woocommerce_process_product_meta', 'itools_auto_assign_shipping_class', 20);
+        add_action('woocommerce_new_product', 'itools_auto_assign_shipping_class', 10);
+        add_action('set_object_terms', 'itools_on_product_category_change', 10, 6);
+    }
     
-    // Hook para aplicar clase de envío al crear nuevos productos
-    add_action('woocommerce_new_product', 'itools_auto_assign_shipping_class', 10);
-    
-    // Hook para aplicar cuando se actualicen las categorías del producto
-    add_action('set_object_terms', 'itools_on_product_category_change', 10, 6);
+    // Hook para modificar cálculo de envío según el modo de facturación
+    add_filter('woocommerce_package_rates', 'itools_modify_shipping_rates', 10, 2);
 }
 add_action('init', 'itools_init_shipping_class_system');
 
