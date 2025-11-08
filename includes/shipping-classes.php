@@ -1,0 +1,196 @@
+<?php
+/**
+ * Funciones para gestionar clases de envío por categoría
+ * 
+ * @package ITOOLS Child Theme
+ */
+
+// Prevenir acceso directo
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Configuración de clases de envío por categoría
+ * Mapea slugs de categorías con IDs de clases de envío
+ */
+function itools_get_shipping_class_mapping() {
+    return apply_filters('itools_shipping_class_mapping', array(
+        // Ejemplo de mapeo: 'slug-categoria' => id_clase_envio
+        'herramientas-electricas' => 1,
+        'pantallas-lcd' => 2,
+        'baterias' => 3,
+        'soldadura' => 4,
+        'microscopios' => 5,
+        'carcasas' => 1,
+        'cautines' => 4,
+        'destornilladores' => 1,
+        'estaciones-de-soldadura' => 4,
+        'insumos-consumibles' => 3,
+        // Agregar más categorías según sea necesario
+    ));
+}
+
+/**
+ * Obtiene la clase de envío basada en las categorías del producto
+ * 
+ * @param int $product_id ID del producto
+ * @return int|null ID de la clase de envío o null si no se encuentra
+ */
+function itools_get_shipping_class_by_category($product_id) {
+    if (!$product_id) {
+        return null;
+    }
+
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        return null;
+    }
+
+    // Obtener las categorías del producto
+    $categories = get_the_terms($product_id, 'product_cat');
+    if (empty($categories) || is_wp_error($categories)) {
+        return null;
+    }
+
+    $shipping_mapping = itools_get_shipping_class_mapping();
+
+    // Buscar coincidencia en las categorías del producto
+    foreach ($categories as $category) {
+        if (isset($shipping_mapping[$category->slug])) {
+            return $shipping_mapping[$category->slug];
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Aplica automáticamente la clase de envío al producto basada en su categoría
+ * 
+ * @param int $product_id ID del producto
+ * @return bool True si se aplicó una clase de envío, false en caso contrario
+ */
+function itools_apply_shipping_class_by_category($product_id) {
+    $shipping_class_id = itools_get_shipping_class_by_category($product_id);
+    
+    if ($shipping_class_id) {
+        $product = wc_get_product($product_id);
+        if ($product) {
+            $product->set_shipping_class_id($shipping_class_id);
+            $product->save();
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+/**
+ * Hook para aplicar clase de envío automáticamente al guardar producto
+ * 
+ * @param int $product_id ID del producto
+ */
+function itools_auto_assign_shipping_class($product_id) {
+    // Solo aplicar si el producto no tiene ya una clase de envío asignada manualmente
+    $product = wc_get_product($product_id);
+    if ($product && !$product->get_shipping_class_id()) {
+        itools_apply_shipping_class_by_category($product_id);
+    }
+}
+
+/**
+ * Aplica clases de envío a productos existentes por lotes
+ * 
+ * @param array $category_slugs Array de slugs de categorías a procesar (opcional)
+ * @param int $batch_size Número de productos a procesar por lote
+ * @return array Resultado del procesamiento
+ */
+function itools_bulk_apply_shipping_classes($category_slugs = array(), $batch_size = 50) {
+    $results = array(
+        'processed' => 0,
+        'updated' => 0,
+        'errors' => array()
+    );
+
+    $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => $batch_size,
+        'post_status' => 'publish',
+        'fields' => 'ids'
+    );
+
+    // Si se especifican categorías, filtrar por ellas
+    if (!empty($category_slugs)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'product_cat',
+                'field' => 'slug',
+                'terms' => $category_slugs
+            )
+        );
+    }
+
+    $products = get_posts($args);
+
+    foreach ($products as $product_id) {
+        $results['processed']++;
+        
+        try {
+            if (itools_apply_shipping_class_by_category($product_id)) {
+                $results['updated']++;
+            }
+        } catch (Exception $e) {
+            $results['errors'][] = "Error en producto {$product_id}: " . $e->getMessage();
+        }
+    }
+
+    return $results;
+}
+
+/**
+ * Función de utilidad para obtener todas las clases de envío disponibles
+ * 
+ * @return array Array de clases de envío con id => nombre
+ */
+function itools_get_available_shipping_classes() {
+    $shipping_classes = WC()->shipping->get_shipping_classes();
+    $classes = array();
+    
+    foreach ($shipping_classes as $class) {
+        $classes[$class->term_id] = $class->name;
+    }
+    
+    return $classes;
+}
+
+/**
+ * Función para mostrar información de debug sobre clases de envío
+ * 
+ * @param int $product_id ID del producto
+ * @return array Información de debug
+ */
+function itools_debug_shipping_class_info($product_id) {
+    $product = wc_get_product($product_id);
+    if (!$product) {
+        return array('error' => 'Producto no encontrado');
+    }
+
+    $categories = get_the_terms($product_id, 'product_cat');
+    $category_slugs = array();
+    if ($categories && !is_wp_error($categories)) {
+        foreach ($categories as $cat) {
+            $category_slugs[] = $cat->slug;
+        }
+    }
+
+    return array(
+        'product_id' => $product_id,
+        'product_name' => $product->get_name(),
+        'current_shipping_class_id' => $product->get_shipping_class_id(),
+        'current_shipping_class_name' => $product->get_shipping_class(),
+        'categories' => $category_slugs,
+        'suggested_shipping_class_id' => itools_get_shipping_class_by_category($product_id),
+        'mapping' => itools_get_shipping_class_mapping()
+    );
+}

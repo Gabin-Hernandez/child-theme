@@ -3746,3 +3746,89 @@ function itools_enable_myaccount_registration() {
 }
 add_action('after_setup_theme', 'itools_enable_myaccount_registration');
 
+// ====================================
+// SISTEMA DE CLASES DE ENVÍO POR CATEGORÍA
+// ====================================
+
+// Importar funciones de clases de envío por categoría
+require_once get_stylesheet_directory() . '/includes/shipping-classes.php';
+
+/**
+ * Activar el sistema automático de clases de envío por categoría
+ */
+function itools_init_shipping_class_system() {
+    // Hook para aplicar clase de envío automáticamente al guardar producto
+    add_action('woocommerce_process_product_meta', 'itools_auto_assign_shipping_class', 20);
+    
+    // Hook para aplicar clase de envío al crear nuevos productos
+    add_action('woocommerce_new_product', 'itools_auto_assign_shipping_class', 10);
+    
+    // Hook para aplicar cuando se actualicen las categorías del producto
+    add_action('set_object_terms', 'itools_on_product_category_change', 10, 6);
+}
+add_action('init', 'itools_init_shipping_class_system');
+
+/**
+ * Función que se ejecuta cuando cambian las categorías de un producto
+ * 
+ * @param int $object_id ID del objeto
+ * @param array $terms Array de términos
+ * @param array $tt_ids Array de IDs de términos
+ * @param string $taxonomy Taxonomía
+ * @param bool $append Si se agregan o reemplazan términos
+ * @param array $old_tt_ids Array de IDs de términos anteriores
+ */
+function itools_on_product_category_change($object_id, $terms, $tt_ids, $taxonomy, $append, $old_tt_ids) {
+    // Solo actuar en la taxonomía de categorías de producto
+    if ($taxonomy !== 'product_cat') {
+        return;
+    }
+    
+    // Verificar que el objeto sea un producto
+    $post = get_post($object_id);
+    if (!$post || $post->post_type !== 'product') {
+        return;
+    }
+    
+    // Aplicar la clase de envío basada en la nueva categoría
+    itools_apply_shipping_class_by_category($object_id);
+}
+
+/**
+ * Función administrativa para aplicar clases de envío en lotes
+ * Solo disponible para administradores
+ */
+function itools_admin_bulk_apply_shipping_classes() {
+    if (!current_user_can('manage_options')) {
+        wp_die('No tienes permisos para realizar esta acción.');
+    }
+    
+    $category_slugs = isset($_GET['categories']) ? explode(',', sanitize_text_field($_GET['categories'])) : array();
+    $batch_size = isset($_GET['batch_size']) ? intval($_GET['batch_size']) : 50;
+    
+    $results = itools_bulk_apply_shipping_classes($category_slugs, $batch_size);
+    
+    echo '<div class="wrap">';
+    echo '<h1>Aplicar Clases de Envío por Categoría</h1>';
+    echo '<div class="notice notice-success"><p>Procesamiento completado:</p>';
+    echo '<ul>';
+    echo '<li>Productos procesados: ' . $results['processed'] . '</li>';
+    echo '<li>Productos actualizados: ' . $results['updated'] . '</li>';
+    if (!empty($results['errors'])) {
+        echo '<li>Errores: ' . count($results['errors']) . '</li>';
+        echo '<details><summary>Ver errores</summary>';
+        foreach ($results['errors'] as $error) {
+            echo '<p>' . esc_html($error) . '</p>';
+        }
+        echo '</details>';
+    }
+    echo '</ul></div>';
+    echo '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping') . '" class="button">Volver a Configuración de Envío</a>';
+    echo '</div>';
+}
+
+// Agregar página de administración si es necesario
+if (is_admin()) {
+    add_action('wp_ajax_itools_bulk_shipping_classes', 'itools_admin_bulk_apply_shipping_classes');
+}
+
