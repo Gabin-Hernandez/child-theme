@@ -290,30 +290,6 @@ get_header(); ?>
                                 <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
                             </form>
                         <?php endif; ?>
-
-                        <!-- Beneficios adicionales -->
-                        <div class="mt-6 pt-4 border-t border-gray-300">
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                                <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                                    </svg>
-                                    <span><strong>Envío gratis</strong><br>En pedidos +$500</span>
-                                </div>
-                                <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span><strong>Garantía</strong><br>30 días de devolución</span>
-                                </div>
-                                <div class="flex items-center gap-2 text-gray-700">
-                                    <svg class="w-5 h-5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"></path>
-                                    </svg>
-                                    <span><strong>Soporte</strong><br>Técnico incluido</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     
                 </div>

@@ -39,7 +39,7 @@
                         <div class="space-y-4">
                             <p class="text-white font-semibold">Síguenos</p>
                             <div class="flex space-x-4">
-                                <a href="https://www.facebook.com/ipartsmovil/" target="_blank" rel="noopener noreferrer" class="group">
+                                <a href="https://www.facebook.com/p/ITools-Mx-61550736645996/" target="_blank" rel="noopener noreferrer" class="group">
                                     <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 group-hover:bg-blue-600 group-hover:scale-110 transition-all duration-300">
                                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -115,8 +115,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-300">México, CDMX</p>
-                                    <p class="text-gray-400 text-sm">Zona Metropolitana</p>
+                                    <p class="text-gray-300">Calle Heron Ramirez #715 Col. Rodriguez en Reynosa Tamps</p>
+                                    <p class="text-gray-400 text-sm"> Reynosa, Mexico</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -126,7 +126,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-300">+52 55 1234 5678</p>
+                                    <p class="text-gray-300">899 145 0042</p>
                                     <p class="text-gray-400 text-sm">Lun - Vie 9:00 - 18:00</p>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <p class="text-gray-300">info@itoolsmx.com</p>
+                                    <p class="text-gray-300">itoolsmx05@gmail.com</p>
                                     <p class="text-gray-400 text-sm">Respuesta en 24hrs</p>
                                 </div>
                             </div>
