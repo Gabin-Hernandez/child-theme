@@ -697,7 +697,7 @@
                                 </div>
                                 
                                 <!-- Submenu de Marcas -->
-                                <div class="submenu-panel" style="position: absolute; top: -24px; left: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); min-width: 820px; max-height: 500px; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateX(-10px); transition: all 0.3s; z-index: 1001; margin-left: 4px; padding: 24px;">
+                                <div class="submenu-panel" style="position: absolute; top: -80px; left: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); min-width: 820px; max-height: 500px; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateX(-10px); transition: all 0.3s; z-index: 1001; margin-left: 4px; padding: 24px;">
                                     
                                     <!-- Grid de Marcas (4 columnas) -->
                                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
