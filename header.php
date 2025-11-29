@@ -43,6 +43,25 @@
             color: #2563eb;
         }
         
+        /* Estilos para submenus anidados */
+        .has-submenu:hover .submenu-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        
+        .submenu-trigger-item:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .submenu-panel {
+            pointer-events: all;
+        }
+        
+        .has-submenu {
+            position: relative;
+        }
+        
         /* Asegurar que los dropdowns estén por encima de otros elementos */
         .dropdown-container {
             position: relative !important;
@@ -603,18 +622,127 @@
             <div class="nav-row" style="border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 0;">
                 <div style="margin: 0 auto; padding: 0 20px;" class="max-w-7xl">
                     <nav style="display: flex; align-items: center; justify-content: center; gap: 40px;">
-                    <!-- Dropdown Refacciones -->
-                    <div class="dropdown-container" style="position: relative;">
+                    <!-- Dropdown Refacciones con Submenus Anidados -->
+                    <div class="dropdown-container refacciones-dropdown" style="position: relative;">
                         <button class="dropdown-trigger" style="display: flex; align-items: center; gap: 4px; padding: 8px 12px; background: none; border: none; color: white; font-weight: 500; cursor: pointer; border-radius: 6px; transition: all 0.2s;">
                             Refacciones
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                             </svg>
                         </button>
-                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
-                            <a href="<?php echo esc_url( home_url( '/pantallas-lcd/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Pantallas LCD & Touch</a>
-                            <a href="<?php echo esc_url( home_url( '/baterias/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Baterías</a>
-                            <a href="<?php echo esc_url( home_url( '/carcasas/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;">Carcasas</a>
+                        <div class="dropdown-menu" style="position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-width: 220px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000;">
+                            <!-- Items originales de Refacciones -->
+                            <a href="<?php echo esc_url( home_url( '/pantallas-lcd/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">Pantallas LCD & Touch</a>
+                            <a href="<?php echo esc_url( home_url( '/baterias/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">Baterías</a>
+                            <a href="<?php echo esc_url( home_url( '/carcasas/' ) ); ?>" style="display: block; padding: 12px 16px; color: #374151; text-decoration: none; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">Carcasas</a>
+                            
+                            <!-- Nivel 2: Marcas (submenu) -->
+                            <div class="has-submenu" style="position: relative;">
+                                <div class="submenu-trigger-item" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; color: #374151; cursor: pointer; border-bottom: 1px solid #f3f4f6; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                                    <span style="font-weight: 500;">Marcas por Modelo</span>
+                                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Submenu de Marcas -->
+                                <div class="submenu-panel" style="position: absolute; top: 0; left: 100%; background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); min-width: 820px; opacity: 0; visibility: hidden; transform: translateX(-10px); transition: all 0.3s; z-index: 1001; margin-left: 4px; padding: 24px;">
+                                    
+                                    <!-- Grid de Marcas (4 columnas) -->
+                                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+                                        
+                                        <!-- Columna iPhone -->
+                                        <div>
+                                            <a href="<?php echo esc_url( home_url( '/apple/' ) ); ?>" style="text-decoration: none;">
+                                                <div style="padding: 8px 0 12px 0; font-size: 15px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb">
+                                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                                    </svg>
+                                                    iPhone
+                                                </div>
+                                            </a>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <a href="<?php echo esc_url( home_url( '/iphone-15-pro-max/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15 Pro Max</a>
+                                                <a href="<?php echo esc_url( home_url( '/iphone-15-pro/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 15 Pro</a>
+                                                <a href="<?php echo esc_url( home_url( '/iphone-14-pro-max/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 14 Pro Max</a>
+                                                <a href="<?php echo esc_url( home_url( '/iphone-13-pro-max/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 13 Pro Max</a>
+                                                <a href="<?php echo esc_url( home_url( '/iphone-12-pro-max/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 12 Pro Max</a>
+                                                <a href="<?php echo esc_url( home_url( '/iphone-11/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">iPhone 11</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Columna Samsung -->
+                                        <div>
+                                            <a href="<?php echo esc_url( home_url( '/samsung/' ) ); ?>" style="text-decoration: none;">
+                                                <div style="padding: 8px 0 12px 0; font-size: 15px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb">
+                                                        <path d="M22.86 5.82v12.36c0 3.21-2.61 5.82-5.82 5.82H6.96c-3.21 0-5.82-2.61-5.82-5.82V5.82C1.14 2.61 3.75 0 6.96 0h10.08c3.21 0 5.82 2.61 5.82 5.82z"/>
+                                                    </svg>
+                                                    Samsung
+                                                </div>
+                                            </a>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-s24-ultra/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S24 Ultra</a>
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-s23-ultra/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S23 Ultra</a>
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-s22-ultra/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy S22 Ultra</a>
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-a54/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy A54</a>
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-a34/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy A34</a>
+                                                <a href="<?php echo esc_url( home_url( '/galaxy-note/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Galaxy Note</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Columna Huawei -->
+                                        <div>
+                                            <a href="<?php echo esc_url( home_url( '/huawei/' ) ); ?>" style="text-decoration: none;">
+                                                <div style="padding: 8px 0 12px 0; font-size: 15px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb">
+                                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                                    </svg>
+                                                    Huawei
+                                                </div>
+                                            </a>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <a href="<?php echo esc_url( home_url( '/huawei-p60-pro/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei P60 Pro</a>
+                                                <a href="<?php echo esc_url( home_url( '/huawei-mate-50/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei Mate 50</a>
+                                                <a href="<?php echo esc_url( home_url( '/huawei-p50-pro/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Huawei P50 Pro</a>
+                                                <a href="<?php echo esc_url( home_url( '/honor-90/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Honor 90</a>
+                                                <a href="<?php echo esc_url( home_url( '/honor-70/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Honor 70</a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Columna Xiaomi & Otros -->
+                                        <div>
+                                            <a href="<?php echo esc_url( home_url( '/xiaomi/' ) ); ?>" style="text-decoration: none;">
+                                                <div style="padding: 8px 0 12px 0; font-size: 15px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #2563eb; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb">
+                                                        <path d="M19.15 5c.28 0 .85.11.85.4v13.2c0 .29-.57.4-.85.4h-2.4c-.28 0-.75-.11-.75-.4V5.4c0-.29.47-.4.75-.4h2.4zm-4.8 6c.28 0 .65.11.65.4v7.2c0 .29-.37.4-.65.4h-2.8c-.28 0-.65-.11-.65-.4v-7.2c0-.29.37-.4.65-.4h2.8zm-5 3c.28 0 .65.11.65.4v4.2c0 .29-.37.4-.65.4H6.5c-.28 0-.65-.11-.65-.4v-4.2c0-.29.37-.4.65-.4h2.85zm-5-11c.28 0 .65.11.65.4v10.8c0 .29-.37.4-.65.4H1.65c-.28 0-.65-.11-.65-.4V3.4c0-.29.37-.4.65-.4h2.7z"/>
+                                                    </svg>
+                                                    Xiaomi & Otros
+                                                </div>
+                                            </a>
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                <a href="<?php echo esc_url( home_url( '/xiaomi-14-ultra/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Xiaomi 14 Ultra</a>
+                                                <a href="<?php echo esc_url( home_url( '/redmi-note-13/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Redmi Note 13</a>
+                                                <a href="<?php echo esc_url( home_url( '/motorola-edge/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Motorola Edge</a>
+                                                <a href="<?php echo esc_url( home_url( '/oppo/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Oppo</a>
+                                                <a href="<?php echo esc_url( home_url( '/vivo/' ) ); ?>" style="color: #4b5563; text-decoration: none; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; font-size: 13px; font-weight: 500;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#4b5563'">Vivo</a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- Footer del mega menu -->
+                                    <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center;">
+                                        <a href="<?php echo esc_url( home_url( '/tienda/' ) ); ?>" style="display: inline-flex; align-items: center; gap: 8px; color: #2563eb; text-decoration: none; font-weight: 600; padding: 10px 20px; background: #f3f4f6; border-radius: 8px; transition: all 0.2s; font-size: 14px;" onmouseover="this.style.backgroundColor='#2563eb'; this.style.color='white'" onmouseout="this.style.backgroundColor='#f3f4f6'; this.style.color='#2563eb'">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                            </svg>
+                                            Ver todos los modelos disponibles
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
 
