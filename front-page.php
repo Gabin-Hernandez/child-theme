@@ -320,7 +320,7 @@ get_header(); ?>
             
             $herramientas_args = array(
                 'post_type' => 'product',
-                'posts_per_page' => 16,
+                'posts_per_page' => 40,
                 'post_status' => 'publish',
                 'meta_query' => array(
                     array(
@@ -348,20 +348,36 @@ get_header(); ?>
             
             $herramientas_query = new WP_Query( $herramientas_args );
             
-            if ( $herramientas_query->have_posts() ) : ?>
-                <!-- Primer Carrusel de Herramientas -->
-                <div class="herramientas-carousel-container-1 relative w-full mx-auto mb-8">
-                    <div class="herramientas-swiper-1 overflow-hidden rounded-xl bg-white shadow-lg">
+            if ( $herramientas_query->have_posts() ) : 
+                // Dividir productos en 5 carruseles de 8 productos cada uno
+                $all_products = array();
+                while ( $herramientas_query->have_posts() ) {
+                    $herramientas_query->the_post();
+                    global $product;
+                    if ( $product && $product->is_visible() && has_post_thumbnail() ) {
+                        $all_products[] = get_post();
+                    }
+                }
+                wp_reset_postdata();
+                
+                // Crear 5 carruseles
+                for ( $carousel_num = 1; $carousel_num <= 5; $carousel_num++ ) :
+                    $start_index = ($carousel_num - 1) * 8;
+                    $carousel_products = array_slice($all_products, $start_index, 8);
+                    
+                    if ( empty($carousel_products) ) continue;
+                ?>
+                <!-- Carrusel <?php echo $carousel_num; ?> de Herramientas -->
+                <div class="herramientas-carousel-container-<?php echo $carousel_num; ?> relative w-full mx-auto mb-8">
+                    <div class="herramientas-swiper-<?php echo $carousel_num; ?> overflow-hidden rounded-xl bg-white shadow-lg">
                         <div class="swiper-wrapper py-4">
-                            <?php 
-                            $product_count = 0;
-            $max_first_carousel = 8; // Primeros 8 productos para el primer carrusel
-            while ( $herramientas_query->have_posts() && $product_count < $max_first_carousel ) : 
-                $herramientas_query->the_post(); 
-                global $product;
-                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
-                $product_count++;
-            ?>
+                            <?php foreach ( $carousel_products as $carousel_product ) : 
+                                global $post;
+                                $post = $carousel_product;
+                                setup_postdata($post);
+                                $product = wc_get_product($post->ID);
+                                if ( ! $product ) continue;
+                            ?>
             <div class="swiper-slide">
                 <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
                     <!-- Imagen del producto -->
@@ -417,118 +433,24 @@ get_header(); ?>
                                     </div>
                                 </div>
                             </div>
-                            <?php endwhile; ?>
+                            <?php endforeach; wp_reset_postdata(); ?>
                         </div>
                     </div>
                     
-                    <!-- Navegación del primer carrusel -->
-                    <div class="herramientas-swiper-button-prev-1 absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                    <!-- Navegación del carrusel <?php echo $carousel_num; ?> -->
+                    <div class="herramientas-swiper-button-prev-<?php echo $carousel_num; ?> absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
                         <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </div>
-                    <div class="herramientas-swiper-button-next-1 absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
+                    <div class="herramientas-swiper-button-next-<?php echo $carousel_num; ?> absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
                         <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </div>
                 </div>
+                <?php endfor; ?>
 
-                <!-- Segundo Carrusel de Herramientas -->
-                <div class="herramientas-carousel-container-2 relative w-full mx-auto">
-                    <div class="herramientas-swiper-2 overflow-hidden rounded-xl bg-white shadow-lg">
-                        <div class="swiper-wrapper py-4">
-                            <?php 
-                            // Reset query para obtener los productos restantes
-                            $herramientas_query->rewind_posts();
-                            $product_count = 0;
-                            $skip_count = 0;
-                            while ( $herramientas_query->have_posts() ) : 
-                                $herramientas_query->the_post(); 
-                                global $product;
-                                if ( ! $product || ! $product->is_visible() || ! has_post_thumbnail() ) continue;
-                                
-                                // Saltar los primeros 8 productos que ya se mostraron
-                                if ( $skip_count < $max_first_carousel ) {
-                                    $skip_count++;
-                                    continue;
-                                }
-                                $product_count++;
-                            ?>
-                            <div class="swiper-slide">
-                                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-amber-200 flex flex-col h-full mx-2">
-                                    <!-- Imagen del producto -->
-                                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
-                                        <a href="<?php the_permalink(); ?>" class="block h-full">
-                                            <?php 
-                                            if ( has_post_thumbnail() ) {
-                                                the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                                ));
-                                            } else {
-                                                $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
-                                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
-                                            }
-                                            ?>
-                                        </a>
-                                        
-                                        <!-- Badge de descuento -->
-                                        <?php if ( $product->is_on_sale() ) : ?>
-                                            <div class="absolute top-2 left-2 z-20">
-                                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
-                                                    <?php
-                                                    $regular_price = $product->get_regular_price();
-                                                    $sale_price = $product->get_sale_price();
-                                                    if ( $regular_price && $sale_price ) {
-                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
-                                                        echo '-' . $discount . '%';
-                                                    } else {
-                                                        echo 'OFERTA';
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    
-                                    <!-- Información del producto -->
-                                    <div class="p-3 flex flex-col flex-1">
-                                        <!-- Título -->
-                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-amber-700 transition-colors flex-1" style="min-height: 2.5rem; height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
-                                        </h3>
-                                        
-                                        <!-- Precio -->
-                                        <div class="mb-3">
-                                            <div class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition-colors">
-                                                <?php echo $product->get_price_html(); ?>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Botón de agregar al carrito -->
-                                        <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
-                                            <?php woocommerce_template_loop_add_to_cart(); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php endwhile; ?>
-                        </div>
-                    </div>
-                    
-                    <!-- Navegación del segundo carrusel -->
-                    <div class="herramientas-swiper-button-prev-2 absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
-                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </div>
-                    <div class="herramientas-swiper-button-next-2 absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-amber-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-amber-100">
-                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
-                </div>
-                
                 <!-- Botón para ver más herramientas -->
                 <div class="text-center mt-12">
                     <a href="/?post_type=product&s=&product_cat=herramientas" 
@@ -544,12 +466,18 @@ get_header(); ?>
                 <style>
                 /* Carruseles específicos para herramientas */
                 .herramientas-swiper-1,
-                .herramientas-swiper-2 {
+                .herramientas-swiper-2,
+                .herramientas-swiper-3,
+                .herramientas-swiper-4,
+                .herramientas-swiper-5 {
                     padding: 0 40px;
                 }
                 
                 .herramientas-swiper-1 .swiper-slide,
-                .herramientas-swiper-2 .swiper-slide {
+                .herramientas-swiper-2 .swiper-slide,
+                .herramientas-swiper-3 .swiper-slide,
+                .herramientas-swiper-4 .swiper-slide,
+                .herramientas-swiper-5 .swiper-slide {
                     width: 220px;
                     flex-shrink: 0;
                 }
@@ -609,11 +537,17 @@ get_header(); ?>
                 /* Responsive */
                 @media (max-width: 640px) {
                     .herramientas-swiper-1,
-                    .herramientas-swiper-2 {
+                    .herramientas-swiper-2,
+                    .herramientas-swiper-3,
+                    .herramientas-swiper-4,
+                    .herramientas-swiper-5 {
                         padding: 0 20px;
                     }
                     .herramientas-swiper-1 .swiper-slide,
-                    .herramientas-swiper-2 .swiper-slide {
+                    .herramientas-swiper-2 .swiper-slide,
+                    .herramientas-swiper-3 .swiper-slide,
+                    .herramientas-swiper-4 .swiper-slide,
+                    .herramientas-swiper-5 .swiper-slide {
                         width: 120px;
                     }
                 }
@@ -622,20 +556,12 @@ get_header(); ?>
                 <!-- JavaScript para inicializar los carruseles de herramientas -->
                 <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Inicializar Swiper para primer carrusel de herramientas
-                    const herramientasSwiper1 = new Swiper('.herramientas-swiper-1', {
+                    // Configuración común para todos los carruseles
+                    const commonConfig = {
                         slidesPerView: 'auto',
                         spaceBetween: 16,
                         centeredSlides: false,
                         loop: true,
-                        autoplay: {
-                            delay: 3000,
-                            disableOnInteraction: false,
-                        },
-                        navigation: {
-                            nextEl: '.herramientas-swiper-button-next-1',
-                            prevEl: '.herramientas-swiper-button-prev-1',
-                        },
                         breakpoints: {
                             320: {
                                 slidesPerView: 1.5,
@@ -666,53 +592,25 @@ get_header(); ?>
                                 spaceBetween: 16,
                             }
                         }
-                    });
+                    };
 
-                    // Inicializar Swiper para segundo carrusel de herramientas
-                    const herramientasSwiper2 = new Swiper('.herramientas-swiper-2', {
-                        slidesPerView: 'auto',
-                        spaceBetween: 16,
-                        centeredSlides: false,
-                        loop: true,
-                        autoplay: {
-                            delay: 4000,
-                            disableOnInteraction: false,
-                        },
-                        navigation: {
-                            nextEl: '.herramientas-swiper-button-next-2',
-                            prevEl: '.herramientas-swiper-button-prev-2',
-                        },
-                        breakpoints: {
-                            320: {
-                                slidesPerView: 1.5,
-                                spaceBetween: 12,
-                            },
-                            480: {
-                                slidesPerView: 2,
-                                spaceBetween: 14,
-                            },
-                            640: {
-                                slidesPerView: 2.5,
-                                spaceBetween: 16,
-                            },
-                            768: {
-                                slidesPerView: 3,
-                                spaceBetween: 16,
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                spaceBetween: 16,
-                            },
-                            1280: {
-                                slidesPerView: 5,
-                                spaceBetween: 16,
-                            },
-                            1536: {
-                                slidesPerView: 6,
-                                spaceBetween: 16,
-                            }
+                    // Inicializar los 5 carruseles de herramientas
+                    for (let i = 1; i <= 5; i++) {
+                        const swiperElement = document.querySelector('.herramientas-swiper-' + i);
+                        if (swiperElement) {
+                            new Swiper('.herramientas-swiper-' + i, {
+                                ...commonConfig,
+                                autoplay: {
+                                    delay: 3000 + (i * 1000),
+                                    disableOnInteraction: false,
+                                },
+                                navigation: {
+                                    nextEl: '.herramientas-swiper-button-next-' + i,
+                                    prevEl: '.herramientas-swiper-button-prev-' + i,
+                                }
+                            });
                         }
-                    });
+                    }
 
                     // Funcionalidad del carrito para ambos carruseles
                     document.addEventListener('click', function(e) {
@@ -758,6 +656,327 @@ get_header(); ?>
                         echo 'Categoría encontrada: ' . ($herramientas_term ? 'Sí (ID: ' . $herramientas_term->term_id . ', Slug: ' . $herramientas_term->slug . ')' : 'No') . '<br>';
                         echo 'Total productos encontrados: ' . $herramientas_query->found_posts . '<br>';
                         echo 'URL de categoría: <a href="' . get_term_link('herramientas', 'product_cat') . '" target="_blank">Ver categoría</a>';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php wp_reset_postdata(); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Productos de Refacciones -->
+    <?php if ( class_exists( 'WooCommerce' ) ) : ?>
+    <div class="pt-32 bg-white">
+        <div class="w-full px-4 lg:px-6">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center bg-blue-100 text-blue-800 px-6 py-2 rounded-full font-semibold mb-6">
+                    REFACCIONES Y COMPONENTES
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                    Refacciones Originales
+                </h2>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    Encuentra las mejores refacciones y componentes para tus reparaciones
+                </p>
+            </div>
+            
+            <?php
+            // Query para obtener productos de la categoría 'Refacciones'
+            $refacciones_term = get_term_by('slug', 'refacciones', 'product_cat');
+            
+            if (!$refacciones_term) {
+                $refacciones_term = get_term_by('name', 'Refacciones', 'product_cat');
+            }
+            
+            $refacciones_args = array(
+                'post_type' => 'product',
+                'posts_per_page' => 40,
+                'post_status' => 'publish',
+                'meta_query' => array(
+                    array(
+                        'key' => '_stock_status',
+                        'value' => 'instock',
+                        'compare' => '='
+                    ),
+                    array(
+                        'key' => '_thumbnail_id',
+                        'compare' => 'EXISTS'
+                    )
+                )
+            );
+            
+            // Solo agregamos tax_query si encontramos la categoría
+            if ($refacciones_term) {
+                $refacciones_args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'product_cat',
+                        'field' => 'term_id',
+                        'terms' => $refacciones_term->term_id,
+                    )
+                );
+            }
+            
+            $refacciones_query = new WP_Query( $refacciones_args );
+            
+            if ( $refacciones_query->have_posts() ) : 
+                // Dividir productos en 5 carruseles de 8 productos cada uno
+                $all_products = array();
+                while ( $refacciones_query->have_posts() ) {
+                    $refacciones_query->the_post();
+                    global $product;
+                    if ( $product && $product->is_visible() && has_post_thumbnail() ) {
+                        $all_products[] = get_post();
+                    }
+                }
+                wp_reset_postdata();
+                
+                // Crear 5 carruseles
+                for ( $carousel_num = 1; $carousel_num <= 5; $carousel_num++ ) :
+                    $start_index = ($carousel_num - 1) * 8;
+                    $carousel_products = array_slice($all_products, $start_index, 8);
+                    
+                    if ( empty($carousel_products) ) continue;
+                ?>
+                <!-- Carrusel <?php echo $carousel_num; ?> de Refacciones -->
+                <div class="refacciones-carousel-container-<?php echo $carousel_num; ?> relative w-full mx-auto mb-8">
+                    <div class="refacciones-swiper-<?php echo $carousel_num; ?> overflow-hidden rounded-xl bg-gray-50 shadow-lg">
+                        <div class="swiper-wrapper py-4">
+                            <?php foreach ( $carousel_products as $carousel_product ) : 
+                                global $post;
+                                $post = $carousel_product;
+                                setup_postdata($post);
+                                $product = wc_get_product($post->ID);
+                                if ( ! $product ) continue;
+                            ?>
+                            <div class="swiper-slide">
+                                <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-blue-200 flex flex-col h-full mx-2">
+                                    <!-- Imagen del producto -->
+                                    <div class="relative overflow-hidden bg-gray-50 aspect-square">
+                                        <a href="<?php the_permalink(); ?>" class="block h-full">
+                                            <?php 
+                                            if ( has_post_thumbnail() ) {
+                                                the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                                ));
+                                            } else {
+                                                $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
+                                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
+                                            }
+                                            ?>
+                                        </a>
+                                        
+                                        <!-- Badge de descuento -->
+                                        <?php if ( $product->is_on_sale() ) : ?>
+                                            <div class="absolute top-2 left-2 z-20">
+                                                <div class="bg-red-500 text-white px-2 py-1 rounded text-sm font-bold">
+                                                    <?php
+                                                    $regular_price = $product->get_regular_price();
+                                                    $sale_price = $product->get_sale_price();
+                                                    if ( $regular_price && $sale_price ) {
+                                                        $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+                                                        echo '-' . $discount . '%';
+                                                    } else {
+                                                        echo 'OFERTA';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <!-- Información del producto -->
+                                    <div class="p-3 flex flex-col flex-1">
+                                        <!-- Título -->
+                                        <h3 class="font-medium text-gray-900 text-base leading-tight mb-2 line-clamp-2 group-hover:text-blue-700 transition-colors flex-1" style="min-height: 2.5rem; height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                            <a href="<?php the_permalink(); ?>" class="hover:underline"><?php the_title(); ?></a>
+                                        </h3>                                        <!-- Precio -->
+                                        <div class="mb-3">
+                                            <div class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                                                <?php echo $product->get_price_html(); ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Botón de agregar al carrito -->
+                                        <div class="woocommerce-add-to-cart-wrapper-mini mt-auto">
+                                            <?php woocommerce_template_loop_add_to_cart(); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; wp_reset_postdata(); ?>
+                        </div>
+                    </div>
+                    
+                    <!-- Navegación del carrusel <?php echo $carousel_num; ?> -->
+                    <div class="refacciones-swiper-button-prev-<?php echo $carousel_num; ?> absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-blue-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="refacciones-swiper-button-next-<?php echo $carousel_num; ?> absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white hover:bg-blue-50 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 border border-blue-100">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                <?php endfor; ?>
+
+                <!-- Botón para ver más refacciones -->
+                <div class="text-center mt-12">
+                    <a href="/?post_type=product&s=&product_cat=refacciones" 
+                       class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+                        Ver Todas las Refacciones
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <!-- Estilos CSS y JavaScript para los carruseles de refacciones -->
+                <style>
+                /* Carruseles específicos para refacciones */
+                .refacciones-swiper-1,
+                .refacciones-swiper-2,
+                .refacciones-swiper-3,
+                .refacciones-swiper-4,
+                .refacciones-swiper-5 {
+                    padding: 0 40px;
+                }
+                
+                .refacciones-swiper-1 .swiper-slide,
+                .refacciones-swiper-2 .swiper-slide,
+                .refacciones-swiper-3 .swiper-slide,
+                .refacciones-swiper-4 .swiper-slide,
+                .refacciones-swiper-5 .swiper-slide {
+                    width: 220px;
+                    flex-shrink: 0;
+                }
+                
+                /* Responsive */
+                @media (max-width: 640px) {
+                    .refacciones-swiper-1,
+                    .refacciones-swiper-2,
+                    .refacciones-swiper-3,
+                    .refacciones-swiper-4,
+                    .refacciones-swiper-5 {
+                        padding: 0 20px;
+                    }
+                    .refacciones-swiper-1 .swiper-slide,
+                    .refacciones-swiper-2 .swiper-slide,
+                    .refacciones-swiper-3 .swiper-slide,
+                    .refacciones-swiper-4 .swiper-slide,
+                    .refacciones-swiper-5 .swiper-slide {
+                        width: 120px;
+                    }
+                }
+                </style>
+                
+                <!-- JavaScript para inicializar los carruseles de refacciones -->
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Configuración común para todos los carruseles de refacciones
+                    const commonConfigRefacciones = {
+                        slidesPerView: 'auto',
+                        spaceBetween: 16,
+                        centeredSlides: false,
+                        loop: true,
+                        breakpoints: {
+                            320: {
+                                slidesPerView: 1.5,
+                                spaceBetween: 12,
+                            },
+                            480: {
+                                slidesPerView: 2,
+                                spaceBetween: 14,
+                            },
+                            640: {
+                                slidesPerView: 2.5,
+                                spaceBetween: 16,
+                            },
+                            768: {
+                                slidesPerView: 3,
+                                spaceBetween: 16,
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                spaceBetween: 16,
+                            },
+                            1280: {
+                                slidesPerView: 5,
+                                spaceBetween: 16,
+                            },
+                            1536: {
+                                slidesPerView: 6,
+                                spaceBetween: 16,
+                            }
+                        }
+                    };
+
+                    // Inicializar los 5 carruseles de refacciones
+                    for (let i = 1; i <= 5; i++) {
+                        const swiperElement = document.querySelector('.refacciones-swiper-' + i);
+                        if (swiperElement) {
+                            new Swiper('.refacciones-swiper-' + i, {
+                                ...commonConfigRefacciones,
+                                autoplay: {
+                                    delay: 3500 + (i * 1000),
+                                    disableOnInteraction: false,
+                                },
+                                navigation: {
+                                    nextEl: '.refacciones-swiper-button-next-' + i,
+                                    prevEl: '.refacciones-swiper-button-prev-' + i,
+                                }
+                            });
+                        }
+                    }
+
+                    // Funcionalidad del carrito para carruseles de refacciones
+                    document.addEventListener('click', function(e) {
+                        if (e.target.closest('.woocommerce-add-to-cart-wrapper-mini .button') || 
+                            e.target.closest('.woocommerce-add-to-cart-wrapper-mini .ajax_add_to_cart')) {
+                            console.log('Botón de agregar al carrito clickeado en carruseles refacciones');
+                            
+                            setTimeout(function() {
+                                if (window.cartSidepanel) {
+                                    console.log('Abriendo cart sidepanel desde carruseles refacciones');
+                                    window.cartSidepanel.open();
+                                }
+                            }, 800);
+                        }
+                    });
+                    
+                    document.body.addEventListener('added_to_cart', function(e) {
+                        console.log('Evento added_to_cart detectado en carruseles refacciones:', e.detail);
+                        setTimeout(function() {
+                            if (window.cartSidepanel) {
+                                console.log('Abriendo sidepanel por evento added_to_cart');
+                                window.cartSidepanel.open();
+                            }
+                        }, 500);
+                    });
+                });
+                </script>
+                
+            <?php else : ?>
+                <div class="text-center py-12">
+                    <div class="text-gray-500 mb-4">
+                        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">No hay refacciones disponibles</h3>
+                    <p class="text-gray-600">Pronto agregaremos más productos a esta categoría.</p>
+                    <?php 
+                    // Debug info - solo mostrar si es admin
+                    if (current_user_can('administrator')) {
+                        echo '<div class="text-xs text-gray-500 mt-4 p-2 bg-yellow-50 rounded max-w-md mx-auto">';
+                        echo '<strong>Debug info:</strong><br>';
+                        echo 'Categoría encontrada: ' . ($refacciones_term ? 'Sí (ID: ' . $refacciones_term->term_id . ', Slug: ' . $refacciones_term->slug . ')' : 'No') . '<br>';
+                        echo 'Total productos encontrados: ' . $refacciones_query->found_posts . '<br>';
+                        echo 'URL de categoría: <a href="' . get_term_link('refacciones', 'product_cat') . '" target="_blank">Ver categoría</a>';
                         echo '</div>';
                     }
                     ?>
