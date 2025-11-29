@@ -44,10 +44,11 @@
         }
         
         /* Estilos para submenus anidados */
-        .has-submenu:hover .submenu-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
+        .has-submenu:hover .submenu-panel,
+        .submenu-panel:hover {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateX(0) !important;
         }
         
         .submenu-trigger-item:hover {
@@ -55,12 +56,43 @@
         }
         
         .submenu-panel {
-            pointer-events: all;
+            pointer-events: all !important;
         }
         
         .has-submenu {
             position: relative;
         }
+        
+        /* Asegurar que el submenu se mantenga visible */
+        .has-submenu:hover .submenu-trigger-item {
+            background-color: #f3f4f6;
+        }
+        
+        /* Script para manejar submenus anidados */
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hasSubmenu = document.querySelector('.has-submenu');
+            if (hasSubmenu) {
+                const submenuPanel = hasSubmenu.querySelector('.submenu-panel');
+                
+                hasSubmenu.addEventListener('mouseenter', function() {
+                    if (submenuPanel) {
+                        submenuPanel.style.opacity = '1';
+                        submenuPanel.style.visibility = 'visible';
+                        submenuPanel.style.transform = 'translateX(0)';
+                    }
+                });
+                
+                hasSubmenu.addEventListener('mouseleave', function() {
+                    if (submenuPanel) {
+                        submenuPanel.style.opacity = '0';
+                        submenuPanel.style.visibility = 'hidden';
+                        submenuPanel.style.transform = 'translateX(-10px)';
+                    }
+                });
+            }
+        });
+        </script>
         
         /* Asegurar que los dropdowns estén por encima de otros elementos */
         .dropdown-container {
