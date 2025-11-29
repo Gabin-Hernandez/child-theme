@@ -43,26 +43,18 @@ get_header(); ?>
                         <?php
                         $attachment_ids = $product->get_gallery_image_ids();
                         $main_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
                         
                         if ( $main_image ) : ?>
                             <img id="main-product-image" 
                                  src="<?php echo esc_url( $main_image[0] ); ?>" 
                                  alt="<?php echo esc_attr( $product->get_name() ); ?>"
                                  class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
-                        <?php else : 
-                            // Crear imagen dummy con el nombre del producto y logo
-                            $product_name = $product->get_name();
-                            $dummy_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
-                            $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
-                        ?>
+                        <?php else : ?>
                             <img id="main-product-image" 
-                                 src="<?php echo esc_url( $dummy_url ); ?>" 
-                                 alt="<?php echo esc_attr( $product_name ); ?>"
-                                 class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105">
-                            <img src="<?php echo esc_url($logo_url); ?>" 
-                                 alt="Logo iParts Móvil" 
-                                 class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-auto object-contain opacity-95 z-10 pointer-events-none" 
-                                 style="filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); max-width: 80%;">
+                                 src="<?php echo esc_url( $logo_url ); ?>" 
+                                 alt="<?php echo esc_attr( $product->get_name() ); ?>"
+                                 class="w-full h-full object-contain p-8 cursor-zoom-in transition-transform duration-300 hover:scale-105">
                         <?php endif; ?>
                     </div>
                     
@@ -77,22 +69,12 @@ get_header(); ?>
                                          alt="<?php echo esc_attr( $product->get_name() ); ?>"
                                          class="w-full h-full object-cover">
                                 </button>
-                            <?php else : 
-                                // Crear miniatura dummy con el nombre del producto y logo
-                                $product_name = $product->get_name();
-                                $dummy_thumb_url = 'https://dummyimage.com/150x150/4f46e5/ffffff&text=' . urlencode($product_name);
-                                $dummy_full_url = 'https://dummyimage.com/800x800/4f46e5/ffffff&text=' . urlencode($product_name);
-                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg'; // Logo del tema hijo
-                            ?>
-                                <button class="thumbnail-btn aspect-square bg-white rounded-lg shadow-sm border-2 border-blue-500 overflow-hidden relative" 
-                                        data-image="<?php echo esc_url( $dummy_full_url ); ?>">
-                                    <img src="<?php echo esc_url( $dummy_thumb_url ); ?>" 
-                                         alt="<?php echo esc_attr( $product_name ); ?>"
-                                         class="w-full h-full object-cover">
-                                    <img src="<?php echo esc_url($logo_url); ?>" 
-                                         alt="Logo iParts Móvil" 
-                                         class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 object-contain opacity-90 z-10 pointer-events-none" 
-                                         style="filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+                            <?php else : ?>
+                                <button class="thumbnail-btn aspect-square bg-white rounded-lg shadow-sm border-2 border-blue-500 overflow-hidden" 
+                                        data-image="<?php echo esc_url( $logo_url ); ?>">
+                                    <img src="<?php echo esc_url( $logo_url ); ?>" 
+                                         alt="<?php echo esc_attr( $product->get_name() ); ?>"
+                                         class="w-full h-full object-contain p-2">
                                 </button>
                             <?php endif; ?>
                             
@@ -802,11 +784,9 @@ get_header(); ?>
                                                 'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                             ) );
                                         } else {
-                                            echo '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">';
-                                            echo '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">';
-                                            echo '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>';
-                                            echo '</svg>';
-                                            echo '</div>';
+                                            // Usar el logo de ITools como fallback
+                                            $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                            echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($related_product->get_name()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                                         }
                                         ?>
                                     </a>

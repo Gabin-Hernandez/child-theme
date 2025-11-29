@@ -260,6 +260,54 @@ function itools_verify_recaptcha($token, $action = 'submit_review', $min_score =
 }
 */
 
+/**
+ * Función helper para obtener la imagen del producto con fallback al logo de ITools
+ */
+function itools_get_product_image($product, $size = 'woocommerce_thumbnail', $attr = array()) {
+    $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+    
+    if (has_post_thumbnail($product->get_id())) {
+        return get_the_post_thumbnail($product->get_id(), $size, $attr);
+    } else {
+        // Usar el logo de ITools como fallback
+        $default_attr = array(
+            'class' => 'w-full h-full object-contain p-4 bg-white',
+            'alt' => get_the_title($product->get_id())
+        );
+        $attr = array_merge($default_attr, $attr);
+        
+        $attr_string = '';
+        foreach ($attr as $key => $value) {
+            $attr_string .= sprintf(' %s="%s"', esc_attr($key), esc_attr($value));
+        }
+        
+        return sprintf(
+            '<img src="%s"%s>',
+            esc_url($logo_url),
+            $attr_string
+        );
+    }
+}
+
+/**
+ * Reemplazar imagen placeholder de WooCommerce con logo de ITools
+ */
+function itools_custom_woocommerce_placeholder_img($image_html, $size, $dimensions) {
+    $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+    
+    // Crear HTML de imagen con el logo
+    $image_html = sprintf(
+        '<img src="%s" alt="%s" class="woocommerce-placeholder wp-post-image" width="%d" height="%d" style="object-fit: contain; padding: 1rem; background: white;">',
+        esc_url($logo_url),
+        esc_attr__('Logo ITools', 'woocommerce'),
+        esc_attr($dimensions['width']),
+        esc_attr($dimensions['height'])
+    );
+    
+    return $image_html;
+}
+add_filter('woocommerce_placeholder_img', 'itools_custom_woocommerce_placeholder_img', 10, 3);
+
 // Function to get dynamic price range from filtered products
 function itools_get_dynamic_price_range($category_id = null) {
     global $wpdb;
