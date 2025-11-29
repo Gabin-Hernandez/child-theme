@@ -367,9 +367,16 @@ get_header(); ?>
                     <!-- Imagen del producto -->
                     <div class="relative overflow-hidden bg-gray-50 aspect-square">
                         <a href="<?php the_permalink(); ?>" class="block h-full">
-                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                            )); ?>
+                            <?php 
+                            if ( has_post_thumbnail() ) {
+                                the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                ));
+                            } else {
+                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
+                            }
+                            ?>
                         </a>
                         
                         <!-- Badge de descuento -->
@@ -453,9 +460,16 @@ get_header(); ?>
                                     <!-- Imagen del producto -->
                                     <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                         <a href="<?php the_permalink(); ?>" class="block h-full">
-                                            <?php the_post_thumbnail( 'woocommerce_thumbnail', array(
-                                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
-                                            )); ?>
+                                            <?php 
+                                            if ( has_post_thumbnail() ) {
+                                                the_post_thumbnail( 'woocommerce_thumbnail', array(
+                                                    'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
+                                                ));
+                                            } else {
+                                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                                echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
+                                            }
+                                            ?>
                                         </a>
                                         
                                         <!-- Badge de descuento -->
