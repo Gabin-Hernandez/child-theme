@@ -373,7 +373,7 @@ get_header(); ?>
                                     'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                 ));
                             } else {
-                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                 echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                             }
                             ?>
@@ -466,7 +466,7 @@ get_header(); ?>
                                                     'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'
                                                 ));
                                             } else {
-                                                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                                $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                                 echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                                             }
                                             ?>
@@ -988,7 +988,7 @@ get_header(); ?>
                                         $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     } else {
                                         // Usar el logo de ITools como fallback
-                                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                        $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                         $image_element = '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                                     }
                                 ?>
@@ -1076,7 +1076,7 @@ get_header(); ?>
                                         $image_element = '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">';
                                     } else {
                                         // Usar el logo de ITools como fallback
-                                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                        $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                         $image_element = '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($product->get_name()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                                     }
                                 ?>

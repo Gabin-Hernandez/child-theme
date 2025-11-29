@@ -43,7 +43,7 @@ get_header(); ?>
                         <?php
                         $attachment_ids = $product->get_gallery_image_ids();
                         $main_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
-                        $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                        $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                         
                         if ( $main_image ) : ?>
                             <img id="main-product-image" 
@@ -785,7 +785,7 @@ get_header(); ?>
                                             ) );
                                         } else {
                                             // Usar el logo de ITools como fallback
-                                            $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                            $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                             echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr($related_product->get_name()) . '" class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300">';
                                         }
                                         ?>

@@ -30,7 +30,7 @@ $rating_html = wc_get_rating_html($rating);
                 ));
             } else {
                 // Usar el logo de ITools como fallback
-                $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                 echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 transition-transform duration-300 group-hover:scale-105">';
             }
             ?>

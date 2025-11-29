@@ -264,7 +264,7 @@ function itools_verify_recaptcha($token, $action = 'submit_review', $min_score =
  * Función helper para obtener la imagen del producto con fallback al logo de ITools
  */
 function itools_get_product_image($product, $size = 'woocommerce_thumbnail', $attr = array()) {
-    $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+    $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
     
     if (has_post_thumbnail($product->get_id())) {
         return get_the_post_thumbnail($product->get_id(), $size, $attr);
@@ -293,7 +293,7 @@ function itools_get_product_image($product, $size = 'woocommerce_thumbnail', $at
  * Reemplazar imagen placeholder de WooCommerce con logo de ITools
  */
 function itools_custom_woocommerce_placeholder_img($image_html, $size, $dimensions) {
-    $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+    $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
     
     // Crear HTML de imagen con el logo
     $image_html = sprintf(

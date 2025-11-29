@@ -121,7 +121,7 @@ $shop_url = '/tienda';
                                         if ( has_post_thumbnail() ) {
                                             the_post_thumbnail( 'woocommerce_thumbnail', array( 'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-110' ) );
                                         } else {
-                                            $logo_url = get_stylesheet_directory_uri() . '/images/iparts-movil.jpg';
+                                            $logo_url = get_stylesheet_directory_uri() . '/images/logo-itoolsmx.jpg';
                                             echo '<img src="' . esc_url($logo_url) . '" alt="' . esc_attr(get_the_title()) . '" class="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-110">';
                                         }
                                         ?>
