@@ -3916,8 +3916,13 @@ function itools_create_valoraciones_table() {
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
+    
+    // Log para confirmar la creación
+    error_log('Tabla de valoraciones creada/verificada: ' . $table_name);
 }
 add_action('after_switch_theme', 'itools_create_valoraciones_table');
+// También ejecutar en init para asegurar que existe
+add_action('init', 'itools_create_valoraciones_table');
 
 // Encolar scripts para valoraciones en la página correspondiente
 function itools_enqueue_valoraciones_scripts() {
@@ -3945,6 +3950,18 @@ function itools_save_valoracion() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'valoraciones_generales';
     
+    // Verificar si la tabla existe, si no, crearla
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table_name'") === $table_name;
+    if (!$table_exists) {
+        itools_create_valoraciones_table();
+    }
+    
+    // Validar que los datos existan
+    if (!isset($_POST['nombre']) || !isset($_POST['rating']) || !isset($_POST['comentario'])) {
+        wp_send_json_error('Faltan datos requeridos');
+        return;
+    }
+    
     // Validar datos
     $nombre = sanitize_text_field($_POST['nombre']);
     $rating = intval($_POST['rating']);
@@ -3968,7 +3985,7 @@ function itools_save_valoracion() {
     }
     
     // Obtener IP del usuario
-    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $ip_address = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
     
     // Insertar en la base de datos
     $inserted = $wpdb->insert(
@@ -3979,7 +3996,7 @@ function itools_save_valoracion() {
             'comentario' => $comentario,
             'producto' => $producto,
             'fecha' => current_time('mysql'),
-            'estado' => 'pendiente', // Requiere aprobación
+            'estado' => 'pendiente',
             'ip_address' => $ip_address
         ),
         array('%s', '%d', '%s', '%s', '%s', '%s', '%s')
@@ -3988,7 +4005,9 @@ function itools_save_valoracion() {
     if ($inserted) {
         wp_send_json_success('¡Gracias por tu valoración! Será revisada y publicada pronto.');
     } else {
-        wp_send_json_error('Hubo un error al guardar tu valoración. Por favor intenta de nuevo.');
+        // Log del error para debugging
+        error_log('Error al insertar valoración: ' . $wpdb->last_error);
+        wp_send_json_error('Hubo un error al guardar tu valoración. Por favor intenta de nuevo. Error: ' . $wpdb->last_error);
     }
 }
 add_action('wp_ajax_save_valoracion', 'itools_save_valoracion');
