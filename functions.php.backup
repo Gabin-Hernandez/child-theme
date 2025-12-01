@@ -1769,6 +1769,1485 @@ add_filter( 'woocommerce_add_to_cart_message_html', 'itools_custom_add_to_cart_m
 // - Handlers AJAX para envío de reseñas
 // ============================================
 
+// Mostrar reseñas Site Reviews en productos WooCommerce
+add_action( 'woocommerce_after_single_product_summary', 'mostrar_site_reviews', 15 );
+
+function mostrar_site_reviews() {
+    global $product;
+    echo do_shortcode('[site_reviews assigned_posts="' . $product->get_id() . '" template="default"]');
+}
+
+// Mejorar el diseño de las valoraciones de WooCommerce
+function itools_woocommerce_reviews_styles() {
+    ?>
+    <style>
+    /* Diseño moderno para las valoraciones de WooCommerce */
+    .woocommerce-Reviews {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin: 2rem 0;
+    }
+
+    .woocommerce-Reviews-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .woocommerce-Reviews-title::before {
+        content: "⭐";
+        font-size: 1.5rem;
+    }
+
+    /* Estrellas mejoradas */
+    .woocommerce .star-rating {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem;
+        line-height: 1;
+        margin: 0.5rem 0;
+    }
+
+    .woocommerce .star-rating::before {
+        content: "★★★★★";
+        color: #e5e7eb;
+        position: relative;
+        z-index: 1;
+    }
+
+    .woocommerce .star-rating span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    .woocommerce .star-rating span::before {
+        content: "★★★★★";
+        color: #fbbf24;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Comentarios/Reseñas individuales */
+    .commentlist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .commentlist .review {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .commentlist .review:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+        border-color: #3b82f6;
+    }
+
+    .commentlist .review::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    }
+
+    .commentlist .review .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .commentlist .review .meta strong {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .commentlist .review .meta strong::before {
+        content: "👤";
+        font-size: 1rem;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        padding: 0.25rem;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+    }
+
+    .commentlist .review .meta time {
+        color: #6b7280;
+        font-size: 0.875rem;
+        background: #e5e7eb;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+    }
+
+    .commentlist .review .description p {
+        color: #374151;
+        line-height: 1.6;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    /* Formulario de agregar reseña */
+    #review_form_wrapper {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    #review_form_wrapper h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    #review_form_wrapper h3::before {
+        content: "✍️";
+        font-size: 1.25rem;
+    }
+
+    #review_form .comment-form-rating {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+    }
+
+    #review_form .comment-form-rating label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    #review_form .stars {
+        display: flex;
+        gap: 0.25rem;
+        margin-top: 0.5rem;
+    }
+
+    #review_form .stars a {
+        color: #e5e7eb;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: color 0.2s ease;
+    }
+
+    #review_form .stars a:hover,
+    #review_form .stars a.active {
+        color: #fbbf24;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    #review_form .comment-form-comment textarea,
+    #review_form .comment-form-author input,
+    #review_form .comment-form-email input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+        background: #fff;
+    }
+
+    #review_form .comment-form-comment textarea:focus,
+    #review_form .comment-form-author input:focus,
+    #review_form .comment-form-email input:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    #review_form .form-submit input {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    #review_form .form-submit input:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Resumen de valoraciones */
+    .woocommerce-product-rating {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .woocommerce-product-rating .star-rating {
+        font-size: 1.5rem;
+    }
+
+    .woocommerce-product-rating a {
+        color: #3b82f6;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        background: #fff;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .woocommerce-product-rating a:hover {
+        background: #3b82f6;
+        color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .woocommerce-Reviews,
+        #review_form_wrapper {
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .commentlist .review {
+            padding: 1rem;
+        }
+
+        .commentlist .review .meta {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .woocommerce-product-rating {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .commentlist .review {
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    .commentlist .review:nth-child(even) {
+        animation-delay: 0.1s;
+    }
+
+    .commentlist .review:nth-child(odd) {
+        animation-delay: 0.2s;
+    }
+    </style>
+    <?php
+}
+add_action('wp_head', 'itools_woocommerce_reviews_styles');
+
+// Mejorar el texto de las valoraciones
+function itools_custom_review_text($translated_text, $text, $domain) {
+    if ($domain === 'woocommerce') {
+        switch ($text) {
+            case 'Reviews (%d)':
+                return 'Reseñas de Clientes (%d)';
+            case 'Be the first to review "%s"':
+                return 'Sé el primero en reseñar "%s"';
+            case 'Add a review':
+                return 'Agregar una Reseña';
+            case 'Your review':
+                return 'Tu Reseña';
+            case 'Name':
+                return 'Nombre';
+            case 'Email':
+                return 'Correo Electrónico';
+            case 'Your rating':
+                return 'Tu Calificación';
+            case 'Submit':
+                return 'Enviar Reseña';
+        }
+    }
+    return $translated_text;
+}
+add_filter('gettext', 'itools_custom_review_text', 20, 3);
+
+/* ========================================
+   CÓDIGO ANTIGUO DE RESEÑAS POR PRODUCTO
+   ========================================
+   Ya no se usa porque ahora tenemos valoraciones generales del sitio
+   Ver sección "SISTEMA DE VALORACIONES GENERALES" más abajo
+   
+// ========================================
+// CONFIGURACIÓN DE RESEÑAS
+// ========================================
+
+/**
+ * CONFIGURACIÓN COMPLETA DE RESEÑAS - SOLUCIÓN DEFINITIVA
+ */
+
+// 1. Permitir reseñas sin verificación de compra
+add_filter( 'woocommerce_product_reviews_verification_required', '__return_false', 999 );
+
+// 2. Forzar que los comentarios estén abiertos para productos
+add_filter( 'comments_open', function( $open, $post_id ) {
+    if ( get_post_type( $post_id ) === 'product' ) {
+        return true;
+    }
+    return $open;
+}, 999, 2 );
+
+// 3. Habilitar soporte de comentarios en productos
+add_action( 'init', function() {
+    add_post_type_support( 'product', 'comments' );
+});
+
+// 4. Actualizar productos existentes (ejecutar una sola vez)
+add_action( 'admin_init', function() {
+    if ( ! get_option( 'itools_reviews_enabled_v2' ) ) {
+        global $wpdb;
+        $wpdb->query( "UPDATE {$wpdb->posts} SET comment_status = 'open' WHERE post_type = 'product'" );
+        update_option( 'itools_reviews_enabled_v2', true );
+    }
+});
+
+/**
+ * Todas las reseñas requieren aprobación manual del administrador
+ * Establece el estado inicial de las reseñas como "pendiente"
+ */
+function itools_require_review_approval( $approved, $commentdata ) {
+    // Solo aplicar a reseñas de productos
+    if ( isset( $commentdata['comment_post_ID'] ) ) {
+        $post_id = $commentdata['comment_post_ID'];
+        $post_type = get_post_type( $post_id );
+        
+        if ( $post_type === 'product' ) {
+            // Forzar aprobación manual (0 = pendiente de aprobación)
+            return 0;
+        }
+    }
+    
+    // Para otros tipos de comentarios, mantener el comportamiento por defecto
+    return $approved;
+}
+add_filter( 'pre_comment_approved', 'itools_require_review_approval', 10, 2 );
+
+/**
+ * Hacer visibles las reseñas de productos en el admin de WordPress
+ * Por defecto WooCommerce las oculta del panel de comentarios estándar
+ */
+function itools_show_product_reviews_in_admin() {
+    // Remover los filtros de WooCommerce que ocultan las reseñas
+    remove_filter( 'comments_clauses', array( 'WC_Comments', 'exclude_order_comments' ), 10 );
+    remove_filter( 'comment_feed_where', array( 'WC_Comments', 'exclude_order_comments_from_feed_where' ) );
+}
+add_action( 'admin_init', 'itools_show_product_reviews_in_admin' );
+
+/**
+ * Incluir reseñas de productos en el conteo de comentarios del admin
+ */
+function itools_include_reviews_in_comment_count( $stats, $post_id ) {
+    global $wpdb;
+
+    if ( $post_id === 0 ) {
+        // Obtener todos los comentarios incluyendo reseñas
+        $count = $wpdb->get_results( "
+            SELECT comment_approved, COUNT(*) AS num_comments 
+            FROM {$wpdb->comments} 
+            WHERE comment_type IN ('', 'comment', 'review')
+            GROUP BY comment_approved
+        ", ARRAY_A );
+
+        $stats = array(
+            'approved'       => 0,
+            'moderated'      => 0,
+            'spam'           => 0,
+            'trash'          => 0,
+            'post-trashed'   => 0,
+            'total_comments' => 0,
+            'all'            => 0,
+        );
+
+        foreach ( (array) $count as $row ) {
+            switch ( $row['comment_approved'] ) {
+                case 'trash':
+                    $stats['trash'] = $row['num_comments'];
+                    break;
+                case 'post-trashed':
+                    $stats['post-trashed'] = $row['num_comments'];
+                    break;
+                case 'spam':
+                    $stats['spam'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    break;
+                case '1':
+                    $stats['approved'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    $stats['all'] += $row['num_comments'];
+                    break;
+                case '0':
+                    $stats['moderated'] = $row['num_comments'];
+                    $stats['total_comments'] += $row['num_comments'];
+                    $stats['all'] += $row['num_comments'];
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return (object) $stats;
+    }
+
+    return $stats;
+}
+add_filter( 'wp_count_comments', 'itools_include_reviews_in_comment_count', 10, 2 );
+
+/**
+ * Asegurar que las reseñas aparezcan en las consultas del admin
+ */
+function itools_include_reviews_in_comments_query( $clauses ) {
+    global $pagenow, $wpdb;
+
+    // Solo en el panel de administración de comentarios
+    if ( is_admin() && $pagenow === 'edit-comments.php' ) {
+        // Forzar la inclusión de reseñas reemplazando restricciones de comment_type
+        if ( isset( $clauses['where'] ) ) {
+            // Patrón para encontrar restricciones de comment_type
+            $pattern = "/AND\s+\({0,1}\s*{$wpdb->comments}\.comment_type\s*(?:=|!=|NOT IN|IN)\s*[^)]+\){0,1}/i";
+            
+            // Reemplazar con nuestra condición que incluye reseñas
+            $clauses['where'] = preg_replace(
+                $pattern,
+                " AND {$wpdb->comments}.comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log')",
+                $clauses['where']
+            );
+        }
+    }
+
+    return $clauses;
+}
+add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 );
+
+/**
+ * Desactivar completamente los filtros de WooCommerce en el admin de comentarios
+ */
+function itools_disable_woocommerce_comment_filters() {
+    global $pagenow;
+    
+    if ( is_admin() && ( $pagenow === 'edit-comments.php' || $pagenow === 'index.php' ) ) {
+        // Remover TODOS los filtros de WooCommerce relacionados con comentarios
+        if ( class_exists( 'WC_Comments' ) ) {
+            remove_all_filters( 'comments_clauses' );
+            // Re-agregar solo nuestro filtro
+            add_filter( 'comments_clauses', 'itools_include_reviews_in_comments_query', 999 );
+        }
+    }
+}
+add_action( 'admin_init', 'itools_disable_woocommerce_comment_filters', 1 );
+
+/**
+ * SOLUCIÓN NUCLEAR: Reescribir completamente la consulta de comentarios
+ * para incluir reseñas de productos
+ */
+function itools_force_show_all_reviews( $clauses, $query ) {
+    global $wpdb, $pagenow;
+    
+    // Solo en el admin de comentarios
+    if ( ! is_admin() || $pagenow !== 'edit-comments.php' ) {
+        return $clauses;
+    }
+    
+    // Reemplazar completamente la cláusula WHERE
+    // Excluir solo las notas de pedido y logs, permitir TODO lo demás
+    $clauses['where'] = preg_replace(
+        '/WHERE.*?(?=ORDER BY|GROUP BY|LIMIT|$)/s',
+        "WHERE {$wpdb->comments}.comment_type NOT IN ('order_note', 'webhook_delivery', 'action_log') ",
+        $clauses['where']
+    );
+    
+    // Si estamos en la vista de pendientes, agregar esa condición
+    if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'moderated' ) {
+        $clauses['where'] .= " AND {$wpdb->comments}.comment_approved = '0' ";
+    }
+    
+    // Si estamos en la vista de aprobados
+    if ( isset( $_GET['comment_status'] ) && $_GET['comment_status'] === 'approved' ) {
+        $clauses['where'] .= " AND {$wpdb->comments}.comment_approved = '1' ";
+    }
+    
+    return $clauses;
+}
+add_filter( 'comments_clauses', 'itools_force_show_all_reviews', 9999, 2 );
+
+/**
+ * Mostrar mensaje al usuario después de enviar una reseña
+ * Informar que está pendiente de aprobación
+ */
+function itools_review_pending_message( $comment_id, $comment_approved ) {
+    // Si la reseña está pendiente de aprobación
+    if ( $comment_approved === 0 || $comment_approved === '0' ) {
+        // Obtener el comentario
+        $comment = get_comment( $comment_id );
+        
+        // Verificar si es una reseña de producto
+        if ( $comment && get_post_type( $comment->comment_post_ID ) === 'product' ) {
+            // Agregar un mensaje flash en la sesión
+            if ( ! session_id() ) {
+                session_start();
+            }
+            $_SESSION['review_pending_message'] = true;
+        }
+    }
+}
+add_action( 'comment_post', 'itools_review_pending_message', 10, 2 );
+
+/**
+ * Mostrar mensaje de confirmación en la página del producto
+ */
+function itools_display_review_pending_message() {
+    if ( is_product() && isset( $_SESSION['review_pending_message'] ) ) {
+        ?>
+        <div class="woocommerce-message" style="background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <svg style="width: 24px; height: 24px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <strong>¡Gracias por tu reseña!</strong>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 0.9rem;">Tu reseña ha sido recibida y está pendiente de aprobación por nuestro equipo. Será publicada pronto.</p>
+                </div>
+            </div>
+        </div>
+        <?php
+        // Limpiar el mensaje después de mostrarlo
+        unset( $_SESSION['review_pending_message'] );
+    }
+}
+add_action( 'woocommerce_before_single_product', 'itools_display_review_pending_message' );
+
+/**
+ * Personalizar el texto del formulario de reseñas
+ */
+function itools_customize_review_form_text( $comment_form ) {
+    // Actualizar el texto de envío
+    $comment_form['label_submit'] = 'Enviar Reseña';
+    
+    // Agregar nota sobre aprobación
+    $comment_form['comment_notes_after'] = '<p class="form-allowed-tags" style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem; padding: 0.75rem; background: #f9fafb; border-radius: 8px; border-left: 3px solid #3b82f6;">
+        <svg style="display: inline-block; width: 16px; height: 16px; margin-right: 0.5rem; vertical-align: middle;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Tu reseña será revisada por nuestro equipo antes de ser publicada. Te notificaremos cuando sea aprobada.
+    </p>';
+    
+    return $comment_form;
+}
+add_filter( 'woocommerce_product_review_comment_form_args', 'itools_customize_review_form_text' );
+
+/**
+ * Notificar al administrador cuando hay una nueva reseña pendiente
+ */
+function itools_notify_admin_new_review( $comment_id, $comment_approved ) {
+    // Solo notificar si está pendiente de aprobación
+    if ( $comment_approved === 0 || $comment_approved === '0' ) {
+        $comment = get_comment( $comment_id );
+        
+        // Verificar si es una reseña de producto
+        if ( $comment && get_post_type( $comment->comment_post_ID ) === 'product' ) {
+            $product = wc_get_product( $comment->comment_post_ID );
+            
+            if ( $product ) {
+                // Obtener email del administrador
+                $admin_email = get_option( 'admin_email' );
+                
+                // Preparar el correo
+                $subject = 'Nueva reseña pendiente de aprobación - ' . $product->get_name();
+                
+                $message = "Hay una nueva reseña pendiente de aprobación:\n\n";
+                $message .= "Producto: " . $product->get_name() . "\n";
+                $message .= "Autor: " . $comment->comment_author . "\n";
+                $message .= "Email: " . $comment->comment_author_email . "\n";
+                $message .= "Calificación: " . get_comment_meta( $comment_id, 'rating', true ) . " estrellas\n";
+                $message .= "Comentario: " . $comment->comment_content . "\n\n";
+                $message .= "Para aprobar o rechazar esta reseña, visita:\n";
+                $message .= admin_url( 'comment.php?action=approve&c=' . $comment_id );
+                
+                // Enviar email
+                wp_mail( $admin_email, $subject, $message );
+            }
+        }
+    }
+}
+add_action( 'comment_post', 'itools_notify_admin_new_review', 10, 2 );
+
+/**
+ * Handler para procesar el formulario de reseñas personalizado
+ */
+function itools_handle_custom_review_submission() {
+    // Log para debug
+    error_log('🔍 REVIEW SUBMISSION STARTED');
+    error_log('POST data: ' . print_r($_POST, true));
+    
+    // Verificar nonce
+    if ( ! isset( $_POST['review_nonce'] ) || ! wp_verify_nonce( $_POST['review_nonce'], 'product_review_nonce' ) ) {
+        error_log('❌ Nonce verification failed');
+        wp_die( 'Error de seguridad. Por favor intenta de nuevo.' );
+    }
+    
+    error_log('✅ Nonce verified');
+    
+    // Obtener datos del formulario
+    $product_id = intval( $_POST['product_id'] );
+    $rating = intval( $_POST['rating'] );
+    $comment_content = sanitize_textarea_field( $_POST['comment'] );
+    $author = sanitize_text_field( $_POST['author'] );
+    $email = sanitize_email( $_POST['email'] );
+    
+    error_log("Product ID: $product_id, Rating: $rating, Author: $author");
+    
+    // Validar datos
+    if ( ! $product_id || ! $rating || ! $comment_content || ! $author || ! $email ) {
+        error_log('❌ Validation failed - missing required fields');
+        wp_die( 'Por favor completa todos los campos requeridos.' );
+    }
+    
+    error_log('✅ Validation passed');
+    
+    // Crear el comentario/reseña - TIPO VACÍO PARA MEJOR COMPATIBILIDAD
+    $comment_data = array(
+        'comment_post_ID' => $product_id,
+        'comment_author' => $author,
+        'comment_author_email' => $email,
+        'comment_author_url' => '',
+        'comment_content' => $comment_content,
+        'comment_type' => '', // Comentario estándar (vacío = comentario normal)
+        'comment_parent' => 0,
+        'user_id' => get_current_user_id(),
+        'comment_approved' => 0, // 0 = Pendiente, 1 = Aprobado
+        'comment_agent' => 'Product Review Form',
+    );
+    
+    error_log('Comment data prepared: ' . print_r($comment_data, true));
+    
+    // Insertar comentario
+    $comment_id = wp_insert_comment( $comment_data );
+    
+    error_log("Comment inserted with ID: $comment_id");
+    
+    if ( $comment_id ) {
+        // Guardar la calificación como meta (formato WooCommerce)
+        add_comment_meta( $comment_id, 'rating', $rating, true );
+        add_comment_meta( $comment_id, 'verified', 0 ); // No verificado (no compró)
+        
+        error_log("✅ Review created successfully! ID: $comment_id, Rating: $rating");
+        
+        // Actualizar estadísticas del producto
+        $product = wc_get_product( $product_id );
+        if ( $product ) {
+            // Limpiar cache del producto para forzar recálculo
+            delete_transient( 'wc_average_rating_' . $product_id );
+            delete_transient( 'wc_review_count_' . $product_id );
+            
+            error_log("✅ Product transients cleared for ID: $product_id");
+        }
+        
+        // Enviar email al administrador
+        $admin_email = get_option( 'admin_email' );
+        $subject = '⭐ Nueva reseña pendiente de aprobación';
+        $message = "Nueva reseña recibida:\n\n";
+        $message .= "Producto ID: $product_id\n";
+        $message .= "Autor: $author\n";
+        $message .= "Email: $email\n";
+        $message .= "Calificación: $rating estrellas\n";
+        $message .= "Comentario: $comment_content\n\n";
+        $message .= "Ver en admin: " . admin_url('edit-comments.php?comment_status=moderated') . "\n";
+        $message .= "Aprobar directamente: " . admin_url('comment.php?action=approve&c=' . $comment_id);
+        
+        wp_mail( $admin_email, $subject, $message );
+        error_log("✅ Admin email sent to: $admin_email");
+        
+        // Redirigir de vuelta al producto con mensaje de éxito
+        wp_redirect( add_query_arg( 'review_submitted', '1', get_permalink( $product_id ) ) );
+        exit;
+    } else {
+        error_log('❌ Failed to insert comment');
+        wp_die( 'Error al enviar la reseña. Por favor intenta de nuevo.' );
+    }
+}
+add_action( 'admin_post_submit_product_review', 'itools_handle_custom_review_submission' );
+add_action( 'admin_post_nopriv_submit_product_review', 'itools_handle_custom_review_submission' );
+
+/**
+ * Mostrar mensaje de éxito después de enviar reseña
+ */
+function itools_show_review_success_message() {
+    if ( is_product() && isset( $_GET['review_submitted'] ) && $_GET['review_submitted'] == '1' ) {
+        echo '<div style="background: #d1fae5; border: 2px solid #10b981; color: #065f46; padding: 20px; border-radius: 12px; margin: 20px auto; max-width: 1200px; text-align: center; font-size: 16px;">
+            <strong>✅ ¡Gracias por tu reseña!</strong><br>
+            Tu reseña ha sido recibida y está pendiente de aprobación por nuestro equipo. Será publicada pronto.
+        </div>';
+    }
+}
+add_action( 'woocommerce_before_single_product', 'itools_show_review_success_message' );
+
+// Comentada temporalmente - esta función estaba interfiriendo con la búsqueda simple
+/*
+function itools_improve_product_search( $query ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search() ) {
+        // Solo aplicar a búsquedas de productos
+        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+            $search_term = $query->get('s');
+            
+            if ( !empty($search_term) ) {
+                // Remover el parámetro de búsqueda por defecto para personalizar
+                $query->set('s', '');
+                
+                // Buscar en título y contenido del producto
+                $query->set('meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => '_sku',
+                        'value' => $search_term,
+                        'compare' => 'LIKE'
+                    )
+                ));
+                
+                // Buscar en título del post
+                add_filter('posts_where', function($where) use ($search_term) {
+                    global $wpdb;
+                    if ( !empty($search_term) ) {
+                        $where .= " OR {$wpdb->posts}.post_title LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_content LIKE '%" . esc_sql($search_term) . "%'";
+                        $where .= " OR {$wpdb->posts}.post_excerpt LIKE '%" . esc_sql($search_term) . "%'";
+                    }
+                    return $where;
+                });
+            }
+        }
+    }
+}
+*/
+// add_action( 'pre_get_posts', 'itools_improve_product_search' );
+
+// Asegurar que WooCommerce maneje correctamente las búsquedas
+function itools_woocommerce_search_modification( $query ) {
+    if ( !is_admin() && $query->is_main_query() && $query->is_search() && function_exists('is_woocommerce') ) {
+        if ( isset($_GET['post_type']) && $_GET['post_type'] === 'product' ) {
+            $query->set( 'post_type', 'product' );
+            $query->set( 'post_status', 'publish' );
+        }
+    }
+}
+add_action( 'pre_get_posts', 'itools_woocommerce_search_modification', 20 );
+
+// Función para obtener URL de producto específico
+function itools_get_product_url($search_term) {
+    if (!function_exists('wc_get_page_permalink')) {
+        return '/tienda/?s=' . urlencode($search_term);
+    }
+    
+    // Buscar producto específico por nombre
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'name' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return get_permalink($products[0]->get_id());
+    }
+    
+    // Si no encuentra producto específico, buscar por términos similares
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        's' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return get_permalink($products[0]->get_id());
+    }
+    
+    // Fallback a búsqueda general
+    return '/tienda?s=' . urlencode($search_term);
+}
+
+// Función para obtener ID de producto por nombre/slug
+function itools_get_product_id($search_term) {
+    if (!function_exists('wc_get_products')) {
+        return false;
+    }
+    
+    // Buscar por nombre exacto
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'name' => $search_term
+    ));
+    
+    if (!empty($products)) {
+        return $products[0]->get_id();
+    }
+    
+    // Buscar por slug
+    $products = wc_get_products(array(
+        'limit' => 1,
+        'status' => 'publish',
+        'slug' => sanitize_title($search_term)
+    ));
+    
+    if (!empty($products)) {
+        return $products[0]->get_id();
+    }
+    
+    return false;
+}
+
+// AJAX handler para buscar producto por nombre
+function itools_ajax_get_product_id() {
+    $product_name = sanitize_text_field($_POST['product_name']);
+    
+    if (!$product_name) {
+        wp_send_json_error('Nombre de producto inválido');
+        return;
+    }
+    
+    // Buscar producto por título exacto primero
+    $product = get_page_by_title($product_name, OBJECT, 'product');
+    
+    if (!$product) {
+        // Buscar por título similar
+        $args = array(
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            's' => $product_name,
+            'posts_per_page' => 1
+        );
+        $products = get_posts($args);
+        
+        if (!empty($products)) {
+            $product = $products[0];
+        }
+    }
+    
+    if ($product) {
+        wp_send_json_success(array(
+            'product_id' => $product->ID,
+            'product_name' => $product->post_title
+        ));
+    } else {
+        wp_send_json_error('Producto no encontrado');
+    }
+}
+add_action('wp_ajax_itools_get_product_id', 'itools_ajax_get_product_id');
+add_action('wp_ajax_nopriv_itools_get_product_id', 'itools_ajax_get_product_id');
+
+// AJAX handler para obtener el contador del carrito
+function itools_ajax_get_cart_count() {
+    if (function_exists('WC') && WC()->cart) {
+        wp_send_json_success(array(
+            'cart_count' => WC()->cart->get_cart_contents_count()
+        ));
+    } else {
+        wp_send_json_success(array(
+            'cart_count' => 0
+        ));
+    }
+}
+add_action('wp_ajax_itools_get_cart_count', 'itools_ajax_get_cart_count');
+add_action('wp_ajax_nopriv_itools_get_cart_count', 'itools_ajax_get_cart_count');
+
+// AJAX handler para agregar al carrito
+function itools_ajax_add_to_cart() {
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_cart_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    $product_id = intval($_POST['product_id']);
+    $quantity = intval($_POST['quantity']) ?: 1;
+    
+    if (!$product_id) {
+        wp_send_json_error('Invalid product ID');
+        return;
+    }
+    
+    $result = WC()->cart->add_to_cart($product_id, $quantity);
+    
+    if ($result) {
+        wp_send_json_success(array(
+            'message' => 'Producto agregado al carrito',
+            'cart_count' => WC()->cart->get_cart_contents_count()
+        ));
+    } else {
+        wp_send_json_error('Error al agregar producto al carrito');
+    }
+}
+add_action('wp_ajax_itools_add_to_cart', 'itools_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_itools_add_to_cart', 'itools_ajax_add_to_cart');
+
+// Función AJAX para filtros rápidos
+function itools_ajax_quick_filter() {
+    // Verificar nonce de seguridad
+    if (!wp_verify_nonce($_POST['nonce'], 'itools_filter_nonce')) {
+        wp_die('Error de seguridad', 'Error', array('response' => 403));
+    }
+    
+    $filter_type = sanitize_text_field($_POST['filter_type']);
+    $paged = intval($_POST['paged']) ?: 1;
+    $posts_per_page = 15;
+    
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => $posts_per_page,
+        'paged' => $paged,
+        'meta_query' => array()
+    );
+    
+    // Configurar argumentos según el tipo de filtro
+    switch ($filter_type) {
+        case 'best-sellers':
+            $args['meta_key'] = 'total_sales';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            break;
+            
+        case 'top-rated':
+            $args['meta_key'] = '_wc_average_rating';
+            $args['orderby'] = 'meta_value_num';
+            $args['order'] = 'DESC';
+            $args['meta_query'][] = array(
+                'key' => '_wc_average_rating',
+                'value' => 0,
+                'compare' => '>'
+            );
+            break;
+            
+        case 'on-sale':
+            $sale_ids = wc_get_product_ids_on_sale();
+            if (empty($sale_ids)) {
+                wp_send_json_success(array(
+                    'html' => '<div class="col-span-full text-center py-12"><p class="text-gray-500">No hay productos en oferta en este momento.</p></div>',
+                    'found_products' => 0
+                ));
+                return;
+            }
+            $args['post__in'] = $sale_ids;
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            break;
+            
+        case 'newest':
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+            // Productos de los últimos 30 días
+            $args['date_query'] = array(
+                array(
+                    'after' => '30 days ago',
+                    'inclusive' => true,
+                ),
+            );
+            break;
+            
+        default:
+            wp_send_json_error('Tipo de filtro no válido');
+            return;
+    }
+    
+    $products_query = new WP_Query($args);
+    
+    ob_start();
+    
+    if ($products_query->have_posts()) {
+        while ($products_query->have_posts()) {
+            $products_query->the_post();
+            
+            $product = wc_get_product(get_the_ID());
+            if (!$product) {
+                continue;
+            }
+            
+            // Generar HTML del producto similar a la página de ofertas
+            include get_stylesheet_directory() . '/template-parts/product-card-quick.php';
+        }
+        wp_reset_postdata();
+    } else {
+        echo '<div class="col-span-full text-center py-12">';
+        echo '<p class="text-gray-500">No se encontraron productos para este filtro.</p>';
+        echo '</div>';
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+        'found_products' => $products_query->found_posts,
+        'max_pages' => $products_query->max_num_pages
+    ));
+}
+add_action('wp_ajax_itools_quick_filter', 'itools_ajax_quick_filter');
+add_action('wp_ajax_nopriv_itools_quick_filter', 'itools_ajax_quick_filter');
+
+// === SHORTCODE VALORACIONES GLOBALES ===
+
+// Shortcode para mostrar todas las valoraciones de WooCommerce
+function itools_valoraciones_globales_shortcode($atts) {
+    // Parámetros del shortcode - simplificado
+    $atts = shortcode_atts(array(
+        'numero' => 20,  // 20 reseñas por página
+        'orden' => 'date',
+        'direcion' => 'DESC',
+        'mostrar_paginacion' => 'true'
+    ), $atts);
+    
+    // Obtener página actual
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+    
+    // Argumentos para obtener TODOS los comentarios de productos con rating
+    $comments_args = array(
+        'status' => 'approve',
+        'number' => $atts['numero'],
+        'offset' => ($paged - 1) * $atts['numero'],
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
+    );
+    
+    // Ordenamiento
+    if ($atts['orden'] == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $atts['direcion'];
+    
+    // Debug: Primero obtener TODAS las reseñas para ver cuántas hay realmente
+    $debug_args = array(
+        'status' => 'approve',
+        'post_type' => 'product',
+        'count' => true,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        )
+    );
+    $all_reviews_count = get_comments($debug_args);
+    
+    // Obtener valoraciones usando get_comments para mayor compatibilidad
+    $reviews = get_comments($comments_args);
+    
+    // Obtener total para paginación - consulta separada sin límite
+    $total_args = $comments_args;
+    unset($total_args['number']);
+    unset($total_args['paged']);
+    $total_args['count'] = true;
+    $total_reviews = get_comments($total_args);
+    
+    // Debug: Agregar información de depuración (solo para admin)
+    if (current_user_can('manage_options')) {
+        error_log("ITOOLS VALORACIONES DEBUG:");
+        error_log("Total reseñas en BD: " . $all_reviews_count);
+        error_log("Reseñas filtradas: " . $total_reviews);
+        error_log("Reseñas mostradas: " . count($reviews));
+        error_log("Parámetros consulta: " . print_r($comments_args, true));
+    }
+    
+    // Iniciar buffer de salida
+    ob_start();
+    
+    // Encolar estilos y scripts específicos para valoraciones
+    wp_enqueue_style('itools-valoraciones', get_stylesheet_directory_uri() . '/css/valoraciones.css', array(), '1.0.0');
+    wp_enqueue_script('itools-valoraciones-js', get_stylesheet_directory_uri() . '/js/valoraciones.js', array('jquery'), '1.0.0', true);
+    
+    // Localizar variables para AJAX
+    wp_localize_script('itools-valoraciones-js', 'valoracionesAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('valoraciones_nonce')
+    ));
+    ?>
+    
+    <div class="valoraciones-globales-container">
+        <!-- Header -->
+        <div class="valoraciones-header text-center mb-12">
+            <div class="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span class="font-bold text-lg">Testimonios de Clientes</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+                Lo que opinan <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">nuestros clientes</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Descubre las experiencias reales de más de <?php echo number_format($total_reviews); ?> clientes satisfechos con nuestros productos
+            </p>
+        </div>
+        
+
+        
+        <!-- Grid de valoraciones -->
+        <div class="valoraciones-grid">
+            <?php
+            if ($reviews) {
+                foreach ($reviews as $review) {
+                    $rating = get_comment_meta($review->comment_ID, 'rating', true);
+                    $product_id = $review->comment_post_ID;
+                    $product = wc_get_product($product_id);
+                    
+                    // Solo mostrar si tiene rating y producto válido
+                    if (!$product || !$rating) continue;
+                    
+                    // Incluir template parcial
+                    include get_stylesheet_directory() . '/template-parts/review-card.php';
+                }
+            } else {
+                echo '<div class="no-reviews"><p>No hay valoraciones disponibles en este momento.</p></div>';
+            }
+            ?>
+        </div>
+        
+        <!-- Paginación -->
+        <?php if ($atts['mostrar_paginacion'] == 'true' && $total_reviews > $atts['numero']) : ?>
+            <div class="valoraciones-pagination">
+                <?php
+                $total_pages = ceil($total_reviews / $atts['numero']);
+                echo paginate_links(array(
+                    'total' => $total_pages,
+                    'current' => $paged,
+                    'type' => 'list',
+                    'prev_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>',
+                    'next_text' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>',
+                ));
+                ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('valoraciones_globales', 'itools_valoraciones_globales_shortcode');
+
+// Función AJAX para ordenamiento dinámico de valoraciones
+function itools_ajax_sort_valoraciones() {
+    // Verificar nonce
+    if (!wp_verify_nonce($_POST['nonce'], 'valoraciones_nonce')) {
+        wp_die('Error de seguridad');
+    }
+    
+    $order = sanitize_text_field($_POST['order']);
+    $direction = sanitize_text_field($_POST['direction']);
+    $paged = intval($_POST['paged']) ?: 1;
+    $numero = intval($_POST['numero']) ?: 24;
+    
+    // Reutilizar la lógica del shortcode
+    $comments_args = array(
+        'type' => 'review',
+        'status' => 'approve',
+        'post_type' => 'product',
+        'number' => $numero,
+        'paged' => $paged,
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'value' => array(1, 2, 3, 4, 5),
+                'compare' => 'IN'
+            )
+        )
+    );
+    
+    // Aplicar ordenamiento
+    if ($order == 'rating') {
+        $comments_args['meta_key'] = 'rating';
+        $comments_args['orderby'] = 'meta_value_num';
+    } else {
+        $comments_args['orderby'] = 'comment_date';
+    }
+    $comments_args['order'] = $direction;
+    
+    $reviews_query = new WP_Comment_Query();
+    $reviews = $reviews_query->query($comments_args);
+    
+    ob_start();
+    
+    if ($reviews) {
+        foreach ($reviews as $review) {
+            $rating = get_comment_meta($review->comment_ID, 'rating', true);
+            $product_id = $review->comment_post_ID;
+            $product = wc_get_product($product_id);
+            
+            if (!$product) continue;
+            
+            // Usar el mismo template del shortcode
+            include get_stylesheet_directory() . '/template-parts/review-card.php';
+        }
+    }
+    
+    $html = ob_get_clean();
+    
+    wp_send_json_success(array(
+        'html' => $html,
+        'found_reviews' => $reviews_query->found_comments
+    ));
+}
+add_action('wp_ajax_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+add_action('wp_ajax_nopriv_itools_sort_valoraciones', 'itools_ajax_sort_valoraciones');
+
+// Crear página de valoraciones automáticamente
+function itools_create_valoraciones_page() {
+    // Verificar si la página ya existe
+    $existing_page = get_page_by_path('valoraciones');
+    
+    if (!$existing_page) {
+        // Crear la página
+        $page_data = array(
+            'post_title'    => 'Valoraciones',
+            'post_content'  => '[valoraciones_globales numero="24" orden="date" direccion="DESC" mostrar_paginacion="true"]',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_name'     => 'valoraciones',
+            'page_template' => 'page-valoraciones.php'
+        );
+        
+        $page_id = wp_insert_post($page_data);
+        
+        if ($page_id) {
+            // Configurar template de página
+            update_post_meta($page_id, '_wp_page_template', 'page-valoraciones.php');
+            
+            // Agregar excerpt personalizado
+            wp_update_post(array(
+                'ID' => $page_id,
+                'post_excerpt' => 'Descubre las experiencias reales de nuestros clientes satisfechos. Cada reseña es una historia de confianza y calidad en nuestros productos.'
+            ));
+        }
+    }
+}
+
+// Ejecutar al activar el tema
+add_action('after_switch_theme', 'itools_create_valoraciones_page');
+
+// También ejecutar al cargar el admin (solo una vez)
+add_action('admin_init', function() {
+    if (!get_option('itools_valoraciones_page_created')) {
+        itools_create_valoraciones_page();
+        update_option('itools_valoraciones_page_created', true);
+    }
+});
+
+// Función manual para recrear la página (para debugging)
+function itools_force_create_valoraciones_page() {
+    // Eliminar página existente si existe
+    $existing_page = get_page_by_path('valoraciones');
+    if ($existing_page) {
+        wp_delete_post($existing_page->ID, true);
+    }
+    
+    // Crear nueva página
+    itools_create_valoraciones_page();
+    
+    return "Página de valoraciones creada exitosamente!";
+}
+
+// Función de diagnóstico para reseñas
+function itools_debug_reviews() {
+    if (!current_user_can('manage_options')) {
+        return "No tienes permisos para ejecutar esta función.";
+    }
+    
+    $output = "<h3>Diagnóstico de Reseñas</h3>";
+    
+    // 1. Contar todas las reseñas tipo 'review'
+    $review_type_comments = get_comments(array('type' => 'review', 'count' => true));
+    $output .= "<p><strong>Total reseñas tipo 'review':</strong> $review_type_comments</p>";
+    
+    // 2. Contar TODOS los comentarios de productos con rating
+    $all_rated_comments = get_comments(array(
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Total comentarios de productos con rating:</strong> $all_rated_comments</p>";
+    
+    // 3. Contar reseñas aprobadas (solo tipo review)
+    $approved_review_comments = get_comments(array('type' => 'review', 'status' => 'approve', 'count' => true));
+    $output .= "<p><strong>Reseñas tipo 'review' aprobadas:</strong> $approved_review_comments</p>";
+    
+    // 4. Contar comentarios aprobados con rating
+    $approved_rated_comments = get_comments(array(
+        'status' => 'approve',
+        'post_type' => 'product',
+        'meta_query' => array(
+            array(
+                'key' => 'rating',
+                'compare' => 'EXISTS'
+            )
+        ),
+        'count' => true
+    ));
+    $output .= "<p><strong>Comentarios aprobados de productos con rating:</strong> $approved_rated_comments</p>";
+    
+    // 3. Obtener reseñas con detalles
+    $reviews_detailed = get_comments(array(
+        'type' => 'review',
+        'status' => 'approve',
+        'number' => 20
+    ));
+    
+    $output .= "<p><strong>Reseñas encontradas con detalles:</strong> " . count($reviews_detailed) . "</p>";
+    
+    $output .= "<table border='1'><tr><th>ID</th><th>Autor</th><th>Producto</th><th>Rating</th><th>Fecha</th></tr>";
+    
+    foreach ($reviews_detailed as $review) {
+        $rating = get_comment_meta($review->comment_ID, 'rating', true);
+        $product = get_post($review->comment_post_ID);
+        $product_title = $product ? $product->post_title : 'Producto eliminado';
+        
+        $output .= "<tr>";
+        $output .= "<td>{$review->comment_ID}</td>";
+        $output .= "<td>{$review->comment_author}</td>";
+        $output .= "<td>$product_title</td>";
+        $output .= "<td>$rating</td>";
+        $output .= "<td>{$review->comment_date}</td>";
+        $output .= "</tr>";
+    }
+    
+    $output .= "</table>";
+    
+    return $output;
+}
+
+// Shortcode temporal para diagnóstico
+add_shortcode('debug_reviews', 'itools_debug_reviews');
+
+// Agregar variables JavaScript necesarias
+function itools_localize_scripts() {
+    if (is_front_page()) {
+        wp_localize_script('jquery', 'itools_ajax', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('itools_cart_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_localize_scripts');
+
+// === FUNCIONES PARA CHECKOUT PERSONALIZADO === (DESACTIVADAS)
+
+// Forzar el uso de nuestro template para la página de checkout
+function itools_custom_checkout_template( $template ) {
+    if ( is_checkout() && ! is_wc_endpoint_url() ) {
+        $custom_template = locate_template( array( 'page-checkout.php' ) );
+        if ( $custom_template ) {
+            return $custom_template;
+        }
+    }
+    return $template;
+}
+add_filter( 'template_include', 'itools_custom_checkout_template', 99 );
+
+// Cambiar el texto del botón de realizar pedido
+function itools_custom_order_button_text() {
+    return 'Completar Pedido';
+}
+add_filter( 'woocommerce_order_button_text', 'itools_custom_order_button_text' );
+
+// Personalizar placeholders y labels del checkout
+function itools_checkout_fields( $fields ) {
+    // Campos de facturación
+    if ( isset( $fields['billing'] ) ) {
+        $fields['billing']['billing_first_name']['placeholder'] = 'Nombre';
+        $fields['billing']['billing_last_name']['placeholder'] = 'Apellidos';
+        $fields['billing']['billing_company']['placeholder'] = 'Empresa (opcional)';
+        $fields['billing']['billing_address_1']['placeholder'] = 'Dirección completa';
+        $fields['billing']['billing_address_2']['placeholder'] = 'Apartamento, suite, etc. (opcional)';
+        $fields['billing']['billing_city']['placeholder'] = 'Ciudad';
+        $fields['billing']['billing_state']['placeholder'] = 'Estado';
+        $fields['billing']['billing_postcode']['placeholder'] = 'Código postal';
+        $fields['billing']['billing_phone']['placeholder'] = 'Teléfono';
+        $fields['billing']['billing_email']['placeholder'] = 'Correo electrónico';
+    }
+
+    // Campos de envío
+    if ( isset( $fields['shipping'] ) ) {
+        $fields['shipping']['shipping_first_name']['placeholder'] = 'Nombre';
+        $fields['shipping']['shipping_last_name']['placeholder'] = 'Apellidos';
+        $fields['shipping']['shipping_company']['placeholder'] = 'Empresa (opcional)';
+        $fields['shipping']['shipping_address_1']['placeholder'] = 'Dirección completa';
+        $fields['shipping']['shipping_address_2']['placeholder'] = 'Apartamento, suite, etc. (opcional)';
+        $fields['shipping']['shipping_city']['placeholder'] = 'Ciudad';
+        $fields['shipping']['shipping_state']['placeholder'] = 'Estado';
+        $fields['shipping']['shipping_postcode']['placeholder'] = 'Código postal';
+    }
+
+    return $fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'itools_checkout_fields' );
+
+// Remover campos innecesarios del checkout
+
+FIN CÓDIGO ANTIGUO DE RESEÑAS POR PRODUCTO */
+
 // ========================================
 // FUNCIONES AJAX PARA SIDEPANEL DEL CARRITO
 // ========================================
