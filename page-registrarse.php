@@ -57,26 +57,9 @@ $page_title = get_the_title( $page_id );
 
                     <!-- Form Container -->
                     <div class="p-8 md:p-12">
-                        <!-- 
-                        ============================================
-                        INSERTA AQUÍ TU FORMULARIO DE TALLY
-                        ============================================
-                        Ejemplo de embed de Tally:
-                        
-                        <iframe 
-                            src="https://tally.so/embed/YOUR_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0" 
-                            marginheight="0" 
-                            marginwidth="0" 
-                            title="Formulario de Registro"
-                            style="border: none;"
-                        ></iframe>
-                        
-                        O usa el código de script que te proporciona Tally
-                        ============================================
-                        -->
+                        <iframe data-tally-src="https://tally.so/embed/1AWNxp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="168" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
+"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
                         
                         <div id="tally-form-container" class="min-h-[600px]">
                             <!-- El formulario de Tally irá aquí -->
