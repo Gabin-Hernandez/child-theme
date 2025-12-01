@@ -57,19 +57,32 @@ $page_title = get_the_title( $page_id );
 
                     <!-- Form Container -->
                     <div class="p-8 md:p-12">
-                        <iframe data-tally-src="https://tally.so/embed/1AWNxp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="168" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
-"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+                        <!-- 
+                        ============================================
+                        INSERTA AQUÍ TU FORMULARIO DE TALLY
+                        ============================================
+                        Ejemplo de embed de Tally:
+                        
+                        <iframe 
+                            src="https://tally.so/embed/YOUR_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0" 
+                            marginheight="0" 
+                            marginwidth="0" 
+                            title="Formulario de Registro"
+                            style="border: none;"
+                        ></iframe>
+                        
+                        O usa el código de script que te proporciona Tally
+                        ============================================
+                        -->
                         
                         <div id="tally-form-container" class="min-h-[600px]">
                             <!-- El formulario de Tally irá aquí -->
-                            <div class="text-center py-12 text-gray-500">
-                                <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                                </svg>
-                                <p class="text-lg">Inserta aquí tu formulario de Tally</p>
-                                <p class="text-sm mt-2">Reemplaza este contenido con el código embed de tu formulario</p>
-                            </div>
+                            <iframe data-tally-src="https://tally.so/embed/1AWNxp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="168" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
+"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
                         </div>
                     </div>
 
