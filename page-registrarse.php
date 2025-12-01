@@ -80,9 +80,22 @@ $page_title = get_the_title( $page_id );
                         
                         <div id="tally-form-container" class="min-h-[600px]">
                             <!-- El formulario de Tally irá aquí -->
-                            <iframe data-tally-src="https://tally.so/embed/1AWNxp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="168" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
+                            <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>iToolsMx
+</title>
+    <script async src="https://tally.so/widgets/embed.js"></script>
+    <style type="text/css">
+      html { margin: 0; height: 100%; overflow: hidden; }
+      iframe { position: absolute; top: 0; right: 0; bottom: 0; left: 0; border: 0; }
+    </style>
+  </head>
+  <body>
+    <iframe data-tally-src="https://tally.so/r/1AWNxp?transparentBackground=1" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
 "></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+  </body>
+</html>
                         </div>
                     </div>
 
