@@ -2439,10 +2439,12 @@ if (is_admin()) {
 // SISTEMA DE VALORACIONES GENERALES
 // ============================================
 
-// Deshabilitar reseñas por producto en WooCommerce
-add_filter('woocommerce_product_tabs', 'itools_remove_product_reviews_tab', 98);
-function itools_remove_product_reviews_tab($tabs) {
+// Deshabilitar COMPLETAMENTE reseñas por producto en WooCommerce
+// Remover tab de reseñas con alta prioridad
+add_filter('woocommerce_product_tabs', 'itools_remove_all_reviews_tabs', 999);
+function itools_remove_all_reviews_tabs($tabs) {
     unset($tabs['reviews']);
+    unset($tabs['additional_information']); // Opcional: también quitar información adicional
     return $tabs;
 }
 
@@ -2452,8 +2454,18 @@ function itools_disable_product_reviews() {
     remove_post_type_support('product', 'comments');
 }
 
-// Ocultar campo de rating en productos
-add_filter('woocommerce_product_reviews_enabled', '__return_false');
+// Forzar que reviews estén deshabilitados
+add_filter('woocommerce_product_reviews_enabled', '__return_false', 999);
+
+// Ocultar completamente el área de reviews en productos
+add_filter('comments_open', 'itools_disable_product_comments', 999, 2);
+function itools_disable_product_comments($open, $post_id) {
+    $post = get_post($post_id);
+    if ($post && $post->post_type === 'product') {
+        return false;
+    }
+    return $open;
+}
 
 // Remover metabox de comentarios del admin de productos
 add_action('admin_menu', 'itools_remove_comments_menu');
@@ -2462,13 +2474,9 @@ function itools_remove_comments_menu() {
     remove_meta_box('commentsdiv', 'product', 'normal');
 }
 
-// Ocultar tab de reseñas en la página del producto
-add_filter('woocommerce_product_tabs', 'itools_remove_reviews_tab', 98);
-function itools_remove_reviews_tab($tabs) {
-    unset($tabs['reviews']);
-    unset($tabs['additional_information']); // Opcional: también quitar información adicional
-    return $tabs;
-}
+// Ocultar contador de reviews
+add_filter('woocommerce_product_get_review_count', '__return_zero', 999);
+add_filter('woocommerce_product_get_rating_count', '__return_zero', 999);
 
 // Crear tabla de valoraciones generales al activar el tema
 function itools_create_valoraciones_table() {
