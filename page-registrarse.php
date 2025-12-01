@@ -78,7 +78,7 @@ $page_title = get_the_title( $page_id );
                         ============================================
                         -->
                         
-                        <div id="tally-form-container" class="min-h-[300px]">
+                        <div id="tally-form-container" class="min-h-[180px]">
                             <!-- El formulario de Tally irá aquí -->
                           <iframe data-tally-src="https://tally.so/embed/1AWNxp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="168" frameborder="0" marginheight="0" marginwidth="0" title="iToolsMx
 "></iframe>
