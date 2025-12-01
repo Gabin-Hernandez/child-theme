@@ -3889,3 +3889,234 @@ if (is_admin()) {
     add_action('wp_ajax_itools_bulk_shipping_classes', 'itools_admin_bulk_apply_shipping_classes');
 }
 
+// ============================================
+// SISTEMA DE VALORACIONES GENERALES
+// ============================================
+
+// Crear tabla de valoraciones generales al activar el tema
+function itools_create_valoraciones_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'valoraciones_generales';
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        nombre varchar(255) NOT NULL,
+        rating int(1) NOT NULL,
+        comentario text NOT NULL,
+        producto varchar(255) DEFAULT NULL,
+        fecha datetime DEFAULT CURRENT_TIMESTAMP,
+        estado varchar(20) DEFAULT 'pendiente',
+        ip_address varchar(100) DEFAULT NULL,
+        PRIMARY KEY  (id),
+        KEY rating (rating),
+        KEY estado (estado),
+        KEY fecha (fecha)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+}
+add_action('after_switch_theme', 'itools_create_valoraciones_table');
+
+// Encolar scripts para valoraciones en la página correspondiente
+function itools_enqueue_valoraciones_scripts() {
+    if (is_page_template('page-valoraciones.php')) {
+        wp_enqueue_script(
+            'itools-valoraciones-form',
+            get_stylesheet_directory_uri() . '/js/valoraciones-form.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+        
+        wp_localize_script('itools-valoraciones-form', 'itoolsValoraciones', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('valoraciones_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'itools_enqueue_valoraciones_scripts');
+
+// Handler AJAX para guardar nueva valoración
+function itools_save_valoracion() {
+    check_ajax_referer('valoraciones_nonce', 'nonce');
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'valoraciones_generales';
+    
+    // Validar datos
+    $nombre = sanitize_text_field($_POST['nombre']);
+    $rating = intval($_POST['rating']);
+    $comentario = sanitize_textarea_field($_POST['comentario']);
+    $producto = isset($_POST['producto']) ? sanitize_text_field($_POST['producto']) : '';
+    
+    // Validaciones
+    if (empty($nombre) || strlen($nombre) < 3) {
+        wp_send_json_error('El nombre debe tener al menos 3 caracteres');
+        return;
+    }
+    
+    if ($rating < 1 || $rating > 5) {
+        wp_send_json_error('La calificación debe ser entre 1 y 5 estrellas');
+        return;
+    }
+    
+    if (empty($comentario) || strlen($comentario) < 10) {
+        wp_send_json_error('El comentario debe tener al menos 10 caracteres');
+        return;
+    }
+    
+    // Obtener IP del usuario
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    
+    // Insertar en la base de datos
+    $inserted = $wpdb->insert(
+        $table_name,
+        array(
+            'nombre' => $nombre,
+            'rating' => $rating,
+            'comentario' => $comentario,
+            'producto' => $producto,
+            'fecha' => current_time('mysql'),
+            'estado' => 'pendiente', // Requiere aprobación
+            'ip_address' => $ip_address
+        ),
+        array('%s', '%d', '%s', '%s', '%s', '%s', '%s')
+    );
+    
+    if ($inserted) {
+        wp_send_json_success('¡Gracias por tu valoración! Será revisada y publicada pronto.');
+    } else {
+        wp_send_json_error('Hubo un error al guardar tu valoración. Por favor intenta de nuevo.');
+    }
+}
+add_action('wp_ajax_save_valoracion', 'itools_save_valoracion');
+add_action('wp_ajax_nopriv_save_valoracion', 'itools_save_valoracion');
+
+// Agregar página de administración para aprobar valoraciones
+function itools_valoraciones_admin_menu() {
+    add_menu_page(
+        'Valoraciones Generales',
+        'Valoraciones',
+        'manage_options',
+        'itools-valoraciones',
+        'itools_valoraciones_admin_page',
+        'dashicons-star-filled',
+        26
+    );
+}
+add_action('admin_menu', 'itools_valoraciones_admin_menu');
+
+// Página de administración de valoraciones
+function itools_valoraciones_admin_page() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'valoraciones_generales';
+    
+    // Manejar acciones
+    if (isset($_GET['action']) && isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $action = $_GET['action'];
+        
+        if ($action === 'aprobar') {
+            $wpdb->update($table_name, array('estado' => 'aprobado'), array('id' => $id));
+            echo '<div class="notice notice-success"><p>Valoración aprobada exitosamente.</p></div>';
+        } elseif ($action === 'rechazar') {
+            $wpdb->update($table_name, array('estado' => 'rechazado'), array('id' => $id));
+            echo '<div class="notice notice-success"><p>Valoración rechazada.</p></div>';
+        } elseif ($action === 'eliminar') {
+            $wpdb->delete($table_name, array('id' => $id));
+            echo '<div class="notice notice-success"><p>Valoración eliminada.</p></div>';
+        }
+    }
+    
+    // Obtener valoraciones
+    $filter = isset($_GET['filter']) ? $_GET['filter'] : 'pendiente';
+    $valoraciones = $wpdb->get_results($wpdb->prepare(
+        "SELECT * FROM $table_name WHERE estado = %s ORDER BY fecha DESC",
+        $filter
+    ));
+    
+    ?>
+    <div class="wrap">
+        <h1>Valoraciones Generales</h1>
+        
+        <div class="tablenav top">
+            <div class="alignleft actions">
+                <select onchange="window.location.href='?page=itools-valoraciones&filter=' + this.value">
+                    <option value="pendiente" <?php selected($filter, 'pendiente'); ?>>Pendientes</option>
+                    <option value="aprobado" <?php selected($filter, 'aprobado'); ?>>Aprobadas</option>
+                    <option value="rechazado" <?php selected($filter, 'rechazado'); ?>>Rechazadas</option>
+                </select>
+            </div>
+        </div>
+        
+        <table class="wp-list-table widefat fixed striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Rating</th>
+                    <th>Producto</th>
+                    <th>Comentario</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($valoraciones) : ?>
+                    <?php foreach ($valoraciones as $val) : ?>
+                        <tr>
+                            <td><?php echo $val->id; ?></td>
+                            <td><strong><?php echo esc_html($val->nombre); ?></strong></td>
+                            <td>
+                                <?php
+                                $stars = str_repeat('⭐', $val->rating);
+                                echo $stars . ' (' . $val->rating . '/5)';
+                                ?>
+                            </td>
+                            <td><?php echo $val->producto ? esc_html($val->producto) : '<em>No especificado</em>'; ?></td>
+                            <td><?php echo esc_html(substr($val->comentario, 0, 100)) . '...'; ?></td>
+                            <td><?php echo date_i18n('d M Y H:i', strtotime($val->fecha)); ?></td>
+                            <td>
+                                <span class="badge <?php echo $val->estado === 'aprobado' ? 'badge-success' : ($val->estado === 'rechazado' ? 'badge-danger' : 'badge-warning'); ?>">
+                                    <?php echo ucfirst($val->estado); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <?php if ($val->estado === 'pendiente') : ?>
+                                    <a href="?page=itools-valoraciones&action=aprobar&id=<?php echo $val->id; ?>&filter=<?php echo $filter; ?>" class="button button-primary button-small">Aprobar</a>
+                                    <a href="?page=itools-valoraciones&action=rechazar&id=<?php echo $val->id; ?>&filter=<?php echo $filter; ?>" class="button button-small">Rechazar</a>
+                                <?php endif; ?>
+                                <a href="?page=itools-valoraciones&action=eliminar&id=<?php echo $val->id; ?>&filter=<?php echo $filter; ?>" class="button button-small" onclick="return confirm('¿Estás seguro de eliminar esta valoración?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px;">
+                            <p>No hay valoraciones <?php echo $filter === 'pendiente' ? 'pendientes' : ($filter === 'aprobado' ? 'aprobadas' : 'rechazadas'); ?> en este momento.</p>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        
+        <style>
+            .badge {
+                display: inline-block;
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            .badge-success { background: #46b450; color: white; }
+            .badge-danger { background: #dc3232; color: white; }
+            .badge-warning { background: #ffb900; color: #333; }
+        </style>
+    </div>
+    <?php
+}
+
+
