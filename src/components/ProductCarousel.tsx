@@ -98,7 +98,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
   }
 
   return (
-    <section className={`py-16 md:py-24 bg-background ${className}`}>
+    <section className={`pt-16 md:pt-24 bg-background ${className}`}>
       <div className="container">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
