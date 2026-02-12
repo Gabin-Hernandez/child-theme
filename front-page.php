@@ -9,33 +9,141 @@ get_header(); ?>
 <main id="main" class="site-main">
 
     <!-- ============================================ -->
-    <!-- HERO COMPACTO + BARRA DE BÚSQUEDA           -->
+    <!-- HERO CAROUSEL + BARRA DE BÚSQUEDA           -->
     <!-- ============================================ -->
-    <section class="relative bg-slate-900 overflow-hidden">
-        <!-- Background Image -->
-        <div class="absolute inset-0">
-            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
-                 alt="ITOOLS MX" class="w-full h-full object-cover opacity-40">
-            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/60 to-slate-900/90"></div>
-        </div>
+    <section class="relative bg-slate-900 w-full">
+        <!-- Swiper Hero Carousel -->
+        <div class="swiper hero-swiper w-full">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 - Principal -->
+                <div class="swiper-slide">
+                    <div class="h-[420px] md:h-[480px] lg:h-[540px] relative w-full">
+                        <div class="absolute inset-0 w-full">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-19.webp" 
+                                 alt="Herramientas para técnicos" class="w-full h-full object-cover opacity-60">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-transparent"></div>
+                        </div>
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-2xl">
+                                <span class="inline-flex items-center bg-blue-600/90 text-white text-xs md:text-sm px-4 py-1.5 rounded-full font-medium mb-4">
+                                    +19,000 productos disponibles
+                                </span>
+                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+                                    ITOOLS MX
+                                    <span class="block text-lg md:text-xl text-slate-200 font-normal mt-2">Tu socio tecnológico de confianza</span>
+                                </h1>
+                                <p class="text-base md:text-lg text-slate-300 mb-6 max-w-lg">
+                                    Refacciones, herramientas y equipo especializado para técnicos profesionales
+                                </p>
+                                <a href="/tienda" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 text-sm md:text-base font-semibold rounded-lg transition-colors shadow-lg">
+                                    Explorar Catálogo
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="relative z-10 container max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-24 lg:py-28">
-            <!-- Headline -->
-            <div class="text-center mb-8 md:mb-10">
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                    Todo para tu taller
-                    <span class="block text-blue-400 mt-1">en un solo lugar</span>
-                </h1>
-                <p class="text-lg md:text-xl text-slate-300 max-w-xl mx-auto">
-                    +19,000 productos: refacciones, herramientas y más para técnicos profesionales
-                </p>
+                <!-- Slide 2 - Refacciones -->
+                <div class="swiper-slide">
+                    <div class="h-[420px] md:h-[480px] lg:h-[540px] relative w-full">
+                        <div class="absolute inset-0 w-full">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp" 
+                                 alt="Refacciones de celulares" class="w-full h-full object-cover opacity-60">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-transparent"></div>
+                        </div>
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-2xl">
+                                <span class="inline-flex items-center bg-green-600/90 text-white text-xs md:text-sm px-4 py-1.5 rounded-full font-medium mb-4">
+                                    Refacciones Originales
+                                </span>
+                                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+                                    Refacciones
+                                    <span class="block text-lg md:text-xl text-slate-200 font-normal mt-2">+19,000 SKU disponibles</span>
+                                </h2>
+                                <p class="text-base md:text-lg text-slate-300 mb-6 max-w-lg">
+                                    Componentes originales y compatibles para todas las marcas
+                                </p>
+                                <a href="/?post_type=product&s=&product_cat=refacciones" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 text-sm md:text-base font-semibold rounded-lg transition-colors shadow-lg">
+                                    Ver Refacciones
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 - Pantallas -->
+                <div class="swiper-slide">
+                    <div class="h-[420px] md:h-[480px] lg:h-[540px] relative w-full">
+                        <div class="absolute inset-0 w-full">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-2.webp" 
+                                 alt="Pantallas y displays" class="w-full h-full object-cover opacity-60">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-transparent"></div>
+                        </div>
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-2xl">
+                                <span class="inline-flex items-center bg-purple-600/90 text-white text-xs md:text-sm px-4 py-1.5 rounded-full font-medium mb-4">
+                                    Tecnología Avanzada
+                                </span>
+                                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+                                    Pantallas
+                                    <span class="block text-lg md:text-xl text-slate-200 font-normal mt-2">LCD, OLED y Touch de última generación</span>
+                                </h2>
+                                <p class="text-base md:text-lg text-slate-300 mb-6 max-w-lg">
+                                    Para iPhone, Samsung, Huawei y más marcas con garantía incluida
+                                </p>
+                                <a href="<?php echo esc_url( home_url( '/pantallas-lcd/' ) ); ?>" class="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 text-sm md:text-base font-semibold rounded-lg transition-colors shadow-lg">
+                                    Ver Pantallas
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4 - Baterías -->
+                <div class="swiper-slide">
+                    <div class="h-[420px] md:h-[480px] lg:h-[540px] relative w-full">
+                        <div class="absolute inset-0 w-full">
+                            <img src="https://itoolsmx.com/wp-content/themes/storely/assets/img/herramientas-para-tecnicos-en-todo-mexico-16.webp" 
+                                 alt="Baterías y accesorios" class="w-full h-full object-cover opacity-60">
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-transparent"></div>
+                        </div>
+                        <div class="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10 h-full flex items-center">
+                            <div class="max-w-2xl">
+                                <span class="inline-flex items-center bg-amber-600/90 text-white text-xs md:text-sm px-4 py-1.5 rounded-full font-medium mb-4">
+                                    Energía Confiable
+                                </span>
+                                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3">
+                                    Baterías
+                                    <span class="block text-lg md:text-xl text-slate-200 font-normal mt-2">Máxima duración y rendimiento</span>
+                                </h2>
+                                <p class="text-base md:text-lg text-slate-300 mb-6 max-w-lg">
+                                    Baterías originales y compatibles para todos los modelos con garantía extendida
+                                </p>
+                                <a href="<?php echo esc_url( home_url( '/baterias/' ) ); ?>" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 text-sm md:text-base font-semibold rounded-lg transition-colors shadow-lg">
+                                    Ver Baterías
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Barra de Búsqueda Prominente -->
-            <div class="max-w-2xl mx-auto mb-8">
+            <!-- Navegación Swiper -->
+            <div class="swiper-pagination !bottom-16 md:!bottom-20"></div>
+            <div class="swiper-button-next !text-white/70 hover:!text-white !right-4 md:!right-8 after:!text-2xl"></div>
+            <div class="swiper-button-prev !text-white/70 hover:!text-white !left-4 md:!left-8 after:!text-2xl"></div>
+        </div>
+
+        <!-- Barra de búsqueda flotante sobre el hero -->
+        <div class="absolute bottom-0 left-0 right-0 z-20 translate-y-1/2">
+            <div class="container max-w-2xl mx-auto px-4">
                 <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" class="relative">
                     <input type="hidden" name="post_type" value="product">
-                    <div class="flex items-center bg-white rounded-xl shadow-2xl overflow-hidden ring-4 ring-white/20">
+                    <div class="flex items-center bg-white rounded-xl shadow-2xl overflow-hidden ring-1 ring-slate-200">
                         <div class="pl-5 text-slate-400">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -43,39 +151,42 @@ get_header(); ?>
                         </div>
                         <input type="search" name="s" 
                                placeholder="Busca pantallas, baterías, herramientas..." 
-                               class="flex-1 px-4 py-4 md:py-5 text-base md:text-lg text-slate-800 placeholder-slate-400 border-0 outline-none bg-transparent"
+                               class="flex-1 px-4 py-4 text-base text-slate-800 placeholder-slate-400 border-0 outline-none bg-transparent"
                                autocomplete="off">
-                        <button type="submit" 
-                                class="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-4 md:py-5 font-semibold text-base transition-colors">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold text-sm transition-colors">
                             Buscar
                         </button>
                     </div>
                 </form>
             </div>
-
-            <!-- Búsquedas rápidas -->
-            <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-                <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Pantallas LCD
-                </a>
-                <a href="<?php echo esc_url(home_url('/baterias/')); ?>" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Baterías
-                </a>
-                <a href="/?post_type=product&s=&product_cat=herramientas" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Herramientas
-                </a>
-                <a href="<?php echo esc_url(home_url('/microscopios/')); ?>" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Microscopios
-                </a>
-                <a href="<?php echo esc_url(home_url('/soldadura/')); ?>" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Soldadura
-                </a>
-                <a href="<?php echo esc_url(home_url('/insumos-consumibles/')); ?>" class="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full border border-white/20 transition-all">
-                    Insumos
-                </a>
-            </div>
         </div>
     </section>
+
+    <!-- ============================================ -->
+    <!-- BÚSQUEDAS RÁPIDAS                           -->
+    <!-- ============================================ -->
+    <div class="pt-10 pb-4 bg-slate-50">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3 container max-w-4xl mx-auto px-4">
+            <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="bg-white hover:bg-blue-50 text-slate-600 hover:text-blue-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-blue-300 transition-all">
+                Pantallas LCD
+            </a>
+            <a href="<?php echo esc_url(home_url('/baterias/')); ?>" class="bg-white hover:bg-green-50 text-slate-600 hover:text-green-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-green-300 transition-all">
+                Baterías
+            </a>
+            <a href="/?post_type=product&s=&product_cat=herramientas" class="bg-white hover:bg-amber-50 text-slate-600 hover:text-amber-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-amber-300 transition-all">
+                Herramientas
+            </a>
+            <a href="<?php echo esc_url(home_url('/microscopios/')); ?>" class="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-sky-300 transition-all">
+                Microscopios
+            </a>
+            <a href="<?php echo esc_url(home_url('/soldadura/')); ?>" class="bg-white hover:bg-red-50 text-slate-600 hover:text-red-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-red-300 transition-all">
+                Soldadura
+            </a>
+            <a href="<?php echo esc_url(home_url('/insumos-consumibles/')); ?>" class="bg-white hover:bg-purple-50 text-slate-600 hover:text-purple-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-purple-300 transition-all">
+                Insumos
+            </a>
+        </div>
+    </div>
 
     <!-- ============================================ -->
     <!-- BARRA DE CONFIANZA COMPACTA                 -->
