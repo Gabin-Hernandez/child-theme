@@ -1,5 +1,3 @@
-import { Play } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -15,17 +13,17 @@ const Cta18 = ({ className }: Cta18Props) => {
         <div className="relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row">
           <div className="max-w-xl self-center p-6 md:p-12">
             <h2 className="text-3xl font-semibold md:text-4xl">
-              Explore Our Platform
+              ¿Necesitas Herramientas Profesionales?
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
-              Discover the full potential of our platform. Try our interactive
-              demo or watch a comprehensive walkthrough today.
+              Descubre nuestro amplio catálogo de refacciones, herramientas y equipo especializado. Productos de calidad para profesionales y entusiastas.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button>Try Demo</Button>
-              <Button variant="outline">
-                Watch Video
-                <Play className="ml-2" />
+              <Button asChild>
+                <a href="/tienda">Ver Catálogo</a>
+              </Button>
+              <Button variant="outline" asChild>
+                <a href="/ofertas">Ver Ofertas</a>
               </Button>
             </div>
           </div>
