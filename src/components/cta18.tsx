@@ -19,10 +19,10 @@ const Cta18 = ({ className }: Cta18Props) => {
               Descubre nuestro amplio catálogo de refacciones, herramientas y equipo especializado. Productos de calidad para profesionales y entusiastas.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button asChild>
+              <Button asChild className="text-white hover:text-white">
                 <a href="/tienda">Ver Catálogo</a>
               </Button>
-              <Button variant="outline" asChild className="text-white hover:text-white">
+              <Button variant="outline" asChild>
                 <a href="/ofertas">Ver Ofertas</a>
               </Button>
             </div>
