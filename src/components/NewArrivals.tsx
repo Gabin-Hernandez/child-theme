@@ -25,7 +25,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
     const fetchProducts = async () => {
       try {
         // Fetch recent products sorted by date
-        const response = await fetch('/wp-json/wc/store/v1/products?per_page=16&orderby=date&order=desc');
+        const response = await fetch('/wp-json/wc/store/v1/products?per_page=50&orderby=date&order=desc');
         
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -33,8 +33,8 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
         
         const data = await response.json();
         
-        // Filter and transform products
-        const transformedProducts = data
+        // Filter products with real images first
+        const productsWithImages = data
           .filter((item: any) => {
             return item.images && 
                    item.images.length > 0 && 
@@ -51,8 +51,21 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
             images: item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })),
             permalink: item.permalink || '#',
             on_sale: item.prices?.price !== item.prices?.regular_price,
-          }))
-          .slice(0, 8); // Show 8 products (4 per row = 2 rows)
+          }));
+        
+        // If we have enough products with images, use those. Otherwise, use all products.
+        const transformedProducts = productsWithImages.length >= 8
+          ? productsWithImages.slice(0, 8)
+          : data.slice(0, 8).map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              price: item.prices?.price || '0',
+              regular_price: item.prices?.regular_price || '0',
+              sale_price: item.prices?.sale_price || item.prices?.price || '0',
+              images: item.images?.map((img: any) => ({ src: img.src, alt: img.alt || item.name })) || [],
+              permalink: item.permalink || '#',
+              on_sale: item.prices?.price !== item.prices?.regular_price,
+            }));
         
         setProducts(transformedProducts);
       } catch (error) {
