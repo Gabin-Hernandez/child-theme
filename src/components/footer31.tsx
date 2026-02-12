@@ -108,10 +108,10 @@ const Footer31 = ({ className }: Footer31Props) => {
             </ul>
           </div>
           
-          {/* Branding Vertical */}
-           <div className="flex flex-col justify-start items-center col-span-2 lg:col-span-1 h-full select-none pointer-events-none overflow-hidden lg:justify-end lg:items-end">
+          {/* Branding Horizontal/Vertical */}
+           <div className="col-span-2 lg:col-span-1 flex justify-center lg:justify-end lg:items-end select-none py-8 lg:py-0">
               <span
-                className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-center lg:text-right bg-[linear-gradient(to_right,#ff0000,#ff8000,#ffff00,#00ff00,#00ffff,#0000ff,#8000ff,#ff0000)] bg-clip-text text-transparent animate-gradient-loop lg:[writing-mode:vertical-rl] lg:[transform:rotate(180deg)]"
+                className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter bg-[linear-gradient(to_right,#ff0000,#ff8000,#ffff00,#00ff00,#00ffff,#0000ff,#8000ff,#ff0000)] bg-clip-text text-transparent animate-gradient-loop lg:[writing-mode:vertical-rl] lg:[transform:rotate(180deg)]"
               >
                 ITOOLS
               </span>
