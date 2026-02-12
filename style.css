@@ -1116,7 +1116,6 @@ body.home .grid .bg-white.rounded-xl {
 .woocommerce .products .product,
 .grid .bg-white.rounded-xl {
   height: auto !important;
-  min-height: 420px !important;
   display: flex !important;
   flex-direction: column !important;
 }
@@ -1429,7 +1428,6 @@ body.home .grid .bg-white.rounded-xl {
 .home .woocommerce .products .product,
 .home .grid .bg-white.rounded-xl {
   height: auto !important;
-  min-height: 420px !important;
   display: flex !important;
   flex-direction: column !important;
 }
