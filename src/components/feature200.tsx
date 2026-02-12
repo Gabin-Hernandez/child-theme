@@ -11,7 +11,6 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Envíos a Todo México",
       icon: Package,
-      iconColor: "text-blue-400",
       bgColor: "#3b82f6", // blue-500
       features: [
         "Entrega rápida y confiable",
@@ -22,7 +21,6 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Calidad Garantizada",
       icon: Shield,
-      iconColor: "text-green-400",
       bgColor: "#22c55e", // green-500
       features: [
         "Productos originales certificados",
@@ -33,7 +31,6 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Amplio Catálogo",
       icon: Store,
-      iconColor: "text-orange-400",
       bgColor: "#f97316", // orange-500
       features: [
         "Más de 19,000 productos",
@@ -46,61 +43,45 @@ const Feature200 = ({ className }: Feature200Props) => {
   return (
     <section className={cn("pt-32", className)}>
       <div className="container">
-        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="relative h-full rounded-xl overflow-hidden p-6 border"
-              style={{
-                background: `radial-gradient(circle at 80% 20%, ${feature.bgColor}50 0%, ${feature.bgColor}20 30%, #09090b 70%)`,
-                borderColor: `${feature.bgColor}40`
-              }}
+              className="group relative h-full rounded-xl overflow-hidden p-6 bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300"
             >
-              {/* Additional color overlay for more vibrancy */}
+              {/* Top colored accent bar */}
               <div 
-                className="absolute inset-0 h-full w-full opacity-30"
-                style={{
-                  background: `radial-gradient(circle at 80% 20%, ${feature.bgColor} 0%, transparent 40%)`
-                }}
+                className="absolute top-0 left-0 right-0 h-1"
+                style={{ backgroundColor: feature.bgColor }}
               ></div>
               
-              {/* Dot pattern overlay */}
+              {/* Glow effect on hover */}
               <div 
-                className="absolute inset-0 h-full w-full opacity-10"
-                style={{
-                  backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-                  backgroundSize: '20px 20px',
-                  maskImage: `radial-gradient(ellipse at 80% 20%, black 0%, transparent 60%)`
-                }}
+                className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                style={{ backgroundColor: feature.bgColor }}
               ></div>
               
               {/* Icon container */}
-              <div className="relative">
+              <div className="relative mb-8">
                 <div 
-                  className="grid size-12 place-items-center rounded-full p-[2px]"
-                  style={{
-                    background: `linear-gradient(to bottom, ${feature.bgColor}80, transparent, ${feature.bgColor}40)`
-                  }}
+                  className="inline-flex size-14 items-center justify-center rounded-xl"
+                  style={{ backgroundColor: `${feature.bgColor}20` }}
                 >
-                  <div 
-                    className="grid size-full place-items-center rounded-full bg-zinc-950"
-                    style={{
-                      background: `linear-gradient(to bottom, ${feature.bgColor}30, transparent, ${feature.bgColor}20)`
-                    }}
-                  >
-                    <feature.icon className={`${feature.iconColor} h-5 w-5`} />
-                  </div>
+                  <feature.icon 
+                    className="h-7 w-7"
+                    style={{ color: feature.bgColor }}
+                  />
                 </div>
               </div>
               
-              <h3 className="relative mt-10 text-lg font-semibold text-white">
+              <h3 className="relative text-xl font-semibold text-white mb-4">
                 {feature.title}
               </h3>
-              <ul className="relative mt-4 space-y-3.5 text-sm text-white/70">
+              <ul className="relative space-y-3 text-sm text-white/80">
                 {feature.features.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-center gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0" />
-                    {item}
+                  <li key={itemIndex} className="flex items-start gap-3">
+                    <Check className="mt-0.5 size-4 shrink-0" style={{ color: feature.bgColor }} />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
