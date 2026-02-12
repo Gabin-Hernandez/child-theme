@@ -96,7 +96,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
   }
 
   return (
-    <section className={`py-16 md:py-24 bg-background ${className}`}>
+    <section className={`py-16 bg-background ${className}`}>
       <div className="container">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
