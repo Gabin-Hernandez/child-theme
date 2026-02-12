@@ -23,25 +23,25 @@ const brands: Brand[] = [
     id: 1,
     name: 'Apple',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
-    permalink: '/page-apple',
+    permalink: 'https://itoolsmx.com/apple/',
   },
   {
     id: 2,
     name: 'Samsung',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Samsung_old_logo_before_year_2015.svg/1280px-Samsung_old_logo_before_year_2015.svg.png',
-    permalink: '/page-samsung',
+    permalink: 'https://itoolsmx.com/samsung/',
   },
   {
     id: 3,
     name: 'Huawei',
     logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1280px-Huawei_Standard_logo.svg.png',
-    permalink: '/page-huawei',
+    permalink: 'https://itoolsmx.com/huawei/',
   },
   {
     id: 4,
     name: 'Xiaomi',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/500px-Xiaomi_logo_%282021-%29.svg.png',
-    permalink: '/page-xiaomi',
+    permalink: 'https://itoolsmx.com/xiaomi/',
   },
 ];
 
@@ -55,7 +55,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
             Marcas Destacadas
           </h2>
           <Button asChild className="uppercase text-xs tracking-wider bg-black text-white hover:bg-black/90">
-            <a href="/page-modelos">Ver Todas</a>
+            <a href="https://itoolsmx.com/tienda/">Ver Todas</a>
           </Button>
         </div>
 
