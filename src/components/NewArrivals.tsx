@@ -33,14 +33,27 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
         
         const data = await response.json();
         
-        // Filter products with real images first
-        const productsWithImages = data
+        // Filter and validate products
+        const transformedProducts = data
           .filter((item: any) => {
-            return item.images && 
+            // Must have valid images
+            const hasValidImage = item.images && 
                    item.images.length > 0 && 
                    item.images[0].src && 
                    !item.images[0].src.includes('woocommerce-placeholder') &&
                    !item.images[0].src.includes('placeholder.png');
+            
+            // Must have valid price (not 0)
+            const hasValidPrice = item.prices?.price && 
+                   parseFloat(item.prices.price) > 0;
+            
+            // Must have valid name (not generic or too short)
+            const hasValidName = item.name && 
+                   item.name.trim().length > 5 &&
+                   !item.name.toLowerCase().includes('producto sin') &&
+                   item.name.toLowerCase() !== 'producto';
+            
+            return hasValidImage && hasValidPrice && hasValidName;
           })
           .map((item: any) => ({
             id: item.id,
@@ -51,21 +64,8 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
             images: item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })),
             permalink: item.permalink || '#',
             on_sale: item.prices?.price !== item.prices?.regular_price,
-          }));
-        
-        // If we have enough products with images, use those. Otherwise, use all products.
-        const transformedProducts = productsWithImages.length >= 8
-          ? productsWithImages.slice(0, 8)
-          : data.slice(0, 8).map((item: any) => ({
-              id: item.id,
-              name: item.name,
-              price: item.prices?.price || '0',
-              regular_price: item.prices?.regular_price || '0',
-              sale_price: item.prices?.sale_price || item.prices?.price || '0',
-              images: item.images?.map((img: any) => ({ src: img.src, alt: img.alt || item.name })) || [],
-              permalink: item.permalink || '#',
-              on_sale: item.prices?.price !== item.prices?.regular_price,
-            }));
+          }))
+          .slice(0, 8);
         
         setProducts(transformedProducts);
       } catch (error) {
