@@ -39,7 +39,7 @@ const Footer31 = ({ className }: Footer31Props) => {
             <img 
               src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
               alt="ITOOLS MX" 
-              className="h-16 md:h-20 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity duration-300"
+              className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
             />
           </div>
         </div>
@@ -49,7 +49,7 @@ const Footer31 = ({ className }: Footer31Props) => {
           
           {/* Col 1 */}
           <div className="col-span-1">
-            <h4 className="font-bold mb-6">Tienda</h4>
+            <h4 className="font-bold mb-6 text-white">Tienda</h4>
             <ul className="space-y-4 text-white/60">
               {NAVIGATION.map((item) => (
                 <li key={item.label}>
@@ -63,7 +63,7 @@ const Footer31 = ({ className }: Footer31Props) => {
 
           {/* Col 2 */}
           <div className="col-span-1">
-            <h4 className="font-bold mb-6">Ayuda</h4>
+            <h4 className="font-bold mb-6 text-white">Ayuda</h4>
             <ul className="space-y-4 text-white/60">
               <li><a href="#" className="hover:text-white transition-colors">Envíos</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Devoluciones</a></li>
@@ -74,7 +74,7 @@ const Footer31 = ({ className }: Footer31Props) => {
 
           {/* Col 3: Contact */}
           <div className="col-span-2 lg:col-span-1">
-            <h4 className="font-bold mb-6">Oficina</h4>
+            <h4 className="font-bold mb-6 text-white">Oficina</h4>
             <div className="space-y-4 text-white/60 leading-relaxed">
               <p>
                 Calle Heron Ramirez #715<br />
@@ -90,7 +90,7 @@ const Footer31 = ({ className }: Footer31Props) => {
 
           {/* Col 4: Social */}
           <div className="col-span-1">
-            <h4 className="font-bold mb-6">Social</h4>
+            <h4 className="font-bold mb-6 text-white">Social</h4>
             <ul className="space-y-4 text-white/60">
               {SOCIAL_LINKS.map((item) => (
                 <li key={item.label}>
