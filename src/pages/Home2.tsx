@@ -11,6 +11,7 @@
  */
 
 import { Footer31 } from '@/components/footer31'
+import { Cta18 } from '@/components/cta18'
 
 export default function Home2() {
   return (
@@ -79,6 +80,11 @@ export default function Home2() {
           ))}
         </div>
       </section>
+
+      {/* ========================================== */}
+      {/* CTA SECTION - shadcn block                 */}
+      {/* ========================================== */}
+      <Cta18 />
 
       {/* ========================================== */}
       {/* FOOTER - shadcn block                      */}
