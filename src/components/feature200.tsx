@@ -50,18 +50,27 @@ const Feature200 = ({ className }: Feature200Props) => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="relative h-full rounded-xl overflow-hidden p-6 bg-zinc-950"
+              className="relative h-full rounded-xl overflow-hidden p-6 border"
               style={{
-                background: `radial-gradient(circle at 80% 14%, ${feature.bgColor}15 0%, #09090b 50%, #09090b 100%)`
+                background: `radial-gradient(circle at 80% 20%, ${feature.bgColor}50 0%, ${feature.bgColor}20 30%, #09090b 70%)`,
+                borderColor: `${feature.bgColor}40`
               }}
             >
+              {/* Additional color overlay for more vibrancy */}
+              <div 
+                className="absolute inset-0 h-full w-full opacity-30"
+                style={{
+                  background: `radial-gradient(circle at 80% 20%, ${feature.bgColor} 0%, transparent 40%)`
+                }}
+              ></div>
+              
               {/* Dot pattern overlay */}
               <div 
-                className="absolute inset-0 h-full w-full opacity-20"
+                className="absolute inset-0 h-full w-full opacity-10"
                 style={{
                   backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
                   backgroundSize: '20px 20px',
-                  maskImage: `radial-gradient(ellipse at 80% 14%, black 0%, transparent 50%)`
+                  maskImage: `radial-gradient(ellipse at 80% 20%, black 0%, transparent 60%)`
                 }}
               ></div>
               
