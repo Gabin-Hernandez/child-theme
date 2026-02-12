@@ -41,7 +41,7 @@ const Feature200 = ({ className }: Feature200Props) => {
   ];
 
   return (
-    <section className={cn("pt-32", className)}>
+    <section className={cn("pt-0", className)}>
       <div className="container">
         <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3">
           {features.map((feature, index) => (

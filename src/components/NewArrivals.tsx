@@ -101,7 +101,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl uppercase">
-            New Arrival
+            Recién Llegados
           </h2>
           <Button asChild className="uppercase text-xs tracking-wider bg-black text-white hover:bg-black/90">
             <a href="/tienda">Ver Todos</a>
