@@ -12,6 +12,7 @@
 
 import { Footer31 } from '@/components/footer31'
 import { Cta18 } from '@/components/cta18'
+import { ProductList10 } from '@/components/product-list10'
 
 export default function Home2() {
   return (
@@ -46,40 +47,9 @@ export default function Home2() {
       </section>
 
       {/* ========================================== */}
-      {/* CONTENT SECTIONS - Add shadcn blocks here  */}
+      {/* PRODUCT LIST SECTION - shadcn block        */}
       {/* ========================================== */}
-      <section className="container mx-auto px-6 py-16">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Página Home 2 — shadcn/ui Ready
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            Esta plantilla está lista para recibir componentes y bloques de shadcn/ui.
-            Agrega componentes con <code className="bg-muted px-2 py-1 rounded text-sm font-mono">npx shadcn@latest add button</code>
-          </p>
-        </div>
-
-        {/* Placeholder grid — will be replaced with actual shadcn blocks */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { title: 'Categorías', desc: 'Navega por categorías de productos' },
-            { title: 'Productos Destacados', desc: 'Lo más vendido y novedades' },
-            { title: 'Ofertas', desc: 'Descuentos y promociones activas' },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold text-card-foreground">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ProductList10 />
 
       {/* ========================================== */}
       {/* CTA SECTION - shadcn block                 */}
