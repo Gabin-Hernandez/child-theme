@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Import Swiper styles
@@ -125,56 +124,60 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>
-              <div className="group relative overflow-hidden rounded-xl border bg-card transition-all hover:shadow-lg">
+              <div className="group relative">
                 {/* Product Image */}
-                <a href={product.permalink} className="block aspect-square overflow-hidden bg-muted">
+                <a href={product.permalink} className="block relative aspect-square overflow-hidden bg-muted/30 mb-4">
                   <img
                     src={product.images[0]?.src || '/placeholder.jpg'}
                     alt={product.images[0]?.alt || product.name}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
                   />
+                  
+                  {/* Sale Badge */}
+                  {product.on_sale && (
+                    <div className="absolute top-4 left-4 bg-black text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider">
+                      OFERTA
+                    </div>
+                  )}
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </a>
 
-                {/* Sale Badge */}
-                {product.on_sale && (
-                  <div className="absolute top-3 right-3 rounded-full bg-destructive px-3 py-1 text-xs font-semibold text-destructive-foreground">
-                    Oferta
-                  </div>
-                )}
-
                 {/* Product Info */}
-                <div className="p-4">
+                <div className="space-y-2">
                   <a href={product.permalink} className="block">
-                    <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-card-foreground hover:text-primary transition-colors">
+                    <h3 className="line-clamp-2 text-sm uppercase tracking-wide text-foreground/90 group-hover:text-foreground transition-colors font-medium leading-tight min-h-[2.5rem]">
                       {product.name}
                     </h3>
                   </a>
 
                   {/* Price */}
-                  <div className="mb-3 flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2">
                     {product.on_sale && product.regular_price ? (
                       <>
-                        <span className="text-lg font-bold text-primary">
+                        <span className="text-base font-semibold text-foreground">
                           ${(parseFloat(product.sale_price) / 100).toFixed(2)}
                         </span>
-                        <span className="text-sm text-muted-foreground line-through">
+                        <span className="text-xs text-muted-foreground line-through">
                           ${(parseFloat(product.regular_price) / 100).toFixed(2)}
                         </span>
                       </>
                     ) : (
-                      <span className="text-lg font-bold text-card-foreground">
+                      <span className="text-base font-semibold text-foreground">
                         ${(parseFloat(product.price) / 100).toFixed(2)}
                       </span>
                     )}
                   </div>
 
-                  {/* Add to Cart Button */}
-                  <Button asChild size="sm" className="w-full">
-                    <a href={product.permalink} className="inline-flex items-center justify-center gap-2">
-                      <ShoppingCart className="h-4 w-4" />
-                      Ver Producto
-                    </a>
-                  </Button>
+                  {/* Add to Cart Button - Hidden by default, shows on hover */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2">
+                    <Button asChild size="sm" variant="outline" className="w-full text-xs uppercase tracking-wider">
+                      <a href={product.permalink} className="inline-flex items-center justify-center gap-2">
+                        Ver Detalles
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>
