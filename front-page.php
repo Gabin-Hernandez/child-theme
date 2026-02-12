@@ -208,7 +208,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Pantallas -->
-                <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
+                <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="group bg-white p-4 text-center border border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-purple-50 rounded-xl flex items-center justify-center group-hover:bg-purple-100 transition-colors">
                         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
