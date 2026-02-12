@@ -133,60 +133,11 @@ get_header(); ?>
             </div>
 
             <!-- Navegación Swiper -->
-            <div class="swiper-pagination !bottom-16 md:!bottom-20"></div>
-            <div class="swiper-button-next !text-white/70 hover:!text-white !right-4 md:!right-8 after:!text-2xl"></div>
-            <div class="swiper-button-prev !text-white/70 hover:!text-white !left-4 md:!left-8 after:!text-2xl"></div>
-        </div>
-
-        <!-- Barra de búsqueda flotante sobre el hero -->
-        <div class="absolute bottom-0 left-0 right-0 z-20 translate-y-1/2">
-            <div class="container max-w-2xl mx-auto px-4">
-                <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>" class="relative">
-                    <input type="hidden" name="post_type" value="product">
-                    <div class="flex items-center bg-white rounded-xl shadow-2xl overflow-hidden ring-1 ring-slate-200">
-                        <div class="pl-5 text-slate-400">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </div>
-                        <input type="search" name="s" 
-                               placeholder="Busca pantallas, baterías, herramientas..." 
-                               class="flex-1 px-4 py-4 text-base text-slate-800 placeholder-slate-400 border-0 outline-none bg-transparent"
-                               autocomplete="off">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold text-sm transition-colors">
-                            Buscar
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </section>
-
-    <!-- ============================================ -->
-    <!-- BÚSQUEDAS RÁPIDAS                           -->
-    <!-- ============================================ -->
-    <div class="pt-10 pb-4 bg-slate-50">
-        <div class="flex flex-wrap justify-center gap-2 md:gap-3 container max-w-4xl mx-auto px-4">
-            <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="bg-white hover:bg-blue-50 text-slate-600 hover:text-blue-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-blue-300 transition-all">
-                Pantallas LCD
-            </a>
-            <a href="<?php echo esc_url(home_url('/baterias/')); ?>" class="bg-white hover:bg-green-50 text-slate-600 hover:text-green-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-green-300 transition-all">
-                Baterías
-            </a>
-            <a href="/?post_type=product&s=&product_cat=herramientas" class="bg-white hover:bg-amber-50 text-slate-600 hover:text-amber-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-amber-300 transition-all">
-                Herramientas
-            </a>
-            <a href="<?php echo esc_url(home_url('/microscopios/')); ?>" class="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-sky-300 transition-all">
-                Microscopios
-            </a>
-            <a href="<?php echo esc_url(home_url('/soldadura/')); ?>" class="bg-white hover:bg-red-50 text-slate-600 hover:text-red-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-red-300 transition-all">
-                Soldadura
-            </a>
-            <a href="<?php echo esc_url(home_url('/insumos-consumibles/')); ?>" class="bg-white hover:bg-purple-50 text-slate-600 hover:text-purple-700 text-sm px-4 py-2 rounded-full border border-slate-200 hover:border-purple-300 transition-all">
-                Insumos
-            </a>
-        </div>
-    </div>
 
     <!-- ============================================ -->
     <!-- BARRA DE CONFIANZA COMPACTA                 -->
