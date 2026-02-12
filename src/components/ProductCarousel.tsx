@@ -159,7 +159,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
             <SwiperSlide key={product.id}>
               <div className="group relative">
                 {/* Product Image */}
-                <a href={product.permalink} className="block relative aspect-[4/5] overflow-hidden bg-muted/30 mb-4">
+                <a href={product.permalink} className="block relative aspect-square overflow-hidden bg-muted/30 mb-4">
                   <img
                     src={product.images[0]?.src || '/placeholder.jpg'}
                     alt={product.images[0]?.alt || product.name}
