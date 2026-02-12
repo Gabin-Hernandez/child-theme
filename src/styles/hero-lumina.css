@@ -2,14 +2,14 @@
 .hero-lumina-wrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 70vh;
   overflow: hidden;
 }
 
 .slider-wrapper {
   position: relative;
   width: 100%;
-  height: 85vh;
+  height: 70vh;
   overflow: hidden;
   background: #000;
   opacity: 0;

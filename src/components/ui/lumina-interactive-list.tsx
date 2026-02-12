@@ -158,7 +158,7 @@ export function Component() {
         };
 
         const splitText = (text: string) => {
-            return text.split('').map(char => `<span style="display: inline-block; opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+            return text.split('').map(char => `<span style="display: inline-block; opacity: 0; color: #ffffff !important;">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
         };
 
         const updateContent = (idx: number) => {
@@ -271,7 +271,9 @@ export function Component() {
                 const item = document.createElement("div");
                 item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
                 item.dataset.slideIndex = String(i);
-                item.innerHTML = `<div class="slide-progress-line"><div class="slide-progress-fill"></div></div><div class="slide-nav-title">${slide.title}</div>`;
+                item.innerHTML = `<div class="slide-progress-line" style="width: 60px; height: 2px; background: rgba(255,255,255,0.3); margin-bottom: 0.5rem; position: relative; overflow: hidden;"><div class="slide-progress-fill" style="position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: #fff; transition: width 0.1s ease, opacity 0.3s ease;"></div></div><div class="slide-nav-title" style="font-size: 0.7rem; font-weight: 400; color: #fff !important; text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; text-shadow: 0 3px 10px rgba(0,0,0,0.9); opacity: ${i === 0 ? '1' : '0.7'};">${slide.title}</div>`;
+                item.style.cursor = 'pointer';
+                item.style.padding = '0.5rem 0';
                 item.addEventListener("click", (e) => {
                     e.stopPropagation();
                     if (!isTransitioning && i !== currentSlideIndex) {
@@ -284,7 +286,11 @@ export function Component() {
             });
         };
 
-        const updateNavigationState = (idx: number) => document.querySelectorAll(".slide-nav-item").forEach((el, i) => el.classList.toggle("active", i === idx));
+        const updateNavigationState = (idx: number) => document.querySelectorAll(".slide-nav-item").forEach((el, i) => { 
+            el.classList.toggle("active", i === idx);
+            const title = el.querySelector(".slide-nav-title") as HTMLElement;
+            if (title) title.style.opacity = i === idx ? '1' : '0.7';
+        });
         const updateSlideProgress = (idx: number, prog: number) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement; if (el) { el.style.width = `${prog}%`; el.style.opacity = '1'; } };
         const fadeSlideProgress = (idx: number) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement; if (el) { el.style.opacity = '0'; setTimeout(() => el.style.width = "0%", 300); } };
         const quickResetProgress = (idx: number) => { const el = document.querySelectorAll(".slide-nav-item")[idx]?.querySelector(".slide-progress-fill") as HTMLElement; if (el) { el.style.transition = "width 0.2s ease-out"; el.style.width = "0%"; setTimeout(() => el.style.transition = "width 0.1s ease, opacity 0.3s ease", 200); } };
@@ -385,16 +391,16 @@ export function Component() {
     <>
 
       <main className="slider-wrapper" ref={containerRef}>
-        <canvas className="webgl-canvas"></canvas>
-        <span className="slide-number" id="slideNumber">01</span>
-        <span className="slide-total" id="slideTotal">06</span>
+        <canvas className="webgl-canvas" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}></canvas>
+        <span className="slide-number" id="slideNumber" style={{ position: 'absolute', top: '5%', left: '5%', zIndex: 1000, color: '#fff', fontSize: '1rem', fontFamily: 'monospace', textShadow: '0 3px 10px rgba(0,0,0,0.9)' }}>01</span>
+        <span className="slide-total" id="slideTotal" style={{ position: 'absolute', top: '5%', left: 'calc(5% + 3rem)', zIndex: 1000, color: '#fff', fontSize: '1rem', fontFamily: 'monospace', textShadow: '0 3px 10px rgba(0,0,0,0.9)' }}>06</span>
         
-        <div className="slide-content">
-            <h1 className="slide-title" id="mainTitle"></h1>
-            <p className="slide-description" id="mainDesc"></p>
+        <div className="slide-content" style={{ position: 'absolute', bottom: '20%', left: '5%', zIndex: 1000, color: '#fff', maxWidth: '600px', pointerEvents: 'none' }}>
+            <h1 className="slide-title" id="mainTitle" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 1rem 0', textTransform: 'uppercase', color: '#fff', textShadow: '0 3px 15px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.7)', zIndex: 1000, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0))', padding: '0.5rem 0' }}></h1>
+            <p className="slide-description" id="mainDesc" style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)', lineHeight: 1.6, opacity: 1, fontWeight: 300, margin: 0, color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)', zIndex: 1000, background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '4px' }}></p>
         </div>
        
-        <nav className="slides-navigation" id="slidesNav"></nav>
+        <nav className="slides-navigation" id="slidesNav" style={{ position: 'absolute', bottom: '5%', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, display: 'flex', flexDirection: 'row', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}></nav>
       </main>
     </>
   );
