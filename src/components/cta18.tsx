@@ -1,3 +1,5 @@
+import { MessageCircle } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -34,7 +36,10 @@ const Cta18 = ({ className }: Cta18Props) => {
                 <a href="/tienda">Explorar Catálogo Completo</a>
               </Button>
               <Button variant="outline" asChild size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
-                <a href="https://wa.me/5218123894076" target="_blank" rel="noopener noreferrer">Contáctanos por WhatsApp</a>
+                <a href="https://wa.me/5218123894076" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  Contáctanos por WhatsApp
+                </a>
               </Button>
             </div>
             
