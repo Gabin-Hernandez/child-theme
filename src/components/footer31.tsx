@@ -1,12 +1,9 @@
 "use client";
 
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import React from "react";
 
 import { cn } from "@/lib/utils";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const NAVIGATION = [
   { label: "Tienda", href: "/tienda" },
@@ -37,6 +34,15 @@ const Footer31 = ({ className }: Footer31Props) => {
       className={cn("dark bg-background py-32 text-foreground", className)}
     >
       <div className="container">
+        {/* Logo Section */}
+        <div className="flex justify-center mb-16">
+          <img 
+            src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
+            alt="ITOOLS MX" 
+            className="h-16 w-auto"
+          />
+        </div>
+
         <div className="flex flex-col justify-between gap-15 lg:flex-row">
           <div className="flex flex-col gap-10">
             <p className="relative text-4xl font-medium tracking-tight lg:text-5xl">
@@ -84,43 +90,30 @@ const Footer31 = ({ className }: Footer31Props) => {
             </ul>
           </div>
         </div>
-        <div className="mt-20 flex flex-col justify-between gap-15 lg:flex-row">
-          <div className="flex w-full max-w-md flex-col gap-10">
-            <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
-              <p>Suscríbete a nuestro boletín:</p>
-              <form className="flex w-full items-end border-b border-b-foreground/10">
-                <Input
-                  type="email"
-                  placeholder="Tu email*"
-                  className="mt-10 rounded-none border-0 !bg-transparent p-0 shadow-none placeholder:text-foreground/20 focus-visible:ring-0 lg:text-base"
-                />
-                <Button type="submit" variant="ghost">
-                  <ArrowRight />
-                </Button>
-              </form>
-            </div>
-          </div>
-          <div className="grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base">
-            <div className="w-40">
+        <div className="mt-20 flex flex-col justify-between gap-10 lg:flex-row">
+          <div className="flex w-full max-w-md flex-col gap-4">
+            <div className="text-sm font-light tracking-tight lg:text-base">
               <p className="font-medium mb-2">ITOOLS MX</p>
               <p className="text-foreground/70">Monterrey, Nuevo León<br />México</p>
             </div>
-            <ul className="space-y-1">
+          </div>
+          <div className="flex items-center">
+            <ul className="flex gap-8 text-sm font-light lg:text-base">
               {FOOTER_LINKS.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="group flex items-center gap-1 tracking-tight text-foreground hover:text-foreground/30"
+                    className="tracking-tight text-foreground hover:text-foreground/30"
                   >
-                    {item.label}{" "}
+                    {item.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div className="mt-20 w-full lg:mt-32">
-          <div className="text-6xl md:text-8xl lg:text-9xl font-bold text-foreground/10 select-none">
+        <div className="mt-20 w-full lg:mt-32 flex justify-center">
+          <div className="text-6xl md:text-8xl lg:text-9xl font-bold text-foreground/10 select-none text-center">
             ITOOLS MX
           </div>
         </div>
