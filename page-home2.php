@@ -15,6 +15,12 @@
 
 get_header(); ?>
 
+<style>
+    .page-template-page-home2 .site-main {
+        margin-bottom: 0 !important;
+    }
+</style>
+
 <main id="main" class="site-main" role="main">
     <?php
     /**
