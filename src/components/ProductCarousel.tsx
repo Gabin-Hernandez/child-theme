@@ -105,7 +105,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             Productos Destacados
           </h2>
-          <Button asChild variant="outline" className="uppercase text-xs tracking-wider">
+          <Button asChild className="uppercase text-xs tracking-wider bg-black text-white hover:bg-black/90">
             <a href="/tienda">Ver Todos</a>
           </Button>
         </div>
