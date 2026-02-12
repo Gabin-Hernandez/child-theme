@@ -17,8 +17,8 @@ export default defineConfig({
   build: {
     // Output to dist/ inside the theme
     outDir: 'dist',
-    // Generate manifest for WordPress asset enqueuing
-    manifest: true,
+    // Generate manifest for WordPress asset enqueuing (without dot prefix for FTP compatibility)
+    manifest: 'manifest.json',
     rollupOptions: {
       input: {
         home2: path.resolve(__dirname, 'src/main.tsx'),

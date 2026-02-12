@@ -1,0 +1,11 @@
+{
+  "src/main.tsx": {
+    "file": "js/home2.js",
+    "name": "home2",
+    "src": "src/main.tsx",
+    "isEntry": true,
+    "css": [
+      "css/home2.css"
+    ]
+  }
+}

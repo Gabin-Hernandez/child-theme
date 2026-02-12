@@ -88,7 +88,7 @@ function itools_enqueue_vite_home2() {
         );
     } else {
         // === PRODUCTION MODE: Load built assets from dist/ ===
-        $manifest_path = $theme_dir . '/dist/.vite/manifest.json';
+        $manifest_path = $theme_dir . '/dist/manifest.json';
 
         if ( ! file_exists( $manifest_path ) ) {
             // No build found — show admin notice
