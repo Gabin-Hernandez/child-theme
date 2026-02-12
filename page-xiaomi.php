@@ -27,7 +27,7 @@ add_action('wp_head', function() {
             echo '<meta property="og:image:alt" content="Repuestos Xiaomi - ITOOLS">' . "\n";
         }
     }
-    
+     
     echo '<link rel="canonical" href="' . get_permalink() . '">' . "\n";
     
     // Datos estructurados JSON-LD
