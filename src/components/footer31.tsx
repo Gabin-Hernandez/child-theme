@@ -34,30 +34,32 @@ const Footer31 = ({ className }: Footer31Props) => {
       className={cn("dark bg-background py-32 text-foreground", className)}
     >
       <div className="container">
-        {/* Logo Section */}
-        <div className="flex justify-center mb-16">
-          <img 
-            src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
-            alt="ITOOLS MX" 
-            className="h-16 w-auto"
-          />
-        </div>
-
         <div className="flex flex-col justify-between gap-15 lg:flex-row">
           <div className="flex flex-col gap-10">
+            {/* Logo */}
+            <img 
+              src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
+              alt="ITOOLS MX" 
+              className="h-12 w-auto"
+            />
             <p className="relative text-4xl font-medium tracking-tight lg:text-5xl">
               Todo para tu taller<br />de reparación
             </p>
             <div className="space-y-1 text-sm font-light tracking-tight lg:text-base">
-              <p>Contáctanos:</p>
-              <a href="mailto:contacto@itoolsmx.com" className="hover:text-blue-400 transition-colors">
-                contacto@itoolsmx.com
-              </a>
+              <p className="font-medium">Contáctanos:</p>
+              <p className="text-foreground/70">Calle Heron Ramirez #715 Col. Rodriguez<br />Reynosa, Tamaulipas<br />México</p>
               <p className="mt-2">
-                <a href="tel:+528123894076" className="hover:text-blue-400 transition-colors">
-                  +52 81 2389 4076
+                <a href="tel:+528991450042" className="hover:text-blue-400 transition-colors">
+                  899 145 0042
                 </a>
               </p>
+              <p className="text-foreground/70">Lun - Vie 9:00 - 18:00</p>
+              <p className="mt-2">
+                <a href="mailto:itoolsmx05@gmail.com" className="hover:text-blue-400 transition-colors">
+                  itoolsmx05@gmail.com
+                </a>
+              </p>
+              <p className="text-foreground/50 text-xs">Respuesta en 24hrs</p>
             </div>
           </div>
           <div className="grid w-full max-w-xs grid-cols-2 gap-10 text-sm font-light lg:text-base">
@@ -92,9 +94,8 @@ const Footer31 = ({ className }: Footer31Props) => {
         </div>
         <div className="mt-20 flex flex-col justify-between gap-10 lg:flex-row">
           <div className="flex w-full max-w-md flex-col gap-4">
-            <div className="text-sm font-light tracking-tight lg:text-base">
-              <p className="font-medium mb-2">ITOOLS MX</p>
-              <p className="text-foreground/70">Monterrey, Nuevo León<br />México</p>
+            <div className="text-sm font-light tracking-tight lg:text-base text-foreground/70">
+              © {new Date().getFullYear()} ITOOLS MX. Todos los derechos reservados.
             </div>
           </div>
           <div className="flex items-center">
