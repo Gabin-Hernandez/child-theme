@@ -10,6 +10,8 @@
  * They will be placed in src/components/ui/
  */
 
+import { Footer31 } from '@/components/footer31'
+
 export default function Home2() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -77,6 +79,11 @@ export default function Home2() {
           ))}
         </div>
       </section>
+
+      {/* ========================================== */}
+      {/* FOOTER - shadcn block                      */}
+      {/* ========================================== */}
+      <Footer31 />
     </div>
   )
 }
