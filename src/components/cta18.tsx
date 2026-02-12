@@ -16,7 +16,7 @@ const Cta18 = ({ className }: Cta18Props) => {
               ¿Necesitas Herramientas Profesionales?
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
-              Descubre nuestro amplio catálogo de refacciones, herramientas y equipo especializado. Productos de calidad para profesionales y entusiastas.
+              Encuentra refacciones, herramientas y equipo técnico de alto desempeño. Soluciones confiables para profesionales y apasionados del sector.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button asChild className="text-white hover:text-white">
