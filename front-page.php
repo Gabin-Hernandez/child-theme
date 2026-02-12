@@ -197,7 +197,7 @@ get_header(); ?>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
                 <!-- Refacciones -->
-                <a href="/?post_type=product&s=&product_cat=refacciones" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="/?post_type=product&s=&product_cat=refacciones" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-blue-50 rounded-xl flex items-center justify-center group-hover:bg-blue-100 transition-colors">
                         <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -208,7 +208,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Pantallas -->
-                <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="<?php echo esc_url(home_url('/pantallas-lcd/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-purple-50 rounded-xl flex items-center justify-center group-hover:bg-purple-100 transition-colors">
                         <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -219,7 +219,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Herramientas -->
-                <a href="/?post_type=product&s=&product_cat=herramientas" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="/?post_type=product&s=&product_cat=herramientas" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-amber-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-amber-50 rounded-xl flex items-center justify-center group-hover:bg-amber-100 transition-colors">
                         <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
@@ -231,7 +231,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Baterías -->
-                <a href="<?php echo esc_url(home_url('/baterias/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="<?php echo esc_url(home_url('/baterias/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-green-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-green-50 rounded-xl flex items-center justify-center group-hover:bg-green-100 transition-colors">
                         <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
@@ -242,7 +242,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Microscopios -->
-                <a href="<?php echo esc_url(home_url('/microscopios/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-sky-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="<?php echo esc_url(home_url('/microscopios/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-sky-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-sky-50 rounded-xl flex items-center justify-center group-hover:bg-sky-100 transition-colors">
                         <svg class="w-7 h-7 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
@@ -253,7 +253,7 @@ get_header(); ?>
                 </a>
 
                 <!-- Soldadura -->
-                <a href="<?php echo esc_url(home_url('/soldadura/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-red-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center justify-start min-h-[140px]">
+                <a href="<?php echo esc_url(home_url('/soldadura/')); ?>" class="group bg-white rounded-xl p-4 text-center border border-slate-200 hover:border-red-300 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col items-center">
                     <div class="w-14 h-14 mx-auto mb-3 bg-red-50 rounded-xl flex items-center justify-center group-hover:bg-red-100 transition-colors">
                         <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
