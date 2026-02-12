@@ -44,9 +44,6 @@ const Footer31 = ({ className }: Footer31Props) => {
               width="200"
               height="60"
             />
-            <p className="relative text-4xl font-medium tracking-tight lg:text-5xl leading-tight text-balance">
-              Todo para tu taller<br />de reparación
-            </p>
             <div className="space-y-4 text-sm font-light tracking-tight lg:text-base">
               <div className="space-y-1">
                 <p className="font-semibold text-foreground/90">Contáctanos</p>
