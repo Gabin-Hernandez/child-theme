@@ -24,8 +24,8 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Fetch recent products sorted by date
-        const response = await fetch('/wp-json/wc/store/v1/products?per_page=50&orderby=date&order=desc');
+        // Fetch most recent products sorted by creation date (descending)
+        const response = await fetch('/wp-json/wc/store/v1/products?per_page=100&orderby=date&order=desc');
         
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -33,7 +33,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
         
         const data = await response.json();
         
-        // Filter and validate products
+        // Filter and validate products - get first 8 valid recent products
         const transformedProducts = data
           .filter((item: any) => {
             // Must have valid images
@@ -47,14 +47,15 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
             const hasValidPrice = item.prices?.price && 
                    parseFloat(item.prices.price) > 0;
             
-            // Must have valid name (not generic or too short)
+            // Must have valid name (not too short or generic)
             const hasValidName = item.name && 
-                   item.name.trim().length > 5 &&
+                   item.name.trim().length > 3 &&
                    !item.name.toLowerCase().includes('producto sin') &&
                    item.name.toLowerCase() !== 'producto';
             
             return hasValidImage && hasValidPrice && hasValidName;
           })
+          .slice(0, 8) // Take first 8 valid products (these are the most recent)
           .map((item: any) => ({
             id: item.id,
             name: item.name,
@@ -64,8 +65,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
             images: item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })),
             permalink: item.permalink || '#',
             on_sale: item.prices?.price !== item.prices?.regular_price,
-          }))
-          .slice(0, 8);
+          }));
         
         setProducts(transformedProducts);
       } catch (error) {
