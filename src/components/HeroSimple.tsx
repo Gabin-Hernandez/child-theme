@@ -133,15 +133,15 @@ export function HeroSimple() {
       </div>
 
       {/* Navigation Dots - Bottom Center */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-6">
+      <div className="absolute bottom-8 left-0 right-0 z-20 flex items-center justify-center gap-4 md:gap-6 px-4">
         {slides.map((slide, index) => (
           <button
             key={slide.id}
             onClick={() => goToSlide(index)}
-            className="group flex flex-col items-center gap-2 transition-all hover:scale-110"
+            className="group flex flex-col items-center gap-2 transition-all hover:scale-110 outline-none focus:outline-none focus-visible:outline-none"
           >
             {/* Progress Bar */}
-            <div className="relative w-16 h-0.5 bg-white/20 rounded-full overflow-hidden">
+            <div className="relative w-12 md:w-16 h-0.5 bg-white/20 rounded-full overflow-hidden">
               <div
                 className={`absolute inset-y-0 left-0 bg-white rounded-full transition-all duration-300 ${
                   index === currentSlide ? 'w-full' : 'w-0'
@@ -170,14 +170,14 @@ export function HeroSimple() {
       <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 md:hidden">
         <button
           onClick={prevSlide}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
+          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all outline-none focus:outline-none active:scale-95"
           aria-label="Previous slide"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all"
+          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all outline-none focus:outline-none active:scale-95"
           aria-label="Next slide"
         >
           <ChevronRight className="w-6 h-6" />
