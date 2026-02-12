@@ -16,15 +16,15 @@ import { ProductCarousel } from '@/components/ProductCarousel'
 import { Feature200 } from '@/components/feature200'
 import { NewArrivals } from '@/components/NewArrivals'
 import { Feature323 } from '@/components/feature323'
-import { HeroLumina } from '@/components/HeroLumina'
+import { HeroSimple } from '@/components/HeroSimple'
 
 export default function Home2() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* ========================================== */}
-      {/* HERO SECTION - Lumina Interactive List     */}
+      {/* HERO SECTION - Simple Elegant Slider      */}
       {/* ========================================== */}
-      <HeroLumina />
+      <HeroSimple />
 
       {/* ========================================== */}
       {/* FEATURE323 SECTION - shadcn block          */}
