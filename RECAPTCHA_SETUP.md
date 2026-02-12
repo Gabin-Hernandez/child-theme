@@ -15,7 +15,7 @@
 5. Copia las claves generadas:
    - **Clave del sitio** (Site Key)
    - **Clave secreta** (Secret Key)
-
+ 
 ### ⚠️ IMPORTANTE: Diferencias entre v2 y v3
 - **reCAPTCHA v2**: Muestra el checkbox "No soy un robot"
 - **reCAPTCHA v3**: Es invisible y analiza el comportamiento del usuario automáticamente
