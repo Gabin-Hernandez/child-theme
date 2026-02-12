@@ -153,7 +153,7 @@ export function HeroSimple() {
             </div>
             {/* Label */}
             <span
-              className={`text-xs uppercase tracking-wider transition-all whitespace-nowrap ${
+              className={`hidden text-xs uppercase tracking-wider transition-all whitespace-nowrap ${
                 index === currentSlide
                   ? 'text-white opacity-100'
                   : 'text-white/50 opacity-70 group-hover:opacity-100'
@@ -167,7 +167,7 @@ export function HeroSimple() {
       </div>
 
       {/* Navigation Arrows - Mobile */}
-      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 md:hidden">
+      <div className="hidden absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 md:hidden">
         <button
           onClick={prevSlide}
           className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all outline-none focus:outline-none active:scale-95"
