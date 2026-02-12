@@ -34,12 +34,12 @@ const Footer31 = ({ className }: Footer31Props) => {
       <div className="container px-4 md:px-6">
         
         {/* Top: Logo Only */}
-        <div className="flex w-full justify-start mb-16 border-b border-foreground/10 pb-16">
+        <div className="flex w-full justify-center mb-16 border-b border-foreground/10 pb-16">
           <div className="block">
             <img 
               src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
               alt="ITOOLS MX" 
-              className="h-6 w-auto grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
+              className="h-16 md:h-20 w-auto grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
             />
           </div>
         </div>
