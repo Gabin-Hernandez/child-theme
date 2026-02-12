@@ -36,7 +36,8 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
     const fetchProducts = async () => {
       try {
         // Using Store API which doesn't require authentication
-        const response = await fetch('/wp-json/wc/store/v1/products?per_page=12&orderby=popularity');
+        // Fetch more products to account for filtering
+        const response = await fetch('/wp-json/wc/store/v1/products?per_page=20&orderby=popularity');
         
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -45,16 +46,26 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
         const data = await response.json();
         
         // Transform Store API format to match our interface
-        const transformedProducts = data.map((item: any) => ({
-          id: item.id,
-          name: item.name,
-          price: item.prices?.price || '0',
-          regular_price: item.prices?.regular_price || '0',
-          sale_price: item.prices?.sale_price || item.prices?.price || '0',
-          images: item.images?.length > 0 ? item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })) : [{ src: '/wp-content/uploads/woocommerce-placeholder.png', alt: item.name }],
-          permalink: item.permalink || '#',
-          on_sale: item.prices?.price !== item.prices?.regular_price,
-        }));
+        const transformedProducts = data
+          .filter((item: any) => {
+            // Only include products with real images (not placeholders)
+            return item.images && 
+                   item.images.length > 0 && 
+                   item.images[0].src && 
+                   !item.images[0].src.includes('woocommerce-placeholder') &&
+                   !item.images[0].src.includes('placeholder.png');
+          })
+          .map((item: any) => ({
+            id: item.id,
+            name: item.name,
+            price: item.prices?.price || '0',
+            regular_price: item.prices?.regular_price || '0',
+            sale_price: item.prices?.sale_price || item.prices?.price || '0',
+            images: item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })),
+            permalink: item.permalink || '#',
+            on_sale: item.prices?.price !== item.prices?.regular_price,
+          }))
+          .slice(0, 10); // Only take top 10 after filtering
         
         setProducts(transformedProducts);
       } catch (error) {
@@ -103,7 +114,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Productos Destacados
+            Top 10 Más Vendidos
           </h2>
           <Button asChild className="uppercase text-xs tracking-wider bg-black text-white hover:bg-black/90">
             <a href="/tienda">Ver Todos</a>
