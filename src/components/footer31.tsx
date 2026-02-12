@@ -33,29 +33,9 @@ const Footer31 = ({ className }: Footer31Props) => {
     <section className={cn("bg-background text-foreground py-16 border-t font-sans", className)}>
       <div className="container px-4 md:px-6">
         
-        {/* Top: Newsletter + Logo */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-16 border-b border-foreground/10 pb-16">
-          <div className="w-full max-w-sm">
-            <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-4">Newsletter</h3>
-            <p className="text-[11px] uppercase tracking-wide text-foreground/60 mb-6 leading-relaxed">
-              Suscríbete ahora para recibir actualizaciones sobre nuevos productos, ofertas especiales y más información de ITOOLS MX.
-            </p>
-            <form className="flex w-full items-end gap-2 border-b border-foreground focus-within:border-foreground/50 transition-colors pb-1 group">
-              <input
-                type="email"
-                placeholder="INTRODUCE TU E-MAIL"
-                className="w-full bg-transparent py-2 text-xs outline-none placeholder:text-foreground/40 uppercase tracking-widest"
-              />
-              <button 
-                type="submit" 
-                className="pb-2 text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity"
-              >
-                Suscribirse
-              </button>
-            </form>
-          </div>
-          
-          <div className="hidden md:block">
+        {/* Top: Logo Only */}
+        <div className="flex w-full justify-start mb-16 border-b border-foreground/10 pb-16">
+          <div className="block">
             <img 
               src="https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png" 
               alt="ITOOLS MX" 
