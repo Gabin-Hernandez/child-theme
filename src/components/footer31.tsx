@@ -109,7 +109,7 @@ const Footer31 = ({ className }: Footer31Props) => {
           </div>
           
           {/* Branding Vertical */}
-           <div className="hidden lg:flex flex-col justify-end items-end col-span-1 h-full select-none pointer-events-none overflow-hidden">
+           <div className="flex flex-col justify-end items-end col-span-1 h-full select-none pointer-events-none overflow-hidden">
               <span 
                 className="text-7xl font-black tracking-tighter bg-[linear-gradient(to_right,#ff0000,#ff8000,#ffff00,#00ff00,#00ffff,#0000ff,#8000ff,#ff0000)] bg-clip-text text-transparent animate-gradient-loop" 
                 style={{ 
