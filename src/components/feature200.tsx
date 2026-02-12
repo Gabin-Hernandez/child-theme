@@ -1,4 +1,4 @@
-import { BarChart, Check, Shield, Zap } from "lucide-react";
+import { Check, Package, Shield, Store } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -9,36 +9,36 @@ interface Feature200Props {
 const Feature200 = ({ className }: Feature200Props) => {
   const features = [
     {
-      title: "Cloud Storage",
-      icon: Zap,
-      iconColor: "text-purple-400/90",
-      bgGradient: "from-purple-500",
+      title: "Envíos a Todo México",
+      icon: Package,
+      iconColor: "text-blue-400/90",
+      bgGradient: "from-blue-500",
       features: [
-        "Unlimited storage space",
-        "Automatic file backup",
-        "Fast retrieval times",
+        "Entrega rápida y confiable",
+        "Rastreo en tiempo real",
+        "Múltiples opciones de envío",
       ],
     },
     {
-      title: "Performance Scaling",
-      icon: BarChart,
-      iconColor: "text-teal-400/90",
-      bgGradient: "from-teal-500",
-      features: [
-        "Auto-scaling resources",
-        "Load balancing across servers",
-        "Real-time performance metrics",
-      ],
-    },
-    {
-      title: "Security Protection",
+      title: "Calidad Garantizada",
       icon: Shield,
-      iconColor: "text-red-400/90",
-      bgGradient: "from-red-500",
+      iconColor: "text-green-400/90",
+      bgGradient: "from-green-500",
       features: [
-        "DDoS attack prevention",
-        "SSL certificate management",
-        "Daily security scanning",
+        "Productos originales certificados",
+        "Garantía de satisfacción",
+        "Soporte técnico especializado",
+      ],
+    },
+    {
+      title: "Amplio Catálogo",
+      icon: Store,
+      iconColor: "text-orange-400/90",
+      bgGradient: "from-orange-500",
+      features: [
+        "Más de 19,000 productos",
+        "Refacciones y herramientas",
+        "Stock siempre disponible",
       ],
     },
   ];
