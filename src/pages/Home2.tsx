@@ -15,6 +15,7 @@ import { Cta18 } from '@/components/cta18'
 import { ProductCarousel } from '@/components/ProductCarousel'
 import { Feature200 } from '@/components/feature200'
 import { NewArrivals } from '@/components/NewArrivals'
+import { Feature323 } from '@/components/feature323'
 
 export default function Home2() {
   return (
@@ -83,6 +84,11 @@ export default function Home2() {
           ))}
         </div>
       </section>
+
+      {/* ========================================== */}
+      {/* FEATURE323 SECTION - shadcn block          */}
+      {/* ========================================== */}
+      <Feature323 />
 
       {/* ========================================== */}
       {/* NEW ARRIVALS - Product Grid                */}
