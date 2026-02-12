@@ -109,8 +109,16 @@ const Footer31 = ({ className }: Footer31Props) => {
           </div>
           
           {/* Branding Vertical */}
-           <div className="hidden lg:flex flex-col justify-end items-end col-span-1 h-full opacity-10 select-none pointer-events-none">
-              <span className="text-7xl font-black tracking-tighter writing-mode-vertical" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>ITOOLS</span>
+           <div className="hidden lg:flex flex-col justify-end items-end col-span-1 h-full select-none pointer-events-none overflow-hidden">
+              <span 
+                className="text-7xl font-black tracking-tighter bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-loop" 
+                style={{ 
+                  writingMode: 'vertical-rl', 
+                  transform: 'rotate(180deg)'
+                }}
+              >
+                ITOOLS
+              </span>
            </div>
 
         </div>
