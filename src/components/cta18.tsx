@@ -10,7 +10,7 @@ interface Cta18Props {
 
 const Cta18 = ({ className }: Cta18Props) => {
   return (
-    <section className={cn("py-12 md:py-24", className)}>
+    <section className={cn("pb-12 md:pb-24", className)}>
       <div className="container">
         <div 
           className="relative mx-auto max-w-7xl overflow-hidden rounded-xl border"
