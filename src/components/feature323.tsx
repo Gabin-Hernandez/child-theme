@@ -378,9 +378,6 @@ const Feature323 = ({
   return (
     <section className={cn("py-32", className)}>
       <div className="container space-y-20">
-        <div className="relative left-1/2 max-w-5xl -translate-x-1/2">
-          <h2 className="text-2xl font-semibold sm:text-5xl">{heading}</h2>
-        </div>
         <div className="relative h-full min-h-[60vh] w-full overflow-hidden rounded-4xl bg-muted px-8 py-8 md:min-h-full md:py-20">
           <FeaturesDesktop
             features={features}
