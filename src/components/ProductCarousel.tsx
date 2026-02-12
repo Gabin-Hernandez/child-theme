@@ -1,7 +1,5 @@
-import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Pagination, Autoplay } from 'swiper/modules';
 import { Button } from '@/components/ui/button';
 
 // Import Swiper styles
@@ -30,7 +28,7 @@ const brands: Brand[] = [
   {
     id: 2,
     name: 'Samsung',
-    logo: 'https://toppng.com/uploads/preview/samsung-logo-vector-11574247632vdxcb2tgvm.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Samsung_old_logo_before_year_2015.svg/1280px-Samsung_old_logo_before_year_2015.svg.png',
     permalink: '/page-samsung',
   },
   {
@@ -48,9 +46,6 @@ const brands: Brand[] = [
 ];
 
 export const ProductCarousel = ({ className }: ProductCarouselProps) => {
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
-
   return (
     <section className={`pt-16 md:pt-24 bg-background ${className}`}>
       <div className="container">
@@ -66,40 +61,12 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Custom Navigation Buttons */}
-          <button
-            ref={prevRef}
-            className="swiper-button-prev-custom absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:bg-black hover:text-white disabled:opacity-30 -ml-6"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            ref={nextRef}
-            className="swiper-button-next-custom absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:bg-black hover:text-white disabled:opacity-30 -mr-6"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-
           {/* Swiper Carousel */}
           <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Pagination, Autoplay]}
           spaceBetween={24}
           slidesPerView={2}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            if (typeof swiper.params.navigation !== 'boolean') {
-              const navigation = swiper.params.navigation;
-              if (navigation) {
-                navigation.prevEl = prevRef.current;
-                navigation.nextEl = nextRef.current;
-              }
-            }
-          }}
+
           pagination={{ clickable: true }}
           autoplay={{ delay: 3500, disableOnInteraction: false }}
           breakpoints={{
