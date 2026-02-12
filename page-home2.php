@@ -25,4 +25,9 @@ get_header(); ?>
     <div id="shadcn-home2-root"></div>
 </main>
 
-<?php get_footer(); ?>
+</div><!-- #content -->
+</div><!-- #page -->
+
+<?php wp_footer(); ?>
+</body>
+</html>
