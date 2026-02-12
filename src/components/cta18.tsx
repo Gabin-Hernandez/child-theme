@@ -29,16 +29,11 @@ const Cta18 = ({ className }: Cta18Props) => {
               </Button>
             </div>
           </div>
-          <div className="relative ml-6 max-h-96 md:mt-8 md:ml-0">
+          <div className="relative ml-6 max-h-96 md:mt-8 md:ml-0 md:min-w-[400px]">
             <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg"
-              alt="placeholder"
-              className="absolute -bottom-12 left-4 h-48 -translate-x-1/2 -rotate-[120deg]"
-            />
-            <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-dark-1.svg"
-              alt="placeholder"
-              className="z-10 aspect-video h-full w-full rounded-tl-xl border-t border-l object-cover pt-3.5 pl-3.5 backdrop-blur-sm"
+              src="https://plus.unsplash.com/premium_photo-1723914054622-5e11ec4d8b3f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjIyfHxoYXJkd2FyZXxlbnwwfHwwfHx8MA%3D%3D"
+              alt="Hardware tools"
+              className="h-full w-full rounded-tr-xl rounded-br-xl object-cover"
             />
           </div>
         </div>
