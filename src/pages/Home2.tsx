@@ -12,6 +12,7 @@
 
 import { Footer31 } from '@/components/footer31'
 import { Cta18 } from '@/components/cta18'
+import { ProductCarousel } from '@/components/ProductCarousel'
 
 export default function Home2() {
   return (
@@ -80,6 +81,11 @@ export default function Home2() {
           ))}
         </div>
       </section>
+
+      {/* ========================================== */}
+      {/* PRODUCTS CAROUSEL - Swiper.js              */}
+      {/* ========================================== */}
+      <ProductCarousel />
 
       {/* ========================================== */}
       {/* CTA SECTION - shadcn block                 */}

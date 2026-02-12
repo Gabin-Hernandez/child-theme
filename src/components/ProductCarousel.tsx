@@ -1,0 +1,150 @@
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { ShoppingCart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+interface Product {
+  id: number;
+  name: string;
+  price: string;
+  regular_price: string;
+  sale_price: string;
+  images: Array<{ src: string; alt: string }>;
+  permalink: string;
+  on_sale: boolean;
+}
+
+interface ProductCarouselProps {
+  className?: string;
+}
+
+export const ProductCarousel = ({ className }: ProductCarouselProps) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch products from WooCommerce REST API
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/wp-json/wc/v3/products?per_page=12&orderby=popularity');
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className={`py-16 md:py-24 ${className}`}>
+        <div className="container">
+          <div className="text-center">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className={`py-16 md:py-24 bg-background ${className}`}>
+      <div className="container">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+            Productos Destacados
+          </h2>
+          <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
+            Descubre nuestra selección de productos más populares y mejor valorados
+          </p>
+        </div>
+
+        {/* Swiper Carousel */}
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={24}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3500, disableOnInteraction: false }}
+          breakpoints={{
+            640: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+          }}
+          className="!pb-14"
+        >
+          {products.map((product) => (
+            <SwiperSlide key={product.id}>
+              <div className="group relative overflow-hidden rounded-xl border bg-card transition-all hover:shadow-lg">
+                {/* Product Image */}
+                <a href={product.permalink} className="block aspect-square overflow-hidden bg-muted">
+                  <img
+                    src={product.images[0]?.src || '/placeholder.jpg'}
+                    alt={product.images[0]?.alt || product.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </a>
+
+                {/* Sale Badge */}
+                {product.on_sale && (
+                  <div className="absolute top-3 right-3 rounded-full bg-destructive px-3 py-1 text-xs font-semibold text-destructive-foreground">
+                    Oferta
+                  </div>
+                )}
+
+                {/* Product Info */}
+                <div className="p-4">
+                  <a href={product.permalink} className="block">
+                    <h3 className="mb-2 line-clamp-2 text-sm font-semibold text-card-foreground hover:text-primary transition-colors">
+                      {product.name}
+                    </h3>
+                  </a>
+
+                  {/* Price */}
+                  <div className="mb-3 flex items-baseline gap-2">
+                    {product.on_sale && product.regular_price ? (
+                      <>
+                        <span className="text-lg font-bold text-primary">
+                          ${parseFloat(product.sale_price).toFixed(2)}
+                        </span>
+                        <span className="text-sm text-muted-foreground line-through">
+                          ${parseFloat(product.regular_price).toFixed(2)}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-lg font-bold text-card-foreground">
+                        ${parseFloat(product.price).toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Add to Cart Button */}
+                  <Button asChild size="sm" className="w-full">
+                    <a href={product.permalink} className="inline-flex items-center justify-center gap-2">
+                      <ShoppingCart className="h-4 w-4" />
+                      Ver Producto
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
+};

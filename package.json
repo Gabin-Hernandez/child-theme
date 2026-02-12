@@ -19,6 +19,7 @@
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "swiper": "^12.1.0",
     "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^0.3.0"
   },
