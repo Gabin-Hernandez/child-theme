@@ -278,48 +278,48 @@ interface Feature323Props {
 
 const Feature323 = ({
   className,
-  heading = "Discover Our Products",
+  heading = "Soluciones Profesionales para Reparación",
   features = [
     {
       image:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/electronics/klim-musalimov-DAGss-dkVOs-unsplash-2.jpg",
-      title: "Smart Watches",
+        "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=1200&q=80",
+      title: "Pantallas LCD Originales",
       description:
-        "Stay connected and track your health with advanced fitness monitoring. Customizable watch faces for every lifestyle.",
+        "Stock completo de pantallas LCD para todas las marcas: Apple, Samsung, Huawei y Xiaomi. Garantía de fábrica y máxima calidad certificada.",
     },
     {
       image:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/electronics/klim-musalimov-IGO10LkxP_g-unsplash-2.jpg",
-      title: "Fitness Tracking",
+        "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=1200&q=80",
+      title: "Herramientas de Soldadura",
       description:
-        "Monitor your daily activity, sleep patterns, and workout performance. Water-resistant design with week-long battery life.",
+        "Estaciones de soldadura profesionales, cautines de precisión y microscopios digitales. Equipamiento de alta gama para técnicos especializados.",
     },
     {
       image:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/electronics/dennis-cortes-cL7xovIO7sw-unsplash-3.jpg",
-      title: "Gaming Consoles",
+        "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1200&q=80",
+      title: "Baterías Certificadas",
       description:
-        "Next-generation gaming with stunning 4K graphics, lightning-fast load times, and an expansive library of exclusive titles.",
+        "Baterías de reemplazo con certificación CE y RoHS. Compatible con iPhone, Samsung Galaxy, Huawei y Xiaomi. Rendimiento garantizado.",
     },
     {
       image:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/electronics/Sleek-Laptop-Silhouette-1.png",
-      title: "Premium Laptops",
+        "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=1200&q=80",
+      title: "Microscopios Profesionales",
       description:
-        "Powerful performance in a sleek design. Latest processors, all-day battery life, and stunning displays for work and play.",
+        "Microscopios digitales de alta resolución para reparaciones micro. Iluminación LED ajustable y visión precisa en componentes SMD.",
     },
     {
       image:
-        "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/other/jascent-leung-fCO3tBcnkhg-unsplash-1.jpg",
-      title: "Phone Cases & Accessories",
+        "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1200&q=80",
+      title: "Refacciones iPhone",
       description:
-        "Protect your device with premium cases, wireless charging stands, and accessories that combine style with functionality.",
+        "Amplio catálogo de refacciones originales y premium para iPhone. Desde iPhone 6 hasta los modelos más recientes. Envíos inmediatos.",
     },
     {
-      image: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/electronics/Hands-Typing-on-Laptop-1.png",
-      title: "Work From Anywhere",
+      image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=1200&q=80",
+      title: "Soporte Técnico Experto",
       description:
-        "High-performance laptops built for professionals. Reliable computing power, comfortable keyboards, and enterprise-grade security.",
+        "Asesoría profesional en diagnóstico y reparación. Más de 10 años de experiencia respaldando a técnicos en todo México.",
     },
   ],
 }: Feature323Props) => {
