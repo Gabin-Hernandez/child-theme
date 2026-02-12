@@ -27,18 +27,37 @@ interface ProductCarouselProps {
 export const ProductCarousel = ({ className }: ProductCarouselProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     // Fetch products from WooCommerce REST API
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/wp-json/wc/v3/products?per_page=12&orderby=popularity');
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
+        // Using Store API which doesn't require authentication
+        const response = await fetch('/wp-json/wc/store/v1/products?per_page=12&orderby=popularity');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
         }
+        
+        const data = await response.json();
+        
+        // Transform Store API format to match our interface
+        const transformedProducts = data.map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          price: item.prices?.price || '0',
+          regular_price: item.prices?.regular_price || '0',
+          sale_price: item.prices?.sale_price || item.prices?.price || '0',
+          images: item.images?.length > 0 ? item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })) : [{ src: '/wp-content/uploads/woocommerce-placeholder.png', alt: item.name }],
+          permalink: item.permalink || '#',
+          on_sale: item.prices?.price !== item.prices?.regular_price,
+        }));
+        
+        setProducts(transformedProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -53,6 +72,23 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
         <div className="container">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || products.length === 0) {
+    return (
+      <section className={`py-16 md:py-24 bg-background ${className}`}>
+        <div className="container">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+              Productos Destacados
+            </h2>
+            <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
+              {error ? 'Error al cargar productos. Por favor, intenta más tarde.' : 'No hay productos disponibles en este momento.'}
+            </p>
           </div>
         </div>
       </section>
@@ -119,15 +155,15 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
                     {product.on_sale && product.regular_price ? (
                       <>
                         <span className="text-lg font-bold text-primary">
-                          ${parseFloat(product.sale_price).toFixed(2)}
+                          ${(parseFloat(product.sale_price) / 100).toFixed(2)}
                         </span>
                         <span className="text-sm text-muted-foreground line-through">
-                          ${parseFloat(product.regular_price).toFixed(2)}
+                          ${(parseFloat(product.regular_price) / 100).toFixed(2)}
                         </span>
                       </>
                     ) : (
                       <span className="text-lg font-bold text-card-foreground">
-                        ${parseFloat(product.price).toFixed(2)}
+                        ${(parseFloat(product.price) / 100).toFixed(2)}
                       </span>
                     )}
                   </div>
