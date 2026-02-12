@@ -19,7 +19,7 @@ if ($has_advanced_filters) {
         'tax_query' => array(),
         'meta_query' => array()
     );
-
+ 
     // Filtro por categorías
     if (!empty($_GET['product_categories'])) {
     $selected_categories = $_GET['product_categories'];
