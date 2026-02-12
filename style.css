@@ -734,7 +734,7 @@ body.home .grid .bg-white.rounded-xl {
 
 @media (min-width: 1024px) {
   .home .grid .bg-white.rounded-xl {
-    min-height: 450px !important;
+    
   }
 }
 
@@ -1086,7 +1086,7 @@ body.home .grid .bg-white.rounded-xl {
 @media (min-width: 1024px) {
   /* En pantallas grandes, asegurar altura consistente */
   .grid .bg-white.rounded-xl {
-    min-height: 450px !important;
+   
   }
 }
 
