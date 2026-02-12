@@ -41,7 +41,7 @@ const Cta18 = ({ className }: Cta18Props) => {
                   Contáctanos por WhatsApp
                 </a>
               </Button>
-            </div>
+            </div> 
             
             {/* Trust badges */}
             <div className="mt-12 flex flex-wrap justify-center gap-4 md:gap-8 text-white/80 text-xs md:text-sm font-medium">
