@@ -165,14 +165,28 @@ export function Component() {
             const titleEl = document.getElementById('mainTitle');
             const descEl = document.getElementById('mainDesc');
             if (titleEl && descEl) {
-                 // Universal animate out (fade up)
-                 gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.5, stagger: 0.02, ease: "power2.in" });
-                 gsap.to(descEl, { y: -10, opacity: 0, duration: 0.4, ease: "power2.in" });
+                 // Check if GSAP is available
+                 const hasGsap = typeof gsap !== 'undefined';
+                 
+                 if (hasGsap) {
+                     // Universal animate out (fade up)
+                     gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.5, stagger: 0.02, ease: "power2.in" });
+                     gsap.to(descEl, { y: -10, opacity: 0, duration: 0.4, ease: "power2.in" });
+                 }
                  
                  setTimeout(() => {
-                     // Set new content
-                     titleEl.innerHTML = splitText(slides[idx].title);
-                     descEl.textContent = slides[idx].description; 
+                     // Set new content - visible by default
+                     titleEl.innerHTML = slides[idx].title.split('').map(char => 
+                         `<span style="display: inline-block; opacity: ${hasGsap ? '0' : '1'}; color: #ffffff !important;">${char === ' ' ? '&nbsp;' : char}</span>`
+                     ).join('');
+                     descEl.textContent = slides[idx].description;
+                     
+                     // Force visibility if no GSAP
+                     if (!hasGsap) {
+                         titleEl.style.opacity = '1';
+                         descEl.style.opacity = '1';
+                         return;
+                     }
                      
                      // Reset state (general reset, specific animations might override)
                      gsap.set(titleEl.children, { opacity: 0 });
@@ -217,7 +231,7 @@ export function Component() {
                             gsap.to(descEl, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
                      }
 
-                 }, 500); 
+                 }, hasGsap ? 500 : 0); 
             }
         };
 
@@ -365,15 +379,29 @@ export function Component() {
         
         createSlidesNavigation(); updateCounter(0); 
         
-        // Init text content
+        // Init text content - Make visible immediately
         const tEl = document.getElementById('mainTitle');
         const dEl = document.getElementById('mainDesc');
         if (tEl && dEl) {
-            tEl.innerHTML = splitText(slides[0].title);
+            // Set initial content with visible styles
+            tEl.innerHTML = slides[0].title.split('').map(char => 
+                `<span style="display: inline-block; opacity: 1; color: #ffffff !important;">${char === ' ' ? '&nbsp;' : char}</span>`
+            ).join('');
             dEl.textContent = slides[0].description;
-            // animate initial in
-            gsap.fromTo(tEl.children, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.03, ease: "power3.out", delay: 0.5 });
-            gsap.fromTo(dEl, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 });
+            
+            // Force visibility
+            tEl.style.opacity = '1';
+            tEl.style.visibility = 'visible';
+            tEl.style.display = 'block';
+            dEl.style.opacity = '1';
+            dEl.style.visibility = 'visible';
+            dEl.style.display = 'block';
+            
+            // Animate in if GSAP is available
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(tEl.children, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.03, ease: "power3.out", delay: 0.5 });
+                gsap.fromTo(dEl, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.8 });
+            }
         }
 
         initRenderer();
@@ -396,8 +424,12 @@ export function Component() {
         <span className="slide-total" id="slideTotal" style={{ position: 'absolute', top: '5%', left: 'calc(5% + 3rem)', zIndex: 1000, color: '#fff', fontSize: '1rem', fontFamily: 'monospace', textShadow: '0 3px 10px rgba(0,0,0,0.9)' }}>06</span>
         
         <div className="slide-content" style={{ position: 'absolute', bottom: '20%', left: '5%', zIndex: 1000, color: '#fff', maxWidth: '600px', pointerEvents: 'none' }}>
-            <h1 className="slide-title" id="mainTitle" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 1rem 0', textTransform: 'uppercase', color: '#fff', textShadow: '0 3px 15px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.7)', zIndex: 1000, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0))', padding: '0.5rem 0' }}></h1>
-            <p className="slide-description" id="mainDesc" style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)', lineHeight: 1.6, opacity: 1, fontWeight: 300, margin: 0, color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)', zIndex: 1000, background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '4px' }}></p>
+            <h1 className="slide-title" id="mainTitle" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '0 0 1rem 0', textTransform: 'uppercase', color: '#fff', textShadow: '0 3px 15px rgba(0,0,0,0.9), 0 6px 30px rgba(0,0,0,0.7)', zIndex: 1000, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0))', padding: '0.5rem 0', visibility: 'visible', opacity: 1 }}>
+              REFACCIONES PREMIUM
+            </h1>
+            <p className="slide-description" id="mainDesc" style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)', lineHeight: 1.6, opacity: 1, fontWeight: 300, margin: 0, color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)', zIndex: 1000, background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '4px', visibility: 'visible' }}>
+              Stock completo de pantallas, baterías y componentes originales para todas las marcas.
+            </p>
         </div>
        
         <nav className="slides-navigation" id="slidesNav" style={{ position: 'absolute', bottom: '5%', left: '50%', transform: 'translateX(-50%)', zIndex: 1000, display: 'flex', flexDirection: 'row', gap: '2rem', alignItems: 'center', justifyContent: 'center' }}></nav>
