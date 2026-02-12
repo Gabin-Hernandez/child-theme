@@ -376,7 +376,7 @@ const Feature323 = ({
   };
 
   return (
-    <section className={cn("py-0", className)}>
+    <section className={cn("pt-12 md:pt-24", className)}>
       <div className="container space-y-20">
         <div className="relative h-full min-h-[60vh] w-full overflow-hidden rounded-4xl bg-muted px-8 py-8 md:min-h-full md:py-20">
           <FeaturesDesktop
