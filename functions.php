@@ -3,6 +3,11 @@
  * Tema hijo ITOOLS - Versión limpia y funcional
  */
 
+// =============================================
+// Vite + shadcn/ui integration for Home 2
+// =============================================
+require_once get_stylesheet_directory() . '/includes/vite-helper.php';
+
 // Encolar estilos del tema padre
 function itools_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
