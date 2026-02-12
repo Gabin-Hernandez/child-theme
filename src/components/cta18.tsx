@@ -29,7 +29,7 @@ const Cta18 = ({ className }: Cta18Props) => {
           </div>
           <div className="relative ml-6 max-h-96 md:mt-8 md:ml-0 md:min-w-[400px]">
             <img
-              src="https://plus.unsplash.com/premium_photo-1723914054622-5e11ec4d8b3f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjIyfHxoYXJkd2FyZXxlbnwwfHwwfHx8MA%3D%3D"
+              src="https://images.unsplash.com/photo-1632749042303-7f7a18ed6ff0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D"
               alt="Hardware tools"
               className="h-full w-full rounded-tr-xl rounded-br-xl object-cover"
             />
