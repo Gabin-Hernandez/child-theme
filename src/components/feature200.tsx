@@ -11,8 +11,8 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Envíos a Todo México",
       icon: Package,
-      iconColor: "text-blue-400/90",
-      bgGradient: "from-blue-500",
+      iconColor: "text-blue-400",
+      bgColor: "#3b82f6", // blue-500
       features: [
         "Entrega rápida y confiable",
         "Rastreo en tiempo real",
@@ -22,8 +22,8 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Calidad Garantizada",
       icon: Shield,
-      iconColor: "text-green-400/90",
-      bgGradient: "from-green-500",
+      iconColor: "text-green-400",
+      bgColor: "#22c55e", // green-500
       features: [
         "Productos originales certificados",
         "Garantía de satisfacción",
@@ -33,8 +33,8 @@ const Feature200 = ({ className }: Feature200Props) => {
     {
       title: "Amplio Catálogo",
       icon: Store,
-      iconColor: "text-orange-400/90",
-      bgGradient: "from-orange-500",
+      iconColor: "text-orange-400",
+      bgColor: "#f97316", // orange-500
       features: [
         "Más de 19,000 productos",
         "Refacciones y herramientas",
@@ -46,26 +46,48 @@ const Feature200 = ({ className }: Feature200Props) => {
   return (
     <section className={cn("py-32", className)}>
       <div className="container">
-        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-2 lg:grid-cols-3">
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-4 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`relative h-full rounded-xl bg-radial-[at_80%_14%] ${feature.bgGradient} overflow-hidden from-[-50%] via-zinc-950 via-75% to-zinc-950 p-6`}
+              className="relative h-full rounded-xl overflow-hidden p-6 bg-zinc-950"
+              style={{
+                background: `radial-gradient(circle at 80% 14%, ${feature.bgColor}15 0%, #09090b 50%, #09090b 100%)`
+              }}
             >
-              <div className="absolute inset-0 h-full w-full bg-[radial-gradient(white_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_80%_14%,#000,transparent_40%)] [background-size:3px_3px] opacity-35"></div>
-              <div
-                className={`relative grid size-11 place-items-center rounded-full bg-gradient-to-b ${feature.bgGradient}/50 via-transparent to-${feature.bgGradient.split("-")[1]}/50 p-[2px]`}
-              >
-                <div
-                  className={`grid size-full place-items-center rounded-full bg-zinc-950 bg-gradient-to-b ${feature.bgGradient}/30 via-transparent to-${feature.bgGradient.split("-")[1]}/30`}
+              {/* Dot pattern overlay */}
+              <div 
+                className="absolute inset-0 h-full w-full opacity-20"
+                style={{
+                  backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+                  backgroundSize: '20px 20px',
+                  maskImage: `radial-gradient(ellipse at 80% 14%, black 0%, transparent 50%)`
+                }}
+              ></div>
+              
+              {/* Icon container */}
+              <div className="relative">
+                <div 
+                  className="grid size-12 place-items-center rounded-full p-[2px]"
+                  style={{
+                    background: `linear-gradient(to bottom, ${feature.bgColor}80, transparent, ${feature.bgColor}40)`
+                  }}
                 >
-                  <feature.icon className={feature.iconColor} />
+                  <div 
+                    className="grid size-full place-items-center rounded-full bg-zinc-950"
+                    style={{
+                      background: `linear-gradient(to bottom, ${feature.bgColor}30, transparent, ${feature.bgColor}20)`
+                    }}
+                  >
+                    <feature.icon className={`${feature.iconColor} h-5 w-5`} />
+                  </div>
                 </div>
               </div>
-              <h3 className="relative mt-10 text-lg font-semibold text-background dark:text-primary">
+              
+              <h3 className="relative mt-10 text-lg font-semibold text-white">
                 {feature.title}
               </h3>
-              <ul className="relative mt-4 space-y-3.5 text-sm text-background/70 dark:text-primary/70">
+              <ul className="relative mt-4 space-y-3.5 text-sm text-white/70">
                 {feature.features.map((item, itemIndex) => (
                   <li key={itemIndex} className="flex items-center gap-2">
                     <Check className="mt-0.5 size-4 shrink-0" />
