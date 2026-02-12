@@ -24,18 +24,27 @@ const Cta18 = ({ className }: Cta18Props) => {
           {/* Contenido centrado */}
           <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 py-20 md:py-32">
             <h2 className="text-3xl font-semibold md:text-5xl text-white max-w-3xl">
-              ¿Necesitas Herramientas Profesionales?
+              ¿No encuentras lo que buscas?
             </h2>
             <p className="mt-6 text-white/90 md:text-lg max-w-2xl">
-              Encuentra refacciones, herramientas y equipo técnico de alto desempeño. Soluciones confiables para profesionales y apasionados del sector.
+              Tenemos más de 19,000 productos. Explora nuestro catálogo completo o contáctanos directamente.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Button asChild size="lg" className="text-white hover:text-white">
-                <a href="/tienda">Ver Catálogo</a>
+                <a href="/tienda">Explorar Catálogo Completo</a>
               </Button>
               <Button variant="outline" asChild size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
-                <a href="/ofertas">Ver Ofertas</a>
+                <a href="https://wa.me/5218123894076" target="_blank" rel="noopener noreferrer">Contáctanos por WhatsApp</a>
               </Button>
+            </div>
+            
+            {/* Trust badges */}
+            <div className="mt-12 flex flex-wrap justify-center gap-4 md:gap-8 text-white/80 text-xs md:text-sm font-medium">
+              <span>Compra 100% segura</span>
+              <span className="hidden sm:inline">·</span>
+              <span>Garantía de satisfacción</span>
+              <span className="hidden sm:inline">·</span>
+              <span>Envíos a todo México</span>
             </div>
           </div>
         </div>
