@@ -98,13 +98,13 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
     <section className={`py-16 md:py-24 bg-background ${className}`}>
       <div className="container">
         {/* Header */}
-        <div className="mb-12 text-center">
+        <div className="mb-12 flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             Productos Destacados
           </h2>
-          <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
-            Descubre nuestra selección de productos más populares y mejor valorados
-          </p>
+          <Button asChild variant="outline" className="uppercase text-xs tracking-wider">
+            <a href="/tienda">Ver Todos</a>
+          </Button>
         </div>
 
         {/* Swiper Carousel */}
