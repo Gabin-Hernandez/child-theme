@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,115 +9,58 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-interface Product {
+interface Brand {
   id: number;
   name: string;
-  price: string;
-  regular_price: string;
-  sale_price: string;
-  images: Array<{ src: string; alt: string }>;
+  logo: string;
   permalink: string;
-  on_sale: boolean;
 }
 
 interface ProductCarouselProps {
   className?: string;
 }
 
+const brands: Brand[] = [
+  {
+    id: 1,
+    name: 'Apple',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
+    permalink: '/page-apple',
+  },
+  {
+    id: 2,
+    name: 'Samsung',
+    logo: 'https://toppng.com/uploads/preview/samsung-logo-vector-11574247632vdxcb2tgvm.png',
+    permalink: '/page-samsung',
+  },
+  {
+    id: 3,
+    name: 'Huawei',
+    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/1280px-Huawei_Standard_logo.svg.png',
+    permalink: '/page-huawei',
+  },
+  {
+    id: 4,
+    name: 'Xiaomi',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282021-%29.svg/500px-Xiaomi_logo_%282021-%29.svg.png',
+    permalink: '/page-xiaomi',
+  },
+];
+
 export const ProductCarousel = ({ className }: ProductCarouselProps) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    // Fetch products from WooCommerce REST API
-    const fetchProducts = async () => {
-      try {
-        // Using Store API which doesn't require authentication
-        // Fetch more products to account for filtering
-        const response = await fetch('/wp-json/wc/store/v1/products?per_page=20&orderby=popularity');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        
-        const data = await response.json();
-        
-        // Transform Store API format to match our interface
-        const transformedProducts = data
-          .filter((item: any) => {
-            // Only include products with real images (not placeholders)
-            return item.images && 
-                   item.images.length > 0 && 
-                   item.images[0].src && 
-                   !item.images[0].src.includes('woocommerce-placeholder') &&
-                   !item.images[0].src.includes('placeholder.png');
-          })
-          .map((item: any) => ({
-            id: item.id,
-            name: item.name,
-            price: item.prices?.price || '0',
-            regular_price: item.prices?.regular_price || '0',
-            sale_price: item.prices?.sale_price || item.prices?.price || '0',
-            images: item.images.map((img: any) => ({ src: img.src, alt: img.alt || item.name })),
-            permalink: item.permalink || '#',
-            on_sale: item.prices?.price !== item.prices?.regular_price,
-          }))
-          .slice(0, 10); // Only take top 10 after filtering
-        
-        setProducts(transformedProducts);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className={`py-16 md:py-24 ${className}`}>
-        <div className="container">
-          <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error || products.length === 0) {
-    return (
-      <section className={`py-16 md:py-24 bg-background ${className}`}>
-        <div className="container">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-              Productos Destacados
-            </h2>
-            <p className="mt-4 text-muted-foreground md:text-lg max-w-2xl mx-auto">
-              {error ? 'Error al cargar productos. Por favor, intenta más tarde.' : 'No hay productos disponibles en este momento.'}
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className={`pt-16 md:pt-24 bg-background ${className}`}>
       <div className="container">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Top 10 Más Vendidos
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl uppercase">
+            Marcas Destacadas
           </h2>
           <Button asChild className="uppercase text-xs tracking-wider bg-black text-white hover:bg-black/90">
-            <a href="/tienda">Ver Todos</a>
+            <a href="/page-modelos">Ver Todas</a>
           </Button>
         </div>
 
@@ -143,7 +86,7 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
           <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={24}
-          slidesPerView={1}
+          slidesPerView={2}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
@@ -166,64 +109,33 @@ export const ProductCarousel = ({ className }: ProductCarouselProps) => {
           }}
           className="!pb-14"
         >
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="group relative">
-                {/* Product Image */}
-                <a href={product.permalink} className="block relative aspect-square overflow-hidden bg-muted/30 mb-4">
-                  <img
-                    src={product.images[0]?.src || '/placeholder.jpg'}
-                    alt={product.images[0]?.alt || product.name}
-                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
-                  />
-                  
-                  {/* Sale Badge */}
-                  {product.on_sale && (
-                    <div className="absolute top-4 left-4 bg-black text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider">
-                      OFERTA
-                    </div>
-                  )}
+          {brands.map((brand) => (
+            <SwiperSlide key={brand.id}>
+              <a 
+                href={brand.permalink} 
+                className="group block"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white border border-border p-8 transition-all duration-300 hover:shadow-lg hover:border-black">
+                  {/* Brand Logo */}
+                  <div className="flex h-full items-center justify-center">
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} logo`}
+                      className="h-auto w-full max-w-[70%] object-contain transition-all duration-500 group-hover:scale-110 filter grayscale-0"
+                    />
+                  </div>
                   
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-                </a>
-
-                {/* Product Info */}
-                <div className="space-y-2">
-                  <a href={product.permalink} className="block">
-                    <h3 className="line-clamp-2 text-sm uppercase tracking-wide text-foreground/90 group-hover:text-foreground transition-colors font-medium leading-tight min-h-[2.5rem]">
-                      {product.name}
-                    </h3>
-                  </a>
-
-                  {/* Price */}
-                  <div className="flex items-baseline gap-2">
-                    {product.on_sale && product.regular_price ? (
-                      <>
-                        <span className="text-base font-semibold text-foreground">
-                          ${(parseFloat(product.sale_price) / 100).toFixed(2)}
-                        </span>
-                        <span className="text-xs text-muted-foreground line-through">
-                          ${(parseFloat(product.regular_price) / 100).toFixed(2)}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="text-base font-semibold text-foreground">
-                        ${(parseFloat(product.price) / 100).toFixed(2)}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Add to Cart Button - Hidden by default, shows on hover */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pt-2">
-                    <Button asChild size="sm" variant="outline" className="w-full text-xs uppercase tracking-wider">
-                      <a href={product.permalink} className="inline-flex items-center justify-center gap-2">
-                        Ver Detalles
-                      </a>
-                    </Button>
-                  </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 rounded-lg"></div>
                 </div>
-              </div>
+
+                {/* Brand Name */}
+                <div className="mt-4 text-center">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/80 group-hover:text-foreground transition-colors">
+                    {brand.name}
+                  </h3>
+                </div>
+              </a>
             </SwiperSlide>
           ))}
         </Swiper>
