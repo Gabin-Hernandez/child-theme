@@ -776,6 +776,25 @@ input[type="search"]:focus {
     outline: none;
     box-shadow: none;
 }
+
+/* ---- Fix: Sobrescribir padding-0 del tema ---- */
+body.home main#main.site-main > section {
+    padding-top: 2.5rem !important;  /* py-10 */
+    padding-bottom: 2.5rem !important;
+}
+
+@media (min-width: 768px) {
+    body.home main#main.site-main > section {
+        padding-top: 3rem !important;  /* md:py-12 */
+        padding-bottom: 3rem !important;
+    }
+}
+
+/* Hero no necesita padding extra */
+body.home main#main.site-main > section:first-child {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
 </style>
 
 <!-- ============================================ -->
