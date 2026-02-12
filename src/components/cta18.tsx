@@ -8,7 +8,7 @@ interface Cta18Props {
 
 const Cta18 = ({ className }: Cta18Props) => {
   return (
-    <section className={cn("py-24", className)}>
+    <section className={cn("py-12 md:py-24", className)}>
       <div className="container overflow-hidden">
         <div className="relative mx-auto flex max-w-7xl flex-col justify-between gap-6 overflow-hidden rounded-xl border bg-muted/50 md:flex-row">
           <div className="max-w-xl self-center p-6 md:p-12">
