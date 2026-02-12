@@ -13,6 +13,7 @@
 import { Footer31 } from '@/components/footer31'
 import { Cta18 } from '@/components/cta18'
 import { ProductCarousel } from '@/components/ProductCarousel'
+import { Feature200 } from '@/components/feature200'
 
 export default function Home2() {
   return (
@@ -81,6 +82,11 @@ export default function Home2() {
           ))}
         </div>
       </section>
+
+      {/* ========================================== */}
+      {/* FEATURES SECTION - shadcn block            */}
+      {/* ========================================== */}
+      <Feature200 />
 
       {/* ========================================== */}
       {/* PRODUCTS CAROUSEL - Swiper.js              */}
