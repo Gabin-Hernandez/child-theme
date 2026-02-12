@@ -1,4 +1,5 @@
 import { Eye, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -387,11 +388,82 @@ interface ProductList10Props {
 }
 
 const ProductList10 = ({ className }: ProductList10Props) => {
+  const [productSections, setProductSections] = useState<ProductList>([]);
+
+  useEffect(() => {
+    // Cargar datos de WooCommerce
+    const data = window.itoolsProducts || { herramientas: [], refacciones: [] };
+    
+    const sections: ProductList = [];
+
+    // Sección Herramientas
+    if (data.herramientas && data.herramientas.length > 0) {
+      sections.push({
+        featuredPromotion: {
+          image: "https://images.unsplash.com/photo-1632749042303-7f7a18ed6ff0?w=900&auto=format&fit=crop&q=60",
+          title: "Herramientas profesionales para técnicos expertos",
+          kicker: "Equipamiento de Precisión",
+          cta: {
+            label: "Ver Todas las Herramientas",
+            link: "/?post_type=product&s=&product_cat=herramientas",
+          },
+          link: "/?post_type=product&s=&product_cat=herramientas",
+        },
+        products: data.herramientas.slice(0, 8).map((p) => ({
+          name: p.name,
+          link: p.link,
+          price: {
+            regular: parseFloat(p.regular_price || p.price || "0"),
+            sale: p.on_sale && p.sale_price ? parseFloat(p.sale_price) : undefined,
+            currency: p.currency,
+          },
+          stockStatusCode: p.in_stock ? "IN_STOCK" as const : "OUT_OF_STOCK" as const,
+          image: {
+            src: p.image || "",
+            alt: p.name,
+          },
+        })),
+      });
+    }
+
+    // Sección Refacciones
+    if (data.refacciones && data.refacciones.length > 0) {
+      sections.push({
+        featuredPromotion: {
+          image: "https://itoolsmx.com/wp-content/themes/storely/assets/img/refacciones-de-celulares-en-todo-mexico-1.webp",
+          title: "Refacciones originales y compatibles para todos los modelos",
+          kicker: "Componentes de Calidad",
+          cta: {
+            label: "Ver Todas las Refacciones",
+            link: "/?post_type=product&s=&product_cat=refacciones",
+          },
+          link: "/?post_type=product&s=&product_cat=refacciones",
+        },
+        products: data.refacciones.slice(0, 8).map((p) => ({
+          name: p.name,
+          link: p.link,
+          price: {
+            regular: parseFloat(p.regular_price || p.price || "0"),
+            sale: p.on_sale && p.sale_price ? parseFloat(p.sale_price) : undefined,
+            currency: p.currency,
+          },
+          stockStatusCode: p.in_stock ? "IN_STOCK" as const : "OUT_OF_STOCK" as const,
+          image: {
+            src: p.image || "",
+            alt: p.name,
+          },
+        })),
+      });
+    }
+
+    setProductSections(sections);
+  }, []);
+
   return (
-    <section className={cn("py-32", className)}>
+    <section className={cn("py-16 md:py-20", className)}>
       <div className="container">
         <div className="flex flex-col gap-5">
-          {PRODUCTS_LIST.map((item, index) => (
+          {productSections.map((item, index) => (
             <div
               className="flex flex-col gap-5 lg:flex-row lg:even:flex-row-reverse"
               key={`product-list-10-featured-promo-${index}`}

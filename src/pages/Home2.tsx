@@ -12,7 +12,7 @@
 
 import { Footer31 } from '@/components/footer31'
 import { Cta18 } from '@/components/cta18'
-import { ProductShowcase } from '@/components/product-showcase'
+import { ProductList10 } from '@/components/product-list10'
 
 export default function Home2() {
   return (
@@ -47,9 +47,9 @@ export default function Home2() {
       </section>
 
       {/* ========================================== */}
-      {/* PRODUCT SHOWCASE SECTION                   */}
+      {/* PRODUCT LIST SECTION - shadcn block        */}
       {/* ========================================== */}
-      <ProductShowcase />
+      <ProductList10 />
 
       {/* ========================================== */}
       {/* CTA SECTION - shadcn block                 */}
