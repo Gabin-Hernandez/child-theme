@@ -108,8 +108,8 @@ export function HeroSimple() {
       </div>
 
       {/* Content */}
-      <div className="absolute bottom-[25%] left-8 z-20 max-w-2xl">
-        <div className="space-y-4">
+      <div className="absolute bottom-[20%] md:bottom-[25%] left-4 right-4 md:left-8 md:right-auto z-20 max-w-2xl">
+        <div className="space-y-3 md:space-y-4">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -119,11 +119,11 @@ export function HeroSimple() {
                   : 'opacity-0 translate-y-4 absolute pointer-events-none'
               }`}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light uppercase tracking-tight text-white mb-4" 
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light uppercase tracking-tight leading-tight text-white mb-3 md:mb-4" 
                   style={{ textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 8px 40px rgba(0,0,0,0.7)' }}>
                 {slide.title}
               </h1>
-              <p className="text-base md:text-lg text-white/90 max-w-xl bg-black/20 backdrop-blur-sm px-4 py-3 rounded-lg"
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white/95 max-w-xl bg-black/30 backdrop-blur-sm px-3 py-2 md:px-4 md:py-3 rounded-lg"
                  style={{ textShadow: '0 2px 10px rgba(0,0,0,0.9)' }}>
                 {slide.description}
               </p>
