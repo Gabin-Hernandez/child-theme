@@ -61,23 +61,23 @@ const Feature285 = ({ className }: Feature285Props) => {
       className={cn("h-full overflow-hidden py-32 lg:h-screen", className)}
     >
       <div className="container flex h-full w-full items-center justify-center">
-        <div className="grid h-full w-full max-w-7xl grid-cols-1 overflow-hidden rounded-4xl bg-muted lg:grid-cols-2">
+        <div className="grid h-full w-full max-w-7xl grid-cols-1 overflow-hidden rounded-4xl bg-black lg:grid-cols-2">
           <div className="relative flex flex-col justify-between p-15">
             <a href={BRAND.url} className="flex items-center gap-3">
               <img src={BRAND.src} className="h-12 w-auto" alt={BRAND.alt} />
-              <span className="text-2xl font-bold tracking-tight">
+              <span className="text-2xl font-bold tracking-tight text-white">
                 {BRAND.title}
               </span>
             </a>
             <div>
-              <h2 className="relative mt-12 font-sans text-4xl font-bold tracking-tighter md:text-5xl lg:mt-0 xl:text-6xl text-foreground">
+              <h2 className="relative mt-12 font-sans text-4xl font-bold tracking-tighter md:text-5xl lg:mt-0 xl:text-6xl text-white">
                 Tu Socio en Reparación Profesional
               </h2>
-              <p className="text-md mx-auto mt-2 mb-10 max-w-2xl text-muted-foreground md:text-lg">
+              <p className="text-md mx-auto mt-2 mb-10 max-w-2xl text-white/70 md:text-lg">
                 Stock completo de pantallas, baterías, herramientas y equipo profesional. Envíos a todo México con la mejor garantía del mercado.
               </p>
             </div>
-            <Button className="h-12 w-fit rounded-xl !px-6 bg-black hover:bg-black/90 text-white" asChild>
+            <Button className="h-12 w-fit rounded-xl !px-6 bg-white hover:bg-white/90 text-black font-semibold" asChild>
               <a href="https://itoolsmx.com/tienda/">
                 Ver Productos <Forward />
               </a>
@@ -140,8 +140,8 @@ const Feature285 = ({ className }: Feature285Props) => {
                 />
               ))}
             </Marquee>
-            <div className="pointer-events-none absolute inset-x-0 top-0 block h-1/4 bg-gradient-to-b from-muted lg:hidden"></div>
-            {/* <div className="from-muted pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t"></div> */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 block h-1/4 bg-gradient-to-b from-black lg:hidden"></div>
+            {/* <div className="from-black pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t"></div> */}
           </div>
         </div>
       </div>
