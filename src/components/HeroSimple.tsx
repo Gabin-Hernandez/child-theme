@@ -41,7 +41,7 @@ const slides: Slide[] = [
   },
   {
     id: 6,
-    title: 'Envíos Rápidos',
+    title: 'Envíos Rápidosx',
     description: 'Distribución nacional con envíos inmediatos. Tu pedido en tiempo récord.',
     image: '/wp-content/themes/child-theme/images/delivery-truck-driving-road.jpg'
   }
