@@ -11,39 +11,39 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    title: 'Refacciones Premium',
-    description: 'Stock completo de pantallas, baterías y componentes originales para todas las marcas.',
-    image: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=1920&q=80'
-  },
-  {
-    id: 2,
-    title: 'Herramientas Profesionales',
-    description: 'Estaciones de soldadura, microscopios y herramientas de precisión para técnicos expertos.',
-    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80'
-  },
-  {
-    id: 3,
     title: 'Pantallas LCD',
-    description: 'Amplio catálogo de displays originales para iPhone, Samsung, Huawei y Xiaomi.',
+    description: 'Displays originales OLED y LCD para iPhone, Samsung, Huawei y Xiaomi. Calidad premium garantizada.',
     image: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1920&q=80'
   },
   {
-    id: 4,
-    title: 'Soluciones Técnicas',
-    description: 'Más de 10 años respaldando a profesionales de la reparación en todo México.',
+    id: 2,
+    title: 'Baterías Premium',
+    description: 'Baterías de alta capacidad con certificación CE. Compatible con todas las marcas principales.',
+    image: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=1920&q=80'
+  },
+  {
+    id: 3,
+    title: 'Herramientas de Precisión',
+    description: 'Kits profesionales de destornilladores, pinzas y palancas para reparación de smartphones.',
     image: '/wp-content/themes/storefront-child/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
   },
   {
+    id: 4,
+    title: 'Estaciones de Soldadura',
+    description: 'Equipos profesionales para microelectrónica. Control de temperatura digital y precisión milimétrica.',
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80'
+  },
+  {
     id: 5,
-    title: 'Garantía Certificada',
-    description: 'Productos con certificación CE y RoHS. Calidad garantizada en cada componente.',
-    image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1920&q=80'
+    title: 'Microscopios Digitales',
+    description: 'Visualización HD para trabajos de precisión. Ideal para reparación de placas y componentes SMD.',
+    image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1920&q=80'
   },
   {
     id: 6,
-    title: 'Envíos Rápidosx',
-    description: 'Distribución nacional con envíos inmediatos. Tu pedido en tiempo récord.',
-    image: '/wp-content/themes/storefront-child/images/delivery-truck-driving-road.jpg'
+    title: 'Carcasas y Repuestos',
+    description: 'Covers, flex, cámaras y accesorios originales. Stock permanente para todos los modelos.',
+    image: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=1920&q=80'
   }
 ];
 
