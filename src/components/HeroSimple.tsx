@@ -31,7 +31,7 @@ const slides: Slide[] = [
     id: 4,
     title: 'Soluciones Técnicas',
     description: 'Más de 10 años respaldando a profesionales de la reparación en todo México.',
-    image: '/wp-content/themes/itoolsv2/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
+    image: '/wp-content/themes/storefront-child/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
   },
   {
     id: 5,
@@ -43,7 +43,7 @@ const slides: Slide[] = [
     id: 6,
     title: 'Envíos Rápidosx',
     description: 'Distribución nacional con envíos inmediatos. Tu pedido en tiempo récord.',
-    image: '/wp-content/themes/itoolsv2/images/delivery-truck-driving-road.jpg'
+    image: '/wp-content/themes/storefront-child/images/delivery-truck-driving-road.jpg'
   }
 ];
 
