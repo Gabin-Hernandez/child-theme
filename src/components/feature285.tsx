@@ -15,7 +15,7 @@ interface Feature285Props {
 const Feature285 = ({ className }: Feature285Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const images = [
+  const imagesLeft = [
     {
       src: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80",
     },
@@ -40,11 +40,32 @@ const Feature285 = ({ className }: Feature285Props) => {
     {
       src: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?w=400&q=80",
     },
+  ];
+
+  const imagesRight = [
     {
-      src: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&q=80",
     },
   ];
 
@@ -82,7 +103,7 @@ const Feature285 = ({ className }: Feature285Props) => {
           </div>
           <div className="relative mr-3 flex h-120 flex-row items-center justify-end overflow-hidden lg:h-full">
             <Marquee pauseOnHover vertical className="[--duration:20s]">
-              {images.map((image, index) => (
+              {imagesLeft.map((image, index) => (
                 <motion.img
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
@@ -110,7 +131,7 @@ const Feature285 = ({ className }: Feature285Props) => {
               ))}
             </Marquee>
             <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
-              {images.map((image, index) => (
+              {imagesRight.map((image, index) => (
                 <motion.img
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
