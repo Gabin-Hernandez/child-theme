@@ -11,39 +11,27 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    title: 'Pantallas LCD',
-    description: 'Displays originales OLED y LCD para iPhone, Samsung, Huawei y Xiaomi. Calidad premium garantizada.',
-    image: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1920&q=80'
+    title: 'Refacciones y Accesorios',
+    description: 'Pantallas, baterías, carcasas, flex y accesorios originales. Todo lo que necesitas para tu smartphone.',
+    image: 'https://cdn.thewirecutter.com/wp-content/media/2024/10/BEST-IPHONE-16-CASES-2048px-4833-2x1-1.jpg?width=2048&quality=75&crop=2:1&auto=webp'
   },
   {
     id: 2,
-    title: 'Baterías Premium',
-    description: 'Baterías de alta capacidad con certificación CE. Compatible con todas las marcas principales.',
-    image: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=1920&q=80'
-  },
-  {
-    id: 3,
     title: 'Herramientas de Precisión',
     description: 'Kits profesionales de destornilladores, pinzas y palancas para reparación de smartphones.',
     image: '/wp-content/themes/storefront-child/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
   },
   {
-    id: 4,
+    id: 3,
     title: 'Estaciones de Soldadura',
     description: 'Equipos profesionales para microelectrónica. Control de temperatura digital y precisión milimétrica.',
     image: '/wp-content/themes/storefront-child/images/close-up-man-soldering-computer-circuit-workshop.jpg'
   },
   {
-    id: 5,
+    id: 4,
     title: 'Insumos y Consumibles',
     description: 'Flux, pasta térmica, alcohol isopropílico y adhesivos profesionales. Todo lo necesario para tu taller.',
     image: '/wp-content/themes/storefront-child/images/master-making-crafts-with-glue.jpg'
-  },
-  {
-    id: 6,
-    title: 'Carcasas y Repuestos',
-    description: 'Covers, flex, cámaras y accesorios originales. Stock permanente para todos los modelos.',
-    image: 'https://cdn.thewirecutter.com/wp-content/media/2024/10/BEST-IPHONE-16-CASES-2048px-4833-2x1-1.jpg?width=2048&quality=75&crop=2:1&auto=webp'
   }
 ];
 
