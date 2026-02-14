@@ -79,9 +79,9 @@ const Feature285 = ({ className }: Feature285Props) => {
             </div>
             <a 
               href="https://itoolsmx.com/tienda/"
-              className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition-all hover:scale-105 active:scale-95 w-fit"
+              className="inline-flex flex-row items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition-all hover:scale-105 active:scale-95 w-fit"
             >
-              Ver Productos
+              <span>Ver Productos</span>
               <Forward className="w-4 h-4" />
             </a>
           </div>
