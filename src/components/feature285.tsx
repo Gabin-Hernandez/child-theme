@@ -18,40 +18,40 @@ const Feature285 = ({ className }: Feature285Props) => {
 
   const images = [
     {
-      src: "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400&q=80",
     },
     {
-      src: "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=400&q=80",
+      src: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=400&q=80",
     },
   ];
 
   const BRAND = {
     url: "https://itoolsmx.com",
-    src: "https://itoolsmx.com/wp-content/uploads/2024/01/cropped-Logo-ITOOLS-favicon-150x150.png",
+    src: "https://itoolsmx.com/wp-content/uploads/2023/11/cropped-image-1.png",
     alt: "ITOOLS MX Logo",
     title: "ITOOLS MX",
   };
@@ -63,23 +63,23 @@ const Feature285 = ({ className }: Feature285Props) => {
       <div className="container flex h-full w-full items-center justify-center">
         <div className="grid h-full w-full max-w-7xl grid-cols-1 overflow-hidden rounded-4xl bg-muted lg:grid-cols-2">
           <div className="relative flex flex-col justify-between p-15">
-            <a href={BRAND.url} className="flex items-center gap-2">
-              <img src={BRAND.src} className="max-h-8 w-8" alt={BRAND.alt} />
-              <span className="text-xl font-semibold tracking-tight">
+            <a href={BRAND.url} className="flex items-center gap-3">
+              <img src={BRAND.src} className="h-12 w-auto" alt={BRAND.alt} />
+              <span className="text-2xl font-bold tracking-tight">
                 {BRAND.title}
               </span>
             </a>
             <div>
-              <h2 className="relative mt-12 font-sans text-4xl font-semibold tracking-tighter md:text-5xl lg:mt-0 xl:text-6xl">
-                Equipando a Profesionales desde 2013
+              <h2 className="relative mt-12 font-sans text-4xl font-bold tracking-tighter md:text-5xl lg:mt-0 xl:text-6xl text-foreground">
+                Tu Socio en Reparación Profesional
               </h2>
-              <p className="text-md mx-auto mt-2 mb-10 max-w-2xl text-muted-foreground/50 md:text-lg">
-                Somos el proveedor líder de refacciones, herramientas y equipo profesional para reparación de smartphones en México. Calidad garantizada y stock permanente.
+              <p className="text-md mx-auto mt-2 mb-10 max-w-2xl text-muted-foreground md:text-lg">
+                Stock completo de pantallas, baterías, herramientas y equipo profesional. Envíos a todo México con la mejor garantía del mercado.
               </p>
             </div>
-            <Button className="h-12 w-fit rounded-xl !px-5" asChild>
+            <Button className="h-12 w-fit rounded-xl !px-6 bg-black hover:bg-black/90 text-white" asChild>
               <a href="https://itoolsmx.com/tienda/">
-                Explorar Catálogo <Forward />
+                Ver Productos <Forward />
               </a>
             </Button>
           </div>
