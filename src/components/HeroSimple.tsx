@@ -31,7 +31,7 @@ const slides: Slide[] = [
     id: 4,
     title: 'Estaciones de Soldadura',
     description: 'Equipos profesionales para microelectrónica. Control de temperatura digital y precisión milimétrica.',
-    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1920&q=80'
+    image: '/wp-content/themes/storefront-child/images/close-up-man-soldering-computer-circuit-workshop.jpg'
   },
   {
     id: 5,
