@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Forward } from "lucide-react";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
 import { Marquee } from "@/components/ui/marquee";
-import { Button } from "@/components/ui/button";
 
 interface Feature285Props {
   className?: string;
@@ -79,10 +77,9 @@ const Feature285 = ({ className }: Feature285Props) => {
             </div>
             <a 
               href="https://itoolsmx.com/tienda/"
-              className="inline-flex flex-row items-center justify-center gap-2 h-12 px-6 rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition-all hover:scale-105 active:scale-95 w-fit"
+              className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition-all hover:scale-105 active:scale-95 w-fit"
             >
-              <span>Ver Productos</span>
-              <Forward className="w-4 h-4" />
+              Ver Productos
             </a>
           </div>
           <div className="relative mr-3 flex h-120 flex-row items-center justify-end overflow-hidden lg:h-full">
