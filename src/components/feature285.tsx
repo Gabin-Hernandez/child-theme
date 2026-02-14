@@ -6,6 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Marquee } from "@/components/ui/marquee";
+import { Button } from "@/components/ui/button";
 
 interface Feature285Props {
   className?: string;
@@ -75,12 +76,9 @@ const Feature285 = ({ className }: Feature285Props) => {
                 Stock completo de pantallas, baterías, herramientas y equipo profesional. Envíos a todo México con la mejor garantía del mercado.
               </p>
             </div>
-            <a 
-              href="https://itoolsmx.com/tienda/"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-white hover:bg-white/90 text-black font-semibold transition-all hover:scale-105 active:scale-95 w-fit"
-            >
-              Ver Productos
-            </a>
+            <Button asChild className="uppercase text-xs tracking-wider bg-white text-black hover:bg-white/90">
+              <a href="https://itoolsmx.com/tienda/">Ver Productos</a>
+            </Button>
           </div>
           <div className="relative mr-3 flex h-120 flex-row items-center justify-end overflow-hidden lg:h-full">
             <Marquee pauseOnHover vertical className="[--duration:20s]">
