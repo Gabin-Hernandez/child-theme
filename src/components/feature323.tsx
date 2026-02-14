@@ -282,30 +282,30 @@ const Feature323 = ({
   features = [
     {
       image:
-        "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1200&q=80",
-      title: "Envíos Rápidos en Todo México",
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+      title: "Distribución Nacional",
       description:
-        "Cobertura nacional con envíos express. Entrega el mismo día en CDMX y área metropolitana. Rastreo en tiempo real de tu pedido.",
+        "Presencia en todo México con entregas rápidas y confiables. Tu pedido llega donde lo necesites.",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
-      title: "Calidad Garantizada",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+      title: "Productos Certificados",
       description:
-        "Productos con certificaciones internacionales CE, RoHS y FCC. Garantía extendida en todos los artículos. Política de devolución sin complicaciones.",
+        "Calidad internacional garantizada. Solo trabajamos con marcas reconocidas y componentes verificados.",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=1200&q=80",
-      title: "Soporte Técnico Profesional",
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
+      title: "Atención Especializada",
       description:
-        "Asesoría gratuita de expertos en reparación. Capacitaciones y tutoriales incluidos. Equipo disponible para resolver tus dudas técnicas.",
+        "Equipo de expertos disponible para asesorarte. Resolvemos tus dudas y te apoyamos en cada compra.",
     },
     {
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80",
-      title: "Experiencia Comprobada",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80",
+      title: "Líderes del Mercado",
       description:
-        "Más de 10 años liderando el mercado mexicano. Miles de talleres y técnicos confían en nosotros. Reputación sólida en toda la industria.",
+        "Más de una década respaldando a profesionales. Confianza y experiencia comprobada.",
     },
   ],
 }: Feature323Props) => {
