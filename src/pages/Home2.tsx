@@ -17,6 +17,7 @@ import { Feature200 } from '@/components/feature200'
 import { NewArrivals } from '@/components/NewArrivals'
 import { Feature323 } from '@/components/feature323'
 import { HeroSimple } from '@/components/HeroSimple'
+import { PopularProducts } from '@/components/PopularProducts'
 
 export default function Home2() {
   return (
@@ -25,6 +26,11 @@ export default function Home2() {
       {/* HERO SECTION - Simple Elegant Slider      */}
       {/* ========================================== */}
       <HeroSimple />
+
+      {/* ========================================== */}
+      {/* POPULAR PRODUCTS - Swiper Carousel         */}
+      {/* ========================================== */}
+      <PopularProducts />
 
       {/* ========================================== */}
       {/* FEATURE323 SECTION - shadcn block          */}
