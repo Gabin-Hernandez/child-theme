@@ -35,9 +35,9 @@ const slides: Slide[] = [
   },
   {
     id: 5,
-    title: 'Microscopios Digitales',
-    description: 'Visualización HD para trabajos de precisión. Ideal para reparación de placas y componentes SMD.',
-    image: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1920&q=80'
+    title: 'Insumos y Consumibles',
+    description: 'Flux, pasta térmica, alcohol isopropílico y adhesivos profesionales. Todo lo necesario para tu taller.',
+    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&q=80'
   },
   {
     id: 6,
