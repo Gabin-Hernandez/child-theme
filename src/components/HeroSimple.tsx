@@ -37,13 +37,13 @@ const slides: Slide[] = [
     id: 5,
     title: 'Insumos y Consumibles',
     description: 'Flux, pasta térmica, alcohol isopropílico y adhesivos profesionales. Todo lo necesario para tu taller.',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1920&q=80'
+    image: '/wp-content/themes/storefront-child/images/master-making-crafts-with-glue.jpg'
   },
   {
     id: 6,
     title: 'Carcasas y Repuestos',
     description: 'Covers, flex, cámaras y accesorios originales. Stock permanente para todos los modelos.',
-    image: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=1920&q=80'
+    image: 'https://cdn.thewirecutter.com/wp-content/media/2024/10/BEST-IPHONE-16-CASES-2048px-4833-2x1-1.jpg?width=2048&quality=75&crop=2:1&auto=webp'
   }
 ];
 
