@@ -286,7 +286,7 @@ const Feature323 = ({
       title: "Distribución Nacional",
       description:
         "Presencia en todo México con entregas rápidas y confiables. Tu pedido llega donde lo necesites.",
-    },
+    }, 
     { 
       image:
         "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
