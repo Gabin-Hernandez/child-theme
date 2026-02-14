@@ -56,7 +56,7 @@ const Feature285 = ({ className }: Feature285Props) => {
 
   return (
     <section
-      className={cn("h-full overflow-hidden py-32 lg:h-screen", className)}
+      className={cn("h-full overflow-hidden pb-32 lg:h-screen", className)}
     >
       <div className="container flex h-full w-full items-center justify-center">
         <div className="grid h-full w-full max-w-7xl grid-cols-1 overflow-hidden rounded-4xl bg-black lg:grid-cols-2">
