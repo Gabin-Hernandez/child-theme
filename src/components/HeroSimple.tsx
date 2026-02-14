@@ -31,7 +31,7 @@ const slides: Slide[] = [
     id: 4,
     title: 'Soluciones Técnicas',
     description: 'Más de 10 años respaldando a profesionales de la reparación en todo México.',
-    image: 'https://images.unsplash.com/photo-1621768216002-5ac171876625?w=1920&q=80'
+    image: '/wp-content/themes/child-theme/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
   },
   {
     id: 5,
