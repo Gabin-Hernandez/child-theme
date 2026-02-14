@@ -278,48 +278,34 @@ interface Feature323Props {
 
 const Feature323 = ({
   className,
-  heading = "Soluciones Profesionales para Reparación",
+  heading = "Por Qué Elegir ITOOLS MX",
   features = [
     {
       image:
-        "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=1200&q=80",
-      title: "Pantallas LCD Originales",
+        "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1200&q=80",
+      title: "Envíos Rápidos en Todo México",
       description:
-        "Stock completo de pantallas LCD para todas las marcas: Apple, Samsung, Huawei y Xiaomi. Garantía de fábrica y máxima calidad certificada.",
+        "Cobertura nacional con envíos express. Entrega el mismo día en CDMX y área metropolitana. Rastreo en tiempo real de tu pedido.",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=1200&q=80",
-      title: "Herramientas de Soldadura",
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&q=80",
+      title: "Calidad Garantizada",
       description:
-        "Estaciones de soldadura profesionales, cautines de precisión y microscopios digitales. Equipamiento de alta gama para técnicos especializados.",
+        "Productos con certificaciones internacionales CE, RoHS y FCC. Garantía extendida en todos los artículos. Política de devolución sin complicaciones.",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=1200&q=80",
-      title: "Baterías Certificadas",
+        "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=1200&q=80",
+      title: "Soporte Técnico Profesional",
       description:
-        "Baterías de reemplazo con certificación CE y RoHS. Compatible con iPhone, Samsung Galaxy, Huawei y Xiaomi. Rendimiento garantizado.",
+        "Asesoría gratuita de expertos en reparación. Capacitaciones y tutoriales incluidos. Equipo disponible para resolver tus dudas técnicas.",
     },
     {
-      image:
-        "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=1200&q=80",
-      title: "Microscopios Profesionales",
+      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80",
+      title: "Experiencia Comprobada",
       description:
-        "Microscopios digitales de alta resolución para reparaciones micro. Iluminación LED ajustable y visión precisa en componentes SMD.",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=1200&q=80",
-      title: "Refacciones iPhone",
-      description:
-        "Amplio catálogo de refacciones originales y premium para iPhone. Desde iPhone 6 hasta los modelos más recientes. Envíos inmediatos.",
-    },
-    {
-      image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=1200&q=80",
-      title: "Soporte Técnico Experto",
-      description:
-        "Asesoría profesional en diagnóstico y reparación. Más de 10 años de experiencia respaldando a técnicos en todo México.",
+        "Más de 10 años liderando el mercado mexicano. Miles de talleres y técnicos confían en nosotros. Reputación sólida en toda la industria.",
     },
   ],
 }: Feature323Props) => {
