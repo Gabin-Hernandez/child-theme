@@ -97,7 +97,7 @@ const Feature285 = ({ className }: Feature285Props) => {
                 Stock completo de pantallas, baterías, herramientas y equipo profesional. Envíos a todo México con la mejor garantía del mercado.
               </p>
             </div>
-            <Button asChild className="uppercase text-xs tracking-wider bg-white text-black hover:bg-white/90">
+            <Button asChild className="uppercase text-xs tracking-wider bg-white text-black hover:bg-white/90 w-fit">
               <a href="https://itoolsmx.com/tienda/">Ver Productos</a>
             </Button>
           </div>
