@@ -18,42 +18,42 @@ const Feature285 = ({ className }: Feature285Props) => {
 
   const images = [
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img11.jpeg",
+      src: "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img1.jpeg",
+      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img7.jpeg",
+      src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img12.jpeg",
+      src: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img13.jpeg",
+      src: "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img3.jpeg",
+      src: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img11.jpeg",
+      src: "https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img1.jpeg",
+      src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img7.jpeg",
+      src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&q=80",
     },
     {
-      src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img12.jpeg",
+      src: "https://images.unsplash.com/photo-1621768216002-5ac171876625?w=400&q=80",
     },
   ];
 
   const BRAND = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
-    alt: "logo",
-    title: "Shadcnblocks.com",
+    url: "https://itoolsmx.com",
+    src: "https://itoolsmx.com/wp-content/uploads/2024/01/cropped-Logo-ITOOLS-favicon-150x150.png",
+    alt: "ITOOLS MX Logo",
+    title: "ITOOLS MX",
   };
 
   return (
@@ -71,16 +71,16 @@ const Feature285 = ({ className }: Feature285Props) => {
             </a>
             <div>
               <h2 className="relative mt-12 font-sans text-4xl font-semibold tracking-tighter md:text-5xl lg:mt-0 xl:text-6xl">
-                Built by Developers for Developers
+                Equipando a Profesionales desde 2013
               </h2>
               <p className="text-md mx-auto mt-2 mb-10 max-w-2xl text-muted-foreground/50 md:text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-                suscipit dolor blanditiis voluptatum minus est labore amet
-                necessitatibus quod distinctio! ipsum dolor sit
+                Somos el proveedor líder de refacciones, herramientas y equipo profesional para reparación de smartphones en México. Calidad garantizada y stock permanente.
               </p>
             </div>
-            <Button className="h-12 w-fit rounded-xl !px-5">
-              Be a Member <Forward />
+            <Button className="h-12 w-fit rounded-xl !px-5" asChild>
+              <a href="https://itoolsmx.com/tienda/">
+                Explorar Catálogo <Forward />
+              </a>
             </Button>
           </div>
           <div className="relative mr-3 flex h-120 flex-row items-center justify-end overflow-hidden lg:h-full">
