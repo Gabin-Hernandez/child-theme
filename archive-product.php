@@ -462,12 +462,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 <div class="bg-white min-h-screen py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Botón para filtros en móvil -->
-        <div class="lg:hidden mb-8">
-            <button id="toggle-filters" class="flex items-center justify-center gap-3 w-full py-4 px-6 bg-black hover:bg-gray-900 rounded-2xl text-white font-bold uppercase text-sm tracking-wider transition-all duration-300 shadow-lg">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                </svg>
-                <span>Filtros</span>
+        <div class="lg:hidden mb-6">
+            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 rounded-xl font-medium text-sm transition-all duration-200 shadow-sm sticky top-4 z-40">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gray-500"></i>
+                <span>Filtrar Productos</span>
             </button>
         </div>
 
@@ -480,36 +478,25 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <!-- Sidebar de filtros moderno -->
                 <aside 
                     id="filters-sidebar" 
-                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/70 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
-                    <div class="bg-black h-full lg:h-auto p-8 rounded-none lg:rounded-3xl shadow-2xl overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border-2 lg:border-gray-800 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
+                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block backdrop-blur-sm lg:backdrop-blur-none transition-all duration-300">
+                    <div class="bg-white h-full lg:h-auto p-6 md:p-8 shadow-2xl lg:shadow-none overflow-y-auto ml-auto lg:ml-0 w-[85vw] max-w-[320px] lg:w-full border-l lg:border-r border-gray-100 lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] transition-all duration-300">
                         
                         <!-- Header del sidebar -->
-                        <div class="flex justify-between items-center mb-10 pb-6 border-b border-white/10">
+                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold text-white tracking-tight">
+                                <h3 class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+                                    <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gray-500"></i>
                                     Filtros
                                 </h3>
                             </div>
-                            <button id="close-filters" class="lg:hidden text-white/70 hover:text-white p-2 hover:bg-white/10 rounded-xl transition-all duration-200">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
+                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-900 p-2 hover:bg-gray-50 rounded-full transition-all duration-200">
+                                <i data-lucide="x" class="w-6 h-6"></i>
                             </button>
                         </div>
 
                         <!-- Filtro por Precio -->
-                        <div class="mb-8 p-6 bg-white/5 rounded-2xl border border-white/10 shadow-sm hover:border-white/20 transition-all duration-300">
-                            <h4 class="font-bold text-white mb-6 flex items-center gap-3 text-lg">
-                                <div class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
+                        <div class="mb-10">
+                            <h4 class="font-semibold text-gray-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
                                 Rango de Precio
                             </h4>
                             
@@ -521,20 +508,25 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             ?>
                             
                             <!-- Price Range Slider -->
-                            <div class="price-slider-container">
-                                <div class="flex justify-between items-center mb-5">
-                                    <span class="text-sm text-white/90 font-bold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                    <span class="text-sm text-white/90 font-bold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                            <div class="price-slider-container px-1">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-900">
+                                        $<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span>
+                                    </div>
+                                    <span class="text-gray-400">-</span>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-900">
+                                        $<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span>
+                                    </div>
                                 </div>
                                 
-                                <div class="relative">
-                                    <div class="price-slider-track bg-white/20 h-2 rounded-full relative">
-                                        <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
+                                <div class="relative h-6 flex items-center">
+                                    <div class="price-slider-track bg-gray-200 h-1.5 rounded-full relative w-full">
+                                        <div id="price-slider-range" class="absolute h-1.5 bg-indigo-600 rounded-full"></div>
                                     </div>
                                     
                                     <input type="range" 
                                            id="min-price-slider" 
-                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           class="price-slider-input absolute top-0 w-full h-full opacity-0 cursor-pointer z-20 pointer-events-none"
                                            min="<?php echo $price_range['min']; ?>" 
                                            max="<?php echo $price_range['max']; ?>" 
                                            value="<?php echo $current_min; ?>"
@@ -542,41 +534,38 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     
                                     <input type="range" 
                                            id="max-price-slider" 
-                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           class="price-slider-input absolute top-0 w-full h-full opacity-0 cursor-pointer z-20 pointer-events-none"
                                            min="<?php echo $price_range['min']; ?>" 
                                            max="<?php echo $price_range['max']; ?>" 
                                            value="<?php echo $current_max; ?>"
                                            step="100">
+                                           
+                                    <!-- Custom Thumbs for visual representation only (functionality via inputs) -->
+                                    <div id="min-thumb" class="absolute h-5 w-5 bg-white border-2 border-indigo-600 rounded-full shadow-md z-10 pointer-events-none transform -translate-y-1/2 top-1/2 -ml-2.5"></div>
+                                    <div id="max-thumb" class="absolute h-5 w-5 bg-white border-2 border-indigo-600 rounded-full shadow-md z-10 pointer-events-none transform -translate-y-1/2 top-1/2 -ml-2.5"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Filtro por Categorías -->
-                        <div class="mb-8 p-6 bg-white/5 rounded-2xl border border-white/10 shadow-sm hover:border-white/20 transition-all duration-300">
-                            <h4 class="font-bold text-white mb-6 flex items-center gap-3 text-lg">
-                                <div class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                    </svg>
-                                </div>
-                                Categorías de Producto
+                        <div class="mb-10">
+                            <h4 class="font-semibold text-gray-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Categorías
                             </h4>
                             
-                            <div class="space-y-2">
+                            <div class="space-y-1">
                                 <!-- Enlace para todas las categorías -->
                                 <?php 
                                 $all_categories_url = home_url('/?post_type=product&s=');
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
                                 <a href="<?php echo esc_url($all_categories_url); ?>" 
-                                   class="flex items-center justify-between p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group <?php echo $is_all_categories ? 'bg-white/10 border border-white/20' : ''; ?>">
-                                    <span class="text-white/90 font-semibold group-hover:text-white transition-colors <?php echo $is_all_categories ? 'text-white' : ''; ?>">
-                                        Todas las categorías
+                                   class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-200 group <?php echo $is_all_categories ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-600'; ?>">
+                                    <span class="group-hover:text-gray-900 transition-colors <?php echo $is_all_categories ? '!text-indigo-700' : ''; ?>">
+                                        Todas
                                     </span>
                                     <?php if ($is_all_categories) : ?>
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                                        </svg>
+                                        <i data-lucide="check" class="w-4 h-4 text-indigo-600"></i>
                                     <?php endif; ?>
                                 </a>
                                 
@@ -598,39 +587,29 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
                                         
-                                        // Mostrar solo las primeras 3 categorías, el resto en "más categorías"
-                                        $hidden_class = $index >= 3 ? 'hidden more-category' : '';
+                                        // Mostrar solo las primeras 6 categorías, el resto oculta
+                                        $hidden_class = $index >= 6 ? 'hidden more-category' : '';
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" 
-                                       class="flex items-center justify-between p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group <?php echo $is_current ? 'bg-white/10 border border-white/20' : ''; ?> <?php echo $hidden_class; ?>">
+                                       class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-200 group <?php echo $is_current ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-600'; ?> <?php echo $hidden_class; ?>">
                                         <div class="flex items-center gap-3">
-                                            <span class="text-white/90 font-semibold group-hover:text-white transition-colors <?php echo $is_current ? 'text-white' : ''; ?>">
+                                            <span class="group-hover:text-gray-900 transition-colors <?php echo $is_current ? '!text-indigo-700' : ''; ?>">
                                                 <?php echo esc_html( $category->name ); ?>
                                             </span>
-                                            <span class="text-xs bg-white/10 text-white/70 px-3 py-1.5 rounded-full font-bold">
-                                                <?php echo $category->count; ?>
-                                            </span>
                                         </div>
-                                        <?php if ($is_current) : ?>
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                        <?php endif; ?>
+                                        <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-medium <?php echo $is_current ? 'bg-indigo-100 text-indigo-600' : ''; ?>">
+                                            <?php echo $category->count; ?>
+                                        </span>
                                     </a>
                                 <?php 
                                     endforeach;
                                     
-                                    // Si hay más de 3 categorías, mostrar botón "Ver más"
-                                    if (count($product_categories) > 3) :
+                                    // Si hay más de 6 categorías, mostrar botón "Ver más"
+                                    if (count($product_categories) > 6) :
                                 ?>
-                                    <div id="more-categories" class="hidden">
-                                        <!-- Las categorías adicionales ya están marcadas con more-category -->
-                                    </div>
-                                    <button id="toggle-categories" class="w-full p-4 text-center text-white font-bold flex items-center justify-center gap-2 hover:bg-white/10 rounded-xl transition-all duration-300">
-                                        <span id="toggle-text">Ver más categorías</span>
-                                        <svg id="toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                                        </svg>
+                                    <button id="toggle-categories" class="w-full mt-2 text-left px-3 text-sm text-indigo-600 font-medium hover:text-indigo-800 flex items-center gap-1 transition-colors">
+                                        <span>Ver más</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
                                     </button>
                                 <?php 
                                     endif;
@@ -641,31 +620,27 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 
                         <!-- Botones de acción -->
-                        <div class="space-y-4 mt-10">
+                        <div class="space-y-3 mt-8 pt-6 border-t border-gray-100">
                             <button id="apply-sidebar-filters" 
-                                    class="apply-filters w-full bg-white text-black py-5 rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                                    class="apply-filters w-full bg-indigo-600 text-white py-3.5 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-all duration-200 shadow-sm hover:shadow flex items-center justify-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i>
                                 Aplicar Filtros
                             </button>
                             <button id="clear-filters" 
-                                    class="clear-filters w-full bg-white/10 text-white py-5 rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-white/20 transition-all duration-300 border-2 border-white/20 hover:border-white/30 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                </svg>
+                                    class="clear-filters w-full bg-white text-gray-500 py-3.5 rounded-xl font-medium text-sm hover:text-gray-900 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:border-gray-300 flex items-center justify-center gap-2">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                                 Limpiar Todo
                             </button>
                         </div>
                         
                         <!-- Estado de carga para sidebar -->
                         <div class="filters-loading hidden mt-6 text-center">
-                            <div class="inline-flex items-center px-4 py-3 bg-white/10 text-white rounded-xl border border-white/20">
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <div class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-indigo-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Aplicando filtros...
+                                Aplicando...
                             </div>
                         </div>
 
