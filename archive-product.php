@@ -204,86 +204,38 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Hero Section - Modern Black Design with Background Image -->
-<div class="relative bg-black overflow-hidden min-h-[500px]">
-    <!-- Background Image -->
-    <div class="absolute inset-0 z-0">
-        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" 
-             alt="Herramientas profesionales" 
-             class="w-full h-full object-cover opacity-40">
-        <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/70"></div>
-    </div>
-    
-    <!-- Contenido -->
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 z-10">
-        <div class="text-center">
-            <!-- Título principal -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
-                Tienda
-                <span class="block mt-2 text-white/90">
-                    Profesional
-                </span>
-            </h1>
-            
-            <!-- Descripción -->
-            <p class="text-lg md:text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
-                Stock completo de herramientas, refacciones y equipo profesional con la mejor garantía del mercado
-            </p>
-            
-            <!-- Barra de búsqueda -->
-            <div class="max-w-4xl mx-auto">
-                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
-                    <div class="flex flex-col sm:flex-row">
-                        <input type="hidden" name="post_type" value="product">
-                        
-                        <!-- Input de búsqueda -->
-                        <div class="flex-1 relative">
-                            <div class="absolute inset-y-0 left-5 flex items-center">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                            <input type="text" 
-                                   id="hero-search"
-                                   name="s" 
-                                   value="<?php echo get_search_query(); ?>"
-                                   placeholder="Buscar productos..."
-                                   class="w-full h-full pl-14 pr-4 py-5 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white font-medium">
+<!-- Hero Section - Modern Clean Design (Home 2 Style) -->
+<div class="relative bg-white overflow-hidden border-b border-gray-100">
+    <div class="max-w-7xl mx-auto">
+        <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+            <main class="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                <div class="sm:text-center lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                        <span class="block xl:inline">Equipa tu taller con</span>
+                        <span class="block text-indigo-600 xl:inline">herramientas profesionales</span>
+                    </h1>
+                    <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        Encuentra las mejores refacciones, insumos y equipos de soldadura. Calidad garantizada para técnicos exigentes.
+                    </p>
+                    <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                        <div class="rounded-md shadow">
+                            <a href="#popular-products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 transition-colors">
+                                Ver Catálogo
+                            </a>
                         </div>
-                        
-                        <!-- Separador -->
-                        <div class="hidden sm:block w-px bg-gray-200"></div>
-                        
-                        <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[220px]">
-                            <select name="product_cat" class="w-full px-5 py-5 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer font-medium">
-                                <option value="">Todas las categorías</option>
-                                <?php
-                                $categories = get_terms( array(
-                                    'taxonomy' => 'product_cat',
-                                    'hide_empty' => true,
-                                ) );
-                                foreach ( $categories as $category ) {
-                                    echo '<option value="' . esc_attr( $category->slug ) . '" ' . selected( get_query_var( 'product_cat' ), $category->slug, false ) . '>' . esc_html( $category->name ) . '</option>';
-                                }
-                                ?>
-                            </select>
-                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-3">
+                            <a href="#categories" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10 transition-colors">
+                                Categorías
+                            </a>
                         </div>
-                        
-                        <!-- Botón de búsqueda -->
-                        <button type="submit" class="bg-black hover:bg-gray-900 text-white px-8 py-5 font-bold uppercase text-sm tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
-                            <span>Buscar</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                            </svg>
-                        </button>
                     </div>
-                </form>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" alt="Taller de reparación electrónica">
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent lg:via-white/20"></div>
     </div>
 </div>
 
