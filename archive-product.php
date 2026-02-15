@@ -368,7 +368,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/pantallas'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-pantallas.svg" alt="Pantallas" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="monitor" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Pantallas LCD</h3>
                         </div>
                     </a>
@@ -376,7 +378,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/baterias'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-baterias.svg" alt="Baterías" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="battery-charging" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Baterías</h3>
                         </div>
                     </a>
@@ -384,7 +388,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/herramientas'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-herramientas.svg" alt="Herramientas" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="wrench" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Herramientas</h3>
                         </div>
                     </a>
@@ -392,7 +398,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/refacciones'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-refacciones.svg" alt="Refacciones" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="package" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Refacciones</h3>
                         </div>
                     </a>
@@ -400,7 +408,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/cargadores'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-cargadores.svg" alt="Cargadores" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="plug-zap" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Cargadores</h3>
                         </div>
                     </a>
@@ -408,7 +418,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <div class="swiper-slide">
                     <a href="<?php echo home_url('/categoria-product/accesorios'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-accesorios.svg" alt="Accesorios" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="flex justify-center mb-4">
+                                <i data-lucide="headphones" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
+                            </div>
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Accesorios</h3>
                         </div>
                     </a>
