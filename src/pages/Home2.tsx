@@ -10,7 +10,6 @@
  * They will be placed in src/components/ui/
  */
 
-import { Footer31 } from '@/components/footer31'
 import { Cta18 } from '@/components/cta18'
 import { ProductCarousel } from '@/components/ProductCarousel'
 import { Feature200 } from '@/components/feature200'
@@ -57,11 +56,6 @@ export default function Home2() {
       {/* CTA SECTION - shadcn block                 */}
       {/* ========================================== */}
       <Cta18 />
-
-      {/* ========================================== */}
-      {/* FOOTER - shadcn block                      */}
-      {/* ========================================== */}
-      <Footer31 />
     </div>
   )
 }
