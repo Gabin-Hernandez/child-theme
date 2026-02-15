@@ -205,13 +205,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 ?>
 
 <!-- Hero Section - Modern Black Design with Background Image -->
-<div class="relative bg-black overflow-hidden">
+<div class="relative bg-black overflow-hidden min-h-[500px]">
     <!-- Background Image -->
-    <div class="absolute inset-0">
+    <div class="absolute inset-0 z-0">
         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" 
              alt="Herramientas profesionales" 
-             class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-br from-black/90 via-black/80 to-black/70"></div>
+             class="w-full h-full object-cover opacity-40">
+        <div class="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/70"></div>
     </div>
     
     <!-- Contenido -->
@@ -232,8 +232,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             
             <!-- Barra de búsqueda -->
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
-                    <div method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
+                <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
+                    <div class="flex flex-col sm:flex-row">
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
@@ -283,9 +283,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </svg>
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
+                </form>
     </div>
 </div>
 
