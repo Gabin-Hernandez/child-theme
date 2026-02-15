@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 interface Cta18Props {
   className?: string;
-}
+} 
 
 const Cta18 = ({ className }: Cta18Props) => {
   return (
