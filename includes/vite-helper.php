@@ -50,8 +50,8 @@ function itools_vite_is_dev() {
  * Enqueue Vite assets for the Home 2 shadcn page.
  */
 function itools_enqueue_vite_home2() {
-    // Only load on the Home 2 template page
-    if ( ! is_page_template( 'page-home2.php' ) ) {
+    // Load on the Home 2 template page OR on the front page
+    if ( ! is_page_template( 'page-home2.php' ) && ! is_front_page() ) {
         return;
     }
 

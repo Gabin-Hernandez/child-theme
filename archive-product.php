@@ -204,13 +204,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Hero Section - Modern Black Design -->
+<!-- Hero Section - Modern Black Design with Background Image -->
 <div class="relative bg-black overflow-hidden">
-    <!-- Subtle gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90"></div>
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" 
+             alt="Herramientas profesionales" 
+             class="w-full h-full object-cover opacity-30">
+        <div class="absolute inset-0 bg-gradient-to-br from-black/90 via-black/80 to-black/70"></div>
+    </div>
     
     <!-- Contenido -->
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 z-10">
         <div class="text-center">
             <!-- Título principal -->
             <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
@@ -283,6 +288,174 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
         </div>
     </div>
 </div>
+
+<!-- Popular Products Carousel -->
+<section class="bg-gray-50 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 tracking-tight">
+                PRODUCTOS POPULARES
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Los productos más vendidos y mejor valorados por nuestros clientes
+            </p>
+        </div>
+
+        <!-- Products Carousel -->
+        <div class="relative">
+            <?php
+            // Get popular products from WooCommerce
+            $popular_args = array(
+                'post_type' => 'product',
+                'posts_per_page' => 12,
+                'meta_key' => 'total_sales',
+                'orderby' => 'meta_value_num',
+                'order' => 'DESC',
+                'post_status' => 'publish'
+            );
+            $popular_products = new WP_Query($popular_args);
+            
+            if ($popular_products->have_posts()) :
+            ?>
+            <div class="swiper popular-products-swiper">
+                <div class="swiper-wrapper">
+                    <?php while ($popular_products->have_posts()) : $popular_products->the_post(); 
+                        $product = wc_get_product(get_the_ID());
+                        if (!$product) continue;
+                    ?>
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-200 hover:border-black h-full">
+                            <!-- Product Image -->
+                            <a href="<?php echo get_permalink(); ?>" class="block relative overflow-hidden bg-gray-50 aspect-square">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <?php the_post_thumbnail('woocommerce_thumbnail', array('class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300')); ?>
+                                <?php else : ?>
+                                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo-itoolsmx.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" class="w-full h-full object-contain p-4">
+                                <?php endif; ?>
+                                
+                                <?php if ($product->is_on_sale()) : ?>
+                                    <span class="absolute top-3 left-3 bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-lg uppercase">
+                                        Oferta
+                                    </span>
+                                <?php endif; ?>
+                            </a>
+                            
+                            <!-- Product Info -->
+                            <div class="p-5">
+                                <h3 class="text-base font-bold text-gray-900 mb-3 line-clamp-2 hover:text-black transition-colors">
+                                    <a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a>
+                                </h3>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <?php if ($product->is_on_sale()) : ?>
+                                            <span class="text-sm text-gray-500 line-through"><?php echo $product->get_regular_price(); ?></span>
+                                            <span class="text-xl font-bold text-black"><?php echo $product->get_sale_price(); ?> MXN</span>
+                                        <?php else : ?>
+                                            <span class="text-xl font-bold text-black"><?php echo $product->get_price(); ?> MXN</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                    <a href="<?php echo get_permalink(); ?>" class="bg-black text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-900 transition-all duration-300">
+                                        Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+                
+                <!-- Navigation -->
+                <div class="swiper-button-next !w-12 !h-12 !bg-black !text-white !rounded-full after:!text-base shadow-xl"></div>
+                <div class="swiper-button-prev !w-12 !h-12 !bg-black !text-white !rounded-full after:!text-base shadow-xl"></div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination !bottom-[-40px]"></div>
+            </div>
+            
+            <!-- View All Button -->
+            <div class="text-center mt-12">
+                <a href="<?php echo home_url('/tienda'); ?>" class="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Ver Todos los Productos
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </a>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Brands/Categories Carousel -->
+<section class="bg-white py-16 border-y border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-black mb-3 tracking-tight">
+                EXPLORA POR CATEGORÍA
+            </h2>
+            <p class="text-gray-600">Encuentra exactamente lo que necesitas</p>
+        </div>
+        
+        <div class="swiper categories-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/pantallas'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-pantallas.svg" alt="Pantallas" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Pantallas LCD</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/baterias'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-baterias.svg" alt="Baterías" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Baterías</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/herramientas'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-herramientas.svg" alt="Herramientas" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Herramientas</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/refacciones'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-refacciones.svg" alt="Refacciones" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Refacciones</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/cargadores'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-cargadores.svg" alt="Cargadores" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Cargadores</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="<?php echo home_url('/categoria-product/accesorios'); ?>" class="block group">
+                        <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/categoria-accesorios.svg" alt="Accesorios" class="w-20 h-20 mx-auto mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Accesorios</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="swiper-pagination !relative !mt-8"></div>
+        </div>
+    </div>
+</section>
 
 <!-- Breadcrumb -->
 <div class="bg-gray-50 border-b border-gray-200">
@@ -1717,7 +1890,138 @@ document.addEventListener('DOMContentLoaded', function() {
             grid-template-columns: repeat(6, minmax(0, 1fr));
         }
     }
+    
+    /* Swiper Navigation Buttons */
+    .popular-products-swiper {
+        padding-bottom: 50px !important;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: white !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #000 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background: #1f2937 !important;
+        transform: scale(1.1);
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 18px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Swiper Pagination */
+    .swiper-pagination-bullet {
+        background: #000 !important;
+        opacity: 0.3 !important;
+        width: 12px !important;
+        height: 12px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .swiper-pagination-bullet:hover {
+        opacity: 0.6 !important;
+    }
+    
+    .swiper-pagination-bullet-active {
+        opacity: 1 !important;
+        width: 32px !important;
+        border-radius: 6px !important;
+    }
 </style>
+
+<!-- Swiper Carousel Initialization -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Popular Products Swiper
+    if (document.querySelector('.popular-products-swiper')) {
+        new Swiper('.popular-products-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 24,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                },
+                1280: {
+                    slidesPerView: 5,
+                    spaceBetween: 30,
+                },
+                1536: {
+                    slidesPerView: 6,
+                    spaceBetween: 30,
+                },
+            },
+        });
+    }
+    
+    // Categories Swiper
+    if (document.querySelector('.categories-swiper')) {
+        new Swiper('.categories-swiper', {
+            slidesPerView: 2,
+            spaceBetween: 16,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            loop: true,
+            pagination: {
+                el: '.categories-swiper .swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                },
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 24,
+                },
+                1280: {
+                    slidesPerView: 6,
+                    spaceBetween: 30,
+                },
+            },
+        });
+    }
+});
+</script>
 
 <?php get_footer( 'shop' ); ?>
 
