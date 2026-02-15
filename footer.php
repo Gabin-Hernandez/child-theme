@@ -180,7 +180,7 @@
         /* Forzar el fondo oscuro del footer */
         #colophon,
         .site-footer {
-            background-color: transparent !important;
+            background-color: rgb(17, 23, 41) !important;
         }
         
         /* Asegurar que todos los textos del footer sean blancos/grises */
