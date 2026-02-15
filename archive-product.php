@@ -404,12 +404,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=refacciones'); ?>" class="block group">
+                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=herramientas'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="package" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Refacciones</h3>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-white transition-colors">Herramientas</h3>
                         </div>
                     </a>
                 </div>
