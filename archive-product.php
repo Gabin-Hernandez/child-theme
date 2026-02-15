@@ -297,11 +297,11 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         if (!$product) continue;
                     ?>
                     <div class="swiper-slide">
-                        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-200 hover:border-black h-full">
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-black h-full">
                             <!-- Product Image -->
                             <a href="<?php echo get_permalink(); ?>" class="block relative overflow-hidden bg-gray-50 aspect-square">
                                 <?php if (has_post_thumbnail()) : ?>
-                                    <?php the_post_thumbnail('woocommerce_thumbnail', array('class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300')); ?>
+                                    <?php the_post_thumbnail('woocommerce_thumbnail', array('class' => 'w-full h-full object-cover')); ?>
                                 <?php else : ?>
                                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo-itoolsmx.jpg" alt="<?php echo esc_attr(get_the_title()); ?>" class="w-full h-full object-contain p-4">
                                 <?php endif; ?>
