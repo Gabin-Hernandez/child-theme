@@ -374,7 +374,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
         <div class="swiper categories-swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=pantallas-lcd'); ?>" class="block group">
+                    <a href="<?php echo home_url('/categoria-product/pantallas-lcd'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="monitor" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
@@ -384,7 +384,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=baterias'); ?>" class="block group">
+                    <a href="<?php echo home_url('/categoria-product/baterias'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="battery-charging" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
@@ -394,7 +394,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=soldadura'); ?>" class="block group">
+                    <a href="<?php echo home_url('/categoria-product/soldadura'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="wrench" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
@@ -414,7 +414,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=cautines'); ?>" class="block group">
+                    <a href="<?php echo home_url('/categoria-product/cautines'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="zap" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
@@ -424,7 +424,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                     </a>
                 </div>
                 <div class="swiper-slide">
-                    <a href="<?php echo home_url('/?post_type=product&s=&product_cat=microscopios'); ?>" class="block group">
+                    <a href="<?php echo home_url('/categoria-product/microscopios'); ?>" class="block group">
                         <div class="bg-gray-50 rounded-2xl p-8 text-center hover:bg-black transition-all duration-300 border-2 border-gray-200 hover:border-black">
                             <div class="flex justify-center mb-4">
                                 <i data-lucide="microscope" class="w-20 h-20 text-gray-700 group-hover:text-white transition-colors"></i>
