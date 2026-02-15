@@ -71,7 +71,7 @@ const Feature200 = ({ className }: Feature200Props) => {
                     className="h-7 w-7"
                     style={{ color: feature.bgColor }}
                   />
-                </div>
+                </div> 
               </div>
               
               <h3 className="relative text-xl font-semibold text-white mb-4">
