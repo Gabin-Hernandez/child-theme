@@ -6,13 +6,6 @@
 
 get_header(); ?>
 
-<style>
-    .home .site-main,
-    .page-template-default .site-main {
-        margin-bottom: 0 !important;
-    }
-</style>
-
 <main id="main" class="site-main" role="main">
     <?php
     /**
@@ -23,9 +16,4 @@ get_header(); ?>
     <div id="shadcn-home2-root"></div>
 </main>
 
-</div><!-- #content -->
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php get_footer(); ?>
