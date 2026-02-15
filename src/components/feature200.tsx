@@ -73,7 +73,7 @@ const Feature200 = ({ className }: Feature200Props) => {
                   />
                 </div> 
               </div>
-              
+               
               <h3 className="relative text-xl font-semibold text-white mb-4">
                 {feature.title}
               </h3>
