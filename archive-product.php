@@ -205,13 +205,21 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 ?>
 
 <!-- Hero Section - Minimalist Compact Design -->
-<div class="relative bg-gray-50 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+<div class="relative bg-gray-900 border-b border-gray-200 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" 
+             alt="Herramientas profesionales" 
+             class="w-full h-full object-cover opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/70 to-gray-900/90"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div class="text-center max-w-3xl mx-auto">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
                 <span class="block">Tienda Profesional</span>
             </h1>
-            <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
+            <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
                 Herramientas y refacciones de alta calidad para tu taller.
             </p>
             
@@ -231,7 +239,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                class="w-full py-4 px-4 text-gray-700 bg-transparent border-none focus:ring-0 text-base placeholder-gray-400" 
                                placeholder="Buscar por nombre, modelo o marca..."
                                value="<?php echo get_search_query(); ?>">
-                        <button type="submit" class="mr-2 px-6 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                        <button type="submit" class="mr-2 px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Buscar
                         </button>
                     </div>
@@ -239,15 +247,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             </div>
             
             <!-- Quick Links -->
-            <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
+            <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm text-gray-400">
                 <span>Busca también:</span>
-                <a href="?s=iphone&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">iPhone</a>
-                <span class="text-gray-300">•</span>
-                <a href="?s=cautin&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Cautines</a>
-                <span class="text-gray-300">•</span>
-                <a href="?s=microscopio&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Microscopios</a>
-                <span class="text-gray-300">•</span>
-                <a href="?s=consumibles&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Consumibles</a>
+                <a href="?s=iphone&post_type=product" class="text-indigo-400 hover:text-indigo-300 hover:underline">iPhone</a>
+                <span class="text-gray-600">•</span>
+                <a href="?s=cautin&post_type=product" class="text-indigo-400 hover:text-indigo-300 hover:underline">Cautines</a>
+                <span class="text-gray-600">•</span>
+                <a href="?s=microscopio&post_type=product" class="text-indigo-400 hover:text-indigo-300 hover:underline">Microscopios</a>
+                <span class="text-gray-600">•</span>
+                <a href="?s=consumibles&post_type=product" class="text-indigo-400 hover:text-indigo-300 hover:underline">Consumibles</a>
             </div>
         </div>
     </div>
