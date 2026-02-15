@@ -332,11 +332,11 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 </div>
                 
                 <!-- Navigation -->
-                <div class="swiper-button-next !w-12 !h-12 !bg-black !text-white !rounded-full after:!text-base shadow-xl"></div>
-                <div class="swiper-button-prev !w-12 !h-12 !bg-black !text-white !rounded-full after:!text-base shadow-xl"></div>
+                <div class="swiper-button-next popular-next"></div>
+                <div class="swiper-button-prev popular-prev"></div>
                 
                 <!-- Pagination -->
-                <div class="swiper-pagination !bottom-[-40px]"></div>
+                <div class="swiper-pagination popular-pagination"></div>
             </div>
             
             <!-- View All Button -->
@@ -1870,6 +1870,36 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Swiper Navigation Buttons */
     .popular-products-swiper {
         padding-bottom: 50px !important;
+        position: relative;
+    }
+    
+    .popular-products-swiper .swiper-button-next,
+    .popular-products-swiper .swiper-button-prev {
+        color: white !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #000 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+        z-index: 10 !important;
+    }
+    
+    .popular-products-swiper .swiper-button-next:hover,
+    .popular-products-swiper .swiper-button-prev:hover {
+        background: #1f2937 !important;
+        transform: scale(1.1);
+    }
+    
+    .popular-products-swiper .swiper-button-next:after,
+    .popular-products-swiper .swiper-button-prev:after {
+        font-size: 18px !important;
+        font-weight: bold !important;
+        color: white !important;
+    }
+    
+    .popular-pagination {
+        bottom: 0 !important;
+        margin-top: 30px !important;
     }
     
     .swiper-button-next,
@@ -1929,11 +1959,11 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             loop: true,
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.popular-products-swiper .popular-next',
+                prevEl: '.popular-products-swiper .popular-prev',
             },
             pagination: {
-                el: '.swiper-pagination',
+                el: '.popular-products-swiper .popular-pagination',
                 clickable: true,
             },
             breakpoints: {
