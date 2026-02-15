@@ -41,7 +41,7 @@ const Footer31 = ({ className }: Footer31Props) => {
               alt="ITOOLS MX" 
               className="h-16 md:h-20 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
             />
-          </div>
+          </div> 
         </div>
 
         {/* Grid Links */}
