@@ -280,7 +280,7 @@ const Feature323 = ({
   className,
   heading = "Por Qué Elegir ITOOLS MX",
   features = [
-    { 
+    {  
       image:
         "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
       title: "Distribución Nacional",
