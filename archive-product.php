@@ -204,38 +204,52 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Hero Section - Modern Clean Design (Home 2 Style) -->
-<div class="relative bg-white overflow-hidden border-b border-gray-100">
-    <div class="max-w-7xl mx-auto">
-        <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <main class="mt-10 mx-auto px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                <div class="sm:text-center lg:text-left">
-                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                        <span class="block xl:inline">Equipa tu taller con</span>
-                        <span class="block text-indigo-600 xl:inline">herramientas profesionales</span>
-                    </h1>
-                    <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Encuentra las mejores refacciones, insumos y equipos de soldadura. Calidad garantizada para técnicos exigentes.
-                    </p>
-                    <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                        <div class="rounded-md shadow">
-                            <a href="#popular-products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 transition-colors">
-                                Ver Catálogo
-                            </a>
+<!-- Hero Section - Minimalist Compact Design -->
+<div class="relative bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+                <span class="block">Tienda Profesional</span>
+            </h1>
+            <p class="text-lg text-gray-500 mb-8 max-w-2xl mx-auto">
+                Herramientas y refacciones de alta calidad para tu taller.
+            </p>
+            
+            <!-- Compact Search Bar -->
+            <div class="max-w-xl mx-auto relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
+                <form role="search" method="get" class="relative bg-white rounded-lg shadow-sm" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input type="hidden" name="post_type" value="product">
+                    <div class="flex items-center">
+                        <div class="pl-4 text-gray-400">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
                         </div>
-                        <div class="mt-3 sm:mt-0 sm:ml-3">
-                            <a href="#categories" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10 transition-colors">
-                                Categorías
-                            </a>
-                        </div>
+                        <input type="text" 
+                               name="s" 
+                               class="w-full py-4 px-4 text-gray-700 bg-transparent border-none focus:ring-0 text-base placeholder-gray-400" 
+                               placeholder="Buscar por nombre, modelo o marca..."
+                               value="<?php echo get_search_query(); ?>">
+                        <button type="submit" class="mr-2 px-6 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+                            Buscar
+                        </button>
                     </div>
-                </div>
-            </main>
+                </form>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm text-gray-500">
+                <span>Busca también:</span>
+                <a href="?s=iphone&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">iPhone</a>
+                <span class="text-gray-300">•</span>
+                <a href="?s=cautin&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Cautines</a>
+                <span class="text-gray-300">•</span>
+                <a href="?s=microscopio&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Microscopios</a>
+                <span class="text-gray-300">•</span>
+                <a href="?s=consumibles&post_type=product" class="text-indigo-600 hover:text-indigo-800 hover:underline">Consumibles</a>
+            </div>
         </div>
-    </div>
-    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="<?php echo get_stylesheet_directory_uri(); ?>/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg" alt="Taller de reparación electrónica">
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/50 to-transparent lg:via-white/20"></div>
     </div>
 </div>
 
