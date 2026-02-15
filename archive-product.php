@@ -204,38 +204,37 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 ?>
 
-<!-- Hero Section con estilo de Microscopios -->
-<div class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-white border-b border-blue-100">
-    <!-- Patrón sutil -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
+<!-- Hero Section - Modern Black Design -->
+<div class="relative bg-black overflow-hidden">
+    <!-- Subtle gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90"></div>
     
     <!-- Contenido -->
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div class="text-center">
             <!-- Título principal -->
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Tienda de
-                <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                    Herramientas Profesionales
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 leading-tight tracking-tight">
+                Tienda
+                <span class="block mt-2 text-white/90">
+                    Profesional
                 </span>
             </h1>
             
             <!-- Descripción -->
-            <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Encuentra las mejores herramientas profesionales para tus proyectos. Calidad garantizada y envío rápido.
+            <p class="text-lg md:text-xl text-white/70 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Stock completo de herramientas, refacciones y equipo profesional con la mejor garantía del mercado
             </p>
             
             <!-- Barra de búsqueda -->
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
+                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
                     <div method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex flex-col sm:flex-row">
                         <input type="hidden" name="post_type" value="product">
                         
                         <!-- Input de búsqueda -->
-                        <div class="flex-1 relative ">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <div class="flex-1 relative">
+                            <div class="absolute inset-y-0 left-5 flex items-center">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                             </div>
@@ -243,16 +242,16 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    id="hero-search"
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
-                                   placeholder="Buscar herramientas por nombre, marca o categoría..."
-                                   class="w-full h-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
+                                   placeholder="Buscar productos..."
+                                   class="w-full h-full pl-14 pr-4 py-5 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white font-medium">
                         </div>
                         
                         <!-- Separador -->
                         <div class="hidden sm:block w-px bg-gray-200"></div>
                         
                         <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[200px]">
-                            <select name="product_cat" class="w-full px-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
+                        <div class="relative sm:min-w-[220px]">
+                            <select name="product_cat" class="w-full px-5 py-5 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer font-medium">
                                 <option value="">Todas las categorías</option>
                                 <?php
                                 $categories = get_terms( array(
@@ -264,21 +263,21 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 }
                                 ?>
                             </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
                         </div>
                         
                         <!-- Botón de búsqueda -->
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 font-semibold text-base transition-colors duration-200 flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+                        <button type="submit" class="bg-black hover:bg-gray-900 text-white px-8 py-5 font-bold uppercase text-sm tracking-wider transition-all duration-300 flex items-center justify-center gap-2">
                             <span>Buscar</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
                         </button>
-                            </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,32 +285,32 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 </div>
 
 <!-- Breadcrumb -->
-<div class="bg-white border-b border-gray-100">
-    <div class="w-11/12 py-4 mx-auto 2xl:max-w-[1920px] px-6">
-        <nav class="flex items-center space-x-2 text-sm">
-            <a href="<?php echo home_url(); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Inicio</a>
-            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+<div class="bg-gray-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center space-x-3 text-sm">
+            <a href="<?php echo home_url(); ?>" class="text-gray-600 hover:text-black transition-colors font-semibold">Inicio</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
-            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-gray-500 hover:text-gray-700 transition-colors font-medium">Tienda</a>
-            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            <a href="<?php echo wc_get_page_permalink('shop'); ?>" class="text-gray-600 hover:text-black transition-colors font-semibold">Tienda</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
             </svg>
-            <span class="text-gray-900 font-semibold">Productos</span>
+            <span class="text-black font-bold">Productos</span>
         </nav>
     </div>
 </div>
 
 <!-- Products Content -->
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="w-11/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
-        <!-- Botón para filtros en móvil - más limpio -->
-        <div class="lg:hidden mb-6">
-            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+<div class="bg-white min-h-screen py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Botón para filtros en móvil -->
+        <div class="lg:hidden mb-8">
+            <button id="toggle-filters" class="flex items-center justify-center gap-3 w-full py-4 px-6 bg-black hover:bg-gray-900 rounded-2xl text-white font-bold uppercase text-sm tracking-wider transition-all duration-300 shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
                 </svg>
-                Filtros
+                <span>Filtros</span>
             </button>
         </div>
 
@@ -321,36 +320,36 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
             <div class="flex flex-col lg:flex-row gap-6">
                 
-                <!-- Sidebar de filtros elegante y sticky -->
+                <!-- Sidebar de filtros moderno -->
                 <aside 
                     id="filters-sidebar" 
-                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
-                    <div class="bg-white h-full lg:h-auto p-6 rounded-none lg:rounded-2xl shadow-2xl lg:shadow-lg overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border border-gray-200/50 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
+                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/70 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
+                    <div class="bg-black h-full lg:h-auto p-8 rounded-none lg:rounded-3xl shadow-2xl overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border-2 lg:border-gray-800 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
                         
                         <!-- Header del sidebar -->
-                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+                        <div class="flex justify-between items-center mb-10 pb-6 border-b border-white/10">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900">
+                                <h3 class="text-2xl font-bold text-white tracking-tight">
                                     Filtros
                                 </h3>
                             </div>
-                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-xl transition-all duration-200">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <button id="close-filters" class="lg:hidden text-white/70 hover:text-white p-2 hover:bg-white/10 rounded-xl transition-all duration-200">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
                             </button>
                         </div>
 
                         <!-- Filtro por Precio -->
-                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mb-8 p-6 bg-white/5 rounded-2xl border border-white/10 shadow-sm hover:border-white/20 transition-all duration-300">
+                            <h4 class="font-bold text-white mb-6 flex items-center gap-3 text-lg">
+                                <div class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                                     </svg>
                                 </div>
@@ -366,13 +365,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             <!-- Price Range Slider -->
                             <div class="price-slider-container">
-                                <div class="flex justify-between items-center mb-4">
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                                <div class="flex justify-between items-center mb-5">
+                                    <span class="text-sm text-white/90 font-bold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
+                                    <span class="text-sm text-white/90 font-bold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
                                 </div>
                                 
                                 <div class="relative">
-                                    <div class="price-slider-track bg-gray-300 h-2 rounded-full relative">
+                                    <div class="price-slider-track bg-white/20 h-2 rounded-full relative">
                                         <div id="price-slider-range" class="absolute h-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
                                     </div>
                                     
@@ -396,10 +395,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         </div>
 
                         <!-- Filtro por Categorías -->
-                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mb-8 p-6 bg-white/5 rounded-2xl border border-white/10 shadow-sm hover:border-white/20 transition-all duration-300">
+                            <h4 class="font-bold text-white mb-6 flex items-center gap-3 text-lg">
+                                <div class="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                                     </svg>
                                 </div>
@@ -413,13 +412,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
                                 <a href="<?php echo esc_url($all_categories_url); ?>" 
-                                   class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group <?php echo $is_all_categories ? 'bg-blue-50 border border-blue-200' : ''; ?>">
-                                    <span class="text-gray-700 font-medium <?php echo $is_all_categories ? 'text-blue-700' : ''; ?>">
+                                   class="flex items-center justify-between p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group <?php echo $is_all_categories ? 'bg-white/10 border border-white/20' : ''; ?>">
+                                    <span class="text-white/90 font-semibold group-hover:text-white transition-colors <?php echo $is_all_categories ? 'text-white' : ''; ?>">
                                         Todas las categorías
                                     </span>
                                     <?php if ($is_all_categories) : ?>
-                                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                         </svg>
                                     <?php endif; ?>
                                 </a>
@@ -446,18 +445,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         $hidden_class = $index >= 3 ? 'hidden more-category' : '';
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" 
-                                       class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors group <?php echo $is_current ? 'bg-blue-50 border border-blue-200' : ''; ?> <?php echo $hidden_class; ?>">
+                                       class="flex items-center justify-between p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group <?php echo $is_current ? 'bg-white/10 border border-white/20' : ''; ?> <?php echo $hidden_class; ?>">
                                         <div class="flex items-center gap-3">
-                                            <span class="text-gray-700 font-medium <?php echo $is_current ? 'text-blue-700' : ''; ?>">
+                                            <span class="text-white/90 font-semibold group-hover:text-white transition-colors <?php echo $is_current ? 'text-white' : ''; ?>">
                                                 <?php echo esc_html( $category->name ); ?>
                                             </span>
-                                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                                            <span class="text-xs bg-white/10 text-white/70 px-3 py-1.5 rounded-full font-bold">
                                                 <?php echo $category->count; ?>
                                             </span>
                                         </div>
                                         <?php if ($is_current) : ?>
-                                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                             </svg>
                                         <?php endif; ?>
                                     </a>
@@ -470,10 +469,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     <div id="more-categories" class="hidden">
                                         <!-- Las categorías adicionales ya están marcadas con more-category -->
                                     </div>
-                                    <button id="toggle-categories" class="w-full p-3 text-center text-blue-600 hover:text-blue-700 font-medium flex items-center justify-center gap-2 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <button id="toggle-categories" class="w-full p-4 text-center text-white font-bold flex items-center justify-center gap-2 hover:bg-white/10 rounded-xl transition-all duration-300">
                                         <span id="toggle-text">Ver más categorías</span>
-                                        <svg id="toggle-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        <svg id="toggle-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
                                         </svg>
                                     </button>
                                 <?php 
@@ -485,18 +484,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 
                         <!-- Botones de acción -->
-                        <div class="space-y-4">
+                        <div class="space-y-4 mt-10">
                             <button id="apply-sidebar-filters" 
-                                    class="apply-filters w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    class="apply-filters w-full bg-white text-black py-5 rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Aplicar Filtros
                             </button>
                             <button id="clear-filters" 
-                                    class="clear-filters w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 py-4 rounded-2xl font-bold hover:from-gray-200 hover:to-gray-300 transition-all duration-300 border border-gray-300 hover:border-gray-400 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    class="clear-filters w-full bg-white/10 text-white py-5 rounded-2xl font-bold uppercase text-sm tracking-wider hover:bg-white/20 transition-all duration-300 border-2 border-white/20 hover:border-white/30 flex items-center justify-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                 </svg>
                                 Limpiar Todo
                             </button>
@@ -504,8 +503,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         
                         <!-- Estado de carga para sidebar -->
                         <div class="filters-loading hidden mt-6 text-center">
-                            <div class="inline-flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <div class="inline-flex items-center px-4 py-3 bg-white/10 text-white rounded-xl border border-white/20">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
@@ -529,13 +528,13 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 <!-- Contenido principal -->
                 <main class="flex-1 w-full xl:w-auto">
                     
-                    <!-- Barra superior limpia con información básica -->
-                    <div class="bg-white p-4 lg:p-6 rounded-2xl shadow-sm mb-6 border border-gray-100">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <!-- Barra superior moderna -->
+                    <div class="bg-white p-6 lg:p-8 rounded-3xl shadow-lg mb-8 border border-gray-200">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
                             
                             <!-- Información de resultados -->
-                            <div class="flex items-center gap-3">
-                                <div class="w-2 h-6 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-1.5 h-12 bg-black rounded-full"></div>
                                 <div>
                                     <?php
                                     $total_products = $products_query->found_posts;
@@ -545,10 +544,10 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                         $first = ( $current_page - 1 ) * $per_page + 1;
                                         $last = min( $total_products, $current_page * $per_page );
                                     ?>
-                                        <h3 class="text-lg lg:text-xl font-bold text-gray-900">
+                                        <h3 class="text-xl lg:text-2xl font-bold text-black tracking-tight">
                                             <?php echo $total_products; ?> Productos
                                         </h3>
-                                        <p class="text-sm text-gray-600">
+                                        <p class="text-sm text-gray-600 font-semibold mt-1">
                                             <?php echo $first; ?>-<?php echo $last; ?> de <?php echo $total_products; ?>
                                         </p>
                                     <?php endif; ?>
@@ -556,17 +555,17 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             </div>
                             
                             <!-- Controles simples -->
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-4">
                                 <!-- Selector de vista -->
-                                <div class="flex bg-gray-100 rounded-xl p-1">
-                                    <button id="grid-view" class="px-3 py-2 rounded-lg transition-all duration-300 bg-white shadow-sm" title="Vista en tarjetas">
-                                        <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                                <div class="flex bg-gray-100 rounded-xl p-1.5">
+                                    <button id="grid-view" class="px-4 py-3 rounded-lg transition-all duration-300 bg-white shadow-sm" title="Vista en tarjetas">
+                                        <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                         </svg>
                                     </button>
-                                    <button id="table-view" class="px-3 py-2 rounded-lg transition-all duration-300 text-gray-500" title="Vista de tabla técnica">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                    <button id="table-view" class="px-4 py-3 rounded-lg transition-all duration-300 text-gray-500" title="Vista de tabla técnica">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                                         </svg>
                                     </button>
                                 </div>
@@ -643,7 +642,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             
                             // Template personalizado de producto
                             ?>
-                            <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-blue-300 h-full flex flex-col min-h-[420px]">
+                            <div class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-gray-200 hover:border-black h-full flex flex-col min-h-[450px]">
                                 <!-- Imagen del producto -->
                                 <div class="relative overflow-hidden bg-gray-50 aspect-square">
                                     <a href="<?php the_permalink(); ?>" class="block h-full">
@@ -899,40 +898,40 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
         <?php else : ?>
 
-            <!-- Estado vacío mejorado -->
-            <div class="text-center py-20">
-                <div class="max-w-md mx-auto">
+            <!-- Estado vacío moderno -->
+            <div class="text-center py-24">
+                <div class="max-w-lg mx-auto">
                     <!-- Ilustración SVG -->
-                    <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                        <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <div class="w-36 h-36 mx-auto mb-10 bg-black rounded-full flex items-center justify-center shadow-xl">
+                        <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
                     
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">No encontramos productos</h2>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <h2 class="text-4xl md:text-5xl font-bold text-black mb-6 tracking-tight">No encontramos productos</h2>
+                    <p class="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed max-w-md mx-auto">
                         Lo sentimos, no hay productos que coincidan con tus criterios de búsqueda. 
-                        <br>Prueba ajustando los filtros o explorando nuestras categorías.
+                        Prueba ajustando los filtros o explorando nuestras categorías.
                     </p>
                     
                     <!-- Botones de acción -->
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button id="clear-all-filters" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        <button id="clear-all-filters" class="bg-black text-white px-10 py-5 rounded-2xl hover:bg-gray-900 transition-all duration-300 font-bold uppercase text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             Limpiar Filtros
                         </button>
-                        <a href="<?php echo home_url(); ?>" class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-2xl hover:border-blue-500 hover:text-blue-600 transition-all duration-300 font-semibold">
+                        <a href="<?php echo home_url(); ?>" class="bg-white border-2 border-black text-black px-10 py-5 rounded-2xl hover:bg-black hover:text-white transition-all duration-300 font-bold uppercase text-sm tracking-wider">
                             Volver al Inicio
                         </a>
                     </div>
                     
                     <!-- Sugerencias -->
-                    <div class="mt-12 p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border border-yellow-200">
-                        <h3 class="font-bold text-gray-900 mb-4">Sugerencias de búsqueda:</h3>
-                        <div class="flex flex-wrap gap-2 justify-center">
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Taladros</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Martillos</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Destornilladores</span>
-                            <span class="bg-white px-4 py-2 rounded-full text-sm text-gray-700 border border-yellow-300">Llaves</span>
+                    <div class="mt-14 p-8 bg-gray-50 rounded-3xl border-2 border-gray-200">
+                        <h3 class="font-bold text-black mb-6 text-lg tracking-tight">Sugerencias de búsqueda:</h3>
+                        <div class="flex flex-wrap gap-3 justify-center">
+                            <span class="bg-white px-5 py-3 rounded-full text-sm font-bold text-gray-700 border-2 border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all cursor-pointer">Pantallas</span>
+                            <span class="bg-white px-5 py-3 rounded-full text-sm font-bold text-gray-700 border-2 border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all cursor-pointer">Baterías</span>
+                            <span class="bg-white px-5 py-3 rounded-full text-sm font-bold text-gray-700 border-2 border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all cursor-pointer">Herramientas</span>
+                            <span class="bg-white px-5 py-3 rounded-full text-sm font-bold text-gray-700 border-2 border-gray-300 hover:border-black hover:bg-black hover:text-white transition-all cursor-pointer">Soldadura</span>
                         </div>
                     </div>
                 </div>
@@ -999,32 +998,34 @@ body {
     display: none !important;
 }
 
-/* Estilo personalizado para el selector de ordenamiento */
+/* Estilo personalizado para el selector de ordenamiento - Black Theme */
 .woocommerce-ordering select {
-    padding: 8px 12px !important;
-    border: 1px solid #e5e7eb !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e5e7eb !important;
     border-radius: 0.75rem !important;
     background-color: white !important;
     font-size: 14px !important;
-    color: #374151 !important;
-    min-width: 160px !important;
-    max-width: 200px !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
+    min-width: 180px !important;
+    max-width: 220px !important;
     appearance: none !important;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
-    background-position: right 8px center !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 12px center !important;
     background-repeat: no-repeat !important;
-    background-size: 16px 16px !important;
-    transition: all 0.2s ease !important;
+    background-size: 18px 18px !important;
+    transition: all 0.3s ease !important;
 }
 
 .woocommerce-ordering select:focus {
     outline: none !important;
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
+    border-color: #000000 !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .woocommerce-ordering select:hover {
-    border-color: #d1d5db !important;
+    border-color: #000000 !important;
+    background-color: #f9fafb !important;
 }
 
 /* Ocultar elementos innecesarios del resultado count */
@@ -1601,7 +1602,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-    /* Price Slider Styles */
+    /* Price Slider Styles - Black Theme */
     .price-slider-container {
         position: relative;
         margin: 0.5rem 0;
@@ -1610,7 +1611,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .price-slider-track {
         position: relative;
         height: 8px;
-        background: #e2e8f0;
+        background: rgba(255, 255, 255, 0.2);
         border-radius: 999px;
     }
     
@@ -1631,37 +1632,37 @@ document.addEventListener('DOMContentLoaded', function() {
         -webkit-appearance: none;
         appearance: none;
         pointer-events: all;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
-        border: 3px solid #1f2937;
-        background: #ffffff;
+        border: 3px solid #ffffff;
+        background: #000000;
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         transition: all 0.2s ease;
     }
     
     .price-slider-input::-webkit-slider-thumb:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
     }
     
     .price-slider-input::-moz-range-thumb {
         pointer-events: all;
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
-        border: 3px solid #1f2937;
-        background: #ffffff;
+        border: 3px solid #ffffff;
+        background: #000000;
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         transition: all 0.2s ease;
         -moz-appearance: none;
     }
     
     .price-slider-input::-moz-range-thumb:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
     }
     
     .price-slider-input::-moz-range-track {
@@ -1670,17 +1671,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     .price-slider-input:active::-webkit-slider-thumb {
-        transform: scale(1.2);
+        transform: scale(1.25);
     }
     
     .price-slider-input:active::-moz-range-thumb {
-        transform: scale(1.2);
+        transform: scale(1.25);
     }
     
     /* Hero search bar styles */
     #hero-search:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
     
     #hero-search::placeholder {
@@ -1690,7 +1691,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Select styling */
     select[name="product_cat"]:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
     
     /* Mobile responsive */
