@@ -391,53 +391,42 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 <!-- Products Content -->
 <div class="bg-gray-50 min-h-screen py-8">
     <div class="w-11/12 2xl:max-w-[1920px] mx-auto px-4 xl:px-6 2xl:px-8">
-        <!-- Botón para filtros en móvil - más limpio -->
+                <!-- Botón para filtros en móvil -->
         <div class="lg:hidden mb-6">
-            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg border border-gray-200 text-gray-700 font-medium transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                </svg>
-                Filtros
+            <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 rounded-xl font-medium text-sm transition-all duration-200 shadow-sm sticky top-4 z-40">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gray-500"></i>
+                <span>Filtrar Productos</span>
             </button>
         </div>
+
+
 
         <?php if ( woocommerce_product_loop() ) : ?>
 
             <div class="flex flex-col lg:flex-row gap-6">
                 
-                <!-- Sidebar de filtros elegante y sticky -->
+                <!-- Sidebar de filtros moderno -->
                 <aside 
                     id="filters-sidebar" 
-                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block">
-                    <div class="bg-white h-full lg:h-auto p-6 rounded-none lg:rounded-2xl shadow-2xl lg:shadow-lg overflow-y-auto ml-auto lg:ml-0 w-80 lg:w-full border-0 lg:border border-gray-200/50 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)]">
+                    class="lg:w-80 fixed lg:relative inset-0 lg:inset-auto bg-black/50 lg:bg-transparent z-50 lg:z-auto hidden lg:block backdrop-blur-sm lg:backdrop-blur-none transition-all duration-300">
+                    <div class="bg-white h-full lg:h-auto p-6 md:p-8 shadow-2xl lg:shadow-none overflow-y-auto ml-auto lg:ml-0 w-[85vw] max-w-[320px] lg:w-full border-l lg:border-r border-gray-100 lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] transition-all duration-300">
                         
                         <!-- Header del sidebar -->
                         <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900">
+                                <h3 class="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+                                    <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gray-500"></i>
                                     Filtros
                                 </h3>
                             </div>
-                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-600 p-2 hover:bg-gray-100 rounded-xl transition-all duration-200">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
+                            <button id="close-filters" class="lg:hidden text-gray-400 hover:text-gray-900 p-2 hover:bg-gray-50 rounded-full transition-all duration-200">
+                                <i data-lucide="x" class="w-6 h-6"></i>
                             </button>
                         </div>
 
                         <!-- Filtro por Precio -->
-                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                    </svg>
-                                </div>
+                        <div class="mb-10">
+                            <h4 class="font-semibold text-gray-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
                                 Rango de Precio
                             </h4>
                             
@@ -449,20 +438,25 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                             ?>
                             
                             <!-- Price Range Slider -->
-                            <div class="price-slider-container">
-                                <div class="flex justify-between items-center mb-4">
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span></span>
-                                    <span class="text-sm text-gray-800 font-semibold">$<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span></span>
+                            <div class="price-slider-container px-1">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-900">
+                                        $<span id="min-price-display"><?php echo number_format($current_min, 0); ?></span>
+                                    </div>
+                                    <span class="text-gray-400">-</span>
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-900">
+                                        $<span id="max-price-display"><?php echo number_format($current_max, 0); ?></span>
+                                    </div>
                                 </div>
                                 
-                                <div class="relative">
-                                    <div class="price-slider-track bg-gray-300 h-2 rounded-full relative">
-                                        <div id="price-slider-range" class="absolute h-2 bg-gray-800 rounded-full"></div>
+                                <div class="relative h-6 flex items-center">
+                                    <div class="price-slider-track bg-gray-200 h-1.5 rounded-full relative w-full">
+                                        <div id="price-slider-range" class="absolute h-1.5 bg-indigo-600 rounded-full"></div>
                                     </div>
                                     
                                     <input type="range" 
                                            id="min-price-slider" 
-                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           class="price-slider-input absolute top-0 w-full h-full opacity-0 cursor-pointer z-20 pointer-events-none"
                                            min="<?php echo $price_range['min']; ?>" 
                                            max="<?php echo $price_range['max']; ?>" 
                                            value="<?php echo $current_min; ?>"
@@ -470,42 +464,39 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     
                                     <input type="range" 
                                            id="max-price-slider" 
-                                           class="price-slider-input absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer"
+                                           class="price-slider-input absolute top-0 w-full h-full opacity-0 cursor-pointer z-20 pointer-events-none"
                                            min="<?php echo $price_range['min']; ?>" 
                                            max="<?php echo $price_range['max']; ?>" 
                                            value="<?php echo $current_max; ?>"
                                            step="100">
-                                    
-                                    <!-- Inputs ocultos para mantener funcionalidad -->
-                                    <input type="hidden" id="sidebar-min-price" value="<?php echo $current_min; ?>">
-                                    <input type="hidden" id="sidebar-max-price" value="<?php echo $current_max; ?>">
+                                           
+                                    <!-- Custom Thumbs for visual representation only (functionality via inputs) -->
+                                    <div id="min-thumb" class="absolute h-5 w-5 bg-white border-2 border-indigo-600 rounded-full shadow-md z-10 pointer-events-none transform -translate-y-1/2 top-1/2 -ml-2.5"></div>
+                                    <div id="max-thumb" class="absolute h-5 w-5 bg-white border-2 border-indigo-600 rounded-full shadow-md z-10 pointer-events-none transform -translate-y-1/2 top-1/2 -ml-2.5"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Filtro por Categorías -->
-                        <div class="mb-8 p-5 bg-white rounded-2xl border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-900 mb-6 flex items-center gap-3">
-                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                    </svg>
-                                </div>
-                                Categorías de Producto
+                        <div class="mb-10">
+                            <h4 class="font-semibold text-gray-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                Categorías
                             </h4>
                             
-                            <div class="space-y-2">
+                            <div class="space-y-1">
                                 <!-- Enlace para todas las categorías -->
                                 <?php 
                                 $all_categories_url = home_url('/?post_type=product&s=');
                                 $is_all_categories = empty($_GET['product_cat']);
                                 ?>
                                 <a href="<?php echo esc_url($all_categories_url); ?>" 
-                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 <?php echo $is_all_categories ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
-                                    <span class="text-sm font-medium">Todas las categorías</span>
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
+                                   class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-200 group <?php echo $is_all_categories ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-600'; ?>">
+                                    <span class="group-hover:text-gray-900 transition-colors <?php echo $is_all_categories ? '!text-indigo-700' : ''; ?>">
+                                        Todas
+                                    </span>
+                                    <?php if ($is_all_categories) : ?>
+                                        <i data-lucide="check" class="w-4 h-4 text-indigo-600"></i>
+                                    <?php endif; ?>
                                 </a>
                                 
                                 <?php
@@ -513,67 +504,45 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                     'taxonomy' => 'product_cat',
                                     'hide_empty' => true,
                                     'parent' => 0,
+                                    'meta_key' => 'product_count_product_cat',
                                     'orderby' => 'count',
                                     'order' => 'DESC'
                                 ) );
 
                                 if ( ! empty( $product_categories ) && ! is_wp_error( $product_categories ) ) :
-                                    // Separar las primeras 3 categorías del resto
-                                    $top_categories = array_slice($product_categories, 0, 3);
-                                    $remaining_categories = array_slice($product_categories, 3);
-                                    
-                                    // Mostrar las 3 principales
-                                    foreach ( $top_categories as $category ) :
+                                ?>
+                                <?php 
+                                    foreach ( $product_categories as $index => $category ) :
                                         // Create correct URL format: ?post_type=product&s=&product_cat=slug
                                         $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
                                         $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
+                                        
+                                        // Mostrar solo las primeras 6 categorías, el resto oculta
+                                        $hidden_class = $index >= 6 ? 'hidden more-category' : '';
                                 ?>
                                     <a href="<?php echo esc_url($category_url); ?>" 
-                                       class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
+                                       class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-200 group <?php echo $is_current ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-gray-600'; ?> <?php echo $hidden_class; ?>">
                                         <div class="flex items-center gap-3">
-                                            <span class="text-sm font-medium"><?php echo esc_html( $category->name ); ?></span>
+                                            <span class="group-hover:text-gray-900 transition-colors <?php echo $is_current ? '!text-indigo-700' : ''; ?>">
+                                                <?php echo esc_html( $category->name ); ?>
+                                            </span>
                                         </div>
-                                        <div class="flex items-center gap-2">
-                                            <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-gray-200 text-gray-800' : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 group-hover:text-gray-700'; ?>"><?php echo $category->count; ?></span>
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </div>
+                                        <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full font-medium <?php echo $is_current ? 'bg-indigo-100 text-indigo-600' : ''; ?>">
+                                            <?php echo $category->count; ?>
+                                        </span>
                                     </a>
                                 <?php 
                                     endforeach;
                                     
-                                    // Mostrar categorías adicionales (ocultas inicialmente)
-                                    if (!empty($remaining_categories)) : ?>
-                                        <div id="more-categories" class="hidden space-y-2">
-                                            <?php foreach ( $remaining_categories as $category ) :
-                                                $category_url = home_url('/?post_type=product&s=&product_cat=' . $category->slug);
-                                                $is_current = (isset($_GET['product_cat']) && $_GET['product_cat'] === $category->slug);
-                                            ?>
-                                                <a href="<?php echo esc_url($category_url); ?>" 
-                                                   class="flex items-center justify-between p-3 rounded-xl transition-all duration-200 group <?php echo $is_current ? 'bg-gray-100 border-gray-300 text-gray-900 font-semibold' : 'bg-gray-50 hover:bg-gray-100 border-transparent hover:border-gray-200 text-gray-700 hover:text-gray-900'; ?> border">
-                                                    <div class="flex items-center gap-3">
-                                                        <span class="text-sm font-medium"><?php echo esc_html( $category->name ); ?></span>
-                                                    </div>
-                                                    <div class="flex items-center gap-2">
-                                                        <span class="text-xs px-2 py-1 rounded-full <?php echo $is_current ? 'bg-gray-200 text-gray-800' : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300 group-hover:text-gray-700'; ?>"><?php echo $category->count; ?></span>
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                                        </svg>
-                                                    </div>
-                                                </a>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        
-                                        <!-- Botón para expandir/contraer -->
-                                        <button id="toggle-categories" 
-                                                class="w-full mt-3 p-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-gray-700 hover:text-gray-800 font-medium text-sm group">
-                                            <span id="toggle-text">Ver más categorías</span>
-                                            <svg id="toggle-icon" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                            </svg>
-                                        </button>
-                                    <?php endif;
+                                    // Si hay más de 6 categorías, mostrar botón "Ver más"
+                                    if (count($product_categories) > 6) :
+                                ?>
+                                    <button id="toggle-categories" class="w-full mt-2 text-left px-3 text-sm text-indigo-600 font-medium hover:text-indigo-800 flex items-center gap-1 transition-colors">
+                                        <span>Ver más</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </button>
+                                <?php 
+                                    endif;
                                 endif;
                                 ?>
                             </div>
@@ -581,31 +550,27 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 
                         <!-- Botones de acción -->
-                        <div class="space-y-4">
+                        <div class="space-y-3 mt-8 pt-6 border-t border-gray-100">
                             <button id="apply-sidebar-filters" 
-                                    class="apply-filters w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                                    class="apply-filters w-full bg-indigo-600 text-white py-3.5 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-all duration-200 shadow-sm hover:shadow flex items-center justify-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i>
                                 Aplicar Filtros
                             </button>
                             <button id="clear-filters" 
-                                    class="clear-filters w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 py-4 rounded-2xl font-bold hover:from-gray-200 hover:to-gray-300 transition-all duration-300 border border-gray-300 hover:border-gray-400 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                </svg>
+                                    class="clear-filters w-full bg-white text-gray-500 py-3.5 rounded-xl font-medium text-sm hover:text-gray-900 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:border-gray-300 flex items-center justify-center gap-2">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                                 Limpiar Todo
                             </button>
                         </div>
                         
                         <!-- Estado de carga para sidebar -->
                         <div class="filters-loading hidden mt-6 text-center">
-                            <div class="inline-flex items-center px-4 py-3 bg-blue-50 text-blue-700 rounded-xl border border-blue-200">
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <div class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg text-sm font-medium">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-indigo-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Aplicando filtros...
+                                Aplicando...
                             </div>
                         </div>
 
@@ -1121,28 +1086,11 @@ body {
     max-width: 100vw;
 }
 
-/* Breakpoint personalizado para pantallas extra grandes */
-@media (min-width: 1920px) {
-    .grid-cols-6 {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-}
-
 /* El problema principal era el ancho del main en desktop */
 @media (min-width: 1280px) {
     main.flex-1 {
         width: auto;
         max-width: none;
-    }
-}
-
-/* Clases utilitarias para 3xl */
-@media (min-width: 1920px) {
-    .\\33xl\\:grid-cols-6 {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
-    .\\33xl\\:grid-cols-7 {
-        grid-template-columns: repeat(7, minmax(0, 1fr));
     }
 }
 
@@ -1152,32 +1100,34 @@ body {
     display: none !important;
 }
 
-/* Estilo personalizado para el selector de ordenamiento */
+/* Estilo personalizado para el selector de ordenamiento - Black Theme */
 .woocommerce-ordering select {
-    padding: 8px 12px !important;
-    border: 1px solid #e5e7eb !important;
+    padding: 12px 16px !important;
+    border: 2px solid #e5e7eb !important;
     border-radius: 0.75rem !important;
     background-color: white !important;
     font-size: 14px !important;
-    color: #374151 !important;
-    min-width: 160px !important;
-    max-width: 200px !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
+    min-width: 180px !important;
+    max-width: 220px !important;
     appearance: none !important;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
-    background-position: right 8px center !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 12px center !important;
     background-repeat: no-repeat !important;
-    background-size: 16px 16px !important;
-    transition: all 0.2s ease !important;
+    background-size: 18px 18px !important;
+    transition: all 0.3s ease !important;
 }
 
 .woocommerce-ordering select:focus {
     outline: none !important;
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1) !important;
+    border-color: #000000 !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 .woocommerce-ordering select:hover {
-    border-color: #d1d5db !important;
+    border-color: #000000 !important;
+    background-color: #f9fafb !important;
 }
 
 /* Ocultar elementos innecesarios del resultado count */
@@ -1224,7 +1174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productsGrid = document.getElementById('products-grid');
     const productsTable = document.getElementById('products-table');
     const tableFilters = document.getElementById('table-filters');
-    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6';
+    const baseGridClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
 
 
 
@@ -1722,11 +1672,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // Toggle Categories Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const toggleButton = document.getElementById('toggle-categories');
-    const moreCategories = document.getElementById('more-categories');
+    const moreCategories = document.querySelectorAll('.more-category');
     const toggleText = document.getElementById('toggle-text');
     const toggleIcon = document.getElementById('toggle-icon');
     
-    if (toggleButton && moreCategories) {
+    if (toggleButton && moreCategories.length > 0) {
         let isExpanded = false;
         
         toggleButton.addEventListener('click', function() {
@@ -1734,31 +1684,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (isExpanded) {
                 // Mostrar categorías adicionales
-                moreCategories.classList.remove('hidden');
+                moreCategories.forEach(category => {
+                    category.classList.remove('hidden');
+                });
                 toggleText.textContent = 'Ver menos categorías';
                 toggleIcon.style.transform = 'rotate(180deg)';
                 
-                // Animación suave
-                moreCategories.style.opacity = '0';
-                moreCategories.style.transform = 'translateY(-10px)';
-                
-                setTimeout(() => {
-                    moreCategories.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    moreCategories.style.opacity = '1';
-                    moreCategories.style.transform = 'translateY(0)';
-                }, 10);
-                
             } else {
                 // Ocultar categorías adicionales
-                moreCategories.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                moreCategories.style.opacity = '0';
-                moreCategories.style.transform = 'translateY(-10px)';
-                
-                setTimeout(() => {
-                    moreCategories.classList.add('hidden');
-                    toggleText.textContent = 'Ver más categorías';
-                    toggleIcon.style.transform = 'rotate(0deg)';
-                }, 300);
+                moreCategories.forEach(category => {
+                    category.classList.add('hidden');
+                });
+                toggleText.textContent = 'Ver más categorías';
+                toggleIcon.style.transform = 'rotate(0deg)';
             }
         });
     }
@@ -1766,7 +1704,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-    /* Price Slider Styles */
+    /* Price Slider Styles - Black Theme */
     .price-slider-container {
         position: relative;
         margin: 0.5rem 0;
@@ -1775,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .price-slider-track {
         position: relative;
         height: 8px;
-        background: #e2e8f0;
+        background: rgba(255, 255, 255, 0.2);
         border-radius: 999px;
     }
     
@@ -1792,58 +1730,60 @@ document.addEventListener('DOMContentLoaded', function() {
         z-index: 2;
     }
     
-        .price-slider-input::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            pointer-events: all;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 3px solid #1f2937;
-            background: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
-            transition: all 0.2s ease;
-        }
-        
-        .price-slider-input::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
-        }
-        
-        .price-slider-input::-moz-range-thumb {
-            pointer-events: all;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 3px solid #1f2937;
-            background: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(31, 41, 55, 0.2);
-            transition: all 0.2s ease;
-            -moz-appearance: none;
-        }
-        
-        .price-slider-input::-moz-range-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(31, 41, 55, 0.3);
-        }    .price-slider-input::-moz-range-track {
+    .price-slider-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        background: #000000;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+    }
+    
+    .price-slider-input::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+    }
+    
+    .price-slider-input::-moz-range-thumb {
+        pointer-events: all;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        background: #000000;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+        -moz-appearance: none;
+    }
+    
+    .price-slider-input::-moz-range-thumb:hover {
+        transform: scale(1.15);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+    }
+    
+    .price-slider-input::-moz-range-track {
         background: transparent;
         border: none;
     }
     
     .price-slider-input:active::-webkit-slider-thumb {
-        transform: scale(1.2);
+        transform: scale(1.25);
     }
     
     .price-slider-input:active::-moz-range-thumb {
-        transform: scale(1.2);
+        transform: scale(1.25);
     }
     
     /* Hero search bar styles */
     #hero-search:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
     
     #hero-search::placeholder {
@@ -1853,7 +1793,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Select styling */
     select[name="product_cat"]:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
     }
     
     /* Mobile responsive */
@@ -1869,17 +1809,179 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /* Grid responsive improvements */
     @media (min-width: 1600px) {
-        .baterias-grid {
+        .microscopios-grid {
             grid-template-columns: repeat(5, minmax(0, 1fr));
         }
     }
     
     @media (min-width: 2000px) {
-        .baterias-grid {
+        .microscopios-grid {
             grid-template-columns: repeat(6, minmax(0, 1fr));
         }
     }
+    
+    /* Swiper Navigation Buttons */
+    .popular-products-swiper {
+        padding-bottom: 50px !important;
+        position: relative;
+    }
+    
+    .popular-products-swiper .swiper-button-next,
+    .popular-products-swiper .swiper-button-prev {
+        color: white !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #000 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+        z-index: 10 !important;
+    }
+    
+    .popular-products-swiper .swiper-button-next:hover,
+    .popular-products-swiper .swiper-button-prev:hover {
+        background: #1f2937 !important;
+        transform: scale(1.1);
+    }
+    
+    .popular-products-swiper .swiper-button-next:after,
+    .popular-products-swiper .swiper-button-prev:after {
+        font-size: 18px !important;
+        font-weight: bold !important;
+        color: white !important;
+    }
+    
+    .popular-pagination {
+        bottom: 0 !important;
+        margin-top: 30px !important;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: white !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #000 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background: #1f2937 !important;
+        transform: scale(1.1);
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 18px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Swiper Pagination */
+    .swiper-pagination-bullet {
+        background: #000 !important;
+        opacity: 0.3 !important;
+        width: 12px !important;
+        height: 12px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .swiper-pagination-bullet:hover {
+        opacity: 0.6 !important;
+    }
+    
+    .swiper-pagination-bullet-active {
+        opacity: 1 !important;
+        width: 32px !important;
+        border-radius: 6px !important;
+    }
 </style>
+
+<!-- Swiper Carousel Initialization -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Popular Products Swiper
+    if (document.querySelector('.popular-products-swiper')) {
+        new Swiper('.popular-products-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            loop: true,
+            navigation: {
+                nextEl: '.popular-products-swiper .popular-next',
+                prevEl: '.popular-products-swiper .popular-prev',
+            },
+            pagination: {
+                el: '.popular-products-swiper .popular-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 24,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                },
+                1280: {
+                    slidesPerView: 5,
+                    spaceBetween: 30,
+                },
+                1536: {
+                    slidesPerView: 6,
+                    spaceBetween: 30,
+                },
+            },
+        });
+    }
+    
+    // Categories Swiper
+    if (document.querySelector('.categories-swiper')) {
+        new Swiper('.categories-swiper', {
+            slidesPerView: 2,
+            spaceBetween: 16,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            loop: true,
+            pagination: {
+                el: '.categories-swiper .swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                },
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 24,
+                },
+                1280: {
+                    slidesPerView: 6,
+                    spaceBetween: 30,
+                },
+            },
+        });
+    }
+});
+</script>
+
 
 <?php get_footer( 'shop' ); ?>
 

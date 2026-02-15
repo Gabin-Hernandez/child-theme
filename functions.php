@@ -1098,9 +1098,19 @@ add_action('wp_ajax_nopriv_itools_filter_products', 'itools_ajax_filter_products
 
 // Enqueue scripts para filtros universales
 function itools_enqueue_filters_scripts() {
+    $filter_templates = array(
+        'page-apple.php', 'page-xiaomi.php', 'page-samsung.php', 'page-huawei.php',
+        'page-motorola.php', 'page-pantallas-lcd.php', 'page-baterias.php', 
+        'page-cautines.php', 'page-insumos-consumibles.php', 'page-carcasas.php',
+        'page-destornilladores.php', 'page-estaciones-de-soldadura.php', 
+        'page-microscopios.php', 'page-soldadura.php', 'page-ofertas.php',
+        'page-modelos.php'
+    );
+
     // Solo cargar en páginas de productos
     if (is_shop() || is_product_category() || is_product_taxonomy() || 
-        (is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product')) {
+        (is_search() && isset($_GET['post_type']) && $_GET['post_type'] === 'product') ||
+        is_page_template($filter_templates)) {
         
         wp_enqueue_script(
             'itools-filters',
@@ -2254,7 +2264,16 @@ function itools_newsletter_admin_page() {
 
 // Enqueue price slider JavaScript
 function itools_enqueue_price_slider_script() {
-    if (is_shop() || is_product_category() || is_product_tag()) {
+    $filter_templates = array(
+        'page-apple.php', 'page-xiaomi.php', 'page-samsung.php', 'page-huawei.php',
+        'page-motorola.php', 'page-pantallas-lcd.php', 'page-baterias.php', 
+        'page-cautines.php', 'page-insumos-consumibles.php', 'page-carcasas.php',
+        'page-destornilladores.php', 'page-estaciones-de-soldadura.php', 
+        'page-microscopios.php', 'page-soldadura.php', 'page-ofertas.php',
+        'page-modelos.php'
+    );
+
+    if (is_shop() || is_product_category() || is_product_tag() || is_page_template($filter_templates)) {
         wp_enqueue_script(
             'itools-price-slider',
             get_stylesheet_directory_uri() . '/js/price-slider.js',
