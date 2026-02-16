@@ -100,7 +100,7 @@ export const PopularProducts = ({ className }: PopularProductsProps) => {
 
   return (
     <section className={`py-16 md:py-24 bg-background ${className}`}>
-      <div className="container">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl uppercase">

@@ -11,7 +11,7 @@ interface Cta18Props {
 const Cta18 = ({ className }: Cta18Props) => {
   return (
     <section className={cn("pb-12 md:pb-24", className)}>
-      <div className="container">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div 
           className="relative mx-auto max-w-7xl overflow-hidden rounded-xl border"
           style={{
