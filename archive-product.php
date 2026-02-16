@@ -214,7 +214,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
         <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/70 to-gray-900/90"></div>
     </div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    <div class="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div class="text-center max-w-3xl mx-auto">
             <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
                 <span class="block">Tienda Profesional</span>
@@ -263,7 +263,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Popular Products Carousel -->
 <section class="bg-gray-50 py-16 md:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-4 tracking-tight">
@@ -363,7 +363,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Brands/Categories Carousel -->
 <section class="bg-white py-16 border-y border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
             <h2 class="text-2xl md:text-3xl font-bold text-black mb-3 tracking-tight">
                 EXPLORA POR CATEGORÍA
@@ -443,7 +443,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Breadcrumb -->
 <div class="bg-gray-50 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto py-5 px-4 sm:px-6 lg:px-8">
         <nav class="flex items-center space-x-3 text-sm">
             <a href="<?php echo home_url(); ?>" class="text-gray-600 hover:text-black transition-colors font-semibold">Inicio</a>
             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
@@ -460,7 +460,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 
 <!-- Products Content -->
 <div class="bg-white min-h-screen py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Botón para filtros en móvil -->
         <div class="lg:hidden mb-6">
             <button id="toggle-filters" class="flex items-center justify-center gap-2 w-full py-3 px-5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 rounded-xl font-medium text-sm transition-all duration-200 shadow-sm sticky top-4 z-40">

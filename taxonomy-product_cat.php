@@ -166,7 +166,7 @@ $products_query = new WP_Query($args);
 
 <!-- Section Moderno para Categoría -->
 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-12 sm:py-16 lg:py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 capitalize leading-tight">
                 <?php echo esc_html($category_name); ?>
@@ -203,7 +203,7 @@ $products_query = new WP_Query($args);
 </div>
 
 <div class="bg-gray-50 min-h-screen py-6 sm:py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Navegación de breadcrumbs -->
         <div class="mb-4 sm:mb-6">
