@@ -65,7 +65,7 @@ export function HeroSimple() {
   };
 
   return (
-    <section className="relative w-full h-[70vh] overflow-hidden bg-black">
+    <section id="hero-slider" className="relative w-full h-[70vh] overflow-hidden bg-black">
       {/* Background Images */}
       {slides.map((slide, index) => (
         <div
