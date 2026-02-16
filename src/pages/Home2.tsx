@@ -18,6 +18,7 @@ import { Feature323 } from '@/components/feature323'
 import { HeroSimple } from '@/components/HeroSimple'
 import { PopularProducts } from '@/components/PopularProducts'
 import { Feature285 } from '@/components/feature285'
+import { ToolsGrid } from '@/components/ToolsGrid'
 
 export default function Home2() {
   return (
@@ -33,9 +34,27 @@ export default function Home2() {
       <PopularProducts />
 
       {/* ========================================== */}
+      {/* HERRAMIENTAS SECTION 1 - Herramientas Más Populares */}
+      {/* ========================================== */}
+      <ToolsGrid 
+        title="Herramientas Más Populares"
+        productsPerPage={16}
+        bgColor="white"
+      />
+
+      {/* ========================================== */}
       {/* FEATURE285 SECTION - shadcn block          */}
       {/* ========================================== */}
       <Feature285 />
+
+      {/* ========================================== */}
+      {/* HERRAMIENTAS SECTION 2 - Herramientas de Precisión */}
+      {/* ========================================== */}
+      <ToolsGrid 
+        title="Herramientas de Precisión"
+        productsPerPage={16}
+        bgColor="gray"
+      />
 
       {/* ========================================== */}
       {/* NEW ARRIVALS - Product Grid                */}
@@ -43,14 +62,41 @@ export default function Home2() {
       <NewArrivals />
 
       {/* ========================================== */}
+      {/* HERRAMIENTAS SECTION 3 - Equipos de Soldadura */}
+      {/* ========================================== */}
+      <ToolsGrid 
+        title="Equipos de Soldadura y Reparación"
+        productsPerPage={16}
+        bgColor="white"
+      />
+
+      {/* ========================================== */}
       {/* FEATURES SECTION - shadcn block            */}
       {/* ========================================== */}
       <Feature200 />
 
       {/* ========================================== */}
+      {/* HERRAMIENTAS SECTION 4 - Kits Profesionales */}
+      {/* ========================================== */}
+      <ToolsGrid 
+        title="Kits Profesionales Completos"
+        productsPerPage={16}
+        bgColor="gray"
+      />
+
+      {/* ========================================== */}
       {/* PRODUCTS CAROUSEL - Swiper.js              */}
       {/* ========================================== */}
       <ProductCarousel />
+
+      {/* ========================================== */}
+      {/* HERRAMIENTAS SECTION 5 - Herramientas Destacadas */}
+      {/* ========================================== */}
+      <ToolsGrid 
+        title="Herramientas Destacadas del Mes"
+        productsPerPage={16}
+        bgColor="white"
+      />
 
       {/* ========================================== */}
       {/* CTA SECTION - shadcn block                 */}
