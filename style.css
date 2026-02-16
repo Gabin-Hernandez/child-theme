@@ -305,7 +305,7 @@ body.home #hero-slider .absolute.bottom-8 {
   z-index: 999 !important;
   display: flex !important;
   gap: 8px !important; /* Espaciado más compacto */
-  background: rgba(0, 0, 0, 0.6) !important; /* Fondo más sutil */
+  background: rgba(0, 0, 0, 0) !important; /* Fondo más sutil */
   padding: 8px 16px !important; /* Padding más compacto */
   border-radius: 20px !important; /* Menos redondeado */
   backdrop-filter: blur(8px) !important;
