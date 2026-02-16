@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Slide {
   id: number;
@@ -154,23 +153,6 @@ export function HeroSimple() {
         ))}
       </div>
 
-      {/* Navigation Arrows - Mobile */}
-      <div className="hidden absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 md:hidden">
-        <button
-          onClick={prevSlide}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all outline-none focus:outline-none active:scale-95"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-all outline-none focus:outline-none active:scale-95"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-      </div>
     </section>
   );
 }
