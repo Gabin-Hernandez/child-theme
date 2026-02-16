@@ -285,12 +285,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
     
     <!-- Contenido -->
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
         <div class="text-center">
            
             
             <!-- Título principal -->
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                 Repuestos y Accesorios
                 <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -299,7 +299,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             </h1>
             
             <!-- Descripción -->
-            <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
                 Repuestos originales y compatibles para Samsung Galaxy. Pantallas, baterías, cámaras y accesorios de calidad para smartphones Samsung
             </p>
             

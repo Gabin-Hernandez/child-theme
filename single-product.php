@@ -17,11 +17,11 @@ get_header(); ?>
     
     <!-- Breadcrumb -->
     <div class="bg-white border-b border-gray-100">
-        <div class="container mx-auto px-4 py-4">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
             <?php if ( function_exists( 'woocommerce_breadcrumb' ) ) : ?>
                 <?php woocommerce_breadcrumb( array(
-                    'delimiter'   => '<svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>',
-                    'wrap_before' => '<nav class="flex items-center text-sm text-gray-600" aria-label="Breadcrumb">',
+                    'delimiter'   => '<svg class="w-3 h-3 sm:w-4 sm:h-4 mx-1 sm:mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>',
+                    'wrap_before' => '<nav class="flex items-center text-xs sm:text-sm text-gray-600 flex-wrap" aria-label="Breadcrumb">',
                     'wrap_after'  => '</nav>',
                     'before'      => '<span class="flex items-center">',
                     'after'       => '</span>',
@@ -32,13 +32,13 @@ get_header(); ?>
     </div>
 
     <!-- Contenido principal del producto -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12">
                 
                
                 
                 <!-- Galería de imágenes -->
-                <div class="space-y-4">
+                <div class="space-y-3 sm:space-y-4">
                     <div class="aspect-square bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative">
                         <?php
                         $attachment_ids = $product->get_gallery_image_ids();
@@ -60,7 +60,7 @@ get_header(); ?>
                     
                     <!-- Miniaturas -->
                     <?php if ( $attachment_ids || !$main_image ) : ?>
-                        <div class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2">
+                        <div class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2 sm:gap-3">
                             <!-- Imagen principal como miniatura -->
                             <?php if ( $main_image ) : ?>
                                 <button class="thumbnail-btn aspect-square bg-white rounded-lg shadow-sm border-2 border-blue-500 overflow-hidden" 
@@ -95,11 +95,11 @@ get_header(); ?>
                 </div>
                 
                 <!-- Información del producto -->
-                <div class="space-y-4 lg:space-y-6">
+                <div class="space-y-3 sm:space-y-4 lg:space-y-6">
                     <!-- Badges -->
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2 sm:gap-2.5">
                         <?php if ( $product->is_on_sale() ) : ?>
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                            <span class="inline-flex items-center px-2 sm:px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
                                 </svg>
@@ -108,7 +108,7 @@ get_header(); ?>
                         <?php endif; ?>
                         
                         <?php if ( $product->is_featured() ) : ?>
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            <span class="inline-flex items-center px-2 sm:px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                 </svg>
@@ -117,18 +117,18 @@ get_header(); ?>
                         <?php endif; ?>
                         
                         <?php if ( ! $product->is_in_stock() ) : ?>
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                            <span class="inline-flex items-center px-2 sm:px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
                                 Agotado
                             </span>
                         <?php endif; ?>
                     </div>
                     
                     <!-- Título del producto -->
-                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight"><?php echo $product->get_name(); ?></h1>
+                    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight"><?php echo $product->get_name(); ?></h1>
                     
                     <!-- Calificación y reseñas -->
                     <?php if ( wc_review_ratings_enabled() ) : ?>
-                        <div class="flex items-center gap-3 flex-wrap">
+                        <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
                             <div class="flex items-center">
                                 <?php
                                 $rating_count = $product->get_rating_count();
@@ -138,12 +138,12 @@ get_header(); ?>
                                 if ( $rating_count > 0 ) : ?>
                                     <div class="flex items-center">
                                         <?php echo wc_get_rating_html( $average, $rating_count ); ?>
-                                        <span class="ml-2 text-sm text-gray-600">
+                                        <span class="ml-2 text-xs sm:text-sm text-gray-600">
                                             (<?php printf( _n( '%s reseña', '%s reseñas', $review_count, 'woocommerce' ), '<span class="count">' . esc_html( $review_count ) . '</span>' ); ?>)
                                         </span>
                                     </div>
                                 <?php else : ?>
-                                    <span class="text-sm text-gray-500">Sin reseñas aún</span>
+                                    <span class="text-xs sm:text-sm text-gray-500">Sin reseñas aún</span>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ get_header(); ?>
                     
                     <!-- SKU -->
                     <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
-                        <div class="text-sm text-gray-600">
+                        <div class="text-xs sm:text-sm text-gray-600">
                             <span class="font-medium">SKU:</span> 
                             <span class="font-mono text-gray-800"><?php echo ( $sku = $product->get_sku() ) ? $sku : esc_html__( 'N/A', 'woocommerce' ); ?></span>
                         </div>
@@ -161,17 +161,17 @@ get_header(); ?>
                     
                     <!-- Descripción corta -->
                     <?php if ( $product->get_short_description() ) : ?>
-                        <div class="prose prose-sm max-w-none text-gray-700 leading-relaxed">
+                        <div class="prose prose-sm max-w-none text-gray-700 leading-relaxed text-sm sm:text-base">
                             <?php echo apply_filters( 'woocommerce_short_description', $product->get_short_description() ); ?>
                         </div>
                     <?php endif; ?>
 
                     <!-- Panel de compra integrado estilo Amazon -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-6">
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 sm:p-6 mt-4 sm:mt-6">
                         <!-- Precio destacado -->
-                        <div class="mb-4">
-                            <div class="flex items-baseline gap-3 flex-wrap mb-2">
-                                <span class="text-3xl font-bold text-red-600">
+                        <div class="mb-3 sm:mb-4">
+                            <div class="flex items-baseline gap-2 sm:gap-3 flex-wrap mb-2">
+                                <span class="text-2xl sm:text-3xl font-bold text-red-600">
                                     <?php echo $product->get_price_html(); ?>
                                 </span>
                                 <?php if ( $product->is_on_sale() ) : ?>

@@ -165,25 +165,25 @@ $products_query = new WP_Query($args);
 ?>
 
 <!-- Section Moderno para Categoría -->
-<div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
+<div class="bg-gradient-to-br from-blue-600 to-indigo-700 py-12 sm:py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 capitalize">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 capitalize leading-tight">
                 <?php echo esc_html($category_name); ?>
             </h1>
             <?php if ($category_description) : ?>
-                <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p class="text-base sm:text-lg lg:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
                     <?php echo wp_kses_post($category_description); ?>
                 </p>
             <?php else : ?>
-                <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p class="text-base sm:text-lg lg:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
                     Encuentra las mejores <?php echo esc_html(strtolower($category_name)); ?> profesionales para tus proyectos
                 </p>
             <?php endif; ?>
             
             <!-- Formulario de búsqueda funcional -->
-            <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="max-w-2xl mx-auto">
-                <div class="flex gap-3">
+            <form method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="max-w-2xl mx-auto px-4">
+                <div class="flex flex-col sm:flex-row gap-3">
                     <input type="hidden" name="post_type" value="product">
                     <input type="hidden" name="product_cat" value="<?php echo esc_attr($category_slug); ?>">
                     <div class="flex-1 relative">
@@ -191,9 +191,9 @@ $products_query = new WP_Query($args);
                                name="s" 
                                value="<?php echo get_search_query(); ?>"
                                placeholder="Buscar en <?php echo esc_attr($category_name); ?>..."
-                               class="w-full px-6 py-4 text-lg rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg">
+                               class="w-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg rounded-xl border-0 focus:ring-4 focus:ring-blue-300 shadow-lg">
                     </div>
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-xl font-semibold transition-colors shadow-lg">
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-colors shadow-lg text-base sm:text-lg whitespace-nowrap">
                         Buscar
                     </button>
                 </div>
@@ -202,18 +202,18 @@ $products_query = new WP_Query($args);
     </div>
 </div>
 
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8">
+<div class="bg-gray-50 min-h-screen py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Navegación de breadcrumbs -->
-        <div class="mb-6">
-            <nav class="flex items-center space-x-2 text-sm text-gray-600">
+        <div class="mb-4 sm:mb-6">
+            <nav class="flex items-center flex-wrap gap-2 text-xs sm:text-sm text-gray-600">
                 <a href="<?php echo home_url(); ?>" class="hover:text-blue-600 transition-colors">Inicio</a>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <a href="/tienda" class="hover:text-blue-600 transition-colors">Tienda</a>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
                 <span class="text-gray-900 font-medium capitalize"><?php echo esc_html($category_name); ?></span>
@@ -221,8 +221,8 @@ $products_query = new WP_Query($args);
         </div>
 
         <!-- Botón para mostrar filtros en móvil -->
-        <div class="xl:hidden mb-6">
-            <button id="toggle-filters" class="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center">
+        <div class="xl:hidden mb-4 sm:mb-6">
+            <button id="toggle-filters" class="flex items-center gap-3 bg-white px-4 sm:px-6 py-3 sm:py-4 rounded-2xl shadow-lg border border-gray-200 font-semibold text-gray-900 hover:shadow-xl transition-all duration-300 w-full justify-center text-sm sm:text-base">
                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
                 </svg>

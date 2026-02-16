@@ -62,6 +62,14 @@ function itools_enqueue_styles() {
         filemtime(get_stylesheet_directory() . '/css/reviews.css') 
     );
     
+    // Encolar CSS para mejoras tipográficas y espaciado responsive
+    wp_enqueue_style( 
+        'itools-typography', 
+        get_stylesheet_directory_uri() . '/css/typography-improvements.css', 
+        array('parent-style'), 
+        filemtime(get_stylesheet_directory() . '/css/typography-improvements.css') 
+    );
+    
     // Encolar CSS para Mi Cuenta (Dashboard)
     if ( is_account_page() ) {
         wp_enqueue_style( 

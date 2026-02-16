@@ -285,12 +285,12 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
     
     <!-- Contenido -->
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
         <div class="text-center">
            
             
             <!-- Título principal -->
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                 Repuestos y Accesorios
                 <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
@@ -299,7 +299,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
             </h1>
             
             <!-- Descripción -->
-            <p class="text-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
                 Repuestos originales y compatibles para iPhone y iPad. Pantallas, baterías, cámaras y accesorios de calidad para productos Apple
             </p>
             
@@ -311,8 +311,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                         
                         <!-- Input de búsqueda -->
                         <div class="flex-1 relative ">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 sm:pr-4">
+                                <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                             </div>
@@ -321,15 +321,15 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                                    name="s" 
                                    value="<?php echo get_search_query(); ?>"
                                    placeholder="Buscar repuestos para iPhone, iPad por modelo..."
-                                   class="w-full h-full pl-12 pr-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
+                                   class="w-full h-full pl-3 sm:pl-12 pr-10 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 bg-white">
                         </div>
                         
                         <!-- Separador -->
                         <div class="hidden sm:block w-px bg-gray-200"></div>
                         
                         <!-- Selector de categoría -->
-                        <div class="relative sm:min-w-[200px]">
-                            <select name="product_cat" class="w-full px-4 py-4 text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
+                        <div class="relative sm:min-w-[180px] lg:min-w-[200px]">
+                            <select name="product_cat" class="w-full px-3 sm:px-4 py-3 sm:py-4 text-sm sm:text-base border-0 focus:outline-none focus:ring-0 text-gray-700 bg-white appearance-none cursor-pointer">
                                 <option value="">Todas las categorías</option>
                                 <?php
                                 $categories = get_terms( array(
