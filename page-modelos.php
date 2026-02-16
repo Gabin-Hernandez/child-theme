@@ -319,7 +319,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2393c5fd" fill-opacity="0.1"%3E%3Ccircle cx="20" cy="20" r="1"/%3E%3C/g%3E%3C/svg%3E')] opacity-60"></div>
     
     <!-- Contenido -->
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center">
            
             
