@@ -16,19 +16,19 @@ $args = array(
     'post_type' => 'product',
     'posts_per_page' => 12,
     'post_status' => 'publish',
-    'meta_query' => array(
-        array(
-            'key' => '_visibility',
-            'value' => array('catalog', 'visible'),
-            'compare' => 'IN'
-        )
-    ),
     'tax_query' => array(
         'relation' => 'AND',
         array(
             'taxonomy' => 'product_cat',
             'field' => 'slug',
             'terms' => $category_slug,
+        ),
+        // Excluir productos ocultos del catálogo (WooCommerce 3.0+)
+        array(
+            'taxonomy' => 'product_visibility',
+            'field' => 'name',
+            'terms' => 'exclude-from-catalog',
+            'operator' => 'NOT IN',
         )
     )
 );
