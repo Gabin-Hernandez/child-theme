@@ -11,9 +11,9 @@ interface Cta18Props {
 const Cta18 = ({ className }: Cta18Props) => {
   return (
     <section className={cn("pb-12 md:pb-24", className)}>
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container">
         <div 
-          className="relative mx-auto max-w-[1600px] overflow-hidden rounded-xl border"
+          className="relative mx-auto max-w-7xl overflow-hidden rounded-xl border"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1632749042303-7f7a18ed6ff0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D)',
             backgroundSize: 'cover',

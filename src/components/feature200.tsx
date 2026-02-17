@@ -42,8 +42,8 @@ const Feature200 = ({ className }: Feature200Props) => {
 
   return (
     <section className={cn("pt-0", className)}>
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mt-8 grid max-w-[1600px] grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="container">
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
               key={index}

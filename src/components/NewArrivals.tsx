@@ -82,7 +82,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
   if (loading) {
     return (
       <section className={`py-16 md:py-24 ${className}`}>
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
           </div>
@@ -97,7 +97,7 @@ export const NewArrivals = ({ className }: NewArrivalsProps) => {
 
   return (
     <section className={`pb-16 bg-background ${className}`}>
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container">
         {/* Header */}
         <div className="mb-12 flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl uppercase">

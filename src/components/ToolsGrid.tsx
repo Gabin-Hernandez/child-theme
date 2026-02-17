@@ -99,7 +99,7 @@ export const ToolsGrid = ({
   if (loading) {
     return (
       <section className={`py-16 md:py-20 ${bgColor === 'gray' ? 'bg-gray-50' : 'bg-background'} ${className}`}>
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container max-w-7xl">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
           </div>
@@ -114,7 +114,7 @@ export const ToolsGrid = ({
 
   return (
     <section className={`py-16 md:py-20 ${bgColor === 'gray' ? 'bg-gray-50' : 'bg-background'} ${className}`}>
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container max-w-7xl">
         {/* Header */}
         <div className="mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>

@@ -80,8 +80,8 @@ const Feature285 = ({ className }: Feature285Props) => {
     <section
       className={cn("h-full overflow-hidden pb-32 lg:h-screen", className)}
     >
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex h-full w-full items-center justify-center">
-        <div className="grid h-full w-full max-w-[1600px] grid-cols-1 overflow-hidden rounded-4xl bg-black lg:grid-cols-2">
+      <div className="container flex h-full w-full items-center justify-center">
+        <div className="grid h-full w-full max-w-7xl grid-cols-1 overflow-hidden rounded-4xl bg-black lg:grid-cols-2">
           <div className="relative flex flex-col justify-between p-15">
             <a href={BRAND.url} className="flex items-center gap-3">
               <img src={BRAND.src} className="h-12 w-auto" alt={BRAND.alt} />
