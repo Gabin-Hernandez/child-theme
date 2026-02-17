@@ -38,12 +38,27 @@ export const ToolsGrid = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Build API URL - fetch all products without orderby parameter
-        let apiUrl = `/wp-json/wc/store/v1/products?per_page=150`;
+        // Build API URL with proper order parameter like PopularProducts
+        let orderParam = 'date';
+        let orderDir = 'desc';
         
-        // If subcategory is specified, filter by that
+        if (orderBy === 'popularity') {
+          orderParam = 'popularity';
+        } else if (orderBy === 'rating') {
+          orderParam = 'rating';
+        } else if (orderBy === 'price') {
+          orderParam = 'price';
+          orderDir = 'asc';
+        } else if (orderBy === 'title') {
+          orderParam = 'title';
+          orderDir = 'asc';
+        }
+        
+        let apiUrl = `/wp-json/wc/store/v1/products?per_page=100&orderby=${orderParam}&order=${orderDir}`;
+        
+        // If subcategory is specified, add category filter
         if (subcategory) {
-          apiUrl = `/wp-json/wc/store/v1/products?per_page=150&category=${subcategory}`;
+          apiUrl += `&category=${subcategory}`;
         }
         
         const response = await fetch(apiUrl);
@@ -97,47 +112,9 @@ export const ToolsGrid = ({
             return hasValidImage && hasValidPrice && hasValidName && isToolsProduct;
           });
         
-        // Sort products based on orderBy parameter
-        let sortedProducts = [...validProducts];
-        
-        if (orderBy === 'popularity') {
-          // Sort by total_sales if available, otherwise by rating
-          sortedProducts.sort((a: any, b: any) => {
-            const salesA = a.total_sales || 0;
-            const salesB = b.total_sales || 0;
-            return salesB - salesA;
-          });
-        } else if (orderBy === 'date') {
-          // Sort by date - newest first
-          sortedProducts.sort((a: any, b: any) => {
-            const dateA = new Date(a.date_created || 0).getTime();
-            const dateB = new Date(b.date_created || 0).getTime();
-            return dateB - dateA;
-          });
-        } else if (orderBy === 'rating') {
-          // Sort by rating
-          sortedProducts.sort((a: any, b: any) => {
-            const ratingA = parseFloat(a.average_rating || '0');
-            const ratingB = parseFloat(b.average_rating || '0');
-            return ratingB - ratingA;
-          });
-        } else if (orderBy === 'price') {
-          // Sort by price - low to high
-          sortedProducts.sort((a: any, b: any) => {
-            const priceA = parseFloat(a.prices?.price || '0');
-            const priceB = parseFloat(b.prices?.price || '0');
-            return priceA - priceB;
-          });
-        } else if (orderBy === 'title') {
-          // Sort alphabetically
-          sortedProducts.sort((a: any, b: any) => {
-            return (a.name || '').localeCompare(b.name || '');
-          });
-        }
-        
-        // Apply offset and limit
-        const transformedProducts = sortedProducts
-          .slice(offset, offset + productsPerPage) // Apply offset and take only needed products
+        // Take products from offset up to productsPerPage (already sorted by API)
+        const transformedProducts = validProducts
+          .slice(offset, offset + productsPerPage)
           .map((item: any) => ({
             id: item.id,
             name: item.name,
