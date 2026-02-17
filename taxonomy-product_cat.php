@@ -154,7 +154,7 @@ if (!empty($_GET['orderby'])) {
             $args['orderby'] = 'menu_order title';
             $args['order'] = 'ASC';
     }
-}
+} 
 
 // Paginación
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
