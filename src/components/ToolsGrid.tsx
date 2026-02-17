@@ -18,6 +18,8 @@ interface ToolsGridProps {
   productsPerPage?: number; // Número de productos a mostrar (default: 16 para 4x4)
   className?: string;
   bgColor?: 'white' | 'gray'; // Color de fondo
+  orderBy?: 'popularity' | 'date' | 'price' | 'rating' | 'title'; // Criterio de ordenamiento
+  offset?: number; // Offset para saltar productos (para mostrar diferentes productos en cada sección)
 }
 
 export const ToolsGrid = ({ 
@@ -25,7 +27,9 @@ export const ToolsGrid = ({
   subcategory,
   productsPerPage = 16,
   className,
-  bgColor = 'white'
+  bgColor = 'white',
+  orderBy = 'popularity',
+  offset = 0
 }: ToolsGridProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,11 +39,11 @@ export const ToolsGrid = ({
     const fetchProducts = async () => {
       try {
         // Build API URL - fetch from herramientas category
-        let apiUrl = '/wp-json/wc/store/v1/products?per_page=100&category=herramientas&orderby=popularity';
+        let apiUrl = `/wp-json/wc/store/v1/products?per_page=150&category=herramientas&orderby=${orderBy}`;
         
         // If subcategory is specified, filter by that
         if (subcategory) {
-          apiUrl = `/wp-json/wc/store/v1/products?per_page=100&category=${subcategory}&orderby=popularity`;
+          apiUrl = `/wp-json/wc/store/v1/products?per_page=150&category=${subcategory}&orderby=${orderBy}`;
         }
         
         const response = await fetch(apiUrl);
@@ -51,7 +55,7 @@ export const ToolsGrid = ({
         const data = await response.json();
         
         // Filter and validate products
-        const transformedProducts = data
+        const validProducts = data
           .filter((item: any) => {
             // Must have valid images
             const hasValidImage = item.images && 
@@ -71,8 +75,11 @@ export const ToolsGrid = ({
                    item.name.toLowerCase() !== 'producto';
             
             return hasValidImage && hasValidPrice && hasValidName;
-          })
-          .slice(0, productsPerPage) // Take specified number of products
+          });
+        
+        // Apply offset and limit
+        const transformedProducts = validProducts
+          .slice(offset, offset + productsPerPage) // Apply offset and take only needed products
           .map((item: any) => ({
             id: item.id,
             name: item.name,
@@ -94,7 +101,7 @@ export const ToolsGrid = ({
     };
 
     fetchProducts();
-  }, [subcategory, productsPerPage]);
+  }, [subcategory, productsPerPage, orderBy, offset]);
 
   if (loading) {
     return (

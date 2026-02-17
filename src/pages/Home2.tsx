@@ -40,6 +40,8 @@ export default function Home2() {
         title="Herramientas Más Populares"
         productsPerPage={16}
         bgColor="white"
+        orderBy="popularity"
+        offset={0}
       />
 
       {/* ========================================== */}
@@ -54,6 +56,8 @@ export default function Home2() {
         title="Herramientas de Precisión"
         productsPerPage={16}
         bgColor="gray"
+        orderBy="date"
+        offset={0}
       />
 
       {/* ========================================== */}
@@ -68,6 +72,8 @@ export default function Home2() {
         title="Equipos de Soldadura y Reparación"
         productsPerPage={16}
         bgColor="white"
+        orderBy="rating"
+        offset={0}
       />
 
       {/* ========================================== */}
@@ -82,6 +88,8 @@ export default function Home2() {
         title="Kits Profesionales Completos"
         productsPerPage={16}
         bgColor="gray"
+        orderBy="price"
+        offset={0}
       />
 
       {/* ========================================== */}
@@ -96,6 +104,8 @@ export default function Home2() {
         title="Herramientas Destacadas del Mes"
         productsPerPage={16}
         bgColor="white"
+        orderBy="title"
+        offset={0}
       />
 
       {/* ========================================== */}
