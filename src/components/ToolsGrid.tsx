@@ -38,8 +38,8 @@ export const ToolsGrid = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Build API URL - fetch from herramientas category
-        let apiUrl = `/wp-json/wc/store/v1/products?per_page=150&category=herramientas&orderby=${orderBy}`;
+        // Build API URL - fetch all products without category restriction
+        let apiUrl = `/wp-json/wc/store/v1/products?per_page=150&orderby=${orderBy}`;
         
         // If subcategory is specified, filter by that
         if (subcategory) {
@@ -74,7 +74,27 @@ export const ToolsGrid = ({
                    !item.name.toLowerCase().includes('producto sin') &&
                    item.name.toLowerCase() !== 'producto';
             
-            return hasValidImage && hasValidPrice && hasValidName;
+            // If no subcategory specified, prefer products with "herramienta" in name or categories
+            let isToolsProduct = true;
+            if (!subcategory) {
+              const nameMatch = item.name.toLowerCase().includes('herramienta') ||
+                              item.name.toLowerCase().includes('destornillador') ||
+                              item.name.toLowerCase().includes('soldadura') ||
+                              item.name.toLowerCase().includes('cautin') ||
+                              item.name.toLowerCase().includes('microscopio') ||
+                              item.name.toLowerCase().includes('kit') ||
+                              item.name.toLowerCase().includes('pinza');
+              
+              const categoryMatch = item.categories && item.categories.some((cat: any) => 
+                cat.name.toLowerCase().includes('herramienta') ||
+                cat.name.toLowerCase().includes('soldadura') ||
+                cat.name.toLowerCase().includes('reparacion')
+              );
+              
+              isToolsProduct = nameMatch || categoryMatch;
+            }
+            
+            return hasValidImage && hasValidPrice && hasValidName && isToolsProduct;
           });
         
         // Apply offset and limit
