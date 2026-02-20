@@ -202,6 +202,9 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     }
 }
 
+// Mostrar secciones promocionales solo en la portada principal de la tienda (/tienda).
+$show_shop_home_sections = is_shop() && !is_search() && !is_paged() && empty($_GET);
+
 ?>
 
 <!-- Hero Section - Minimalist Compact Design -->
@@ -239,6 +242,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
     </div>
 </div>
 
+<?php if ($show_shop_home_sections) : ?>
 <!-- Popular Products Carousel -->
 <section class="bg-gray-50 py-16 md:py-20">
     <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -418,6 +422,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
         </div>
     </div>
 </section>
+<?php endif; ?>
 
 <!-- Breadcrumb -->
 <div class="bg-gray-50 border-b border-gray-200">
@@ -1976,7 +1981,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php get_footer( 'shop' ); ?>
-
 
 
 
