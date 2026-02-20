@@ -18,7 +18,7 @@ const slides: Slide[] = [
     id: 2,
     title: 'Herramientas de Precisión',
     description: 'Kits profesionales de destornilladores, pinzas y palancas para reparación de smartphones.',
-    image: '/wp-content/themes/storefront-child/images/master-uses-special-tools-disassemble-electronic-device-carefully-pincers-bit-screw-driver.jpg'
+    image: '/wp-content/themes/storefront-child/images/reparafix.jpg'
   },
   {
     id: 3,
