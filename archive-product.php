@@ -223,28 +223,6 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
                 Herramientas y refacciones de alta calidad para tu taller.
             </p>
             
-            <!-- Compact Search Bar -->
-            <div class="max-w-xl mx-auto relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
-                <form role="search" method="get" class="relative bg-white rounded-lg shadow-sm" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-                    <input type="hidden" name="post_type" value="product">
-                    <div class="flex items-center">
-                        <div class="pl-4 text-gray-400">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                        <input type="text" 
-                               name="s" 
-                               class="w-full py-4 px-4 text-gray-700 bg-transparent border-none focus:ring-0 text-base placeholder-gray-400" 
-                               placeholder="Buscar por nombre, modelo o marca..."
-                               value="<?php echo get_search_query(); ?>">
-                        <button type="submit" class="mr-2 px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Buscar
-                        </button>
-                    </div>
-                </form>
-            </div>
             
             <!-- Quick Links -->
             <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm text-gray-400">
