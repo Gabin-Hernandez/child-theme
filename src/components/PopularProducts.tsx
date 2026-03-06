@@ -87,7 +87,7 @@ export const PopularProducts = ({ className }: PopularProductsProps) => {
   }, []);
 
   const formatPrice = (price: string) => {
-    const numPrice = parseFloat(price);
+    const numPrice = parseFloat(price) / 100; // WC Store API v1 returns prices in minor currency units (centavos)
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
       currency: 'MXN',
