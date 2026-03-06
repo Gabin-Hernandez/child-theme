@@ -303,13 +303,11 @@ $show_shop_home_sections = is_shop() && !is_search() && !is_paged() && empty($_G
                                 
                                 <div class="flex items-center justify-between">
                                     <div class="flex flex-col">
-                                        <?php
-                                        $price_html = $product->get_price_html();
-                                        if (!empty($price_html)) :
-                                        ?>
-                                            <span class="text-xl font-bold text-black"><?php echo wp_kses_post($price_html); ?></span>
+                                        <?php if ($product->is_on_sale()) : ?>
+                                            <span class="text-sm text-gray-500 line-through"><?php echo $product->get_regular_price(); ?></span>
+                                            <span class="text-xl font-bold text-black"><?php echo $product->get_sale_price(); ?> MXN</span>
                                         <?php else : ?>
-                                            <span class="text-xl font-bold text-black">Consultar precio</span>
+                                            <span class="text-xl font-bold text-black"><?php echo $product->get_price(); ?> MXN</span>
                                         <?php endif; ?>
                                     </div>
                                     
@@ -1983,6 +1981,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php get_footer( 'shop' ); ?>
+
 
 
 
