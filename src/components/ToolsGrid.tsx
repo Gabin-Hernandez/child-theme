@@ -10,7 +10,7 @@ interface Product {
   images: Array<{ src: string; alt: string }>;
   permalink: string;
   on_sale: boolean;
-}
+} 
 
 interface ToolsGridProps {
   title?: string;
